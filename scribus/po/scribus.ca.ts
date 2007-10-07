@@ -1333,7 +1333,7 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation>getLineJoin([&quot;nom&quot;]) -&gt; integer (mirar constants)
+        <translation type="obsolete">getLineJoin([&quot;nom&quot;]) -&gt; integer (mirar constants)
 
 Retorna l&apos;estil d&apos;unió de línia de l&apos;objecte &quot;nom&quot;. Si no especifiquem 
 &quot;nom&quot; es fa servir l&apos;ítem seleccionat.  Els tipus d&apos;unió són:
@@ -1477,7 +1477,7 @@ default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation>rotateObject(rot, [, &quot;nom&quot;])
+        <translation type="obsolete">rotateObject(rot, [, &quot;nom&quot;])
 
 Rota l&apos;objecte &quot;nom&quot; &quot;rot&quot; graus respecte el punt actual. L&apos;objecte és 
 rotat pel vertex seleccionat com a punt de rotació - per defecte, el 
@@ -2231,7 +2231,7 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation>gotoPage(nr)
+        <translation type="obsolete">gotoPage(nr)
 
 Canvia a la pàgina &quot;nr&quot; (o sigui, fa que &quot;nr&quot; sigui la pàgina actual). Cal tenir
 en compte que gotoPage no canvia la visió de pàgina que té l&apos;usuari, només
@@ -2817,7 +2817,7 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished">fileDialog(&quot;caption&quot;, [&quot;filtre&quot;, &quot;nomdefecte&quot;, haspreview, issave])-&gt;string
+        <translation type="obsolete">fileDialog(&quot;caption&quot;, [&quot;filtre&quot;, &quot;nomdefecte&quot;, haspreview, issave])-&gt;string
 
 Mostra el diàleg d&apos;obrir fitxer amb el text &quot;caption&quot;. Els fitxers seran filtrats
 amb la cadena de filtre &quot;filter&quot;. També es podrà donar un nom de fitxer, 
@@ -2956,7 +2956,7 @@ search recursively through children, grandchildren, etc.
 
 See QObject::children() in the Qt docs for more information.
 </source>
-        <translation>getChildren(objecte, declasse=None, denom=None, regexpmatch=False, recursiu=True)
+        <translation type="obsolete">getChildren(objecte, declasse=None, denom=None, regexpmatch=False, recursiu=True)
 
 Retorna una llista de fills de &apos;objecte&apos;, possiblement restringida als fills
 de la classe &apos;declasse&apos; o fills amb nom &apos;denom&apos;. Si &apos;recursiu&apos; és cert,
@@ -2973,7 +2973,7 @@ Return the first child of `object&apos; named `childname&apos;, possibly restric
 the search to children of type name `ofclass&apos;. If `recursive&apos; is true,
 search recursively through children, grandchildren, etc.
 </source>
-        <translation>getChild(objecte, nomdefill, declasse=None, recursiu=True)
+        <translation type="obsolete">getChild(objecte, nomdefill, declasse=None, recursiu=True)
 
 Retorna el primer fill de &apos;objecte&apos; que té per nom &apos;nomdefill&apos;, possiblement
 restringint-nos a buscar fills de classe &apos;declasse&apos;. Si &apos;recursiu&apos; és cert, 
@@ -3081,7 +3081,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;nom&quot;])
+        <translation type="obsolete">setPDFBookmark(&quot;toggle&quot;, [&quot;nom&quot;])
 
 Posa quan (toggle = 1) si el marc de text &quot;nom&quot; és una drecera o no.
 Si no s&apos;especifica &quot;nom&quot; es fa servir l&apos;ítem actual.
@@ -3575,6 +3575,97 @@ If loading was successful, the selection contains the imported ODG
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmddialog.h" line="46"/>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
+the dialog shows and returns only directories. The default for all of the
+optional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmani.h" line="48"/>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertex at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AIPlug</name>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="116"/>
+        <source>Importing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="119"/>
+        <source>Analyzing File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="273"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="2190"/>
+        <source>Generating Items</source>
+        <translation type="unfinished">Generant Ítems</translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3601,17 +3692,17 @@ If loading was successful, the selection contains the imported ODG
         <translation type="obsolete">ID-Creació:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="140"/>
+        <location filename="../about.cpp" line="136"/>
         <source>&amp;About</source>
         <translation>&amp;Quant a</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="146"/>
+        <location filename="../about.cpp" line="142"/>
         <source>Development Team:</source>
         <translation>Equip de Desenvolupament:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="158"/>
+        <location filename="../about.cpp" line="154"/>
         <source>Contributions from:</source>
         <translation>Contribucions des de:</translation>
     </message>
@@ -3621,17 +3712,17 @@ If loading was successful, the selection contains the imported ODG
         <translation type="obsolete">Versió Windows:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="189"/>
+        <location filename="../about.cpp" line="185"/>
         <source>Official Documentation:</source>
         <translation>Documentació Oficial:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="197"/>
+        <location filename="../about.cpp" line="193"/>
         <source>Other Documentation:</source>
         <translation>Altra Documentació:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="211"/>
+        <location filename="../about.cpp" line="207"/>
         <source>A&amp;uthors</source>
         <translation>A&amp;utors</translation>
     </message>
@@ -3746,37 +3837,37 @@ If loading was successful, the selection contains the imported ODG
         <translation type="obsolete">Galès:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="387"/>
+        <location filename="../about.cpp" line="383"/>
         <source>&amp;Translations</source>
         <translation>&amp;Traduccions</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="393"/>
+        <location filename="../about.cpp" line="389"/>
         <source>Homepage</source>
         <translation>Pàgina principal</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="395"/>
+        <location filename="../about.cpp" line="391"/>
         <source>Online Reference</source>
         <translation>Referència en línia</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="399"/>
+        <location filename="../about.cpp" line="395"/>
         <source>Bugs and Feature Requests</source>
         <translation>Errors i Sol·licitud de Característiques</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="401"/>
+        <location filename="../about.cpp" line="397"/>
         <source>Mailing List</source>
         <translation>Llista de correu</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="408"/>
+        <location filename="../about.cpp" line="404"/>
         <source>&amp;Online</source>
         <translation>&amp;En Linia</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="427"/>
+        <location filename="../about.cpp" line="423"/>
         <source>&amp;Close</source>
         <translation>&amp;Tanca</translation>
     </message>
@@ -3793,7 +3884,7 @@ La falta de llibreries està indicat per un *
 </translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="219"/>
+        <location filename="../about.cpp" line="215"/>
         <source>Official Translations and Translators:</source>
         <translation>Traduccions oficials i Traductors:</translation>
     </message>
@@ -3818,7 +3909,7 @@ La falta de llibreries està indicat per un *
         <translation type="obsolete">Espanyol:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="346"/>
+        <location filename="../about.cpp" line="342"/>
         <source>Previous Translation Contributors:</source>
         <translation>Antics Col·laboradors en Traduccions:</translation>
     </message>
@@ -3828,7 +3919,7 @@ La falta de llibreries està indicat per un *
         <translation type="obsolete">Català:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="48"/>
+        <location filename="../about.cpp" line="46"/>
         <source>About Scribus %1</source>
         <translation>Quant a Scribus %1</translation>
     </message>
@@ -3881,7 +3972,7 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Conversió Windows:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="397"/>
+        <location filename="../about.cpp" line="393"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
@@ -3891,22 +3982,22 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Aquest panell mostra la versió, data de creació i suport de llibreries afegit a Scribus. C-C-T-F significa suport per C=littlecms C=CUPS T=TIFF  F=Fontconfig. La darrera lletra és per el representador C=cairo o A=libart. Les llibreries no disponibles es mostren amb un *. També es veu la versió de Ghostscript que Scribus ha detectat.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="75"/>
+        <location filename="../about.cpp" line="73"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="83"/>
+        <location filename="../about.cpp" line="81"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="135"/>
+        <location filename="../about.cpp" line="131"/>
         <source>Using Ghostscript version %1</source>
         <translation>Fent servir Ghostscript versió %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="137"/>
+        <location filename="../about.cpp" line="133"/>
         <source>No Ghostscript version available</source>
         <translation>No està disponible la versió de Ghostscript</translation>
     </message>
@@ -3916,7 +4007,7 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">&lt;b&gt;Versió d&apos;Scribus %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="138"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Build ID:</source>
         <translation>ID Compilació:</translation>
     </message>
@@ -3926,12 +4017,12 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Aquest panell mostra la versió, data de creació i suport de llibreries d&apos;Scribus. C-C-T-F significa C=littlecms C=CUPS T=suport per TIFF F=suport per Fontconfig. La darrera lletra és el visualitzador C=cairo o A=libart. Les llibreries no suportades es mostren amb un *. Això indica la versió de Ghostscript que Scribus ha detectat.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="177"/>
+        <location filename="../about.cpp" line="173"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Mac OS&amp;#174; X Aqua Port:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="185"/>
+        <location filename="../about.cpp" line="181"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>Windows&amp;#174; Port:</translation>
     </message>
@@ -3941,62 +4032,62 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Març</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="205"/>
+        <location filename="../about.cpp" line="201"/>
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="411"/>
+        <location filename="../about.cpp" line="407"/>
         <source>&amp;Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="415"/>
+        <location filename="../about.cpp" line="411"/>
         <source>Check for &amp;Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="440"/>
+        <location filename="../about.cpp" line="436"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="181"/>
+        <location filename="../about.cpp" line="177"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="202"/>
+        <location filename="../about.cpp" line="198"/>
         <source>Splash Screen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="436"/>
+        <location filename="../about.cpp" line="432"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="437"/>
+        <location filename="../about.cpp" line="433"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="438"/>
+        <location filename="../about.cpp" line="434"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="439"/>
+        <location filename="../about.cpp" line="435"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="138"/>
+        <location filename="../about.cpp" line="134"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="138"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Scribus Version</source>
         <translation type="unfinished">Versió d&apos;Scribus</translation>
     </message>
@@ -4120,57 +4211,57 @@ Les llibreries que manquen es mostren amb un *</translation>
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../actionmanager.cpp" line="1175"/>
+        <location filename="../actionmanager.cpp" line="1206"/>
         <source>&amp;New</source>
         <translation>&amp;Nou</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1176"/>
+        <location filename="../actionmanager.cpp" line="1207"/>
         <source>&amp;Open...</source>
         <translation>&amp;Obre...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1177"/>
+        <location filename="../actionmanager.cpp" line="1208"/>
         <source>&amp;Close</source>
         <translation>&amp;Tanca</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1178"/>
+        <location filename="../actionmanager.cpp" line="1209"/>
         <source>&amp;Save</source>
         <translation>&amp;Desa</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1179"/>
+        <location filename="../actionmanager.cpp" line="1210"/>
         <source>Save &amp;As...</source>
         <translation>&amp;Anomena i Desa...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1180"/>
+        <location filename="../actionmanager.cpp" line="1211"/>
         <source>Re&amp;vert to Saved</source>
         <translation>Torna a carre&amp;gar el document</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1181"/>
+        <location filename="../actionmanager.cpp" line="1212"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Rec&amp;ull per Sortir...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1182"/>
+        <location filename="../actionmanager.cpp" line="1213"/>
         <source>Get Text...</source>
         <translation>Obtenir Text...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1183"/>
+        <location filename="../actionmanager.cpp" line="1214"/>
         <source>Append &amp;Text...</source>
         <translation>Afegeix &amp;Text...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1184"/>
+        <location filename="../actionmanager.cpp" line="1215"/>
         <source>Get Image...</source>
         <translation>Obtenir Imatge...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1185"/>
+        <location filename="../actionmanager.cpp" line="1216"/>
         <source>Save &amp;Text...</source>
         <translation>Desa &amp;Text...</translation>
     </message>
@@ -4180,52 +4271,52 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Desa Pàgina com &amp;EPS...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1187"/>
+        <location filename="../actionmanager.cpp" line="1218"/>
         <source>Save as P&amp;DF...</source>
         <translation>Desa com P&amp;DF...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1188"/>
+        <location filename="../actionmanager.cpp" line="1219"/>
         <source>Document &amp;Setup...</source>
         <translation>&amp;Configura Document...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1190"/>
+        <location filename="../actionmanager.cpp" line="1221"/>
         <source>&amp;Print...</source>
         <translation>Im&amp;primir...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1192"/>
+        <location filename="../actionmanager.cpp" line="1223"/>
         <source>&amp;Quit</source>
         <translation>&amp;Sortir</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1194"/>
+        <location filename="../actionmanager.cpp" line="1225"/>
         <source>&amp;Undo</source>
         <translation>Des&amp;fés</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1195"/>
+        <location filename="../actionmanager.cpp" line="1226"/>
         <source>&amp;Redo</source>
         <translation>&amp;Refés</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1196"/>
+        <location filename="../actionmanager.cpp" line="1227"/>
         <source>&amp;Item Action Mode</source>
         <translation>&amp;Element en mode d&apos;acció</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1197"/>
+        <location filename="../actionmanager.cpp" line="1228"/>
         <source>Cu&amp;t</source>
         <translation>T&amp;alla</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1200"/>
+        <location filename="../actionmanager.cpp" line="1231"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copia</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1201"/>
+        <location filename="../actionmanager.cpp" line="1232"/>
         <source>&amp;Paste</source>
         <translation>&amp;Enganxa</translation>
     </message>
@@ -4235,27 +4326,27 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Neteja C&amp;ontingut</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1204"/>
+        <location filename="../actionmanager.cpp" line="1235"/>
         <source>Select &amp;All</source>
         <translation>Selecciona &amp;Tot</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1205"/>
+        <location filename="../actionmanager.cpp" line="1236"/>
         <source>&amp;Deselect All</source>
         <translation>&amp;Deselecciona Tot</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1206"/>
+        <location filename="../actionmanager.cpp" line="1237"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Cerca/Reemplaça...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1207"/>
+        <location filename="../actionmanager.cpp" line="1238"/>
         <source>Edit Image...</source>
         <translation>Edita Imatge...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1208"/>
+        <location filename="../actionmanager.cpp" line="1240"/>
         <source>C&amp;olors...</source>
         <translation>C&amp;olors...</translation>
     </message>
@@ -4270,7 +4361,7 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Estils de &amp;Línia...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1211"/>
+        <location filename="../actionmanager.cpp" line="1243"/>
         <source>&amp;Master Pages...</source>
         <translation>Pàgines &amp;Mestres...</translation>
     </message>
@@ -4280,87 +4371,87 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1189"/>
+        <location filename="../actionmanager.cpp" line="1220"/>
         <source>P&amp;references...</source>
         <translation>Pre&amp;ferències...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1219"/>
+        <location filename="../actionmanager.cpp" line="1251"/>
         <source>%1 pt</source>
         <translation>%1 pt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1234"/>
+        <location filename="../actionmanager.cpp" line="1266"/>
         <source>&amp;Other...</source>
         <translation>&amp;Altres...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1222"/>
+        <location filename="../actionmanager.cpp" line="1254"/>
         <source>&amp;Left</source>
         <translation>&amp;Esquerra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1223"/>
+        <location filename="../actionmanager.cpp" line="1255"/>
         <source>&amp;Center</source>
         <translation>&amp;Centre</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1224"/>
+        <location filename="../actionmanager.cpp" line="1256"/>
         <source>&amp;Right</source>
         <translation>&amp;Dreta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1225"/>
+        <location filename="../actionmanager.cpp" line="1257"/>
         <source>&amp;Block</source>
         <translation>&amp;Justificat</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1226"/>
+        <location filename="../actionmanager.cpp" line="1258"/>
         <source>&amp;Forced</source>
         <translation>&amp;Forçat</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1231"/>
+        <location filename="../actionmanager.cpp" line="1263"/>
         <source>&amp;%1 %</source>
         <translation>&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1235"/>
+        <location filename="../actionmanager.cpp" line="1267"/>
         <source>&amp;Normal</source>
         <translation>&amp;Normal</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1236"/>
+        <location filename="../actionmanager.cpp" line="1268"/>
         <source>&amp;Underline</source>
         <translation>S&amp;ubratllat</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1237"/>
+        <location filename="../actionmanager.cpp" line="1269"/>
         <source>Underline &amp;Words</source>
         <translation>Paraules sub&amp;ratllades</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1238"/>
+        <location filename="../actionmanager.cpp" line="1270"/>
         <source>&amp;Strike Through</source>
         <translation>&amp;Barrat</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1239"/>
+        <location filename="../actionmanager.cpp" line="1271"/>
         <source>&amp;All Caps</source>
         <translation>Tot M&amp;ajúscules</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1240"/>
+        <location filename="../actionmanager.cpp" line="1272"/>
         <source>Small &amp;Caps</source>
         <translation>Majús&amp;cules Petites</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1241"/>
+        <location filename="../actionmanager.cpp" line="1273"/>
         <source>Su&amp;perscript</source>
         <translation>Su&amp;períndex</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1242"/>
+        <location filename="../actionmanager.cpp" line="1274"/>
         <source>Su&amp;bscript</source>
         <translation>Su&amp;bíndex</translation>
     </message>
@@ -4370,172 +4461,172 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">&amp;Esquema</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1244"/>
+        <location filename="../actionmanager.cpp" line="1276"/>
         <source>S&amp;hadow</source>
         <translation>Omb&amp;ra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1246"/>
+        <location filename="../actionmanager.cpp" line="1278"/>
         <source>&amp;Image Effects</source>
         <translation>Efectes d&apos;&amp;Imatge</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1247"/>
+        <location filename="../actionmanager.cpp" line="1279"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabuladors...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1250"/>
+        <location filename="../actionmanager.cpp" line="1282"/>
         <source>D&amp;uplicate</source>
         <translation>D&amp;uplica</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1251"/>
+        <location filename="../actionmanager.cpp" line="1283"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>Duplicació &amp;Múltiple</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1252"/>
+        <location filename="../actionmanager.cpp" line="1284"/>
         <source>&amp;Delete</source>
         <translation>Es&amp;borra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1253"/>
+        <location filename="../actionmanager.cpp" line="1285"/>
         <source>&amp;Group</source>
         <translation>A&amp;grupa</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1254"/>
+        <location filename="../actionmanager.cpp" line="1286"/>
         <source>&amp;Ungroup</source>
         <translation>Desagr&amp;upa</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1255"/>
+        <location filename="../actionmanager.cpp" line="1287"/>
         <source>Is &amp;Locked</source>
         <translation>Està B&amp;loquejat</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1256"/>
+        <location filename="../actionmanager.cpp" line="1288"/>
         <source>Si&amp;ze is Locked</source>
         <translation>Mida bloque&amp;jada</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1260"/>
+        <location filename="../actionmanager.cpp" line="1292"/>
         <source>Lower to &amp;Bottom</source>
         <translation>Envia al &amp;Fons</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1261"/>
+        <location filename="../actionmanager.cpp" line="1293"/>
         <source>Raise to &amp;Top</source>
         <translation>Envia a &amp;Sobre</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1262"/>
+        <location filename="../actionmanager.cpp" line="1294"/>
         <source>&amp;Lower</source>
         <translation>&amp;Abaixa</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1263"/>
+        <location filename="../actionmanager.cpp" line="1295"/>
         <source>&amp;Raise</source>
         <translation>A&amp;puja</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1264"/>
+        <location filename="../actionmanager.cpp" line="1296"/>
         <source>Send to S&amp;crapbook</source>
         <translation>Envia a l&apos;àlbum de &amp;retalls</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1266"/>
+        <location filename="../actionmanager.cpp" line="1298"/>
         <source>&amp;Attributes...</source>
         <translation>&amp;Atributs...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1268"/>
+        <location filename="../actionmanager.cpp" line="1300"/>
         <source>I&amp;mage Visible</source>
         <translation>I&amp;matge Visible</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1269"/>
+        <location filename="../actionmanager.cpp" line="1301"/>
         <source>&amp;Update Image</source>
         <translation>Act&amp;ualitza Imatge</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1270"/>
+        <location filename="../actionmanager.cpp" line="1302"/>
         <source>Adjust Frame to Image</source>
         <translation>Ajusta el marc a l&apos;imatge</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1271"/>
+        <location filename="../actionmanager.cpp" line="1303"/>
         <source>Extended Image Properties</source>
         <translation>Propietats exteses d&apos;Imatge</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1272"/>
+        <location filename="../actionmanager.cpp" line="1304"/>
         <source>&amp;Low Resolution</source>
         <translation>Resolució &amp;baixa</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1273"/>
+        <location filename="../actionmanager.cpp" line="1305"/>
         <source>&amp;Normal Resolution</source>
         <translation>Resolució &amp;Normal</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1274"/>
+        <location filename="../actionmanager.cpp" line="1306"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Tota Resolució</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1275"/>
+        <location filename="../actionmanager.cpp" line="1307"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>Es un P&amp;unt de PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1276"/>
+        <location filename="../actionmanager.cpp" line="1308"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>És una A&amp;notació de PDF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1277"/>
+        <location filename="../actionmanager.cpp" line="1309"/>
         <source>Annotation P&amp;roperties</source>
         <translation>P&amp;ropietats Anotació</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1278"/>
+        <location filename="../actionmanager.cpp" line="1310"/>
         <source>Field P&amp;roperties</source>
         <translation>P&amp;ropietats de Camp</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1279"/>
+        <location filename="../actionmanager.cpp" line="1311"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Edita Forma...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1280"/>
+        <location filename="../actionmanager.cpp" line="1312"/>
         <source>&amp;Attach Text to Path</source>
         <translation>&amp;Ajusta Text al Camí</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1281"/>
+        <location filename="../actionmanager.cpp" line="1313"/>
         <source>&amp;Detach Text from Path</source>
         <translation>&amp;Desajusta Text del Camí</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1282"/>
+        <location filename="../actionmanager.cpp" line="1314"/>
         <source>&amp;Combine Polygons</source>
         <translation>&amp;Combina Polígons</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1283"/>
+        <location filename="../actionmanager.cpp" line="1315"/>
         <source>Split &amp;Polygons</source>
         <translation>Separa &amp;Polígons</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1355"/>
+        <location filename="../actionmanager.cpp" line="1316"/>
         <source>&amp;Bezier Curve</source>
         <translation>Corba &amp;Bezier</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1350"/>
+        <location filename="../actionmanager.cpp" line="1317"/>
         <source>&amp;Image Frame</source>
         <translation>Marc d&apos;&amp;imatge</translation>
     </message>
@@ -4545,62 +4636,62 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">&amp;Esquemes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1353"/>
+        <location filename="../actionmanager.cpp" line="1319"/>
         <source>&amp;Polygon</source>
         <translation>&amp;Polígon</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1349"/>
+        <location filename="../actionmanager.cpp" line="1320"/>
         <source>&amp;Text Frame</source>
         <translation>Marc de &amp;Text</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1292"/>
+        <location filename="../actionmanager.cpp" line="1324"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Glyph...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1293"/>
+        <location filename="../actionmanager.cpp" line="1325"/>
         <source>Sample Text</source>
         <translation>Text de mostra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1297"/>
+        <location filename="../actionmanager.cpp" line="1329"/>
         <source>&amp;Insert...</source>
         <translation>&amp;Insereix...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1298"/>
+        <location filename="../actionmanager.cpp" line="1330"/>
         <source>Im&amp;port...</source>
         <translation>Im&amp;porta...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1299"/>
+        <location filename="../actionmanager.cpp" line="1331"/>
         <source>&amp;Delete...</source>
         <translation>Es&amp;borra...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1300"/>
+        <location filename="../actionmanager.cpp" line="1332"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Copia...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1301"/>
+        <location filename="../actionmanager.cpp" line="1333"/>
         <source>&amp;Move...</source>
         <translation>&amp;Mou...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1302"/>
+        <location filename="../actionmanager.cpp" line="1334"/>
         <source>&amp;Apply Master Page...</source>
         <translation>&amp;Aplica pàgina mestra...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1304"/>
+        <location filename="../actionmanager.cpp" line="1336"/>
         <source>Manage &amp;Guides...</source>
         <translation>Gestiona &amp;Guies...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1305"/>
+        <location filename="../actionmanager.cpp" line="1337"/>
         <source>Manage Page Properties...</source>
         <translation>Gestiona propietats de pàgina...</translation>
     </message>
@@ -4610,22 +4701,22 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Encabeix a la &amp;Finestra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1310"/>
+        <location filename="../actionmanager.cpp" line="1342"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1311"/>
+        <location filename="../actionmanager.cpp" line="1343"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1312"/>
+        <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1313"/>
+        <location filename="../actionmanager.cpp" line="1345"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
@@ -4635,347 +4726,347 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">&amp;Miniatures</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1316"/>
+        <location filename="../actionmanager.cpp" line="1348"/>
         <source>Show &amp;Margins</source>
         <translation>Mostra &amp;Marges</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1318"/>
+        <location filename="../actionmanager.cpp" line="1350"/>
         <source>Show &amp;Frames</source>
         <translation>Mostra &amp;Marcs</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1320"/>
+        <location filename="../actionmanager.cpp" line="1352"/>
         <source>Show &amp;Images</source>
         <translation>Mostra &amp;Imatges</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1321"/>
+        <location filename="../actionmanager.cpp" line="1353"/>
         <source>Show &amp;Grid</source>
         <translation>Mostra &amp;Graella</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1322"/>
+        <location filename="../actionmanager.cpp" line="1354"/>
         <source>Show G&amp;uides</source>
         <translation>Mostra G&amp;uies</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1324"/>
+        <location filename="../actionmanager.cpp" line="1356"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>Mostra Graella &amp;Base</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1325"/>
+        <location filename="../actionmanager.cpp" line="1357"/>
         <source>Show &amp;Text Chain</source>
         <translation>Mostra cadena de &amp;Text</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1326"/>
+        <location filename="../actionmanager.cpp" line="1358"/>
         <source>Show Control Characters</source>
         <translation>Mostra caràcters de control</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1328"/>
+        <location filename="../actionmanager.cpp" line="1360"/>
         <source>Rulers relative to Page</source>
         <translation>Mides relatives a la pàgina</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1329"/>
+        <location filename="../actionmanager.cpp" line="1361"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>Desplaça &amp;a la Graella</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1330"/>
+        <location filename="../actionmanager.cpp" line="1362"/>
         <source>Sna&amp;p to Guides</source>
         <translation>Des&amp;plaça a les Guies</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1334"/>
+        <location filename="../actionmanager.cpp" line="1366"/>
         <source>&amp;Properties</source>
         <translation>&amp;Propietats</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1336"/>
+        <location filename="../actionmanager.cpp" line="1368"/>
         <source>&amp;Scrapbook</source>
         <translation>Àlbu&amp;m de retalls</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1337"/>
+        <location filename="../actionmanager.cpp" line="1369"/>
         <source>&amp;Layers</source>
         <translation>&amp;Capes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1338"/>
+        <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;Arrange Pages</source>
         <translation>&amp;Organitza les pàgines</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1339"/>
+        <location filename="../actionmanager.cpp" line="1371"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Punts</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1340"/>
+        <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Mides</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1341"/>
+        <location filename="../actionmanager.cpp" line="1373"/>
         <source>Action &amp;History</source>
         <translation>&amp;Historial d&apos;accions</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1342"/>
+        <location filename="../actionmanager.cpp" line="1374"/>
         <source>Preflight &amp;Verifier</source>
         <translation>&amp;Verificador</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1343"/>
+        <location filename="../actionmanager.cpp" line="1375"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Alinea i distribueix</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1344"/>
+        <location filename="../actionmanager.cpp" line="1376"/>
         <source>&amp;Tools</source>
         <translation>Ei&amp;nes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1345"/>
+        <location filename="../actionmanager.cpp" line="1377"/>
         <source>P&amp;DF Tools</source>
         <translation>Eines P&amp;DF</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1348"/>
+        <location filename="../actionmanager.cpp" line="1380"/>
         <source>Select Item</source>
         <translation>Tria ítem</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1351"/>
         <source>T&amp;able</source>
-        <translation>T&amp;aula</translation>
+        <translation type="obsolete">T&amp;aula</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1352"/>
         <source>&amp;Shape</source>
-        <translation>&amp;Forma</translation>
+        <translation type="obsolete">&amp;Forma</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1354"/>
         <source>&amp;Line</source>
-        <translation>&amp;Línia</translation>
+        <translation type="obsolete">&amp;Línia</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1356"/>
         <source>&amp;Freehand Line</source>
-        <translation>Linea a &amp;mà alçada</translation>
+        <translation type="obsolete">Linea a &amp;mà alçada</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1357"/>
+        <location filename="../actionmanager.cpp" line="1381"/>
         <source>Rotate Item</source>
         <translation>Gira Ítem</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1358"/>
+        <location filename="../actionmanager.cpp" line="1382"/>
         <source>Zoom in or out</source>
         <translation>Acosta o Allunya</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1359"/>
+        <location filename="../actionmanager.cpp" line="1383"/>
         <source>Zoom in</source>
         <translation>Acosta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1360"/>
+        <location filename="../actionmanager.cpp" line="1384"/>
         <source>Zoom out</source>
         <translation>Allunya</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1361"/>
+        <location filename="../actionmanager.cpp" line="1385"/>
         <source>Edit Contents of Frame</source>
         <translation>Edita Contingut de Marc</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1362"/>
+        <location filename="../actionmanager.cpp" line="1386"/>
         <source>Edit Text...</source>
         <translation>Edita Text...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1363"/>
+        <location filename="../actionmanager.cpp" line="1387"/>
         <source>Link Text Frames</source>
         <translation>Enllaça Marcs de Text</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1364"/>
+        <location filename="../actionmanager.cpp" line="1388"/>
         <source>Unlink Text Frames</source>
         <translation>Desenllaça Marcs de Text</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1365"/>
+        <location filename="../actionmanager.cpp" line="1389"/>
         <source>&amp;Eye Dropper</source>
         <translation>Comptagot&amp;es</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1366"/>
+        <location filename="../actionmanager.cpp" line="1390"/>
         <source>Copy Item Properties</source>
         <translation>Copia les propietats</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1368"/>
         <source>Edit the text with the Story Editor</source>
-        <translation>Edita el text amb l&apos;Editor de Notícies</translation>
+        <translation type="obsolete">Edita el text amb l&apos;Editor de Notícies</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1370"/>
         <source>Insert Text Frame</source>
-        <translation>Insereix Marc de Text</translation>
+        <translation type="obsolete">Insereix Marc de Text</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1371"/>
         <source>Insert Image Frame</source>
-        <translation>Insereix marc d&apos;imatge</translation>
+        <translation type="obsolete">Insereix marc d&apos;imatge</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1372"/>
         <source>Insert Table</source>
-        <translation>Insereix Taula</translation>
+        <translation type="obsolete">Insereix Taula</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1373"/>
         <source>Insert Shape</source>
-        <translation>Insereix Forma</translation>
+        <translation type="obsolete">Insereix Forma</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1374"/>
         <source>Insert Polygon</source>
-        <translation>Insereix polígon</translation>
+        <translation type="obsolete">Insereix polígon</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1375"/>
         <source>Insert Line</source>
-        <translation>Insereix línia</translation>
+        <translation type="obsolete">Insereix línia</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1376"/>
         <source>Insert Bezier Curve</source>
-        <translation>Insereix corba Bezier</translation>
+        <translation type="obsolete">Insereix corba Bezier</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1377"/>
         <source>Insert Freehand Line</source>
-        <translation>Insereix Línia a mà alçada</translation>
+        <translation type="obsolete">Insereix Línia a mà alçada</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1389"/>
+        <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Manage Pictures</source>
         <translation>Gestiona I&amp;matges</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1390"/>
+        <location filename="../actionmanager.cpp" line="1413"/>
         <source>&amp;Hyphenate Text</source>
         <translation>&amp;Parteix els mots</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1391"/>
+        <location filename="../actionmanager.cpp" line="1414"/>
         <source>Dehyphenate Text</source>
         <translation>Desparteix els mots</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1392"/>
+        <location filename="../actionmanager.cpp" line="1415"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>&amp;Genera taula de contingut</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1399"/>
+        <location filename="../actionmanager.cpp" line="1422"/>
         <source>&amp;About Scribus</source>
         <translation>Quant &amp;a Scribus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1401"/>
+        <location filename="../actionmanager.cpp" line="1424"/>
         <source>About &amp;Qt</source>
         <translation>Quant a &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1402"/>
+        <location filename="../actionmanager.cpp" line="1425"/>
         <source>Toolti&amp;ps</source>
         <translation>Rètols indica&amp;dors</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1403"/>
+        <location filename="../actionmanager.cpp" line="1426"/>
         <source>Scribus &amp;Manual...</source>
         <translation>&amp;Manual d&apos;Scribus...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1415"/>
+        <location filename="../actionmanager.cpp" line="1443"/>
         <source>Smart &amp;Hyphen</source>
         <translation>&amp;Guionets Intelligents</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1416"/>
+        <location filename="../actionmanager.cpp" line="1444"/>
         <source>Non Breaking Dash</source>
         <translation>Guió no separable</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1417"/>
+        <location filename="../actionmanager.cpp" line="1445"/>
         <source>Non Breaking &amp;Space</source>
         <translation>E&amp;spai no separable</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1418"/>
+        <location filename="../actionmanager.cpp" line="1446"/>
         <source>Page &amp;Number</source>
         <translation>&amp;Número de pàgina</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1465"/>
+        <location filename="../actionmanager.cpp" line="1447"/>
         <source>New Line</source>
         <translation>Nova línia</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1466"/>
+        <location filename="../actionmanager.cpp" line="1448"/>
         <source>Frame Break</source>
         <translation>Salt de marc</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1467"/>
+        <location filename="../actionmanager.cpp" line="1449"/>
         <source>Column Break</source>
         <translation>Salt de columna</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1424"/>
+        <location filename="../actionmanager.cpp" line="1452"/>
         <source>Copyright</source>
         <translation>Copyright</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1425"/>
+        <location filename="../actionmanager.cpp" line="1453"/>
         <source>Registered Trademark</source>
         <translation>Marca registrada</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1426"/>
+        <location filename="../actionmanager.cpp" line="1454"/>
         <source>Trademark</source>
         <translation>Marca</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1428"/>
+        <location filename="../actionmanager.cpp" line="1456"/>
         <source>Bullet</source>
         <translation>Pic</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1430"/>
+        <location filename="../actionmanager.cpp" line="1458"/>
         <source>Em Dash</source>
         <translation>Guionet Em</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1431"/>
+        <location filename="../actionmanager.cpp" line="1459"/>
         <source>En Dash</source>
         <translation>Guionet En</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1432"/>
+        <location filename="../actionmanager.cpp" line="1460"/>
         <source>Figure Dash</source>
         <translation>Guionet Figure</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1433"/>
+        <location filename="../actionmanager.cpp" line="1461"/>
         <source>Quotation Dash</source>
         <translation>Guionet de citació</translation>
     </message>
@@ -5075,47 +5166,47 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">CJK dreta doble</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1406"/>
+        <location filename="../actionmanager.cpp" line="1433"/>
         <source>Toggle Palettes</source>
         <translation>Commuta paletes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1407"/>
+        <location filename="../actionmanager.cpp" line="1434"/>
         <source>Toggle Guides</source>
         <translation>Commuta guies</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1191"/>
+        <location filename="../actionmanager.cpp" line="1222"/>
         <source>Print Previe&amp;w</source>
         <translation>&amp;Vista Prèvia</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1212"/>
+        <location filename="../actionmanager.cpp" line="1244"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;javaScripts...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1303"/>
+        <location filename="../actionmanager.cpp" line="1335"/>
         <source>Convert to Master Page...</source>
         <translation>Convertir a pàgina mestra...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1395"/>
+        <location filename="../actionmanager.cpp" line="1418"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Cascada</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1396"/>
+        <location filename="../actionmanager.cpp" line="1419"/>
         <source>&amp;Tile</source>
         <translation>&amp;Mosaic</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1400"/>
+        <location filename="../actionmanager.cpp" line="1423"/>
         <source>&amp;About Plug-ins</source>
         <translation>&amp;Sobre connectors</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1267"/>
+        <location filename="../actionmanager.cpp" line="1299"/>
         <source>More Info...</source>
         <translation>Més informació...</translation>
     </message>
@@ -5130,123 +5221,123 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Enganxa contingut</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1257"/>
+        <location filename="../actionmanager.cpp" line="1289"/>
         <source>&amp;Printing Enabled</source>
         <translation>Im&amp;pressió Activada</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1258"/>
+        <location filename="../actionmanager.cpp" line="1290"/>
         <source>&amp;Flip Horizontally</source>
         <translation>Inverteix &amp;horitzontalment</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1259"/>
+        <location filename="../actionmanager.cpp" line="1291"/>
         <source>&amp;Flip Vertically</source>
         <translation>Inverteix &amp;verticalment</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1327"/>
+        <location filename="../actionmanager.cpp" line="1359"/>
         <source>Show Rulers</source>
         <translation>Mostra Guies</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1335"/>
+        <location filename="../actionmanager.cpp" line="1367"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Esquema</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1427"/>
+        <location filename="../actionmanager.cpp" line="1455"/>
         <source>Solidus</source>
         <translation>Sòlids</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1429"/>
+        <location filename="../actionmanager.cpp" line="1457"/>
         <source>Middle Dot</source>
         <translation>Punt mig</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1454"/>
+        <location filename="../actionmanager.cpp" line="1482"/>
         <source>En Space</source>
         <translation>Espai En</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1455"/>
+        <location filename="../actionmanager.cpp" line="1483"/>
         <source>Em Space</source>
         <translation>Espai Em</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1456"/>
+        <location filename="../actionmanager.cpp" line="1484"/>
         <source>Thin Space</source>
         <translation>Espai estret</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1457"/>
+        <location filename="../actionmanager.cpp" line="1485"/>
         <source>Thick Space</source>
         <translation>Espai ample</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1458"/>
+        <location filename="../actionmanager.cpp" line="1486"/>
         <source>Mid Space</source>
         <translation>Espai mig</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1459"/>
+        <location filename="../actionmanager.cpp" line="1487"/>
         <source>Hair Space</source>
         <translation>Espai cabell</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1461"/>
         <source>Insert Smart Hyphen</source>
-        <translation>Inserir Guionets intel·ligents</translation>
+        <translation type="obsolete">Inserir Guionets intel·ligents</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1462"/>
         <source>Insert Non Breaking Dash</source>
-        <translation>Inserir guió no separable</translation>
+        <translation type="obsolete">Inserir guió no separable</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1463"/>
         <source>Insert Non Breaking Space</source>
-        <translation>Inserir espai no separable</translation>
+        <translation type="obsolete">Inserir espai no separable</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1464"/>
         <source>Insert Page Number</source>
-        <translation>Inserir Número de Pàgina</translation>
+        <translation type="obsolete">Inserir Número de Pàgina</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1471"/>
+        <location filename="../actionmanager.cpp" line="1499"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1472"/>
+        <location filename="../actionmanager.cpp" line="1500"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1473"/>
+        <location filename="../actionmanager.cpp" line="1501"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1474"/>
+        <location filename="../actionmanager.cpp" line="1502"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1475"/>
+        <location filename="../actionmanager.cpp" line="1503"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1476"/>
+        <location filename="../actionmanager.cpp" line="1504"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1477"/>
+        <location filename="../actionmanager.cpp" line="1505"/>
         <source>st</source>
         <translation>st</translation>
     </message>
@@ -5256,244 +5347,314 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="obsolete">Enganxa Contingut (Absolut)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1210"/>
+        <location filename="../actionmanager.cpp" line="1242"/>
         <source>S&amp;tyles...</source>
         <translation>Es&amp;tils...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1243"/>
+        <location filename="../actionmanager.cpp" line="1275"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>&amp;Esquema</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1286"/>
+        <location filename="../actionmanager.cpp" line="1318"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Esquemes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1202"/>
+        <location filename="../actionmanager.cpp" line="1233"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Enganxa (&amp;Absolut)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1203"/>
+        <location filename="../actionmanager.cpp" line="1234"/>
         <source>C&amp;lear</source>
         <translation>B&amp;uida</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1379"/>
+        <location filename="../actionmanager.cpp" line="1402"/>
         <source>Insert PDF Push Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1380"/>
+        <location filename="../actionmanager.cpp" line="1403"/>
         <source>Insert PDF Text Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1381"/>
+        <location filename="../actionmanager.cpp" line="1404"/>
         <source>Insert PDF Check Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1382"/>
+        <location filename="../actionmanager.cpp" line="1405"/>
         <source>Insert PDF Combo Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1383"/>
+        <location filename="../actionmanager.cpp" line="1406"/>
         <source>Insert PDF List Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1384"/>
+        <location filename="../actionmanager.cpp" line="1407"/>
         <source>Insert Text Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1385"/>
+        <location filename="../actionmanager.cpp" line="1408"/>
         <source>Insert Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1186"/>
+        <location filename="../actionmanager.cpp" line="1217"/>
         <source>Save as &amp;EPS...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1323"/>
+        <location filename="../actionmanager.cpp" line="1355"/>
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1291"/>
+        <location filename="../actionmanager.cpp" line="1323"/>
         <source>&amp;Frame...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1315"/>
+        <location filename="../actionmanager.cpp" line="1347"/>
         <source>Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1319"/>
+        <location filename="../actionmanager.cpp" line="1351"/>
         <source>Show Layer Indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1209"/>
+        <location filename="../actionmanager.cpp" line="1241"/>
         <source>Patterns...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1265"/>
+        <location filename="../actionmanager.cpp" line="1297"/>
         <source>Send to Patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1294"/>
+        <location filename="../actionmanager.cpp" line="1326"/>
         <source>Sticky Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1308"/>
+        <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Fit to Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1309"/>
+        <location filename="../actionmanager.cpp" line="1341"/>
         <source>Fit to Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1317"/>
+        <location filename="../actionmanager.cpp" line="1349"/>
         <source>Show Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1468"/>
+        <location filename="../actionmanager.cpp" line="1450"/>
         <source>&amp;Zero Width Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1469"/>
+        <location filename="../actionmanager.cpp" line="1451"/>
         <source>Zero Width NB Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1435"/>
+        <location filename="../actionmanager.cpp" line="1463"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation type="unfinished">Apòstrof</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1436"/>
+        <location filename="../actionmanager.cpp" line="1464"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation type="unfinished">Línia doble</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1437"/>
+        <location filename="../actionmanager.cpp" line="1465"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation type="unfinished">Senzill esquerra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1438"/>
+        <location filename="../actionmanager.cpp" line="1466"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation type="unfinished">Senzill dreta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1439"/>
+        <location filename="../actionmanager.cpp" line="1467"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation type="unfinished">Doble esquerra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1440"/>
+        <location filename="../actionmanager.cpp" line="1468"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation type="unfinished">Doble dreta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1441"/>
+        <location filename="../actionmanager.cpp" line="1469"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation type="unfinished">Senzill invertit</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1442"/>
+        <location filename="../actionmanager.cpp" line="1470"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation type="unfinished">Doble invertit</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1443"/>
+        <location filename="../actionmanager.cpp" line="1471"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation type="unfinished">Guillemet esquerra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1444"/>
+        <location filename="../actionmanager.cpp" line="1472"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation type="unfinished">Guillemet dret</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1445"/>
+        <location filename="../actionmanager.cpp" line="1473"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation type="unfinished">Guillemet esquerra doble</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1446"/>
+        <location filename="../actionmanager.cpp" line="1474"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation type="unfinished">Guillemet dret doble</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1447"/>
+        <location filename="../actionmanager.cpp" line="1475"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation type="unfinished">Cometes baixes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1448"/>
+        <location filename="../actionmanager.cpp" line="1476"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation type="unfinished">Cometes dobles baixes</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1449"/>
+        <location filename="../actionmanager.cpp" line="1477"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation type="unfinished">CJK esquerra</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1450"/>
+        <location filename="../actionmanager.cpp" line="1478"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation type="unfinished">CJK dreta</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1451"/>
+        <location filename="../actionmanager.cpp" line="1479"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation type="unfinished">CJK esquerra doble</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1452"/>
+        <location filename="../actionmanager.cpp" line="1480"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation type="unfinished">CJK dreta doble</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1314"/>
+        <location filename="../actionmanager.cpp" line="1346"/>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;100% {400%?}</translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1239"/>
+        <source>Edit Latex Source...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1392"/>
+        <source>Insert &amp;Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1393"/>
+        <source>Insert &amp;Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1394"/>
+        <source>Insert &amp;Latex Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1395"/>
+        <source>Insert T&amp;able</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1396"/>
+        <source>Insert &amp;Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1397"/>
+        <source>Insert &amp;Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1398"/>
+        <source>Insert &amp;Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1399"/>
+        <source>Insert &amp;Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1400"/>
+        <source>Insert &amp;Freehand Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1427"/>
+        <source>Scribus Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1428"/>
+        <source>Scribus Online Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1429"/>
+        <source>Scribus Wiki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1430"/>
+        <source>Getting Started with Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5780,47 +5941,47 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../aligndistribute.cpp" line="81"/>
+        <location filename="../aligndistribute.cpp" line="79"/>
         <source>Align and Distribute</source>
         <translation>Alinea i distribueix</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="82"/>
+        <location filename="../aligndistribute.cpp" line="80"/>
         <source>Align</source>
         <translation type="unfinished">Alinea</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="84"/>
+        <location filename="../aligndistribute.cpp" line="82"/>
         <source>&amp;Relative to:</source>
         <translation>&amp;Relatiu a:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="87"/>
+        <location filename="../aligndistribute.cpp" line="85"/>
         <source>First Selected</source>
         <translation>Primer seleccionat</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="88"/>
+        <location filename="../aligndistribute.cpp" line="86"/>
         <source>Last Selected</source>
         <translation>Darrer seleccionat</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="89"/>
+        <location filename="../aligndistribute.cpp" line="87"/>
         <source>Page</source>
         <translation>Pàgina</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="90"/>
+        <location filename="../aligndistribute.cpp" line="88"/>
         <source>Margins</source>
         <translation>Marges</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="91"/>
+        <location filename="../aligndistribute.cpp" line="89"/>
         <source>Guide</source>
         <translation>Guia</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="92"/>
+        <location filename="../aligndistribute.cpp" line="90"/>
         <source>Selection</source>
         <translation>Selecció</translation>
     </message>
@@ -5835,12 +5996,12 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Alinea els costats esquerres dels objectes al costat dret del de mostra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="100"/>
+        <location filename="../aligndistribute.cpp" line="98"/>
         <source>Align bottoms</source>
         <translation>Alinea costats inferiors</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="102"/>
+        <location filename="../aligndistribute.cpp" line="100"/>
         <source>Align right sides</source>
         <translation>Alinea costats drets</translation>
     </message>
@@ -5850,17 +6011,17 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Alinea els costats superiors dels objectes al costat inferior del de mostra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="106"/>
+        <location filename="../aligndistribute.cpp" line="104"/>
         <source>Center on vertical axis</source>
         <translation>Centra a l&apos;eix vertical</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="108"/>
+        <location filename="../aligndistribute.cpp" line="106"/>
         <source>Align left sides</source>
         <translation>Alinea costats esquerres</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="110"/>
+        <location filename="../aligndistribute.cpp" line="108"/>
         <source>Center on horizontal axis</source>
         <translation>Centra a l&apos;eix horitzontal</translation>
     </message>
@@ -5870,17 +6031,17 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Alinea els costats inferior dels objectes al costat superior del de mostra</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="114"/>
+        <location filename="../aligndistribute.cpp" line="112"/>
         <source>Align tops</source>
         <translation>Alinea costats superiors</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="116"/>
+        <location filename="../aligndistribute.cpp" line="114"/>
         <source>&amp;Selected Guide:</source>
         <translation>&amp;Tria guia:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="83"/>
+        <location filename="../aligndistribute.cpp" line="81"/>
         <source>Distribute</source>
         <translation type="unfinished">Distribueix</translation>
     </message>
@@ -5895,17 +6056,17 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Distribueix segons el valor els espais horitzontals</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="124"/>
+        <location filename="../aligndistribute.cpp" line="122"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Distribueix proporcionalment els costats drets </translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="126"/>
+        <location filename="../aligndistribute.cpp" line="124"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Distribueix proporcionalment els costats inferiors</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="128"/>
+        <location filename="../aligndistribute.cpp" line="126"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Distribueix horitzontalment proporcionats els centres</translation>
     </message>
@@ -5920,32 +6081,32 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Fer que els espais verticals entre objectes siguin de la mida especificada</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="134"/>
+        <location filename="../aligndistribute.cpp" line="132"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Distribueix proporcionalment els costats esquerres</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="136"/>
+        <location filename="../aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Distribueix verticalment proporcionats els centres</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="138"/>
+        <location filename="../aligndistribute.cpp" line="136"/>
         <source>Distribute tops equidistantly</source>
         <translation>Distribueix proporcionalment els costats superiors</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="148"/>
+        <location filename="../aligndistribute.cpp" line="146"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Distància:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="149"/>
+        <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Distribueix els ítems amb la distància especificada</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="151"/>
+        <location filename="../aligndistribute.cpp" line="149"/>
         <source>None Selected</source>
         <translation>Res seleccionat</translation>
     </message>
@@ -5965,72 +6126,72 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">&amp;Desbloqueja tot</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="431"/>
+        <location filename="../aligndistribute.cpp" line="429"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="439"/>
+        <location filename="../aligndistribute.cpp" line="437"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="96"/>
+        <location filename="../aligndistribute.cpp" line="94"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="98"/>
+        <location filename="../aligndistribute.cpp" line="96"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="104"/>
+        <location filename="../aligndistribute.cpp" line="102"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="112"/>
+        <location filename="../aligndistribute.cpp" line="110"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="119"/>
+        <location filename="../aligndistribute.cpp" line="117"/>
         <source>Make horizontal gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="121"/>
+        <location filename="../aligndistribute.cpp" line="119"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="130"/>
+        <location filename="../aligndistribute.cpp" line="128"/>
         <source>Make vertical gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="132"/>
+        <location filename="../aligndistribute.cpp" line="130"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="140"/>
+        <location filename="../aligndistribute.cpp" line="138"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="146"/>
+        <location filename="../aligndistribute.cpp" line="144"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="144"/>
+        <location filename="../aligndistribute.cpp" line="142"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="142"/>
+        <location filename="../aligndistribute.cpp" line="140"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6038,27 +6199,27 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
 <context>
     <name>AlignSelect</name>
     <message>
-        <location filename="../alignselect.cpp" line="101"/>
+        <location filename="../alignselect.cpp" line="100"/>
         <source>Align Text Left</source>
         <translation>Alinea Text Esquerra</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="102"/>
+        <location filename="../alignselect.cpp" line="101"/>
         <source>Align Text Right</source>
         <translation>Alinea Text Dreta</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="103"/>
+        <location filename="../alignselect.cpp" line="102"/>
         <source>Align Text Center</source>
         <translation>Centra Text</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="104"/>
+        <location filename="../alignselect.cpp" line="103"/>
         <source>Align Text Justified</source>
         <translation>Justifica Text</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="105"/>
+        <location filename="../alignselect.cpp" line="104"/>
         <source>Align Text Forced Justified</source>
         <translation>Justificació forçada de Text</translation>
     </message>
@@ -6066,47 +6227,47 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
 <context>
     <name>Annot</name>
     <message>
-        <location filename="../annot.cpp" line="59"/>
+        <location filename="../annot.cpp" line="61"/>
         <source>Field Properties</source>
         <translation>Propietats del Camp</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="532"/>
+        <location filename="../annot.cpp" line="534"/>
         <source>Type:</source>
         <translation>Tipus:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Button</source>
         <translation>Botó</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Text Field</source>
         <translation>Camp de Text</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Check Box</source>
         <translation>Quadre de Verificació</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Combo Box</source>
         <translation>Quadre Combinat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>List Box</source>
         <translation>Quadre de Llista</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="109"/>
+        <location filename="../annot.cpp" line="111"/>
         <source>Properties</source>
         <translation>Propietats</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="119"/>
+        <location filename="../annot.cpp" line="121"/>
         <source>Name:</source>
         <translation>Nom:</translation>
     </message>
@@ -6116,92 +6277,92 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Rètol indicador:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="273"/>
+        <location filename="../annot.cpp" line="275"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="150"/>
+        <location filename="../annot.cpp" line="152"/>
         <source>Font for use with PDF 1.3:</source>
         <translation>Font a usar amb PDF 1.3:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="174"/>
+        <location filename="../annot.cpp" line="176"/>
         <source>Border</source>
         <translation>Contorn</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="180"/>
+        <location filename="../annot.cpp" line="182"/>
         <source>Color:</source>
         <translation>Color:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2077"/>
+        <location filename="../annot.cpp" line="2079"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="196"/>
+        <location filename="../annot.cpp" line="198"/>
         <source>Width:</source>
         <translation>Amplada:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="200"/>
+        <location filename="../annot.cpp" line="202"/>
         <source>Thin</source>
         <translation>Prim</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="310"/>
+        <location filename="../annot.cpp" line="312"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="200"/>
+        <location filename="../annot.cpp" line="202"/>
         <source>Wide</source>
         <translation>Ample</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="208"/>
+        <location filename="../annot.cpp" line="210"/>
         <source>Style:</source>
         <translation>Estil:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Solid</source>
         <translation>Sòlid</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Dashed</source>
         <translation>Traçat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Underline</source>
         <translation>Subratllat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="213"/>
+        <location filename="../annot.cpp" line="215"/>
         <source>Beveled</source>
         <translation>Oblicu</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="213"/>
+        <location filename="../annot.cpp" line="215"/>
         <source>Inset</source>
         <translation>Intercalat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="223"/>
+        <location filename="../annot.cpp" line="225"/>
         <source>Other</source>
         <translation>Altre</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="229"/>
+        <location filename="../annot.cpp" line="231"/>
         <source>Read Only</source>
         <translation>Només de lectura</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="235"/>
+        <location filename="../annot.cpp" line="237"/>
         <source>Required</source>
         <translation>Requerit</translation>
     </message>
@@ -6211,172 +6372,172 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">No Expotar Valors</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="247"/>
+        <location filename="../annot.cpp" line="249"/>
         <source>Visibility:</source>
         <translation>Visibilitat:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>Visible</source>
         <translation>Visible</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>Hidden</source>
         <translation>Amagat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>No Print</source>
         <translation>No Imprimir</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="252"/>
+        <location filename="../annot.cpp" line="254"/>
         <source>No View</source>
         <translation>No Veure</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="261"/>
+        <location filename="../annot.cpp" line="263"/>
         <source>Appearance</source>
         <translation>Aspecte</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="279"/>
+        <location filename="../annot.cpp" line="281"/>
         <source>Text for Button Down</source>
         <translation>Text al prémer el botó</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="282"/>
+        <location filename="../annot.cpp" line="284"/>
         <source>Text for Roll Over</source>
         <translation>Text al Passar per Damunt</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="293"/>
+        <location filename="../annot.cpp" line="295"/>
         <source>Icons</source>
         <translation>Icones</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="299"/>
+        <location filename="../annot.cpp" line="301"/>
         <source>Use Icons</source>
         <translation>Usar Icones</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="356"/>
+        <location filename="../annot.cpp" line="358"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="328"/>
+        <location filename="../annot.cpp" line="330"/>
         <source>Pressed</source>
         <translation>Premut</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="346"/>
+        <location filename="../annot.cpp" line="348"/>
         <source>Roll Over</source>
         <translation>Passar per Sobre</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="365"/>
+        <location filename="../annot.cpp" line="367"/>
         <source>Icon Placement...</source>
         <translation>Col·locar Icones...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="413"/>
+        <location filename="../annot.cpp" line="415"/>
         <source>Highlight</source>
         <translation>Ressaltar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Invert</source>
         <translation>Inverteix</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Outlined</source>
         <translation>Contornat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Push</source>
         <translation>Premut</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="437"/>
+        <location filename="../annot.cpp" line="439"/>
         <source>Multi-Line</source>
         <translation>Multilínia</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="441"/>
+        <location filename="../annot.cpp" line="443"/>
         <source>Password</source>
         <translation>Contrasenya</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="448"/>
+        <location filename="../annot.cpp" line="450"/>
         <source>Limit of</source>
         <translation>Límit de</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="459"/>
+        <location filename="../annot.cpp" line="461"/>
         <source>Characters</source>
         <translation>Caràcters</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="465"/>
+        <location filename="../annot.cpp" line="467"/>
         <source>Do Not Scroll</source>
         <translation>No Desplaçar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="469"/>
+        <location filename="../annot.cpp" line="471"/>
         <source>Do Not Spell Check</source>
         <translation>No Revisar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="484"/>
+        <location filename="../annot.cpp" line="486"/>
         <source>Check Style:</source>
         <translation>Comprova Estil:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Check</source>
         <translation>Comprova</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Cross</source>
         <translation>Creu</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Diamond</source>
         <translation>Diamant</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Circle</source>
         <translation>Cercle</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Star</source>
         <translation>Estrella</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Square</source>
         <translation>Requadre</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="501"/>
+        <location filename="../annot.cpp" line="503"/>
         <source>Default is Checked</source>
         <translation>Marcat per defecte</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="513"/>
+        <location filename="../annot.cpp" line="515"/>
         <source>Editable</source>
         <translation>Editable</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="520"/>
+        <location filename="../annot.cpp" line="522"/>
         <source>Options</source>
         <translation>Opcions</translation>
     </message>
@@ -6386,327 +6547,327 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Java Script</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2040"/>
+        <location filename="../annot.cpp" line="2042"/>
         <source>Go To</source>
         <translation>Anar A</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Submit Form</source>
         <translation>Enviar Formulari</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Reset Form</source>
         <translation>Reiniciar Formulari</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Import Data</source>
         <translation>Importar Dades</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="569"/>
+        <location filename="../annot.cpp" line="571"/>
         <source>Event:</source>
         <translation>Incidència:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Up</source>
         <translation>Ratolí Amunt</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Down</source>
         <translation>Ratolí Avall</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Enter</source>
         <translation>Entrar amb el Ratolí</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>Mouse Exit</source>
         <translation>Sortir amb el Ratolí</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>On Focus</source>
         <translation>En Prendre el Focus</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>On Blur</source>
         <translation>En Difuminar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="584"/>
+        <location filename="../annot.cpp" line="586"/>
         <source>Script:</source>
         <translation>Seqüència: </translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1088"/>
+        <location filename="../annot.cpp" line="1090"/>
         <source>Edit...</source>
         <translation>Edició...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="663"/>
+        <location filename="../annot.cpp" line="665"/>
         <source>Submit to URL:</source>
         <translation>Enviar a URL:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="671"/>
+        <location filename="../annot.cpp" line="673"/>
         <source>Submit Data as HTML</source>
         <translation>Enviar Dades com HTML</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="684"/>
+        <location filename="../annot.cpp" line="686"/>
         <source>Import Data from:</source>
         <translation>Importar dades des de:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="609"/>
+        <location filename="../annot.cpp" line="611"/>
         <source>Destination</source>
         <translation>Destí</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="615"/>
+        <location filename="../annot.cpp" line="617"/>
         <source>To File:</source>
         <translation>Al Fitxer:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="622"/>
+        <location filename="../annot.cpp" line="624"/>
         <source>Change...</source>
         <translation>Canvi...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="625"/>
+        <location filename="../annot.cpp" line="627"/>
         <source>Page:</source>
         <translation>Pàgina:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="639"/>
+        <location filename="../annot.cpp" line="641"/>
         <source>X-Pos:</source>
         <translation>Posició X:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="651"/>
+        <location filename="../annot.cpp" line="653"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="647"/>
+        <location filename="../annot.cpp" line="649"/>
         <source>Y-Pos:</source>
         <translation>Posició Y:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="693"/>
+        <location filename="../annot.cpp" line="695"/>
         <source>Action</source>
         <translation>Acció</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="724"/>
+        <location filename="../annot.cpp" line="726"/>
         <source>Field is formatted as:</source>
         <translation>El camp està formatat com:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Plain</source>
         <translation>Senzill</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Number</source>
         <translation>Número</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Percentage</source>
         <translation>Percentatge</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Date</source>
         <translation>Data</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Custom</source>
         <translation>Personalitzat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="745"/>
+        <location filename="../annot.cpp" line="747"/>
         <source>Number Format</source>
         <translation>Format numèric</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="813"/>
+        <location filename="../annot.cpp" line="815"/>
         <source>Decimals:</source>
         <translation>Decimals:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="768"/>
+        <location filename="../annot.cpp" line="770"/>
         <source>Use Currency Symbol</source>
         <translation>Símbol de Moneda</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="777"/>
+        <location filename="../annot.cpp" line="779"/>
         <source>Prepend Currency Symbol</source>
         <translation>&quot;Prepend&quot; Símbol de Moneda</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="824"/>
+        <location filename="../annot.cpp" line="826"/>
         <source>Formatting</source>
         <translation>Donant format</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="804"/>
+        <location filename="../annot.cpp" line="806"/>
         <source>Percent Format</source>
         <translation>Percentatge Formatat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="847"/>
+        <location filename="../annot.cpp" line="849"/>
         <source>Date Format</source>
         <translation>Format de Data</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="873"/>
+        <location filename="../annot.cpp" line="875"/>
         <source>Time Format</source>
         <translation>Format d&apos;hora</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="895"/>
+        <location filename="../annot.cpp" line="897"/>
         <source>Custom Scripts</source>
         <translation>Seqüències personalitzades</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="907"/>
+        <location filename="../annot.cpp" line="909"/>
         <source>Format:</source>
         <translation>Format:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="933"/>
+        <location filename="../annot.cpp" line="935"/>
         <source>Keystroke:</source>
         <translation>Pulsació de tecla:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="957"/>
+        <location filename="../annot.cpp" line="959"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="973"/>
+        <location filename="../annot.cpp" line="975"/>
         <source>Value is not validated</source>
         <translation>El valor no està validat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="982"/>
+        <location filename="../annot.cpp" line="984"/>
         <source>Value must be greater than or equal to:</source>
         <translation>El Valor ha de ser més gran o igual que:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="986"/>
+        <location filename="../annot.cpp" line="988"/>
         <source>and less or equal to:</source>
         <translation>i més petit o igual que:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="997"/>
+        <location filename="../annot.cpp" line="999"/>
         <source>Custom validate script:</source>
         <translation>Seqüències personalitzades de validació:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1018"/>
+        <location filename="../annot.cpp" line="1020"/>
         <source>Validate</source>
         <translation>Validar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1035"/>
+        <location filename="../annot.cpp" line="1037"/>
         <source>Value is not calculated</source>
         <translation>El valor no és calculat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1044"/>
+        <location filename="../annot.cpp" line="1046"/>
         <source>Value is the</source>
         <translation>El Valor és el</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>sum</source>
         <translation>suma</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>product</source>
         <translation>producte</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>average</source>
         <translation>mitjana</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>minimum</source>
         <translation>mínim</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1050"/>
+        <location filename="../annot.cpp" line="1052"/>
         <source>maximum</source>
         <translation>màxim</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1057"/>
+        <location filename="../annot.cpp" line="1059"/>
         <source>of the following fields:</source>
         <translation>dels següents camps:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1067"/>
+        <location filename="../annot.cpp" line="1069"/>
         <source>Pick...</source>
         <translation>Pren...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1072"/>
+        <location filename="../annot.cpp" line="1074"/>
         <source>Custom calculation script:</source>
         <translation>Seqüències personalitzades de càlcul:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1092"/>
+        <location filename="../annot.cpp" line="1094"/>
         <source>Calculate</source>
         <translation>Calcula</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1111"/>
+        <location filename="../annot.cpp" line="1113"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1115"/>
+        <location filename="../annot.cpp" line="1117"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1167"/>
+        <location filename="../annot.cpp" line="1169"/>
         <source>Flag is ignored for PDF 1.3</source>
         <translation>Senyal ignorada per PDF 1.3</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1168"/>
+        <location filename="../annot.cpp" line="1170"/>
         <source>Enter a comma separated list of fields here</source>
         <translation>Entra una llista separada per comes </translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1169"/>
+        <location filename="../annot.cpp" line="1171"/>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
         <translation>Necessites almenys la icona Normal per utilitzar icones de Botons</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2231"/>
+        <location filename="../annot.cpp" line="2233"/>
         <source>Open</source>
         <translation>Obre</translation>
     </message>
@@ -6716,22 +6877,22 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Imatges (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1446"/>
+        <location filename="../annot.cpp" line="1448"/>
         <source>Example:</source>
         <translation>Exemple:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2069"/>
+        <location filename="../annot.cpp" line="2071"/>
         <source>Selection Change</source>
         <translation>Canvi de Selecció</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2231"/>
+        <location filename="../annot.cpp" line="2233"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2078"/>
+        <location filename="../annot.cpp" line="2080"/>
         <source>JavaScript</source>
         <translation>JavaScript</translation>
     </message>
@@ -6741,30 +6902,35 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Imatges (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>None</source>
         <comment>highlight</comment>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2040"/>
+        <location filename="../annot.cpp" line="2042"/>
         <source>None</source>
         <comment>action</comment>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="132"/>
+        <location filename="../annot.cpp" line="134"/>
         <source>Tooltip:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="241"/>
+        <location filename="../annot.cpp" line="243"/>
         <source>Do Not Export Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1335"/>
+        <location filename="../annot.cpp" line="1337"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../annot.cpp" line="1282"/>
+        <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6796,24 +6962,24 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation>Enllaç Web</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="99"/>
+        <location filename="../annota.cpp" line="100"/>
         <source>Destination</source>
         <translation>Destí</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="149"/>
+        <location filename="../annota.cpp" line="152"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="351"/>
+        <location filename="../annota.cpp" line="355"/>
         <source>Open</source>
         <translation>Obre</translation>
     </message>
     <message>
         <location filename="../annota.cpp" line="351"/>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>Documents PDF (*.pdf);;Tots els fitxers (*)</translation>
+        <translation type="obsolete">Documents PDF (*.pdf);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <location filename="../annota.cpp" line="82"/>
@@ -6821,22 +6987,22 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation>&amp;Tipus:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="110"/>
+        <location filename="../annota.cpp" line="111"/>
         <source>C&amp;hange...</source>
         <translation>C&amp;anvia...</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="121"/>
+        <location filename="../annota.cpp" line="122"/>
         <source>&amp;Page:</source>
         <translation>&amp;Pàgina:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="144"/>
+        <location filename="../annota.cpp" line="146"/>
         <source>&amp;X-Pos</source>
         <translation>Posició &amp;X</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="151"/>
+        <location filename="../annota.cpp" line="154"/>
         <source>&amp;Y-Pos:</source>
         <translation>Posició &amp;Y:</translation>
     </message>
@@ -6849,6 +7015,11 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <location filename="" line="136960432"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancel.la</translation>
+    </message>
+    <message>
+        <location filename="../annota.cpp" line="355"/>
+        <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7031,37 +7202,37 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="285"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="286"/>
         <source>Error opening file: %1</source>
         <translation>Error obrint el fitxer: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="39"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="40"/>
         <source>12 or 13 digits</source>
         <translation>12 o 13 dígits</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="41"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="42"/>
         <source>8 digits</source>
         <translation>8 dígits</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="43"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="44"/>
         <source>11 or 12 digits</source>
         <translation>11 o 12 dígits</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="45"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="46"/>
         <source>7 or 8 digits</source>
         <translation>7 o 8 dígits</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="47"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="48"/>
         <source>5 digits</source>
         <translation>5 dígits</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="49"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="50"/>
         <source>2 digits</source>
         <translation>2 dígits</translation>
     </message>
@@ -7071,47 +7242,47 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">9 o 10 dígits separats per guions</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="56"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="57"/>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
         <translation>Número variable de caràcters, dígits i qualsevol dels símbols -, *$/+%.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="65"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="66"/>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
         <translation>Número variable de caràcters i símbols de funcions especials, començant pel caràcter d&apos;inici del conjunt de caràcters. UCC/EAN-128s ha de tenir obligatòriament un símbol FNC 1 i anirà seguit pel caràcter d&apos;inici.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="68"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="69"/>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
         <translation>Número variable de dígits i algun dels símbols -$:/.+ABCD.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="76"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="77"/>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
         <translation>Número variable de dígits. Un ITF-14 són 14 caràcters i no tenen dígit de comprovació</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="91"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="92"/>
         <source>Variable number of digits</source>
         <translation>Número variabble de dígits</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="87"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="88"/>
         <source>Variable number of digits and capital letters</source>
         <translation>Número variable de dígits i de lletres capitals</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="96"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="97"/>
         <source>Variable number of hexadecimal characters</source>
         <translation>Número variable de caràcters hexadecimals</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="316"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="317"/>
         <source>Barcode incomplete</source>
         <translation>Codi de Barres incomplert</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="52"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="53"/>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7282,7 +7453,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrap.cpp" line="1341"/>
+        <location filename="../scrap.cpp" line="1311"/>
         <source>Scrapbook</source>
         <translation>Àlbum de retalls</translation>
     </message>
@@ -7337,12 +7508,12 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Visualització &amp;Previa</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="826"/>
+        <location filename="../scrap.cpp" line="796"/>
         <source>Rename</source>
         <translation>Reanomena</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="828"/>
+        <location filename="../scrap.cpp" line="798"/>
         <source>Delete</source>
         <translation>Esborra</translation>
     </message>
@@ -7364,95 +7535,95 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1244"/>
+        <location filename="../scrap.cpp" line="1214"/>
         <source>Object</source>
         <translation>Objecte</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1153"/>
+        <location filename="../scrap.cpp" line="1123"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nom:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1153"/>
+        <location filename="../scrap.cpp" line="1123"/>
         <source>New Entry</source>
         <translation>Nova Entrada</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1047"/>
+        <location filename="../scrap.cpp" line="1017"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation>El nom &quot;%1&quot; no és únic.
 Si us plau, tria&apos;n un altre.</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="712"/>
+        <location filename="../scrap.cpp" line="684"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>Tria el directori de l&apos;àlbum de detalls</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="770"/>
+        <location filename="../scrap.cpp" line="740"/>
         <source>Choose a Directory</source>
         <translation>Tria un Directori</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="747"/>
-        <source>Scrapbook (*.scs)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scrap.cpp" line="750"/>
+        <location filename="../scrap.cpp" line="720"/>
         <source>Choose a scrapbook file to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1342"/>
+        <location filename="../scrap.cpp" line="1312"/>
         <source>Create a new scrapbook page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1343"/>
+        <location filename="../scrap.cpp" line="1313"/>
         <source>Load an existing scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1344"/>
+        <location filename="../scrap.cpp" line="1314"/>
         <source>Save the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1345"/>
+        <location filename="../scrap.cpp" line="1315"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1346"/>
+        <location filename="../scrap.cpp" line="1316"/>
         <source>Close the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="833"/>
+        <location filename="../scrap.cpp" line="803"/>
         <source>Copy To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="834"/>
+        <location filename="../scrap.cpp" line="804"/>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="580"/>
+        <location filename="../scrap.cpp" line="552"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="582"/>
+        <location filename="../scrap.cpp" line="554"/>
         <source>Copied Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1040"/>
+        <location filename="../scrap.cpp" line="1010"/>
         <source>New Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrap.cpp" line="719"/>
+        <source>Scrapbook (*.scs *.SCS)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7461,22 +7632,22 @@ Si us plau, tria&apos;n un altre.</translation>
     <message>
         <location filename="../bookmwin.cpp" line="554"/>
         <source>Bookmarks</source>
-        <translation>Punts</translation>
+        <translation type="obsolete">Punts</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="219"/>
         <source>Move Bookmark</source>
-        <translation>Mou Punt</translation>
+        <translation type="obsolete">Mou Punt</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="220"/>
         <source>Insert Bookmark</source>
-        <translation>Insereix Punt</translation>
+        <translation type="obsolete">Insereix Punt</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="221"/>
         <source>Cancel</source>
-        <translation>Cancel.la</translation>
+        <translation type="obsolete">Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -7490,107 +7661,107 @@ Si us plau, tria&apos;n un altre.</translation>
 <context>
     <name>ButtonIcon</name>
     <message>
-        <location filename="../buttonicon.cpp" line="30"/>
+        <location filename="../buttonicon.cpp" line="29"/>
         <source>Icon Placement</source>
         <translation>Col·locació d&apos;Icones</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="39"/>
+        <location filename="../buttonicon.cpp" line="38"/>
         <source>Layout:</source>
         <translation>Format:</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Caption only</source>
         <translation>Només Put</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Icon only</source>
         <translation>Només Icona</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Caption below Icon</source>
         <translation>Ròtul sota la Icona</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Caption above Icon</source>
         <translation>Ròtul sobre la Icona</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="43"/>
+        <location filename="../buttonicon.cpp" line="42"/>
         <source>Caption right to Icon</source>
         <translation>Ròtul a la dreta de la icona</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="43"/>
+        <location filename="../buttonicon.cpp" line="42"/>
         <source>Caption left to Icon</source>
         <translation>Ròtul a l&apos;esquerra de la icona</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="43"/>
+        <location filename="../buttonicon.cpp" line="42"/>
         <source>Caption overlays Icon</source>
         <translation>Ròtul al damunt de la icona</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="51"/>
+        <location filename="../buttonicon.cpp" line="50"/>
         <source>Scale:</source>
         <translation>Escala:</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="56"/>
+        <location filename="../buttonicon.cpp" line="55"/>
         <source>Always</source>
         <translation>Sempre</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="56"/>
+        <location filename="../buttonicon.cpp" line="55"/>
         <source>When Icon is too small</source>
         <translation>Quan la Icona és massa petita</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="57"/>
+        <location filename="../buttonicon.cpp" line="56"/>
         <source>When Icon is too big</source>
         <translation>Quan la Icona és massa gran</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="57"/>
+        <location filename="../buttonicon.cpp" line="56"/>
         <source>Never</source>
         <translation>Mai</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="64"/>
+        <location filename="../buttonicon.cpp" line="63"/>
         <source>Scale How:</source>
         <translation>Escala com:</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="67"/>
+        <location filename="../buttonicon.cpp" line="66"/>
         <source>Proportional</source>
         <translation>Proporcional</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="68"/>
+        <location filename="../buttonicon.cpp" line="67"/>
         <source>Non Proportional</source>
         <translation>No Proporcional</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="91"/>
+        <location filename="../buttonicon.cpp" line="90"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="118"/>
+        <location filename="../buttonicon.cpp" line="117"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="122"/>
+        <location filename="../buttonicon.cpp" line="121"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="125"/>
+        <location filename="../buttonicon.cpp" line="124"/>
         <source>Reset</source>
         <translation>Reiniciar</translation>
     </message>
@@ -7603,12 +7774,12 @@ Si us plau, tria&apos;n un altre.</translation>
         <translation type="obsolete">Paràmetres Gestió del Color</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="28"/>
+        <location filename="../cmsprefs.cpp" line="31"/>
         <source>&amp;Activate Color Management</source>
         <translation>&amp;Activar Gestió del Color</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="31"/>
+        <location filename="../cmsprefs.cpp" line="34"/>
         <source>System Profiles</source>
         <translation>Perfils de Sistema</translation>
     </message>
@@ -7623,37 +7794,37 @@ Si us plau, tria&apos;n un altre.</translation>
         <translation type="obsolete">Colors &amp;Sòlids:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="68"/>
+        <location filename="../cmsprefs.cpp" line="75"/>
         <source>&amp;Monitor:</source>
         <translation>&amp;Monitor:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="75"/>
+        <location filename="../cmsprefs.cpp" line="83"/>
         <source>P&amp;rinter:</source>
         <translation>Imp&amp;ressora:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="80"/>
+        <location filename="../cmsprefs.cpp" line="89"/>
         <source>Rendering Intents</source>
         <translation>Intents de representació</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="194"/>
+        <location filename="../cmsprefs.cpp" line="205"/>
         <source>Perceptual</source>
         <translation>Perceptual</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="194"/>
+        <location filename="../cmsprefs.cpp" line="205"/>
         <source>Relative Colorimetric</source>
         <translation>Colorimètric Relatiu</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="195"/>
+        <location filename="../cmsprefs.cpp" line="206"/>
         <source>Saturation</source>
         <translation>Saturació</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="195"/>
+        <location filename="../cmsprefs.cpp" line="206"/>
         <source>Absolute Colorimetric</source>
         <translation>Colorimètric Absolut</translation>
     </message>
@@ -7668,17 +7839,17 @@ Si us plau, tria&apos;n un altre.</translation>
         <translation type="obsolete">&amp;Impressora:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="102"/>
+        <location filename="../cmsprefs.cpp" line="113"/>
         <source>Sim&amp;ulate Printer on the Screen</source>
         <translation>Sim&amp;ula Impressora en Pantalla</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="119"/>
+        <location filename="../cmsprefs.cpp" line="130"/>
         <source>Mark Colors out of &amp;Gamut</source>
         <translation>Marca colors fora de &amp;Gama</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="123"/>
+        <location filename="../cmsprefs.cpp" line="134"/>
         <source>Use &amp;Blackpoint Compensation</source>
         <translation>Usar Compensació de &amp;Punt negre</translation>
     </message>
@@ -7703,14 +7874,14 @@ Si us plau, tria&apos;n un altre.</translation>
         <translation type="obsolete">Perfil de color per defecte de colors sòlids de la pàgina</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="132"/>
+        <location filename="../cmsprefs.cpp" line="143"/>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
         <translation>Perfil de color que has generat o rebut del fabricant
 Aquest perfil hauria de ser específic del teu monitor i no un perfil genèric (ex.sRGB).</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="133"/>
+        <location filename="../cmsprefs.cpp" line="144"/>
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
         <translation>Perfil de color del fabricant del teu model d&apos;impressora.
@@ -7731,95 +7902,95 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 s&apos;hauria de triar el Colorimètric Relatiu o Perceptual.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="136"/>
+        <location filename="../cmsprefs.cpp" line="147"/>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Activa &apos;soft proofing&apos;  de com els colors dels documents s&apos;imprimiran,
 basant-se en el perfil d&apos;impressora triat.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="138"/>
+        <location filename="../cmsprefs.cpp" line="149"/>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
         <translation>Mètode de mostrar colors per pantalla que poden no imprimir-se bé.
 Això requereix perfils molt acurats i serveix només d&apos;avís.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="139"/>
+        <location filename="../cmsprefs.cpp" line="150"/>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>La Compensació de Punt Negre és un mètode per millorar el contrast en fotos.
 Es recomana activar-lo si tens colors en el teu document.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="40"/>
+        <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Pictures:</source>
         <translation>Imatges &amp;RGB:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="47"/>
+        <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Pictures:</source>
         <translation>Imatges &amp;CMYK:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="128"/>
+        <location filename="../cmsprefs.cpp" line="139"/>
         <source>Default color profile for imported CMYK images</source>
         <translation>Perfil de color per defecte per imatges CMYK</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="129"/>
+        <location filename="../cmsprefs.cpp" line="140"/>
         <source>Default color profile for imported RGB images</source>
         <translation>Perfil de color per defecte per imatges RGB</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="54"/>
+        <location filename="../cmsprefs.cpp" line="59"/>
         <source>&amp;RGB Solid Colors:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="61"/>
+        <location filename="../cmsprefs.cpp" line="67"/>
         <source>&amp;CMYK Solid Colors:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="89"/>
+        <location filename="../cmsprefs.cpp" line="98"/>
         <source>Pictures:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="96"/>
+        <location filename="../cmsprefs.cpp" line="106"/>
         <source>Sol&amp;id Colors:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="110"/>
+        <location filename="../cmsprefs.cpp" line="121"/>
         <source>Convert all colors to printer space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="130"/>
+        <location filename="../cmsprefs.cpp" line="141"/>
         <source>Default color profile for solid RGB colors on the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="131"/>
+        <location filename="../cmsprefs.cpp" line="142"/>
         <source>Default color profile for solid CMYK colors on the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="134"/>
+        <location filename="../cmsprefs.cpp" line="145"/>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="135"/>
+        <location filename="../cmsprefs.cpp" line="146"/>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="137"/>
+        <location filename="../cmsprefs.cpp" line="148"/>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation type="unfinished"></translation>
@@ -7828,42 +7999,42 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
 <context>
     <name>CMYKChoose</name>
     <message>
-        <location filename="../cmykfw.cpp" line="88"/>
+        <location filename="../cmykfw.cpp" line="90"/>
         <source>Edit Color</source>
         <translation>Edita Color</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="97"/>
+        <location filename="../cmykfw.cpp" line="99"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nom:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="107"/>
+        <location filename="../cmykfw.cpp" line="109"/>
         <source>Color &amp;Model</source>
         <translation>&amp;Model de Color</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1007"/>
+        <location filename="../cmykfw.cpp" line="1001"/>
         <source>CMYK</source>
         <translation>CMYK</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1009"/>
+        <location filename="../cmykfw.cpp" line="1003"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="876"/>
+        <location filename="../cmykfw.cpp" line="870"/>
         <source>Web Safe RGB</source>
         <translation>RGB per Web</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="137"/>
+        <location filename="../cmykfw.cpp" line="139"/>
         <source>New</source>
         <translation>Nou</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="154"/>
+        <location filename="../cmykfw.cpp" line="156"/>
         <source>Old</source>
         <translation>Vell</translation>
     </message>
@@ -7878,57 +8049,57 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="192"/>
+        <location filename="../cmykfw.cpp" line="194"/>
         <source>HSV-Colormap</source>
         <translation>Mapa de Colors HSV</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="817"/>
+        <location filename="../cmykfw.cpp" line="811"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="816"/>
+        <location filename="../cmykfw.cpp" line="810"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="818"/>
+        <location filename="../cmykfw.cpp" line="812"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="819"/>
+        <location filename="../cmykfw.cpp" line="813"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="347"/>
+        <location filename="../cmykfw.cpp" line="343"/>
         <source>K:</source>
         <translation>K:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="436"/>
+        <location filename="../cmykfw.cpp" line="430"/>
         <source>Dynamic Color Bars</source>
         <translation>Barra de Colors dinàmica</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="439"/>
+        <location filename="../cmykfw.cpp" line="433"/>
         <source>Static Color Bars</source>
         <translation>Barra estàtica de Colors</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="861"/>
+        <location filename="../cmykfw.cpp" line="855"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="862"/>
+        <location filename="../cmykfw.cpp" line="856"/>
         <source>G:</source>
         <translation>G:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="863"/>
+        <location filename="../cmykfw.cpp" line="857"/>
         <source>B:</source>
         <translation>B:</translation>
     </message>
@@ -7960,17 +8131,17 @@ It&apos;s a reserved name for transparent color</source>
 És un nom reservat per un color transparent</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="121"/>
+        <location filename="../cmykfw.cpp" line="123"/>
         <source>Is Spot Color</source>
         <translation>És Spot Color</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="126"/>
+        <location filename="../cmykfw.cpp" line="128"/>
         <source>Is Registration Color</source>
         <translation>És Registration Color</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1079"/>
+        <location filename="../cmykfw.cpp" line="1073"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation>No es pot crear un color anomenat &quot;%1&quot;.
@@ -7982,23 +8153,23 @@ It is a reserved name for transparent color</source>
         <translation type="obsolete">El nom del color no és únic</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="391"/>
+        <location filename="../cmykfw.cpp" line="385"/>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1088"/>
+        <location filename="../cmykfw.cpp" line="1082"/>
         <source>The name of the color already exists,
 please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="392"/>
+        <location filename="../cmykfw.cpp" line="386"/>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="897"/>
+        <location filename="../cmykfw.cpp" line="891"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8006,29 +8177,9 @@ please choose another one.</source>
 <context>
     <name>CStyleP</name>
     <message>
-        <location filename="../smcstylew.ui" line="13"/>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smcstylew.ui" line="49"/>
-        <source>Based On:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smcstylew.ui" line="89"/>
-        <source>Basic Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smcstylew.ui" line="99"/>
-        <source>Advanced Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../smcstylew.ui" line="109"/>
         <source>Colors</source>
-        <translation type="unfinished">Colors</translation>
+        <translation type="obsolete">Colors</translation>
     </message>
 </context>
 <context>
@@ -8059,37 +8210,37 @@ please choose another one.</source>
         <translation type="obsolete">Brillantor a tot color</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="318"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="320"/>
         <source>Merging colors</source>
         <translation type="unfinished">Barrejant colors</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Error: </source>
         <translation type="unfinished">Error: </translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Color %1 exists already!</source>
         <translation type="unfinished">El color %1 ja existeix!</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="329"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="331"/>
         <source>Color %1 appended.</source>
         <translation type="unfinished">Afegit el color %1.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="333"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="335"/>
         <source>Now opening the color manager.</source>
         <translation type="unfinished">Obrint el gestor de colors.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="336"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="338"/>
         <source>Color Merging</source>
         <translation type="unfinished">Barrejant colors</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="487"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="489"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation type="unfinished">No puc trobar el color demanat. Potser has triat negre, gris o blanc. No hi ha forma de processar aquest color.</translation>
     </message>
@@ -8446,22 +8597,22 @@ i la Esborrar elimina la darrera inserció</translation>
         <translation type="obsolete">Tria Caràcter:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="56"/>
+        <location filename="../charselect.ui" line="128"/>
         <source>Font:</source>
         <translation>Font:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="64"/>
+        <location filename="../charselect.ui" line="151"/>
         <source>Character Class:</source>
         <translation>Classe de caràcter:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="89"/>
+        <location filename="../charselect.ui" line="227"/>
         <source>&amp;Insert</source>
         <translation>&amp;Insereix</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="90"/>
+        <location filename="../charselect.ui" line="237"/>
         <source>C&amp;lear</source>
         <translation>B&amp;uida</translation>
     </message>
@@ -8471,12 +8622,12 @@ i la Esborrar elimina la darrera inserció</translation>
         <translation type="obsolete">&amp;Tanca</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="137"/>
+        <location filename="../charselect.ui" line="224"/>
         <source>Insert the characters at the cursor in the text</source>
         <translation>Insereix el caràcter a la posició del cursor</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="138"/>
+        <location filename="../charselect.ui" line="234"/>
         <source>Delete the current selection(s).</source>
         <translation>Esborra la selecció actual.</translation>
     </message>
@@ -8486,142 +8637,142 @@ i la Esborrar elimina la darrera inserció</translation>
         <translation type="obsolete">Tanca aquest diàleg i torna a l&apos;edició.</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="330"/>
+        <location filename="../charselect.cpp" line="245"/>
         <source>Full Character Set</source>
         <translation>Conjunt de caràcters sencer</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="335"/>
+        <location filename="../charselect.cpp" line="250"/>
         <source>Basic Latin</source>
         <translation>Llatí bàsic</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="341"/>
+        <location filename="../charselect.cpp" line="256"/>
         <source>Latin-1 Supplement</source>
         <translation>Suplement Llatí-1</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="347"/>
+        <location filename="../charselect.cpp" line="262"/>
         <source>Latin Extended-A</source>
         <translation>Llatí Extès-A</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="353"/>
+        <location filename="../charselect.cpp" line="268"/>
         <source>Latin Extended-B</source>
         <translation>Llatí Extès-B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="359"/>
+        <location filename="../charselect.cpp" line="274"/>
         <source>General Punctuation</source>
         <translation>Puntuació general</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="365"/>
+        <location filename="../charselect.cpp" line="280"/>
         <source>Super- and Subscripts</source>
         <translation>Super i subíndex</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="371"/>
+        <location filename="../charselect.cpp" line="286"/>
         <source>Currency Symbols</source>
         <translation>Símbols monetaris</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="377"/>
+        <location filename="../charselect.cpp" line="292"/>
         <source>Letterlike Symbols</source>
         <translation>Símbols de tipus carta</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="383"/>
+        <location filename="../charselect.cpp" line="298"/>
         <source>Number Forms</source>
         <translation>Formularis numèrics</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="389"/>
+        <location filename="../charselect.cpp" line="304"/>
         <source>Arrows</source>
         <translation>Fletxes</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="395"/>
+        <location filename="../charselect.cpp" line="310"/>
         <source>Mathematical Operators</source>
         <translation>Operadors matemàtics</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="401"/>
+        <location filename="../charselect.cpp" line="316"/>
         <source>Box Drawing</source>
         <translation>Dibuixant caixes</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="407"/>
+        <location filename="../charselect.cpp" line="322"/>
         <source>Block Elements</source>
         <translation>Bloqueija Elements</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="413"/>
+        <location filename="../charselect.cpp" line="328"/>
         <source>Geometric Shapes</source>
         <translation>Formes geomètriques</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="419"/>
+        <location filename="../charselect.cpp" line="334"/>
         <source>Miscellaneous Symbols</source>
         <translation>Símbols diversos</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="425"/>
+        <location filename="../charselect.cpp" line="340"/>
         <source>Dingbats</source>
         <translation>Caràcters decoratius</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="431"/>
+        <location filename="../charselect.cpp" line="346"/>
         <source>Small Form Variants</source>
         <translation>Variants petites del formulari</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="437"/>
+        <location filename="../charselect.cpp" line="352"/>
         <source>Ligatures</source>
         <translation>Lligatures</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="443"/>
+        <location filename="../charselect.cpp" line="358"/>
         <source>Specials</source>
         <translation>Especials</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="449"/>
+        <location filename="../charselect.cpp" line="364"/>
         <source>Greek</source>
         <translation>Grec</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="455"/>
+        <location filename="../charselect.cpp" line="370"/>
         <source>Greek Extended</source>
         <translation>Grec extès</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="461"/>
+        <location filename="../charselect.cpp" line="376"/>
         <source>Cyrillic</source>
         <translation>Ciríl·lic</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="467"/>
+        <location filename="../charselect.cpp" line="382"/>
         <source>Cyrillic Supplement</source>
         <translation>Suplement Ciríl·lic</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="473"/>
+        <location filename="../charselect.cpp" line="388"/>
         <source>Arabic</source>
         <translation>Àrab</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="479"/>
+        <location filename="../charselect.cpp" line="394"/>
         <source>Arabic Extended A</source>
         <translation>Àrab extès A</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="485"/>
+        <location filename="../charselect.cpp" line="400"/>
         <source>Arabic Extended B</source>
         <translation>Àrab extès B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="491"/>
+        <location filename="../charselect.cpp" line="406"/>
         <source>Hebrew</source>
         <translation>Hebreu</translation>
     </message>
@@ -8641,75 +8792,80 @@ i la Esborrar elimina la darrera inserció</translation>
         <translation type="obsolete">Escriu directament un valor unicode de 4 dígits aquí</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="139"/>
+        <location filename="../charselect.ui" line="180"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation type="unfinished">Pots veure una previsualització si prems i deixes anar el botó dret. La tecla d&apos;inserir l&apos;insereix a la selecció i la tecla d&apos;esborrar </translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="38"/>
+        <location filename="../charselect.cpp" line="36"/>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="47"/>
+        <location filename="../charselect.ui" line="104"/>
         <source>Enhanced Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="98"/>
+        <location filename="../charselect.ui" line="25"/>
         <source>Quick Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="105"/>
+        <location filename="../charselect.ui" line="49"/>
         <source>Hide Enhanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="648"/>
+        <location filename="../charselect.cpp" line="565"/>
         <source>Choose a filename to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="713"/>
+        <location filename="../charselect.cpp" line="625"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="675"/>
+        <location filename="../charselect.cpp" line="592"/>
         <source>Error reading file %1 - file is corrupted propably.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="694"/>
+        <location filename="../charselect.cpp" line="606"/>
         <source>Choose a filename to save under</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="714"/>
+        <location filename="../charselect.cpp" line="626"/>
         <source>Cannot write file %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="722"/>
+        <location filename="../charselect.cpp" line="634"/>
         <source>Clean the Palette?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="723"/>
+        <location filename="../charselect.cpp" line="635"/>
         <source>You will clean all characters from this palette. Are you sure?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="37"/>
+        <location filename="../charselect.ui" line="13"/>
         <source>Character Palette</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.ui" line="56"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Cerca</translation>
     </message>
 </context>
 <context>
     <name>CharStyleComboBox</name>
     <message>
-        <location filename="../spalette.cpp" line="117"/>
+        <location filename="../spalette.cpp" line="118"/>
         <source>No Style</source>
         <translation type="unfinished">Sense Estil</translation>
     </message>
@@ -8934,107 +9090,107 @@ i la Esborrar elimina la darrera inserció</translation>
 <context>
     <name>ColorManager</name>
     <message>
-        <location filename="../colorm.cpp" line="50"/>
+        <location filename="../colorm.cpp" line="54"/>
         <source>Colors</source>
         <translation>Colors</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="76"/>
+        <location filename="../colorm.cpp" line="80"/>
         <source>&amp;Import</source>
         <translation>&amp;Importa</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="78"/>
+        <location filename="../colorm.cpp" line="82"/>
         <source>&amp;New</source>
         <translation>&amp;Nou</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="80"/>
+        <location filename="../colorm.cpp" line="84"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edició</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="84"/>
+        <location filename="../colorm.cpp" line="88"/>
         <source>D&amp;uplicate</source>
         <translation>D&amp;uplica</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="87"/>
+        <location filename="../colorm.cpp" line="91"/>
         <source>&amp;Delete</source>
         <translation>Es&amp;borra</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="92"/>
+        <location filename="../colorm.cpp" line="96"/>
         <source>&amp;Remove Unused</source>
         <translation>Esborra No &amp;Usats</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="99"/>
+        <location filename="../colorm.cpp" line="103"/>
         <source>Color Sets</source>
         <translation>Conjunts de Colors</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="105"/>
+        <location filename="../colorm.cpp" line="109"/>
         <source>Current Color Set:</source>
         <translation>Conjunt de Colors Actual:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="148"/>
+        <location filename="../colorm.cpp" line="152"/>
         <source>&amp;Save Color Set</source>
         <translation>&amp;Desa Conjunt Colors</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="167"/>
+        <location filename="../colorm.cpp" line="171"/>
         <source>Choose a color set to load</source>
         <translation>Tria conjunt de colors a carregar</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="168"/>
+        <location filename="../colorm.cpp" line="172"/>
         <source>Save the current color set</source>
         <translation>Desa el conjunt de colors actual</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="173"/>
+        <location filename="../colorm.cpp" line="177"/>
         <source>Remove unused colors from current document&apos;s color set</source>
         <translation>Esborra els colors del document que no es fan servir</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="175"/>
+        <location filename="../colorm.cpp" line="179"/>
         <source>Import colors to the current set from an existing document</source>
         <translation>Importa els colors del conjunt actual des d&apos;un document existent</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="176"/>
+        <location filename="../colorm.cpp" line="180"/>
         <source>Create a new color within the current set</source>
         <translation>Crea un nou color en el conjunt actual</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="177"/>
+        <location filename="../colorm.cpp" line="181"/>
         <source>Edit the currently selected color</source>
         <translation>Edita el color seleccionat</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="178"/>
+        <location filename="../colorm.cpp" line="182"/>
         <source>Make a copy of the currently selected color</source>
         <translation>Fes una còpia del color seleccionat</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="179"/>
+        <location filename="../colorm.cpp" line="183"/>
         <source>Delete the currently selected color</source>
         <translation>Esborra el color seleccionat</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="180"/>
+        <location filename="../colorm.cpp" line="184"/>
         <source>Make the current colorset the default color set</source>
         <translation>Fes que el color seleccionat sigui el de defecte</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="198"/>
+        <location filename="../colorm.cpp" line="202"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nom:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="198"/>
+        <location filename="../colorm.cpp" line="202"/>
         <source>Choose a Name</source>
         <translation>Tria un Nom</translation>
     </message>
@@ -9054,37 +9210,32 @@ i la Esborrar elimina la darrera inserció</translation>
         <translation type="obsolete">Documents (*.sla *.scd);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="560"/>
+        <location filename="../colorm.cpp" line="568"/>
         <source>Copy of %1</source>
         <translation>Copia de %1</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="571"/>
+        <location filename="../colorm.cpp" line="579"/>
         <source>New Color</source>
         <translation>Nou Color</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="181"/>
+        <location filename="../colorm.cpp" line="185"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="428"/>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../colorm.cpp" line="544"/>
+        <location filename="../colorm.cpp" line="552"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="428"/>
+        <location filename="../colorm.cpp" line="435"/>
         <source>Import</source>
         <translation type="unfinished">Importa</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="544"/>
+        <location filename="../colorm.cpp" line="552"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -9092,106 +9243,111 @@ Not all files have DSC conformant comments where the color descriptions are loca
 See the Edit Colors section of the documentation for more details.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../colorm.cpp" line="435"/>
+        <source>Documents (%1);;Other Files (%2);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
         <source>Monochromatic</source>
         <translation>Monocromàtic</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
         <source>Analogous</source>
         <translation>Anàleg</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
         <source>Complementary</source>
         <translation>Complementari</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="138"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
         <source>Split Complementary</source>
         <translation>Separa complementari</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
         <source>Triadic</source>
         <translation>Triadic</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
         <source>Tetradic (Double Complementary)</source>
         <translation>Tetradic (doblement complementari)</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="40"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
         <source>Base Color</source>
         <translation>Color base</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="202"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
         <source>Monochromatic Light</source>
         <translation>Llum monocromàtica</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
         <source>Monochromatic Dark</source>
         <translation>Foscor monocromàtica</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="212"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
         <source>1st. Analogous</source>
         <translation>1r.Anàleg</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="213"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
         <source>2nd. Analogous</source>
         <translation>2n. Anàleg</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="227"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
         <source>1st. Split</source>
         <translation>1a. Separació</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="228"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
         <source>2nd. Split</source>
         <translation>2a. Separació</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="229"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
         <source>3rd. Split</source>
         <translation>3a. Separació</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
         <source>4th. Split</source>
         <translation>4a. Separació</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="237"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
         <source>1st. Triadic</source>
         <translation>1r. Triadic</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
         <source>2nd. Triadic</source>
         <translation>2n. Triadic</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="245"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>1r. Tetradic (base oposada)</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="246"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>2n. Tetradic (angle)</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="247"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>3r. Tetradic (angle oposat)</translation>
     </message>
@@ -9879,109 +10035,135 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
 </context>
 <context>
+    <name>CopyPageToMasterPageBase</name>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="16"/>
+        <source>Convert Page to Master Page</source>
+        <translation type="unfinished">Converteix la pàgina a una pàgina mestra</translation>
+    </message>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="24"/>
+        <source>Name:</source>
+        <translation type="unfinished">Nom:</translation>
+    </message>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="39"/>
+        <source>Copy Applied Master Page Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CopyPageToMasterPageDialog</name>
+    <message>
+        <location filename="../ui/copypagetomasterpagedialog.cpp" line="18"/>
+        <source>New Master Page %1</source>
+        <translation type="unfinished">Nova pàgina mestra %1</translation>
+    </message>
+</context>
+<context>
     <name>Cpalette</name>
     <message>
-        <location filename="../cpalette.cpp" line="833"/>
+        <location filename="../cpalette.cpp" line="834"/>
         <source>Shade:</source>
         <translation>Intensitat:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="817"/>
+        <location filename="../cpalette.cpp" line="818"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="834"/>
+        <location filename="../cpalette.cpp" line="835"/>
         <source>Opacity:</source>
         <translation>Opacitat:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="856"/>
+        <location filename="../cpalette.cpp" line="857"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="844"/>
+        <location filename="../cpalette.cpp" line="845"/>
         <source>Horizontal Gradient</source>
         <translation>Gradient Horitzontal</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="845"/>
+        <location filename="../cpalette.cpp" line="846"/>
         <source>Vertical Gradient</source>
         <translation>Gradient Vertical</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="846"/>
+        <location filename="../cpalette.cpp" line="847"/>
         <source>Diagonal Gradient</source>
         <translation>Gradient Diagonal</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="847"/>
+        <location filename="../cpalette.cpp" line="848"/>
         <source>Cross Diagonal Gradient</source>
         <translation>Gradient Diagonal en Creu</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="848"/>
+        <location filename="../cpalette.cpp" line="849"/>
         <source>Radial Gradient</source>
         <translation>Gradient Radial</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="849"/>
+        <location filename="../cpalette.cpp" line="850"/>
         <source>Free linear Gradient</source>
         <translation>Gradient linear lliure</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="850"/>
+        <location filename="../cpalette.cpp" line="851"/>
         <source>Free radial Gradient</source>
         <translation>Gradient radial lliure</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="835"/>
+        <location filename="../cpalette.cpp" line="836"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="836"/>
+        <location filename="../cpalette.cpp" line="837"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="812"/>
+        <location filename="../cpalette.cpp" line="813"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="837"/>
+        <location filename="../cpalette.cpp" line="838"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="838"/>
+        <location filename="../cpalette.cpp" line="839"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="873"/>
+        <location filename="../cpalette.cpp" line="874"/>
         <source>Edit Line Color Properties</source>
         <translation>Edita propietats de Color de la Línia</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="874"/>
+        <location filename="../cpalette.cpp" line="875"/>
         <source>Edit Fill Color Properties</source>
         <translation>Edita propietats de color d&apos;Emplenat</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="875"/>
+        <location filename="../cpalette.cpp" line="876"/>
         <source>Saturation of color</source>
         <translation>Intensitat del color</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="876"/>
+        <location filename="../cpalette.cpp" line="877"/>
         <source>Normal or gradient fill method</source>
         <translation>Emplenat Normal o gradient</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="877"/>
+        <location filename="../cpalette.cpp" line="878"/>
         <source>Set the transparency for the color selected</source>
         <translation>Estableix transparència pel color seleccionat</translation>
     </message>
@@ -10011,62 +10193,62 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="839"/>
+        <location filename="../cpalette.cpp" line="840"/>
         <source>Move Vector</source>
         <translation>Mou vector</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="878"/>
+        <location filename="../cpalette.cpp" line="879"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>Mou el principi del vector gradient amb el botó esquerra del ratolí premut i el final amb el botó dret del ratolí</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="853"/>
+        <location filename="../cpalette.cpp" line="854"/>
         <source>Transparency Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="854"/>
+        <location filename="../cpalette.cpp" line="855"/>
         <source>Blend Mode:</source>
         <translation type="unfinished">Mode mescla:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="857"/>
+        <location filename="../cpalette.cpp" line="858"/>
         <source>Darken</source>
         <translation type="unfinished">Fosc</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="858"/>
+        <location filename="../cpalette.cpp" line="859"/>
         <source>Lighten</source>
         <translation type="unfinished">Clar</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="859"/>
+        <location filename="../cpalette.cpp" line="860"/>
         <source>Multiply</source>
         <translation type="unfinished">Multiplica</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="860"/>
+        <location filename="../cpalette.cpp" line="861"/>
         <source>Screen</source>
         <translation type="unfinished">Pantalla</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="861"/>
+        <location filename="../cpalette.cpp" line="862"/>
         <source>Overlay</source>
         <translation type="unfinished">Sobreposició</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="862"/>
+        <location filename="../cpalette.cpp" line="863"/>
         <source>Hard Light</source>
         <translation type="unfinished">Llum forta</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="863"/>
+        <location filename="../cpalette.cpp" line="864"/>
         <source>Soft Light</source>
         <translation type="unfinished">Llum suau</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="864"/>
+        <location filename="../cpalette.cpp" line="865"/>
         <source>Difference</source>
         <translation type="unfinished">Diferència</translation>
     </message>
@@ -10076,82 +10258,82 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">Exclusió</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="866"/>
+        <location filename="../cpalette.cpp" line="867"/>
         <source>Color Dodge</source>
         <translation type="unfinished">Color esvaït</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="867"/>
+        <location filename="../cpalette.cpp" line="868"/>
         <source>Color Burn</source>
         <translation type="unfinished">Crema</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="868"/>
+        <location filename="../cpalette.cpp" line="869"/>
         <source>Hue</source>
         <translation type="unfinished">To</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="869"/>
+        <location filename="../cpalette.cpp" line="870"/>
         <source>Saturation</source>
         <translation type="unfinished">Saturació</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="870"/>
+        <location filename="../cpalette.cpp" line="871"/>
         <source>Color</source>
         <translation type="unfinished">Color</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="871"/>
+        <location filename="../cpalette.cpp" line="872"/>
         <source>Luminosity</source>
         <translation type="unfinished">Lluminositat</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="820"/>
+        <location filename="../cpalette.cpp" line="821"/>
         <source>Offsets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="821"/>
+        <location filename="../cpalette.cpp" line="822"/>
         <source>X:</source>
         <translation type="unfinished">X:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="823"/>
+        <location filename="../cpalette.cpp" line="824"/>
         <source>Y:</source>
         <translation type="unfinished">Y:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="825"/>
+        <location filename="../cpalette.cpp" line="826"/>
         <source>Scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="830"/>
+        <location filename="../cpalette.cpp" line="831"/>
         <source>Rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="831"/>
+        <location filename="../cpalette.cpp" line="832"/>
         <source>Angle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="851"/>
+        <location filename="../cpalette.cpp" line="852"/>
         <source>Pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="865"/>
+        <location filename="../cpalette.cpp" line="866"/>
         <source>Exclusion</source>
         <translation type="unfinished">Exclusió</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="826"/>
+        <location filename="../cpalette.cpp" line="827"/>
         <source>X-Scale:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="828"/>
+        <location filename="../cpalette.cpp" line="829"/>
         <source>Y-Scale:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10159,142 +10341,142 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CreateRange</name>
     <message>
-        <location filename="../createrange.ui" line="13"/>
+        <location filename="../ui/createrange.ui" line="13"/>
         <source>Create Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="33"/>
+        <location filename="../ui/createrange.ui" line="54"/>
         <source>Number of Pages in Document:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="43"/>
+        <location filename="../ui/createrange.ui" line="64"/>
         <source>Doc Page Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="91"/>
+        <location filename="../ui/createrange.ui" line="112"/>
         <source>Basic Range Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="103"/>
+        <location filename="../ui/createrange.ui" line="136"/>
         <source>Range of Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="115"/>
+        <location filename="../ui/createrange.ui" line="160"/>
         <source>De&amp;lete</source>
         <translation type="unfinished">&amp;Esborra</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="118"/>
+        <location filename="../ui/createrange.ui" line="163"/>
         <source>Alt+L</source>
         <translation type="unfinished">Alt+L</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="141"/>
+        <location filename="../ui/createrange.ui" line="186"/>
         <source>Move &amp;Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="144"/>
+        <location filename="../ui/createrange.ui" line="189"/>
         <source>Alt+D</source>
         <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="151"/>
+        <location filename="../ui/createrange.ui" line="196"/>
         <source>Move &amp;Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="154"/>
+        <location filename="../ui/createrange.ui" line="199"/>
         <source>Alt+U</source>
         <translation type="unfinished">Alt+U</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="173"/>
+        <location filename="../ui/createrange.ui" line="218"/>
         <source>Add a Range of Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="185"/>
+        <location filename="../ui/createrange.ui" line="242"/>
         <source>Consecutive Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="195"/>
+        <location filename="../ui/createrange.ui" line="252"/>
         <source>Even Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="202"/>
+        <location filename="../ui/createrange.ui" line="259"/>
         <source>From:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="234"/>
+        <location filename="../ui/createrange.ui" line="291"/>
         <source>To:</source>
         <translation type="unfinished">A:</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="268"/>
+        <location filename="../ui/createrange.ui" line="334"/>
         <source>&amp;Add To Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="271"/>
+        <location filename="../ui/createrange.ui" line="337"/>
         <source>Alt+A</source>
         <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="296"/>
+        <location filename="../ui/createrange.ui" line="362"/>
         <source>Odd Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="306"/>
+        <location filename="../ui/createrange.ui" line="372"/>
         <source>Comma Separated List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="317"/>
+        <location filename="../ui/createrange.ui" line="383"/>
         <source>Advanced Reordering</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="361"/>
+        <location filename="../ui/createrange.ui" line="439"/>
         <source>Page Order</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="371"/>
+        <location filename="../ui/createrange.ui" line="449"/>
         <source>Sample Page Order:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="400"/>
+        <location filename="../ui/createrange.ui" line="478"/>
         <source>Page Group Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="438"/>
+        <location filename="../ui/createrange.ui" line="525"/>
         <source>&amp;OK</source>
         <translation type="unfinished">D&apos;ac&amp;ord</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="441"/>
+        <location filename="../ui/createrange.ui" line="528"/>
         <source>Alt+O</source>
         <translation type="unfinished">Alt+O</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="448"/>
+        <location filename="../ui/createrange.ui" line="535"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="451"/>
+        <location filename="../ui/createrange.ui" line="538"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
@@ -10510,49 +10692,49 @@ Si alguna llibreria no hi és hi ha un *</translation>
 <context>
     <name>CurveWidget</name>
     <message>
-        <location filename="../curvewidget.cpp" line="433"/>
+        <location filename="../curvewidget.cpp" line="411"/>
         <source>Open</source>
         <translation type="unfinished">Obre</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="468"/>
+        <location filename="../curvewidget.cpp" line="446"/>
         <source>Curve Files (*.scu);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="468"/>
+        <location filename="../curvewidget.cpp" line="446"/>
         <source>Save as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="502"/>
+        <location filename="../curvewidget.cpp" line="480"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="unfinished">No es pot escriure el fitxer:
 %1</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="522"/>
+        <location filename="../curvewidget.cpp" line="500"/>
         <source>Inverts the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="523"/>
+        <location filename="../curvewidget.cpp" line="501"/>
         <source>Resets the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="524"/>
+        <location filename="../curvewidget.cpp" line="502"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="525"/>
+        <location filename="../curvewidget.cpp" line="503"/>
         <source>Loads a curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="526"/>
+        <location filename="../curvewidget.cpp" line="504"/>
         <source>Saves this curve</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10560,17 +10742,17 @@ Si alguna llibreria no hi és hi ha un *</translation>
 <context>
     <name>CustomFDialog</name>
     <message>
-        <location filename="../customfdialog.cpp" line="333"/>
+        <location filename="../customfdialog.cpp" line="323"/>
         <source>&amp;Compress File</source>
         <translation>&amp;Comprimeix Fitxer</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="312"/>
+        <location filename="../customfdialog.cpp" line="302"/>
         <source>&amp;Include Fonts</source>
         <translation>&amp;Inclou Fonts</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="353"/>
+        <location filename="../customfdialog.cpp" line="343"/>
         <source>Encoding:</source>
         <translation>Codificant:</translation>
     </message>
@@ -10582,13 +10764,13 @@ This can be set in the Preferences.</source>
 Això es pot posar en les Preferències.</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="314"/>
-        <source>&amp;Include ICC Profiles</source>
+        <location filename="../customfdialog.cpp" line="274"/>
+        <source>Show Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="284"/>
-        <source>Show Preview</source>
+        <location filename="../customfdialog.cpp" line="304"/>
+        <source>&amp;Include Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10683,7 +10865,7 @@ Això es pot posar en les Preferències.</translation>
 <context>
     <name>DeferredTask</name>
     <message>
-        <location filename="../deferredtask.cpp" line="82"/>
+        <location filename="../deferredtask.cpp" line="83"/>
         <source>Cancelled by user</source>
         <translation>Cancel.lat per l&apos;usuari</translation>
     </message>
@@ -10691,7 +10873,7 @@ Això es pot posar en les Preferències.</translation>
 <context>
     <name>DelColor</name>
     <message>
-        <location filename="../dcolor.cpp" line="30"/>
+        <location filename="../dcolor.cpp" line="28"/>
         <source>Delete Color</source>
         <translation>Esborra Color</translation>
     </message>
@@ -10736,12 +10918,12 @@ Això es pot posar en les Preferències.</translation>
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../dcolor.cpp" line="38"/>
+        <location filename="../dcolor.cpp" line="36"/>
         <source>Delete Color:</source>
         <translation>Esborra color:</translation>
     </message>
     <message>
-        <location filename="../dcolor.cpp" line="47"/>
+        <location filename="../dcolor.cpp" line="45"/>
         <source>Replace With:</source>
         <translation>Canvia&apos;l per:</translation>
     </message>
@@ -10749,7 +10931,7 @@ Això es pot posar en les Preferències.</translation>
 <context>
     <name>DelPages</name>
     <message>
-        <location filename="../delpages.cpp" line="18"/>
+        <location filename="../delpages.cpp" line="17"/>
         <source>Delete Pages</source>
         <translation>Esborra Pàgines</translation>
     </message>
@@ -10759,7 +10941,7 @@ Això es pot posar en les Preferències.</translation>
         <translation type="obsolete">Esborra des de:</translation>
     </message>
     <message>
-        <location filename="../delpages.cpp" line="33"/>
+        <location filename="../delpages.cpp" line="34"/>
         <source>to:</source>
         <translation>a:</translation>
     </message>
@@ -10774,7 +10956,7 @@ Això es pot posar en les Preferències.</translation>
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../delpages.cpp" line="27"/>
+        <location filename="../delpages.cpp" line="26"/>
         <source>Delete From:</source>
         <translation>Esborra des de:</translation>
     </message>
@@ -10848,12 +11030,12 @@ Això es pot posar en les Preferències.</translation>
 <context>
     <name>DocInfos</name>
     <message>
-        <location filename="../docinfo.cpp" line="31"/>
+        <location filename="../docinfo.cpp" line="30"/>
         <source>Document Information</source>
         <translation>Informació del Document</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="40"/>
+        <location filename="../docinfo.cpp" line="39"/>
         <source>&amp;Title:</source>
         <translation>&amp;Títol:</translation>
     </message>
@@ -10863,67 +11045,67 @@ Això es pot posar en les Preferències.</translation>
         <translation>&amp;Autor:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="52"/>
+        <location filename="../docinfo.cpp" line="53"/>
         <source>&amp;Keywords:</source>
         <translation>&amp;Paraules clau:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="59"/>
+        <location filename="../docinfo.cpp" line="61"/>
         <source>Descri&amp;ption:</source>
         <translation>Descri&amp;pció:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="71"/>
+        <location filename="../docinfo.cpp" line="74"/>
         <source>P&amp;ublisher:</source>
         <translation>Edi&amp;tor:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="77"/>
+        <location filename="../docinfo.cpp" line="81"/>
         <source>&amp;Contributors:</source>
         <translation>&amp;Col·laboradors:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="84"/>
+        <location filename="../docinfo.cpp" line="89"/>
         <source>Dat&amp;e:</source>
         <translation>Da&amp;ta:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="90"/>
+        <location filename="../docinfo.cpp" line="96"/>
         <source>T&amp;ype:</source>
         <translation>T&amp;ipus:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="96"/>
+        <location filename="../docinfo.cpp" line="103"/>
         <source>F&amp;ormat:</source>
         <translation>F&amp;ormat:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="102"/>
+        <location filename="../docinfo.cpp" line="110"/>
         <source>Identi&amp;fier:</source>
         <translation>Identi&amp;ficador:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="108"/>
+        <location filename="../docinfo.cpp" line="117"/>
         <source>&amp;Source:</source>
         <translation>&amp;Font:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="114"/>
+        <location filename="../docinfo.cpp" line="124"/>
         <source>&amp;Language:</source>
         <translation>&amp;Idioma:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="120"/>
+        <location filename="../docinfo.cpp" line="131"/>
         <source>&amp;Relation:</source>
         <translation>&amp;Relació:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="126"/>
+        <location filename="../docinfo.cpp" line="138"/>
         <source>Co&amp;verage:</source>
         <translation>Co&amp;bertura:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="132"/>
+        <location filename="../docinfo.cpp" line="145"/>
         <source>Ri&amp;ghts:</source>
         <translation>Dr&amp;ets:</translation>
     </message>
@@ -10933,7 +11115,7 @@ Això es pot posar en les Preferències.</translation>
         <translation type="obsolete">&amp;Document</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="139"/>
+        <location filename="../docinfo.cpp" line="153"/>
         <source>Further &amp;Information</source>
         <translation>&amp;Informació Posterior</translation>
     </message>
@@ -10966,22 +11148,22 @@ This field is for document keywords you wish to embed in a PDF, to assist search
 Aquest camp que s&apos;encabirà en el PDF resultat és per ajudar les recerques i la classificació dels PDF</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="149"/>
+        <location filename="../docinfo.cpp" line="163"/>
         <source>A person or organisation responsible for making the document available</source>
         <translation>Una persona o organització responsable de fer el document disponible</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="150"/>
+        <location filename="../docinfo.cpp" line="164"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
         <translation>Una persona o organització responsable de fer contribucions al contingut del document</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="151"/>
+        <location filename="../docinfo.cpp" line="165"/>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
         <translation>Una data associada amb un event del cicle de vida del document, format AAAA-MM-DD, segons ISO 8601</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="152"/>
+        <location filename="../docinfo.cpp" line="166"/>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
         <translation>El gènere del contingut del document, ex. categories, funcions, gèneres, etc</translation>
     </message>
@@ -10993,12 +11175,12 @@ RFC2045,RFC2046 for MIME types are also useful here</source>
 També és útil posar aquí el RFC2045, RFC2046 per tipus MIME</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="154"/>
+        <location filename="../docinfo.cpp" line="168"/>
         <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
         <translation>Una forma de referir-se al document de forma única, pot ser un ISBN o un URI</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="155"/>
+        <location filename="../docinfo.cpp" line="169"/>
         <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
         <translation>Una referència al document des del que derivem el document actual, ex. ISBN o URI</translation>
     </message>
@@ -11010,17 +11192,17 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
 opcionalment amb el sufixe de país de ISO-3166, ex. en-GB, fr-CH</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="157"/>
+        <location filename="../docinfo.cpp" line="171"/>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
         <translation>Una referència a un document semblant, si és possible donant el seu ISBN o URI</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="158"/>
+        <location filename="../docinfo.cpp" line="172"/>
         <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
         <translation>L&apos;abast d&apos;aquest document , incloent lloc, data i rangs de jurisdicció</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="159"/>
+        <location filename="../docinfo.cpp" line="173"/>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
         <translation>Informació sobre els drets que es mantenen sobre el document, ex.copyright, patents o marques</translation>
     </message>
@@ -11035,37 +11217,37 @@ opcionalment amb el sufixe de país de ISO-3166, ex. en-GB, fr-CH</translation>
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="138"/>
+        <location filename="../docinfo.cpp" line="152"/>
         <source>Documen&amp;t</source>
         <translation>Documen&amp;t</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="145"/>
+        <location filename="../docinfo.cpp" line="159"/>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation>La persona o organització responsable del contingut del document. Aquest camp es pot emplenar en el document Scribus com a referència, així com a metadades del PDF</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="146"/>
+        <location filename="../docinfo.cpp" line="160"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation>Un nom que identifica el document. Aquest camp es pot emplenar en el document Scribus com a referència, així com a metadades del PDF</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="147"/>
+        <location filename="../docinfo.cpp" line="161"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
         <translation>Resum del contingut del document. Aquest camp es per donar una breu descripció del document. S&apos;inclourà al PDF al exportar</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="148"/>
+        <location filename="../docinfo.cpp" line="162"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
         <translation>El tema del contingut del document. Aquest camp es fa servir per paraules clau que es volen insertar al PDF per ajudar a les recerques i l&apos;indexat</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="153"/>
+        <location filename="../docinfo.cpp" line="167"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
         <translation>La manifestació física o digital del document. El suport i les seves dimensions.També és útil posar aquí el RFC2045, RFC2046 pel tipus MIME</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="156"/>
+        <location filename="../docinfo.cpp" line="170"/>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>L&apos;idioma en que el contingut del document està escrit, normalment un codi ISO-639 que pot venir seguit per un guió i per un codi de país ISO-3166, ex. en-GB, fr-CH</translation>
     </message>
@@ -11473,37 +11655,37 @@ opcionalment amb el sufixe de país de ISO-3166, ex. en-GB, fr-CH</translation>
 <context>
     <name>Druck</name>
     <message>
-        <location filename="../druck.cpp" line="66"/>
+        <location filename="../druck.cpp" line="67"/>
         <source>Setup Printer</source>
         <translation>Configuració Impressora</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="73"/>
+        <location filename="../druck.cpp" line="74"/>
         <source>Print Destination</source>
         <translation>Destí d&apos;Impressió</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="796"/>
+        <location filename="../druck.cpp" line="797"/>
         <source>File</source>
         <translation>Fitxer</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="114"/>
+        <location filename="../druck.cpp" line="115"/>
         <source>&amp;Options...</source>
         <translation>&amp;Opcions...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="126"/>
+        <location filename="../druck.cpp" line="127"/>
         <source>&amp;File:</source>
         <translation>&amp;Fitxer:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="131"/>
+        <location filename="../druck.cpp" line="133"/>
         <source>C&amp;hange...</source>
         <translation>C&amp;anvi...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="138"/>
+        <location filename="../druck.cpp" line="140"/>
         <source>A&amp;lternative Printer Command</source>
         <translation>Comanda A&amp;lternativa d&apos;Impressió</translation>
     </message>
@@ -11515,32 +11697,32 @@ to utilize additional printing options</source>
 per fer servir opcions addicionals</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="147"/>
+        <location filename="../druck.cpp" line="149"/>
         <source>Co&amp;mmand:</source>
         <translation>Co&amp;manda:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="154"/>
+        <location filename="../druck.cpp" line="157"/>
         <source>Range</source>
         <translation>Rang</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="159"/>
+        <location filename="../druck.cpp" line="162"/>
         <source>Print &amp;All</source>
         <translation>Imprimeix &amp;Tot</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="633"/>
+        <location filename="../druck.cpp" line="634"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Imprimeix Pà&amp;gina Actual</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="163"/>
+        <location filename="../druck.cpp" line="166"/>
         <source>Print &amp;Range</source>
         <translation>Imprimeix &amp;Rang</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="376"/>
+        <location filename="../druck.cpp" line="380"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -11550,12 +11732,12 @@ un rang de pàgines o un número sol.
 </translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="183"/>
+        <location filename="../druck.cpp" line="186"/>
         <source>N&amp;umber of Copies:</source>
         <translation>N&amp;úmero de Còpies:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="222"/>
+        <location filename="../druck.cpp" line="226"/>
         <source>Options</source>
         <translation>Opcions</translation>
     </message>
@@ -11570,27 +11752,27 @@ un rang de pàgines o un número sol.
         <translation type="obsolete">Imprimeix &amp;Separacions</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="821"/>
+        <location filename="../druck.cpp" line="822"/>
         <source>All</source>
         <translation>Tot</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="820"/>
+        <location filename="../druck.cpp" line="821"/>
         <source>Cyan</source>
         <translation>Cian</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="819"/>
+        <location filename="../druck.cpp" line="820"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="818"/>
+        <location filename="../druck.cpp" line="819"/>
         <source>Yellow</source>
         <translation>Groc</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="817"/>
+        <location filename="../druck.cpp" line="818"/>
         <source>Black</source>
         <translation>Negre</translation>
     </message>
@@ -11610,7 +11792,7 @@ un rang de pàgines o un número sol.
         <translation type="obsolete">Opcions A&amp;vançades...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="349"/>
+        <location filename="../druck.cpp" line="353"/>
         <source>&amp;Print</source>
         <translation>&amp;Imprimir</translation>
     </message>
@@ -11620,7 +11802,7 @@ un rang de pàgines o un número sol.
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="619"/>
+        <location filename="../druck.cpp" line="620"/>
         <source>Save as</source>
         <translation>Anomena i desa</translation>
     </message>
@@ -11630,92 +11812,92 @@ un rang de pàgines o un número sol.
         <translation type="obsolete">Fitxers Postscript (*.ps);;Tots els fitxers(*)</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="581"/>
+        <location filename="../druck.cpp" line="582"/>
         <source>Print Normal</source>
         <translation>Impressió normal</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="195"/>
+        <location filename="../druck.cpp" line="199"/>
         <source>Print Separations</source>
         <translation>Imprimeix separacions</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="199"/>
+        <location filename="../druck.cpp" line="203"/>
         <source>Print in Color if Available</source>
         <translation>Imprimeix en color si és possible</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="200"/>
+        <location filename="../druck.cpp" line="204"/>
         <source>Print in Grayscale</source>
         <translation>Imprimeix en escala de grisos</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="217"/>
+        <location filename="../druck.cpp" line="221"/>
         <source>PostScript Level 1</source>
         <translation>PostScript Nivell 1</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="218"/>
+        <location filename="../druck.cpp" line="222"/>
         <source>PostScript Level 2</source>
         <translation>PostScript Nivell 2</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="219"/>
+        <location filename="../druck.cpp" line="223"/>
         <source>PostScript Level 3</source>
         <translation>PostScript Nivell 3</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="228"/>
+        <location filename="../druck.cpp" line="232"/>
         <source>Page</source>
         <translation>Pàgina</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="234"/>
+        <location filename="../druck.cpp" line="238"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Enmiralla la pàgina(es) horitzontalment</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="237"/>
+        <location filename="../druck.cpp" line="241"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Enmiralla la pàgina(es) verticalment</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="240"/>
+        <location filename="../druck.cpp" line="244"/>
         <source>Set Media Size</source>
         <translation>Estableix mida del suport</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="246"/>
+        <location filename="../druck.cpp" line="250"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="252"/>
+        <location filename="../druck.cpp" line="256"/>
         <source>Apply Under Color Removal</source>
         <translation>Eliminació de color subjacent</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="255"/>
+        <location filename="../druck.cpp" line="259"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Converteix colors Spot a colors Process</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="263"/>
         <source>Apply ICC Profiles</source>
-        <translation>Aplica perfils ICC</translation>
+        <translation type="obsolete">Aplica perfils ICC</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="267"/>
+        <location filename="../druck.cpp" line="271"/>
         <source>Advanced Options</source>
         <translation>Opcions Avançades</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="344"/>
+        <location filename="../druck.cpp" line="348"/>
         <source>Preview...</source>
         <translation>Visualització Previa...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="378"/>
+        <location filename="../druck.cpp" line="382"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Estableix el nivell de PostScript.
@@ -11737,37 +11919,37 @@ però cal algunes proves i experimentació per cada cas
 UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="619"/>
+        <location filename="../druck.cpp" line="620"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Fitxers PostScript (*.ps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="377"/>
+        <location filename="../druck.cpp" line="381"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation>Fes servir un gestor d&apos;impressió alternatiu, com kprinter o gtklp, per fer servir opcions addicionals</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="379"/>
+        <location filename="../druck.cpp" line="383"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Una forma d&apos;apagar alguna de les ombres grises que estan composades per cian, groc i magenta però fan servir negre. UCR afecta també a parts de les imatges que són neutrals i/o en tons foscos semblants a gris. Fer servi això pot millorar la impressió en algunes imatges però cal fer proves cas per cas. UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="380"/>
+        <location filename="../druck.cpp" line="384"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Activa els colors Spot per ser convertits a colors compostos. A menys que tinguis previst imprimir colors spot en impressió comercial, el millor és deixar-ho activat.</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="383"/>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation>Permet fer servir perfils ICC en la impressió si està activada la gestió de color</translation>
+        <translation type="obsolete">Permet fer servir perfils ICC en la impressió si està activada la gestió de color</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="384"/>
+        <location filename="../druck.cpp" line="388"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>Això permmet especificar la mida de full del fitxer PostScript. No es recomana si no ho demana l&apos;impressor.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="242"/>
+        <location filename="../druck.cpp" line="246"/>
         <source>Clip to Page Margins</source>
         <translation>Unir als marges de pàgina</translation>
     </message>
@@ -11777,160 +11959,170 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">No mostrar els objectes que quedin fora dels marges a l&apos;imprimir o exportar</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="569"/>
+        <location filename="../druck.cpp" line="570"/>
         <source>Failed to retrieve printer settings</source>
         <translation>No s&apos;han pogut obtenir els paràmetres de la impressora</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="373"/>
+        <location filename="../druck.cpp" line="377"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>No es mostraran els objectes de fora dels marges d&apos;impressió</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="258"/>
+        <location filename="../druck.cpp" line="262"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="381"/>
+        <location filename="../druck.cpp" line="385"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="274"/>
+        <location filename="../druck.cpp" line="278"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="279"/>
+        <location filename="../druck.cpp" line="283"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="281"/>
+        <location filename="../druck.cpp" line="285"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="283"/>
+        <location filename="../druck.cpp" line="287"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="285"/>
+        <location filename="../druck.cpp" line="289"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="288"/>
+        <location filename="../druck.cpp" line="292"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="293"/>
+        <location filename="../druck.cpp" line="297"/>
         <source>Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="300"/>
+        <location filename="../druck.cpp" line="304"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="306"/>
+        <location filename="../druck.cpp" line="310"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="311"/>
+        <location filename="../druck.cpp" line="315"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="316"/>
+        <location filename="../druck.cpp" line="320"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="321"/>
+        <location filename="../druck.cpp" line="325"/>
         <source>Right:</source>
         <translation type="unfinished">Dret:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="325"/>
+        <location filename="../druck.cpp" line="329"/>
         <source>Use Document Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="329"/>
+        <location filename="../druck.cpp" line="333"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="332"/>
+        <location filename="../druck.cpp" line="336"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="333"/>
+        <location filename="../druck.cpp" line="337"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="390"/>
+        <location filename="../druck.cpp" line="394"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de dalt de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="391"/>
+        <location filename="../druck.cpp" line="395"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de baix de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="392"/>
+        <location filename="../druck.cpp" line="396"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de l&apos;esquerra de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="393"/>
+        <location filename="../druck.cpp" line="397"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de la dreta de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="385"/>
+        <location filename="../druck.cpp" line="389"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="386"/>
+        <location filename="../druck.cpp" line="390"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="387"/>
+        <location filename="../druck.cpp" line="391"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="388"/>
+        <location filename="../druck.cpp" line="392"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="389"/>
+        <location filename="../druck.cpp" line="393"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="394"/>
+        <location filename="../druck.cpp" line="398"/>
         <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../druck.cpp" line="267"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../druck.cpp" line="387"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="499"/>
+        <location filename="../plugins/psimport/importps.cpp" line="502"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -11939,7 +12131,7 @@ failed!</source>
 ha fallat!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="500"/>
+        <location filename="../plugins/psimport/importps.cpp" line="503"/>
         <source>Fatal Error</source>
         <translation>Error Fatal</translation>
     </message>
@@ -11953,7 +12145,7 @@ failed!</source>
 fallat!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="855"/>
+        <location filename="../plugins/psimport/importps.cpp" line="858"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -11963,27 +12155,27 @@ fallat!</translation>
         <translation type="obsolete">Important PostScript</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="73"/>
+        <location filename="../plugins/psimport/importps.cpp" line="74"/>
         <source>Analyzing PostScript:</source>
         <translation>Analitzant PostScript:</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="505"/>
+        <location filename="../plugins/psimport/importps.cpp" line="508"/>
         <source>Generating Items</source>
         <translation>Generant Ítems</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="854"/>
+        <location filename="../plugins/psimport/importps.cpp" line="857"/>
         <source>Converting of %1 images failed!</source>
         <translation>La conversió de %1 imatges ha fallat!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="725"/>
+        <location filename="../plugins/psimport/importps.cpp" line="728"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="70"/>
+        <location filename="../plugins/psimport/importps.cpp" line="71"/>
         <source>Importing: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12544,157 +12736,157 @@ es pot desar amb aquest formulari. L&apos;error és:
 <context>
     <name>EffectsDialog</name>
     <message>
-        <location filename="../effectsdialog.cpp" line="41"/>
+        <location filename="../effectsdialog.cpp" line="44"/>
         <source>Image Effects</source>
         <translation>Efectes d&apos;imatge</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="78"/>
+        <location filename="../effectsdialog.cpp" line="81"/>
         <source>Options:</source>
         <translation>Opcions:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="95"/>
+        <location filename="../effectsdialog.cpp" line="98"/>
         <source>Color:</source>
         <translation>Color:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="106"/>
+        <location filename="../effectsdialog.cpp" line="109"/>
         <source>Shade:</source>
         <translation>Intensitat:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="122"/>
+        <location filename="../effectsdialog.cpp" line="125"/>
         <source>Brightness:</source>
         <translation>Brillantor:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="144"/>
+        <location filename="../effectsdialog.cpp" line="147"/>
         <source>Contrast:</source>
         <translation>Contrast:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="195"/>
+        <location filename="../effectsdialog.cpp" line="198"/>
         <source>Radius:</source>
         <translation>Ràdi:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="177"/>
+        <location filename="../effectsdialog.cpp" line="180"/>
         <source>Value:</source>
         <translation>Valor:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="213"/>
+        <location filename="../effectsdialog.cpp" line="216"/>
         <source>Posterize:</source>
         <translation>Redueix la gamma de colors:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="497"/>
+        <location filename="../effectsdialog.cpp" line="500"/>
         <source>Available Effects</source>
         <translation>Efectes disponibles</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1383"/>
+        <location filename="../effectsdialog.cpp" line="1386"/>
         <source>Blur</source>
         <translation>Difumina</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1361"/>
+        <location filename="../effectsdialog.cpp" line="1364"/>
         <source>Brightness</source>
         <translation>Brillantor</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1352"/>
+        <location filename="../effectsdialog.cpp" line="1355"/>
         <source>Colorize</source>
         <translation>Acoloreix</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1367"/>
+        <location filename="../effectsdialog.cpp" line="1370"/>
         <source>Contrast</source>
         <translation>Contrast</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="970"/>
+        <location filename="../effectsdialog.cpp" line="973"/>
         <source>Grayscale</source>
         <translation>Escala de grisos</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="972"/>
+        <location filename="../effectsdialog.cpp" line="975"/>
         <source>Invert</source>
         <translation>Inversió del valor</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1396"/>
+        <location filename="../effectsdialog.cpp" line="1399"/>
         <source>Posterize</source>
         <translation>Redueix la gamma de colors</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1373"/>
+        <location filename="../effectsdialog.cpp" line="1376"/>
         <source>Sharpen</source>
         <translation>Afila</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="479"/>
+        <location filename="../effectsdialog.cpp" line="482"/>
         <source>&gt;&gt;</source>
         <translation>&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="483"/>
+        <location filename="../effectsdialog.cpp" line="486"/>
         <source>&lt;&lt;</source>
         <translation>&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="494"/>
+        <location filename="../effectsdialog.cpp" line="497"/>
         <source>Effects in use</source>
         <translation>Efectes en ús</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="608"/>
+        <location filename="../effectsdialog.cpp" line="611"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="612"/>
+        <location filename="../effectsdialog.cpp" line="615"/>
         <source>Cancel</source>
         <translation>Cancel.la</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="348"/>
+        <location filename="../effectsdialog.cpp" line="351"/>
         <source>Color 1:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="368"/>
+        <location filename="../effectsdialog.cpp" line="371"/>
         <source>Color 2:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="388"/>
+        <location filename="../effectsdialog.cpp" line="391"/>
         <source>Color 3:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="408"/>
+        <location filename="../effectsdialog.cpp" line="411"/>
         <source>Color 4:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1402"/>
+        <location filename="../effectsdialog.cpp" line="1405"/>
         <source>Duotone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1438"/>
+        <location filename="../effectsdialog.cpp" line="1441"/>
         <source>Tritone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1489"/>
+        <location filename="../effectsdialog.cpp" line="1492"/>
         <source>Quadtone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1555"/>
+        <location filename="../effectsdialog.cpp" line="1558"/>
         <source>Curves</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12720,7 +12912,7 @@ es pot desar amb aquest formulari. L&apos;error és:
 <context>
     <name>ExportForm</name>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="68"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="71"/>
         <source>Choose a Export Directory</source>
         <translation>Tria un Directori d&apos;Exportació</translation>
     </message>
@@ -12805,12 +12997,12 @@ es pot desar amb aquest formulari. L&apos;error és:
         <translation type="obsolete">C</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="105"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="108"/>
         <source>Export a range of pages</source>
         <translation>Exporta rang de pàgines</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="106"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="109"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -12820,41 +13012,41 @@ un rang de pàgines o un número sol.
 </translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="107"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="110"/>
         <source>Export all pages</source>
         <translation>Exporta totes les pàgines</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="108"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="111"/>
         <source>Export only the current page</source>
         <translation>Exporta pàgina actual</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="109"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="112"/>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
         <translation>Resolució de les imatges
 Fes servir 72 dpi per imatges per pantalla</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="111"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="114"/>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation>La qualitat de les imatges - 100% és la millor, 1% és la pitjor</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="112"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="115"/>
         <source>Available export formats</source>
         <translation>Formats disponibles per exportar</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="116"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>El directori de sortida - El lloc on guardar les imatges.
 El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="114"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="117"/>
         <source>Change the output directory</source>
         <translation>Canvia el directori de sortida</translation>
     </message>
@@ -12864,7 +13056,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation>&amp;Mida:</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="110"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>Mida de les imatges. 100% per no canviar, 200% per dues vegades més gros etc.</translation>
     </message>
@@ -12882,92 +13074,92 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 <context>
     <name>ExtImageProps</name>
     <message>
-        <location filename="../extimageprops.cpp" line="35"/>
+        <location filename="../extimageprops.cpp" line="37"/>
         <source>Extended Image Properties</source>
         <translation>Propietats exteses d&apos;imatge</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="95"/>
+        <location filename="../extimageprops.cpp" line="98"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="96"/>
+        <location filename="../extimageprops.cpp" line="99"/>
         <source>Darken</source>
         <translation>Fosc</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="97"/>
+        <location filename="../extimageprops.cpp" line="100"/>
         <source>Lighten</source>
         <translation>Clar</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="98"/>
+        <location filename="../extimageprops.cpp" line="101"/>
         <source>Hue</source>
         <translation>To</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="99"/>
+        <location filename="../extimageprops.cpp" line="102"/>
         <source>Saturation</source>
         <translation>Saturació</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="100"/>
+        <location filename="../extimageprops.cpp" line="103"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="101"/>
+        <location filename="../extimageprops.cpp" line="104"/>
         <source>Luminosity</source>
         <translation>Lluminositat</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="102"/>
+        <location filename="../extimageprops.cpp" line="105"/>
         <source>Multiply</source>
         <translation>Multiplica</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="103"/>
+        <location filename="../extimageprops.cpp" line="106"/>
         <source>Screen</source>
         <translation>Pantalla</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="104"/>
+        <location filename="../extimageprops.cpp" line="107"/>
         <source>Dissolve</source>
         <translation>Esvaeix</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="105"/>
+        <location filename="../extimageprops.cpp" line="108"/>
         <source>Overlay</source>
         <translation>Sobreposició</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="106"/>
+        <location filename="../extimageprops.cpp" line="109"/>
         <source>Hard Light</source>
         <translation>Llum forta</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="107"/>
+        <location filename="../extimageprops.cpp" line="110"/>
         <source>Soft Light</source>
         <translation>Llum suau</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="108"/>
+        <location filename="../extimageprops.cpp" line="111"/>
         <source>Difference</source>
         <translation>Diferència</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="109"/>
+        <location filename="../extimageprops.cpp" line="112"/>
         <source>Exclusion</source>
         <translation>Exclusió</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="110"/>
+        <location filename="../extimageprops.cpp" line="113"/>
         <source>Color Dodge</source>
         <translation>Color esvaït</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="111"/>
+        <location filename="../extimageprops.cpp" line="114"/>
         <source>Color Burn</source>
         <translation>Crema</translation>
     </message>
@@ -12977,22 +13169,22 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Exclusió</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="91"/>
+        <location filename="../extimageprops.cpp" line="94"/>
         <source>Blend Mode:</source>
         <translation>Mode mescla:</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="114"/>
+        <location filename="../extimageprops.cpp" line="117"/>
         <source>Opacity:</source>
         <translation>Opacitat:</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="120"/>
+        <location filename="../extimageprops.cpp" line="123"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="126"/>
+        <location filename="../extimageprops.cpp" line="129"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
@@ -13002,17 +13194,17 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Segon Pla</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="207"/>
+        <location filename="../extimageprops.cpp" line="210"/>
         <source>Layers</source>
         <translation>Capes</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="260"/>
+        <location filename="../extimageprops.cpp" line="263"/>
         <source>Don&apos;t use any Path</source>
         <translation>No fer servir cap camí</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="262"/>
+        <location filename="../extimageprops.cpp" line="265"/>
         <source>Paths</source>
         <translation>Camins</translation>
     </message>
@@ -13020,42 +13212,42 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 <context>
     <name>FDialogPreview</name>
     <message>
-        <location filename="../customfdialog.cpp" line="192"/>
+        <location filename="../customfdialog.cpp" line="196"/>
         <source>Size:</source>
         <translation>Mida:</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="219"/>
+        <location filename="../customfdialog.cpp" line="223"/>
         <source>Title:</source>
         <translation>Títol:</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="222"/>
+        <location filename="../customfdialog.cpp" line="226"/>
         <source>No Title</source>
         <translation>No té Títol</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="224"/>
+        <location filename="../customfdialog.cpp" line="228"/>
         <source>Author:</source>
         <translation>Autor:</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="227"/>
+        <location filename="../customfdialog.cpp" line="231"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="229"/>
+        <location filename="../customfdialog.cpp" line="233"/>
         <source>Scribus Document</source>
         <translation>Document Scribus</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="193"/>
+        <location filename="../customfdialog.cpp" line="197"/>
         <source>Resolution:</source>
         <translation>Resolució:</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="193"/>
+        <location filename="../customfdialog.cpp" line="197"/>
         <source>DPI</source>
         <translation>DPI</translation>
     </message>
@@ -13075,7 +13267,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Escala de grisos</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="199"/>
+        <location filename="../customfdialog.cpp" line="203"/>
         <source>Colorspace:</source>
         <translation>Espai de color:</translation>
     </message>
@@ -13254,12 +13446,12 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 <context>
     <name>FontComboH</name>
     <message>
-        <location filename="../fontcombo.cpp" line="136"/>
+        <location filename="../fontcombo.cpp" line="137"/>
         <source>Face:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontcombo.cpp" line="137"/>
+        <location filename="../fontcombo.cpp" line="138"/>
         <source>Style:</source>
         <translation type="unfinished">Estil:</translation>
     </message>
@@ -13272,17 +13464,17 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Paràmetres Globals de Fonts</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="47"/>
+        <location filename="../fontprefs.cpp" line="46"/>
         <source>Available Fonts</source>
         <translation>Fonts Disponibles</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="47"/>
+        <location filename="../fontprefs.cpp" line="46"/>
         <source>Font Substitutions</source>
         <translation>Substitució de Fonts</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="47"/>
+        <location filename="../fontprefs.cpp" line="46"/>
         <source>Additional Paths</source>
         <translation>Camins Addicionals</translation>
     </message>
@@ -13297,12 +13489,12 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Si</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="88"/>
+        <location filename="../fontprefs.cpp" line="87"/>
         <source>Font Name</source>
         <translation>Nom de Font</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="58"/>
+        <location filename="../fontprefs.cpp" line="57"/>
         <source>Use Font</source>
         <translation type="unfinished">Usar Font</translation>
     </message>
@@ -13312,7 +13504,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Incloure A:</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="60"/>
+        <location filename="../fontprefs.cpp" line="59"/>
         <source>Subset</source>
         <translation type="unfinished">Subconjunt</translation>
     </message>
@@ -13322,47 +13514,47 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Tipus</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="61"/>
+        <location filename="../fontprefs.cpp" line="60"/>
         <source>Path to Font File</source>
         <translation type="unfinished">Camí a la Font</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="80"/>
+        <location filename="../fontprefs.cpp" line="79"/>
         <source>&amp;Available Fonts</source>
         <translation>Fonts &amp;Disponibles</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="89"/>
+        <location filename="../fontprefs.cpp" line="88"/>
         <source>Replacement</source>
         <translation>Substituta</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="104"/>
+        <location filename="../fontprefs.cpp" line="103"/>
         <source>&amp;Delete</source>
         <translation>&amp;Esborra</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="110"/>
+        <location filename="../fontprefs.cpp" line="109"/>
         <source>Font &amp;Substitutions</source>
         <translation>&amp;Substitució de Fonts</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="129"/>
+        <location filename="../fontprefs.cpp" line="128"/>
         <source>C&amp;hange...</source>
         <translation>C&amp;anvi...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="131"/>
+        <location filename="../fontprefs.cpp" line="130"/>
         <source>A&amp;dd...</source>
         <translation>A&amp;fegir...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="133"/>
+        <location filename="../fontprefs.cpp" line="132"/>
         <source>&amp;Remove</source>
         <translation>&amp;Esborra</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="157"/>
+        <location filename="../fontprefs.cpp" line="156"/>
         <source>Additional &amp;Paths</source>
         <translation>Ca&amp;mins Addicionals</translation>
     </message>
@@ -13377,7 +13569,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="300"/>
+        <location filename="../fontprefs.cpp" line="299"/>
         <source>Choose a Directory</source>
         <translation>Tria un Directori</translation>
     </message>
@@ -13427,12 +13619,12 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Els camins de localització de les fonts només es poden posar a Preferències quan no hi ha cap document obert. Tanca els documents, i fes servir Edició &gt; Paràmetres per canviar-los.</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="152"/>
+        <location filename="../fontprefs.cpp" line="151"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="59"/>
+        <location filename="../fontprefs.cpp" line="58"/>
         <source>Embed in PostScript</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13460,7 +13652,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="222"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
@@ -13552,10 +13744,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation>Afegir font seleccionada a l&apos;Estil, Menu Font</translation>
+        <translation type="obsolete">Afegir font seleccionada a l&apos;Estil, Menu Font</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Sortir de vista prèvia</translation>
@@ -13566,29 +13758,29 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Escriure el text aquí permet fer una recerca ràpida en els noms de font. ex. &apos;bold&apos; mostra totes les fons que tenen bold al nom. La recerca no depèn de majúscules o minúscules.</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
         <source>Start searching</source>
         <translation>Començar a buscar</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="168"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
         <source>Size of the selected font</source>
         <translation>Mida de la font seleccionada</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="106"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation>Que poca xefla farem amb un whisky jove i dotze glaçons</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="92"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="97"/>
         <source>User</source>
         <comment>font preview</comment>
         <translation>Usuari</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="93"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="98"/>
         <source>System</source>
         <comment>font preview</comment>
         <translation>Sistema</translation>
@@ -13596,7 +13788,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
         <source>&amp;Append</source>
-        <translation type="unfinished">&amp;Afegeix</translation>
+        <translation type="obsolete">&amp;Afegeix</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -13604,32 +13796,32 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Una mostra es veurà quan es deixi la tecla</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
         <translation>Escriure el text aquí fa una recerca en els noms de font. La recerca és independent de les majúscules. Pots posar comodins (*, ?, [...]) en la frase. Exemples: t* llistarà les que comencin per t o per T. *bold* llistarà les fonts en negreta, etc..</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
         <source>Font Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
         <source>Doc</source>
         <translation type="unfinished">Doc</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Type</source>
         <translation type="unfinished">Tipus</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
         <source>Subset</source>
         <translation type="unfinished">Subconjunt</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="47"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Access</source>
         <translation type="unfinished">Accés</translation>
     </message>
@@ -13676,10 +13868,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="219"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
         <source>&amp;Close</source>
         <translation type="unfinished">&amp;Tanca</translation>
     </message>
@@ -13803,42 +13995,42 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 <context>
     <name>FontReplaceDialog</name>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="29"/>
+        <location filename="../fontreplacedialog.cpp" line="30"/>
         <source>Font Substitution</source>
         <translation>Substitució de fonts</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="44"/>
+        <location filename="../fontreplacedialog.cpp" line="45"/>
         <source>Original Font</source>
         <translation>Font original</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="45"/>
+        <location filename="../fontreplacedialog.cpp" line="46"/>
         <source>Substitution Font</source>
         <translation>Font substituta</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="71"/>
+        <location filename="../fontreplacedialog.cpp" line="72"/>
         <source>Make these substitutions permanent</source>
         <translation>Fer aquestes substitucions permanents</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="39"/>
+        <location filename="../fontreplacedialog.cpp" line="40"/>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
         <translation>Aquest document conté algunes fonts que no estan instal·lades al sistema, tria una font substituta per cada una d&apos;elles. Cancel·lar aturarà la càrrega del document.</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="82"/>
+        <location filename="../fontreplacedialog.cpp" line="83"/>
         <source>Cancels these font substitutions and stops loading the document.</source>
         <translation>Cancel·la la substitució de fonts i atura la càrrega del document.</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="83"/>
+        <location filename="../fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
         <translation>Activant això estem dient a Scribus que les substitucions de les fonts inexistents seran permanents en el futur. Això es pot canviar anant a Edició-&gt;Preferències-&gt;Fonts.</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="84"/>
+        <location filename="../fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
         <translation>Si tries OK, i guardes, aquestes substitucions seran permanents en el document.</translation>
     </message>
@@ -13846,12 +14038,12 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 <context>
     <name>GradientEditor</name>
     <message>
-        <location filename="../gradienteditor.cpp" line="313"/>
+        <location filename="../gradienteditor.cpp" line="311"/>
         <source>Position:</source>
         <translation>Posició:</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="314"/>
+        <location filename="../gradienteditor.cpp" line="312"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -13861,7 +14053,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Aquí es pot afegir, canviar o esborrar Color-Stops.</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="312"/>
+        <location filename="../gradienteditor.cpp" line="320"/>
         <source>Add, change or remove color stops here</source>
         <translation>Afegir, canviar o esborrar colors acaba aquí</translation>
     </message>
@@ -13904,12 +14096,12 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Posició &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="60"/>
+        <location filename="../guidemanager.ui" line="61"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Afegeix</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="70"/>
+        <location filename="../guidemanager.ui" line="71"/>
         <source>D&amp;elete</source>
         <translation type="unfinished">&amp;Esborra</translation>
     </message>
@@ -13924,17 +14116,17 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Posició &amp;X:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="107"/>
+        <location filename="../guidemanager.ui" line="97"/>
         <source>A&amp;dd</source>
         <translation type="unfinished">A&amp;fegir</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="117"/>
+        <location filename="../guidemanager.ui" line="107"/>
         <source>De&amp;lete</source>
         <translation type="unfinished">&amp;Esborra</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="132"/>
+        <location filename="../guidemanager.ui" line="122"/>
         <source>&amp;Lock Guides</source>
         <translation type="unfinished">&amp;Bloqueja Guies</translation>
     </message>
@@ -13979,7 +14171,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Fa referència a:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="332"/>
+        <location filename="../guidemanager.ui" line="284"/>
         <source>&amp;Page</source>
         <translation type="unfinished">&amp;Pàgina</translation>
     </message>
@@ -14017,7 +14209,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <location filename="../guidemanager.ui" line="99"/>
         <source>Guide</source>
-        <translation type="unfinished">Guia</translation>
+        <translation type="obsolete">Guia</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -14035,142 +14227,127 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="obsolete">Ja hi ha una guia buida (0.0)</translation>
     </message>
     <message>
-        <location filename="../guidemanager.cpp" line="229"/>
-        <source>Edit Guide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../guidemanager.cpp" line="257"/>
-        <source>Enter a position:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../guidemanager.cpp" line="256"/>
-        <source>New Guide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../guidemanager.ui" line="28"/>
+        <location filename="../guidemanager.ui" line="40"/>
         <source>&amp;Single</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="159"/>
+        <location filename="../guidemanager.ui" line="149"/>
         <source>Horizontals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="407"/>
+        <location filename="../guidemanager.ui" line="359"/>
         <source>Alt+A</source>
         <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="358"/>
+        <location filename="../guidemanager.ui" line="310"/>
         <source>Alt+E</source>
         <translation type="unfinished">Alt+E</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="265"/>
+        <location filename="../guidemanager.ui" line="236"/>
         <source>Verticals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="110"/>
+        <location filename="../guidemanager.ui" line="100"/>
         <source>Alt+D</source>
         <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="135"/>
+        <location filename="../guidemanager.ui" line="125"/>
         <source>Alt+L</source>
         <translation type="unfinished">Alt+L</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="371"/>
+        <location filename="../guidemanager.ui" line="323"/>
         <source>Appl&amp;y to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="374"/>
+        <location filename="../guidemanager.ui" line="326"/>
         <source>Alt+Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="153"/>
+        <location filename="../guidemanager.ui" line="143"/>
         <source>&amp;Column/Row</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="168"/>
+        <location filename="../guidemanager.ui" line="155"/>
         <source>&amp;Number:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="191"/>
+        <location filename="../guidemanager.ui" line="178"/>
         <source>U&amp;se Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="194"/>
+        <location filename="../guidemanager.ui" line="181"/>
         <source>Alt+S</source>
         <translation type="unfinished">Alt+S</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="323"/>
+        <location filename="../guidemanager.ui" line="278"/>
         <source>Refer To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="394"/>
+        <location filename="../guidemanager.ui" line="346"/>
         <source>Alt+P</source>
         <translation type="unfinished">Alt+P</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="345"/>
+        <location filename="../guidemanager.ui" line="297"/>
         <source>M&amp;argins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="355"/>
+        <location filename="../guidemanager.ui" line="307"/>
         <source>S&amp;election</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="274"/>
+        <location filename="../guidemanager.ui" line="242"/>
         <source>Nu&amp;mber:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="297"/>
+        <location filename="../guidemanager.ui" line="265"/>
         <source>Use &amp;Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="300"/>
+        <location filename="../guidemanager.ui" line="268"/>
         <source>Alt+G</source>
         <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="382"/>
+        <location filename="../guidemanager.ui" line="334"/>
         <source>&amp;Misc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="388"/>
+        <location filename="../guidemanager.ui" line="340"/>
         <source>Delete all guides from the current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="391"/>
+        <location filename="../guidemanager.ui" line="343"/>
         <source>Delete Guides from Current &amp;Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="401"/>
+        <location filename="../guidemanager.ui" line="353"/>
         <source>Delete all guides from the current document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="404"/>
+        <location filename="../guidemanager.ui" line="356"/>
         <source>Delete Guides from &amp;All Pages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14264,7 +14441,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <location filename="../helpbrowser.cpp" line="265"/>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation>Ho sento, no hi ha manual! Si us plau mira: http://docs.scribus.net per la documentació actualitzada
+        <translation type="obsolete">Ho sento, no hi ha manual! Si us plau mira: http://docs.scribus.net per la documentació actualitzada
 i www.scribus.net per descàrregues.</translation>
     </message>
     <message>
@@ -14278,7 +14455,7 @@ i www.scribus.net per descàrregues.</translation>
         <translation type="obsolete">Enllaç</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="264"/>
+        <location filename="../helpbrowser.cpp" line="273"/>
         <source>Scribus Online Help</source>
         <translation>Ajuda en línia de l&apos;Scribus</translation>
     </message>
@@ -14325,7 +14502,7 @@ i www.scribus.net per descàrregues.</translation>
     <message>
         <location filename="../helpbrowser.cpp" line="216"/>
         <source>E&amp;xit</source>
-        <translation>S&amp;urt</translation>
+        <translation type="obsolete">S&amp;urt</translation>
     </message>
     <message>
         <location filename="../helpbrowser.cpp" line="461"/>
@@ -14338,27 +14515,27 @@ i www.scribus.net per descàrregues.</translation>
         <translation type="obsolete">desconegut</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="324"/>
+        <location filename="../helpbrowser.cpp" line="364"/>
         <source>Find</source>
         <translation>Troba</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="324"/>
+        <location filename="../helpbrowser.cpp" line="364"/>
         <source>Search Term:</source>
         <translation>Terme de recerca:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="356"/>
+        <location filename="../helpbrowser.cpp" line="396"/>
         <source>New Bookmark</source>
         <translation>Nou Punt</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="356"/>
+        <location filename="../helpbrowser.cpp" line="396"/>
         <source>New Bookmark&apos;s Title:</source>
         <translation>Nou títol de punt:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="208"/>
+        <location filename="../helpbrowser.cpp" line="275"/>
         <source>&amp;File</source>
         <translation>&amp;Fitxer</translation>
     </message>
@@ -14368,22 +14545,22 @@ i www.scribus.net per descàrregues.</translation>
         <translation>&amp;Cerca...</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="218"/>
+        <location filename="../helpbrowser.cpp" line="282"/>
         <source>Find &amp;Next</source>
         <translation>Cerca &amp;Següent</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="219"/>
+        <location filename="../helpbrowser.cpp" line="283"/>
         <source>Find &amp;Previous</source>
         <translation>Cerca &amp;Anterior</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="209"/>
+        <location filename="../helpbrowser.cpp" line="276"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edició</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="220"/>
+        <location filename="../helpbrowser.cpp" line="284"/>
         <source>&amp;Add Bookmark</source>
         <translation>&amp;Afegeix punt</translation>
     </message>
@@ -14393,7 +14570,7 @@ i www.scribus.net per descàrregues.</translation>
         <translation>Esbo&amp;rra Tot</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="210"/>
+        <location filename="../helpbrowser.cpp" line="277"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Punts</translation>
     </message>
@@ -14437,6 +14614,17 @@ i www.scribus.net per descàrregues.</translation>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Afegeix</translation>
     </message>
+    <message>
+        <location filename="../helpbrowser.cpp" line="280"/>
+        <source>&amp;Quit</source>
+        <translation type="unfinished">&amp;Sortir</translation>
+    </message>
+    <message>
+        <location filename="../helpbrowser.cpp" line="702"/>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <comment>HTML message for no documentation available to show</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser2</name>
@@ -14479,24 +14667,36 @@ i www.scribus.net per descàrregues.</translation>
 <context>
     <name>HyAsk</name>
     <message>
-        <location filename="../hyask.cpp" line="46"/>
+        <location filename="../hyask.cpp" line="48"/>
         <source>Possible Hyphenation</source>
         <translation>Possible partició</translation>
     </message>
     <message>
-        <location filename="../hyask.cpp" line="65"/>
+        <location filename="../hyask.cpp" line="68"/>
         <source>Accept</source>
         <translation>Accepta</translation>
     </message>
     <message>
-        <location filename="../hyask.cpp" line="71"/>
+        <location filename="../hyask.cpp" line="89"/>
         <source>Skip</source>
         <translation>Salta</translation>
     </message>
     <message>
-        <location filename="../hyask.cpp" line="76"/>
+        <location filename="../hyask.cpp" line="107"/>
         <source>Cancel</source>
         <translation>Cancel.la</translation>
+    </message>
+    <message>
+        <location filename="../hyask.cpp" line="77"/>
+        <source>Add to the
+Exception List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hyask.cpp" line="97"/>
+        <source>Add to the
+Ignore List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14509,17 +14709,17 @@ i www.scribus.net per descàrregues.</translation>
     <message>
         <location filename="../hysettings.cpp" line="23"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation>Parteix mots automàticament a l&apos;e&amp;scriure</translation>
+        <translation type="obsolete">Parteix mots automàticament a l&apos;e&amp;scriure</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="40"/>
         <source>&amp;Language:</source>
-        <translation>&amp;Idioma:</translation>
+        <translation type="obsolete">&amp;Idioma:</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="46"/>
         <source>&amp;Smallest Word:</source>
-        <translation>Paraula mé&amp;s Curta:</translation>
+        <translation type="obsolete">Paraula mé&amp;s Curta:</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -14534,55 +14734,75 @@ i www.scribus.net per descàrregues.</translation>
     <message>
         <location filename="../hysettings.cpp" line="56"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation>Un quadre de diàleg amb totes els possibles guionets per cada paraula es mostrarà si feu servir Extres, partició de mots.</translation>
+        <translation type="obsolete">Un quadre de diàleg amb totes els possibles guionets per cada paraula es mostrarà si feu servir Extres, partició de mots.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="57"/>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation>Activa la partició de mots a l&apos;escriure.</translation>
+        <translation type="obsolete">Activa la partició de mots a l&apos;escriure.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="58"/>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Llargada de la paraula més petita a partir.</translation>
+        <translation type="obsolete">Llargada de la paraula més petita a partir.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="59"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation>Número màxim de particions amb guionets consecutives.
+        <translation type="obsolete">Número màxim de particions amb guionets consecutives.
 Un valor de 0 significa infinites particions.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="20"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>Consells de &amp;partició de mots</translation>
+        <translation type="obsolete">Consells de &amp;partició de mots</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="52"/>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation>Separacions consecutives &amp;Permeses:</translation>
+        <translation type="obsolete">Separacions consecutives &amp;Permeses:</translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="84"/>
+        <source>Ignore List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="113"/>
+        <source>Add a new Entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="125"/>
+        <source>Edit Entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="125"/>
+        <source>Exception List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImageInfoDialog</name>
     <message>
-        <location filename="../imageinfodialog.cpp" line="24"/>
+        <location filename="../imageinfodialog.cpp" line="23"/>
         <source>Image Info</source>
         <translation>Informació d&apos;Imatge</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="31"/>
+        <location filename="../imageinfodialog.cpp" line="30"/>
         <source>General Info</source>
         <translation>Informació general</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="35"/>
+        <location filename="../imageinfodialog.cpp" line="34"/>
         <source>Date / Time:</source>
         <translation>Data / Hora:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="39"/>
+        <location filename="../imageinfodialog.cpp" line="38"/>
         <source>Has Embedded Profile:</source>
         <translation>Té un perfil inserit:</translation>
     </message>
@@ -14597,83 +14817,102 @@ Un valor de 0 significa infinites particions.</translation>
         <translation type="obsolete">No</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="47"/>
+        <location filename="../imageinfodialog.cpp" line="46"/>
         <source>Profile Name:</source>
         <translation>Nom de perfil:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="51"/>
+        <location filename="../imageinfodialog.cpp" line="50"/>
         <source>Has Embedded Paths:</source>
         <translation>Te camins inserits:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="59"/>
+        <location filename="../imageinfodialog.cpp" line="58"/>
         <source>Has Layers:</source>
         <translation>Té capes:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="70"/>
+        <location filename="../imageinfodialog.cpp" line="69"/>
         <source>EXIF Info</source>
         <translation>Informació EXIF</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="85"/>
+        <location filename="../imageinfodialog.cpp" line="84"/>
         <source>Artist:</source>
         <translation>Artista:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="127"/>
+        <location filename="../imageinfodialog.cpp" line="126"/>
         <source>Comment:</source>
         <translation>Comentari:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="128"/>
+        <location filename="../imageinfodialog.cpp" line="127"/>
         <source>User Comment:</source>
         <translation>Comentari d&apos;usuari:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="129"/>
+        <location filename="../imageinfodialog.cpp" line="128"/>
         <source>Camera Model:</source>
         <translation>Model de càmera:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="130"/>
+        <location filename="../imageinfodialog.cpp" line="129"/>
         <source>Camera Manufacturer:</source>
         <translation>Fabricant de la càmera:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="136"/>
+        <location filename="../imageinfodialog.cpp" line="135"/>
         <source>Description:</source>
         <translation>Descripció:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="137"/>
+        <location filename="../imageinfodialog.cpp" line="136"/>
         <source>Copyright:</source>
         <translation>Copyright:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="138"/>
+        <location filename="../imageinfodialog.cpp" line="137"/>
         <source>Scanner Model:</source>
         <translation>Model de l&apos;escànner:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="139"/>
+        <location filename="../imageinfodialog.cpp" line="138"/>
         <source>Scanner Manufacturer:</source>
         <translation>Fabricant de l&apos;escànner:</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="131"/>
+        <location filename="../imageinfodialog.cpp" line="130"/>
         <source>Exposure time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="132"/>
+        <location filename="../imageinfodialog.cpp" line="131"/>
         <source>Aperture:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="133"/>
+        <location filename="../imageinfodialog.cpp" line="132"/>
         <source>ISO equiv.:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImportAIPlugin</name>
+    <message>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="58"/>
+        <source>Import AI...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="79"/>
+        <source>Imports Illustrator Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="80"/>
+        <source>Imports most Illustrator files into the current document,
+converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14682,42 +14921,12 @@ Un valor de 0 significa infinites particions.</translation>
     <message>
         <location filename="../smstyleimport.cpp" line="30"/>
         <source>Choose Styles</source>
-        <translation type="unfinished">Tria els estils</translation>
+        <translation type="obsolete">Tria els estils</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="35"/>
         <source>Available Styles</source>
-        <translation type="unfinished">Estils disponibles</translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="40"/>
-        <source>Character Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="49"/>
-        <source>Paragraph Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="58"/>
-        <source>Line Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="76"/>
-        <source>In case of a name clash</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="77"/>
-        <source>Rename imported style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="79"/>
-        <source>Replace existing style</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Estils disponibles</translation>
     </message>
 </context>
 <context>
@@ -14725,18 +14934,18 @@ Un valor de 0 significa infinites particions.</translation>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
         <source>Import &amp;EPS/PS...</source>
-        <translation>Importa &amp;EPS/PS...</translation>
+        <translation type="obsolete">Importa &amp;EPS/PS...</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="78"/>
         <source>Imports EPS Files</source>
-        <translation>Importa fitxers EPS</translation>
+        <translation type="obsolete">Importa fitxers EPS</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="79"/>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Importa la majoria dels fitxers EPS al document, 
+        <translation type="obsolete">Importa la majoria dels fitxers EPS al document, 
 convertint el seu vector de dades en objectes Scribus.</translation>
     </message>
     <message>
@@ -14747,7 +14956,205 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="105"/>
         <source>PDF</source>
-        <translation>PDF</translation>
+        <translation type="obsolete">PDF</translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
+        <source>Import PostScript...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="78"/>
+        <source>Imports PostScript Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="79"/>
+        <source>Imports most PostScript files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Imposition</name>
+    <message>
+        <location filename="../plugins/imposition/imposition.cpp" line="72"/>
+        <source>Portrait</source>
+        <translation type="unfinished">Vertical</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/imposition.cpp" line="73"/>
+        <source>Landscape</source>
+        <translation type="unfinished">Apaisat</translation>
+    </message>
+</context>
+<context>
+    <name>ImpositionBase</name>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="19"/>
+        <source>Imposition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="44"/>
+        <source>Gri&amp;d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="102"/>
+        <source>Copies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="157"/>
+        <source>Do&amp;uble sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="160"/>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="186"/>
+        <source>Front side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="218"/>
+        <source>Back side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="253"/>
+        <source>&amp;Booklet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="285"/>
+        <source>Pages per sheet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="296"/>
+        <source>4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="301"/>
+        <source>8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="306"/>
+        <source>16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="318"/>
+        <source>Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="325"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="339"/>
+        <source>Fold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="349"/>
+        <source>Front page from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="376"/>
+        <source>Double sided</source>
+        <translation type="unfinished">Doble cara</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="387"/>
+        <source>Back page from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="415"/>
+        <source>Destination page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="455"/>
+        <source>Size</source>
+        <translation type="unfinished">Mida</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="487"/>
+        <source>Orientation</source>
+        <translation type="unfinished">Orientació</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="519"/>
+        <source>Width</source>
+        <translation type="unfinished">Amplada</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="564"/>
+        <source>Height</source>
+        <translation type="unfinished">Alçada</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="620"/>
+        <source>Preview</source>
+        <translation type="unfinished">Previsualitzar</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="627"/>
+        <source>Refresh preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="671"/>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="674"/>
+        <source>Alt+G</source>
+        <translation type="unfinished">Alt+G</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="681"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="684"/>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+</context>
+<context>
+    <name>ImpositionPlugin</name>
+    <message>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="37"/>
+        <source>&amp;Imposition...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="66"/>
+        <source>Imposition dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="67"/>
+        <source>Imposition on grids, booklets and folds</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14763,22 +15170,22 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">&amp;Inserint</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="43"/>
+        <location filename="../inspage.cpp" line="46"/>
         <source>Page(s)</source>
         <translation>Pàgina(es)</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="47"/>
+        <location filename="../inspage.cpp" line="50"/>
         <source>before Page</source>
         <translation>abans de la pàgina</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="48"/>
+        <location filename="../inspage.cpp" line="51"/>
         <source>after Page</source>
         <translation>després de la pàgina</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="49"/>
+        <location filename="../inspage.cpp" line="52"/>
         <source>at End</source>
         <translation>al Final</translation>
     </message>
@@ -14818,27 +15225,27 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="59"/>
+        <location filename="../inspage.cpp" line="63"/>
         <source>&amp;Insert</source>
         <translation>&amp;Insereix</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="63"/>
+        <location filename="../inspage.cpp" line="67"/>
         <source>Master Pages</source>
         <translation>Pàgines mestres</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="73"/>
+        <location filename="../inspage.cpp" line="77"/>
         <source>&amp;Master Page:</source>
         <translation>Pàgina &amp;Mestra:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="199"/>
+        <location filename="../inspage.cpp" line="205"/>
         <source>Page Size</source>
         <translation>Mida de Pàgina</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="203"/>
+        <location filename="../inspage.cpp" line="209"/>
         <source>&amp;Size:</source>
         <translation>&amp;Mida:</translation>
     </message>
@@ -14848,32 +15255,32 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">Personalitzat</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="219"/>
+        <location filename="../inspage.cpp" line="224"/>
         <source>Orie&amp;ntation:</source>
         <translation>Orie&amp;ntació:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="222"/>
+        <location filename="../inspage.cpp" line="227"/>
         <source>Portrait</source>
         <translation>Vertical</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="223"/>
+        <location filename="../inspage.cpp" line="228"/>
         <source>Landscape</source>
         <translation>Apaisat</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="229"/>
+        <location filename="../inspage.cpp" line="233"/>
         <source>&amp;Width:</source>
         <translation>&amp;Amplada:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="236"/>
+        <location filename="../inspage.cpp" line="240"/>
         <source>&amp;Height:</source>
         <translation>A&amp;lçada:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="240"/>
+        <location filename="../inspage.cpp" line="245"/>
         <source>Move Objects with their Page</source>
         <translation>Mou els objectes amb la pàgina</translation>
     </message>
@@ -14881,17 +15288,17 @@ convertint el seu vector de dades en objectes Scribus.</translation>
 <context>
     <name>InsertAFrame</name>
     <message>
-        <location filename="../insertaframe.cpp" line="201"/>
+        <location filename="../insertaframe.cpp" line="205"/>
         <source>Open</source>
         <translation type="unfinished">Obre</translation>
     </message>
     <message>
-        <location filename="../insertaframe.cpp" line="111"/>
+        <location filename="../insertaframe.cpp" line="115"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../insertaframe.cpp" line="115"/>
+        <location filename="../insertaframe.cpp" line="119"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15167,7 +15574,7 @@ convertint el seu vector de dades en objectes Scribus.</translation>
 <context>
     <name>InsertTable</name>
     <message>
-        <location filename="../insertTable.cpp" line="16"/>
+        <location filename="../insertTable.cpp" line="15"/>
         <source>Insert Table</source>
         <translation>Insereix Taula</translation>
     </message>
@@ -15192,12 +15599,12 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
-        <location filename="../insertTable.cpp" line="29"/>
+        <location filename="../insertTable.cpp" line="28"/>
         <source>Number of rows:</source>
         <translation>Número de files:</translation>
     </message>
     <message>
-        <location filename="../insertTable.cpp" line="30"/>
+        <location filename="../insertTable.cpp" line="29"/>
         <source>Number of columns:</source>
         <translation>Número de columnes:</translation>
     </message>
@@ -15205,37 +15612,37 @@ convertint el seu vector de dades en objectes Scribus.</translation>
 <context>
     <name>JavaDocs</name>
     <message>
-        <location filename="../javadocs.cpp" line="28"/>
+        <location filename="../javadocs.cpp" line="27"/>
         <source>Edit JavaScripts</source>
         <translation>Edita JavaScripts</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="47"/>
+        <location filename="../javadocs.cpp" line="46"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Edició...</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="50"/>
+        <location filename="../javadocs.cpp" line="49"/>
         <source>&amp;Add...</source>
         <translation>&amp;Afegeix...</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="53"/>
+        <location filename="../javadocs.cpp" line="52"/>
         <source>&amp;Delete</source>
         <translation>&amp;Esborra</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="58"/>
+        <location filename="../javadocs.cpp" line="57"/>
         <source>&amp;Close</source>
         <translation>&amp;Tanca</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="78"/>
+        <location filename="../javadocs.cpp" line="77"/>
         <source>&amp;New Script:</source>
         <translation>&amp;Nova Seqüència:</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="79"/>
+        <location filename="../javadocs.cpp" line="78"/>
         <source>New Script</source>
         <translation>Nova Seqüència</translation>
     </message>
@@ -15260,12 +15667,12 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">&amp;Si</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="124"/>
+        <location filename="../javadocs.cpp" line="123"/>
         <source>Do you really want to delete this script?</source>
         <translation>Realment vols esborrar aquesta seqüència?</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="72"/>
+        <location filename="../javadocs.cpp" line="71"/>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation>Afegeix una nova seqüència, predefineix una funció amb el mateix nom. Si vols fer servir aquesta seqüència com una &quot;acció d&apos;obertura&quot; has d&apos;estar segur de no canviar el nom de la funció.</translation>
     </message>
@@ -15434,9 +15841,105 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     </message>
 </context>
 <context>
+    <name>LatexEditor</name>
+    <message>
+        <location filename="../latexeditor.ui" line="13"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="30"/>
+        <source>Enter Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="42"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="49"/>
+        <source>Revert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="62"/>
+        <source>Program Messages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="81"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="93"/>
+        <source>Status: Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="103"/>
+        <source>Kill Program</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="118"/>
+        <source>Options</source>
+        <translation type="unfinished">Opcions</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="126"/>
+        <source>Resolution:</source>
+        <translation type="unfinished">Resolució:</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="133"/>
+        <source>Automatic</source>
+        <translation type="unfinished">Automàtic</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="136"/>
+        <source> DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="153"/>
+        <source>Program:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="161"/>
+        <source>LaTeX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="171"/>
+        <source>Use Preamble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="178"/>
+        <source>Update Application Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="199"/>
+        <source>Fonts and Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="211"/>
+        <source>Will be filled later</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../layers.cpp" line="485"/>
+        <location filename="../layers.cpp" line="484"/>
         <source>Layers</source>
         <translation>Capes</translation>
     </message>
@@ -15446,7 +15949,7 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">Afegeix una nova Capa</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="275"/>
+        <location filename="../layers.cpp" line="274"/>
         <source>Delete Layer</source>
         <translation>Esborra Capa</translation>
     </message>
@@ -15471,92 +15974,92 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">També vols esborrar tots els Objectes d&apos;aquesta capa?</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="276"/>
+        <location filename="../layers.cpp" line="275"/>
         <source>Do you want to delete all objects on this layer too?</source>
         <translation>També vols esborrar tots els objectes d&apos;aquesta capa?</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="506"/>
+        <location filename="../layers.cpp" line="505"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="512"/>
+        <location filename="../layers.cpp" line="511"/>
         <source>Add a new layer</source>
         <translation>Afegir una nova capa</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="514"/>
+        <location filename="../layers.cpp" line="513"/>
         <source>Delete layer</source>
         <translation>Esborra capa</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="515"/>
+        <location filename="../layers.cpp" line="514"/>
         <source>Raise layer</source>
         <translation>Apuja la capa</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="516"/>
+        <location filename="../layers.cpp" line="515"/>
         <source>Lower layer</source>
         <translation>Abaixa la capa</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="504"/>
+        <location filename="../layers.cpp" line="503"/>
         <source>Opacity:</source>
         <translation type="unfinished">Opacitat:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="505"/>
+        <location filename="../layers.cpp" line="504"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="486"/>
+        <location filename="../layers.cpp" line="485"/>
         <source>Blend Mode:</source>
         <translation type="unfinished">Mode mescla:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="488"/>
+        <location filename="../layers.cpp" line="487"/>
         <source>Normal</source>
         <translation type="unfinished">Normal</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="489"/>
+        <location filename="../layers.cpp" line="488"/>
         <source>Darken</source>
         <translation type="unfinished">Fosc</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="490"/>
+        <location filename="../layers.cpp" line="489"/>
         <source>Lighten</source>
         <translation type="unfinished">Clar</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="491"/>
+        <location filename="../layers.cpp" line="490"/>
         <source>Multiply</source>
         <translation type="unfinished">Multiplica</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="492"/>
+        <location filename="../layers.cpp" line="491"/>
         <source>Screen</source>
         <translation type="unfinished">Pantalla</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="493"/>
+        <location filename="../layers.cpp" line="492"/>
         <source>Overlay</source>
         <translation type="unfinished">Sobreposició</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="494"/>
+        <location filename="../layers.cpp" line="493"/>
         <source>Hard Light</source>
         <translation type="unfinished">Llum forta</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="495"/>
+        <location filename="../layers.cpp" line="494"/>
         <source>Soft Light</source>
         <translation type="unfinished">Llum suau</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="496"/>
+        <location filename="../layers.cpp" line="495"/>
         <source>Difference</source>
         <translation type="unfinished">Diferència</translation>
     </message>
@@ -15566,78 +16069,131 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <translation type="obsolete">Exclusió</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="498"/>
+        <location filename="../layers.cpp" line="497"/>
         <source>Color Dodge</source>
         <translation type="unfinished">Color esvaït</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="499"/>
+        <location filename="../layers.cpp" line="498"/>
         <source>Color Burn</source>
         <translation type="unfinished">Crema</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="497"/>
+        <location filename="../layers.cpp" line="496"/>
         <source>Exclusion</source>
         <translation type="unfinished">Exclusió</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="500"/>
+        <location filename="../layers.cpp" line="499"/>
         <source>Hue</source>
         <translation type="unfinished">To</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="501"/>
+        <location filename="../layers.cpp" line="500"/>
         <source>Saturation</source>
         <translation type="unfinished">Saturació</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="502"/>
+        <location filename="../layers.cpp" line="501"/>
         <source>Color</source>
         <translation type="unfinished">Color</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="503"/>
+        <location filename="../layers.cpp" line="502"/>
         <source>Luminosity</source>
         <translation type="unfinished">Lluminositat</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="513"/>
+        <location filename="../layers.cpp" line="512"/>
         <source>Duplicates the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="517"/>
+        <location filename="../layers.cpp" line="516"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="518"/>
+        <location filename="../layers.cpp" line="517"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="519"/>
+        <location filename="../layers.cpp" line="518"/>
         <source>Print Layer - Uncheck to disable printing. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="520"/>
+        <location filename="../layers.cpp" line="519"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="521"/>
+        <location filename="../layers.cpp" line="520"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="522"/>
+        <location filename="../layers.cpp" line="521"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="523"/>
+        <location filename="../layers.cpp" line="522"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LensDialogBase</name>
+    <message>
+        <location filename="../lensdialogbase.ui" line="13"/>
+        <source>Optical Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="64"/>
+        <source>Add Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="71"/>
+        <source>Remove Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="98"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="105"/>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="123"/>
+        <source>Lens Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="147"/>
+        <source>X Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="164"/>
+        <source>Y Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="181"/>
+        <source>Radius:</source>
+        <translation type="unfinished">Ràdi:</translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="198"/>
+        <source>Strength:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15749,12 +16305,7 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     <message>
         <location filename="../smlinestylew.ui" line="184"/>
         <source>%</source>
-        <translation type="unfinished">%</translation>
-    </message>
-    <message>
-        <location filename="../smlinestylew.ui" line="208"/>
-        <source>Line Width:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%</translation>
     </message>
 </context>
 <context>
@@ -15780,37 +16331,37 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     <message>
         <location filename="../smlinestyle.cpp" line="180"/>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="52"/>
         <source>Flat Cap</source>
-        <translation>Tap Planer</translation>
+        <translation type="obsolete">Tap Planer</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="53"/>
         <source>Square Cap</source>
-        <translation>Tap Rectangular</translation>
+        <translation type="obsolete">Tap Rectangular</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="54"/>
         <source>Round Cap</source>
-        <translation>Tap Arrodonit</translation>
+        <translation type="obsolete">Tap Arrodonit</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="56"/>
         <source>Miter Join</source>
-        <translation>Unió en Punta</translation>
+        <translation type="obsolete">Unió en Punta</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="57"/>
         <source>Bevel Join</source>
-        <translation>Unió obliqua</translation>
+        <translation type="obsolete">Unió obliqua</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="58"/>
         <source>Round Join</source>
-        <translation>Unió arrodonida</translation>
+        <translation type="obsolete">Unió arrodonida</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -15837,46 +16388,6 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <source>Dash Dot Dot Line</source>
         <translation type="obsolete">Línia Guió Punt Punt </translation>
     </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="70"/>
-        <source>Add a new line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="71"/>
-        <source>Remove a line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="72"/>
-        <source>Line style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="73"/>
-        <source>Line width</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="74"/>
-        <source>End style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="75"/>
-        <source>Join style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="76"/>
-        <source>Line color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="77"/>
-        <source>Line shade</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>LoadSavePlugin</name>
@@ -15894,47 +16405,47 @@ convertint el seu vector de dades en objectes Scribus.</translation>
 <context>
     <name>LoremManager</name>
     <message>
-        <location filename="../loremipsum.cpp" line="118"/>
+        <location filename="../loremipsum.cpp" line="123"/>
         <source>Select Lorem Ipsum</source>
         <translation>Selecciona Lorem Ipsum</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="183"/>
+        <location filename="../loremipsum.cpp" line="188"/>
         <source>Author:</source>
         <translation>Autor:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="185"/>
+        <location filename="../loremipsum.cpp" line="190"/>
         <source>Get More:</source>
         <translation>Obtenir més:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="187"/>
+        <location filename="../loremipsum.cpp" line="192"/>
         <source>XML File:</source>
         <translation>Fitxer XML:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="206"/>
+        <location filename="../loremipsum.cpp" line="211"/>
         <source>Lorem Ipsum</source>
         <translation>Lorem Ipsum</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="207"/>
+        <location filename="../loremipsum.cpp" line="212"/>
         <source>Paragraphs:</source>
         <translation>Paràgrafs:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="209"/>
+        <location filename="../loremipsum.cpp" line="214"/>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="211"/>
+        <location filename="../loremipsum.cpp" line="216"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="212"/>
+        <location filename="../loremipsum.cpp" line="217"/>
         <source>Standard Lorem Ipsum</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16320,17 +16831,17 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
 <context>
     <name>MarginDialog</name>
     <message>
-        <location filename="../margindialog.cpp" line="32"/>
+        <location filename="../margindialog.cpp" line="31"/>
         <source>Manage Page Properties</source>
         <translation>Gestiona propietats de pàgina</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="40"/>
+        <location filename="../margindialog.cpp" line="39"/>
         <source>Page Size</source>
         <translation>Mida de Pàgina</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="45"/>
+        <location filename="../margindialog.cpp" line="44"/>
         <source>&amp;Size:</source>
         <translation>&amp;Mida:</translation>
     </message>
@@ -16340,27 +16851,27 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
         <translation type="obsolete">Personalitzat</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="61"/>
+        <location filename="../margindialog.cpp" line="60"/>
         <source>Orie&amp;ntation:</source>
         <translation>Orie&amp;ntació:</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="64"/>
+        <location filename="../margindialog.cpp" line="63"/>
         <source>Portrait</source>
         <translation>Vertical</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="65"/>
+        <location filename="../margindialog.cpp" line="64"/>
         <source>Landscape</source>
         <translation>Apaisat</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="72"/>
+        <location filename="../margindialog.cpp" line="71"/>
         <source>&amp;Width:</source>
         <translation>&amp;Amplada:</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="79"/>
+        <location filename="../margindialog.cpp" line="78"/>
         <source>&amp;Height:</source>
         <translation>A&amp;lçada:</translation>
     </message>
@@ -16398,32 +16909,32 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
 <context>
     <name>MarginWidget</name>
     <message>
-        <location filename="../marginWidget.cpp" line="48"/>
+        <location filename="../marginWidget.cpp" line="49"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Baix:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="49"/>
+        <location filename="../marginWidget.cpp" line="51"/>
         <source>&amp;Top:</source>
         <translation>Dal&amp;t:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="203"/>
+        <location filename="../marginWidget.cpp" line="208"/>
         <source>&amp;Right:</source>
         <translation>&amp;Dreta:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="202"/>
+        <location filename="../marginWidget.cpp" line="207"/>
         <source>&amp;Left:</source>
         <translation>&amp;Esquerra:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="148"/>
+        <location filename="../marginWidget.cpp" line="153"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation>Distància entre el marge superior i la vora del paper</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="149"/>
+        <location filename="../marginWidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Distància entre el marge inferior i la vora del paper</translation>
     </message>
@@ -16442,12 +16953,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marges per enquadernar</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="202"/>
+        <location filename="../marginWidget.cpp" line="207"/>
         <source>&amp;Inside:</source>
         <translation>&amp;Dins:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="203"/>
+        <location filename="../marginWidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
         <translation>&amp;Fora:</translation>
     </message>
@@ -16462,7 +16973,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Aplica els marges a totes les pàgines</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="83"/>
+        <location filename="../marginWidget.cpp" line="88"/>
         <source>Apply the margin changes to all existing pages in the document</source>
         <translation>Aplica els canvis dels marges a totes les pàgines del document</translation>
     </message>
@@ -16477,102 +16988,102 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Distància entre el marge dret de la guia i la vora de la pàgina. Si s&apos;han triat pàgines encarades, aquest espai es pot fer servir per aconseguir els marges correctes d&apos;encaix</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="95"/>
+        <location filename="../marginWidget.cpp" line="100"/>
         <source>Printer Margins...</source>
         <translation>Marges d&apos;impressora...</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="97"/>
+        <location filename="../marginWidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
         <translation>Importa els marges de la pàgina actual de les impressores disponibles.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="72"/>
+        <location filename="../marginWidget.cpp" line="77"/>
         <source>Apply settings to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="75"/>
+        <location filename="../marginWidget.cpp" line="80"/>
         <source>All Document Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="79"/>
+        <location filename="../marginWidget.cpp" line="84"/>
         <source>All Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="84"/>
+        <location filename="../marginWidget.cpp" line="89"/>
         <source>Apply the margin changes to all existing master pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="101"/>
+        <location filename="../marginWidget.cpp" line="106"/>
         <source>Margin Guides</source>
         <translation type="unfinished">Guia de Marges</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="119"/>
+        <location filename="../marginWidget.cpp" line="124"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="124"/>
+        <location filename="../marginWidget.cpp" line="129"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="135"/>
+        <location filename="../marginWidget.cpp" line="140"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de dalt de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="136"/>
+        <location filename="../marginWidget.cpp" line="141"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de baix de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="137"/>
+        <location filename="../marginWidget.cpp" line="142"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de l&apos;esquerra de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="138"/>
+        <location filename="../marginWidget.cpp" line="143"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Distància de la sangria des de la dreta de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="144"/>
+        <location filename="../marginWidget.cpp" line="149"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginWidget.cpp" line="213"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="209"/>
+        <location filename="../marginWidget.cpp" line="214"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="213"/>
+        <location filename="../marginWidget.cpp" line="218"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="214"/>
+        <location filename="../marginWidget.cpp" line="219"/>
         <source>Right:</source>
         <translation type="unfinished">Dret:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="150"/>
+        <location filename="../marginWidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="151"/>
+        <location filename="../marginWidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16685,22 +17196,22 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation>Nova pàgina mestra %1</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="360"/>
+        <location filename="../muster.cpp" line="366"/>
         <source>Unable to Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="360"/>
+        <location filename="../muster.cpp" line="366"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="364"/>
+        <location filename="../muster.cpp" line="370"/>
         <source>Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="364"/>
+        <location filename="../muster.cpp" line="370"/>
         <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16833,7 +17344,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <location filename="../measurements.cpp" line="49"/>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../measurements.cpp" line="109"/>
+        <source> °</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16872,7 +17388,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Importa Plantilla</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="38"/>
+        <location filename="../mergedoc.cpp" line="37"/>
         <source>Import Page(s)</source>
         <translation>Importa Pàgina(es)</translation>
     </message>
@@ -16937,12 +17453,12 @@ un rang de pàgines o un número sol.
         <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="133"/>
+        <location filename="../mergedoc.cpp" line="135"/>
         <source>Open</source>
         <translation>Obre</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="133"/>
+        <location filename="../mergedoc.cpp" line="135"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tots els fitxers (*)</translation>
     </message>
@@ -16952,17 +17468,17 @@ un rang de pàgines o un número sol.
         <translation type="obsolete">Documents (*.sla *.scd);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="188"/>
+        <location filename="../mergedoc.cpp" line="190"/>
         <source> from %1</source>
         <translation>Des de %1</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="38"/>
+        <location filename="../mergedoc.cpp" line="37"/>
         <source>Import Master Page</source>
         <translation>Importa pàgina mestra</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="49"/>
+        <location filename="../mergedoc.cpp" line="48"/>
         <source>&amp;From Document:</source>
         <translation>&amp;Des del document:</translation>
     </message>
@@ -17002,7 +17518,7 @@ un rang de pàgines o un número sol.
         <translation>Al final de</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="99"/>
+        <location filename="../mergedoc.cpp" line="101"/>
         <source>&amp;Import</source>
         <translation>&amp;Importa</translation>
     </message>
@@ -17033,12 +17549,12 @@ un rang de pàgines o un número sol.
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="39"/>
+        <location filename="../werktoolb.cpp" line="38"/>
         <source>Tools</source>
         <translation type="unfinished">Eines</translation>
     </message>
     <message>
-        <location filename="../werktoolb.cpp" line="130"/>
+        <location filename="../werktoolb.cpp" line="110"/>
         <source>Properties...</source>
         <translation type="unfinished">Propietats...</translation>
     </message>
@@ -17056,7 +17572,7 @@ un rang de pàgines o un número sol.
         <translation>Copia Pàgina</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="73"/>
+        <location filename="../movepage.cpp" line="78"/>
         <source>Move Page(s):</source>
         <translation>Mou Pàgina(es):</translation>
     </message>
@@ -17096,27 +17612,27 @@ un rang de pàgines o un número sol.
         <translation>Mou pàgina(es)</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="64"/>
+        <location filename="../movepage.cpp" line="68"/>
         <source>Before Page</source>
         <translation>abans de la pàgina</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="65"/>
+        <location filename="../movepage.cpp" line="69"/>
         <source>After Page</source>
         <translation>Després de la pàgina</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="66"/>
+        <location filename="../movepage.cpp" line="70"/>
         <source>At End</source>
         <translation>Al final de</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="46"/>
+        <location filename="../movepage.cpp" line="48"/>
         <source>To:</source>
         <translation>A:</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="54"/>
+        <location filename="../movepage.cpp" line="58"/>
         <source>Number of copies:</source>
         <translation>Número de còpies:</translation>
     </message>
@@ -17124,114 +17640,114 @@ un rang de pàgines o un número sol.
 <context>
     <name>Mpalette</name>
     <message>
-        <location filename="../mpalette.cpp" line="4296"/>
+        <location filename="../mpalette.cpp" line="4319"/>
         <source>Properties</source>
         <translation>Propietats</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4298"/>
+        <location filename="../mpalette.cpp" line="4321"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4301"/>
+        <location filename="../mpalette.cpp" line="4324"/>
         <source>&amp;Shape</source>
         <translation>&amp;Forma</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4299"/>
+        <location filename="../mpalette.cpp" line="4322"/>
         <source>&amp;Text</source>
         <translation>&amp;Text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4300"/>
+        <location filename="../mpalette.cpp" line="4323"/>
         <source>&amp;Image</source>
         <translation>&amp;Imatge</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4302"/>
+        <location filename="../mpalette.cpp" line="4325"/>
         <source>&amp;Line</source>
         <translation>&amp;Línia</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4303"/>
+        <location filename="../mpalette.cpp" line="4326"/>
         <source>&amp;Colors</source>
         <translation>&amp;Colors</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4306"/>
+        <location filename="../mpalette.cpp" line="4329"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4307"/>
+        <location filename="../mpalette.cpp" line="4330"/>
         <source>Geometry</source>
         <translation>Geometria</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4476"/>
+        <location filename="../mpalette.cpp" line="4500"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4399"/>
+        <location filename="../mpalette.cpp" line="4422"/>
         <source>&amp;X-Pos:</source>
         <translation>Posició &amp;X:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4400"/>
+        <location filename="../mpalette.cpp" line="4423"/>
         <source>&amp;Y-Pos:</source>
         <translation>Posició &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4310"/>
+        <location filename="../mpalette.cpp" line="4333"/>
         <source>&amp;Width:</source>
         <translation>&amp;Amplada:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4311"/>
+        <location filename="../mpalette.cpp" line="4334"/>
         <source>&amp;Height:</source>
         <translation>A&amp;lçada:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4312"/>
+        <location filename="../mpalette.cpp" line="4335"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Rotació:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4313"/>
+        <location filename="../mpalette.cpp" line="4336"/>
         <source>Basepoint:</source>
         <translation>Punt Base:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4314"/>
+        <location filename="../mpalette.cpp" line="4337"/>
         <source>Level</source>
         <translation>Nivell</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4317"/>
+        <location filename="../mpalette.cpp" line="4340"/>
         <source>Shape:</source>
         <translation>Forma:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4318"/>
+        <location filename="../mpalette.cpp" line="4341"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Edita Forma...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4338"/>
+        <location filename="../mpalette.cpp" line="4361"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>Vèrtex 
 A&amp;rrodonits:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4339"/>
+        <location filename="../mpalette.cpp" line="4362"/>
         <source>Distance of Text</source>
         <translation>Distància del Text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4340"/>
+        <location filename="../mpalette.cpp" line="4363"/>
         <source>Colu&amp;mns:</source>
         <translation>Colu&amp;mnes:</translation>
     </message>
@@ -17241,47 +17757,47 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">&amp;Buit:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4347"/>
+        <location filename="../mpalette.cpp" line="4370"/>
         <source>To&amp;p:</source>
         <translation>Dal&amp;t:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4348"/>
+        <location filename="../mpalette.cpp" line="4371"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Baix:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4349"/>
+        <location filename="../mpalette.cpp" line="4372"/>
         <source>&amp;Left:</source>
         <translation>&amp;Esquerra:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4350"/>
+        <location filename="../mpalette.cpp" line="4373"/>
         <source>&amp;Right:</source>
         <translation>&amp;Dreta:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4351"/>
+        <location filename="../mpalette.cpp" line="4374"/>
         <source>T&amp;abulators...</source>
         <translation>T&amp;abuladors...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4352"/>
+        <location filename="../mpalette.cpp" line="4375"/>
         <source>Path Text Properties</source>
         <translation>Propietats Camí Text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4358"/>
+        <location filename="../mpalette.cpp" line="4381"/>
         <source>Show Curve</source>
         <translation>Mostra Corba</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4360"/>
+        <location filename="../mpalette.cpp" line="4383"/>
         <source>Start Offset:</source>
         <translation>Inici Desplaçament:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4361"/>
+        <location filename="../mpalette.cpp" line="4384"/>
         <source>Distance from Curve:</source>
         <translation>Distància de la Corba:</translation>
     </message>
@@ -17291,12 +17807,12 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">Text &amp;Flueix al voltant del Marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4374"/>
+        <location filename="../mpalette.cpp" line="4397"/>
         <source>Use &amp;Bounding Box</source>
         <translation>&amp;Limitar amb Caixes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4375"/>
+        <location filename="../mpalette.cpp" line="4398"/>
         <source>&amp;Use Contour Line</source>
         <translation>Línia de &amp;Contorn</translation>
     </message>
@@ -17306,7 +17822,7 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">Mida de &amp;Font:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4464"/>
+        <location filename="../mpalette.cpp" line="4488"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -17341,264 +17857,264 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">&amp;Idioma:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4396"/>
+        <location filename="../mpalette.cpp" line="4419"/>
         <source>&amp;Free Scaling</source>
         <translation>Escalat Lli&amp;ure</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4401"/>
+        <location filename="../mpalette.cpp" line="4424"/>
         <source>X-Sc&amp;ale:</source>
         <translation>Esc&amp;ala X:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4402"/>
+        <location filename="../mpalette.cpp" line="4425"/>
         <source>Y-Scal&amp;e:</source>
         <translation>&amp;Escala Y:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4403"/>
+        <location filename="../mpalette.cpp" line="4426"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Escala a Mida de M&amp;arc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4404"/>
+        <location filename="../mpalette.cpp" line="4427"/>
         <source>P&amp;roportional</source>
         <translation>P&amp;roporcional</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4407"/>
+        <location filename="../mpalette.cpp" line="4430"/>
         <source>Input Profile:</source>
         <translation>Perfil d&apos;Entrada:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4408"/>
+        <location filename="../mpalette.cpp" line="4431"/>
         <source>Rendering Intent:</source>
         <translation>Intent de representació:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4414"/>
+        <location filename="../mpalette.cpp" line="4438"/>
         <source>Perceptual</source>
         <translation>Perceptual</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4415"/>
+        <location filename="../mpalette.cpp" line="4439"/>
         <source>Relative Colorimetric</source>
         <translation>Colorimètric Relatiu</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4416"/>
+        <location filename="../mpalette.cpp" line="4440"/>
         <source>Saturation</source>
         <translation>Saturació</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4417"/>
+        <location filename="../mpalette.cpp" line="4441"/>
         <source>Absolute Colorimetric</source>
         <translation>Colorimètric Absolut</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4421"/>
+        <location filename="../mpalette.cpp" line="4445"/>
         <source>Left Point</source>
         <translation>Punt Esquerre</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4422"/>
+        <location filename="../mpalette.cpp" line="4446"/>
         <source>End Points</source>
         <translation>Punts Finals</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4424"/>
+        <location filename="../mpalette.cpp" line="4448"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Punt Base:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4425"/>
+        <location filename="../mpalette.cpp" line="4449"/>
         <source>T&amp;ype of Line:</source>
         <translation>T&amp;ipus de Línia:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4437"/>
+        <location filename="../mpalette.cpp" line="4461"/>
         <source>Line &amp;Width:</source>
         <translation>&amp;Amplada Línia:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4441"/>
+        <location filename="../mpalette.cpp" line="4465"/>
         <source>Miter Join</source>
         <translation>Unió en Punta</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4442"/>
+        <location filename="../mpalette.cpp" line="4466"/>
         <source>Bevel Join</source>
         <translation>Unió obliqua</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4443"/>
+        <location filename="../mpalette.cpp" line="4467"/>
         <source>Round Join</source>
         <translation>Unió arrodonida</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4438"/>
+        <location filename="../mpalette.cpp" line="4462"/>
         <source>Ed&amp;ges:</source>
         <translation>Vo&amp;res:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4448"/>
+        <location filename="../mpalette.cpp" line="4472"/>
         <source>Flat Cap</source>
         <translation>Tap Planer</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4449"/>
+        <location filename="../mpalette.cpp" line="4473"/>
         <source>Square Cap</source>
         <translation>Tap Rectangular</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4450"/>
+        <location filename="../mpalette.cpp" line="4474"/>
         <source>Round Cap</source>
         <translation>Tap Arrodonit</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4452"/>
+        <location filename="../mpalette.cpp" line="4476"/>
         <source>&amp;Endings:</source>
         <translation>T&amp;erminacions:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4501"/>
+        <location filename="../mpalette.cpp" line="4526"/>
         <source>No Style</source>
         <translation>Sense Estil</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4454"/>
+        <location filename="../mpalette.cpp" line="4478"/>
         <source>Cell Lines</source>
         <translation>Línies de Cel·la</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4455"/>
+        <location filename="../mpalette.cpp" line="4479"/>
         <source>Line at Top</source>
         <translation>Línia a Dalt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4456"/>
+        <location filename="../mpalette.cpp" line="4480"/>
         <source>Line at the Left</source>
         <translation>Línia a l&apos;Esquerra</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4457"/>
+        <location filename="../mpalette.cpp" line="4481"/>
         <source>Line at the Right </source>
         <translation>Línia a la Dreta</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4458"/>
+        <location filename="../mpalette.cpp" line="4482"/>
         <source>Line at Bottom</source>
         <translation>Línia a Baix</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4596"/>
+        <location filename="../mpalette.cpp" line="4621"/>
         <source>Name of selected object</source>
         <translation>Nom de l&apos;objecte seleccionat</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4597"/>
+        <location filename="../mpalette.cpp" line="4622"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Posició Horitzontal del Punt Base</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4598"/>
+        <location filename="../mpalette.cpp" line="4623"/>
         <source>Vertical position of current basepoint</source>
         <translation>Posició Vertical del Punt Base</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4599"/>
+        <location filename="../mpalette.cpp" line="4624"/>
         <source>Width</source>
         <translation>Amplada</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4600"/>
+        <location filename="../mpalette.cpp" line="4625"/>
         <source>Height</source>
         <translation>Alçada</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4601"/>
+        <location filename="../mpalette.cpp" line="4626"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Gira l&apos;objecte en el Punt Base</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4602"/>
+        <location filename="../mpalette.cpp" line="4627"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Punt des del que es fan els mesuraments i les rotacions d&apos;angles</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4603"/>
+        <location filename="../mpalette.cpp" line="4628"/>
         <source>Select top left for basepoint</source>
         <translation>Tria punt base esquerra superior</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4604"/>
+        <location filename="../mpalette.cpp" line="4629"/>
         <source>Select top right for basepoint</source>
         <translation>Tria punt base dret superior</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4605"/>
+        <location filename="../mpalette.cpp" line="4630"/>
         <source>Select bottom left for basepoint</source>
         <translation>Tria punt base esquerra inferior</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4606"/>
+        <location filename="../mpalette.cpp" line="4631"/>
         <source>Select bottom right for basepoint</source>
         <translation>Tria punt base dret inferior</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4607"/>
+        <location filename="../mpalette.cpp" line="4632"/>
         <source>Select center for basepoint</source>
         <translation>Tria centre pel punt base</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4610"/>
+        <location filename="../mpalette.cpp" line="4635"/>
         <source>Flip Horizontal</source>
         <translation>Inversió Horitzontal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4611"/>
+        <location filename="../mpalette.cpp" line="4636"/>
         <source>Flip Vertical</source>
         <translation>Inversió Vertical</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4612"/>
+        <location filename="../mpalette.cpp" line="4637"/>
         <source>Move one level up</source>
         <translation>Mou un nivell amunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4613"/>
+        <location filename="../mpalette.cpp" line="4638"/>
         <source>Move one level down</source>
         <translation>Mou un nivell avall</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4614"/>
+        <location filename="../mpalette.cpp" line="4639"/>
         <source>Move to front</source>
         <translation>Mou a davant</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4615"/>
+        <location filename="../mpalette.cpp" line="4640"/>
         <source>Move to back</source>
         <translation>Mou al fons</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4616"/>
+        <location filename="../mpalette.cpp" line="4641"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Indica el nivell en que està l&apos;objectet, 0 vol dir que és al fons de tot</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4617"/>
+        <location filename="../mpalette.cpp" line="4642"/>
         <source>Lock or unlock the object</source>
         <translation>Bloqueja o desbloqueja l&apos;objecte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4618"/>
+        <location filename="../mpalette.cpp" line="4643"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Bloqueja o desbloqueja la mida</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4619"/>
         <source>Enable or disable printing of the object</source>
-        <translation>Activa o desactiva la impressió</translation>
+        <translation type="obsolete">Activa o desactiva la impressió</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -17616,17 +18132,17 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">Fer servir una segona línia basada en el marc per fer fluir el text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4632"/>
+        <location filename="../mpalette.cpp" line="4657"/>
         <source>Font of selected text or object</source>
         <translation>Font del objecte o text triat</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4633"/>
+        <location filename="../mpalette.cpp" line="4658"/>
         <source>Font Size</source>
         <translation>Mida de Font</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4635"/>
+        <location filename="../mpalette.cpp" line="4660"/>
         <source>Scaling width of characters</source>
         <translation>Escalat de l&apos;amplada de caràcter</translation>
     </message>
@@ -17641,12 +18157,12 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">Color d&apos;emplenat de text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4639"/>
+        <location filename="../mpalette.cpp" line="4664"/>
         <source>Saturation of color of text stroke</source>
         <translation>Intensitat del color del voltant del text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4640"/>
+        <location filename="../mpalette.cpp" line="4665"/>
         <source>Saturation of color of text fill</source>
         <translation>Intensitat del color d&apos;omplir el text</translation>
     </message>
@@ -17656,7 +18172,7 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">Interlletratge Manual</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4643"/>
+        <location filename="../mpalette.cpp" line="4668"/>
         <source>Line Spacing</source>
         <translation>Interlineat</translation>
     </message>
@@ -17671,162 +18187,162 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">Idioma de partició de mots del marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4657"/>
+        <location filename="../mpalette.cpp" line="4682"/>
         <source>Change settings for left or end points</source>
         <translation>Canvia paràmetres de punts finals o esquerres</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4658"/>
+        <location filename="../mpalette.cpp" line="4683"/>
         <source>Pattern of line</source>
         <translation>Patró de línia</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4659"/>
+        <location filename="../mpalette.cpp" line="4684"/>
         <source>Thickness of line</source>
         <translation>Gruix de línia</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4660"/>
+        <location filename="../mpalette.cpp" line="4685"/>
         <source>Type of line joins</source>
         <translation>Unions de línia</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4661"/>
+        <location filename="../mpalette.cpp" line="4686"/>
         <source>Type of line end</source>
         <translation>Finals de línia</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4662"/>
+        <location filename="../mpalette.cpp" line="4687"/>
         <source>Line style of current object</source>
         <translation>Estil de línia de l&apos;objecte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4664"/>
+        <location filename="../mpalette.cpp" line="4689"/>
         <source>Choose the shape of frame...</source>
         <translation>Tria la forma del marc...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4665"/>
+        <location filename="../mpalette.cpp" line="4690"/>
         <source>Edit shape of the frame...</source>
         <translation>Edita la ombra del marc...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4666"/>
+        <location filename="../mpalette.cpp" line="4691"/>
         <source>Set radius of corner rounding</source>
         <translation>Radi dels costats arrodonits</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4667"/>
+        <location filename="../mpalette.cpp" line="4692"/>
         <source>Number of columns in text frame</source>
         <translation>Número de columnes de text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4668"/>
+        <location filename="../mpalette.cpp" line="4693"/>
         <source>Switches between Gap or Column width</source>
         <translation>Canvia entre Gap o Amplada de Comumna</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4669"/>
+        <location filename="../mpalette.cpp" line="4694"/>
         <source>Distance between columns</source>
         <translation>Distància entre columnes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4670"/>
+        <location filename="../mpalette.cpp" line="4695"/>
         <source>Distance of text from top of frame</source>
         <translation>Distància del text a dalt del marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4671"/>
+        <location filename="../mpalette.cpp" line="4696"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Distància del text a baix del marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4672"/>
+        <location filename="../mpalette.cpp" line="4697"/>
         <source>Distance of text from left of frame</source>
         <translation>Distància del text a l&apos;esquerra del marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4673"/>
+        <location filename="../mpalette.cpp" line="4698"/>
         <source>Distance of text from right of frame</source>
         <translation>Distància del text a la dreta del marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4674"/>
+        <location filename="../mpalette.cpp" line="4699"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Paràmetres de tabuladors del marc...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4676"/>
+        <location filename="../mpalette.cpp" line="4701"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Permet a la imatge tenir mida diferent del marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4677"/>
+        <location filename="../mpalette.cpp" line="4702"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Desplaçament horitzontal de la imatge al marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4678"/>
+        <location filename="../mpalette.cpp" line="4703"/>
         <source>Vertical offset of image within frame</source>
         <translation>Desplaçament Vertical de la imatge al marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4679"/>
+        <location filename="../mpalette.cpp" line="4704"/>
         <source>Resize the image horizontally</source>
         <translation>Redimensiona la imatge horitzontalment</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4680"/>
+        <location filename="../mpalette.cpp" line="4705"/>
         <source>Resize the image vertically</source>
         <translation>Redimensiona la imatge verticalment</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4681"/>
+        <location filename="../mpalette.cpp" line="4706"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Mantenir l&apos;escalat de X i Y igual</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4682"/>
+        <location filename="../mpalette.cpp" line="4707"/>
         <source>Keep the aspect ratio</source>
         <translation>Mantenir l&apos;aspecte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4683"/>
+        <location filename="../mpalette.cpp" line="4708"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Fer que la imatge encaixi en la mida del marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4684"/>
+        <location filename="../mpalette.cpp" line="4709"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Fer servir proporcions d&apos;imatge en comptes de marc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4685"/>
+        <location filename="../mpalette.cpp" line="4710"/>
         <source>Source profile of the image</source>
         <translation>Perfil font de la imatge</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4686"/>
+        <location filename="../mpalette.cpp" line="4711"/>
         <source>Rendering intent for the image</source>
         <translation>Intent de representació de la imatge</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3201"/>
+        <location filename="../mpalette.cpp" line="3228"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3202"/>
+        <location filename="../mpalette.cpp" line="3229"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3203"/>
+        <location filename="../mpalette.cpp" line="3230"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3204"/>
+        <location filename="../mpalette.cpp" line="3231"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
@@ -17846,7 +18362,7 @@ A&amp;rrodonits:</translation>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2994"/>
+        <location filename="../mpalette.cpp" line="3021"/>
         <source>Column width</source>
         <translation>Amplada de Columna</translation>
     </message>
@@ -17873,62 +18389,62 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4641"/>
+        <location filename="../mpalette.cpp" line="4666"/>
         <source>Right to Left Writing</source>
         <translation>Escriptura d&apos;esquerra a dreta</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4409"/>
+        <location filename="../mpalette.cpp" line="4433"/>
         <source>Fixed Linespacing</source>
         <translation>Interlineat fixe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4410"/>
+        <location filename="../mpalette.cpp" line="4434"/>
         <source>Automatic Linespacing</source>
         <translation>Interlineat automàtic</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4411"/>
+        <location filename="../mpalette.cpp" line="4435"/>
         <source>Align to Baseline Grid</source>
         <translation>Alinear a la graella base</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4397"/>
+        <location filename="../mpalette.cpp" line="4420"/>
         <source>Actual X-DPI:</source>
         <translation>X-DPI actual:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4398"/>
+        <location filename="../mpalette.cpp" line="4421"/>
         <source>Actual Y-DPI:</source>
         <translation>Y-DPI actual:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4426"/>
+        <location filename="../mpalette.cpp" line="4450"/>
         <source>Start Arrow:</source>
         <translation>Inici de fletxa:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4427"/>
+        <location filename="../mpalette.cpp" line="4451"/>
         <source>End Arrow:</source>
         <translation>Final de fletxa:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4634"/>
+        <location filename="../mpalette.cpp" line="4659"/>
         <source>Offset to baseline of characters</source>
         <translation>Desplaçament dels caràcters de la línea base</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4636"/>
+        <location filename="../mpalette.cpp" line="4661"/>
         <source>Scaling height of characters</source>
         <translation>Escalat de l&apos;alçada del caràcter</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4642"/>
+        <location filename="../mpalette.cpp" line="4667"/>
         <source>Manual Tracking</source>
         <translation>Espai entre caràcters manual</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4181"/>
+        <location filename="../mpalette.cpp" line="4204"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>El nom &quot;%1&quot; no és únic. &lt;br/&gt;Si us plau, tria&apos;n un altre.</translation>
     </message>
@@ -17943,17 +18459,17 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Color d&apos;emplenat del text. Només disponible amb decoració de text esquemàtica.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4362"/>
+        <location filename="../mpalette.cpp" line="4385"/>
         <source>Fill Rule</source>
         <translation>Emplena guia</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4363"/>
+        <location filename="../mpalette.cpp" line="4386"/>
         <source>Even-Odd</source>
         <translation>Parell-Senar</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4364"/>
+        <location filename="../mpalette.cpp" line="4387"/>
         <source>Non Zero</source>
         <translation>No és zero</translation>
     </message>
@@ -17963,313 +18479,318 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Clica per seleccionar el mode d&apos;espaiat</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4460"/>
+        <location filename="../mpalette.cpp" line="4484"/>
         <source>Overprinting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4461"/>
+        <location filename="../mpalette.cpp" line="4485"/>
         <source>Knockout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4462"/>
+        <location filename="../mpalette.cpp" line="4486"/>
         <source>Overprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4637"/>
+        <location filename="../mpalette.cpp" line="4662"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4638"/>
+        <location filename="../mpalette.cpp" line="4663"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4343"/>
+        <location filename="../mpalette.cpp" line="4366"/>
         <source>Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4344"/>
+        <location filename="../mpalette.cpp" line="4367"/>
         <source>Width:</source>
         <translation type="unfinished">Amplada:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4371"/>
+        <location filename="../mpalette.cpp" line="4394"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4372"/>
+        <location filename="../mpalette.cpp" line="4395"/>
         <source>Disabled</source>
         <translation type="unfinished">Desactivat</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4373"/>
+        <location filename="../mpalette.cpp" line="4396"/>
         <source>Use Frame &amp;Shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4405"/>
+        <location filename="../mpalette.cpp" line="4428"/>
         <source>Image Effects</source>
         <translation type="unfinished">Efectes d&apos;imatge</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4406"/>
+        <location filename="../mpalette.cpp" line="4429"/>
         <source>Extended Image Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4626"/>
+        <location filename="../mpalette.cpp" line="4651"/>
         <source>Disable text flow from lower frames around object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4627"/>
+        <location filename="../mpalette.cpp" line="4652"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4628"/>
+        <location filename="../mpalette.cpp" line="4653"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4319"/>
+        <location filename="../mpalette.cpp" line="4342"/>
         <source>Transparency Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4304"/>
+        <location filename="../mpalette.cpp" line="4327"/>
         <source>&amp;Group</source>
         <translation type="unfinished">A&amp;grupa</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4320"/>
+        <location filename="../mpalette.cpp" line="4343"/>
         <source>Opacity:</source>
         <translation type="unfinished">Opacitat:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4321"/>
+        <location filename="../mpalette.cpp" line="4344"/>
         <source>Blend Mode:</source>
         <translation type="unfinished">Mode mescla:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4323"/>
+        <location filename="../mpalette.cpp" line="4346"/>
         <source>Normal</source>
         <translation type="unfinished">Normal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4324"/>
+        <location filename="../mpalette.cpp" line="4347"/>
         <source>Darken</source>
         <translation type="unfinished">Fosc</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4325"/>
+        <location filename="../mpalette.cpp" line="4348"/>
         <source>Lighten</source>
         <translation type="unfinished">Clar</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4326"/>
+        <location filename="../mpalette.cpp" line="4349"/>
         <source>Multiply</source>
         <translation type="unfinished">Multiplica</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4327"/>
+        <location filename="../mpalette.cpp" line="4350"/>
         <source>Screen</source>
         <translation type="unfinished">Pantalla</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4328"/>
+        <location filename="../mpalette.cpp" line="4351"/>
         <source>Overlay</source>
         <translation type="unfinished">Sobreposició</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4329"/>
+        <location filename="../mpalette.cpp" line="4352"/>
         <source>Hard Light</source>
         <translation type="unfinished">Llum forta</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4330"/>
+        <location filename="../mpalette.cpp" line="4353"/>
         <source>Soft Light</source>
         <translation type="unfinished">Llum suau</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4331"/>
+        <location filename="../mpalette.cpp" line="4354"/>
         <source>Difference</source>
         <translation type="unfinished">Diferència</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4332"/>
+        <location filename="../mpalette.cpp" line="4355"/>
         <source>Exclusion</source>
         <translation type="unfinished">Exclusió</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4333"/>
+        <location filename="../mpalette.cpp" line="4356"/>
         <source>Color Dodge</source>
         <translation type="unfinished">Color esvaït</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4334"/>
+        <location filename="../mpalette.cpp" line="4357"/>
         <source>Color Burn</source>
         <translation type="unfinished">Crema</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4335"/>
+        <location filename="../mpalette.cpp" line="4358"/>
         <source>Hue</source>
         <translation type="unfinished">To</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4337"/>
+        <location filename="../mpalette.cpp" line="4360"/>
         <source>Color</source>
         <translation type="unfinished">Color</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4608"/>
+        <location filename="../mpalette.cpp" line="4633"/>
         <source>Group the selected objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4609"/>
+        <location filename="../mpalette.cpp" line="4634"/>
         <source>Destroys the selected group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2389"/>
+        <location filename="../mpalette.cpp" line="2415"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4629"/>
+        <location filename="../mpalette.cpp" line="4654"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4644"/>
+        <location filename="../mpalette.cpp" line="4669"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4354"/>
+        <location filename="../mpalette.cpp" line="4377"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4355"/>
+        <location filename="../mpalette.cpp" line="4378"/>
         <source>Stair Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4356"/>
+        <location filename="../mpalette.cpp" line="4379"/>
         <source>Skew</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4357"/>
+        <location filename="../mpalette.cpp" line="4380"/>
         <source>Flip Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4359"/>
+        <location filename="../mpalette.cpp" line="4382"/>
         <source>Type:</source>
         <translation type="unfinished">Tipus:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4376"/>
+        <location filename="../mpalette.cpp" line="4399"/>
         <source>Use Image Clip Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4377"/>
+        <location filename="../mpalette.cpp" line="4400"/>
         <source>Paragraph St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4378"/>
+        <location filename="../mpalette.cpp" line="4401"/>
         <source>Character St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4379"/>
+        <location filename="../mpalette.cpp" line="4402"/>
         <source>Optical Margins:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4390"/>
+        <location filename="../mpalette.cpp" line="4413"/>
         <source>Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4394"/>
+        <location filename="../mpalette.cpp" line="4417"/>
         <source>Min:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4392"/>
+        <location filename="../mpalette.cpp" line="4415"/>
         <source>Norm:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4393"/>
+        <location filename="../mpalette.cpp" line="4416"/>
         <source>Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4395"/>
+        <location filename="../mpalette.cpp" line="4418"/>
         <source>Max:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4630"/>
+        <location filename="../mpalette.cpp" line="4655"/>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4645"/>
+        <location filename="../mpalette.cpp" line="4670"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4646"/>
+        <location filename="../mpalette.cpp" line="4671"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4647"/>
+        <location filename="../mpalette.cpp" line="4672"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4648"/>
+        <location filename="../mpalette.cpp" line="4673"/>
         <source>Remove Direct Character Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4651"/>
+        <location filename="../mpalette.cpp" line="4676"/>
         <source>Minimal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4652"/>
+        <location filename="../mpalette.cpp" line="4677"/>
         <source>Normal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4653"/>
+        <location filename="../mpalette.cpp" line="4678"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4654"/>
+        <location filename="../mpalette.cpp" line="4679"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4655"/>
+        <location filename="../mpalette.cpp" line="4680"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mpalette.cpp" line="4644"/>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18447,12 +18968,12 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="unfinished">Desplaçament &amp;Vertical:</translation>
     </message>
     <message>
-        <location filename="../multipleduplicate.cpp" line="68"/>
+        <location filename="../multipleduplicate.cpp" line="69"/>
         <source>&amp;Horizontal Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../multipleduplicate.cpp" line="69"/>
+        <location filename="../multipleduplicate.cpp" line="70"/>
         <source>&amp;Vertical Gap:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18707,7 +19228,7 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="101"/>
+        <location filename="../newfile.cpp" line="99"/>
         <source>New Document</source>
         <translation>Nou Document</translation>
     </message>
@@ -18717,7 +19238,7 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Mida de Pàgina</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="219"/>
+        <location filename="../newfile.cpp" line="217"/>
         <source>&amp;Size:</source>
         <translation>&amp;Mida:</translation>
     </message>
@@ -18742,27 +19263,27 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Personalitzat</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="228"/>
+        <location filename="../newfile.cpp" line="226"/>
         <source>Orie&amp;ntation:</source>
         <translation>Orie&amp;ntació:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="231"/>
+        <location filename="../newfile.cpp" line="229"/>
         <source>Portrait</source>
         <translation>Vertical</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="232"/>
+        <location filename="../newfile.cpp" line="230"/>
         <source>Landscape</source>
         <translation>Apaisat</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="238"/>
+        <location filename="../newfile.cpp" line="236"/>
         <source>&amp;Width:</source>
         <translation>&amp;Amplada:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="244"/>
+        <location filename="../newfile.cpp" line="242"/>
         <source>&amp;Height:</source>
         <translation>A&amp;lçada:</translation>
     </message>
@@ -18777,7 +19298,7 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Primera &amp;Pàgina Esquerra</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="260"/>
+        <location filename="../newfile.cpp" line="258"/>
         <source>Margin Guides</source>
         <translation>Guia de Marges</translation>
     </message>
@@ -18802,7 +19323,7 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">&amp;Baix:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="278"/>
+        <location filename="../newfile.cpp" line="276"/>
         <source>Options</source>
         <translation>Opcions</translation>
     </message>
@@ -18812,7 +19333,7 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Pr&amp;imer Número de Pàgina:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="289"/>
+        <location filename="../newfile.cpp" line="287"/>
         <source>&amp;Default Unit:</source>
         <translation>Unitats per &amp;Defecte:</translation>
     </message>
@@ -18837,7 +19358,7 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Piques (p)</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="301"/>
+        <location filename="../newfile.cpp" line="299"/>
         <source>&amp;Automatic Text Frames</source>
         <translation>Marcs de Text &amp;Automàtics</translation>
     </message>
@@ -18847,12 +19368,12 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Guies de Columna</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="312"/>
+        <location filename="../newfile.cpp" line="310"/>
         <source>&amp;Gap:</source>
         <translation>&amp;Gap:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="303"/>
+        <location filename="../newfile.cpp" line="301"/>
         <source>Colu&amp;mns:</source>
         <translation>Colu&amp;mnes:</translation>
     </message>
@@ -18867,22 +19388,22 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="141"/>
+        <location filename="../newfile.cpp" line="139"/>
         <source>Document page size, either a standard size or a custom size</source>
         <translation>Mida de pàgina, tant mides estàndard com personalitzades</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="142"/>
+        <location filename="../newfile.cpp" line="140"/>
         <source>Orientation of the document&apos;s pages</source>
         <translation>Orientació de les pàgines del document</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="143"/>
+        <location filename="../newfile.cpp" line="141"/>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Amplada de les pàgines del document, editable si tenim mida personalitzada</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="144"/>
+        <location filename="../newfile.cpp" line="142"/>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Alçada de les pàgines del document, editable si tenim mida personalitzada</translation>
     </message>
@@ -18926,22 +19447,22 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Primer número de pàgina del document</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="146"/>
+        <location filename="../newfile.cpp" line="144"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Unitats de mesura utilitzades en la edició</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="147"/>
+        <location filename="../newfile.cpp" line="145"/>
         <source>Create text frames automatically when new pages are added</source>
         <translation>Crear caixes de text automàticament quan s&apos;afegeixin pàgines</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="148"/>
+        <location filename="../newfile.cpp" line="146"/>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Número de columnes a crear en els quadres de text automàtics</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="149"/>
+        <location filename="../newfile.cpp" line="147"/>
         <source>Distance between automatically created columns</source>
         <translation>Distància entre les columnes creades automàticament</translation>
     </message>
@@ -18981,17 +19502,17 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Documents recents</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="127"/>
+        <location filename="../newfile.cpp" line="125"/>
         <source>Do not show this dialog again</source>
         <translation>No tornis a mostrar aquest diàleg</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="145"/>
+        <location filename="../newfile.cpp" line="143"/>
         <source>Initial number of pages of the document</source>
         <translation>Quantitat inicial de pàgines del document</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="283"/>
+        <location filename="../newfile.cpp" line="281"/>
         <source>N&amp;umber of Pages:</source>
         <translation>N&amp;úmero de pàgines:</translation>
     </message>
@@ -19011,22 +19532,22 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Tots els Fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="359"/>
+        <location filename="../newfile.cpp" line="357"/>
         <source>Open</source>
         <translation>Obre</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="111"/>
+        <location filename="../newfile.cpp" line="109"/>
         <source>&amp;New Document</source>
         <translation>&amp;Nou Document</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="113"/>
+        <location filename="../newfile.cpp" line="111"/>
         <source>Open &amp;Existing Document</source>
         <translation>Obrir un document &amp;existent</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="116"/>
+        <location filename="../newfile.cpp" line="114"/>
         <source>Open Recent &amp;Document</source>
         <translation>Obrir un &amp;document recent</translation>
     </message>
@@ -19036,17 +19557,17 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Format de pàgina</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="251"/>
+        <location filename="../newfile.cpp" line="249"/>
         <source>First Page is:</source>
         <translation type="unfinished">La primera pàgina és:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="325"/>
+        <location filename="../newfile.cpp" line="323"/>
         <source>Show Document Settings After Creation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="176"/>
+        <location filename="../newfile.cpp" line="174"/>
         <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19054,17 +19575,17 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>NewFromTemplatePlugin</name>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="60"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="59"/>
         <source>New &amp;from Template...</source>
         <translation>Nou des de P&amp;lantilla...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="79"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="78"/>
         <source>Load documents with predefined layout</source>
         <translation>Carregar documents amb distribució predefinida</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="81"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="80"/>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation>Començar un document des d&apos;una plantilla feta abans  (ex. per documents que tenen un estil constant).</translation>
     </message>
@@ -19095,127 +19616,127 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../frameedit.cpp" line="809"/>
+        <location filename="../frameedit.cpp" line="839"/>
         <source>Nodes</source>
         <translation>Nodes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="812"/>
+        <location filename="../frameedit.cpp" line="842"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>Coordenades &amp;Absolutes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="813"/>
+        <location filename="../frameedit.cpp" line="843"/>
         <source>&amp;X-Pos:</source>
         <translation>Posició &amp;X:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="814"/>
+        <location filename="../frameedit.cpp" line="844"/>
         <source>&amp;Y-Pos:</source>
         <translation>Posició &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="815"/>
+        <location filename="../frameedit.cpp" line="845"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Edita Línia del &amp;Voltant</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="816"/>
+        <location filename="../frameedit.cpp" line="846"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Restableix Línia del Voltant</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="819"/>
+        <location filename="../frameedit.cpp" line="851"/>
         <source>&amp;End Editing</source>
         <translation>Fi d&apos;&amp;Edició</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="820"/>
+        <location filename="../frameedit.cpp" line="852"/>
         <source>Move Nodes</source>
         <translation>Mou Nodes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="821"/>
+        <location filename="../frameedit.cpp" line="853"/>
         <source>Move Control Points</source>
         <translation>Mou Punts de Control</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="822"/>
+        <location filename="../frameedit.cpp" line="854"/>
         <source>Add Nodes</source>
         <translation>Afegeix Nodes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="823"/>
+        <location filename="../frameedit.cpp" line="855"/>
         <source>Delete Nodes</source>
         <translation>Esborra Nodes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="824"/>
+        <location filename="../frameedit.cpp" line="856"/>
         <source>Move Control Points Independently</source>
         <translation>Mou Punts de Control independentment</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="825"/>
+        <location filename="../frameedit.cpp" line="857"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Moure Punts de Control simetricament</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="826"/>
+        <location filename="../frameedit.cpp" line="858"/>
         <source>Reset Control Points</source>
         <translation>Restableix Punts de Control</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="827"/>
+        <location filename="../frameedit.cpp" line="859"/>
         <source>Reset this Control Point</source>
         <translation>Restableix Punt de Control</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="828"/>
+        <location filename="../frameedit.cpp" line="860"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Obre un Polígon o Tallar una Corba Bezier</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="829"/>
+        <location filename="../frameedit.cpp" line="861"/>
         <source>Close this Bezier Curve</source>
         <translation>Tanca aquesta Corba Bezier</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="830"/>
+        <location filename="../frameedit.cpp" line="862"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Enmiralla el camí Horitzontalment</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="831"/>
+        <location filename="../frameedit.cpp" line="863"/>
         <source>Mirror the Path Vertically</source>
         <translation>Enmiralla el camí Verticalment</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="832"/>
+        <location filename="../frameedit.cpp" line="864"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Esquila el Camí cap a la Dreta</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="833"/>
+        <location filename="../frameedit.cpp" line="865"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Esquila el Camí cap a l&apos;esquerra</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="834"/>
+        <location filename="../frameedit.cpp" line="866"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Esquila el Camí cap Amunt</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="835"/>
+        <location filename="../frameedit.cpp" line="867"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Esquila el Camí cap Avall</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="836"/>
+        <location filename="../frameedit.cpp" line="868"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Gira el camí antihorariament</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="837"/>
+        <location filename="../frameedit.cpp" line="869"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Gira el camí horariament</translation>
     </message>
@@ -19225,12 +19746,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Redueix la Mida del camí per mostrar %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="839"/>
+        <location filename="../frameedit.cpp" line="871"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Allarga el camí per mostrar %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="842"/>
+        <location filename="../frameedit.cpp" line="874"/>
         <source>Angle of Rotation</source>
         <translation>Angle de Rotació</translation>
     </message>
@@ -19240,12 +19761,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">% d&apos;allargament o Reduir Per</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="845"/>
+        <location filename="../frameedit.cpp" line="877"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Activa Edició de Contorn de Línia</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="846"/>
+        <location filename="../frameedit.cpp" line="878"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Restableix el Contorn de línia a la Forma Original del Marc</translation>
     </message>
@@ -19257,60 +19778,70 @@ otherwise Coordinates are relative to the Object.</source>
 Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="810"/>
+        <location filename="../frameedit.cpp" line="840"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="848"/>
+        <location filename="../frameedit.cpp" line="880"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Quan està marcat fa servir coordenades relatives a la pàgina, altrament són relatives a l&apos;objecte.</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="838"/>
+        <location filename="../frameedit.cpp" line="870"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Disminueix la mida del camí pel %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="840"/>
+        <location filename="../frameedit.cpp" line="872"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Redueix la mida del camí segons el valor</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="841"/>
+        <location filename="../frameedit.cpp" line="873"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Allarga la mida del camí segons el valor </translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="843"/>
+        <location filename="../frameedit.cpp" line="875"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>% d&apos;allargament o disminució</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="844"/>
+        <location filename="../frameedit.cpp" line="876"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Allargament o reducció per</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="817"/>
+        <location filename="../frameedit.cpp" line="847"/>
         <source>Set Contour to Image Clip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="847"/>
+        <location filename="../frameedit.cpp" line="879"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../frameedit.cpp" line="849"/>
+        <source>Lens Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../frameedit.cpp" line="850"/>
+        <source>Apply fancy Lens Effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="292"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="294"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Aquest document no sembla ser un fitxer d&apos;OpenOffice.org Draw.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="662"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="666"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19318,7 +19849,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="92"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="94"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>Importar Dibuixos d&apos;&amp;OpenOffice.org Draw...</translation>
     </message>
@@ -19333,34 +19864,34 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
         <translation type="obsolete">Importa la majoria dels fitxers de dibuixos d&apos;OpenOffice al document actual, convertint les dades vectorials a objectes Scribus.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="107"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="109"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation>Importa fitxers d&apos;OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="108"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importa la majoria dels fitxers d&apos;OpenOffice.org Draw en el document actual, convertint les seves dades vectorials en objectes Scribus.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="122"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="124"/>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="134"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="136"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="200"/>
         <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="196"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19368,57 +19899,57 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="46"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="43"/>
         <source>OpenDocument Importer Options</source>
         <translation>Opcions de l&apos;importador d&apos;OpenDocument</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="55"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="52"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Sobreescriure estils de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="57"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="54"/>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Activant això els estils actuals seran sobreescrits</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="64"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="61"/>
         <source>Merge Paragraph Styles</source>
         <translation>Barreja estils de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="66"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="63"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
         <translation>Barreja estils de paràgraf pels seus atributs. Això ens donarà estils de paràgraf similars, que mantindran atributs, fins i tot si els estils de document tenen noms diferents.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="73"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="70"/>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Fes servir el nom de document com estil de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="75"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="72"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
         <translation>Afegeix el nom del document al principi del nom dels estils d&apos;Scribus.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="82"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="79"/>
         <source>Do not ask again</source>
         <translation>No ho tornis a preguntar</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="84"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Guarda les opcions actuals i no les preguntarà més quan importi documents OASIS OpenDocument.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="93"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="90"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="95"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="92"/>
         <source>Cancel</source>
         <translation>Cancel.la</translation>
     </message>
@@ -19477,12 +20008,12 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
 <context>
     <name>OutlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="96"/>
+        <location filename="../styleselect.cpp" line="95"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="97"/>
+        <location filename="../styleselect.cpp" line="96"/>
         <source>Linewidth</source>
         <translation>Amplada de línia</translation>
     </message>
@@ -19498,27 +20029,27 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../pdfopts.cpp" line="150"/>
+        <location filename="../pdfopts.cpp" line="152"/>
         <source>Save as PDF</source>
         <translation>Desa com PDF</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="63"/>
+        <location filename="../pdfopts.cpp" line="65"/>
         <source>O&amp;utput to File:</source>
         <translation>So&amp;rtida a Fitxer:</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="92"/>
+        <location filename="../pdfopts.cpp" line="94"/>
         <source>Cha&amp;nge...</source>
         <translation>Ca&amp;nvi...</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="95"/>
+        <location filename="../pdfopts.cpp" line="97"/>
         <source>Output one file for eac&amp;h page</source>
         <translation>Genera un fitxer per ca&amp;da pàgina</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="108"/>
+        <location filename="../pdfopts.cpp" line="110"/>
         <source>&amp;Save</source>
         <translation>&amp;Desa</translation>
     </message>
@@ -19528,32 +20059,32 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
         <translation type="obsolete">Això permet exportar un PDF per cada pàgina del document. Els números de pàgina s&apos;afegiran al nom automàticament. Això és útil sobretot per impressió comercial en PDF.</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="209"/>
+        <location filename="../pdfopts.cpp" line="211"/>
         <source>Save as</source>
         <translation>Anomena i desa</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="209"/>
+        <location filename="../pdfopts.cpp" line="211"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="120"/>
+        <location filename="../pdfopts.cpp" line="122"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation>Això permet exportar un fitxer PDF per cada una de les pàgines del document. Els números de pàgines s&apos;afegeixen automàticament. Això és molt útil per fer imposicions per impressió comercial.</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="121"/>
+        <location filename="../pdfopts.cpp" line="123"/>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation>El botó de desar es desactivarà si estas triant d&apos;exportar a un PDF/X-3 i la cadena d&apos;informació dels tabuladors PDF/X-3 es perd.</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="151"/>
+        <location filename="../pdfopts.cpp" line="153"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="174"/>
+        <location filename="../pdfopts.cpp" line="176"/>
         <source>Cannot create directory: 
 %1</source>
         <translation type="unfinished"></translation>
@@ -19562,32 +20093,32 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../pdflib_core.cpp" line="117"/>
+        <location filename="../pdflib_core.cpp" line="127"/>
         <source>Saving PDF</source>
         <translation type="unfinished">Desant el PDF</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="121"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="121"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="121"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Items on Current Page:</source>
         <translation type="unfinished">Exportant els ítems de la pàgina:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2301"/>
+        <location filename="../pdflib_core.cpp" line="2315"/>
         <source>Page:</source>
         <translation type="unfinished">Pàgina:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2314"/>
+        <location filename="../pdflib_core.cpp" line="2328"/>
         <source>Date:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19595,7 +20126,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="135"/>
+        <location filename="../werktoolb.cpp" line="115"/>
         <source>PDF Tools</source>
         <translation type="unfinished">Eines de PDF</translation>
     </message>
@@ -20529,7 +21060,7 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../preview.cpp" line="79"/>
+        <location filename="../preview.cpp" line="80"/>
         <source>Print Preview</source>
         <translation>Vista prèvia d&apos;Impressió</translation>
     </message>
@@ -20544,37 +21075,37 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation type="obsolete">Antiàlies de &amp;Gràfics</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="132"/>
+        <location filename="../preview.cpp" line="133"/>
         <source>Display Trans&amp;parency</source>
         <translation>Mostra Trans&amp;parències</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="246"/>
+        <location filename="../preview.cpp" line="247"/>
         <source>&amp;Under Color Removal</source>
         <translation>Sobre eliminació de color s&amp;ubjacent</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="137"/>
+        <location filename="../preview.cpp" line="138"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Mostra CMYK</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="144"/>
+        <location filename="../preview.cpp" line="145"/>
         <source>&amp;C</source>
         <translation>&amp;C</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="149"/>
+        <location filename="../preview.cpp" line="150"/>
         <source>&amp;M</source>
         <translation>&amp;M</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="154"/>
+        <location filename="../preview.cpp" line="155"/>
         <source>&amp;Y</source>
         <translation>&amp;Y</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="159"/>
+        <location filename="../preview.cpp" line="160"/>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
     </message>
@@ -20593,32 +21124,32 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 gràfics vectorials en la previsualització, a canvi d&apos;un petit ralentiment</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="320"/>
+        <location filename="../preview.cpp" line="321"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Mostra transparències i ítems transparents en el document. Requereix Ghostcript 7.07 o posterior</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="321"/>
+        <location filename="../preview.cpp" line="322"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Permet a la vista prèvia d&apos;impressió simular l&apos;ús de tintes CMYK en comptes de colors RGB</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="346"/>
+        <location filename="../preview.cpp" line="347"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>Activa/desactiva la placa de tinta C(Cian) </translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="347"/>
+        <location filename="../preview.cpp" line="348"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>Activa/desactiva la placa de tinta M(Magenta)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="348"/>
+        <location filename="../preview.cpp" line="349"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>Activa/desactiva la placa de tinta Y(Groc)</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="349"/>
+        <location filename="../preview.cpp" line="350"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Activa/desactiva la placa de tinta K(Negre)</translation>
     </message>
@@ -20638,7 +21169,7 @@ però cal alguna experimentació en cada un dels casos.
 UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="612"/>
+        <location filename="../preview.cpp" line="613"/>
         <source>All</source>
         <translation>Tot</translation>
     </message>
@@ -20670,37 +21201,37 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Avís</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="172"/>
+        <location filename="../preview.cpp" line="173"/>
         <source>Separation Name</source>
         <translation>Nom de separació</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="184"/>
+        <location filename="../preview.cpp" line="185"/>
         <source>Cyan</source>
         <translation>Cian</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="191"/>
+        <location filename="../preview.cpp" line="192"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="198"/>
+        <location filename="../preview.cpp" line="199"/>
         <source>Yellow</source>
         <translation>Groc</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="205"/>
+        <location filename="../preview.cpp" line="206"/>
         <source>Black</source>
         <translation>Negre</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="270"/>
+        <location filename="../preview.cpp" line="271"/>
         <source>Scaling:</source>
         <translation>Escalat:</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="294"/>
+        <location filename="../preview.cpp" line="295"/>
         <source>Print...</source>
         <translation>Imprimir...</translation>
     </message>
@@ -20715,109 +21246,119 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Fa que el text TrueType, OpenType, EPS, PDF i gràfics vectorials siguin més agradables, però això pot provocar una lleugera baixada de rendiment en la visualització</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="322"/>
+        <location filename="../preview.cpp" line="323"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Una forma d&apos;apagar algunes de les intensitats de gris que estan composades per cian, groc i magenta fent servir negre. El UCD afecta parts de les imatges que són neutrals i/o tons foscos que són propers a gris. Fer servir això pot millorar la impressió d&apos;algunes imatges pero cal una mica d&apos;experimentació i proves per obtenir resultats bons. El UCR redueix la possibilitat de sobresaturació de tintes CMY.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="323"/>
+        <location filename="../preview.cpp" line="324"/>
         <source>Resize the scale of the page.</source>
         <translation>Redueix l&apos;escala de la pàgina.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="291"/>
+        <location filename="../preview.cpp" line="292"/>
         <source>Close</source>
         <translation>Tanca</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="1094"/>
+        <location filename="../preview.cpp" line="1100"/>
         <source>File</source>
         <translation>Fitxer</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="249"/>
+        <location filename="../preview.cpp" line="250"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="127"/>
+        <location filename="../preview.cpp" line="128"/>
         <source>Enable &amp;Antialiasing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="278"/>
+        <location filename="../preview.cpp" line="279"/>
         <source>Fit to Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="279"/>
+        <location filename="../preview.cpp" line="280"/>
         <source>Fit to Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="280"/>
+        <location filename="../preview.cpp" line="281"/>
         <source>Fit to Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="319"/>
+        <location filename="../preview.cpp" line="320"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="121"/>
+        <location filename="../preview.cpp" line="122"/>
         <source>Display Settings</source>
         <translation type="unfinished">Paràmetres de Visualització</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="228"/>
+        <location filename="../preview.cpp" line="229"/>
         <source>Print Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="234"/>
+        <location filename="../preview.cpp" line="235"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished">Enmiralla la pàgina(es) horitzontalment</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="237"/>
+        <location filename="../preview.cpp" line="238"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished">Enmiralla la pàgina(es) verticalment</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="240"/>
+        <location filename="../preview.cpp" line="241"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="243"/>
+        <location filename="../preview.cpp" line="244"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished">Imprimeix en escala de grisos</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="252"/>
+        <location filename="../preview.cpp" line="253"/>
         <source>Convert Spot Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="255"/>
         <source>Apply ICC Profiles</source>
-        <translation type="unfinished">Aplica perfils ICC</translation>
+        <translation type="obsolete">Aplica perfils ICC</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="324"/>
+        <location filename="../preview.cpp" line="325"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished">Activa els colors Spot per ser convertits a colors compostos. A menys que tinguis previst imprimir colors spot en impressió comercial, el millor és deixar-ho activat.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="325"/>
+        <location filename="../preview.cpp" line="326"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="326"/>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">Permet fer servir perfils ICC en la impressió si està activada la gestió de color</translation>
+        <translation type="obsolete">Permet fer servir perfils ICC en la impressió si està activada la gestió de color</translation>
+    </message>
+    <message>
+        <location filename="../preview.cpp" line="256"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../preview.cpp" line="327"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20833,12 +21374,12 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Exportant pàgines:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1672"/>
+        <location filename="../pslib.cpp" line="1694"/>
         <source>Processing Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1672"/>
+        <location filename="../pslib.cpp" line="1694"/>
         <source>Exporting Page:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20846,44 +21387,19 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
 <context>
     <name>PStyleW</name>
     <message>
-        <location filename="../smpstylew.ui" line="13"/>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../smpstylew.ui" line="26"/>
         <source>Properties</source>
-        <translation type="unfinished">Propietats</translation>
+        <translation type="obsolete">Propietats</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="46"/>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">Tabuladors i sangrat</translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="64"/>
-        <source>Based On:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="104"/>
-        <source>Distances and Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Tabuladors i sangrat</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="130"/>
         <source>Drop Caps</source>
-        <translation type="unfinished">Caplletres</translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="146"/>
-        <source>Parent&apos;s Drop Cap Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="190"/>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Caplletres</translation>
     </message>
 </context>
 <context>
@@ -21270,37 +21786,37 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="358"/>
+        <location filename="../pageitem.cpp" line="361"/>
         <source>Image</source>
         <translation>Imatge</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="362"/>
+        <location filename="../pageitem.cpp" line="365"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="366"/>
+        <location filename="../pageitem.cpp" line="369"/>
         <source>Line</source>
         <translation>Línia</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="370"/>
+        <location filename="../pageitem.cpp" line="373"/>
         <source>Polygon</source>
         <translation>Polígon</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="374"/>
+        <location filename="../pageitem.cpp" line="377"/>
         <source>Polyline</source>
         <translation>Polilínia</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="378"/>
+        <location filename="../pageitem.cpp" line="381"/>
         <source>PathText</source>
         <translation>Camí de Text</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3344"/>
+        <location filename="../pageitem.cpp" line="3377"/>
         <source>Copy of</source>
         <translation>Còpia de</translation>
     </message>
@@ -21313,17 +21829,17 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Cap</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Relates To</source>
         <translation>Fa referència A</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Is Parent Of</source>
         <translation>Es pare de</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Is Child Of</source>
         <translation>Es fill de</translation>
     </message>
@@ -21413,7 +21929,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="unfinished">&amp;Cancel.la</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>None</source>
         <comment>relationship</comment>
         <translation>Cap</translation>
@@ -21508,6 +22024,186 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
 </context>
 <context>
+    <name>PageItem_ImageFrame</name>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="244"/>
+        <source>Picture</source>
+        <translation type="unfinished">Imatge</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="332"/>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Paràmetres de vista prèvia</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_LatexFrame</name>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="47"/>
+        <source>Latex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="66"/>
+        <source>\section*{Manual}
+Your \LaTeX-frames setup is working when you can read this text!\\
+Placing formulas is very easy:\\
+Right click $\Rightarrow$ Edit Latex Source\\
+And replace this text with your own. Here is an example:
+\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
+becomes
+\[J = \int r^2 \mathrm{d}m\]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="539"/>
+        <source>Error</source>
+        <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="219"/>
+        <source>Running the external application failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="285"/>
+        <source>Could not create a temporary file to run the application!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="362"/>
+        <source>Information</source>
+        <translation type="unfinished">Informació</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="308"/>
+        <source>Please specify a latex executable in the preferences!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="356"/>
+        <source>An editor for this frame is already running!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="364"/>
+        <source>Please specify an editor in the preferences!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="451"/>
+        <source>Could not create a temporary file to run the external editor!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="515"/>
+        <source>Running the editor failed with exitcode %d!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="531"/>
+        <source>Running the editor &quot;%1&quot; failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="547"/>
+        <source>Running the application &quot;%1&quot; failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="631"/>
+        <source>Latex-Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="634"/>
+        <source>Command: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="639"/>
+        <source>DPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="644"/>
+        <source>Status: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="647"/>
+        <source>OK</source>
+        <translation type="unfinished">D&apos;acord</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="649"/>
+        <source>Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="651"/>
+        <source>Errorcode </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_PathText</name>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="390"/>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Paràgrafs:</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="398"/>
+        <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="404"/>
+        <source>Words: </source>
+        <translation type="unfinished">Paraules:</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="412"/>
+        <source>Chars: </source>
+        <translation type="unfinished">Lletres:</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_TextFrame</name>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3313"/>
+        <source>Linked Text</source>
+        <translation type="unfinished">Text enllaçat</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3315"/>
+        <source>Text Frame</source>
+        <translation type="unfinished">Marc de Text</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3319"/>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Paràgrafs:</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3327"/>
+        <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3333"/>
+        <source>Words: </source>
+        <translation type="unfinished">Paraules:</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3341"/>
+        <source>Chars: </source>
+        <translation type="unfinished">Lletres:</translation>
+    </message>
+</context>
+<context>
     <name>PageLayouts</name>
     <message>
         <location filename="" line="136960432"/>
@@ -21515,12 +22211,12 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Format de pàgina</translation>
     </message>
     <message>
-        <location filename="../pagelayout.cpp" line="267"/>
+        <location filename="../pagelayout.cpp" line="266"/>
         <source>First Page is:</source>
         <translation>La primera pàgina és:</translation>
     </message>
     <message>
-        <location filename="../pagelayout.cpp" line="198"/>
+        <location filename="../pagelayout.cpp" line="197"/>
         <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21530,20 +22226,20 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     <message>
         <location filename="../seiten.cpp" line="533"/>
         <source>Double sided</source>
-        <translation>Doble cara</translation>
+        <translation type="obsolete">Doble cara</translation>
     </message>
     <message>
         <location filename="../seiten.cpp" line="541"/>
         <source>Middle Right</source>
-        <translation>Mig dreta</translation>
+        <translation type="obsolete">Mig dreta</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="570"/>
+        <location filename="../seiten.cpp" line="557"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation>Arrossega les pàgines o les pàgines mestres a la paperera per esborrar-les</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="571"/>
+        <location filename="../seiten.cpp" line="558"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation>Aquí hi ha totes les pàgines mestres. Per crear una pàgina nova, arrossega una pàgina mestr a la vista de pàgina de sota</translation>
     </message>
@@ -21553,17 +22249,17 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="855"/>
+        <location filename="../seiten.cpp" line="853"/>
         <source>Arrange Pages</source>
         <translation>Organitza Pàgines</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="856"/>
+        <location filename="../seiten.cpp" line="854"/>
         <source>Available Master Pages:</source>
         <translation>Pàgines mestres disponibles:</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="857"/>
+        <location filename="../seiten.cpp" line="855"/>
         <source>Document Pages:</source>
         <translation>Pàgines:</translation>
     </message>
@@ -21581,7 +22277,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">de %1</translation>
     </message>
     <message>
-        <location filename="../pageselector.cpp" line="246"/>
+        <location filename="../pageselector.cpp" line="247"/>
         <source>%1 of %2</source>
         <translation>%1 de %2</translation>
     </message>
@@ -21707,7 +22403,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
 <context>
     <name>ParaStyleComboBox</name>
     <message>
-        <location filename="../spalette.cpp" line="61"/>
+        <location filename="../spalette.cpp" line="62"/>
         <source>No Style</source>
         <translation type="unfinished">Sense Estil</translation>
     </message>
@@ -21715,22 +22411,22 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
 <context>
     <name>PatternDialog</name>
     <message>
-        <location filename="../patterndialog.cpp" line="95"/>
+        <location filename="../patterndialog.cpp" line="96"/>
         <source>Choose a Directory</source>
         <translation type="unfinished">Tria un Directori</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="123"/>
+        <location filename="../patterndialog.cpp" line="124"/>
         <source>Loading Patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="198"/>
+        <location filename="../patterndialog.cpp" line="199"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Tots els Fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="201"/>
+        <location filename="../patterndialog.cpp" line="202"/>
         <source>Open</source>
         <translation type="unfinished">Obre</translation>
     </message>
@@ -21798,22 +22494,22 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="unfinished">Cancel.la</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="106"/>
+        <location filename="../picsearch.cpp" line="108"/>
         <source>Size:</source>
         <translation type="unfinished">Mida:</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="107"/>
+        <location filename="../picsearch.cpp" line="109"/>
         <source>Resolution:</source>
         <translation type="unfinished">Resolució:</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="107"/>
+        <location filename="../picsearch.cpp" line="109"/>
         <source>DPI</source>
         <translation type="unfinished">DPI</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="110"/>
+        <location filename="../picsearch.cpp" line="112"/>
         <source>Unknown</source>
         <translation type="unfinished">Desconegut</translation>
     </message>
@@ -21833,7 +22529,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Escala de grisos</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="113"/>
+        <location filename="../picsearch.cpp" line="115"/>
         <source>Colorspace:</source>
         <translation type="unfinished">Espai de color:</translation>
     </message>
@@ -21889,12 +22585,12 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../picsearchoptions.cpp" line="48"/>
+        <location filename="../picsearchoptions.cpp" line="49"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="55"/>
+        <location filename="../picsearchoptions.cpp" line="56"/>
         <source>Cancel Search</source>
         <translation type="unfinished">Cancel·la la recerca</translation>
     </message>
@@ -21904,17 +22600,17 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="82"/>
+        <location filename="../picsearchoptions.cpp" line="83"/>
         <source>Select a base directory for search</source>
         <translation type="unfinished">Tria un directori base per la recerca</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="137"/>
+        <location filename="../picsearchoptions.cpp" line="138"/>
         <source>Scribus - Image Search</source>
         <translation type="unfinished">Scribus - Cerca d&apos;imatges</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="137"/>
+        <location filename="../picsearchoptions.cpp" line="138"/>
         <source>The search failed: %1</source>
         <translation type="unfinished">La recerca ha fallat: %1</translation>
     </message>
@@ -21987,7 +22683,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Estat</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="510"/>
+        <location filename="../picstatus.ui" line="575"/>
         <source>Goto</source>
         <translation>Anar a</translation>
     </message>
@@ -22027,7 +22723,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation>Gestiona Imatges</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="289"/>
+        <location filename="../picstatus.cpp" line="291"/>
         <source>Scribus - Image Search</source>
         <translation>Scribus - Cerca d&apos;imatges</translation>
     </message>
@@ -22037,7 +22733,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">La recerca ha fallat: %1</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="289"/>
+        <location filename="../picstatus.cpp" line="291"/>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>No hi ha imatges amb el nom &quot;%1&quot;.</translation>
     </message>
@@ -22047,52 +22743,52 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Tria un directori base per la recerca</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="633"/>
+        <location filename="../picstatus.ui" line="719"/>
         <source>Close</source>
         <translation type="unfinished">Tanca</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="141"/>
+        <location filename="../picstatus.cpp" line="142"/>
         <source>Not on a Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="156"/>
+        <location filename="../picstatus.cpp" line="157"/>
         <source>JPG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="159"/>
+        <location filename="../picstatus.cpp" line="160"/>
         <source>TIFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="162"/>
+        <location filename="../picstatus.cpp" line="163"/>
         <source>PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="165"/>
+        <location filename="../picstatus.cpp" line="166"/>
         <source>EPS/PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="168"/>
+        <location filename="../picstatus.cpp" line="169"/>
         <source>PDF</source>
         <translation type="unfinished">PDF</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="171"/>
+        <location filename="../picstatus.cpp" line="172"/>
         <source>JPG2000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="177"/>
+        <location filename="../picstatus.cpp" line="178"/>
         <source>emb. PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="183"/>
+        <location filename="../picstatus.cpp" line="184"/>
         <source>Unknown</source>
         <translation type="unfinished">Desconegut</translation>
     </message>
@@ -22112,123 +22808,123 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Escala de grisos</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="217"/>
+        <location filename="../picstatus.cpp" line="201"/>
         <source>n/a</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="74"/>
+        <location filename="../picstatus.ui" line="81"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="135"/>
+        <location filename="../picstatus.ui" line="159"/>
         <source>Path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="145"/>
+        <location filename="../picstatus.ui" line="169"/>
         <source>Search...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="199"/>
+        <location filename="../picstatus.ui" line="219"/>
         <source>Name:</source>
         <translation type="unfinished">Nom:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="219"/>
+        <location filename="../picstatus.ui" line="248"/>
         <source>Image</source>
         <translation type="unfinished">Imatge</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="305"/>
+        <location filename="../picstatus.ui" line="346"/>
         <source>DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="292"/>
+        <location filename="../picstatus.ui" line="333"/>
         <source>Format:</source>
         <translation type="unfinished">Format:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="279"/>
+        <location filename="../picstatus.ui" line="320"/>
         <source>Colorspace:</source>
         <translation type="unfinished">Espai de color:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="321"/>
+        <location filename="../picstatus.ui" line="362"/>
         <source>Size</source>
         <translation type="unfinished">Mida</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="401"/>
+        <location filename="../picstatus.ui" line="454"/>
         <source>Pixels:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="391"/>
+        <location filename="../picstatus.ui" line="444"/>
         <source>Scale:</source>
         <translation type="unfinished">Escala:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="365"/>
+        <location filename="../picstatus.ui" line="418"/>
         <source>Printed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="414"/>
+        <location filename="../picstatus.ui" line="467"/>
         <source>Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="523"/>
+        <location filename="../picstatus.ui" line="588"/>
         <source>On Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="497"/>
+        <location filename="../picstatus.ui" line="562"/>
         <source>eff. DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="487"/>
+        <location filename="../picstatus.ui" line="552"/>
         <source>Object:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="474"/>
+        <location filename="../picstatus.ui" line="539"/>
         <source>Select</source>
         <translation type="unfinished">Selecciona</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="539"/>
+        <location filename="../picstatus.ui" line="604"/>
         <source>Image Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="558"/>
-        <source>Layers &amp;&amp; Paths...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../picstatus.ui" line="575"/>
+        <location filename="../picstatus.ui" line="652"/>
         <source>Image Visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="582"/>
+        <location filename="../picstatus.ui" line="659"/>
         <source>Image Effects...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="568"/>
+        <location filename="../picstatus.ui" line="645"/>
         <source>Edit Image...</source>
         <translation type="unfinished">Edita Imatge...</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="551"/>
+        <location filename="../picstatus.ui" line="628"/>
         <source>Print Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.ui" line="635"/>
+        <source>Extended Image Properties...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22268,19 +22964,19 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
 <context>
     <name>PluginManager</name>
     <message>
-        <location filename="../pluginmanager.cpp" line="72"/>
+        <location filename="../pluginmanager.cpp" line="69"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
         <translation>No puc trobar el connector</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="61"/>
+        <location filename="../pluginmanager.cpp" line="58"/>
         <source>unknown error</source>
         <comment>plugin manager</comment>
         <translation>error desconegut</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="97"/>
+        <location filename="../pluginmanager.cpp" line="94"/>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation>No puc trobar el símbol (%1)</translation>
@@ -22298,31 +22994,31 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Desconegut</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="157"/>
+        <location filename="../pluginmanager.cpp" line="154"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
         <translation>Connector: carregant %1</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="261"/>
+        <location filename="../pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>ha fallat la inicialització</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="267"/>
+        <location filename="../pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>tipus de connector desconegut</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="271"/>
+        <location filename="../pluginmanager.cpp" line="268"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Connector: %1 carregat</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="275"/>
+        <location filename="../pluginmanager.cpp" line="272"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Connector: %1 no s&apos;ha pogut carregar: %2</translation>
@@ -22348,19 +23044,19 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <translation type="obsolete">Dibuixos OpenOffice.org (*.sxd);;</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="315"/>
+        <location filename="../pluginmanager.cpp" line="312"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="318"/>
+        <location filename="../pluginmanager.cpp" line="315"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="228"/>
+        <location filename="../pluginmanager.cpp" line="225"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22426,7 +23122,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
 <context>
     <name>PolygonProps</name>
     <message>
-        <location filename="../polyprops.cpp" line="21"/>
+        <location filename="../polyprops.cpp" line="20"/>
         <source>Polygon Properties</source>
         <translation>Propietats del Polígon</translation>
     </message>
@@ -22496,47 +23192,47 @@ i un valor positiu el farà convex</translation>
 <context>
     <name>PolygonWidget</name>
     <message>
-        <location filename="../polygonwidget.cpp" line="48"/>
+        <location filename="../polygonwidget.cpp" line="55"/>
         <source>Corn&amp;ers:</source>
         <translation>V&amp;èrtex:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="67"/>
+        <location filename="../polygonwidget.cpp" line="75"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Rotació:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="82"/>
+        <location filename="../polygonwidget.cpp" line="91"/>
         <source>Apply &amp;Factor</source>
         <translation>Aplica &amp;Factor</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="97"/>
+        <location filename="../polygonwidget.cpp" line="106"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="101"/>
+        <location filename="../polygonwidget.cpp" line="110"/>
         <source>&amp;Factor:</source>
         <translation>&amp;Factor:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="130"/>
+        <location filename="../polygonwidget.cpp" line="140"/>
         <source>Number of corners for polygons</source>
         <translation>Número de vèrtex dels polígons</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="132"/>
+        <location filename="../polygonwidget.cpp" line="142"/>
         <source>Degrees of rotation for polygons</source>
         <translation>Graus de gir dels polígons</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="133"/>
+        <location filename="../polygonwidget.cpp" line="143"/>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
         <translation>Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="134"/>
+        <location filename="../polygonwidget.cpp" line="144"/>
         <source>Sample Polygon</source>
         <translation>Polígon de Mostra</translation>
     </message>
@@ -22548,7 +23244,7 @@ i un valor positiu el farà convex</translation>
 i un valor positiu el farà convex</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="136"/>
+        <location filename="../polygonwidget.cpp" line="146"/>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
         <translation>Un valor negatiu farà el polígon concau (o una estrella afilada), i un valor positiu el farà convex</translation>
     </message>
@@ -22556,47 +23252,47 @@ i un valor positiu el farà convex</translation>
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../prefs.cpp" line="70"/>
+        <location filename="../prefs.cpp" line="71"/>
         <source>Preferences</source>
         <translation>Preferències</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="73"/>
+        <location filename="../prefs.cpp" line="74"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="76"/>
+        <location filename="../prefs.cpp" line="77"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="79"/>
+        <location filename="../prefs.cpp" line="80"/>
         <source>Guides</source>
         <translation>Guies</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="82"/>
+        <location filename="../prefs.cpp" line="83"/>
         <source>Typography</source>
         <translation>Tipografia</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="85"/>
+        <location filename="../prefs.cpp" line="86"/>
         <source>Tools</source>
         <translation>Eines</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="133"/>
+        <location filename="../prefs.cpp" line="134"/>
         <source>Scrapbook</source>
         <translation type="unfinished">Àlbum de retalls</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="136"/>
+        <location filename="../prefs.cpp" line="137"/>
         <source>Display</source>
         <translation>Pantalla</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="139"/>
+        <location filename="../prefs.cpp" line="140"/>
         <source>External Tools</source>
         <translation>Eines Externes</translation>
     </message>
@@ -23766,42 +24462,42 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Llargada de l&apos;historial d&apos;accions</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="88"/>
+        <location filename="../prefs.cpp" line="89"/>
         <source>Hyphenator</source>
         <translation>Partidor de mots</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="91"/>
+        <location filename="../prefs.cpp" line="92"/>
         <source>Fonts</source>
         <translation>Fonts</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="97"/>
+        <location filename="../prefs.cpp" line="98"/>
         <source>Preflight Verifier</source>
         <translation>Verificador</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="102"/>
+        <location filename="../prefs.cpp" line="103"/>
         <source>Color Management</source>
         <translation>Gestió del color</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="117"/>
+        <location filename="../prefs.cpp" line="118"/>
         <source>PDF Export</source>
         <translation>Exportar a PDF</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="122"/>
+        <location filename="../prefs.cpp" line="123"/>
         <source>Document Item Attributes</source>
         <translation>Atributs dels elements del document</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="127"/>
+        <location filename="../prefs.cpp" line="128"/>
         <source>Table of Contents and Indexes</source>
         <translation>Taula de contingut i índexs</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="130"/>
+        <location filename="../prefs.cpp" line="131"/>
         <source>Keyboard Shortcuts</source>
         <translation>Dreceres de teclat</translation>
     </message>
@@ -23911,7 +24607,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">Número de paràgrafs:</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="142"/>
+        <location filename="../prefs.cpp" line="143"/>
         <source>Miscellaneous</source>
         <translation>Diversos</translation>
     </message>
@@ -23936,7 +24632,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="obsolete">No</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="146"/>
+        <location filename="../prefs.cpp" line="147"/>
         <source>Plugins</source>
         <translation>Connectors</translation>
     </message>
@@ -24086,7 +24782,7 @@ s&apos;estigui executant.</translation>
         <translation type="obsolete">Localització de l&apos;intèrpret de Ghostscript.</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="94"/>
+        <location filename="../prefs.cpp" line="95"/>
         <source>Printer</source>
         <translation type="unfinished">Impressora</translation>
     </message>
@@ -24094,7 +24790,7 @@ s&apos;estigui executant.</translation>
 <context>
     <name>PrefsDialogBase</name>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="163"/>
+        <location filename="../prefsdialogbase.cpp" line="184"/>
         <source>&amp;Defaults</source>
         <translation>&amp;Defecte</translation>
     </message>
@@ -24104,32 +24800,32 @@ s&apos;estigui executant.</translation>
         <translation type="obsolete">Desa...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="177"/>
+        <location filename="../prefsdialogbase.cpp" line="193"/>
         <source>Save Preferences</source>
         <translation>Desa preferències</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="162"/>
+        <location filename="../prefsdialogbase.cpp" line="183"/>
         <source>Export...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="164"/>
+        <location filename="../prefsdialogbase.cpp" line="185"/>
         <source>&amp;Apply</source>
         <translation type="unfinished">&amp;Aplicar</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="165"/>
+        <location filename="../prefsdialogbase.cpp" line="186"/>
         <source>All preferences can be reset here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="166"/>
+        <location filename="../prefsdialogbase.cpp" line="187"/>
         <source>Apply all changes without closing the dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="167"/>
+        <location filename="../prefsdialogbase.cpp" line="188"/>
         <source>Export current preferences into file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24182,44 +24878,44 @@ s&apos;estigui executant.</translation>
         <translation type="obsolete">Mig dreta</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1829"/>
+        <location filename="../prefsmanager.cpp" line="1899"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="663"/>
+        <location filename="../prefsmanager.cpp" line="676"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Migrar les característiques velles d&apos;Scribus?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="665"/>
+        <location filename="../prefsmanager.cpp" line="678"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus ha detectat fitxers de preferències d&apos;Scribus 1.2.
 Vols migrar-les a la nova versió d&apos;Scribus?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1829"/>
+        <location filename="../prefsmanager.cpp" line="1899"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1471"/>
+        <location filename="../prefsmanager.cpp" line="1540"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>No es pot obrir el fitxer de preferències &quot;%1&quot; per escriptura: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1484"/>
+        <location filename="../prefsmanager.cpp" line="1552"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Escriure al fitxer de preferències &quot;%1&quot; ha fallat: codi d&apos;status %2 QIODevice </translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1498"/>
+        <location filename="../prefsmanager.cpp" line="1566"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Error a l&apos;obrir el fitxer de preferències &quot;%1&quot;:%2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1508"/>
+        <location filename="../prefsmanager.cpp" line="1576"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>No s&apos;ha pogut obrir el XML des de &quot;%1&quot;:%2 a la línia %3, col %4</translation>
     </message>
@@ -24239,23 +24935,23 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2125"/>
+        <location filename="../prefsmanager.cpp" line="2221"/>
         <source>Error Writing Preferences</source>
         <translation>Error escribint les preferències</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2131"/>
+        <location filename="../prefsmanager.cpp" line="2227"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus no ha pogut guardar les preferències: &lt;br&gt;%1&lt;br&gt;Comprova els permisos de directoris i fitxers i l&apos;espai de disc disponible.</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2144"/>
+        <location filename="../prefsmanager.cpp" line="2240"/>
         <source>Error Loading Preferences</source>
         <translation>Error carregant les preferències</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2149"/>
+        <location filename="../prefsmanager.cpp" line="2245"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus no ha pogut carregar les preferències:&lt;br&gt;%1&lt;br&gt;Es carregaran els per defecte.</translation>
     </message>
@@ -24278,7 +24974,7 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
         <translation type="obsolete">Llibre</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="479"/>
+        <location filename="../marginWidget.cpp" line="484"/>
         <source>Magazine</source>
         <translation>Revista</translation>
     </message>
@@ -24288,22 +24984,22 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
         <translation type="obsolete">Pots seeccionar el format de pàgina. &apos;Cap&apos; deixa els marges tal com estan, &apos;Llibre&apos; posa marges clàssics (Gutenberg). &apos;Llibre&apos; es ideal per documents a doble cara. &apos;Revista&apos; posa el mateix valor a tots els marges.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="480"/>
+        <location filename="../marginWidget.cpp" line="485"/>
         <source>Fibonacci</source>
         <translation>Fibonacci</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="481"/>
+        <location filename="../marginWidget.cpp" line="486"/>
         <source>Golden Mean</source>
         <translation>Golden Mean</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="482"/>
+        <location filename="../marginWidget.cpp" line="487"/>
         <source>Nine Parts</source>
         <translation>Nine Parts</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="478"/>
+        <location filename="../marginWidget.cpp" line="483"/>
         <source>Gutenberg</source>
         <translation>Gutenberg</translation>
     </message>
@@ -24313,13 +25009,13 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
         <translation type="obsolete">Pots triar el tipus de pàgina per defecte. &apos;cap&apos; significa deixar-lo com és, Gutenberg posa marges clàssics.  &apos;Revista&apos; posa el mateix valor a tots els marges. El valor esquerre/interior.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="477"/>
+        <location filename="../marginWidget.cpp" line="482"/>
         <source>None</source>
         <comment>layout type</comment>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="485"/>
+        <location filename="../marginWidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24327,52 +25023,52 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
 <context>
     <name>PythonConsole</name>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="81"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="93"/>
         <source>&amp;Open...</source>
         <translation>&amp;Obre...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="86"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="98"/>
         <source>&amp;Save</source>
         <translation>&amp;Desa</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="91"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="103"/>
         <source>Save &amp;As...</source>
         <translation>&amp;Anomena i Desa...</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.ui" line="96"/>
         <source>&amp;Exit</source>
-        <translation>S&amp;urt</translation>
+        <translation type="obsolete">S&amp;urt</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="59"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="71"/>
         <source>&amp;File</source>
         <translation>&amp;Fitxer</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="101"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="113"/>
         <source>&amp;Run</source>
         <translation>&amp;Executa</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="106"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="118"/>
         <source>Run As &amp;Console</source>
         <translation>Executa com a &amp;Consola</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="111"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="123"/>
         <source>&amp;Save Output...</source>
         <translation>&amp;Desa sortida...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="69"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="81"/>
         <source>&amp;Script</source>
         <translation>&amp;Seqüència</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="62"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="60"/>
         <source>Scribus Python Console</source>
         <translation>Cònsola Scribus de Python</translation>
     </message>
@@ -24387,12 +25083,12 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
         <translation>Cònsola de Seqüències</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="119"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="117"/>
         <source>Write your commands here. A selection is processed as script</source>
         <translation>Escriu les teves comandes aquí. Una selecció es processa com una seqüència</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="120"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="118"/>
         <source>Output of your script</source>
         <translation>Sortida de la teva Seqüència</translation>
     </message>
@@ -24407,7 +25103,7 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
         <translation type="obsolete">Obre fitxer amb comandes Python</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="198"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="192"/>
         <source>Save the Python Commands in File</source>
         <translation>Desa les comandes Python en un fitxer</translation>
     </message>
@@ -24417,47 +25113,52 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
         <translation type="obsolete">Avís</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="219"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="217"/>
         <source>Text Files (*.txt)</source>
         <translation>Text (*.txt)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="222"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="215"/>
         <source>Save Current Output</source>
         <translation>Desa la sortida actual</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="163"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="158"/>
         <source>Open Python Script File</source>
         <translation>Obrir un fitxer de seqüència Python</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="195"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="194"/>
         <source>Python Scripts (*.py *.PY)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="35"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="33"/>
         <source>Col: %1 Row: %2/%3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="46"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="44"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="47"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="45"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="68"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="66"/>
         <source>This is derived from standard Python console
 so it contains some limitations esp. in the
 case of whitespaces. Please consult Scribus
 manual for more informations.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="108"/>
+        <source>&amp;Quit</source>
+        <translation type="unfinished">&amp;Sortir</translation>
     </message>
 </context>
 <context>
@@ -24995,12 +25696,12 @@ Comprova el nom i el camí.</translation>
         <translation>Important text</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="1490"/>
+        <location filename="../util_formats.cpp" line="192"/>
         <source>All Supported Formats</source>
         <translation>Tots els Formats Suportats</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="1520"/>
+        <location filename="../util_formats.cpp" line="239"/>
         <source>All Files (*)</source>
         <translation>Tots els Fitxers (*)</translation>
     </message>
@@ -25010,7 +25711,7 @@ Comprova el nom i el camí.</translation>
         <translation>La Font %1 està malament, descartant-la</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="232"/>
+        <location filename="../scribuscore.cpp" line="235"/>
         <source>Initializing...</source>
         <translation>Iniciant...</translation>
     </message>
@@ -25020,7 +25721,7 @@ Comprova el nom i el camí.</translation>
         <translation type="obsolete">Document</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1076"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1078"/>
         <source>Background</source>
         <translation>Segon Pla</translation>
     </message>
@@ -25033,7 +25734,7 @@ Comprova el nom i el camí.</translation>
         <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="139"/>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation>Realment vols sobreescriure el Fitxer:
+        <translation type="obsolete">Realment vols sobreescriure el Fitxer:
 %1?</translation>
     </message>
     <message>
@@ -25057,107 +25758,107 @@ Comprova el nom i el camí.</translation>
         <translation type="obsolete">Plantilla:</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="76"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="155"/>
         <source>Newsletters</source>
         <translation>Butlletins</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="78"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="156"/>
         <source>Brochures</source>
         <translation>Fulletons</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="80"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="157"/>
         <source>Catalogs</source>
         <translation>Catàlegs</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="82"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="158"/>
         <source>Flyers</source>
         <translation>Quartilles</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="84"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="159"/>
         <source>Signs</source>
         <translation>Rètols</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="86"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="160"/>
         <source>Cards</source>
         <translation>Cartes</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="88"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="161"/>
         <source>Letterheads</source>
         <translation>Membrets</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="90"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="162"/>
         <source>Envelopes</source>
         <translation>Sobres</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="92"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="163"/>
         <source>Business Cards</source>
         <translation>Cartes de Negoci</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="94"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="164"/>
         <source>Calendars</source>
         <translation>Calendaris</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="96"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="165"/>
         <source>Advertisements</source>
         <translation>Anuncis</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="98"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="166"/>
         <source>Labels</source>
         <translation>Etiquetes</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="100"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="167"/>
         <source>Menus</source>
         <translation>Menus</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="102"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="168"/>
         <source>Programs</source>
         <translation>Programes</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="104"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="169"/>
         <source>PDF Forms</source>
         <translation>Formularis PDF</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="106"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="170"/>
         <source>PDF Presentations</source>
         <translation>Presentacions PDF</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="108"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="171"/>
         <source>Magazines</source>
         <translation>Revistes</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="110"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="172"/>
         <source>Posters</source>
         <translation>Posters</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="112"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="173"/>
         <source>Announcements</source>
         <translation>Anuncis</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="114"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="174"/>
         <source>Text Documents</source>
         <translation>Documents de Text</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="116"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="175"/>
         <source>Folds</source>
         <translation>Díptics</translation>
     </message>
@@ -25282,22 +25983,22 @@ Comprova el nom i el camí.</translation>
         <translation type="obsolete">Manual de Seqüèn&amp;cies...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="550"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
         <source>&amp;Scribus Scripts</source>
         <translation>Seqüències &amp;Scribus</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="543"/>
         <source>&amp;Execute Script...</source>
         <translation>&amp;Executa Seqüència...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="551"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
         <source>&amp;Recent Scripts</source>
         <translation>Seqüències &amp;Recents</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="546"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="544"/>
         <source>Show &amp;Console</source>
         <translation>Mostra &amp;Cònsola</translation>
     </message>
@@ -25329,7 +26030,7 @@ Comprova el nom i el camí.</translation>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="151"/>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation>Imatges SVG (*.svg *.svgz);;Tots els Fitxers (*)</translation>
+        <translation type="obsolete">Imatges SVG (*.svg *.svgz);;Tots els Fitxers (*)</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -25367,7 +26068,7 @@ Comprova el nom i el camí.</translation>
         <translation>html</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="621"/>
+        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="620"/>
         <source>
 External Links
 </source>
@@ -25387,12 +26088,12 @@ Enllaços Externs
         <translation>Fitxers de Text</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="118"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="176"/>
         <source>Media Cases</source>
         <translation>Caixes de dispositius</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/textfilter.cpp" line="25"/>
+        <location filename="../plugins/gettext/textfilter/textfilter.cpp" line="26"/>
         <source>Text Filters</source>
         <translation>Filtres de Text</translation>
     </message>
@@ -25442,7 +26143,7 @@ Enllaços Externs
         <translation>Holandès</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="194"/>
+        <location filename="../langmgr.cpp" line="195"/>
         <source>English</source>
         <translation>Anglès</translation>
     </message>
@@ -25567,12 +26268,12 @@ Enllaços Externs
         <translation type="obsolete">Triat per marcar el progrés &gt; Màxim progrés</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
         <source>&amp;About Script...</source>
         <translation>Quant &amp;a Sequència...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="518"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
         <source>About Script</source>
         <translation>Quant a Sequència</translation>
     </message>
@@ -26438,12 +27139,12 @@ la documentació de la funció.
         <translation type="obsolete">Personalitzat</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="80"/>
+        <location filename="../page.cpp" line="81"/>
         <source>Page</source>
         <translation>Pàgina</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="89"/>
+        <location filename="../page.cpp" line="90"/>
         <source>Master Page </source>
         <translation>Pàgina mestra</translation>
     </message>
@@ -26657,7 +27358,7 @@ la documentació de la funció.
         <translation>desplaçament memcpy: %1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="543"/>
+        <location filename="../scribus.cpp" line="570"/>
         <source>Scribus Development Version</source>
         <translation>Versió de desenvolupament d&apos;Scribus</translation>
     </message>
@@ -26802,67 +27503,67 @@ la documentació de la funció.
         <translation type="obsolete"> c</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="142"/>
+        <location filename="../units.cpp" line="155"/>
         <source>pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="143"/>
+        <location filename="../units.cpp" line="156"/>
         <source>mm</source>
         <translation>mm</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="144"/>
+        <location filename="../units.cpp" line="157"/>
         <source>in</source>
         <translation>po</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="145"/>
+        <location filename="../units.cpp" line="158"/>
         <source>p</source>
         <translation>p</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="146"/>
+        <location filename="../units.cpp" line="159"/>
         <source>cm</source>
         <translation>cm</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="147"/>
+        <location filename="../units.cpp" line="160"/>
         <source>c</source>
         <translation>c</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="194"/>
+        <location filename="../units.cpp" line="207"/>
         <source>Points (pt)</source>
         <translation>Punts (pts)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="195"/>
+        <location filename="../units.cpp" line="208"/>
         <source>Millimeters (mm)</source>
         <translation>Mil·límetres (mm)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="196"/>
+        <location filename="../units.cpp" line="209"/>
         <source>Inches (in)</source>
         <translation>Polzades (po)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="197"/>
+        <location filename="../units.cpp" line="210"/>
         <source>Picas (p)</source>
         <translation>Piques (p)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="198"/>
+        <location filename="../units.cpp" line="211"/>
         <source>Centimeters (cm)</source>
         <translation>Centímetres (cm)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="199"/>
+        <location filename="../units.cpp" line="212"/>
         <source>Cicero (c)</source>
         <translation>Ciceró (c)</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="691"/>
+        <location filename="../util.cpp" line="453"/>
         <source>File exists</source>
         <translation>El fitxer ja existeix</translation>
     </message>
@@ -26879,13 +27580,13 @@ Vols sobreescriure&apos;l amb el que estas desant?</translation>
         <translation type="obsolete">&amp;Remplaça</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="1161"/>
+        <location filename="../util.cpp" line="617"/>
         <source>page</source>
         <comment>page export</comment>
         <translation>pàgina</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="2124"/>
+        <location filename="../pslib.cpp" line="2146"/>
         <source>All</source>
         <translation>Tot</translation>
     </message>
@@ -26895,7 +27596,7 @@ Vols sobreescriure&apos;l amb el que estas desant?</translation>
         <translation type="obsolete">Vista Prèvia de &amp;Fonts...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="116"/>
         <source>Document Template: </source>
         <translation>Plantilla de document: </translation>
     </message>
@@ -26912,27 +27613,27 @@ Vols sobreescriure&apos;l amb el que estas desant?</translation>
         <translation>No s&apos;ha pogut desar el document.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="40"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="39"/>
         <source>Argument must be page item name, or PyCObject instance</source>
         <translation>l&apos;argument ha de ser un nom d&apos;un element de la pàgina, o una instància PyCObject</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="91"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="90"/>
         <source>Property not found</source>
         <translation>Propietat no trobada</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="202"/>
         <source>Child not found</source>
-        <translation>No es troba el fill</translation>
+        <translation type="obsolete">No es troba el fill</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="309"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="310"/>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
         <translation>No es pot convertir el resultat &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="441"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="442"/>
         <source>Property type &apos;%1&apos; not supported</source>
         <translation>El tipus de la propietat &apos;%1&apos; no està suportat</translation>
     </message>
@@ -26942,7 +27643,7 @@ Vols sobreescriure&apos;l amb el que estas desant?</translation>
         <translation>No es pot convertir &apos;%1&apos; al tipus &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="470"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="469"/>
         <source>Types matched, but setting property failed.</source>
         <translation>Els tipus quadren, però ha fallat posar-hi la propietat.</translation>
     </message>
@@ -27103,12 +27804,12 @@ Vols sobreescriure&apos;l amb el que estas desant?</translation>
         <translation>El nom de fitxer no pot ser nul.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
         <source>&amp;Script</source>
         <translation>&amp;Seqüència</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="749"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="748"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -27177,32 +27878,32 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="obsolete">Manual d&apos;Abreviacions</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtim.cpp" line="44"/>
+        <location filename="../plugins/gettext/odtim/odtim.cpp" line="47"/>
         <source>OpenDocument Text Documents</source>
         <translation>Documents de text OpenDocument</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2590"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2594"/>
         <source>Copy #%1 of </source>
         <translation>Còpia #%1 de</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1838"/>
+        <location filename="../pslib.cpp" line="1860"/>
         <source>Black</source>
         <translation>Negre</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1840"/>
+        <location filename="../pslib.cpp" line="1862"/>
         <source>Cyan</source>
         <translation>Cian</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1842"/>
+        <location filename="../pslib.cpp" line="1864"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1844"/>
+        <location filename="../pslib.cpp" line="1866"/>
         <source>Yellow</source>
         <translation>Groc</translation>
     </message>
@@ -27222,7 +27923,7 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation>El meu Connector</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="70"/>
         <source>New From Template</source>
         <translation>Nou des de PlantillaNou des de Plantilla</translation>
     </message>
@@ -27234,7 +27935,7 @@ detallades exhaustivament per les funcions cridades.</translation>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
         <source>PS/EPS Importer</source>
-        <translation>Importador PS/EPS</translation>
+        <translation type="obsolete">Importador PS/EPS</translation>
     </message>
     <message>
         <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="65"/>
@@ -27242,7 +27943,7 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation>Desa com Plantilla</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="137"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="133"/>
         <source>Scripter</source>
         <translation>Seqüenciador</translation>
     </message>
@@ -27252,17 +27953,17 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation>Abreviacions</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="92"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="94"/>
         <source>SVG Export</source>
         <translation>Exporta a SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="93"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="96"/>
         <source>SVG Import</source>
         <translation>Importa SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="100"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="102"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation>Importador de OpenOffice.org Draw</translation>
     </message>
@@ -27307,12 +28008,12 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="obsolete">Estas fent servir una versió de desenvolupament d&apos;Scribus 1.3.x. El document en que estas treballant va ser fet en la versió d&apos;Scribus 1.2.3 o inferior. Si es desa no es podrà tornar a carregar en Scribus 1.2.3 si no es desa amb Fitxer -&gt; Anomena i desa. Estas segur de voler continuar?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4073"/>
+        <location filename="../scribus.cpp" line="4027"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Els canvis fets al document no han estat desats i has demanat tornar a carregar el fitxer. Vols continuar?</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="692"/>
+        <location filename="../util.cpp" line="454"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Un fitxer amb el nom &apos;%1&apos; ja existeix. &lt;br/&gt;Realment vols substituir el fitxer?</translation>
     </message>
@@ -27333,27 +28034,27 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation>Alemany (Trad.)</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1662"/>
+        <location filename="../pslib.cpp" line="1684"/>
         <source>Exporting PostScript File</source>
         <translation>Exportant pàgina PostScript</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1664"/>
+        <location filename="../pslib.cpp" line="1686"/>
         <source>Printing File</source>
         <translation>Imprimint fitxer</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3469"/>
+        <location filename="../scribus.cpp" line="3423"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Estas intentant importar mes pagines de les qeu hi ha en el document des de la pagina activa.&lt;/p&gt;Tria alguna de les opcions seguents:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Crear&lt;/b&gt;les que falten&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; nomes fins al final&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel·lar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3470"/>
+        <location filename="../scribus.cpp" line="3424"/>
         <source>C&amp;reate</source>
         <translation>C&amp;rear</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3471"/>
+        <location filename="../scribus.cpp" line="3425"/>
         <source>&amp;Import</source>
         <translation>&amp;Importa</translation>
     </message>
@@ -27368,7 +28069,7 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation>Generador de Codi de barres</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="168"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="170"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
         <translation>Fitxers d&apos;OpenOffice.org Draw (*.sxd *.odg);;Tots els fitxers (*)</translation>
     </message>
@@ -27644,7 +28345,7 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="unfinished">E</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_tiff.cpp" line="872"/>
+        <location filename="../scimgdataloader_tiff.cpp" line="868"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27666,12 +28367,12 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="59"/>
+        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="57"/>
         <source>Scribus 1.2.x Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="59"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="63"/>
         <source>Scribus 1.3.4 Support</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27688,7 +28389,7 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="544"/>
+        <location filename="../scribus.cpp" line="571"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27718,7 +28419,7 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_ps.cpp" line="465"/>
+        <location filename="../scimgdataloader_ps.cpp" line="474"/>
         <source>The Font(s):
 %1 are not available.
 They have been replaced by &quot;Courier&quot;
@@ -27728,11 +28429,6 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../langmgr.cpp" line="61"/>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/psimport/importpsplugin.cpp" line="141"/>
-        <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27756,12 +28452,12 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="60"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="61"/>
         <source>Scribus 1.3.0-&gt;1.3.3.x Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../serializer.cpp" line="344"/>
+        <location filename="../serializer.cpp" line="347"/>
         <source>Copy of %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27831,7 +28527,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished">Camí de Text</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="150"/>
+        <location filename="../units.cpp" line="163"/>
         <source>%</source>
         <translation type="unfinished">%</translation>
     </message>
@@ -27861,10 +28557,20 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="148"/>
+        <location filename="../units.cpp" line="161"/>
         <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="90"/>
+        <source>WMF Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sclayer.cpp" line="386"/>
+        <source>New Layer</source>
+        <translation type="unfinished">Nova Capa</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
@@ -27872,19 +28578,95 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
-        <source>WMF Import</source>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="71"/>
+        <source>Adobe Illustrator Importer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="147"/>
-        <source>WMF Files (*.wmf);;All Files (*)</source>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="58"/>
+        <source>Imposition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sclayer.cpp" line="302"/>
-        <source>New Layer</source>
-        <translation type="unfinished">Nova Capa</translation>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
+        <source>PostScript Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="122"/>
+        <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="141"/>
+        <source>Do you really want to overwrite the file:
+%1 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="33"/>
+        <source>Encapsulated PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="34"/>
+        <source>GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="35"/>
+        <source>JPEG</source>
+        <translation type="unfinished">JPEG</translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="36"/>
+        <source>Pattern Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="37"/>
+        <source>PDF Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="38"/>
+        <source>PNG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="39"/>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="40"/>
+        <source>Adobe Photoshop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="41"/>
+        <source>TIFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="42"/>
+        <source>XPM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="43"/>
+        <source>Windows Meta File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="44"/>
+        <source>Scalable Vector Graphics</source>
+        <translation type="unfinished">Grafics vectorials escalables</translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="45"/>
+        <source>Adobe Illustrator</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28067,7 +28849,7 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="64"/>
+        <location filename="../reformdoc.cpp" line="62"/>
         <source>Document Setup</source>
         <translation>Configura Document</translation>
     </message>
@@ -28261,17 +29043,17 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">&amp;Interval:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="67"/>
+        <location filename="../reformdoc.cpp" line="65"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="70"/>
+        <location filename="../reformdoc.cpp" line="68"/>
         <source>Document Information</source>
         <translation>Informació del Document</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="73"/>
+        <location filename="../reformdoc.cpp" line="71"/>
         <source>Guides</source>
         <translation>Guies</translation>
     </message>
@@ -28341,52 +29123,52 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Vertical:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="77"/>
+        <location filename="../reformdoc.cpp" line="75"/>
         <source>Display</source>
         <translation>Pantalla</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="80"/>
+        <location filename="../reformdoc.cpp" line="78"/>
         <source>Typography</source>
         <translation>Tipografia</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="83"/>
+        <location filename="../reformdoc.cpp" line="81"/>
         <source>Tools</source>
         <translation>Eines</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="86"/>
+        <location filename="../reformdoc.cpp" line="84"/>
         <source>Hyphenator</source>
         <translation>Partidor de mots</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="89"/>
+        <location filename="../reformdoc.cpp" line="87"/>
         <source>Fonts</source>
         <translation>Fonts</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="92"/>
+        <location filename="../reformdoc.cpp" line="90"/>
         <source>Preflight Verifier</source>
         <translation>Verificador</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="97"/>
+        <location filename="../reformdoc.cpp" line="95"/>
         <source>PDF Export</source>
         <translation>Exportar a PDF</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="102"/>
+        <location filename="../reformdoc.cpp" line="100"/>
         <source>Document Item Attributes</source>
         <translation>Atributs dels elements del document</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="107"/>
+        <location filename="../reformdoc.cpp" line="105"/>
         <source>Table of Contents and Indexes</source>
         <translation>Taula de contingut i índexs</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="117"/>
+        <location filename="../reformdoc.cpp" line="115"/>
         <source>Color Management</source>
         <translation>Gestió de color</translation>
     </message>
@@ -28436,7 +29218,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Aplica els paràmetres de mida a totes les pàgines</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="111"/>
+        <location filename="../reformdoc.cpp" line="109"/>
         <source>Sections</source>
         <translation>Seccions</translation>
     </message>
@@ -28457,24 +29239,34 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <location filename="../plugins/scriptplugin/runscriptdialog.cpp" line="22"/>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
-        <translation>Executa com una seqüència d&apos;extensió</translation>
+        <translation type="obsolete">Executa com una seqüència d&apos;extensió</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/runscriptdialog.cpp" line="18"/>
         <source>Python Scripts (*.py *.PY);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/runscriptdialog.ui" line="13"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/runscriptdialog.ui" line="22"/>
+        <source>Run as Extension Script</source>
+        <translation type="unfinished">Executa com una seqüència d&apos;extensió</translation>
+    </message>
 </context>
 <context>
     <name>SMAlignSelect</name>
     <message>
-        <location filename="../smwidgets.cpp" line="288"/>
+        <location filename="../smalignselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smwidgets.cpp" line="289"/>
+        <location filename="../smalignselect.cpp" line="21"/>
         <source>Use parent style&apos;s alignment instead of overriding it</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28499,7 +29291,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <location filename="../stylemanager.ui" line="96"/>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -28514,17 +29306,17 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <location filename="../stylemanager.ui" line="358"/>
         <source>&amp;Delete</source>
-        <translation>Es&amp;borra</translation>
+        <translation type="obsolete">Es&amp;borra</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="361"/>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="429"/>
         <source>Name:</source>
-        <translation>Nom:</translation>
+        <translation type="obsolete">Nom:</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -28554,176 +29346,179 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <location filename="../stylemanager.ui" line="266"/>
         <source>Alt+N</source>
-        <translation>Alt+N</translation>
+        <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="93"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Aplicar</translation>
+        <translation type="obsolete">&amp;Aplicar</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="263"/>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nou</translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="296"/>
-        <source>&amp;Clone</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Nou</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="299"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="340"/>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importa</translation>
+        <translation type="obsolete">&amp;Importa</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="343"/>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="460"/>
-        <source>Please select a unique name for the style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="69"/>
-        <source>&lt;&lt; &amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="117"/>
         <source>&amp;Reset</source>
-        <translation type="unfinished">&amp;Reinicia</translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="120"/>
-        <source>Alt+R</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="293"/>
-        <source>Clone copies the style to make similar styles easily.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Reinicia</translation>
     </message>
 </context>
 <context>
     <name>SMCStylePage</name>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="240"/>
-        <source> %</source>
-        <translation type="unfinished"></translation>
+        <location filename="../smtextstylewidgets.cpp" line="577"/>
+        <source>Shade</source>
+        <translation type="obsolete">Intensitat</translation>
     </message>
+</context>
+<context>
+    <name>SMCStyleWidget</name>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="218"/>
+        <location filename="../smcstylewidget.cpp" line="67"/>
         <source>Parent style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="219"/>
+        <location filename="../smcstylewidget.cpp" line="68"/>
         <source>Font face</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="220"/>
+        <location filename="../smcstylewidget.cpp" line="69"/>
         <source>Font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="221"/>
+        <location filename="../smcstylewidget.cpp" line="70"/>
         <source>Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="222"/>
+        <location filename="../smcstylewidget.cpp" line="71"/>
         <source>Baseline offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="223"/>
+        <location filename="../smcstylewidget.cpp" line="72"/>
         <source>Horizontal scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="224"/>
+        <location filename="../smcstylewidget.cpp" line="73"/>
         <source>Vertical scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="225"/>
+        <location filename="../smcstylewidget.cpp" line="74"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="226"/>
+        <location filename="../smcstylewidget.cpp" line="75"/>
         <source>Fill color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="227"/>
+        <location filename="../smcstylewidget.cpp" line="76"/>
         <source>Fill shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="228"/>
+        <location filename="../smcstylewidget.cpp" line="77"/>
         <source>Stroke color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="229"/>
+        <location filename="../smcstylewidget.cpp" line="78"/>
         <source>Stroke shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="577"/>
-        <source>Shade</source>
-        <translation type="unfinished">Intensitat</translation>
-    </message>
-    <message>
-        <location filename="../smtextstylewidgets.cpp" line="235"/>
+        <location filename="../smcstylewidget.ui" line="33"/>
         <source>Based On:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="236"/>
+        <location filename="../smcstylewidget.ui" line="298"/>
         <source>Language:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="426"/>
+        <source>Shade</source>
+        <translation type="unfinished">Intensitat</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="55"/>
+        <source>Basic Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="268"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="195"/>
+        <source>Advanced Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="416"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="339"/>
+        <source>Colors</source>
+        <translation type="unfinished">Colors</translation>
     </message>
 </context>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="1490"/>
+        <location filename="../smtextstyles.cpp" line="1494"/>
         <source>Properties</source>
         <translation type="unfinished">Propietats</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1191"/>
+        <location filename="../smtextstyles.cpp" line="1195"/>
         <source>Character Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1196"/>
+        <location filename="../smtextstyles.cpp" line="1200"/>
         <source>Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1319"/>
+        <location filename="../smtextstyles.cpp" line="1323"/>
         <source>New Style</source>
         <translation type="unfinished">Nou Estil</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1332"/>
+        <location filename="../smtextstyles.cpp" line="1336"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1358"/>
+        <location filename="../smtextstyles.cpp" line="1362"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
@@ -28732,7 +29527,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMColorCombo</name>
     <message>
-        <location filename="../smwidgets.cpp" line="669"/>
+        <location filename="../smcolorcombo.cpp" line="121"/>
         <source>Use Parent Value</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28740,7 +29535,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMFontComboH</name>
     <message>
-        <location filename="../smwidgets.cpp" line="683"/>
+        <location filename="../smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28748,7 +29543,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMLineStyle</name>
     <message>
-        <location filename="../smlinestyle.cpp" line="213"/>
+        <location filename="../smlinestyle.cpp" line="30"/>
         <source>Properties</source>
         <translation>Propietats</translation>
     </message>
@@ -28758,204 +29553,307 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Línies</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="221"/>
+        <location filename="../smlinestyle.cpp" line="39"/>
         <source>Line Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="226"/>
+        <location filename="../smlinestyle.cpp" line="44"/>
         <source>Line Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="369"/>
+        <location filename="../smlinestyle.cpp" line="187"/>
         <source>New Style</source>
         <translation type="unfinished">Nou Estil</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="379"/>
+        <location filename="../smlinestyle.cpp" line="197"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="395"/>
+        <location filename="../smlinestyle.cpp" line="213"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="763"/>
+        <location filename="../smlinestyle.cpp" line="581"/>
         <source> pt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="857"/>
+        <location filename="../smlinestyle.cpp" line="676"/>
         <source>Solid Line</source>
         <translation type="unfinished">Línia Solida</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="845"/>
+        <location filename="../smlinestyle.cpp" line="664"/>
         <source>Dashed Line</source>
         <translation type="unfinished">Línia de Guions</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="848"/>
+        <location filename="../smlinestyle.cpp" line="667"/>
         <source>Dotted Line</source>
         <translation type="unfinished">Línia de Punts</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="851"/>
+        <location filename="../smlinestyle.cpp" line="670"/>
         <source>Dash Dot Line</source>
         <translation type="unfinished">Linia Guió Punt </translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="854"/>
+        <location filename="../smlinestyle.cpp" line="673"/>
         <source>Dash Dot Dot Line</source>
         <translation type="unfinished">Línia Guió Punt Punt </translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="838"/>
+        <location filename="../smlinestyle.cpp" line="657"/>
         <source> pt </source>
         <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
+    <name>SMLineStyleWidget</name>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="34"/>
+        <source>Flat Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="35"/>
+        <source>Square Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="36"/>
+        <source>Round Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="38"/>
+        <source>Miter Join</source>
+        <translation type="unfinished">Unió en Punta</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="39"/>
+        <source>Bevel Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="40"/>
+        <source>Round Join</source>
+        <translation type="unfinished">Unió arrodonida</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="52"/>
+        <source>Add a new line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="53"/>
+        <source>Remove a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="54"/>
+        <source>Line style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="55"/>
+        <source>Line width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="56"/>
+        <source>End style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="57"/>
+        <source>Join style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="58"/>
+        <source>Line color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="59"/>
+        <source>Line shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="162"/>
+        <source> pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.ui" line="234"/>
+        <source>%</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.ui" line="256"/>
+        <source>Line Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="984"/>
+        <location filename="../smpstylewidget.cpp" line="238"/>
         <source>Fixed Linespacing</source>
         <translation type="unfinished">Interlineat fixe</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="985"/>
+        <location filename="../smpstylewidget.cpp" line="239"/>
         <source>Automatic Linespacing</source>
         <translation type="unfinished">Interlineat automàtic</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="986"/>
+        <location filename="../smpstylewidget.cpp" line="240"/>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished">Alinear a la graella base</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="780"/>
+        <location filename="../smpstylewidget.ui" line="89"/>
         <source>Distances and Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="781"/>
+        <location filename="../smpstylewidget.ui" line="201"/>
         <source>Drop Caps</source>
         <translation type="unfinished">Caplletres</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="782"/>
+        <location filename="../smpstylewidget.ui" line="294"/>
         <source>Tabulators and Indentation</source>
         <translation type="unfinished">Tabuladors i sangrat</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="783"/>
+        <location filename="../smpstylewidget.ui" line="38"/>
         <source>Properties</source>
         <translation type="unfinished">Propietats</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="784"/>
+        <location filename="../smpstylewidget.cpp" line="87"/>
         <source>Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="810"/>
+        <location filename="../smpstylewidget.ui" line="213"/>
         <source>&amp;Lines:</source>
         <translation type="unfinished">&amp;Liníes:</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="816"/>
+        <location filename="../smpstylewidget.ui" line="246"/>
         <source>Distance from Text:</source>
         <translation type="unfinished">Distància des del text:</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="761"/>
+        <location filename="../smpstylewidget.cpp" line="64"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="752"/>
+        <location filename="../smpstylewidget.cpp" line="55"/>
         <source>Parent Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="753"/>
+        <location filename="../smpstylewidget.cpp" line="56"/>
         <source>Line Spacing Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="754"/>
+        <location filename="../smpstylewidget.cpp" line="57"/>
         <source>Line Spacing</source>
         <translation type="unfinished">Interlineat</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="755"/>
+        <location filename="../smpstylewidget.cpp" line="58"/>
         <source>Space Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="756"/>
+        <location filename="../smpstylewidget.cpp" line="59"/>
         <source>Space Below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="759"/>
+        <location filename="../smpstylewidget.cpp" line="62"/>
         <source>Drop Cap Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="760"/>
+        <location filename="../smpstylewidget.cpp" line="63"/>
         <source>Drop Cap Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="762"/>
+        <location filename="../smpstylewidget.cpp" line="65"/>
         <source>First Line Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="763"/>
+        <location filename="../smpstylewidget.cpp" line="66"/>
         <source>Left Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="764"/>
+        <location filename="../smpstylewidget.cpp" line="67"/>
         <source>Right Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="1213"/>
+        <location filename="../smpstylewidget.ui" line="61"/>
         <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="160"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="279"/>
+        <source>Parent&apos;s Drop Cap Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="340"/>
+        <source>Ch&amp;aracter Style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="49"/>
+        <location filename="../smtextstyles.cpp" line="53"/>
         <source>Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="54"/>
+        <location filename="../smtextstyles.cpp" line="58"/>
         <source>Paragraph Style</source>
         <translation type="unfinished">Estil de Paràgraf</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="202"/>
+        <location filename="../smtextstyles.cpp" line="206"/>
         <source>New Style</source>
         <translation type="unfinished">Nou Estil</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="215"/>
+        <location filename="../smtextstyles.cpp" line="219"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="242"/>
+        <location filename="../smtextstyles.cpp" line="246"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
@@ -28964,12 +29862,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMReplaceDia</name>
     <message>
-        <location filename="../smreplacedia.cpp" line="66"/>
+        <location filename="../smreplacedia.cpp" line="65"/>
         <source>Remove</source>
         <translation type="unfinished">Eliminar</translation>
     </message>
     <message>
-        <location filename="../smreplacedia.cpp" line="67"/>
+        <location filename="../smreplacedia.cpp" line="66"/>
         <source>Replace with</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29015,7 +29913,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMRowWidget</name>
     <message>
-        <location filename="../smreplacedia.cpp" line="27"/>
+        <location filename="../smreplacedia.cpp" line="23"/>
         <source>No Style</source>
         <translation type="unfinished">Sense Estil</translation>
     </message>
@@ -29023,7 +29921,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../smwidgets.cpp" line="271"/>
+        <location filename="../smsccombobox.cpp" line="82"/>
         <source>Use Parent Value</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29031,21 +29929,64 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMShadeButton</name>
     <message>
-        <location filename="../smwidgets.cpp" line="542"/>
+        <location filename="../smshadebutton.cpp" line="74"/>
         <source>Use Parent Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMStyleImport</name>
+    <message>
+        <location filename="../smstyleimport.cpp" line="22"/>
+        <source>Character Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.cpp" line="34"/>
+        <source>Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.cpp" line="46"/>
+        <source>Line Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="13"/>
+        <source>Choose Styles</source>
+        <translation type="unfinished">Tria els estils</translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="20"/>
+        <source>Available Styles</source>
+        <translation type="unfinished">Estils disponibles</translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="28"/>
+        <source>In case of the name clash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="34"/>
+        <source>&amp;Rename Imported Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="44"/>
+        <source>R&amp;eplace Existing Style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SMStyleSelect</name>
     <message>
-        <location filename="../smwidgets.cpp" line="372"/>
+        <location filename="../smstyleselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smwidgets.cpp" line="373"/>
+        <location filename="../smstyleselect.cpp" line="21"/>
         <source>Use parent style&apos;s effects instead of overriding them</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29053,7 +29994,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SMTabruler</name>
     <message>
-        <location filename="../smwidgets.cpp" line="777"/>
+        <location filename="../smtabruler.cpp" line="20"/>
         <source> Parent Tabs </source>
         <translation type="unfinished"></translation>
     </message>
@@ -29061,12 +30002,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../story.cpp" line="1102"/>
+        <location filename="../story.cpp" line="1130"/>
         <source>Style Settings</source>
         <translation>Paràmetres d&apos;Estil</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1115"/>
+        <location filename="../story.cpp" line="1147"/>
         <source>Style of current paragraph</source>
         <translation>Estil del paràgraf actual</translation>
     </message>
@@ -29074,7 +30015,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../story.cpp" line="884"/>
+        <location filename="../story.cpp" line="888"/>
         <source>Fill Color Settings</source>
         <translation>Paràmetres de Color d&apos;Emplenat</translation>
     </message>
@@ -29084,12 +30025,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Cap</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="903"/>
+        <location filename="../story.cpp" line="914"/>
         <source>Color of text fill</source>
         <translation>Color d&apos;emplenat de text</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="904"/>
+        <location filename="../story.cpp" line="915"/>
         <source>Saturation of color of text fill</source>
         <translation>Intensitat del color d&apos;omplir el text</translation>
     </message>
@@ -29097,7 +30038,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../story.cpp" line="936"/>
+        <location filename="../story.cpp" line="952"/>
         <source>Stroke Color Settings</source>
         <translation>Paràmetres del Color del Voltant</translation>
     </message>
@@ -29107,12 +30048,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Cap</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="955"/>
+        <location filename="../story.cpp" line="977"/>
         <source>Color of text stroke</source>
         <translation>Color del voltant del text</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="956"/>
+        <location filename="../story.cpp" line="978"/>
         <source>Saturation of color of text stroke</source>
         <translation>Saturació del color del voltant del text</translation>
     </message>
@@ -29120,37 +30061,37 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../story.cpp" line="1135"/>
+        <location filename="../story.cpp" line="1167"/>
         <source>Font Settings</source>
         <translation>Paràmetres de Fonts</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1142"/>
+        <location filename="../story.cpp" line="1176"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1153"/>
+        <location filename="../story.cpp" line="1195"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1167"/>
+        <location filename="../story.cpp" line="1211"/>
         <source>Font of selected text</source>
         <translation>Font del text marcat</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1168"/>
+        <location filename="../story.cpp" line="1212"/>
         <source>Font Size</source>
         <translation>Mida de Font</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1169"/>
+        <location filename="../story.cpp" line="1213"/>
         <source>Scaling width of characters</source>
         <translation>Escalat de l&apos;amplada de caràcter</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1170"/>
+        <location filename="../story.cpp" line="1214"/>
         <source>Scaling height of characters</source>
         <translation>Escalat de l&apos;alçada del caràcter</translation>
     </message>
@@ -29158,7 +30099,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../story.cpp" line="988"/>
+        <location filename="../story.cpp" line="1010"/>
         <source>Character Settings</source>
         <translation>Paràmetres de Caràcter</translation>
     </message>
@@ -29178,12 +30119,12 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Interlletratge Manual</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="996"/>
+        <location filename="../story.cpp" line="1022"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1014"/>
+        <location filename="../story.cpp" line="1042"/>
         <source>Manual Tracking</source>
         <translation>Espai entre caràcters manual</translation>
     </message>
@@ -29196,17 +30137,17 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="obsolete">Desa Pàgina com &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="99"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="101"/>
         <source>Exports SVG Files</source>
         <translation>Exporta fitxers SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="100"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Exporta la pàgina actual a un fitxer SVG.</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="84"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="86"/>
         <source>Save as &amp;SVG...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29214,17 +30155,17 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="85"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="88"/>
         <source>Import &amp;SVG...</source>
         <translation>Importa &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="100"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="103"/>
         <source>Imports SVG Files</source>
         <translation>Importa fitxers SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="101"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Importa la majoria dels fitxers SVG en el document actual,
@@ -29233,15 +30174,15 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="115"/>
         <source>Scalable Vector Graphics</source>
-        <translation>Grafics vectorials escalables</translation>
+        <translation type="obsolete">Grafics vectorials escalables</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="181"/>
         <source>SVG file contains some unsupported features</source>
         <translation>El fitxer SVG conté característiques no suportades</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="177"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29249,7 +30190,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="894"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="902"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29350,7 +30291,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation>Ja hi ha configuració d&apos;usuari. Realment la vols sobreescriure?</translation>
+        <translation type="obsolete">Ja hi ha configuració d&apos;usuari. Realment la vols sobreescriure?</translation>
     </message>
     <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
@@ -29371,6 +30312,11 @@ convertint les dades vectorials en un objecte Scribus.</translation>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="154"/>
         <source>Cannot open file %1</source>
         <translation>No puc obrir el fitxer %1</translation>
+    </message>
+    <message>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
+        <source>User configuration exists already. Do you really want to overwrite it?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29419,7 +30365,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scgtplugin.cpp" line="129"/>
+        <location filename="../scgtplugin.cpp" line="130"/>
         <source>Show options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29494,69 +30440,54 @@ convertint les dades vectorials en un objecte Scribus.</translation>
 </context>
 <context>
     <name>ScTextBrowser</name>
-    <message>
-        <location filename="../sctextbrowser.cpp" line="67"/>
-        <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sctextbrowser.cpp" line="78"/>
-        <source>External Web Browser Failed to Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sctextbrowser.cpp" line="78"/>
-        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ScToolBar</name>
     <message>
         <location filename="../sctoolbar.cpp" line="262"/>
         <source>Top</source>
-        <translation>Dalt</translation>
+        <translation type="obsolete">Dalt</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="263"/>
         <source>Right</source>
-        <translation>Dreta</translation>
+        <translation type="obsolete">Dreta</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="264"/>
         <source>Bottom</source>
-        <translation>Baix</translation>
+        <translation type="obsolete">Baix</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="265"/>
         <source>Left</source>
-        <translation>Esquerra</translation>
+        <translation type="obsolete">Esquerra</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="266"/>
         <source>Allow Docking To...</source>
-        <translation>Permet retallar a...</translation>
+        <translation type="obsolete">Permet retallar a...</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="274"/>
         <source>Horizontal</source>
-        <translation>Horitzontal</translation>
+        <translation type="obsolete">Horitzontal</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="275"/>
         <source>Vertical</source>
-        <translation>Vertical</translation>
+        <translation type="obsolete">Vertical</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="276"/>
         <source>Floating Orientation...</source>
-        <translation>Orientació flotant...</translation>
+        <translation type="obsolete">Orientació flotant...</translation>
     </message>
 </context>
 <context>
     <name>ScWinPrint</name>
     <message>
-        <location filename="../scwinprint.cpp" line="324"/>
+        <location filename="../scwinprint.cpp" line="323"/>
         <source>Printing...</source>
         <translation>Imprimint...</translation>
     </message>
@@ -29577,7 +30508,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
 <context>
     <name>Scribus12Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="100"/>
+        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="98"/>
         <source>Scribus 1.2.x Document</source>
         <translation type="unfinished">Document Scribus 1.2.x</translation>
     </message>
@@ -29587,7 +30518,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
         <translation type="obsolete">Segon Pla</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="1449"/>
+        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="1716"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Còpia #%1 de</translation>
     </message>
@@ -29595,12 +30526,12 @@ convertint les dades vectorials en un objecte Scribus.</translation>
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="78"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="82"/>
         <source>Scribus 1.3.4 Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3281"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3326"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Còpia #%1 de</translation>
     </message>
@@ -29608,12 +30539,12 @@ convertint les dades vectorials en un objecte Scribus.</translation>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3035"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3039"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Còpia #%1 de</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="79"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="80"/>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31417,49 +32348,54 @@ Considera fer servir el Verificador per corregir-los</translation>
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../scribuscore.cpp" line="157"/>
+        <location filename="../scribuscore.cpp" line="167"/>
         <source>Initializing Plugins</source>
         <translation type="unfinished">Iniciant Connectors</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="169"/>
+        <location filename="../scribuscore.cpp" line="179"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation type="unfinished">Inicialitzant les dreceres de teclat</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="171"/>
+        <location filename="../scribuscore.cpp" line="181"/>
         <source>Reading Preferences</source>
         <translation type="unfinished">Carregant Preferències</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="181"/>
         <source>Reading ICC Profiles</source>
-        <translation type="unfinished">Carregant perfils ICC</translation>
+        <translation type="obsolete">Carregant perfils ICC</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="323"/>
+        <location filename="../scribuscore.cpp" line="326"/>
         <source>Searching for Fonts</source>
         <translation type="unfinished">Buscant les Fonts</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="328"/>
+        <location filename="../scribuscore.cpp" line="331"/>
         <source>There are no fonts found on your system.</source>
         <translation type="unfinished">No s&apos;han trobat fonts en el teu sistema.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="329"/>
+        <location filename="../scribuscore.cpp" line="332"/>
         <source>Exiting now.</source>
         <translation type="unfinished">Sortint.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="330"/>
+        <location filename="../scribuscore.cpp" line="333"/>
         <source>Fatal Error</source>
         <translation type="unfinished">Error Fatal</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="333"/>
+        <location filename="../scribuscore.cpp" line="336"/>
         <source>Font System Initialized</source>
         <translation type="unfinished">Sistema de Fonts Iniciat</translation>
+    </message>
+    <message>
+        <location filename="../scribuscore.cpp" line="191"/>
+        <source>Reading Color Profiles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31475,47 +32411,47 @@ Considera fer servir el Verificador per corregir-los</translation>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="188"/>
+        <location filename="../scribusdoc.cpp" line="217"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="409"/>
+        <location filename="../scribusdoc.cpp" line="452"/>
         <source>Background</source>
         <translation>Segon Pla</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6390"/>
+        <location filename="../scribusdoc.cpp" line="6836"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Realment vols esborrar tot el text?</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6432"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>No es pot esborrar un element en ús</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6432"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>L&apos;element %1 està sent editat amb l&apos;Editor de Notícies. La conversió demanada es cancel.larà</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6872"/>
+        <location filename="../scribusdoc.cpp" line="7354"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished">Alguns objectes estan bloquejats.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6868"/>
+        <location filename="../scribusdoc.cpp" line="7350"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished">&amp;Desbloqueja tot</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6869"/>
+        <location filename="../scribusdoc.cpp" line="7351"/>
         <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="620"/>
+        <location filename="../scribusdoc.cpp" line="704"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31529,39 +32465,39 @@ Desplaçament horitzontal: %2
 Desplaçament vertical: %3</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7941"/>
+        <location filename="../scribusdoc.cpp" line="8467"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="751"/>
+        <location filename="../scribusdoc.cpp" line="836"/>
         <source>Adjusting Colors</source>
         <translation type="unfinished">Ajustant Colors</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="361"/>
+        <location filename="../scribusdoc.cpp" line="404"/>
         <source>Default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="376"/>
+        <location filename="../scribusdoc.cpp" line="419"/>
         <source>Default Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5289"/>
+        <location filename="../scribusdoc.cpp" line="5671"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5507"/>
+        <location filename="../scribusdoc.cpp" line="5906"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7914"/>
+        <location filename="../scribusdoc.cpp" line="8439"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -31569,7 +32505,7 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8700"/>
+        <location filename="../scribusdoc.cpp" line="9465"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31597,7 +32533,7 @@ Rotation: %4</source>
         <translation type="obsolete">Carregant Preferències</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="307"/>
+        <location filename="../scribus.cpp" line="321"/>
         <source>Initializing Story Editor</source>
         <translation>Inicialitzant l&apos;Editor de Notícies</translation>
     </message>
@@ -31607,27 +32543,27 @@ Rotation: %4</source>
         <translation type="obsolete">Carregant perfils ICC</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="314"/>
+        <location filename="../scribus.cpp" line="328"/>
         <source>Initializing Hyphenator</source>
         <translation>Iniciant el Partidor de mots</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="320"/>
+        <location filename="../scribus.cpp" line="334"/>
         <source>Reading Scrapbook</source>
         <translation>Llegint l&apos;Àlbum de Retalls</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="290"/>
+        <location filename="../scribus.cpp" line="306"/>
         <source>Setting up Shortcuts</source>
         <translation>Activant Dreceres</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="360"/>
+        <location filename="../scribus.cpp" line="373"/>
         <source>File</source>
         <translation>Fitxer</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="370"/>
+        <location filename="../scribus.cpp" line="386"/>
         <source>Edit</source>
         <translation>Edició</translation>
     </message>
@@ -31647,7 +32583,7 @@ Rotation: %4</source>
         <translation type="obsolete">Sortint.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3632"/>
+        <location filename="../scribus.cpp" line="3580"/>
         <source>Fatal Error</source>
         <translation>Error Fatal</translation>
     </message>
@@ -31657,182 +32593,182 @@ Rotation: %4</source>
         <translation type="obsolete">Sistema de Fonts Iniciat</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9234"/>
+        <location filename="../scribus.cpp" line="8974"/>
         <source>&amp;File</source>
         <translation>&amp;Fitxer</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9235"/>
+        <location filename="../scribus.cpp" line="8975"/>
         <source>Open &amp;Recent</source>
         <translation>Obre &amp;Recent</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9237"/>
+        <location filename="../scribus.cpp" line="8977"/>
         <source>&amp;Import</source>
         <translation>&amp;Importa</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9238"/>
+        <location filename="../scribus.cpp" line="8978"/>
         <source>&amp;Export</source>
         <translation>&amp;Exporta</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9239"/>
+        <location filename="../scribus.cpp" line="8979"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edició</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9241"/>
+        <location filename="../scribus.cpp" line="8981"/>
         <source>St&amp;yle</source>
         <translation>Est&amp;il</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9242"/>
+        <location filename="../scribus.cpp" line="8982"/>
         <source>&amp;Color</source>
         <translation>&amp;Color</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9243"/>
+        <location filename="../scribus.cpp" line="8983"/>
         <source>&amp;Size</source>
         <translation>&amp;Mida</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9244"/>
+        <location filename="../scribus.cpp" line="8984"/>
         <source>&amp;Shade</source>
         <translation>&amp;Intensitat</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9245"/>
+        <location filename="../scribus.cpp" line="8985"/>
         <source>&amp;Font</source>
         <translation>&amp;Font</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9246"/>
+        <location filename="../scribus.cpp" line="8986"/>
         <source>&amp;Effects</source>
         <translation>&amp;Efectes</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9247"/>
+        <location filename="../scribus.cpp" line="8987"/>
         <source>&amp;Item</source>
         <translation>&amp;Item</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="707"/>
+        <location filename="../scribus.cpp" line="710"/>
         <source>Preview Settings</source>
         <translation>Paràmetres de vista prèvia</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="692"/>
+        <location filename="../scribus.cpp" line="695"/>
         <source>Level</source>
         <translation>Nivell</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="698"/>
+        <location filename="../scribus.cpp" line="701"/>
         <source>Send to La&amp;yer</source>
         <translation>Envia a la Ca&amp;pa</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9251"/>
+        <location filename="../scribus.cpp" line="8991"/>
         <source>&amp;PDF Options</source>
         <translation>Opcions &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9252"/>
+        <location filename="../scribus.cpp" line="8992"/>
         <source>&amp;Shape</source>
         <translation>&amp;Forma</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9253"/>
+        <location filename="../scribus.cpp" line="8993"/>
         <source>C&amp;onvert To</source>
         <translation>C&amp;onvertir A</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9254"/>
+        <location filename="../scribus.cpp" line="8994"/>
         <source>I&amp;nsert</source>
         <translation>I&amp;nsereix</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9255"/>
+        <location filename="../scribus.cpp" line="8995"/>
         <source>Character</source>
         <translation>Caràcter</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9256"/>
+        <location filename="../scribus.cpp" line="8996"/>
         <source>Quote</source>
         <translation>Cometes</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9257"/>
+        <location filename="../scribus.cpp" line="8997"/>
         <source>Space</source>
         <translation>Espai</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9259"/>
+        <location filename="../scribus.cpp" line="8999"/>
         <source>&amp;Page</source>
         <translation>&amp;Pàgina</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9260"/>
+        <location filename="../scribus.cpp" line="9000"/>
         <source>&amp;View</source>
         <translation>&amp;Visualització</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9262"/>
+        <location filename="../scribus.cpp" line="9002"/>
         <source>E&amp;xtras</source>
         <translation>E&amp;xtres</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9263"/>
+        <location filename="../scribus.cpp" line="9003"/>
         <source>&amp;Windows</source>
         <translation>&amp;Finestres</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9264"/>
+        <location filename="../scribus.cpp" line="9004"/>
         <source>&amp;Help</source>
         <translation>&amp;Ajuda</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9265"/>
+        <location filename="../scribus.cpp" line="9005"/>
         <source>&amp;Alignment</source>
         <translation>&amp;Alineació</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9276"/>
+        <location filename="../scribus.cpp" line="9017"/>
         <source>Ready</source>
         <translation>Preparat</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3976"/>
+        <location filename="../scribus.cpp" line="3930"/>
         <source>Open</source>
         <translation>Obre</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3436"/>
+        <location filename="../scribus.cpp" line="3390"/>
         <source>Importing Pages...</source>
         <translation>Important Pàgina(es)...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3465"/>
+        <location filename="../scribus.cpp" line="3419"/>
         <source>Import Page(s)</source>
         <translation>Importa Pàgina(es)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3507"/>
+        <location filename="../scribus.cpp" line="3461"/>
         <source>Import done</source>
         <translation>Importació feta</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3511"/>
+        <location filename="../scribus.cpp" line="3465"/>
         <source>Found nothing to import</source>
         <translation>No he trobat res a importar</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3632"/>
+        <location filename="../scribus.cpp" line="3580"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>El fitxer %1 no està en un format acceptable</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3653"/>
+        <location filename="../scribus.cpp" line="3601"/>
         <source>Loading...</source>
         <translation>Carregant...</translation>
     </message>
@@ -31844,15 +32780,15 @@ Rotation: %4</source>
     <message>
         <location filename="../scribus.cpp" line="3797"/>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation>Alguns dels perfils ICC que es fan servir en aquest document no estan instal·lats:</translation>
+        <translation type="obsolete">Alguns dels perfils ICC que es fan servir en aquest document no estan instal·lats:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3800"/>
+        <location filename="../scribus.cpp" line="3748"/>
         <source> was replaced by: </source>
         <translation> ha estat canviat per: </translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3827"/>
+        <location filename="../scribus.cpp" line="3780"/>
         <source>(converted)</source>
         <translation>(convertit)</translation>
     </message>
@@ -31867,7 +32803,7 @@ Rotation: %4</source>
         <translation type="obsolete">Tots els Fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7994"/>
+        <location filename="../scribus.cpp" line="7722"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>No es pot escriure el fitxer:
@@ -31884,17 +32820,17 @@ Rotation: %4</source>
         <translation type="obsolete">Documents (*.sla *.scd);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4150"/>
+        <location filename="../scribus.cpp" line="4102"/>
         <source>Save As</source>
         <translation>Anomena i desa</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4177"/>
+        <location filename="../scribus.cpp" line="4128"/>
         <source>Saving...</source>
         <translation>Desant...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7714"/>
+        <location filename="../scribus.cpp" line="7442"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus ha detectar alguns errors. Hauries de fer servir el Verificador per arreglar-ho</translation>
     </message>
@@ -31909,47 +32845,47 @@ Rotation: %4</source>
         <translation type="obsolete">&amp;Aborta</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4436"/>
+        <location filename="../scribus.cpp" line="4387"/>
         <source>Printing...</source>
         <translation>Imprimint...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7825"/>
+        <location filename="../scribus.cpp" line="7553"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4495"/>
+        <location filename="../scribus.cpp" line="4446"/>
         <source>Printing failed!</source>
         <translation>Impressió fallida!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4619"/>
+        <location filename="../scribus.cpp" line="4575"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>No es pot tallar un objecte en ús</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4619"/>
+        <location filename="../scribus.cpp" line="4575"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>L&apos;element %1 està sent editat amb l&apos;Editor de Notícies. La operació de tall serà cancel·lada</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5257"/>
+        <location filename="../scribus.cpp" line="5215"/>
         <source>About Qt</source>
         <translation>Quant a Qt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5268"/>
+        <location filename="../scribus.cpp" line="5220"/>
         <source>Scribus Manual</source>
         <translation>Manual d&apos;Scribus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7848"/>
+        <location filename="../scribus.cpp" line="7576"/>
         <source>Save as</source>
         <translation>Anomena i desa</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5293"/>
+        <location filename="../scribus.cpp" line="5245"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Text (*.txt);;Tots els Fitxers (*)</translation>
     </message>
@@ -31961,12 +32897,12 @@ Rotation: %4</source>
     <message>
         <location filename="../scribus.cpp" line="5457"/>
         <source>Name:</source>
-        <translation>Nom:</translation>
+        <translation type="obsolete">Nom:</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="5457"/>
         <source>Convert Page to Master Page</source>
-        <translation>Converteix la pàgina a una pàgina mestra</translation>
+        <translation type="obsolete">Converteix la pàgina a una pàgina mestra</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -31974,47 +32910,47 @@ Rotation: %4</source>
         <translation type="obsolete">Nova pàgina mestra</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6685"/>
+        <location filename="../scribus.cpp" line="6646"/>
         <source>&amp;Size:</source>
         <translation>&amp;Mida:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6685"/>
+        <location filename="../scribus.cpp" line="6646"/>
         <source>Size</source>
         <translation>Mida</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6737"/>
+        <location filename="../scribus.cpp" line="6676"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Intensitat:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6737"/>
+        <location filename="../scribus.cpp" line="6676"/>
         <source>Shade</source>
         <translation>Intensitat</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6845"/>
+        <location filename="../scribus.cpp" line="6778"/>
         <source>No Style</source>
         <translation>Sense Estil</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7612"/>
+        <location filename="../scribus.cpp" line="7340"/>
         <source>The following programs are missing:</source>
         <translation>Falten els següents programes:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7614"/>
+        <location filename="../scribus.cpp" line="7342"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript : No es pot fer servir imatges EPS o vista prèvia d&apos;impressió</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7750"/>
+        <location filename="../scribus.cpp" line="7478"/>
         <source>All</source>
         <translation>Tot</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7794"/>
+        <location filename="../scribus.cpp" line="7522"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus ha detectat alguns errors.
@@ -32023,92 +32959,92 @@ Considera fer servir el Verificador  per corregir-los.</translation>
     <message>
         <location filename="../scribus.cpp" line="7848"/>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation>Fitxers EPS (*.eps);;Tots els Fitxers (*)</translation>
+        <translation type="obsolete">Fitxers EPS (*.eps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7879"/>
+        <location filename="../scribus.cpp" line="7607"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Detectats alguns errors.
 Considera fer servir el Verificador per corregir-los</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7971"/>
+        <location filename="../scribus.cpp" line="7699"/>
         <source>-Page%1</source>
         <translation>-Pàgina%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8340"/>
+        <location filename="../scribus.cpp" line="8064"/>
         <source>Some objects are locked.</source>
         <translation>Alguns objectes estan bloquejats.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8336"/>
+        <location filename="../scribus.cpp" line="8060"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Bloqueja tot</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8337"/>
+        <location filename="../scribus.cpp" line="8061"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desbloqueja tot</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9006"/>
+        <location filename="../scribus.cpp" line="8747"/>
         <source>Information</source>
         <translation>Informació</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9006"/>
+        <location filename="../scribus.cpp" line="8747"/>
         <source>The program %1 is already running!</source>
         <translation>El programa %1 encara està en execució!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9045"/>
+        <location filename="../scribus.cpp" line="8785"/>
         <source>The program %1 is missing!</source>
         <translation>El programa %1 no es troba!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9159"/>
+        <location filename="../scribus.cpp" line="8899"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>El color triat no existeix en el conjunt de colors del document. Tria un nom per aquest color.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9162"/>
+        <location filename="../scribus.cpp" line="8902"/>
         <source>Color Not Found</source>
         <translation>Color no trobat</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9166"/>
+        <location filename="../scribus.cpp" line="8906"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>El nom seleccionat ja existeix. Tria un nom diferent per aquest color.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9248"/>
+        <location filename="../scribus.cpp" line="8988"/>
         <source>&amp;Level</source>
         <translation>&amp;Nivell</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9249"/>
+        <location filename="../scribus.cpp" line="8989"/>
         <source>Send to Layer</source>
         <translation>Envia a la capa</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9250"/>
+        <location filename="../scribus.cpp" line="8990"/>
         <source>Previe&amp;w Settings</source>
         <translation>Paràmetres de &amp;vista prèvia</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9261"/>
+        <location filename="../scribus.cpp" line="9001"/>
         <source>&amp;Tools</source>
         <translation>Ei&amp;nes</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9272"/>
+        <location filename="../scribus.cpp" line="9013"/>
         <source>X-Pos:</source>
         <translation>Posició X:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9273"/>
+        <location filename="../scribus.cpp" line="9014"/>
         <source>Y-Pos:</source>
         <translation>Posició Y:</translation>
     </message>
@@ -32125,7 +33061,7 @@ Considera fer servir el Verificador per corregir-los</translation>
     <message>
         <location filename="../scribus.cpp" line="5457"/>
         <source>New Master Page %1</source>
-        <translation>Nova pàgina mestra %1</translation>
+        <translation type="obsolete">Nova pàgina mestra %1</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -32137,68 +33073,83 @@ Desplaçament horitzontal: %2
 Desplaçament vertical: %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7616"/>
+        <location filename="../scribus.cpp" line="7344"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript : No e poden fer servir imatges EPS o previsualitzacions d&apos;impressió</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7661"/>
+        <location filename="../scribus.cpp" line="7389"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>No hi ha disponible Ghostscript: No es pot previsualitzar impressió PostScript</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9423"/>
+        <location filename="../scribus.cpp" line="9138"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Realment vols remplaçar la imatge?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9240"/>
+        <location filename="../scribus.cpp" line="8980"/>
         <source>Contents</source>
         <translation>Contingut</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="776"/>
+        <location filename="../scribus.cpp" line="772"/>
         <source>&amp;Character</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="794"/>
+        <location filename="../scribus.cpp" line="789"/>
         <source>&amp;Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="820"/>
+        <location filename="../scribus.cpp" line="814"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9258"/>
+        <location filename="../scribus.cpp" line="8998"/>
         <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9236"/>
+        <location filename="../scribus.cpp" line="8976"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="2428"/>
+        <location filename="../scribus.cpp" line="2405"/>
         <source>Updating Pictures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4147"/>
+        <location filename="../scribus.cpp" line="4099"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4006"/>
+        <location filename="../scribus.cpp" line="3960"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished">Realment vols esborrar tot el text?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="253"/>
+        <location filename="../scribus.cpp" line="270"/>
         <source>Scribus </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="9006"/>
+        <source>Online &amp;Tutorials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="3745"/>
+        <source>Some color profiles used by this document are not installed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="7576"/>
+        <source>%1;;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -32215,122 +33166,122 @@ Desplaçament vertical: %3</translation>
         <translation>El fitxer %1 no existeix, abortant.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="397"/>
+        <location filename="../scribusapp.cpp" line="401"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation>Ús: scribus [opció ... ] [fitxer]</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="398"/>
+        <location filename="../scribusapp.cpp" line="402"/>
         <source>Options:</source>
         <translation>Opcions:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="400"/>
+        <location filename="../scribusapp.cpp" line="404"/>
         <source>Print help (this message) and exit</source>
         <translation>Imprimeix l&apos;ajuda (aquest missatge) i surt</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="401"/>
+        <location filename="../scribusapp.cpp" line="405"/>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
         <translation>Fa servir xx com a drecera per un idioma, ex. &apos;en&apos; o &apos;de&apos;</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="402"/>
+        <location filename="../scribusapp.cpp" line="406"/>
         <source>List the currently installed interface languages</source>
         <translation>Llista les interfícies d&apos;idioma actualment instal·lades</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="399"/>
+        <location filename="../scribusapp.cpp" line="403"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation>Mostra la informació en la cònsola quan es carreguen les fonts</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="403"/>
+        <location filename="../scribusapp.cpp" line="407"/>
         <source>Do not show the splashscreen on startup</source>
         <translation>No mostris la pantalla inicial al arrancar</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>Output version information and exit</source>
         <translation>Versió de informació i sortida</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="407"/>
+        <location filename="../scribusapp.cpp" line="411"/>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
         <translation>Fa servir en els diàlegs la ordenació dreta a esquerra (ex. Cancel·la/No/Si en comptes de Si/No/Cancel·la)</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>filename</source>
         <translation>Nom Fitxer</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>Use filename as path for user given preferences</source>
         <translation>Fa servir el nom de fitxer com a camí per les preferències d&apos;usuari</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="428"/>
+        <location filename="../scribusapp.cpp" line="432"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation>Les interfícies d&apos;idioma instal·lades són les següents:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="436"/>
+        <location filename="../scribusapp.cpp" line="440"/>
         <source>To override the default language choice:</source>
         <translation>Per sobreescriure l&apos;idioma per defecte tria:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="437"/>
+        <location filename="../scribusapp.cpp" line="441"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation>scribus -l xx o scribus --lang xx, on xx és l&apos;idioma triat.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="442"/>
+        <location filename="../scribusapp.cpp" line="446"/>
         <source>Scribus Version</source>
         <translation>Versió d&apos;Scribus</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="451"/>
+        <location filename="../scribusapp.cpp" line="455"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation>Scribus, Autoedició de codi obert</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="459"/>
+        <location filename="../scribusapp.cpp" line="463"/>
         <source>Homepage</source>
         <translation>Pàgina principal</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="460"/>
+        <location filename="../scribusapp.cpp" line="464"/>
         <source>Documentation</source>
         <translation>Documentació</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="461"/>
+        <location filename="../scribusapp.cpp" line="465"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="462"/>
+        <location filename="../scribusapp.cpp" line="466"/>
         <source>Issues</source>
         <translation>Números</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="404"/>
+        <location filename="../scribusapp.cpp" line="408"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="408"/>
+        <location filename="../scribusapp.cpp" line="412"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="413"/>
+        <location filename="../scribusapp.cpp" line="417"/>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="406"/>
+        <location filename="../scribusapp.cpp" line="410"/>
         <source>Show location ICC profile information on console while starting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32343,7 +33294,7 @@ Desplaçament vertical: %3</translation>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../scribusview.cpp" line="190"/>
+        <location filename="../scribusview.cpp" line="201"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -32378,127 +33329,127 @@ Desplaçament vertical: %3</translation>
         <translation type="obsolete">Tot</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2074"/>
+        <location filename="../scribusview.cpp" line="949"/>
         <source>Copy Here</source>
         <translation>Copia Aquí</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2075"/>
+        <location filename="../scribusview.cpp" line="950"/>
         <source>Move Here</source>
         <translation>Mou Aquí</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2076"/>
+        <location filename="../scribusview.cpp" line="951"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2773"/>
+        <location filename="../canvasmode_nodeedit.cpp" line="498"/>
         <source>&amp;Paste</source>
         <translation>&amp;Enganxa</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2939"/>
         <source>Picture</source>
-        <translation>Imatge</translation>
+        <translation type="obsolete">Imatge</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2914"/>
+        <location filename="../pageitem_imageframe.cpp" line="257"/>
         <source>File: </source>
         <translation>Fitxer:</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2918"/>
+        <location filename="../pageitem_imageframe.cpp" line="262"/>
         <source>Original PPI: </source>
         <translation>Original PPI:</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2922"/>
+        <location filename="../pageitem_imageframe.cpp" line="267"/>
         <source>Actual PPI: </source>
         <translation>Actual PPI:</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2965"/>
         <source>Linked Text</source>
-        <translation>Text enllaçat</translation>
+        <translation type="obsolete">Text enllaçat</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2967"/>
         <source>Text Frame</source>
-        <translation>Marc de Text</translation>
+        <translation type="obsolete">Marc de Text</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2970"/>
         <source>Text on a Path</source>
-        <translation>Text en un Camí</translation>
+        <translation type="obsolete">Text en un Camí</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2973"/>
         <source>Paragraphs: </source>
-        <translation>Paràgrafs:</translation>
+        <translation type="obsolete">Paràgrafs:</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2984"/>
         <source>Words: </source>
-        <translation>Paraules:</translation>
+        <translation type="obsolete">Paraules:</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2991"/>
         <source>Chars: </source>
-        <translation>Lletres:</translation>
+        <translation type="obsolete">Lletres:</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3002"/>
+        <location filename="../canvasmode_legacy.cpp" line="4368"/>
         <source>Print: </source>
         <translation>Impressió:</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3005"/>
+        <location filename="../canvasmode_legacy.cpp" line="4371"/>
         <source>Enabled</source>
         <translation>Activat</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3007"/>
+        <location filename="../canvasmode_legacy.cpp" line="4373"/>
         <source>Disabled</source>
         <translation>Desactivat</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3016"/>
+        <location filename="../canvasmode_legacy.cpp" line="4383"/>
         <source>In&amp;fo</source>
         <translation>In&amp;formació</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="3037"/>
         <source>Preview Settings</source>
-        <translation>Paràmetres de vista prèvia</translation>
+        <translation type="obsolete">Paràmetres de vista prèvia</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3078"/>
+        <location filename="../pageitem_textframe.cpp" line="3384"/>
         <source>&amp;PDF Options</source>
         <translation>Opcions &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3102"/>
+        <location filename="../canvasmode_legacy.cpp" line="4420"/>
         <source>Send to La&amp;yer</source>
         <translation>Envia a la Ca&amp;pa</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3130"/>
+        <location filename="../canvasmode_legacy.cpp" line="4449"/>
         <source>Le&amp;vel</source>
         <translation>Ni&amp;vell</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3184"/>
+        <location filename="../canvasmode_legacy.cpp" line="4469"/>
         <source>Conve&amp;rt to</source>
         <translation>Conve&amp;rteix a</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3194"/>
+        <location filename="../canvasmode_legacy.cpp" line="4480"/>
         <source>&amp;Delete</source>
         <translation>Es&amp;borra</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6826"/>
+        <location filename="../canvasmode_legacy.cpp" line="1687"/>
         <source>Linking Text Frames</source>
         <translation>Enllaçant Marcs de Text</translation>
     </message>
@@ -32533,27 +33484,27 @@ Desplaçament vertical: %3</translation>
         <translation type="obsolete">Realment vols esborrar tot el text?</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="11046"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>No es pot convertir un element en ús</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="11046"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>L&apos;element %1 està sent editat amb l&apos;Editor de Notícies. La conversió demanada s&apos;ignorarà</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="9715"/>
+        <location filename="../scribusview.cpp" line="3116"/>
         <source>Page %1 to %2</source>
         <translation>Pàgina %1 a %2</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2926"/>
+        <location filename="../pageitem_imageframe.cpp" line="272"/>
         <source>Colorspace: </source>
         <translation>Espai de color: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2931"/>
+        <location filename="../pageitem_imageframe.cpp" line="277"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
@@ -32573,32 +33524,27 @@ Desplaçament vertical: %3</translation>
         <translation type="obsolete">Escala de grisos</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3216"/>
+        <location filename="../canvasmode_legacy.cpp" line="4485"/>
         <source>Contents</source>
         <translation>Contingut</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2789"/>
+        <location filename="../canvasmode_nodeedit.cpp" line="515"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2980"/>
-        <source>Lines: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribusview.cpp" line="10747"/>
+        <location filename="../scribusview.cpp" line="4260"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="309"/>
+        <location filename="../scribusview.cpp" line="326"/>
         <source>Enables the Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="310"/>
+        <location filename="../scribusview.cpp" line="327"/>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
         <translation type="unfinished"></translation>
@@ -32629,37 +33575,37 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Brillantor a tot color</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="308"/>
+        <location filename="../scribusview.cpp" line="325"/>
         <source>Switches Color Management on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="348"/>
+        <location filename="../scribusview.cpp" line="365"/>
         <source>Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="349"/>
+        <location filename="../scribusview.cpp" line="366"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3308"/>
+        <location filename="../canvasmode_legacy.cpp" line="2326"/>
         <source>Enter Object Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2941"/>
+        <location filename="../pageitem_imageframe.cpp" line="283"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6820"/>
+        <location filename="../canvasmode_legacy.cpp" line="1681"/>
         <source>You are trying to link a frame to itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6827"/>
+        <location filename="../canvasmode_legacy.cpp" line="1688"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32682,12 +33628,12 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Avís</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="111"/>
+        <location filename="../scribuswin.cpp" line="107"/>
         <source>Document:</source>
         <translation>Document:</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="113"/>
+        <location filename="../scribuswin.cpp" line="109"/>
         <source>has been changed since the last save.</source>
         <translation>ha canviat des del darrer cop.</translation>
     </message>
@@ -32710,12 +33656,12 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ScriptPlugin</name>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="148"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="144"/>
         <source>Embedded Python scripting support.</source>
         <translation>Suport per seqüències Python integrat.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="200"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="199"/>
         <source>Scripter</source>
         <translation>Seqüenciador</translation>
     </message>
@@ -32792,17 +33738,17 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Seqüències Python (*.py);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="570"/>
         <source>Script error</source>
         <translation>Error en Seqüència</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="351"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Si executes una seqüència oficial, si us plau avisa a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="355"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Aquest missatge també és al portapapers. Usa Ctrl+V per enganxar-lo al bug tracker.</translation>
     </message>
@@ -32845,12 +33791,12 @@ Si us plau abans llegeix la documentació de les extensions.
         <translation type="obsolete">Quant a Sequència</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="422"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="420"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>S&apos;ha produit un error intern mentre s&apos;intentava la comanda entrada. Els detalls han sortit per stderr. </translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="495"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
         <source>Examine Script</source>
         <translation>Examina Seqüència</translation>
     </message>
@@ -32860,7 +33806,7 @@ Si us plau abans llegeix la documentació de les extensions.
         <translation type="obsolete">Seqüències Python (*.py)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="574"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Activació del connector Python ha fallat. Els detalls han sortit per stderr. </translation>
     </message>
@@ -32870,22 +33816,22 @@ Si us plau abans llegeix la documentació de les extensions.
         <translation type="obsolete">Seqüències Python (*.py);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="508"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="506"/>
         <source>Documentation for:</source>
         <translation>Documentació per:</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="513"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
         <source>Script</source>
         <translation>Seqüència</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="513"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> no conté cap cadena!</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="495"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33135,7 +34081,7 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="92"/>
         <source>Select Color</source>
-        <translation>Tria color</translation>
+        <translation type="obsolete">Tria color</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="72"/>
@@ -33143,7 +34089,7 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
         <translation>Canvia...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="117"/>
+        <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="129"/>
         <source>Locate Startup Script</source>
         <translation>Localitza la seqüència d&apos;inici</translation>
     </message>
@@ -33191,7 +34137,7 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../seiten.cpp" line="89"/>
+        <location filename="../seiten.cpp" line="55"/>
         <source>Show Page Previews</source>
         <translation>Visualització Previa de Pàgina</translation>
     </message>
@@ -33212,82 +34158,82 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
 <context>
     <name>SearchReplace</name>
     <message>
-        <location filename="../search.cpp" line="637"/>
+        <location filename="../search.cpp" line="638"/>
         <source>Search/Replace</source>
         <translation>Cerca/Reemplaça</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="57"/>
+        <location filename="../search.cpp" line="58"/>
         <source>Search for:</source>
         <translation>Cerca:</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="152"/>
+        <location filename="../search.cpp" line="153"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="155"/>
+        <location filename="../search.cpp" line="156"/>
         <source>Paragraph Style</source>
         <translation>Estil de Paràgraf</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="158"/>
+        <location filename="../search.cpp" line="159"/>
         <source>Font</source>
         <translation>Font</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="161"/>
+        <location filename="../search.cpp" line="162"/>
         <source>Font Size</source>
         <translation>Mida de Font</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="164"/>
+        <location filename="../search.cpp" line="165"/>
         <source>Font Effects</source>
         <translation>Efectes de Font</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="167"/>
+        <location filename="../search.cpp" line="168"/>
         <source>Fill Color</source>
         <translation>Color d&apos;Emplenat</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="170"/>
+        <location filename="../search.cpp" line="171"/>
         <source>Fill Shade</source>
         <translation>Intensitat d&apos;ompliment</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="173"/>
+        <location filename="../search.cpp" line="174"/>
         <source>Stroke Color</source>
         <translation>Color del Voltant</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="176"/>
+        <location filename="../search.cpp" line="177"/>
         <source>Stroke Shade</source>
         <translation>Intensitat del Voltant</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Left</source>
         <translation>Esquerra</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Center</source>
         <translation>Centrat</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Right</source>
         <translation>Dreta</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Block</source>
         <translation>Justificat</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Forced</source>
         <translation>Forçat</translation>
     </message>
@@ -33302,42 +34248,42 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
         <translation type="obsolete">Cap</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="146"/>
+        <location filename="../search.cpp" line="147"/>
         <source>Replace with:</source>
         <translation>Canvia&apos;l per:</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="236"/>
+        <location filename="../search.cpp" line="237"/>
         <source>&amp;Whole Word</source>
         <translation>Paraula Sen&amp;cera</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="240"/>
+        <location filename="../search.cpp" line="241"/>
         <source>&amp;Ignore Case</source>
         <translation>&amp;Ignora Maj/Min</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="249"/>
+        <location filename="../search.cpp" line="250"/>
         <source>&amp;Search</source>
         <translation>&amp;Cerca</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="252"/>
+        <location filename="../search.cpp" line="253"/>
         <source>&amp;Replace</source>
         <translation>&amp;Remplaça</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="255"/>
+        <location filename="../search.cpp" line="256"/>
         <source>Replace &amp;All</source>
         <translation>Remplaça &amp;Tot</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="260"/>
+        <location filename="../search.cpp" line="261"/>
         <source>&amp;Close</source>
         <translation>&amp;Tanca</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="506"/>
+        <location filename="../search.cpp" line="507"/>
         <source>Search finished</source>
         <translation>Recerca acabada</translation>
     </message>
@@ -33347,12 +34293,12 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
         <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="258"/>
+        <location filename="../search.cpp" line="259"/>
         <source>C&amp;lear</source>
         <translation>B&amp;uida</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="638"/>
+        <location filename="../search.cpp" line="639"/>
         <source>Search finished, found %1 matches</source>
         <translation>Recerca acabada, trobats %1 resultats</translation>
     </message>
@@ -33435,27 +34381,27 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
 <context>
     <name>SelectFields</name>
     <message>
-        <location filename="../selfield.cpp" line="27"/>
+        <location filename="../selfield.cpp" line="26"/>
         <source>Select Fields</source>
         <translation>Tria Camps</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="40"/>
+        <location filename="../selfield.cpp" line="39"/>
         <source>Available Fields</source>
         <translation>Camps Disponibles</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="68"/>
+        <location filename="../selfield.cpp" line="67"/>
         <source>&amp;&gt;&gt;</source>
         <translation>&amp;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="70"/>
+        <location filename="../selfield.cpp" line="69"/>
         <source>&amp;&lt;&lt;</source>
         <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="78"/>
+        <location filename="../selfield.cpp" line="77"/>
         <source>Selected Fields</source>
         <translation>Camps Triats</translation>
     </message>
@@ -33478,12 +34424,12 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation>Altres...</translation>
     </message>
     <message>
-        <location filename="../shadebutton.cpp" line="50"/>
+        <location filename="../shadebutton.cpp" line="49"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Intensitat:</translation>
     </message>
     <message>
-        <location filename="../shadebutton.cpp" line="50"/>
+        <location filename="../shadebutton.cpp" line="49"/>
         <source>Shade</source>
         <translation>Intensitat</translation>
     </message>
@@ -33491,17 +34437,17 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
 <context>
     <name>ShadowValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="124"/>
+        <location filename="../styleselect.cpp" line="123"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="123"/>
+        <location filename="../styleselect.cpp" line="122"/>
         <source>X-Offset</source>
         <translation>Desplaçament-X</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="125"/>
+        <location filename="../styleselect.cpp" line="124"/>
         <source>Y-Offset</source>
         <translation>Desplaçament-Y</translation>
     </message>
@@ -33533,77 +34479,77 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
 <context>
     <name>ShortcutWidget</name>
     <message>
-        <location filename="../stylemanager.cpp" line="1495"/>
+        <location filename="../shortcutwidget.ui" line="16"/>
         <source>&amp;No Key</source>
         <translation type="unfinished">&amp;Sense Tecla</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1496"/>
+        <location filename="../shortcutwidget.ui" line="23"/>
         <source>&amp;User Defined Key</source>
         <translation type="unfinished">&amp;Tecla Definida per l&apos;Usuari</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="1461"/>
         <source>ALT+SHIFT+T</source>
-        <translation type="unfinished">ALT+SHIFT+T</translation>
+        <translation type="obsolete">ALT+SHIFT+T</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1497"/>
+        <location filename="../shortcutwidget.ui" line="30"/>
         <source>Set &amp;Key</source>
         <translation type="unfinished">Tria &amp;Tecla</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Shift</source>
         <translation type="unfinished">Maj</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Meta</source>
         <translation type="unfinished">Meta</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1527"/>
+        <location filename="../shortcutwidget.cpp" line="65"/>
         <source>Meta+</source>
         <translation type="unfinished">Meta+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1531"/>
+        <location filename="../shortcutwidget.cpp" line="69"/>
         <source>Shift+</source>
         <translation type="unfinished">Maj+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1535"/>
+        <location filename="../shortcutwidget.cpp" line="73"/>
         <source>Alt+</source>
         <translation type="unfinished">Alt+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1539"/>
+        <location filename="../shortcutwidget.cpp" line="77"/>
         <source>Ctrl+</source>
         <translation type="unfinished">Ctrl+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1487"/>
+        <location filename="../shortcutwidget.cpp" line="33"/>
         <source>No shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1488"/>
+        <location filename="../shortcutwidget.cpp" line="34"/>
         <source>Style has user defined shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1489"/>
+        <location filename="../shortcutwidget.cpp" line="35"/>
         <source>Assign a shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33613,12 +34559,12 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     <message>
         <location filename="../story.cpp" line="160"/>
         <source>No Style</source>
-        <translation>Sense Estil</translation>
+        <translation type="obsolete">Sense Estil</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="123"/>
         <source>Edit Styles...</source>
-        <translation>Edita Estils...</translation>
+        <translation type="obsolete">Edita Estils...</translation>
     </message>
 </context>
 <context>
@@ -33735,72 +34681,72 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../story.cpp" line="1756"/>
+        <location filename="../story.cpp" line="1813"/>
         <source>Story Editor</source>
         <translation>Editor de Notícies</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1636"/>
         <source>&amp;New</source>
-        <translation>&amp;Nou</translation>
+        <translation type="obsolete">&amp;Nou</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1638"/>
+        <location filename="../story.cpp" line="1696"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Recarrega el Text del Marc</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1639"/>
+        <location filename="../story.cpp" line="1697"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Desa a un Fitxer...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1640"/>
+        <location filename="../story.cpp" line="1698"/>
         <source>&amp;Load from File...</source>
         <translation>&amp;Carrega d&apos;un Fitxer...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1641"/>
+        <location filename="../story.cpp" line="1699"/>
         <source>Save &amp;Document</source>
         <translation>Desa &amp;Document</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1642"/>
+        <location filename="../story.cpp" line="1700"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>&amp;Actualitza el Text i Surt</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1643"/>
+        <location filename="../story.cpp" line="1701"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>&amp;Surt Sense Actualitzar el Text</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1646"/>
+        <location filename="../story.cpp" line="1704"/>
         <source>Select &amp;All</source>
         <translation>Selecciona &amp;Tot</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1647"/>
+        <location filename="../story.cpp" line="1705"/>
         <source>Cu&amp;t</source>
         <translation>T&amp;alla</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1648"/>
+        <location filename="../story.cpp" line="1706"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copia</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1649"/>
+        <location filename="../story.cpp" line="1707"/>
         <source>&amp;Paste</source>
         <translation>&amp;Enganxa</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1650"/>
+        <location filename="../story.cpp" line="1708"/>
         <source>C&amp;lear</source>
         <translation>B&amp;uida</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1651"/>
+        <location filename="../story.cpp" line="1709"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Cerca/Reemplaça...</translation>
     </message>
@@ -33810,47 +34756,47 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">&amp;Inserir Especial...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1652"/>
+        <location filename="../story.cpp" line="1710"/>
         <source>&amp;Edit Styles...</source>
         <translation>&amp;Edita Estils...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1653"/>
+        <location filename="../story.cpp" line="1711"/>
         <source>&amp;Fonts Preview...</source>
         <translation>Vista Prèvia de &amp;Fonts...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1654"/>
+        <location filename="../story.cpp" line="1712"/>
         <source>&amp;Update Text Frame</source>
         <translation>Actualitza &amp;el Text</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1665"/>
+        <location filename="../story.cpp" line="1723"/>
         <source>&amp;Background...</source>
         <translation>Sego&amp;n Pla...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1666"/>
+        <location filename="../story.cpp" line="1724"/>
         <source>&amp;Display Font...</source>
         <translation>&amp;Mostra Font...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1635"/>
+        <location filename="../story.cpp" line="1694"/>
         <source>&amp;File</source>
         <translation>&amp;Fitxer</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1645"/>
+        <location filename="../story.cpp" line="1703"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edició</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1664"/>
+        <location filename="../story.cpp" line="1722"/>
         <source>&amp;Settings</source>
         <translation>Paràmetre&amp;s</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1672"/>
+        <location filename="../story.cpp" line="1730"/>
         <source>File</source>
         <translation>Fitxer</translation>
     </message>
@@ -33895,27 +34841,27 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">Cerca/Reemplaça</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1674"/>
+        <location filename="../story.cpp" line="1732"/>
         <source>Current Paragraph:</source>
         <translation>Paràgraf Actual:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1679"/>
+        <location filename="../story.cpp" line="1737"/>
         <source>Words: </source>
         <translation>Paraules:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1680"/>
+        <location filename="../story.cpp" line="1738"/>
         <source>Chars: </source>
         <translation>Lletres:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1677"/>
+        <location filename="../story.cpp" line="1735"/>
         <source>Totals:</source>
         <translation>Totals:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1678"/>
+        <location filename="../story.cpp" line="1736"/>
         <source>Paragraphs: </source>
         <translation>Paràgrafs:</translation>
     </message>
@@ -33925,7 +34871,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">Avís</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1793"/>
+        <location filename="../story.cpp" line="1853"/>
         <source>Do you want to save your changes?</source>
         <translation>Vols desar els canvis?</translation>
     </message>
@@ -33950,77 +34896,77 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">Realment vols esborrar tot el Text?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2855"/>
+        <location filename="../story.cpp" line="2927"/>
         <source>Open</source>
         <translation>Obre</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2891"/>
+        <location filename="../story.cpp" line="2962"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Text (*.txt);;Tots els Fitxers (*)</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2891"/>
+        <location filename="../story.cpp" line="2962"/>
         <source>Save as</source>
         <translation>Anomena i desa</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1667"/>
+        <location filename="../story.cpp" line="1725"/>
         <source>&amp;Smart text selection</source>
         <translation>&amp;Selecció acurada de text</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1661"/>
+        <location filename="../story.cpp" line="1719"/>
         <source>&amp;Insert Glyph...</source>
         <translation>&amp;Inserir guionet...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1637"/>
+        <location filename="../story.cpp" line="1695"/>
         <source>Clear All Text</source>
         <translation>Esborra tot el text</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1739"/>
+        <location filename="../story.cpp" line="1797"/>
         <source>Story Editor - %1</source>
         <translation>Editor de Notícies - %1</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2358"/>
+        <location filename="../story.cpp" line="2437"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Realment vols perdre tots els canvis?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2387"/>
+        <location filename="../story.cpp" line="2466"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Realment vols esborrar tot el text?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1657"/>
+        <location filename="../story.cpp" line="1715"/>
         <source>&amp;Insert</source>
         <translation>&amp;Insereix</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1658"/>
+        <location filename="../story.cpp" line="1716"/>
         <source>Character</source>
         <translation>Caràcter</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1659"/>
+        <location filename="../story.cpp" line="1717"/>
         <source>Quote</source>
         <translation>Cometes</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1473"/>
+        <location filename="../story.cpp" line="1516"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Espais &amp;&amp; separacions</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1485"/>
+        <location filename="../story.cpp" line="1528"/>
         <source>Ligature</source>
         <translation>Lligadures</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1660"/>
+        <location filename="../story.cpp" line="1718"/>
         <source>Space</source>
         <translation>Espai</translation>
     </message>
@@ -34028,22 +34974,22 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
 <context>
     <name>StrikeValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="30"/>
+        <location filename="../styleselect.cpp" line="29"/>
         <source>Auto</source>
         <translation>Auto</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="41"/>
+        <location filename="../styleselect.cpp" line="40"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="40"/>
+        <location filename="../styleselect.cpp" line="39"/>
         <source>Displacement</source>
         <translation>Desplaçament</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="42"/>
+        <location filename="../styleselect.cpp" line="41"/>
         <source>Linewidth</source>
         <translation>Amplada de línia</translation>
     </message>
@@ -34056,158 +35002,203 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">S&apos;ha triat més d&apos;un element</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="138"/>
+        <location filename="../stylemanager.ui" line="340"/>
         <source>Name:</source>
         <translation type="unfinished">Nom:</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="139"/>
+        <location filename="../stylemanager.ui" line="489"/>
         <source>&amp;Reset</source>
         <translation type="unfinished">&amp;Reinicia</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="140"/>
+        <location filename="../stylemanager.ui" line="467"/>
         <source>&amp;Apply</source>
         <translation type="unfinished">&amp;Aplicar</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="144"/>
+        <location filename="../stylemanager.ui" line="158"/>
         <source>&amp;New</source>
         <translation type="unfinished">&amp;Nou</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="145"/>
+        <location filename="../stylemanager.ui" line="224"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Importa</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="146"/>
+        <location filename="../stylemanager.ui" line="189"/>
         <source>&amp;Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="147"/>
+        <location filename="../stylemanager.ui" line="240"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="127"/>
+        <location filename="../stylemanager.cpp" line="94"/>
         <source>Reset all changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="128"/>
+        <location filename="../stylemanager.cpp" line="95"/>
         <source>Apply all changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="122"/>
+        <location filename="../stylemanager.cpp" line="89"/>
         <source>Apply all changes and exit edit mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="129"/>
+        <location filename="../stylemanager.cpp" line="96"/>
         <source>Create a new style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="130"/>
+        <location filename="../stylemanager.cpp" line="97"/>
         <source>Import styles from another document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="131"/>
+        <location filename="../stylemanager.cpp" line="98"/>
         <source>Clone selected style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="132"/>
+        <location filename="../stylemanager.cpp" line="99"/>
         <source>Delete selected styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="644"/>
+        <location filename="../stylemanager.cpp" line="601"/>
         <source>New</source>
         <translation type="unfinished">Nou</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="176"/>
+        <location filename="../stylemanager.cpp" line="145"/>
         <source>Import</source>
         <translation type="unfinished">Importa</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="179"/>
+        <location filename="../stylemanager.cpp" line="148"/>
         <source>Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="180"/>
+        <location filename="../stylemanager.cpp" line="149"/>
         <source>Send to Scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="182"/>
+        <location filename="../stylemanager.cpp" line="151"/>
         <source>Delete</source>
         <translation type="unfinished">Esborra</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="733"/>
+        <location filename="../stylemanager.cpp" line="689"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Edició</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="141"/>
+        <location filename="../stylemanager.cpp" line="108"/>
         <source>&amp;Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="971"/>
+        <location filename="../stylemanager.ui" line="67"/>
         <source>Shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="66"/>
+        <location filename="../stylemanager.ui" line="62"/>
         <source>Name</source>
         <translation type="unfinished">Nom</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="124"/>
+        <location filename="../stylemanager.cpp" line="91"/>
         <source>Edit styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="126"/>
+        <location filename="../stylemanager.cpp" line="93"/>
         <source>Name of the selected style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="178"/>
+        <location filename="../stylemanager.cpp" line="147"/>
         <source>Edit</source>
         <translation type="unfinished">Edició</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="632"/>
+        <location filename="../stylemanager.cpp" line="588"/>
         <source>New %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1035"/>
+        <location filename="../stylemanager.cpp" line="978"/>
         <source>This key sequence is already in use</source>
         <translation type="unfinished">Aquesta combinació de tecles ja es fa servir</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1123"/>
+        <location filename="../stylemanager.cpp" line="1066"/>
         <source>More than one style selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="312"/>
+        <location filename="../stylemanager.cpp" line="283"/>
         <source>Open</source>
         <translation type="unfinished">Obre</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="312"/>
+        <location filename="../stylemanager.cpp" line="283"/>
         <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="161"/>
+        <source>Alt+N</source>
+        <translation type="unfinished">Alt+N</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="186"/>
+        <source>Clone copies the style to make similar styles easily.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="192"/>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="227"/>
+        <source>Alt+I</source>
+        <translation type="unfinished">Alt+I</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="448"/>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="371"/>
+        <source>Please select a unique name for the style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="445"/>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="470"/>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="492"/>
+        <source>Alt+R</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -34219,17 +35210,17 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">Subratllat</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="274"/>
+        <location filename="../styleselect.cpp" line="257"/>
         <source>Small Caps</source>
         <translation>Majúscules Petites</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="275"/>
+        <location filename="../styleselect.cpp" line="258"/>
         <source>Subscript</source>
         <translation>Subíndex</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="276"/>
+        <location filename="../styleselect.cpp" line="259"/>
         <source>Superscript</source>
         <translation>Superíndex</translation>
     </message>
@@ -34249,7 +35240,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">Només les paraules subratllades</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="273"/>
+        <location filename="../styleselect.cpp" line="256"/>
         <source>All Caps</source>
         <translation>Tot en majúscules</translation>
     </message>
@@ -34270,28 +35261,28 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">Esquema</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="271"/>
+        <location filename="../styleselect.cpp" line="254"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="272"/>
+        <location filename="../styleselect.cpp" line="255"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="277"/>
+        <location filename="../styleselect.cpp" line="260"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="278"/>
+        <location filename="../styleselect.cpp" line="261"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="279"/>
+        <location filename="../styleselect.cpp" line="262"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34309,12 +35300,12 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation type="obsolete">Actualitza estils de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="55"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="54"/>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Fes servir el nom de document com estil de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="64"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="63"/>
         <source>Do not ask again</source>
         <translation>No ho tornis a preguntar</translation>
     </message>
@@ -34328,7 +35319,7 @@ conjunt de valors al importar d&apos;OO.o i
 mai tornarà a demanar confirmació</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="75"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="74"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
@@ -34349,7 +35340,7 @@ paràgraf del document OpenOffice.org, s&apos;ha d&apos;editar l&apos;estil per 
 com el nou, o deixar-lo igual </translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="28"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="27"/>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Opcions de l&apos;Importador d&apos;OpenOffice.org Writer</translation>
     </message>
@@ -34379,37 +35370,37 @@ S&apos;hauria de fer servir quan se sap que el text no s&apos;editarà
 després d&apos;importar-lo.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="37"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="36"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Sobreescriure estils de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="39"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="38"/>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Activant això els estils actuals seran sobreescrits</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="46"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="45"/>
         <source>Merge Paragraph Styles</source>
         <translation>Barreja estils de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="48"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="47"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
         <translation>Barreja estils de paràgraf pels seus atributs. Això ens donarà estils de paràgraf similars, que mantindran atributs, fins i tot si els estils de document tenen noms diferents.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="57"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="56"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
         <translation>Afegeix el nom del document al principi del nom dels estils de paràgraf d&apos;Scribus.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="66"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="65"/>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Guarda les opcions actuals i no les preguntarà més quan importi documents OpenDocument 1.x.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="77"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="76"/>
         <source>Cancel</source>
         <translation>Cancel.la</translation>
     </message>
@@ -34417,22 +35408,22 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
-        <location filename="../tocindexprefs.cpp" line="103"/>
+        <location filename="../tocindexprefs.cpp" line="105"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="105"/>
+        <location filename="../tocindexprefs.cpp" line="107"/>
         <source>At the beginning</source>
         <translation>Al principi</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="107"/>
+        <location filename="../tocindexprefs.cpp" line="109"/>
         <source>At the end</source>
         <translation>Al final</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="109"/>
+        <location filename="../tocindexprefs.cpp" line="111"/>
         <source>Not Shown</source>
         <translation>No mostris</translation>
     </message>
@@ -34522,7 +35513,7 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Índe&amp;x</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="245"/>
+        <location filename="../tocindexprefs.cpp" line="247"/>
         <source>Table of Contents %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34618,17 +35609,17 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabCheckDoc</name>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="34"/>
+        <location filename="../tabcheckdoc.cpp" line="35"/>
         <source>Ignore all errors</source>
         <translation>Ignora tots els errors</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="37"/>
+        <location filename="../tabcheckdoc.cpp" line="38"/>
         <source>Automatic check before printing or exporting</source>
         <translation>Comprova automàticament abans d&apos;imprimir o exportar</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="40"/>
+        <location filename="../tabcheckdoc.cpp" line="41"/>
         <source>Check for missing glyphs</source>
         <translation>Comprova si falten glyphs </translation>
     </message>
@@ -34638,7 +35629,7 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Comprova si hi ha objectes fora de la pàgina</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="46"/>
+        <location filename="../tabcheckdoc.cpp" line="47"/>
         <source>Check for overflow in text frames</source>
         <translation>Comprova el sobreeiximent en marcs de text</translation>
     </message>
@@ -34648,67 +35639,67 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Comprova les transparències </translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="52"/>
+        <location filename="../tabcheckdoc.cpp" line="53"/>
         <source>Check for missing images</source>
         <translation>Comprova si falten imatges</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="55"/>
+        <location filename="../tabcheckdoc.cpp" line="56"/>
         <source>Check image resolution</source>
         <translation>Comprova la resolució de imatges</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="62"/>
+        <location filename="../tabcheckdoc.cpp" line="63"/>
         <source>Lowest allowed resolution</source>
         <translation>Resolucio mínima permesa</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="75"/>
+        <location filename="../tabcheckdoc.cpp" line="76"/>
         <source> dpi</source>
         <translation>dpi</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="79"/>
+        <location filename="../tabcheckdoc.cpp" line="80"/>
         <source>Check for placed PDF Files</source>
         <translation>Comprova els PDF inserits</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="85"/>
+        <location filename="../tabcheckdoc.cpp" line="86"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation>Comprova les anotacions i camps PDF</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="95"/>
+        <location filename="../tabcheckdoc.cpp" line="96"/>
         <source>Add Profile</source>
         <translation>Afegir Perfil</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="97"/>
+        <location filename="../tabcheckdoc.cpp" line="98"/>
         <source>Remove Profile</source>
         <translation>Elimina perfil</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="70"/>
+        <location filename="../tabcheckdoc.cpp" line="71"/>
         <source>Highest allowed resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="82"/>
+        <location filename="../tabcheckdoc.cpp" line="83"/>
         <source>Check for GIF images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="88"/>
+        <location filename="../tabcheckdoc.cpp" line="89"/>
         <source>Ignore non-printable Layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="43"/>
+        <location filename="../tabcheckdoc.cpp" line="44"/>
         <source>Check for items not on a page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="49"/>
+        <location filename="../tabcheckdoc.cpp" line="50"/>
         <source>Check for used transparencies</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35057,32 +36048,32 @@ després d&apos;importar-lo.</translation>
         <translation type="unfinished">&amp;Mida:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="84"/>
+        <location filename="../tabdocument.cpp" line="85"/>
         <source>Portrait</source>
         <translation type="unfinished">Vertical</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="85"/>
+        <location filename="../tabdocument.cpp" line="86"/>
         <source>Landscape</source>
         <translation type="unfinished">Apaisat</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="87"/>
+        <location filename="../tabdocument.cpp" line="88"/>
         <source>Orie&amp;ntation:</source>
         <translation type="unfinished">Orie&amp;ntació:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="93"/>
+        <location filename="../tabdocument.cpp" line="95"/>
         <source>Units:</source>
         <translation type="unfinished">Unitats:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="104"/>
+        <location filename="../tabdocument.cpp" line="107"/>
         <source>&amp;Width:</source>
         <translation type="unfinished">&amp;Amplada:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="110"/>
+        <location filename="../tabdocument.cpp" line="114"/>
         <source>&amp;Height:</source>
         <translation type="unfinished">A&amp;lçada:</translation>
     </message>
@@ -35092,97 +36083,97 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Aplica la mida a totes les pàgines</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="135"/>
+        <location filename="../tabdocument.cpp" line="140"/>
         <source>Margin Guides</source>
         <translation type="unfinished">Guia de Marges</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="145"/>
+        <location filename="../tabdocument.cpp" line="150"/>
         <source>Autosave</source>
         <translation type="unfinished">Autodesat</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="154"/>
+        <location filename="../tabdocument.cpp" line="159"/>
         <source>min</source>
         <translation type="unfinished">min</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="155"/>
+        <location filename="../tabdocument.cpp" line="160"/>
         <source>&amp;Interval:</source>
         <translation type="unfinished">&amp;Interval:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="160"/>
+        <location filename="../tabdocument.cpp" line="166"/>
         <source>Undo/Redo</source>
         <translation type="unfinished">Desfés/Refés</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="174"/>
+        <location filename="../tabdocument.cpp" line="180"/>
         <source>Action history length</source>
         <translation type="unfinished">Llargada de l&apos;historial d&apos;accions</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="183"/>
+        <location filename="../tabdocument.cpp" line="190"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation type="unfinished">Amplada de les pàgines del document, editable si tenim mida personalitzada</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="184"/>
+        <location filename="../tabdocument.cpp" line="191"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation type="unfinished">Alçada de les pàgines del document, editable si tenim mida personalitzada</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="185"/>
+        <location filename="../tabdocument.cpp" line="192"/>
         <source>Default page size, either a standard size or a custom size</source>
         <translation type="unfinished">Mida de pàgina per defecte, mida estàndard i/o personalitzada</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="186"/>
+        <location filename="../tabdocument.cpp" line="193"/>
         <source>Default orientation of document pages</source>
         <translation type="unfinished">Orientació per defecte dels documents</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="187"/>
+        <location filename="../tabdocument.cpp" line="194"/>
         <source>Default unit of measurement for document editing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="188"/>
+        <location filename="../tabdocument.cpp" line="195"/>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
         <translation type="unfinished">Quan està activat, Scribus guarda una còpia de seguretat del fitxer amb extensió .bak cada vegada que passa el temps especificat</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="189"/>
+        <location filename="../tabdocument.cpp" line="196"/>
         <source>Time period between saving automatically</source>
         <translation type="unfinished">Temps per desar automàticament</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="190"/>
+        <location filename="../tabdocument.cpp" line="197"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation type="unfinished">Defineix la llargada de l&apos;històric en passes. Si es posa a 0, significa un número infinit d&apos;accions.</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="191"/>
+        <location filename="../tabdocument.cpp" line="198"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="unfinished">Aplica els canvis de mida de pàgina a totes les pàgines del document</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="118"/>
+        <location filename="../tabdocument.cpp" line="123"/>
         <source>Apply settings to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="121"/>
+        <location filename="../tabdocument.cpp" line="126"/>
         <source>All Document Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="125"/>
+        <location filename="../tabdocument.cpp" line="130"/>
         <source>All Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="192"/>
+        <location filename="../tabdocument.cpp" line="199"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35190,17 +36181,17 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabExternalToolsWidget</name>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="77"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="125"/>
         <source>Locate Ghostscript</source>
         <translation type="unfinished">Localitza Ghostcript</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="85"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="133"/>
         <source>Locate your image editor</source>
         <translation type="unfinished">Localitza l&apos;editor d&apos;imatges</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="93"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="141"/>
         <source>Locate your web browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35210,119 +36201,179 @@ després d&apos;importar-lo.</translation>
         <translation type="unfinished">Eines Externes</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="25"/>
+        <location filename="../tabexternaltoolswidget.ui" line="255"/>
         <source>Web Browser to launch with links from the Help system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="28"/>
+        <location filename="../tabexternaltoolswidget.ui" line="258"/>
         <source>Web Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="85"/>
+        <location filename="../tabexternaltoolswidget.ui" line="498"/>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Canvi...</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="255"/>
+        <location filename="../tabexternaltoolswidget.ui" line="501"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="50"/>
+        <location filename="../tabexternaltoolswidget.ui" line="292"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="102"/>
+        <location filename="../tabexternaltoolswidget.ui" line="299"/>
         <source>Name of &amp;Executable:</source>
         <translation type="unfinished">Nom de l&apos;&amp;Executable:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="73"/>
+        <location filename="../tabexternaltoolswidget.ui" line="198"/>
         <source>Image Processing Tool</source>
         <translation type="unfinished">Eina de Processat d&apos;Imatges</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="95"/>
+        <location filename="../tabexternaltoolswidget.ui" line="232"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="118"/>
+        <location filename="../tabexternaltoolswidget.ui" line="19"/>
         <source>PostScript Interpreter</source>
         <translation type="unfinished">Interpret PostScript</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="138"/>
+        <location filename="../tabexternaltoolswidget.ui" line="60"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Text antialies per representació EPS i PDF en pantalla</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="141"/>
+        <location filename="../tabexternaltoolswidget.ui" line="63"/>
         <source>Antialias &amp;Text</source>
         <translation type="unfinished">&amp;Text Antiàlies </translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="144"/>
+        <location filename="../tabexternaltoolswidget.ui" line="66"/>
         <source>Alt+T</source>
         <translation type="unfinished">Alt+T</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="167"/>
+        <location filename="../tabexternaltoolswidget.ui" line="89"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Gràfics antialies per representació EPS i PDF en pantalla</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="170"/>
+        <location filename="../tabexternaltoolswidget.ui" line="92"/>
         <source>Antialias &amp;Graphics</source>
         <translation type="unfinished">&amp;Gràfics Antiàlies</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="173"/>
+        <location filename="../tabexternaltoolswidget.ui" line="95"/>
         <source>Alt+G</source>
         <translation type="unfinished">Alt+G</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="196"/>
+        <location filename="../tabexternaltoolswidget.ui" line="433"/>
         <source>Resolution:</source>
         <translation type="unfinished">Resolució:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="209"/>
+        <location filename="../tabexternaltoolswidget.ui" line="446"/>
         <source> dpi</source>
         <translation type="unfinished">dpi</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="232"/>
+        <location filename="../tabexternaltoolswidget.ui" line="338"/>
         <source>&amp;Name of Executable:</source>
         <translation type="unfinished">&amp;Nom de l&apos;Executable:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="245"/>
+        <location filename="../tabexternaltoolswidget.ui" line="176"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="252"/>
-        <source>&amp;Change..</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="307"/>
+        <location filename="../tabexternaltoolswidget.ui" line="617"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="310"/>
+        <location filename="../tabexternaltoolswidget.ui" line="620"/>
         <source>&amp;Rescan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="313"/>
+        <location filename="../tabexternaltoolswidget.ui" line="623"/>
         <source>Alt+R</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="149"/>
+        <source>Locate your LaTeX executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="157"/>
+        <source>Locate your LaTeX editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="315"/>
+        <source>LaTeX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="351"/>
+        <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="387"/>
+        <source>Output file extension:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="416"/>
+        <source>Start with empty frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="423"/>
+        <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="426"/>
+        <source>Force DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="478"/>
+        <source>Latex Editor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="491"/>
+        <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="511"/>
+        <source>Use Embedded Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="527"/>
+        <source>Preamble:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="548"/>
+        <source>End:</source>
+        <translation type="unfinished">Final:</translation>
     </message>
 </context>
 <context>
@@ -35406,57 +36457,57 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabGeneral</name>
     <message>
-        <location filename="../tabgeneral.cpp" line="64"/>
+        <location filename="../tabgeneral.cpp" line="66"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished">Tria l&apos;idioma per defecte amb el qual s&apos;executarà Scribus. Si es deixa blanc s&apos;escull basat en les variables del sistema. Es pot forçar passant-li a l&apos;executar l&apos;Scribus des de la línea de comandes</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="65"/>
+        <location filename="../tabgeneral.cpp" line="67"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation type="unfinished">Número de documents oberts recentment a mostrar en el menu Fitxer</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="66"/>
+        <location filename="../tabgeneral.cpp" line="68"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation type="unfinished">Número de línies que escribus es mourà en els moviments de la rodeta</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="67"/>
+        <location filename="../tabgeneral.cpp" line="69"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation type="unfinished">Tria l&apos;aspecte de finestra per defecte. Scribus pot heretar qualsevol tema KDE o QT, si QT està configurat per buscar connectors KDE.</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="68"/>
+        <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the menus and windows</source>
         <translation type="unfinished">Mida per defecte de les fonts dels menus i finestres</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="69"/>
+        <location filename="../tabgeneral.cpp" line="71"/>
         <source>Default font size for the tool windows</source>
         <translation type="unfinished">Mida per defecte de les fonts de les finestres d&apos;eines</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="70"/>
+        <location filename="../tabgeneral.cpp" line="72"/>
         <source>Default documents directory</source>
         <translation type="unfinished">Directori de documents per defecte</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="71"/>
+        <location filename="../tabgeneral.cpp" line="74"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation type="unfinished">Directori per defecte d&apos;ICC. Això no es pot canviar si un document està obert. Per defecte, Scribus buscarà en els directoris del sistema sota Mac OSX i Windows. En Linux i Unix, buscarà a $home/.color/icc, /usr/local/share/color/icc </translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="72"/>
+        <location filename="../tabgeneral.cpp" line="75"/>
         <source>Default Scripter scripts directory</source>
         <translation type="unfinished">Directori de seqüències per defecte</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="73"/>
+        <location filename="../tabgeneral.cpp" line="76"/>
         <source>Additional directory for document templates</source>
         <translation type="unfinished">Directori addicional per plantilles de document</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="128"/>
+        <location filename="../tabgeneral.cpp" line="132"/>
         <source>Choose a Directory</source>
         <translation type="unfinished">Tria un Directori</translation>
     </message>
@@ -35466,129 +36517,139 @@ després d&apos;importar-lo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="27"/>
+        <location filename="../tabgeneral.ui" line="21"/>
         <source>User Interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="39"/>
+        <location filename="../tabgeneral.ui" line="75"/>
         <source>&amp;Recent Documents:</source>
         <translation type="unfinished">Documents &amp;Recents:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="58"/>
+        <location filename="../tabgeneral.ui" line="43"/>
         <source>&amp;Wheel Jump:</source>
         <translation type="unfinished">&amp;Salt de Roda:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="87"/>
+        <location filename="../tabgeneral.ui" line="154"/>
         <source>Show Splashscreen on Startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="97"/>
+        <location filename="../tabgeneral.ui" line="127"/>
         <source>Show Startup Dialog</source>
         <translation type="unfinished">Mostra el diàleg d&apos;inici</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="150"/>
+        <location filename="../tabgeneral.ui" line="147"/>
         <source> pt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="111"/>
+        <location filename="../tabgeneral.ui" line="91"/>
         <source>&amp;Font Size (Menus):</source>
         <translation type="unfinished">Mida de &amp;Font (Menus):</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="124"/>
+        <location filename="../tabgeneral.ui" line="134"/>
         <source>Font Size (&amp;Palettes):</source>
         <translation type="unfinished">Mida de Font (&amp;Paletes):</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="137"/>
+        <location filename="../tabgeneral.ui" line="164"/>
         <source>Time before a Move or Resize starts:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="157"/>
+        <location filename="../tabgeneral.ui" line="177"/>
         <source> ms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="176"/>
+        <location filename="../tabgeneral.ui" line="59"/>
         <source>&amp;Theme:</source>
         <translation type="unfinished">&amp;Tema:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="192"/>
+        <location filename="../tabgeneral.ui" line="27"/>
         <source>&amp;Language:</source>
         <translation type="unfinished">&amp;Idioma:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="243"/>
+        <location filename="../tabgeneral.ui" line="238"/>
         <source>Paths</source>
         <translation type="unfinished">Camins</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="291"/>
+        <location filename="../tabgeneral.ui" line="298"/>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Canvi...</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="294"/>
+        <location filename="../tabgeneral.ui" line="301"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="301"/>
+        <location filename="../tabgeneral.ui" line="308"/>
         <source>C&amp;hange...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="304"/>
+        <location filename="../tabgeneral.ui" line="311"/>
         <source>Alt+H</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="311"/>
+        <location filename="../tabgeneral.ui" line="318"/>
         <source>&amp;Scripts:</source>
         <translation type="unfinished">&amp;Seqüències: </translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="334"/>
+        <location filename="../tabgeneral.ui" line="341"/>
         <source>Cha&amp;nge...</source>
         <translation type="unfinished">Ca&amp;nvi...</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="337"/>
+        <location filename="../tabgeneral.ui" line="344"/>
         <source>Alt+N</source>
         <translation type="unfinished">Alt+N</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="344"/>
+        <location filename="../tabgeneral.ui" line="351"/>
         <source>&amp;ICC Profiles:</source>
         <translation type="unfinished">Perfils &amp;ICC:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="357"/>
+        <location filename="../tabgeneral.ui" line="364"/>
         <source>&amp;Documents:</source>
         <translation type="unfinished">&amp;Documents:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="370"/>
+        <location filename="../tabgeneral.ui" line="377"/>
         <source>Document &amp;Templates:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="383"/>
+        <location filename="../tabgeneral.ui" line="390"/>
         <source>Ch&amp;ange...</source>
         <translation type="unfinished">C&amp;anvi...</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="386"/>
+        <location filename="../tabgeneral.ui" line="393"/>
         <source>Alt+A</source>
         <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <location filename="../tabgeneral.cpp" line="73"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabgeneral.ui" line="196"/>
+        <source>Use Small Widgets in Palettes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -35687,92 +36748,92 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabGuides</name>
     <message>
-        <location filename="../tabguides.cpp" line="37"/>
+        <location filename="../tabguides.cpp" line="36"/>
         <source>Common Settings</source>
         <translation>Paràmetres comuns</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="43"/>
+        <location filename="../tabguides.cpp" line="42"/>
         <source>Placing in Documents</source>
         <translation>Col·locant a documents</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="49"/>
+        <location filename="../tabguides.cpp" line="48"/>
         <source>In the Background</source>
         <translation>En segon pla</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="52"/>
+        <location filename="../tabguides.cpp" line="51"/>
         <source>In the Foreground</source>
         <translation>En primer pla</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="57"/>
+        <location filename="../tabguides.cpp" line="56"/>
         <source>Snapping</source>
         <translation>Desplaçament</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="62"/>
+        <location filename="../tabguides.cpp" line="61"/>
         <source>Snap Distance:</source>
         <translation>Distancia de desplaçament:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="70"/>
+        <location filename="../tabguides.cpp" line="69"/>
         <source>Grab Radius:</source>
         <translation>Radi de selecció:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="272"/>
+        <location filename="../tabguides.cpp" line="273"/>
         <source> px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="83"/>
+        <location filename="../tabguides.cpp" line="82"/>
         <source>Show Guides</source>
         <translation>Mostra Guies</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="182"/>
+        <location filename="../tabguides.cpp" line="181"/>
         <source>Color:</source>
         <translation>Color:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="101"/>
+        <location filename="../tabguides.cpp" line="100"/>
         <source>Show Margins</source>
         <translation>Mostra Marges</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="119"/>
+        <location filename="../tabguides.cpp" line="118"/>
         <source>Show Page Grid</source>
         <translation>Mostra la graella</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="126"/>
+        <location filename="../tabguides.cpp" line="125"/>
         <source>Major Grid</source>
         <translation>Graella Principal</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="164"/>
+        <location filename="../tabguides.cpp" line="163"/>
         <source>Spacing:</source>
         <translation>Espaiat:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="148"/>
+        <location filename="../tabguides.cpp" line="147"/>
         <source>Minor Grid</source>
         <translation>Graella secundària</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="175"/>
+        <location filename="../tabguides.cpp" line="174"/>
         <source>Show Baseline Grid</source>
         <translation>Mostra graella base</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="194"/>
+        <location filename="../tabguides.cpp" line="193"/>
         <source>Baseline Settings</source>
         <translation>Paràmetres de graella base</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="201"/>
+        <location filename="../tabguides.cpp" line="200"/>
         <source>Baseline &amp;Grid:</source>
         <translation>&amp;Graella Base:</translation>
     </message>
@@ -35782,92 +36843,92 @@ després d&apos;importar-lo.</translation>
         <translation>C&amp;ompensa Linea Base:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="218"/>
+        <location filename="../tabguides.cpp" line="219"/>
         <source>Guides are not visible through objects on the page</source>
         <translation>Les guies no es veuen sobre els objectes de la pàgina</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="219"/>
+        <location filename="../tabguides.cpp" line="220"/>
         <source>Guides are visible above all objects on the page</source>
         <translation>Les guies estan per sobre dels objectes de la pàgina</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="220"/>
+        <location filename="../tabguides.cpp" line="221"/>
         <source>Distance between the minor grid lines</source>
         <translation>Distància entre les línies de la graella secundària</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="221"/>
+        <location filename="../tabguides.cpp" line="222"/>
         <source>Distance between the major grid lines</source>
         <translation>Distància entre les línies de la graella principal</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="222"/>
+        <location filename="../tabguides.cpp" line="223"/>
         <source>Distance within which an object will snap to your placed guides</source>
         <translation>Distància en la qual un objecte des desplaçarà cap a les guies</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="223"/>
+        <location filename="../tabguides.cpp" line="224"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
         <translation>Radi de l&apos;àrea on Scribus pemetrà capturar objectes</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="224"/>
+        <location filename="../tabguides.cpp" line="225"/>
         <source>Color of the minor grid lines</source>
         <translation>Color de les línies de la graella secundària</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="225"/>
+        <location filename="../tabguides.cpp" line="226"/>
         <source>Color of the major grid lines</source>
         <translation>Color de les línies de la graella principal</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="226"/>
+        <location filename="../tabguides.cpp" line="227"/>
         <source>Color of the guide lines you insert</source>
         <translation>Color de les línies guia que inserim</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="227"/>
+        <location filename="../tabguides.cpp" line="228"/>
         <source>Color for the margin lines</source>
         <translation>Color de les línies de marge</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="228"/>
+        <location filename="../tabguides.cpp" line="229"/>
         <source>Color for the baseline grid</source>
         <translation>Color de la graella base</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="229"/>
+        <location filename="../tabguides.cpp" line="230"/>
         <source>Turns the basegrid on or off</source>
         <translation>Activa o desactiva la graella base</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="230"/>
+        <location filename="../tabguides.cpp" line="231"/>
         <source>Distance between the lines of the baseline grid</source>
         <translation>Distància entre les línies de la graella base</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="231"/>
+        <location filename="../tabguides.cpp" line="232"/>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Distància de la reixa base a la part superior de la pàgina</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="232"/>
+        <location filename="../tabguides.cpp" line="233"/>
         <source>Turns the gridlines on or off</source>
         <translation>Activa i desactiva les línies de la graella</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="233"/>
+        <location filename="../tabguides.cpp" line="234"/>
         <source>Turns the guides on or off</source>
         <translation>Activa i desactiva les guies</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="234"/>
+        <location filename="../tabguides.cpp" line="235"/>
         <source>Turns the margins on or off</source>
         <translation>Activa i desactiva els marges</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="270"/>
+        <location filename="../tabguides.cpp" line="271"/>
         <source>px</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35875,52 +36936,52 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabKeyboardShortcutsWidget</name>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="141"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Key Set XML Files (*.ksxml)</source>
         <translation type="unfinished">Fitxer XML de Conjunt de tecles (*.ksxml)</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Shift</source>
         <translation type="unfinished">Maj</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Meta</source>
         <translation type="unfinished">Meta</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="506"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="478"/>
         <source>Meta+</source>
         <translation type="unfinished">Meta+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="510"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="482"/>
         <source>Shift+</source>
         <translation type="unfinished">Maj+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="514"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="486"/>
         <source>Alt+</source>
         <translation type="unfinished">Alt+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="518"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="490"/>
         <source>Ctrl+</source>
         <translation type="unfinished">Ctrl+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="527"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="500"/>
         <source>This key sequence is already in use</source>
         <translation type="unfinished">Aquesta combinació de tecles ja es fa servir</translation>
     </message>
@@ -36054,6 +37115,26 @@ després d&apos;importar-lo.</translation>
         <source>Keyboard shortcut sets available to load</source>
         <translation type="unfinished">Dreceres de teclat disponibles per ser carregades</translation>
     </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="131"/>
+        <source>Choose a file to read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
+        <source>Choose a file to save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <source>Export Keyboard Shortcuts to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <source>Enter the name of the shortcut set:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabKeyboardShortcutsWidgetBase</name>
@@ -36166,7 +37247,7 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabManager</name>
     <message>
-        <location filename="../tabmanager.cpp" line="24"/>
+        <location filename="../tabmanager.cpp" line="23"/>
         <source>Manage Tabulators</source>
         <translation>Gestiona Tabuladors</translation>
     </message>
@@ -36310,7 +37391,7 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Inclou capes</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="385"/>
+        <location filename="../tabpdfoptions.cpp" line="388"/>
         <source> dpi</source>
         <translation>dpi</translation>
     </message>
@@ -36320,7 +37401,7 @@ després d&apos;importar-lo.</translation>
         <translation>&amp;Resolució dels gràfics EPS:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="354"/>
+        <location filename="../tabpdfoptions.cpp" line="355"/>
         <source>Com&amp;press Text and Vector Graphics</source>
         <translation>Com&amp;primir text i gràfics vectorials</translation>
     </message>
@@ -36330,7 +37411,7 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Paràmetres d&apos;Imatge</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="363"/>
+        <location filename="../tabpdfoptions.cpp" line="364"/>
         <source>Automatic</source>
         <translation>Automàtic</translation>
     </message>
@@ -36345,7 +37426,7 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Zip</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="366"/>
+        <location filename="../tabpdfoptions.cpp" line="367"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
@@ -36360,27 +37441,27 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">&amp;Qualitat:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="373"/>
+        <location filename="../tabpdfoptions.cpp" line="375"/>
         <source>Maximum</source>
         <translation>Màxima</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="374"/>
+        <location filename="../tabpdfoptions.cpp" line="376"/>
         <source>High</source>
         <translation>Alta</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="375"/>
+        <location filename="../tabpdfoptions.cpp" line="377"/>
         <source>Medium</source>
         <translation>Mitjana</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="376"/>
+        <location filename="../tabpdfoptions.cpp" line="378"/>
         <source>Low</source>
         <translation>Baixa</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="377"/>
+        <location filename="../tabpdfoptions.cpp" line="379"/>
         <source>Minimum</source>
         <translation>Mínima</translation>
     </message>
@@ -36390,7 +37471,7 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Redimensiona imatges a:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="390"/>
+        <location filename="../tabpdfoptions.cpp" line="393"/>
         <source>&amp;General</source>
         <translation>&amp;General</translation>
     </message>
@@ -36405,12 +37486,12 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Agrupa totes les Font&amp;s</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="397"/>
+        <location filename="../tabpdfoptions.cpp" line="400"/>
         <source>Embedding</source>
         <translation>Encastant</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="405"/>
+        <location filename="../tabpdfoptions.cpp" line="408"/>
         <source>Available Fonts:</source>
         <translation>Fonts Disponibles:</translation>
     </message>
@@ -36425,7 +37506,7 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="428"/>
+        <location filename="../tabpdfoptions.cpp" line="431"/>
         <source>Fonts to embed:</source>
         <translation>Fonts a encastar:</translation>
     </message>
@@ -36435,342 +37516,342 @@ després d&apos;importar-lo.</translation>
         <translation type="obsolete">Fonts a agrupar:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="459"/>
+        <location filename="../tabpdfoptions.cpp" line="462"/>
         <source>&amp;Fonts</source>
         <translation>&amp;Fonts</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="464"/>
+        <location filename="../tabpdfoptions.cpp" line="467"/>
         <source>Enable &amp;Presentation Effects</source>
         <translation>Activa efectes de &amp;presentació</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1756"/>
+        <location filename="../tabpdfoptions.cpp" line="1759"/>
         <source>Page</source>
         <translation>Pàgina</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="469"/>
+        <location filename="../tabpdfoptions.cpp" line="472"/>
         <source>Show Page Pre&amp;views</source>
         <translation>Mostra Pre&amp;visualització de Pàgina</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="471"/>
+        <location filename="../tabpdfoptions.cpp" line="474"/>
         <source>Effects</source>
         <translation>Efectes</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="476"/>
+        <location filename="../tabpdfoptions.cpp" line="479"/>
         <source>&amp;Display Duration:</source>
         <translation>&amp;Durada de la Visualització:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="478"/>
+        <location filename="../tabpdfoptions.cpp" line="481"/>
         <source>Effec&amp;t Duration:</source>
         <translation>Duració de l&apos;Efec&amp;te:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="480"/>
+        <location filename="../tabpdfoptions.cpp" line="483"/>
         <source>Effect T&amp;ype:</source>
         <translation>T&amp;ipus d&apos;Efecte:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="482"/>
+        <location filename="../tabpdfoptions.cpp" line="485"/>
         <source>&amp;Moving Lines:</source>
         <translation>&amp;Movent Línies:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="484"/>
+        <location filename="../tabpdfoptions.cpp" line="487"/>
         <source>F&amp;rom the:</source>
         <translation>De&amp;s del:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="486"/>
+        <location filename="../tabpdfoptions.cpp" line="489"/>
         <source>D&amp;irection:</source>
         <translation>D&amp;irecció:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="495"/>
+        <location filename="../tabpdfoptions.cpp" line="498"/>
         <source> sec</source>
         <translation>sec</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>No Effect</source>
         <translation>Sense Efecte</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Blinds</source>
         <translation>Blinds</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Box</source>
         <translation>Caixa</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Dissolve</source>
         <translation>Dissolució</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Glitter</source>
         <translation>Brillantor (Glitter)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Split</source>
         <translation>Separació (Split)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Wipe</source>
         <translation>Neteja (Wipe)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="509"/>
+        <location filename="../tabpdfoptions.cpp" line="512"/>
         <source>Horizontal</source>
         <translation>Horitzontal</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="510"/>
+        <location filename="../tabpdfoptions.cpp" line="513"/>
         <source>Vertical</source>
         <translation>Vertical</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="515"/>
+        <location filename="../tabpdfoptions.cpp" line="518"/>
         <source>Inside</source>
         <translation>Interior</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="516"/>
+        <location filename="../tabpdfoptions.cpp" line="519"/>
         <source>Outside</source>
         <translation>Exterior</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Left to Right</source>
         <translation>Esquerra a Dreta</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Top to Bottom</source>
         <translation>Dalt a Baix</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Bottom to Top</source>
         <translation>Baix a Dalt</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Right to Left</source>
         <translation>Dreta a Esquerra</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="522"/>
+        <location filename="../tabpdfoptions.cpp" line="525"/>
         <source>Top-left to Bottom-Right</source>
         <translation>Dalt-Esquerra a Baix-Dreta</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="529"/>
+        <location filename="../tabpdfoptions.cpp" line="532"/>
         <source>&amp;Apply Effect on all Pages</source>
         <translation>&amp;Efectes a totes les Pàgines</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="532"/>
+        <location filename="../tabpdfoptions.cpp" line="535"/>
         <source>E&amp;xtras</source>
         <translation>E&amp;xtres</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="616"/>
+        <location filename="../tabpdfoptions.cpp" line="619"/>
         <source>&amp;Use Encryption</source>
         <translation>&amp;Usa Xifrat</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="618"/>
+        <location filename="../tabpdfoptions.cpp" line="621"/>
         <source>Passwords</source>
         <translation>Contrasenyes</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="625"/>
+        <location filename="../tabpdfoptions.cpp" line="627"/>
         <source>&amp;User:</source>
         <translation>&amp;Usuari:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="627"/>
+        <location filename="../tabpdfoptions.cpp" line="629"/>
         <source>&amp;Owner:</source>
         <translation>&amp;Propietari:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="639"/>
+        <location filename="../tabpdfoptions.cpp" line="641"/>
         <source>Settings</source>
         <translation>Paràmetres</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="646"/>
+        <location filename="../tabpdfoptions.cpp" line="647"/>
         <source>Allow &amp;Printing the Document</source>
         <translation>Permet Im&amp;primir el Document</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="648"/>
+        <location filename="../tabpdfoptions.cpp" line="649"/>
         <source>Allow &amp;Changing the Document</source>
         <translation>Permet &amp;Canviar el Document</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="650"/>
+        <location filename="../tabpdfoptions.cpp" line="651"/>
         <source>Allow Cop&amp;ying Text and Graphics</source>
         <translation>Permet Cop&amp;iar Text i Gràfics</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="652"/>
+        <location filename="../tabpdfoptions.cpp" line="653"/>
         <source>Allow Adding &amp;Annotations and Fields</source>
         <translation>Permet Afegir &amp;Anotacions i Camps</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="655"/>
+        <location filename="../tabpdfoptions.cpp" line="656"/>
         <source>S&amp;ecurity</source>
         <translation>S&amp;eguretat</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="661"/>
+        <location filename="../tabpdfoptions.cpp" line="662"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="666"/>
+        <location filename="../tabpdfoptions.cpp" line="667"/>
         <source>Output &amp;Intended For:</source>
         <translation>&amp;Sortida Preparada Per:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="669"/>
+        <location filename="../tabpdfoptions.cpp" line="670"/>
         <source>Screen / Web</source>
         <translation>Pantalla / Web</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="670"/>
+        <location filename="../tabpdfoptions.cpp" line="671"/>
         <source>Printer</source>
         <translation>Impressora</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="671"/>
+        <location filename="../tabpdfoptions.cpp" line="672"/>
         <source>Grayscale</source>
         <translation>Escala de grisos</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="683"/>
+        <location filename="../tabpdfoptions.cpp" line="684"/>
         <source>&amp;Use Custom Rendering Settings</source>
         <translation>&amp;Paràmetres de Representació Personalitzada</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="685"/>
+        <location filename="../tabpdfoptions.cpp" line="686"/>
         <source>Rendering Settings</source>
         <translation>Paràmetres de Representació</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="693"/>
+        <location filename="../tabpdfoptions.cpp" line="694"/>
         <source>Fre&amp;quency:</source>
         <translation>Fre&amp;qüència:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="700"/>
+        <location filename="../tabpdfoptions.cpp" line="701"/>
         <source>&amp;Angle:</source>
         <translation>&amp;Angle:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="708"/>
+        <location filename="../tabpdfoptions.cpp" line="709"/>
         <source>S&amp;pot Function:</source>
         <translation>Funció d&apos;Esquit&amp;xar:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="712"/>
+        <location filename="../tabpdfoptions.cpp" line="713"/>
         <source>Simple Dot</source>
         <translation>Punt Simple</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="713"/>
+        <location filename="../tabpdfoptions.cpp" line="714"/>
         <source>Line</source>
         <translation>Línia</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="714"/>
+        <location filename="../tabpdfoptions.cpp" line="715"/>
         <source>Round</source>
         <translation>Rodona</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="715"/>
+        <location filename="../tabpdfoptions.cpp" line="716"/>
         <source>Ellipse</source>
         <translation>Elipse</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="721"/>
+        <location filename="../tabpdfoptions.cpp" line="722"/>
         <source>Solid Colors:</source>
         <translation>Colors Sòlids:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="751"/>
         <source>Use ICC Profile</source>
-        <translation>Usar Perfils ICC</translation>
+        <translation type="obsolete">Usar Perfils ICC</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="757"/>
+        <location filename="../tabpdfoptions.cpp" line="758"/>
         <source>Profile:</source>
         <translation>Perfils:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="760"/>
+        <location filename="../tabpdfoptions.cpp" line="761"/>
         <source>Rendering-Intent:</source>
         <translation>Intent de representació:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Perceptual</source>
         <translation>Perceptual</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Relative Colorimetric</source>
         <translation>Colorimètric Relatiu</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Saturation</source>
         <translation>Saturació</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Absolute Colorimetric</source>
         <translation>Colorimètric Absolut</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="746"/>
+        <location filename="../tabpdfoptions.cpp" line="747"/>
         <source>Images:</source>
         <translation>Imatges:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="754"/>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>No fer servir perfils encastats ICC</translation>
+        <translation type="obsolete">No fer servir perfils encastats ICC</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="774"/>
+        <location filename="../tabpdfoptions.cpp" line="775"/>
         <source>C&amp;olor</source>
         <translation>C&amp;olor</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="838"/>
+        <location filename="../tabpdfoptions.cpp" line="839"/>
         <source>PDF/X-3 Output Intent</source>
         <translation>Sortida a PDF/X-3 </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="848"/>
+        <location filename="../tabpdfoptions.cpp" line="849"/>
         <source>&amp;Info String:</source>
         <translation>Cadena d&apos;&amp;Informació:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="850"/>
+        <location filename="../tabpdfoptions.cpp" line="852"/>
         <source>Output &amp;Profile:</source>
         <translation>&amp;Perfil de Sortida:</translation>
     </message>
@@ -36797,7 +37878,7 @@ preservarà la distribució i l&apos;apariència del teu document .</translation
         <translation type="obsolete">Activa efectes de presentació quan es fa servir Adobe&amp;#174; Reader&amp;#174; en pantalla senzera.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="896"/>
+        <location filename="../tabpdfoptions.cpp" line="899"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Mostra la vista prèvia de cada pàgina llistada a sota.</translation>
     </message>
@@ -36814,37 +37895,37 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
 Un temps més curt farà que l&apos;efecte sigui més ràpid, i a l&apos;inversa.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="899"/>
+        <location filename="../tabpdfoptions.cpp" line="902"/>
         <source>Type of the display effect.</source>
         <translation>Tipus d&apos;efecte per pantalla.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="900"/>
+        <location filename="../tabpdfoptions.cpp" line="903"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation>Direcció del moviment de les línies d&apos;efecte de Separació i Blind.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="901"/>
+        <location filename="../tabpdfoptions.cpp" line="904"/>
         <source>Starting position for the box and split effects.</source>
         <translation>Posició d&apos;inici dels efectes de Caixa i Separació.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="902"/>
+        <location filename="../tabpdfoptions.cpp" line="905"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation>Direcció dels efectes de brillantor o neteja.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="903"/>
+        <location filename="../tabpdfoptions.cpp" line="906"/>
         <source>Apply the selected effect to all pages.</source>
         <translation>Aplica l&apos;efecte actual a totes les pàgines.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="936"/>
+        <location filename="../tabpdfoptions.cpp" line="939"/>
         <source>Export all pages to PDF</source>
         <translation>Exporta pàgines a PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="937"/>
+        <location filename="../tabpdfoptions.cpp" line="940"/>
         <source>Export a range of pages to PDF</source>
         <translation>Exporta rang de pàgines a PDF</translation>
     </message>
@@ -36888,7 +37969,7 @@ Some viewers can use the thumbnails for navigation.</source>
 Alguns visors poden fer servir les miniatures per navegar.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="945"/>
+        <location filename="../tabpdfoptions.cpp" line="948"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Genera Articles PDF, això és útil per navegar pels articles del PDF.</translation>
     </message>
@@ -36940,7 +38021,7 @@ Deixar això sense marcar deixarà les imatges a la seva resolució nativa.
 Això pot incrementar l&apos;ús de memòria i alentir la exportació.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="953"/>
+        <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (Punts per polzada) per exportació d&apos;imatges.</translation>
     </message>
@@ -36963,17 +38044,17 @@ security features in your exported PDF</source>
 característiques de seguretat del PDF generat</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="956"/>
+        <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Tria una contrasenya perquè els usuaris puguin llegir el PDF.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="957"/>
+        <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation>Permet imprimir el PDF. Si no està marcat, no ho permet.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="958"/>
+        <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Permet modificar el PDF. Si no està marcat, no es permet modificar el PDF.</translation>
     </message>
@@ -37010,42 +38091,42 @@ quan l&apos;impressor te l&apos;hagi demanat específicament i t&apos;hagi donat
 Altrament, el teu PDF no s&apos;imprimirà correctament i no serà portable entre plataformes.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="963"/>
+        <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Encasta un perfil de color per colors sòlids</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="964"/>
+        <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Color profile for solid colors</source>
         <translation>Perfil de color per colors sòlids</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="965"/>
+        <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Rendering intent for solid colors</source>
         <translation>Representació per colors sòlids</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="966"/>
+        <location filename="../tabpdfoptions.cpp" line="969"/>
         <source>Embed a color profile for images</source>
         <translation>Encasta un perfil de color per imatges</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="967"/>
+        <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation>No fer servir perfils de color encastats en les imatges </translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="968"/>
+        <location filename="../tabpdfoptions.cpp" line="971"/>
         <source>Color profile for images</source>
         <translation>Perfil de color per imatges</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="969"/>
+        <location filename="../tabpdfoptions.cpp" line="972"/>
         <source>Rendering intent for images</source>
         <translation>Representació per imatges</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="987"/>
+        <location filename="../tabpdfoptions.cpp" line="990"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Perfil de sortida per impressió. Si pots, demana consells al teu impressor sobre la tria de perfils.</translation>
     </message>
@@ -37057,42 +38138,42 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
 Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="982"/>
+        <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Distància de la sangria des de dalt de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="983"/>
+        <location filename="../tabpdfoptions.cpp" line="986"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Distància de la sangria des de baix de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="984"/>
+        <location filename="../tabpdfoptions.cpp" line="987"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Distància de la sangria des de l&apos;esquerra de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="985"/>
+        <location filename="../tabpdfoptions.cpp" line="988"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Distància de la sangria des de la dreta de la pàgina real</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="970"/>
+        <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>Mirror Page(s) horizontally</source>
         <translation>Enmiralla la Pàgina(es) horitzontalment</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="971"/>
+        <location filename="../tabpdfoptions.cpp" line="974"/>
         <source>Mirror Page(s) vertically</source>
         <translation>Enmiralla la Pàgina(es) verticalment</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="677"/>
+        <location filename="../tabpdfoptions.cpp" line="678"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Converteix els colors Spot a colors Process</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="379"/>
+        <location filename="../tabpdfoptions.cpp" line="381"/>
         <source>Compression &amp;Quality:</source>
         <translation>&amp;Qualitat de compressió:</translation>
     </message>
@@ -37102,17 +38183,17 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation type="obsolete">La qualitat de compressió pels mètodes sense pèrdues: Mínim (25%), Baix(50%), Mitjà (75%), Alt (85%). S&apos;ha de tenir en compte que el nivell de qualitat no determina directament la mida del resultat final - la mida i la qualitat varien molt entre imatges.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="959"/>
+        <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Permet copiar text i gràfics del PDF, si no està marcat, el text i els gràfics no poden ser copiats.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="960"/>
+        <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Permet afegir anotacions i camps al PDF, si està desmarcat, l&apos;edició d&apos;anotacions no és permesa.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="973"/>
+        <location filename="../tabpdfoptions.cpp" line="976"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Activa els colors Spot per ser convertits a colors compostos. A menys que tinguis previst imprimir colors spot en impressió comercial, el millor és deixar-ho activat.</translation>
     </message>
@@ -37122,7 +38203,7 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation>Incloure Ca&amp;pes</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="368"/>
+        <location filename="../tabpdfoptions.cpp" line="369"/>
         <source>Compression Metho&amp;d:</source>
         <translation>Mètode &amp;de Compressió:</translation>
     </message>
@@ -37132,67 +38213,67 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation type="obsolete">Redi&amp;mensiona imatges a:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="894"/>
+        <location filename="../tabpdfoptions.cpp" line="897"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Afegeix les fonts al PDF. Afegir les fonts farà que el document preservarà l&apos;aspecte del document.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="898"/>
+        <location filename="../tabpdfoptions.cpp" line="901"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Llargada en temps dels efectes. Un temps petit indicarà un increment de velocitat i un de llarg alentiment.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="940"/>
+        <location filename="../tabpdfoptions.cpp" line="943"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation>Inserir una llista de tokens separats per comes, un token pot ser * per totes les pàgines, 1-5 és un rang de pàgines o una pàgina individual.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="943"/>
+        <location filename="../tabpdfoptions.cpp" line="946"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Determina l&apos;ajustament de les pàgines al PDF. A menys que sàpigues que s&apos;ha de canviar deixa el valor per defecte - Esquerra.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="944"/>
+        <location filename="../tabpdfoptions.cpp" line="947"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Genera previsualitzacions per cada pàgina del PDF. Alguns visualizadors poden fer-los servir per navegar.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="947"/>
+        <location filename="../tabpdfoptions.cpp" line="950"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Incloure els bookmarks que pots crear en el document. És útil per navegar en documents PDF grans.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="948"/>
+        <location filename="../tabpdfoptions.cpp" line="951"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation>Exportar la resolució de text i de gràfics vectorials. Això no afecta a la resolució de les imatges bitmap com les fotos.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="949"/>
+        <location filename="../tabpdfoptions.cpp" line="952"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation>Permet compressió sense pèrdues del text i dels gràfics. No cal tocar-lo a menys que es tingui una raó de pes. Redueix la mida del PDF.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="954"/>
+        <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Activa les característiques de seguretat del PDF. Si tries PDF 1.3, el PDF serà protegit amb xifrat de 40 bits. Si tries PDF 1.4, el PDF es protegirà amb xifrat de 128 bits. Recorda: El xifrat dels PDF no és tan bo com el de GPG o PGP i té algunes limitacions.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="955"/>
+        <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Tria una contrasenya mestra que activi o desactivi les característiques de seguretat del PDF exportat</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="962"/>
+        <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Aquesta és una característica avançada que no està activada per defecte. Només s&apos;hauria d&apos;activar quan sigui específicament demanada per l&apos;impressor i aquest ens n&apos;hagi donat els detalls exactes. Sinó el PDF pot ser que no s&apos;imprimeixi correctament i que no sigui transportable entre sistemes.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="988"/>
+        <location filename="../tabpdfoptions.cpp" line="991"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Cadena obligatòria pels PDF/X-3 per poder complir els requeriments. Es recomana fer servir el títol del document.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="538"/>
+        <location filename="../tabpdfoptions.cpp" line="541"/>
         <source>Display Settings</source>
         <translation>Paràmetres de Visualització</translation>
     </message>
@@ -37202,82 +38283,82 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation type="obsolete">Format de pàgina</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="553"/>
+        <location filename="../tabpdfoptions.cpp" line="556"/>
         <source>Single Page</source>
         <translation>Pàgina sola</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="556"/>
+        <location filename="../tabpdfoptions.cpp" line="559"/>
         <source>Continuous</source>
         <translation>Continua</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="559"/>
+        <location filename="../tabpdfoptions.cpp" line="562"/>
         <source>Double Page Left</source>
         <translation>Doble pàgina esquerra</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="562"/>
+        <location filename="../tabpdfoptions.cpp" line="565"/>
         <source>Double Page Right</source>
         <translation>Doble pàgina dreta</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="566"/>
+        <location filename="../tabpdfoptions.cpp" line="569"/>
         <source>Visual Appearance</source>
         <translation>Aspecte visual</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="572"/>
+        <location filename="../tabpdfoptions.cpp" line="575"/>
         <source>Use Viewers Defaults</source>
         <translation>Fer servir els paràmetres del visualitzador</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="575"/>
+        <location filename="../tabpdfoptions.cpp" line="578"/>
         <source>Use Full Screen Mode</source>
         <translation>Mode pantalla sencera</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="578"/>
+        <location filename="../tabpdfoptions.cpp" line="581"/>
         <source>Display Bookmarks Tab</source>
         <translation>Mostra la pestanya de dreceres</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="581"/>
+        <location filename="../tabpdfoptions.cpp" line="584"/>
         <source>Display Thumbnails</source>
         <translation>Mostra previsualitzacions</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="584"/>
+        <location filename="../tabpdfoptions.cpp" line="587"/>
         <source>Display Layers Tab</source>
         <translation>Mostra les capes</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="586"/>
+        <location filename="../tabpdfoptions.cpp" line="589"/>
         <source>Hide Viewers Toolbar</source>
         <translation>Amaga la barra d&apos;eines</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="588"/>
+        <location filename="../tabpdfoptions.cpp" line="591"/>
         <source>Hide Viewers Menubar</source>
         <translation>Amaga el menú</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="590"/>
+        <location filename="../tabpdfoptions.cpp" line="593"/>
         <source>Zoom Pages to fit Viewer Window</source>
         <translation>Encaixa les pàgines a la finestra</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="596"/>
+        <location filename="../tabpdfoptions.cpp" line="599"/>
         <source>Special Actions</source>
         <translation>Accions especials</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1166"/>
+        <location filename="../tabpdfoptions.cpp" line="1169"/>
         <source>No Script</source>
         <translation>Sense Seqüències</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="609"/>
+        <location filename="../tabpdfoptions.cpp" line="612"/>
         <source>Viewer</source>
         <translation>Visualitzador</translation>
     </message>
@@ -37287,29 +38368,29 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation>Ajusta als marges de pàgina</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="364"/>
+        <location filename="../tabpdfoptions.cpp" line="365"/>
         <source>Lossy - JPEG</source>
         <translation>Pèrdua - JPEG</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="365"/>
+        <location filename="../tabpdfoptions.cpp" line="366"/>
         <source>Lossless - Zip</source>
         <translation>Sense Pèrdua - Zip</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="356"/>
+        <location filename="../tabpdfoptions.cpp" line="357"/>
         <source>Image Compression Method</source>
         <translation>Mètode de compressió d&apos;imatges</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="602"/>
+        <location filename="../tabpdfoptions.cpp" line="605"/>
         <source>Javascript to be executed
 when PDF document is opened:</source>
         <translation>Seqüència a executar 
 quan el PDF s&apos;obri:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="895"/>
+        <location filename="../tabpdfoptions.cpp" line="898"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Activa els efectes de presentació quan es fa servir Adobe&amp;#174; Reader&amp;#174; i els visualitzadors que suportin mode pantalla sencera.</translation>
     </message>
@@ -37319,7 +38400,7 @@ quan el PDF s&apos;obri:</translation>
         <translation type="obsolete">Determina la compatibilitat del PDF. Per defecte és PDF 1.3 que dóna la millor compatibilitat. Tria PDF 1.4 si el fitxer fa servir característiques com transparència o cal xifrat de 128 bits. PDF 1.5 cal si es volen preservar els objectes en capes separades dins del PDF.  PDF/X-3 es fa servier per exportar el PDF quan es vol gestió de color per impressió comercial i es pot triar només si s&apos;ha activat la gestió de color. Feu-lo servir només si el vostre impressor ho requereix i en alguns casos per impressores làser de 4 colors.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="946"/>
+        <location filename="../tabpdfoptions.cpp" line="949"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation>Les capes del document s&apos;exporten al PDF només si es tria PDF 1.5.</translation>
     </message>
@@ -37334,253 +38415,263 @@ quan el PDF s&apos;obri:</translation>
         <translation type="obsolete">Redimensiona les imatges a la resolució triada. Deixar-ho sense marcar deixarà les imatges tal com són. Activar-lo incrementarà l&apos;ús de memòria i alentirà la exportació.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="961"/>
+        <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>Model de color per la sortida del PDF. Tria Pantalla/Web per PDF que es veuran per pantalla i per imprimir en impressores d&apos;injecció. Tria Impressora quan s&apos;imprimirà en una impressora de 4 colors CMYK. Tria Escala de grisos per PDF en escala de grisos.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="974"/>
+        <location filename="../tabpdfoptions.cpp" line="977"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>No mostrar els objectes fora dels marges en la exportació</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="897"/>
+        <location filename="../tabpdfoptions.cpp" line="900"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Temps en que la pàgina actual es veurà abans que comenci la presentació. Posar un 0 desactivarà en canvi automàtic de pàgines.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="680"/>
+        <location filename="../tabpdfoptions.cpp" line="681"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="972"/>
+        <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="942"/>
+        <location filename="../tabpdfoptions.cpp" line="945"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="437"/>
+        <location filename="../tabpdfoptions.cpp" line="440"/>
         <source>&amp;Embed all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="450"/>
+        <location filename="../tabpdfoptions.cpp" line="453"/>
         <source>Fonts to outline:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="455"/>
+        <location filename="../tabpdfoptions.cpp" line="458"/>
         <source>&amp;Outline all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="782"/>
+        <location filename="../tabpdfoptions.cpp" line="783"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="787"/>
+        <location filename="../tabpdfoptions.cpp" line="788"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="789"/>
+        <location filename="../tabpdfoptions.cpp" line="790"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="791"/>
+        <location filename="../tabpdfoptions.cpp" line="792"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="793"/>
+        <location filename="../tabpdfoptions.cpp" line="794"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="795"/>
+        <location filename="../tabpdfoptions.cpp" line="796"/>
         <source>Page Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="798"/>
+        <location filename="../tabpdfoptions.cpp" line="799"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="808"/>
+        <location filename="../tabpdfoptions.cpp" line="809"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="814"/>
+        <location filename="../tabpdfoptions.cpp" line="815"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="819"/>
+        <location filename="../tabpdfoptions.cpp" line="820"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="824"/>
+        <location filename="../tabpdfoptions.cpp" line="825"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="829"/>
+        <location filename="../tabpdfoptions.cpp" line="830"/>
         <source>Right:</source>
         <translation type="unfinished">Dret:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="833"/>
+        <location filename="../tabpdfoptions.cpp" line="834"/>
         <source>Use Document Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="857"/>
+        <location filename="../tabpdfoptions.cpp" line="860"/>
         <source>Pre-Press</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="904"/>
+        <location filename="../tabpdfoptions.cpp" line="907"/>
         <source>Convert all glyphs in the document to outlines.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="950"/>
+        <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="951"/>
+        <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1341"/>
+        <location filename="../tabpdfoptions.cpp" line="1344"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1342"/>
+        <location filename="../tabpdfoptions.cpp" line="1345"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="547"/>
+        <location filename="../tabpdfoptions.cpp" line="550"/>
         <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="382"/>
+        <location filename="../tabpdfoptions.cpp" line="385"/>
         <source>Maximum Image Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="906"/>
+        <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Show the document in single page mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="907"/>
+        <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="908"/>
+        <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="909"/>
+        <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="910"/>
+        <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="911"/>
+        <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Enables viewing the document in full screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="912"/>
+        <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Display the bookmarks upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="913"/>
+        <location filename="../tabpdfoptions.cpp" line="916"/>
         <source>Display the page thumbnails upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="914"/>
+        <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="915"/>
+        <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="916"/>
+        <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="917"/>
+        <location filename="../tabpdfoptions.cpp" line="920"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="952"/>
+        <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="976"/>
+        <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="977"/>
+        <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="978"/>
+        <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add registration marks to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="979"/>
+        <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="980"/>
+        <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="981"/>
+        <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="986"/>
+        <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="752"/>
+        <source>Use Color Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="755"/>
+        <source>Do not use embedded color profiles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -37641,7 +38732,7 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
     <message>
         <location filename="../tabprinter.cpp" line="38"/>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">Permet fer servir perfils ICC en la impressió si està activada la gestió de color</translation>
+        <translation type="obsolete">Permet fer servir perfils ICC en la impressió si està activada la gestió de color</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="39"/>
@@ -37858,6 +38949,11 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <source>Command:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../tabprinter.cpp" line="38"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinterBase</name>
@@ -37978,337 +39074,337 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation>Font:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="595"/>
+        <location filename="../tabtools.cpp" line="633"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="123"/>
+        <location filename="../tabtools.cpp" line="124"/>
         <source>Size:</source>
         <translation>Mida:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="709"/>
+        <location filename="../tabtools.cpp" line="747"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="156"/>
+        <location filename="../tabtools.cpp" line="162"/>
         <source>Fill Color:</source>
         <translation>Color d&apos;Emplenat:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="170"/>
+        <location filename="../tabtools.cpp" line="178"/>
         <source>Stroke Color:</source>
         <translation>Color del Voltant:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="184"/>
+        <location filename="../tabtools.cpp" line="194"/>
         <source>Tab Fill Character:</source>
         <translation>Caràcter d&apos;emplenat del Tabulador:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="189"/>
+        <location filename="../tabtools.cpp" line="200"/>
         <source>Tab Width:</source>
         <translation>Amplada del Tabulador:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="196"/>
+        <location filename="../tabtools.cpp" line="208"/>
         <source>Colu&amp;mns:</source>
         <translation>Colu&amp;mnes:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="201"/>
+        <location filename="../tabtools.cpp" line="214"/>
         <source>&amp;Gap:</source>
         <translation>&amp;Buit:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="925"/>
+        <location filename="../tabtools.cpp" line="962"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Que poca xefla farem amb un whisky jove i dotze glaçons</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="271"/>
+        <location filename="../tabtools.cpp" line="291"/>
         <source>&amp;Line Color:</source>
         <translation>Color de &amp;Línia:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="427"/>
+        <location filename="../tabtools.cpp" line="461"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="278"/>
+        <location filename="../tabtools.cpp" line="299"/>
         <source>&amp;Shading:</source>
         <translation>Inten&amp;sitat:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="235"/>
+        <location filename="../tabtools.cpp" line="251"/>
         <source>&amp;Fill Color:</source>
         <translation>Color d&apos;&amp;Emplenat:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="365"/>
+        <location filename="../tabtools.cpp" line="394"/>
         <source>S&amp;hading:</source>
         <translation>Intensit&amp;at:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="249"/>
+        <location filename="../tabtools.cpp" line="267"/>
         <source>Line Style:</source>
         <translation>Estil de Línia:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="302"/>
+        <location filename="../tabtools.cpp" line="327"/>
         <source>Line &amp;Width:</source>
         <translation>&amp;Amplada Línia:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="284"/>
+        <location filename="../tabtools.cpp" line="306"/>
         <source>Line S&amp;tyle:</source>
         <translation>Es&amp;til de Línia:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="291"/>
+        <location filename="../tabtools.cpp" line="314"/>
         <source>Arrows:</source>
         <translation>Fletxes:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="293"/>
+        <location filename="../tabtools.cpp" line="316"/>
         <source>Start:</source>
         <translation>Inici:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="295"/>
+        <location filename="../tabtools.cpp" line="319"/>
         <source>End:</source>
         <translation>Final:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="317"/>
+        <location filename="../tabtools.cpp" line="343"/>
         <source>&amp;Free Scaling</source>
         <translation>Escalat Lli&amp;ure</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="328"/>
+        <location filename="../tabtools.cpp" line="354"/>
         <source>&amp;Horizontal Scaling:</source>
         <translation>Escalat &amp;Horitzontal:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="336"/>
+        <location filename="../tabtools.cpp" line="363"/>
         <source>&amp;Vertical Scaling:</source>
         <translation>Escalat &amp;Vertical:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="346"/>
+        <location filename="../tabtools.cpp" line="374"/>
         <source>&amp;Scale Picture to Frame Size</source>
         <translation>E&amp;scala Imatge a Mida de Marc</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="352"/>
+        <location filename="../tabtools.cpp" line="380"/>
         <source>Keep Aspect &amp;Ratio</source>
         <translation>Manteni&amp;r l&apos;aspecte</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="358"/>
+        <location filename="../tabtools.cpp" line="386"/>
         <source>F&amp;ill Color:</source>
         <translation>Color d&apos;&amp;Emplenat:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="368"/>
+        <location filename="../tabtools.cpp" line="398"/>
         <source>Use embedded Clipping Path</source>
         <translation>Fer servir el camí de retallat encastat</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="372"/>
+        <location filename="../tabtools.cpp" line="402"/>
         <source>On Screen Preview</source>
         <translation>Vista prèvia en pantalla</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="378"/>
+        <location filename="../tabtools.cpp" line="408"/>
         <source>Full Resolution Preview</source>
         <translation>Vista prèvia a màxima resolució</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="381"/>
+        <location filename="../tabtools.cpp" line="411"/>
         <source>Normal Resolution Preview</source>
         <translation>Vista prèvia a resolució normal</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="384"/>
+        <location filename="../tabtools.cpp" line="414"/>
         <source>Low Resolution Preview</source>
         <translation>Vista prèvia a baixa resolució</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="415"/>
+        <location filename="../tabtools.cpp" line="445"/>
         <source>Mi&amp;nimum:</source>
         <translation>Mí&amp;nim:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="423"/>
+        <location filename="../tabtools.cpp" line="454"/>
         <source>Ma&amp;ximum:</source>
         <translation>Mà&amp;xim:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="429"/>
+        <location filename="../tabtools.cpp" line="463"/>
         <source>&amp;Stepping:</source>
         <translation>&amp;Increment:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="485"/>
+        <location filename="../tabtools.cpp" line="523"/>
         <source>Text Frame Properties</source>
         <translation>Propietats de Marc de Text</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="486"/>
+        <location filename="../tabtools.cpp" line="524"/>
         <source>Picture Frame Properties</source>
         <translation>Propietats de Marc d&apos;Imatge</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="487"/>
+        <location filename="../tabtools.cpp" line="525"/>
         <source>Shape Drawing Properties</source>
         <translation>Propietats de la Forma del Dibuix</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="488"/>
+        <location filename="../tabtools.cpp" line="526"/>
         <source>Magnification Level Defaults</source>
         <translation>Defecte de Nivell de Magnificació</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="489"/>
+        <location filename="../tabtools.cpp" line="527"/>
         <source>Line Drawing Properties</source>
         <translation>Propietats del Dibuix de Línies</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="490"/>
+        <location filename="../tabtools.cpp" line="528"/>
         <source>Polygon Drawing Properties</source>
         <translation>Propietats del Dibuix de Polígons</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="492"/>
+        <location filename="../tabtools.cpp" line="530"/>
         <source>Font for new text frames</source>
         <translation>Font pels propers marcs</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="493"/>
+        <location filename="../tabtools.cpp" line="531"/>
         <source>Size of font for new text frames</source>
         <translation>Mida de la font pels nous Marcs</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="494"/>
+        <location filename="../tabtools.cpp" line="532"/>
         <source>Color of font</source>
         <translation>Color de la font</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="495"/>
+        <location filename="../tabtools.cpp" line="533"/>
         <source>Number of columns in a text frame</source>
         <translation>Número de columnes en un text</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="496"/>
+        <location filename="../tabtools.cpp" line="534"/>
         <source>Gap between text frame columns</source>
         <translation>Espai entre les columnes de text</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="497"/>
+        <location filename="../tabtools.cpp" line="535"/>
         <source>Sample of your font</source>
         <translation>Exemple de la font</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="498"/>
+        <location filename="../tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
         <translation>Els Marcs d&apos;Imatges es poden escalar a qualsevol mida</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="499"/>
+        <location filename="../tabtools.cpp" line="537"/>
         <source>Horizontal scaling of images</source>
         <translation>Escalat Horitzontal d&apos;imatges</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="500"/>
+        <location filename="../tabtools.cpp" line="538"/>
         <source>Vertical scaling of images</source>
         <translation>Escalat Vertical d&apos;imatges</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="501"/>
+        <location filename="../tabtools.cpp" line="539"/>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation>Mantenir iguals l&apos;escalat horitzontal i vertical</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="502"/>
+        <location filename="../tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
         <translation>Imatges en marcs d&apos;imatges són escalades a la mida del marc</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="503"/>
+        <location filename="../tabtools.cpp" line="541"/>
         <source>Automatically scaled pictures keep their original proportions</source>
         <translation>Les imatges escalades automàticament mantenen les proporcions</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="504"/>
+        <location filename="../tabtools.cpp" line="542"/>
         <source>Fill color of picture frames</source>
         <translation>Color d&apos;omplir Marcs d&apos;Imatges</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="509"/>
+        <location filename="../tabtools.cpp" line="547"/>
         <source>Saturation of color of fill</source>
         <translation>Intensitat del color d&apos;omplir el text</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="506"/>
+        <location filename="../tabtools.cpp" line="544"/>
         <source>Line color of shapes</source>
         <translation>Color de Formes</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="507"/>
+        <location filename="../tabtools.cpp" line="545"/>
         <source>Saturation of color of lines</source>
         <translation>Intensitat del color de línies</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="508"/>
+        <location filename="../tabtools.cpp" line="546"/>
         <source>Fill color of shapes</source>
         <translation>Color d&apos;emplenat de formes</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="510"/>
+        <location filename="../tabtools.cpp" line="548"/>
         <source>Line style of shapes</source>
         <translation>Estil de línia de Formes</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="511"/>
+        <location filename="../tabtools.cpp" line="549"/>
         <source>Line width of shapes</source>
         <translation>Gruix de línia de Formes</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="512"/>
+        <location filename="../tabtools.cpp" line="550"/>
         <source>Minimum magnification allowed</source>
         <translation>Magnificació mínima permesa</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="513"/>
+        <location filename="../tabtools.cpp" line="551"/>
         <source>Maximum magnification allowed</source>
         <translation>Magnificació màxima permesa</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="514"/>
+        <location filename="../tabtools.cpp" line="552"/>
         <source>Change in magnification for each zoom operation</source>
         <translation>Canvis en la magnificació per cada desplaçament</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="515"/>
+        <location filename="../tabtools.cpp" line="553"/>
         <source>Color of lines</source>
         <translation>Color de les línies</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="516"/>
+        <location filename="../tabtools.cpp" line="554"/>
         <source>Saturation of color</source>
         <translation>Intensitat del color</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="517"/>
+        <location filename="../tabtools.cpp" line="555"/>
         <source>Style of lines</source>
         <translation>Estils de Línia</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="518"/>
+        <location filename="../tabtools.cpp" line="556"/>
         <source>Width of lines</source>
         <translation>Gruix de línies</translation>
     </message>
@@ -38323,42 +39419,42 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation type="obsolete">Personalitzat: </translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="129"/>
+        <location filename="../tabtools.cpp" line="131"/>
         <source>Text Color:</source>
         <translation>Color de text:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="178"/>
+        <location filename="../tabtools.cpp" line="187"/>
         <source>Shading:</source>
         <translation>Intensitat:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="142"/>
+        <location filename="../tabtools.cpp" line="146"/>
         <source>Text Stroke:</source>
         <translation>Fons del text:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="663"/>
+        <location filename="../tabtools.cpp" line="701"/>
         <source>Dot</source>
         <translation>Punt</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="664"/>
+        <location filename="../tabtools.cpp" line="702"/>
         <source>Hyphen</source>
         <translation>Guionet</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="665"/>
+        <location filename="../tabtools.cpp" line="703"/>
         <source>Underscore</source>
         <translation>Caràcter de subratllat</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="666"/>
+        <location filename="../tabtools.cpp" line="704"/>
         <source>Custom</source>
         <translation>Personalitzat</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="662"/>
+        <location filename="../tabtools.cpp" line="700"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Cap</translation>
@@ -38369,87 +39465,87 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation type="unfinished">Text</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="216"/>
+        <location filename="../tabtools.cpp" line="230"/>
         <source>Shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="265"/>
+        <location filename="../tabtools.cpp" line="285"/>
         <source>Lines</source>
         <translation type="unfinished">Línies</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="311"/>
+        <location filename="../tabtools.cpp" line="337"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="395"/>
+        <location filename="../tabtools.cpp" line="425"/>
         <source>Regular Polygons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="407"/>
+        <location filename="../tabtools.cpp" line="437"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="462"/>
+        <location filename="../tabtools.cpp" line="499"/>
         <source>Rotation Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="471"/>
+        <location filename="../tabtools.cpp" line="508"/>
         <source>Constrain to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="491"/>
+        <location filename="../tabtools.cpp" line="529"/>
         <source>Other Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="438"/>
+        <location filename="../tabtools.cpp" line="473"/>
         <source>Miscellaneous Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="443"/>
+        <location filename="../tabtools.cpp" line="478"/>
         <source>Item Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="451"/>
+        <location filename="../tabtools.cpp" line="486"/>
         <source>X Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="457"/>
+        <location filename="../tabtools.cpp" line="493"/>
         <source>Y Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="519"/>
+        <location filename="../tabtools.cpp" line="557"/>
         <source>Horizontal displacement of page items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="520"/>
+        <location filename="../tabtools.cpp" line="558"/>
         <source>Vertical displacement of page items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="521"/>
+        <location filename="../tabtools.cpp" line="559"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="473"/>
+        <location filename="../tabtools.cpp" line="511"/>
         <source>Degrees</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="522"/>
+        <location filename="../tabtools.cpp" line="560"/>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -38462,7 +39558,7 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation>Subíndex</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="137"/>
+        <location filename="../tabtypography.cpp" line="142"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -38472,112 +39568,112 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation>&amp;Desplaçament:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="40"/>
+        <location filename="../tabtypography.cpp" line="41"/>
         <source>&amp;Scaling:</source>
         <translation>E&amp;scalat:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="45"/>
+        <location filename="../tabtypography.cpp" line="47"/>
         <source>Superscript</source>
         <translation>Superíndex</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="54"/>
+        <location filename="../tabtypography.cpp" line="56"/>
         <source>D&amp;isplacement:</source>
         <translation>De&amp;splaçament:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="61"/>
+        <location filename="../tabtypography.cpp" line="64"/>
         <source>S&amp;caling:</source>
         <translation>Es&amp;calat:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="66"/>
+        <location filename="../tabtypography.cpp" line="70"/>
         <source>Underline</source>
         <translation>Subratllat</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="96"/>
+        <location filename="../tabtypography.cpp" line="100"/>
         <source>Displacement:</source>
         <translation>Desplaçament:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="109"/>
+        <location filename="../tabtypography.cpp" line="113"/>
         <source>Auto</source>
         <translation>Automàtic</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="104"/>
+        <location filename="../tabtypography.cpp" line="108"/>
         <source>Line Width:</source>
         <translation>Amplada de línia:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="90"/>
+        <location filename="../tabtypography.cpp" line="94"/>
         <source>Strikethru</source>
         <translation>Barrat</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="114"/>
+        <location filename="../tabtypography.cpp" line="118"/>
         <source>Small Caps</source>
         <translation>Majúscules Petites</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="124"/>
+        <location filename="../tabtypography.cpp" line="128"/>
         <source>Sc&amp;aling:</source>
         <translation>Es&amp;calat:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="129"/>
+        <location filename="../tabtypography.cpp" line="134"/>
         <source>Automatic &amp;Line Spacing</source>
         <translation>Inter&amp;lineat automàtic</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="139"/>
+        <location filename="../tabtypography.cpp" line="144"/>
         <source>Line Spacing:</source>
         <translation>Interlineat:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="144"/>
+        <location filename="../tabtypography.cpp" line="150"/>
         <source>Displacement above the baseline of the font on a line</source>
         <translation>Desplaçament sobre la línia base de la font de la línia</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="145"/>
+        <location filename="../tabtypography.cpp" line="151"/>
         <source>Relative size of the superscript compared to the normal font</source>
         <translation>Mida relativa del superíndex comparat amb la font normal</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="146"/>
+        <location filename="../tabtypography.cpp" line="152"/>
         <source>Displacement below the baseline of the normal font on a line</source>
         <translation>Desplaçament sota la línia base de la font de la línia</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="147"/>
+        <location filename="../tabtypography.cpp" line="153"/>
         <source>Relative size of the subscript compared to the normal font</source>
         <translation>Mida relativa del subíndex comparat amb la font normal</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="148"/>
+        <location filename="../tabtypography.cpp" line="154"/>
         <source>Relative size of the small caps font compared to the normal font</source>
         <translation>Mida relativa del les majúscules petites comparades amb la font normal</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="149"/>
+        <location filename="../tabtypography.cpp" line="155"/>
         <source>Percentage increase over the font size for the line spacing</source>
         <translation>Percentatge d&apos;increment sobre la mida de font per interliniat</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="150"/>
+        <location filename="../tabtypography.cpp" line="156"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
         <translation>Desplaçament cap a baix de la línia base de la font expressat en percentatge</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="153"/>
+        <location filename="../tabtypography.cpp" line="159"/>
         <source>Line width expressed as a percentage of the font size</source>
         <translation>Amplada de la línia en percentatge de la mida de la font</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="152"/>
+        <location filename="../tabtypography.cpp" line="158"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
         <translation>Desplaçament cap a dalt de la línia base de la font expressat en percentatge</translation>
     </message>
@@ -38585,32 +39681,32 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
 <context>
     <name>Tabruler</name>
     <message>
-        <location filename="../tabruler.cpp" line="478"/>
+        <location filename="../tabruler.cpp" line="488"/>
         <source>Left</source>
         <translation>Esquerra</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="479"/>
+        <location filename="../tabruler.cpp" line="489"/>
         <source>Right</source>
         <translation>Dreta</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="480"/>
+        <location filename="../tabruler.cpp" line="490"/>
         <source>Full Stop</source>
         <translation>Aturada</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="481"/>
+        <location filename="../tabruler.cpp" line="491"/>
         <source>Comma</source>
         <translation>Coma</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="482"/>
+        <location filename="../tabruler.cpp" line="492"/>
         <source>Center</source>
         <translation>Centrat</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="486"/>
+        <location filename="../tabruler.cpp" line="496"/>
         <source>&amp;Position:</source>
         <translation>&amp;Posició:</translation>
     </message>
@@ -38625,22 +39721,22 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation type="obsolete">&amp;Sangrat:</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="529"/>
+        <location filename="../tabruler.cpp" line="545"/>
         <source>Delete All</source>
         <translation>Esborra Tot</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="581"/>
+        <location filename="../tabruler.cpp" line="597"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Sangrat per primera línia d&apos;un paràgraf</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="582"/>
+        <location filename="../tabruler.cpp" line="598"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Sangrat per l&apos;esquerra de tot el paràgraf</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="585"/>
+        <location filename="../tabruler.cpp" line="601"/>
         <source>Delete all Tabulators</source>
         <translation>Esborra tots els Tabuladors</translation>
     </message>
@@ -38675,27 +39771,27 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation type="obsolete">Cap</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="492"/>
+        <location filename="../tabruler.cpp" line="503"/>
         <source>Dot</source>
         <translation>Punt</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="493"/>
+        <location filename="../tabruler.cpp" line="504"/>
         <source>Hyphen</source>
         <translation>Guionet</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="494"/>
+        <location filename="../tabruler.cpp" line="505"/>
         <source>Underscore</source>
         <translation>Caràcter de subratllat</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="495"/>
+        <location filename="../tabruler.cpp" line="506"/>
         <source>Custom</source>
         <translation>Personalitzat</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="496"/>
+        <location filename="../tabruler.cpp" line="507"/>
         <source>Fill Char:</source>
         <translation>Caràcter d&apos;emplenament:</translation>
     </message>
@@ -38710,28 +39806,28 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <translation type="obsolete">Personalitzat: </translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="491"/>
+        <location filename="../tabruler.cpp" line="502"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Cap</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="583"/>
+        <location filename="../tabruler.cpp" line="599"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="568"/>
+        <location filename="../tabruler.cpp" line="584"/>
         <source>Fill Character of Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="569"/>
+        <location filename="../tabruler.cpp" line="585"/>
         <source>Type/Orientation of Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="570"/>
+        <location filename="../tabruler.cpp" line="586"/>
         <source>Position of Tab</source>
         <translation type="unfinished"></translation>
     </message>
@@ -38739,12 +39835,12 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
 <context>
     <name>Tree</name>
     <message>
-        <location filename="../tree.cpp" line="1145"/>
+        <location filename="../tree.cpp" line="1156"/>
         <source>Outline</source>
         <translation>Esquema</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1146"/>
+        <location filename="../tree.cpp" line="1157"/>
         <source>Element</source>
         <translation>Element</translation>
     </message>
@@ -38791,7 +39887,7 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Font:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1123"/>
+        <location filename="../tree.cpp" line="1134"/>
         <source>Group </source>
         <translation>Grup</translation>
     </message>
@@ -38831,42 +39927,42 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Pàgina</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1086"/>
+        <location filename="../tree.cpp" line="1097"/>
         <source>Free Objects</source>
         <translation>Allibera objectes</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1031"/>
+        <location filename="../tree.cpp" line="1042"/>
         <source>Page </source>
         <translation>Pàgina</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="316"/>
+        <location filename="../tree.cpp" line="319"/>
         <source>Picture</source>
         <translation type="unfinished">Imatge</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="291"/>
+        <location filename="../tree.cpp" line="294"/>
         <source>File: </source>
         <translation type="unfinished">Fitxer:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="295"/>
+        <location filename="../tree.cpp" line="298"/>
         <source>Original PPI: </source>
         <translation type="unfinished">Original PPI:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="299"/>
+        <location filename="../tree.cpp" line="302"/>
         <source>Actual PPI: </source>
         <translation type="unfinished">Actual PPI:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="303"/>
+        <location filename="../tree.cpp" line="306"/>
         <source>Colorspace: </source>
         <translation type="unfinished">Espai de color: </translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="308"/>
+        <location filename="../tree.cpp" line="311"/>
         <source>Unknown</source>
         <translation type="unfinished">Desconegut</translation>
     </message>
@@ -38886,125 +39982,130 @@ Si us plau tria&apos;n un altre.</translation>
         <translation type="obsolete">Escala de grisos</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="318"/>
+        <location filename="../tree.cpp" line="321"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="342"/>
+        <location filename="../tree.cpp" line="345"/>
         <source>Linked Text</source>
         <translation type="unfinished">Text enllaçat</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="344"/>
+        <location filename="../tree.cpp" line="347"/>
         <source>Text Frame</source>
         <translation type="unfinished">Marc de Text</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="347"/>
+        <location filename="../tree.cpp" line="350"/>
         <source>Text on a Path</source>
         <translation type="unfinished">Text en un Camí</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="350"/>
+        <location filename="../tree.cpp" line="353"/>
         <source>Paragraphs: </source>
         <translation type="unfinished">Paràgrafs:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="357"/>
+        <location filename="../tree.cpp" line="360"/>
         <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="361"/>
+        <location filename="../tree.cpp" line="364"/>
         <source>Words: </source>
         <translation type="unfinished">Paraules:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="368"/>
+        <location filename="../tree.cpp" line="371"/>
         <source>Chars: </source>
         <translation type="unfinished">Lletres:</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="377"/>
         <source>Print: </source>
-        <translation type="unfinished">Impressió:</translation>
+        <translation type="obsolete">Impressió:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="380"/>
+        <location filename="../tree.cpp" line="383"/>
         <source>Enabled</source>
         <translation type="unfinished">Activat</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="382"/>
+        <location filename="../tree.cpp" line="385"/>
         <source>Disabled</source>
         <translation type="unfinished">Desactivat</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="389"/>
+        <location filename="../tree.cpp" line="393"/>
         <source>In&amp;fo</source>
         <translation type="unfinished">In&amp;formació</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="410"/>
+        <location filename="../tree.cpp" line="420"/>
         <source>Preview Settings</source>
         <translation type="unfinished">Paràmetres de vista prèvia</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="451"/>
+        <location filename="../tree.cpp" line="461"/>
         <source>&amp;PDF Options</source>
         <translation type="unfinished">Opcions &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="475"/>
+        <location filename="../tree.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
         <translation type="unfinished">Envia a la Ca&amp;pa</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="484"/>
+        <location filename="../tree.cpp" line="494"/>
         <source>Le&amp;vel</source>
         <translation type="unfinished">Ni&amp;vell</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="534"/>
+        <location filename="../tree.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
         <translation type="unfinished">Conve&amp;rteix a</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="537"/>
+        <location filename="../tree.cpp" line="548"/>
         <source>Rename</source>
         <translation type="unfinished">Reanomena</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="545"/>
+        <location filename="../tree.cpp" line="556"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="567"/>
+        <location filename="../tree.cpp" line="578"/>
         <source>Contents</source>
         <translation type="unfinished">Contingut</translation>
+    </message>
+    <message>
+        <location filename="../tree.cpp" line="380"/>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="63"/>
+        <location filename="../styleselect.cpp" line="62"/>
         <source>Auto</source>
         <translation>Auto</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="74"/>
+        <location filename="../styleselect.cpp" line="73"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="73"/>
+        <location filename="../styleselect.cpp" line="72"/>
         <source>Displacement</source>
         <translation>Desplaçament</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="75"/>
+        <location filename="../styleselect.cpp" line="74"/>
         <source>Linewidth</source>
         <translation>Amplada de línia</translation>
     </message>
@@ -39012,450 +40113,450 @@ Si us plau tria&apos;n un altre.</translation>
 <context>
     <name>UndoManager</name>
     <message>
-        <location filename="../undomanager.cpp" line="682"/>
+        <location filename="../undomanager.cpp" line="680"/>
         <source>Add vertical guide</source>
         <translation>Afegeix guia vertical</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="683"/>
+        <location filename="../undomanager.cpp" line="681"/>
         <source>Add horizontal guide</source>
         <translation>Afegeix guia horitzontal</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="684"/>
+        <location filename="../undomanager.cpp" line="682"/>
         <source>Remove vertical guide</source>
         <translation>Elimina guia vertical</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="685"/>
+        <location filename="../undomanager.cpp" line="683"/>
         <source>Remove horizontal guide</source>
         <translation>Elimina guia horitzontal</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="688"/>
+        <location filename="../undomanager.cpp" line="686"/>
         <source>Move vertical guide</source>
         <translation>Mou guia vertical</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="689"/>
+        <location filename="../undomanager.cpp" line="687"/>
         <source>Move horizontal guide</source>
         <translation>Mou guia horitzontal</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="690"/>
+        <location filename="../undomanager.cpp" line="688"/>
         <source>Lock guides</source>
         <translation>Bloqueja guies</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="691"/>
+        <location filename="../undomanager.cpp" line="689"/>
         <source>Unlock guides</source>
         <translation>Desbloqueja guies</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="692"/>
+        <location filename="../undomanager.cpp" line="690"/>
         <source>Move</source>
         <translation>Mou</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="693"/>
+        <location filename="../undomanager.cpp" line="691"/>
         <source>Resize</source>
         <translation>Canvia la mida</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="694"/>
+        <location filename="../undomanager.cpp" line="692"/>
         <source>Rotate</source>
         <translation>Gira</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="695"/>
+        <location filename="../undomanager.cpp" line="693"/>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
         <translation>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="696"/>
+        <location filename="../undomanager.cpp" line="694"/>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
         <translation>W1: %1, H1: %2
 W2: %3, H2: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="701"/>
+        <location filename="../undomanager.cpp" line="699"/>
         <source>Selection</source>
         <translation>Selecció</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="702"/>
+        <location filename="../undomanager.cpp" line="700"/>
         <source>Group</source>
         <translation>Agrupa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="703"/>
+        <location filename="../undomanager.cpp" line="701"/>
         <source>Selection/Group</source>
         <translation>Selecció/Grup</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="704"/>
+        <location filename="../undomanager.cpp" line="702"/>
         <source>Create</source>
         <translation>Crea</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="705"/>
+        <location filename="../undomanager.cpp" line="703"/>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
         <translation>X: %1, Y: %2
 W: %3, H: %4</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="706"/>
+        <location filename="../undomanager.cpp" line="704"/>
         <source>Align/Distribute</source>
         <translation>Alinea/Distribueix</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="707"/>
+        <location filename="../undomanager.cpp" line="705"/>
         <source>Items involved</source>
         <translation>Elements implicats</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="708"/>
+        <location filename="../undomanager.cpp" line="706"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="709"/>
+        <location filename="../undomanager.cpp" line="707"/>
         <source>Set fill color</source>
         <translation>Estableix color d&apos;emplenat</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="710"/>
+        <location filename="../undomanager.cpp" line="708"/>
         <source>Color1: %1, Color2: %2</source>
         <translation>Color1: %1, Color2: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="711"/>
+        <location filename="../undomanager.cpp" line="709"/>
         <source>Set fill color shade</source>
         <translation>Estableix intensitat de color d&apos;emplenat</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="712"/>
+        <location filename="../undomanager.cpp" line="710"/>
         <source>Set line color</source>
         <translation>Estableix el color de la línia</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="713"/>
+        <location filename="../undomanager.cpp" line="711"/>
         <source>Set line color shade</source>
         <translation>Estableix la intensitat del color de la línia</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="714"/>
+        <location filename="../undomanager.cpp" line="712"/>
         <source>Flip horizontally</source>
         <translation>Inverteix horitzontalment</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="715"/>
+        <location filename="../undomanager.cpp" line="713"/>
         <source>Flip vertically</source>
         <translation>Inverteix verticalment</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="716"/>
+        <location filename="../undomanager.cpp" line="714"/>
         <source>Lock</source>
         <translation>Bloqueja</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="717"/>
+        <location filename="../undomanager.cpp" line="715"/>
         <source>Unlock</source>
         <translation>Desbloqueja</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="718"/>
+        <location filename="../undomanager.cpp" line="716"/>
         <source>Lock size</source>
         <translation>Bloqueja mida</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="719"/>
+        <location filename="../undomanager.cpp" line="717"/>
         <source>Unlock size</source>
         <translation>Desbloqueja mida</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="722"/>
+        <location filename="../undomanager.cpp" line="720"/>
         <source>Ungroup</source>
         <translation>Desagrupa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="723"/>
+        <location filename="../undomanager.cpp" line="721"/>
         <source>Delete</source>
         <translation>Esborra</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="724"/>
+        <location filename="../undomanager.cpp" line="722"/>
         <source>Rename</source>
         <translation>Reanomena</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="725"/>
+        <location filename="../undomanager.cpp" line="723"/>
         <source>From %1
 to %2</source>
         <translation>Des de %1
 a %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="726"/>
+        <location filename="../undomanager.cpp" line="724"/>
         <source>Apply Master Page</source>
         <translation>Aplica pàgina mestra</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="727"/>
+        <location filename="../undomanager.cpp" line="725"/>
         <source>Paste</source>
         <translation>Enganxa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="728"/>
+        <location filename="../undomanager.cpp" line="726"/>
         <source>Cut</source>
         <translation>Talla</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="729"/>
+        <location filename="../undomanager.cpp" line="727"/>
         <source>Set fill color transparency</source>
         <translation>Estableix el color d&apos;emplenat de la transparència</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="730"/>
+        <location filename="../undomanager.cpp" line="728"/>
         <source>Set line color transparency</source>
         <translation>Estableix el color de la línia de transparència</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="731"/>
+        <location filename="../undomanager.cpp" line="729"/>
         <source>Set line style</source>
         <translation>Estableix l&apos;estil de línia</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="732"/>
+        <location filename="../undomanager.cpp" line="730"/>
         <source>Set the style of line end</source>
         <translation>Estableix el final del estil de línia</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="733"/>
+        <location filename="../undomanager.cpp" line="731"/>
         <source>Set the style of line join</source>
         <translation>Estableix l&apos;estil de la unió de línies</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="734"/>
+        <location filename="../undomanager.cpp" line="732"/>
         <source>Set line width</source>
         <translation>Estableix l&apos;amplada de línia</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="735"/>
+        <location filename="../undomanager.cpp" line="733"/>
         <source>No style</source>
         <translation>Sense estil</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="736"/>
+        <location filename="../undomanager.cpp" line="734"/>
         <source>Set custom line style</source>
         <translation>Estableix l&apos;estil de línia personalitzat</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="737"/>
+        <location filename="../undomanager.cpp" line="735"/>
         <source>Do not use custom line style</source>
         <translation>No facis servir l&apos;estil de línia personalitzat</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="738"/>
+        <location filename="../undomanager.cpp" line="736"/>
         <source>Set start arrow</source>
         <translation>Estableix l&apos;Inici de la fletxa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="739"/>
+        <location filename="../undomanager.cpp" line="737"/>
         <source>Set end arrow</source>
         <translation>Estableix el final de la fletxa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="741"/>
+        <location filename="../undomanager.cpp" line="739"/>
         <source>Create table</source>
         <translation>Crea taula</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="742"/>
+        <location filename="../undomanager.cpp" line="740"/>
         <source>Rows: %1, Cols: %2</source>
         <translation>Files: %1, Columnes: %2</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="743"/>
+        <location filename="../undomanager.cpp" line="741"/>
         <source>Set font</source>
         <translation>Estableix font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="744"/>
+        <location filename="../undomanager.cpp" line="742"/>
         <source>Set font size</source>
         <translation>Estableix la mida de la font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="745"/>
+        <location filename="../undomanager.cpp" line="743"/>
         <source>Set font width</source>
         <translation>Estableix l&apos;amplada de la font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="746"/>
+        <location filename="../undomanager.cpp" line="744"/>
         <source>Set font height</source>
         <translation>Estableix l&apos;alçada de la font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="747"/>
+        <location filename="../undomanager.cpp" line="745"/>
         <source>Set font fill color</source>
         <translation>Estableix el color d&apos;emplenat de la font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="748"/>
+        <location filename="../undomanager.cpp" line="746"/>
         <source>Set font stroke color</source>
         <translation>Estableix el color del voltant de la font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="749"/>
+        <location filename="../undomanager.cpp" line="747"/>
         <source>Set font fill color shade</source>
         <translation>Estableix la intensitat del color d&apos;emplenat de la font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="750"/>
+        <location filename="../undomanager.cpp" line="748"/>
         <source>Set font stroke color shade</source>
         <translation>Estableix la intensitat del color del voltant de la font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="751"/>
+        <location filename="../undomanager.cpp" line="749"/>
         <source>Set kerning</source>
         <translation>Estableix interlletratge</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="752"/>
+        <location filename="../undomanager.cpp" line="750"/>
         <source>Set line spacing</source>
         <translation>Estableix interlineat</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="753"/>
+        <location filename="../undomanager.cpp" line="751"/>
         <source>Set paragraph style</source>
         <translation>Estableix estil de paràgraf</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="754"/>
+        <location filename="../undomanager.cpp" line="752"/>
         <source>Set language</source>
         <translation>Estableix idioma</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="755"/>
+        <location filename="../undomanager.cpp" line="753"/>
         <source>Align text</source>
         <translation>Alinea text</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="756"/>
+        <location filename="../undomanager.cpp" line="754"/>
         <source>Set font effect</source>
         <translation>Estableix efecte de font</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="757"/>
+        <location filename="../undomanager.cpp" line="755"/>
         <source>Image frame</source>
         <translation>Marc d&apos;imatge</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="758"/>
+        <location filename="../undomanager.cpp" line="756"/>
         <source>Text frame</source>
         <translation>Marc de text</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="759"/>
+        <location filename="../undomanager.cpp" line="758"/>
         <source>Polygon</source>
         <translation>Polígon</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="760"/>
+        <location filename="../undomanager.cpp" line="759"/>
         <source>Bezier curve</source>
         <translation>Corba Bezier</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="761"/>
+        <location filename="../undomanager.cpp" line="760"/>
         <source>Polyline</source>
         <translation>Polilínia</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="763"/>
+        <location filename="../undomanager.cpp" line="762"/>
         <source>Convert to</source>
         <translation>Converteix a</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="764"/>
+        <location filename="../undomanager.cpp" line="763"/>
         <source>Import SVG image</source>
         <translation>Importa imatge SVG</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="765"/>
+        <location filename="../undomanager.cpp" line="764"/>
         <source>Import EPS image</source>
         <translation>Importa Imatge EPS</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="766"/>
+        <location filename="../undomanager.cpp" line="765"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation>Importa imatge d&apos;OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="767"/>
+        <location filename="../undomanager.cpp" line="766"/>
         <source>Scratch space</source>
         <translation>Espai de suport</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="769"/>
+        <location filename="../undomanager.cpp" line="768"/>
         <source>Text flows around the frame</source>
         <translation>Text flueix al voltant del marc</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="770"/>
+        <location filename="../undomanager.cpp" line="769"/>
         <source>Text flows around bounding box</source>
         <translation>Text flueix al voltant de la caixa envoltant</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="771"/>
+        <location filename="../undomanager.cpp" line="770"/>
         <source>Text flows around contour line</source>
         <translation>Text flueix al voltant de la línea de contorn</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="773"/>
+        <location filename="../undomanager.cpp" line="772"/>
         <source>No text flow</source>
         <translation>El text no flueix</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="775"/>
+        <location filename="../undomanager.cpp" line="774"/>
         <source>No bounding box</source>
         <translation>No hi ha caixa de contorn</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="776"/>
+        <location filename="../undomanager.cpp" line="775"/>
         <source>No contour line</source>
         <translation>No hi ha línia de contorn</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="777"/>
+        <location filename="../undomanager.cpp" line="776"/>
         <source>Page %1</source>
         <translation>Pàgina %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="778"/>
+        <location filename="../undomanager.cpp" line="777"/>
         <source>Set image scaling</source>
         <translation>Estableix l&apos;escalat de la imatge</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="779"/>
+        <location filename="../undomanager.cpp" line="778"/>
         <source>Frame size</source>
         <translation>Mida del marc</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="780"/>
+        <location filename="../undomanager.cpp" line="779"/>
         <source>Free scaling</source>
         <translation>Escalat lliure</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="781"/>
+        <location filename="../undomanager.cpp" line="780"/>
         <source>Keep aspect ratio</source>
         <translation>Mantenir l&apos;aspecte</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="782"/>
+        <location filename="../undomanager.cpp" line="781"/>
         <source>Break aspect ratio</source>
         <translation>No mantenir l&apos;aspecte</translation>
     </message>
@@ -39465,97 +40566,97 @@ a %2</translation>
         <translation>Edita la línia de contorn</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="784"/>
+        <location filename="../undomanager.cpp" line="783"/>
         <source>Edit shape</source>
         <translation>Edita forma</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="785"/>
+        <location filename="../undomanager.cpp" line="784"/>
         <source>Reset contour line</source>
         <translation>Restableix Línia del Voltant</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="786"/>
+        <location filename="../undomanager.cpp" line="785"/>
         <source>Add page</source>
         <translation>Afegir pàgina</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="787"/>
+        <location filename="../undomanager.cpp" line="786"/>
         <source>Add pages</source>
         <translation>Afegir pàgines</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="788"/>
+        <location filename="../undomanager.cpp" line="787"/>
         <source>Delete page</source>
         <translation>Esborra pàgina</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="789"/>
+        <location filename="../undomanager.cpp" line="788"/>
         <source>Delete pages</source>
         <translation>Esborra pàgines</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="790"/>
+        <location filename="../undomanager.cpp" line="789"/>
         <source>Add layer</source>
         <translation>Afegeix capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="791"/>
+        <location filename="../undomanager.cpp" line="790"/>
         <source>Delete layer</source>
         <translation>Esborra capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="792"/>
+        <location filename="../undomanager.cpp" line="791"/>
         <source>Rename layer</source>
         <translation>Canvia el nom de la capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="793"/>
+        <location filename="../undomanager.cpp" line="792"/>
         <source>Raise layer</source>
         <translation>Apuja la capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="794"/>
+        <location filename="../undomanager.cpp" line="793"/>
         <source>Lower layer</source>
         <translation>Abaixa la capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="795"/>
+        <location filename="../undomanager.cpp" line="794"/>
         <source>Send to layer</source>
         <translation>Envia a la capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="796"/>
+        <location filename="../undomanager.cpp" line="795"/>
         <source>Enable printing of layer</source>
         <translation>Activa la impressió de la capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="797"/>
+        <location filename="../undomanager.cpp" line="796"/>
         <source>Disable printing of layer</source>
         <translation>Desactiva la impressió de la capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="798"/>
+        <location filename="../undomanager.cpp" line="797"/>
         <source>Change name of the layer</source>
         <translation>Canvia el nom de la capa</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="799"/>
+        <location filename="../undomanager.cpp" line="798"/>
         <source>Get image</source>
         <translation>Obtenir Imatge</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="762"/>
+        <location filename="../undomanager.cpp" line="761"/>
         <source>Text on a Path</source>
         <translation>Text en un Camí</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="720"/>
+        <location filename="../undomanager.cpp" line="718"/>
         <source>Enable Item Printing</source>
         <translation>Activa la impressió de l&apos;Ítem</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="721"/>
+        <location filename="../undomanager.cpp" line="719"/>
         <source>Disable Item Printing</source>
         <translation>Desactiva la impressió de l&apos;Ítem</translation>
     </message>
@@ -39565,24 +40666,24 @@ a %2</translation>
         <translation>Duplicació Múltiple</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="697"/>
+        <location filename="../undomanager.cpp" line="695"/>
         <source>Change Image Offset</source>
         <translation>Canvia l&apos;offset de la imatge</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="698"/>
+        <location filename="../undomanager.cpp" line="696"/>
         <source>Change Image Scale</source>
         <translation>Canvia l&apos;escalat de la imatge</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="699"/>
+        <location filename="../undomanager.cpp" line="697"/>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
         <translation>X1: %1, Y1: %2
 X2: %4, Y2: %5</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="700"/>
+        <location filename="../undomanager.cpp" line="698"/>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
@@ -39616,7 +40717,7 @@ X: %4, Y: %5</translation>
         <translation type="unfinished">&amp;Refés</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="774"/>
+        <location filename="../undomanager.cpp" line="773"/>
         <source>No object frame</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39646,22 +40747,22 @@ X: %4, Y: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="740"/>
+        <location filename="../undomanager.cpp" line="738"/>
         <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="686"/>
+        <location filename="../undomanager.cpp" line="684"/>
         <source>Remove vertical auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="687"/>
+        <location filename="../undomanager.cpp" line="685"/>
         <source>Remove horizontal auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="772"/>
+        <location filename="../undomanager.cpp" line="771"/>
         <source>Text flows around image clipping path</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39690,11 +40791,21 @@ X: %4, Y: %5</translation>
         <source>Convert to outlines</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../undomanager.cpp" line="757"/>
+        <source>Latex frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="799"/>
+        <source>Change formula</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
-        <location filename="../undogui.cpp" line="283"/>
+        <location filename="../undogui.cpp" line="279"/>
         <source>Initial State</source>
         <translation>Estat inicial</translation>
     </message>
@@ -39722,7 +40833,7 @@ X: %4, Y: %5</translation>
 <context>
     <name>UndoWidget</name>
     <message>
-        <location filename="../undogui.cpp" line="159"/>
+        <location filename="../undogui.cpp" line="146"/>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
@@ -39731,7 +40842,7 @@ X: %4, Y: %5</translation>
 <context>
     <name>UnicodeChooseButton</name>
     <message>
-        <location filename="../unicodesearch.cpp" line="46"/>
+        <location filename="../unicodesearch.cpp" line="47"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Cerca</translation>
     </message>
@@ -39744,7 +40855,7 @@ X: %4, Y: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../unicodesearch.ui" line="42"/>
+        <location filename="../unicodesearch.ui" line="38"/>
         <source>&amp;Search:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39752,59 +40863,78 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../upgradechecker.cpp" line="83"/>
+        <location filename="../upgradechecker.cpp" line="85"/>
         <source>Attempting to get the Scribus version update file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="84"/>
+        <location filename="../upgradechecker.cpp" line="86"/>
         <source>(No data on your computer will be sent to an external location)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="104"/>
+        <location filename="../upgradechecker.cpp" line="106"/>
         <source>Timed out when attempting to get update file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="109"/>
+        <location filename="../upgradechecker.cpp" line="111"/>
         <source>Error when attempting to get update file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="139"/>
+        <location filename="../upgradechecker.cpp" line="141"/>
         <source>File not found on server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="141"/>
+        <location filename="../upgradechecker.cpp" line="143"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="216"/>
+        <location filename="../upgradechecker.cpp" line="218"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="220"/>
+        <location filename="../upgradechecker.cpp" line="222"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="223"/>
+        <location filename="../upgradechecker.cpp" line="225"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="227"/>
+        <location filename="../upgradechecker.cpp" line="229"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="224"/>
+        <location filename="../upgradechecker.cpp" line="226"/>
         <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UrlLauncher</name>
+    <message>
+        <location filename="../urllauncher.cpp" line="64"/>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../urllauncher.cpp" line="77"/>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../urllauncher.cpp" line="77"/>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.
+Would you like to start the system&apos;s default browser instead?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -40135,7 +41265,7 @@ si el botó està marcat.</translation>
 <context>
     <name>WMFImport</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="496"/>
+        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="515"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40143,24 +41273,19 @@ si el botó està marcat.</translation>
 <context>
     <name>WMFImportPlugin</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="81"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="82"/>
         <source>Import &amp;WMF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="96"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
         <source>Imports WMF Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="98"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="111"/>
-        <source>Windows metafiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -40361,12 +41486,12 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>gtFileDialog</name>
     <message>
-        <location filename="../gtdialogs.cpp" line="64"/>
+        <location filename="../gtfiledialog.cpp" line="21"/>
         <source>Choose the importer to use</source>
         <translation>Tria l&apos;importador a fer servir</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="65"/>
+        <location filename="../gtfiledialog.cpp" line="22"/>
         <source>Automatic</source>
         <translation>Automàtic</translation>
     </message>
@@ -40376,40 +41501,55 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Obtenir només text</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="71"/>
+        <location filename="../gtfiledialog.cpp" line="25"/>
         <source>Import text without any formatting</source>
         <translation>Importar text sense format</translation>
     </message>
     <message>
         <location filename="../gtdialogs.cpp" line="78"/>
         <source>Importer:</source>
-        <translation>Importador:</translation>
+        <translation type="obsolete">Importador:</translation>
     </message>
     <message>
         <location filename="../gtdialogs.cpp" line="116"/>
         <source>Encoding:</source>
-        <translation>Codificant:</translation>
+        <translation type="obsolete">Codificant:</translation>
     </message>
     <message>
         <location filename="../gtdialogs.cpp" line="70"/>
         <source>Import Text Only</source>
-        <translation>Importa només texte</translation>
+        <translation type="obsolete">Importa només texte</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="48"/>
+        <location filename="../gtfiledialog.ui" line="13"/>
         <source>Open</source>
         <translation type="unfinished">Obre</translation>
+    </message>
+    <message>
+        <location filename="../gtfiledialog.ui" line="22"/>
+        <source>&amp;Importer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gtfiledialog.ui" line="35"/>
+        <source>Import &amp;Text Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gtfiledialog.ui" line="42"/>
+        <source>&amp;Encoding:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>gtImporterDialog</name>
     <message>
-        <location filename="../gtdialogs.cpp" line="155"/>
+        <location filename="../gtdialogs.cpp" line="67"/>
         <source>Choose the importer to use</source>
         <translation>Tria l&apos;importador a fer servir</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="165"/>
+        <location filename="../gtdialogs.cpp" line="79"/>
         <source>Remember association</source>
         <translation>Recorda l&apos;associació</translation>
     </message>
@@ -40428,9 +41568,94 @@ per fitxers d&apos;aquest tipus.</translation>
         <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="167"/>
+        <location filename="../gtdialogs.cpp" line="81"/>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
         <translation>Recorda l&apos;associació entre la extensió de fitxer i l&apos;importador i no preguntarà més per triar el programa importador.</translation>
+    </message>
+</context>
+<context>
+    <name>hysettingsBase</name>
+    <message>
+        <location filename="../hysettingsBase.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="37"/>
+        <source>General Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="58"/>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished">Un quadre de diàleg amb totes els possibles guionets per cada paraula es mostrarà si feu servir Extres, partició de mots.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="61"/>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished">Consells de &amp;partició de mots</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="68"/>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished">Activa la partició de mots a l&apos;escriure.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="71"/>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished">Parteix mots automàticament a l&apos;e&amp;scriure</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="81"/>
+        <source>Behaviour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="105"/>
+        <source>&amp;Language:</source>
+        <translation type="unfinished">&amp;Idioma:</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="118"/>
+        <source>&amp;Smallest Word:</source>
+        <translation type="unfinished">Paraula mé&amp;s Curta:</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="128"/>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation type="unfinished">Llargada de la paraula més petita a partir.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="138"/>
+        <source>Chars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="145"/>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished">Separacions consecutives &amp;Permeses:</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="158"/>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation type="unfinished">Número màxim de particions amb guionets consecutives.
+Un valor de 0 significa infinites particions.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="169"/>
+        <source>Exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="274"/>
+        <source>Edit</source>
+        <translation type="unfinished">Edició</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="233"/>
+        <source>Ignore List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -40466,97 +41691,97 @@ per fitxers d&apos;aquest tipus.</translation>
         <translation>Tot</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="126"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
         <source>Page Size</source>
         <translation>Mida de Pàgina</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
         <source>Colors</source>
         <translation>Colors</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
         <source>Description</source>
         <translation>Descripció</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
         <source>Usage</source>
         <translation>Ús</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
         <source>Created with</source>
         <translation>Creat amb</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
         <source>Date</source>
         <translation>Data</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="142"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="161"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="163"/>
         <source>Downloading Templates</source>
         <translation>Descarregar Plantilles</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="164"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="166"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
         <translation>Es poden trobar noves Plantilles a http://www.scribus.net/ en la secció Downloads.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="167"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="169"/>
         <source>Installing Templates</source>
         <translation>Instal·lar Plantilles</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="173"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="175"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
         <translation>Cal extreure el paquet en el directori de Plantilles ~/.scribus/templates per l&apos;usuari actual o a PREFIX/share/scribus/templates per tots els usuaris.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="176"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
         <source>Preparing a template</source>
         <translation>Preparar una Plantilla</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="180"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
         <translation>Cal assegurar-se que les imatges i els tipus de lletra que fas servir poden ser usades lliurement. Si les fonts no són lliures no les guardis amb la plantilla.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="179"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
         <translation>El creador de Plantilles hauria d&apos;estar segur que la secció d&apos;instal·lació de Plantilles anterior també li funciona a ell. Això farà que un usuari es podrà descarregar el paquet, descomprimir-lo i començar a fer servir la plantilla.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
         <source>Removing a template</source>
         <translation>Eliminar una Plantilla</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="185"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation>Si eliminem una Plantilla des del diàleg &quot;Nova des de Plantilla&quot; només s&apos;eliminarà la entrada de template.xml, no s&apos;esborraran fisicament els fitxers del document. Només us apareixerà un menú emergent demanant confirmació per esborrar si teniu accés al fitxer template.xml.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="186"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
         <source>Translating template.xml</source>
         <translation>Traduir template.xml</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="190"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Copia el fitxer template.xml a un fitxer amb nom template.lang_PAIS.xml (fes servir el mateix codi que hi ha en el fitxer qm del teu idioma), per exemple template.fi.xml per una versió en finès de template.xml. La copia ha d&apos;estar en el mateix directori que el template.xml l&apos;original perquè l&apos;Scribus el pugui fer servir.</translation>
     </message>
@@ -40652,32 +41877,32 @@ per fitxers d&apos;aquest tipus.</translation>
         <translation type="obsolete">Menys Detalls</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="143"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="205"/>
         <source>Legal</source>
         <translation>Legal</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="144"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Letter</source>
         <translation>Carta</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="144"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Tabloid</source>
         <translation>Tabloide</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="151"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="213"/>
         <source>landscape</source>
         <translation>Apaisat</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="156"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="218"/>
         <source>portrait</source>
         <translation>vertical</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="172"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="234"/>
         <source>custom</source>
         <translation>personalitzat</translation>
     </message>
@@ -40710,7 +41935,7 @@ per fitxers d&apos;aquest tipus.</translation>
         <translation>Tria un filtre gravat previament</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="251"/>
+        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="250"/>
         <source>Give a name to this filter for saving</source>
         <translation>Dóna un nom al filtre per desar-lo</translation>
     </message>
@@ -40733,97 +41958,97 @@ per fitxers d&apos;aquest tipus.</translation>
 <context>
     <name>tfFilter</name>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="108"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="110"/>
         <source>Disable or enable this filter row</source>
         <translation>Desactiva o activa aquest filtre de línia</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="134"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="136"/>
         <source>Remove this filter row</source>
         <translation>Esborra aquest filtre de línia</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="139"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="141"/>
         <source>Add a new filter row</source>
         <translation>Afegeix un nou filtre de línia</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="392"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="394"/>
         <source>to</source>
         <translation>a</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="208"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="210"/>
         <source>and</source>
         <translation>i</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="212"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="214"/>
         <source>remove match</source>
         <translation>elimina coincidents</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="213"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="215"/>
         <source>do not remove match</source>
         <translation>no eliminis coincidents</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="223"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="225"/>
         <source>words</source>
         <translation>paraules</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="262"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="264"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="263"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="265"/>
         <source>Replace</source>
         <translation>Remplaça</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="264"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="266"/>
         <source>Apply</source>
         <translation>Aplicar</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="421"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="423"/>
         <source>Value at the left is a regular expression</source>
         <translation>El valor de l&apos;esquerra és una expressió regular</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="297"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="299"/>
         <source>with</source>
         <translation>amb</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="309"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="311"/>
         <source>paragraph style</source>
         <translation>estil de paràgraf</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="313"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="315"/>
         <source>all instances of</source>
         <translation>totes les instàncies de </translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="395"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="397"/>
         <source>all paragraphs</source>
         <translation>tots els paràgrafs</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="396"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="398"/>
         <source>paragraphs starting with</source>
         <translation>paràgrafs començats per</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="397"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="399"/>
         <source>paragraphs with less than</source>
         <translation>paràgrafs amb menys de</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="398"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="400"/>
         <source>paragraphs with more than</source>
         <translation>paràgrafs amb més de</translation>
     </message>

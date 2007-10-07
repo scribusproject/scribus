@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
-<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -409,16 +408,6 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
-        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="113"/>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
 
@@ -502,18 +491,6 @@ Moves the object &quot;name&quot; to a new location. The coordinates are express
 the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdmani.h" line="48"/>
-        <source>rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertext at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -930,18 +907,6 @@ Page numbers are counted from 1 upwards, no matter what the displayed first
 page number is.
 
 May raise IndexError if the page number is out of range
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
-        <source>gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1483,28 +1448,6 @@ See getProperty() for more information.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.h" line="184"/>
-        <source>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
-
-Return a list of children of `object&apos;, possibly restricted to children
-of class named `ofclass&apos; or children named `ofname&apos;. If `recursive&apos; is true,
-search recursively through children, grandchildren, etc.
-
-See QObject::children() in the Qt docs for more information.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.h" line="201"/>
-        <source>getChild(object, childname, ofclass=None, recursive=True)
-
-Return the first child of `object&apos; named `childname&apos;, possibly restricting
-the search to children of type name `ofclass&apos;. If `recursive&apos; is true,
-search recursively through children, grandchildren, etc.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="62"/>
         <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
@@ -1550,17 +1493,6 @@ If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
 use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
-        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2053,7 +1985,7 @@ True for haspreview enables a small preview widget in the FileSelect box.  When
 the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
 otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
 the dialog shows and returns only directories. The default for all of the
-opional parameters is False.
+optional parameters is False.
 
 The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
 For example &apos;Images (*.png *.xpm *.jpg)&apos;.
@@ -2065,26 +1997,71 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmani.h" line="48"/>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertex at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="115"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="116"/>
         <source>Importing: %1</source>
         <translation>Импорт: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="118"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="119"/>
         <source>Analyzing File:</source>
         <translation>Анализируется файл:</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="272"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="273"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importai.cpp" line="2173"/>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="2190"/>
         <source>Generating Items</source>
         <translation type="unfinished">Обобщение объектов</translation>
     </message>
@@ -2092,77 +2069,77 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
 <context>
     <name>About</name>
     <message>
-        <location filename="../about.cpp" line="156"/>
+        <location filename="../about.cpp" line="154"/>
         <source>Contributions from:</source>
         <translation>Свой вклад в разработку внесли:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="138"/>
+        <location filename="../about.cpp" line="136"/>
         <source>&amp;About</source>
         <translation>О &amp;программе</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="209"/>
+        <location filename="../about.cpp" line="207"/>
         <source>A&amp;uthors</source>
         <translation>&amp;Авторы</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="385"/>
+        <location filename="../about.cpp" line="383"/>
         <source>&amp;Translations</source>
         <translation>П&amp;ереводы</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="406"/>
+        <location filename="../about.cpp" line="404"/>
         <source>&amp;Online</source>
         <translation>В &amp;Интернете</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="425"/>
+        <location filename="../about.cpp" line="423"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="144"/>
+        <location filename="../about.cpp" line="142"/>
         <source>Development Team:</source>
         <translation>Команда разработчиков:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="187"/>
+        <location filename="../about.cpp" line="185"/>
         <source>Official Documentation:</source>
         <translation>Официальная документация:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="195"/>
+        <location filename="../about.cpp" line="193"/>
         <source>Other Documentation:</source>
         <translation>Остальная документация:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="391"/>
+        <location filename="../about.cpp" line="389"/>
         <source>Homepage</source>
         <translation>Веб-сайт</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="393"/>
+        <location filename="../about.cpp" line="391"/>
         <source>Online Reference</source>
         <translation>Электронный справочник</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="397"/>
+        <location filename="../about.cpp" line="395"/>
         <source>Bugs and Feature Requests</source>
         <translation>Система отслеживания ошибок</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="399"/>
+        <location filename="../about.cpp" line="397"/>
         <source>Mailing List</source>
         <translation>Список рассылки</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="217"/>
+        <location filename="../about.cpp" line="215"/>
         <source>Official Translations and Translators:</source>
         <translation>Официальные переводы и переводчики:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="344"/>
+        <location filename="../about.cpp" line="342"/>
         <source>Previous Translation Contributors:</source>
         <translation>Предыдущие авторы переводов:</translation>
     </message>
@@ -2172,7 +2149,7 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation>О Scribus %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="395"/>
+        <location filename="../about.cpp" line="393"/>
         <source>Wiki</source>
         <translation>Вики</translation>
     </message>
@@ -2187,12 +2164,12 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="133"/>
+        <location filename="../about.cpp" line="131"/>
         <source>Using Ghostscript version %1</source>
         <translation>Используется GhostScript версии %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="135"/>
+        <location filename="../about.cpp" line="133"/>
         <source>No Ghostscript version available</source>
         <translation>Ни одна версия GS не  доступна</translation>
     </message>
@@ -2202,7 +2179,7 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">&lt;b&gt;Scribus версии %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="136"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Build ID:</source>
         <translation>ID сборки:</translation>
     </message>
@@ -2212,32 +2189,32 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Здесь показывается версия, дата сборки и статус поддержки тех или иных возможностей в этой сборке Scribus. Сокращение C-C-T-F означает: C=littlecms C=CUPS T=TIFF F=Fontconfig. Последняя буква - это либо C=cairo, либо A=libart. Если библиотека не использована, вместо буквы подставляется астериск - *. Здесь также отображается номер используемой версии Ghostscript.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="175"/>
+        <location filename="../about.cpp" line="173"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Портирование на Mac OS&amp;#174; X Aqua:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="183"/>
+        <location filename="../about.cpp" line="181"/>
         <source>Windows&amp;#174; Port:</source>
         <translation>Портирование на Windows&amp;#174;:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="203"/>
+        <location filename="../about.cpp" line="201"/>
         <source>Tango Project Icons:</source>
         <translation>Значки из проекта Tango:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="179"/>
+        <location filename="../about.cpp" line="177"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation>Портирование на OS/2&amp;#174;/eComStation&amp;#8482;:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="409"/>
+        <location filename="../about.cpp" line="407"/>
         <source>&amp;Updates</source>
         <translation>О&amp;бновления</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="413"/>
+        <location filename="../about.cpp" line="411"/>
         <source>Check for &amp;Updates</source>
         <translation>&amp;Проверить наличие обновлений</translation>
     </message>
@@ -2247,42 +2224,42 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Здесь показывается версия, дата сборки и статус поддержки тех или иных возможностей в этой сборке Scribus. Сокращение C-C-T-F означает: C=littlecms C=CUPS T=TIFF F=Fontconfig. Последняя буква — это либо C=cairo, либо A=libart. Если библиотека не использована, вместо буквы подставляется астериск — *. Здесь также отображается номер обнаруженной версии Ghostscript. Версия для Windows не использует ни fontconfig, ни CUPS.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="438"/>
+        <location filename="../about.cpp" line="436"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>Проверить наличие обновлений для Scribus. Никакие данные вашего компьютера не будут переданы.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="200"/>
+        <location filename="../about.cpp" line="198"/>
         <source>Splash Screen:</source>
         <translation>Стартовая заставка:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="434"/>
+        <location filename="../about.cpp" line="432"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
         <translation>Здесь показывается номер версии, дата сборки и поддержка разных библиотек в Scribus.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="435"/>
+        <location filename="../about.cpp" line="433"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
         <translation>Сокращение C-C-T-F означает: C=littlecms C=CUPS T=TIFF F=Fontconfig. Последняя буква — это либо C=cairo, либо Q=Qt</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="436"/>
+        <location filename="../about.cpp" line="434"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation>Если библиотека не использована, вместо буквы подставляется астериск — *.  Здесь также отображается номер обнаруженной версии Ghostscript.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="437"/>
+        <location filename="../about.cpp" line="435"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation>Версия для Windows не использует fontconfig и CUPS.</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="136"/>
+        <location filename="../about.cpp" line="134"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="136"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Scribus Version</source>
         <translation>Версия Scribus</translation>
     </message>
@@ -2366,57 +2343,57 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../actionmanager.cpp" line="1193"/>
+        <location filename="../actionmanager.cpp" line="1206"/>
         <source>&amp;New</source>
         <translation>&amp;Новый</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1194"/>
+        <location filename="../actionmanager.cpp" line="1207"/>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1195"/>
+        <location filename="../actionmanager.cpp" line="1208"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1196"/>
+        <location filename="../actionmanager.cpp" line="1209"/>
         <source>&amp;Save</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1197"/>
+        <location filename="../actionmanager.cpp" line="1210"/>
         <source>Save &amp;As...</source>
         <translation>Сохранить &amp;как...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1198"/>
+        <location filename="../actionmanager.cpp" line="1211"/>
         <source>Re&amp;vert to Saved</source>
         <translation>&amp;Вернутьcя к сохранённому</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1199"/>
+        <location filename="../actionmanager.cpp" line="1212"/>
         <source>Collect for O&amp;utput...</source>
         <translation>Со&amp;брать для вывода...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1200"/>
+        <location filename="../actionmanager.cpp" line="1213"/>
         <source>Get Text...</source>
         <translation>Получить текст...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1201"/>
+        <location filename="../actionmanager.cpp" line="1214"/>
         <source>Append &amp;Text...</source>
         <translation>&amp;Добавить текст...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1202"/>
+        <location filename="../actionmanager.cpp" line="1215"/>
         <source>Get Image...</source>
         <translation>Вставить изображение...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1203"/>
+        <location filename="../actionmanager.cpp" line="1216"/>
         <source>Save &amp;Text...</source>
         <translation>Сохранить &amp;текст...</translation>
     </message>
@@ -2426,77 +2403,77 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Сохран&amp;ить страницу как EPS...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1205"/>
+        <location filename="../actionmanager.cpp" line="1218"/>
         <source>Save as P&amp;DF...</source>
         <translation>Сохр&amp;анить как PDF...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1206"/>
+        <location filename="../actionmanager.cpp" line="1219"/>
         <source>Document &amp;Setup...</source>
         <translation>Параметры до&amp;кумента...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1208"/>
+        <location filename="../actionmanager.cpp" line="1221"/>
         <source>&amp;Print...</source>
         <translation>На&amp;печатать...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1210"/>
+        <location filename="../actionmanager.cpp" line="1223"/>
         <source>&amp;Quit</source>
         <translation>В&amp;ыход</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1212"/>
+        <location filename="../actionmanager.cpp" line="1225"/>
         <source>&amp;Undo</source>
         <translation>&amp;Отменить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1213"/>
+        <location filename="../actionmanager.cpp" line="1226"/>
         <source>&amp;Redo</source>
         <translation>Пов&amp;торить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1214"/>
+        <location filename="../actionmanager.cpp" line="1227"/>
         <source>&amp;Item Action Mode</source>
         <translation>&amp;Действия только с текущим объектом</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1215"/>
+        <location filename="../actionmanager.cpp" line="1228"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Вырезать</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1218"/>
+        <location filename="../actionmanager.cpp" line="1231"/>
         <source>&amp;Copy</source>
         <translation>С&amp;копировать</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1219"/>
+        <location filename="../actionmanager.cpp" line="1232"/>
         <source>&amp;Paste</source>
         <translation>Вст&amp;авить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1222"/>
+        <location filename="../actionmanager.cpp" line="1235"/>
         <source>Select &amp;All</source>
         <translation>Выделить в&amp;сё</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1223"/>
+        <location filename="../actionmanager.cpp" line="1236"/>
         <source>&amp;Deselect All</source>
         <translation>Снять в&amp;ыделение</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1224"/>
+        <location filename="../actionmanager.cpp" line="1237"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Найти/Заменить...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1225"/>
+        <location filename="../actionmanager.cpp" line="1238"/>
         <source>Edit Image...</source>
         <translation>Изменить изображение...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1227"/>
+        <location filename="../actionmanager.cpp" line="1240"/>
         <source>C&amp;olors...</source>
         <translation>Ц&amp;вета...</translation>
     </message>
@@ -2511,317 +2488,317 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Стили &amp;линий...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1230"/>
+        <location filename="../actionmanager.cpp" line="1243"/>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Мастер-страницы...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1207"/>
+        <location filename="../actionmanager.cpp" line="1220"/>
         <source>P&amp;references...</source>
         <translation>&amp;Настроить Scribus...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1238"/>
+        <location filename="../actionmanager.cpp" line="1251"/>
         <source>%1 pt</source>
         <translation>%1 pt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1253"/>
+        <location filename="../actionmanager.cpp" line="1266"/>
         <source>&amp;Other...</source>
         <translation>Друг&amp;ое...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1241"/>
+        <location filename="../actionmanager.cpp" line="1254"/>
         <source>&amp;Left</source>
         <translation>В&amp;лево</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1242"/>
+        <location filename="../actionmanager.cpp" line="1255"/>
         <source>&amp;Center</source>
         <translation>По &amp;центру</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1243"/>
+        <location filename="../actionmanager.cpp" line="1256"/>
         <source>&amp;Right</source>
         <translation>&amp;Вправо</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1244"/>
+        <location filename="../actionmanager.cpp" line="1257"/>
         <source>&amp;Block</source>
         <translation>По &amp;ширине</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1245"/>
+        <location filename="../actionmanager.cpp" line="1258"/>
         <source>&amp;Forced</source>
         <translation>&amp;Принудительно</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1250"/>
+        <location filename="../actionmanager.cpp" line="1263"/>
         <source>&amp;%1 %</source>
         <translation>&amp;%1 %</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1254"/>
+        <location filename="../actionmanager.cpp" line="1267"/>
         <source>&amp;Normal</source>
         <translation>&amp;Обычный</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1255"/>
+        <location filename="../actionmanager.cpp" line="1268"/>
         <source>&amp;Underline</source>
         <translation>&amp;Подчёркнутый</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1256"/>
+        <location filename="../actionmanager.cpp" line="1269"/>
         <source>Underline &amp;Words</source>
         <translation>Подчеркнуть &amp;слова</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1257"/>
+        <location filename="../actionmanager.cpp" line="1270"/>
         <source>&amp;Strike Through</source>
         <translation>В&amp;ычеркнутый</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1258"/>
+        <location filename="../actionmanager.cpp" line="1271"/>
         <source>&amp;All Caps</source>
         <translation>Все ка&amp;пителью</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1259"/>
+        <location filename="../actionmanager.cpp" line="1272"/>
         <source>Small &amp;Caps</source>
         <translation>&amp;Капитель</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1260"/>
+        <location filename="../actionmanager.cpp" line="1273"/>
         <source>Su&amp;perscript</source>
         <translation>&amp;Верхний индекс</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1261"/>
+        <location filename="../actionmanager.cpp" line="1274"/>
         <source>Su&amp;bscript</source>
         <translation>&amp;Нижний индекс</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1263"/>
+        <location filename="../actionmanager.cpp" line="1276"/>
         <source>S&amp;hadow</source>
         <translation>&amp;Тень</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1265"/>
+        <location filename="../actionmanager.cpp" line="1278"/>
         <source>&amp;Image Effects</source>
         <translation>&amp;Эффекты изображения</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1266"/>
+        <location filename="../actionmanager.cpp" line="1279"/>
         <source>&amp;Tabulators...</source>
         <translation>Т&amp;абуляторы...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1269"/>
+        <location filename="../actionmanager.cpp" line="1282"/>
         <source>D&amp;uplicate</source>
         <translation>Проду&amp;блировать</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1270"/>
+        <location filename="../actionmanager.cpp" line="1283"/>
         <source>&amp;Multiple Duplicate</source>
         <translation>Продублировать &amp;многократно</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1271"/>
+        <location filename="../actionmanager.cpp" line="1284"/>
         <source>&amp;Delete</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1272"/>
+        <location filename="../actionmanager.cpp" line="1285"/>
         <source>&amp;Group</source>
         <translation>С&amp;группировать</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1273"/>
+        <location filename="../actionmanager.cpp" line="1286"/>
         <source>&amp;Ungroup</source>
         <translation>&amp;Разгруппировать</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1274"/>
+        <location filename="../actionmanager.cpp" line="1287"/>
         <source>Is &amp;Locked</source>
         <translation>За&amp;блокирован</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1275"/>
+        <location filename="../actionmanager.cpp" line="1288"/>
         <source>Si&amp;ze is Locked</source>
         <translation>&amp;Размер заблокирован</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1279"/>
+        <location filename="../actionmanager.cpp" line="1292"/>
         <source>Lower to &amp;Bottom</source>
         <translation>В самый &amp;низ</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1280"/>
+        <location filename="../actionmanager.cpp" line="1293"/>
         <source>Raise to &amp;Top</source>
         <translation>На самый &amp;верх</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1281"/>
+        <location filename="../actionmanager.cpp" line="1294"/>
         <source>&amp;Lower</source>
         <translation>Сделать уровнем н&amp;иже</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1282"/>
+        <location filename="../actionmanager.cpp" line="1295"/>
         <source>&amp;Raise</source>
         <translation>Сделать уровнем в&amp;ыше</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1283"/>
+        <location filename="../actionmanager.cpp" line="1296"/>
         <source>Send to S&amp;crapbook</source>
         <translation>Передать в &amp;альбом</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1285"/>
+        <location filename="../actionmanager.cpp" line="1298"/>
         <source>&amp;Attributes...</source>
         <translation>&amp;Атрибуты...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1287"/>
+        <location filename="../actionmanager.cpp" line="1300"/>
         <source>I&amp;mage Visible</source>
         <translation>Изображение &amp;видимо</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1288"/>
+        <location filename="../actionmanager.cpp" line="1301"/>
         <source>&amp;Update Image</source>
         <translation>&amp;Обновить изображение</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1289"/>
+        <location filename="../actionmanager.cpp" line="1302"/>
         <source>Adjust Frame to Image</source>
         <translation>Блок до размеров изображения</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1290"/>
+        <location filename="../actionmanager.cpp" line="1303"/>
         <source>Extended Image Properties</source>
         <translation>Расширенные свойства изображения</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1291"/>
+        <location filename="../actionmanager.cpp" line="1304"/>
         <source>&amp;Low Resolution</source>
         <translation>&amp;Низкое разрешение</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1292"/>
+        <location filename="../actionmanager.cpp" line="1305"/>
         <source>&amp;Normal Resolution</source>
         <translation>&amp;Высокое разрешение</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1293"/>
+        <location filename="../actionmanager.cpp" line="1306"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Полное разрешение</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1294"/>
+        <location filename="../actionmanager.cpp" line="1307"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>Является PDF-&amp;закладкой</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1295"/>
+        <location filename="../actionmanager.cpp" line="1308"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>Является PDF-&amp;аннотацией</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1296"/>
+        <location filename="../actionmanager.cpp" line="1309"/>
         <source>Annotation P&amp;roperties</source>
         <translation>Свойства а&amp;ннотации</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1297"/>
+        <location filename="../actionmanager.cpp" line="1310"/>
         <source>Field P&amp;roperties</source>
         <translation>Свойства по&amp;ля</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1298"/>
+        <location filename="../actionmanager.cpp" line="1311"/>
         <source>&amp;Edit Shape...</source>
         <translation>Изменить &amp;очертания...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1299"/>
+        <location filename="../actionmanager.cpp" line="1312"/>
         <source>&amp;Attach Text to Path</source>
         <translation>Направить &amp;текст по контуру</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1300"/>
+        <location filename="../actionmanager.cpp" line="1313"/>
         <source>&amp;Detach Text from Path</source>
         <translation>Сн&amp;ять текст с контура</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1301"/>
+        <location filename="../actionmanager.cpp" line="1314"/>
         <source>&amp;Combine Polygons</source>
         <translation>Объединить &amp;многоугольники</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1302"/>
+        <location filename="../actionmanager.cpp" line="1315"/>
         <source>Split &amp;Polygons</source>
         <translation>Разде&amp;лить многоугольники</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1375"/>
+        <location filename="../actionmanager.cpp" line="1316"/>
         <source>&amp;Bezier Curve</source>
         <translation>Кривая &amp;Безье</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1369"/>
+        <location filename="../actionmanager.cpp" line="1317"/>
         <source>&amp;Image Frame</source>
         <translation>&amp;Изображение</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1373"/>
+        <location filename="../actionmanager.cpp" line="1319"/>
         <source>&amp;Polygon</source>
         <translation>&amp;Многоугольник</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1368"/>
+        <location filename="../actionmanager.cpp" line="1320"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Текстовый блок</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1311"/>
+        <location filename="../actionmanager.cpp" line="1324"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Символ...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1312"/>
+        <location filename="../actionmanager.cpp" line="1325"/>
         <source>Sample Text</source>
         <translation>Шаблонный текст</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1316"/>
+        <location filename="../actionmanager.cpp" line="1329"/>
         <source>&amp;Insert...</source>
         <translation>&amp;Вставить...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1317"/>
+        <location filename="../actionmanager.cpp" line="1330"/>
         <source>Im&amp;port...</source>
         <translation>&amp;Импортировать...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1318"/>
+        <location filename="../actionmanager.cpp" line="1331"/>
         <source>&amp;Delete...</source>
         <translation>&amp;Удалить...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1319"/>
+        <location filename="../actionmanager.cpp" line="1332"/>
         <source>&amp;Copy...</source>
         <translation>С&amp;копировать...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1320"/>
+        <location filename="../actionmanager.cpp" line="1333"/>
         <source>&amp;Move...</source>
         <translation>&amp;Переместить...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1321"/>
+        <location filename="../actionmanager.cpp" line="1334"/>
         <source>&amp;Apply Master Page...</source>
         <translation>Применить &amp;мастер-страницу...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1323"/>
+        <location filename="../actionmanager.cpp" line="1336"/>
         <source>Manage &amp;Guides...</source>
         <translation>&amp;Управление направляющими...</translation>
     </message>
@@ -2831,22 +2808,22 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">&amp;Уместить в окне</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1329"/>
+        <location filename="../actionmanager.cpp" line="1342"/>
         <source>&amp;50%</source>
         <translation>&amp;50&amp;</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1330"/>
+        <location filename="../actionmanager.cpp" line="1343"/>
         <source>&amp;75%</source>
         <translation>&amp;75&amp;</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1331"/>
+        <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;100%</source>
         <translation>&amp;100&amp;</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1332"/>
+        <location filename="../actionmanager.cpp" line="1345"/>
         <source>&amp;200%</source>
         <translation>&amp;200&amp;</translation>
     </message>
@@ -2856,332 +2833,332 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">&amp;Миниатюры</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1335"/>
+        <location filename="../actionmanager.cpp" line="1348"/>
         <source>Show &amp;Margins</source>
         <translation>Показывать &amp;поля</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1337"/>
+        <location filename="../actionmanager.cpp" line="1350"/>
         <source>Show &amp;Frames</source>
         <translation>Показывать &amp;обрамление</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1339"/>
+        <location filename="../actionmanager.cpp" line="1352"/>
         <source>Show &amp;Images</source>
         <translation>Показывать &amp;изображения</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1340"/>
+        <location filename="../actionmanager.cpp" line="1353"/>
         <source>Show &amp;Grid</source>
         <translation>Показывать &amp;сетку</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1341"/>
+        <location filename="../actionmanager.cpp" line="1354"/>
         <source>Show G&amp;uides</source>
         <translation>Показывать &amp;направляющие</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1343"/>
+        <location filename="../actionmanager.cpp" line="1356"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>Показывать &amp;базовые линии</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1344"/>
+        <location filename="../actionmanager.cpp" line="1357"/>
         <source>Show &amp;Text Chain</source>
         <translation>Показывать связь между &amp;блоками</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1345"/>
+        <location filename="../actionmanager.cpp" line="1358"/>
         <source>Show Control Characters</source>
         <translation>Показывать непечатаемые символы</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1348"/>
+        <location filename="../actionmanager.cpp" line="1361"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>Прилипание к &amp;сетке</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1349"/>
+        <location filename="../actionmanager.cpp" line="1362"/>
         <source>Sna&amp;p to Guides</source>
         <translation>Прилипание к н&amp;аправляющим</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1353"/>
+        <location filename="../actionmanager.cpp" line="1366"/>
         <source>&amp;Properties</source>
         <translation>&amp;Свойства</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1355"/>
+        <location filename="../actionmanager.cpp" line="1368"/>
         <source>&amp;Scrapbook</source>
         <translation>&amp;Альбом</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1356"/>
+        <location filename="../actionmanager.cpp" line="1369"/>
         <source>&amp;Layers</source>
         <translation>С&amp;лои</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1358"/>
+        <location filename="../actionmanager.cpp" line="1371"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Закладки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1359"/>
+        <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Измерения</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1360"/>
+        <location filename="../actionmanager.cpp" line="1373"/>
         <source>Action &amp;History</source>
         <translation>История &amp;действий</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1361"/>
+        <location filename="../actionmanager.cpp" line="1374"/>
         <source>Preflight &amp;Verifier</source>
         <translation>&amp;Валидатор</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1362"/>
+        <location filename="../actionmanager.cpp" line="1375"/>
         <source>&amp;Align and Distribute</source>
         <translation>В&amp;ыравнивание и распределение</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1363"/>
+        <location filename="../actionmanager.cpp" line="1376"/>
         <source>&amp;Tools</source>
         <translation>С&amp;ервис</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1364"/>
+        <location filename="../actionmanager.cpp" line="1377"/>
         <source>P&amp;DF Tools</source>
         <translation>PDF-&amp;инструменты</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1367"/>
+        <location filename="../actionmanager.cpp" line="1380"/>
         <source>Select Item</source>
         <translation>Выбрать объект</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1371"/>
         <source>T&amp;able</source>
-        <translation>&amp;Таблица</translation>
+        <translation type="obsolete">&amp;Таблица</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;Shape</source>
-        <translation>&amp;Фигура</translation>
+        <translation type="obsolete">&amp;Фигура</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1374"/>
         <source>&amp;Line</source>
-        <translation>&amp;Линия</translation>
+        <translation type="obsolete">&amp;Линия</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1376"/>
         <source>&amp;Freehand Line</source>
-        <translation>Линия &amp;от руки</translation>
+        <translation type="obsolete">Линия &amp;от руки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1377"/>
+        <location filename="../actionmanager.cpp" line="1381"/>
         <source>Rotate Item</source>
         <translation>Повернуть объект</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1378"/>
+        <location filename="../actionmanager.cpp" line="1382"/>
         <source>Zoom in or out</source>
         <translation>Изменить масштаб</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1379"/>
+        <location filename="../actionmanager.cpp" line="1383"/>
         <source>Zoom in</source>
         <translation>Приблизить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1380"/>
+        <location filename="../actionmanager.cpp" line="1384"/>
         <source>Zoom out</source>
         <translation>Отдалить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1381"/>
+        <location filename="../actionmanager.cpp" line="1385"/>
         <source>Edit Contents of Frame</source>
         <translation>Изменить содержимое блока</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1382"/>
+        <location filename="../actionmanager.cpp" line="1386"/>
         <source>Edit Text...</source>
         <translation>Изменить текст...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1383"/>
+        <location filename="../actionmanager.cpp" line="1387"/>
         <source>Link Text Frames</source>
         <translation>Связать текстовые блоки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1384"/>
+        <location filename="../actionmanager.cpp" line="1388"/>
         <source>Unlink Text Frames</source>
         <translation>Разорвать связь тестовых блоков</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1385"/>
+        <location filename="../actionmanager.cpp" line="1389"/>
         <source>&amp;Eye Dropper</source>
         <translation>&amp;Пипетка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1386"/>
+        <location filename="../actionmanager.cpp" line="1390"/>
         <source>Copy Item Properties</source>
         <translation>Скопировать свойства объекта</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1388"/>
         <source>Edit the text with the Story Editor</source>
-        <translation>Изменить текст в Story Editor</translation>
+        <translation type="obsolete">Изменить текст в Story Editor</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1390"/>
         <source>Insert Text Frame</source>
-        <translation>Добавить тестовый блок</translation>
+        <translation type="obsolete">Добавить тестовый блок</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1391"/>
         <source>Insert Image Frame</source>
-        <translation>Добавить изображение</translation>
+        <translation type="obsolete">Добавить изображение</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1393"/>
         <source>Insert Table</source>
-        <translation>Добавить таблицу</translation>
+        <translation type="obsolete">Добавить таблицу</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1394"/>
         <source>Insert Shape</source>
-        <translation>Добавить фигуру</translation>
+        <translation type="obsolete">Добавить фигуру</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1395"/>
         <source>Insert Polygon</source>
-        <translation>Добавить многоугольник</translation>
+        <translation type="obsolete">Добавить многоугольник</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1396"/>
         <source>Insert Line</source>
-        <translation>Добавить линию</translation>
+        <translation type="obsolete">Добавить линию</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1397"/>
         <source>Insert Bezier Curve</source>
-        <translation>Добавить кривую Безье</translation>
+        <translation type="obsolete">Добавить кривую Безье</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1398"/>
         <source>Insert Freehand Line</source>
-        <translation>Добавить линию от руки</translation>
+        <translation type="obsolete">Добавить линию от руки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1410"/>
+        <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Manage Pictures</source>
         <translation>Управление &amp;изображениями</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1411"/>
+        <location filename="../actionmanager.cpp" line="1413"/>
         <source>&amp;Hyphenate Text</source>
         <translation>Вставить &amp;переносы</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1413"/>
+        <location filename="../actionmanager.cpp" line="1415"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation>До&amp;бавить указатель оглавления</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1420"/>
+        <location filename="../actionmanager.cpp" line="1422"/>
         <source>&amp;About Scribus</source>
         <translation>О &amp;Scribus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1422"/>
+        <location filename="../actionmanager.cpp" line="1424"/>
         <source>About &amp;Qt</source>
         <translation>О &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1423"/>
+        <location filename="../actionmanager.cpp" line="1425"/>
         <source>Toolti&amp;ps</source>
         <translation>&amp;Подсказки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1424"/>
+        <location filename="../actionmanager.cpp" line="1426"/>
         <source>Scribus &amp;Manual...</source>
         <translation>Ру&amp;ководство по Scribus...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1436"/>
+        <location filename="../actionmanager.cpp" line="1443"/>
         <source>Smart &amp;Hyphen</source>
         <translation>&amp;Умные переносы</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1437"/>
+        <location filename="../actionmanager.cpp" line="1444"/>
         <source>Non Breaking Dash</source>
         <translation>Неразрывный дефис</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1438"/>
+        <location filename="../actionmanager.cpp" line="1445"/>
         <source>Non Breaking &amp;Space</source>
         <translation>&amp;Неразрывный пробел</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1439"/>
+        <location filename="../actionmanager.cpp" line="1446"/>
         <source>Page &amp;Number</source>
         <translation>&amp;Номер страницы</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1486"/>
+        <location filename="../actionmanager.cpp" line="1447"/>
         <source>New Line</source>
         <translation>Разрыв строки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1487"/>
+        <location filename="../actionmanager.cpp" line="1448"/>
         <source>Frame Break</source>
         <translation>Разрыв блока</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1488"/>
+        <location filename="../actionmanager.cpp" line="1449"/>
         <source>Column Break</source>
         <translation>Разрыв столбца</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1445"/>
+        <location filename="../actionmanager.cpp" line="1452"/>
         <source>Copyright</source>
         <translation>Копирайт</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1446"/>
+        <location filename="../actionmanager.cpp" line="1453"/>
         <source>Registered Trademark</source>
         <translation>Зарегистрированная торговая марка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1447"/>
+        <location filename="../actionmanager.cpp" line="1454"/>
         <source>Trademark</source>
         <translation>Торговая марка</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1449"/>
+        <location filename="../actionmanager.cpp" line="1456"/>
         <source>Bullet</source>
         <translation>Маркер списка (буллит)</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1451"/>
+        <location filename="../actionmanager.cpp" line="1458"/>
         <source>Em Dash</source>
         <translation>Тире на круглую шпацию</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1452"/>
+        <location filename="../actionmanager.cpp" line="1459"/>
         <source>En Dash</source>
         <translation>Тире на полукруглую шпацию</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1453"/>
+        <location filename="../actionmanager.cpp" line="1460"/>
         <source>Figure Dash</source>
         <translation>Математическое тире</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1454"/>
+        <location filename="../actionmanager.cpp" line="1461"/>
         <source>Quotation Dash</source>
         <translation>Цитатное тире</translation>
     </message>
@@ -3276,72 +3253,72 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Азиатская закрывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1427"/>
+        <location filename="../actionmanager.cpp" line="1433"/>
         <source>Toggle Palettes</source>
         <translation>Переключить отображение палитр</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1428"/>
+        <location filename="../actionmanager.cpp" line="1434"/>
         <source>Toggle Guides</source>
         <translation>Переключить отображение направляющих</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1357"/>
+        <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;Arrange Pages</source>
         <translation>&amp;Палитра страниц</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1412"/>
+        <location filename="../actionmanager.cpp" line="1414"/>
         <source>Dehyphenate Text</source>
         <translation>Убрать переносы из текста</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1324"/>
+        <location filename="../actionmanager.cpp" line="1337"/>
         <source>Manage Page Properties...</source>
         <translation>Свойства страницы...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1347"/>
+        <location filename="../actionmanager.cpp" line="1360"/>
         <source>Rulers relative to Page</source>
         <translation>Линейки относительно страницы</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1209"/>
+        <location filename="../actionmanager.cpp" line="1222"/>
         <source>Print Previe&amp;w</source>
         <translation>Просмотреть пе&amp;чать</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1231"/>
+        <location filename="../actionmanager.cpp" line="1244"/>
         <source>&amp;JavaScripts...</source>
         <translation>&amp;JavaScripts...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1322"/>
+        <location filename="../actionmanager.cpp" line="1335"/>
         <source>Convert to Master Page...</source>
         <translation>Преобразовать в мастер-страницу...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1416"/>
+        <location filename="../actionmanager.cpp" line="1418"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Каскадом</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1417"/>
+        <location filename="../actionmanager.cpp" line="1419"/>
         <source>&amp;Tile</source>
         <translation>&amp;Мозаикой</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1421"/>
+        <location filename="../actionmanager.cpp" line="1423"/>
         <source>&amp;About Plug-ins</source>
         <translation>О &amp;модулях</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1286"/>
+        <location filename="../actionmanager.cpp" line="1299"/>
         <source>More Info...</source>
         <translation>Подробнее...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1354"/>
+        <location filename="../actionmanager.cpp" line="1367"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Схема документа</translation>
@@ -3349,372 +3326,437 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
     <message>
         <location filename="../actionmanager.cpp" line="1482"/>
         <source>Insert Smart Hyphen</source>
-        <translation>Вставить мягкий перенос</translation>
+        <translation type="obsolete">Вставить мягкий перенос</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1483"/>
         <source>Insert Non Breaking Dash</source>
-        <translation>Вставить неразрывный дефис</translation>
+        <translation type="obsolete">Вставить неразрывный дефис</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1484"/>
         <source>Insert Non Breaking Space</source>
-        <translation>Вставить неразрывный пробел</translation>
+        <translation type="obsolete">Вставить неразрывный пробел</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1485"/>
         <source>Insert Page Number</source>
-        <translation>Вставить номер страницы</translation>
+        <translation type="obsolete">Вставить номер страницы</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1492"/>
+        <location filename="../actionmanager.cpp" line="1499"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1493"/>
+        <location filename="../actionmanager.cpp" line="1500"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1494"/>
+        <location filename="../actionmanager.cpp" line="1501"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1495"/>
+        <location filename="../actionmanager.cpp" line="1502"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1496"/>
+        <location filename="../actionmanager.cpp" line="1503"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1497"/>
+        <location filename="../actionmanager.cpp" line="1504"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1498"/>
+        <location filename="../actionmanager.cpp" line="1505"/>
         <source>st</source>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1346"/>
+        <location filename="../actionmanager.cpp" line="1359"/>
         <source>Show Rulers</source>
         <translation>Показывать линейки</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1229"/>
+        <location filename="../actionmanager.cpp" line="1242"/>
         <source>S&amp;tyles...</source>
         <translation>С&amp;тили...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1262"/>
+        <location filename="../actionmanager.cpp" line="1275"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>&amp;Контур</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1276"/>
+        <location filename="../actionmanager.cpp" line="1289"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Печать включена</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1277"/>
+        <location filename="../actionmanager.cpp" line="1290"/>
         <source>&amp;Flip Horizontally</source>
         <translation>Переворот по &amp;горизонтали</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1278"/>
+        <location filename="../actionmanager.cpp" line="1291"/>
         <source>&amp;Flip Vertically</source>
         <translation>Переворот по &amp;вертикали</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1305"/>
+        <location filename="../actionmanager.cpp" line="1318"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Контуры</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1448"/>
+        <location filename="../actionmanager.cpp" line="1455"/>
         <source>Solidus</source>
         <translation>Косая черта</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1450"/>
+        <location filename="../actionmanager.cpp" line="1457"/>
         <source>Middle Dot</source>
         <translation>Точка в середине</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1475"/>
+        <location filename="../actionmanager.cpp" line="1482"/>
         <source>En Space</source>
         <translation>Полукруглая шпация</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1476"/>
+        <location filename="../actionmanager.cpp" line="1483"/>
         <source>Em Space</source>
         <translation>Круглая шпация</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1477"/>
+        <location filename="../actionmanager.cpp" line="1484"/>
         <source>Thin Space</source>
         <translation>Тонкая шпация</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1478"/>
+        <location filename="../actionmanager.cpp" line="1485"/>
         <source>Thick Space</source>
         <translation>Третная шпация</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1479"/>
+        <location filename="../actionmanager.cpp" line="1486"/>
         <source>Mid Space</source>
         <translation>Четверная шпация</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1480"/>
+        <location filename="../actionmanager.cpp" line="1487"/>
         <source>Hair Space</source>
         <translation>Волосная шпация</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1220"/>
+        <location filename="../actionmanager.cpp" line="1233"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Вставить содержимое блока в &amp;исходную позицию</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1221"/>
+        <location filename="../actionmanager.cpp" line="1234"/>
         <source>C&amp;lear</source>
         <translation>О&amp;чистить</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1342"/>
+        <location filename="../actionmanager.cpp" line="1355"/>
         <source>Show Text Frame Columns</source>
         <translation>Показать границы столбцов</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1204"/>
+        <location filename="../actionmanager.cpp" line="1217"/>
         <source>Save as &amp;EPS...</source>
         <translation>Сохран&amp;ить как EPS...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1228"/>
+        <location filename="../actionmanager.cpp" line="1241"/>
         <source>Patterns...</source>
         <translation>Текстуры...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1284"/>
+        <location filename="../actionmanager.cpp" line="1297"/>
         <source>Send to Patterns</source>
         <translation>Передать в текстуры</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1310"/>
+        <location filename="../actionmanager.cpp" line="1323"/>
         <source>&amp;Frame...</source>
         <translation>&amp;Блок...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1313"/>
+        <location filename="../actionmanager.cpp" line="1326"/>
         <source>Sticky Tools</source>
         <translation>Липкие инструменты</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1327"/>
+        <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Fit to Height</source>
         <translation>Уместить по &amp;высоте</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1328"/>
+        <location filename="../actionmanager.cpp" line="1341"/>
         <source>Fit to Width</source>
         <translation>Уместить по ширине</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1334"/>
+        <location filename="../actionmanager.cpp" line="1347"/>
         <source>Preview Mode</source>
         <translation>Режим предпросмотра</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1336"/>
+        <location filename="../actionmanager.cpp" line="1349"/>
         <source>Show Bleeds</source>
         <translation>Показывать выпуск под обрез</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1338"/>
+        <location filename="../actionmanager.cpp" line="1351"/>
         <source>Show Layer Indicators</source>
         <translation>Показывать индикаторы слоёв</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1400"/>
+        <location filename="../actionmanager.cpp" line="1402"/>
         <source>Insert PDF Push Button</source>
         <translation>Вставить кнопку PDF Push</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1401"/>
+        <location filename="../actionmanager.cpp" line="1403"/>
         <source>Insert PDF Text Field</source>
         <translation>Вставить поле PDF Text</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1402"/>
+        <location filename="../actionmanager.cpp" line="1404"/>
         <source>Insert PDF Check Box</source>
         <translation>Вставить PDF Check Box</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1403"/>
+        <location filename="../actionmanager.cpp" line="1405"/>
         <source>Insert PDF Combo Box</source>
         <translation>Вставить PDF Combo Box</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1404"/>
+        <location filename="../actionmanager.cpp" line="1406"/>
         <source>Insert PDF List Box</source>
         <translation>Вставить PDF List Box</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1405"/>
+        <location filename="../actionmanager.cpp" line="1407"/>
         <source>Insert Text Annotation</source>
         <translation>Вставить текстовую аннотацию</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1406"/>
+        <location filename="../actionmanager.cpp" line="1408"/>
         <source>Insert Link Annotation</source>
         <translation>Вставить ссылочную аннотацию</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1489"/>
+        <location filename="../actionmanager.cpp" line="1450"/>
         <source>&amp;Zero Width Space</source>
         <translation>&amp;Нулевой пробел</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1490"/>
+        <location filename="../actionmanager.cpp" line="1451"/>
         <source>Zero Width NB Space</source>
         <translation>Нулевой неразрывный пробел</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1456"/>
+        <location filename="../actionmanager.cpp" line="1463"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation>Апостроф</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1457"/>
+        <location filename="../actionmanager.cpp" line="1464"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation>Двойной апостроф</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1458"/>
+        <location filename="../actionmanager.cpp" line="1465"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation>Открывающая одиночная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1459"/>
+        <location filename="../actionmanager.cpp" line="1466"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation>Закрывающая одиночная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1460"/>
+        <location filename="../actionmanager.cpp" line="1467"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation>Немецкая закрывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1461"/>
+        <location filename="../actionmanager.cpp" line="1468"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation>Закрывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1462"/>
+        <location filename="../actionmanager.cpp" line="1469"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation>Перевёрнутая одиночная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1463"/>
+        <location filename="../actionmanager.cpp" line="1470"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation>Перевёрнутая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1464"/>
+        <location filename="../actionmanager.cpp" line="1471"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation>Французская открывающая одиночная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1465"/>
+        <location filename="../actionmanager.cpp" line="1472"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation>Французская закрывающая одиночная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1466"/>
+        <location filename="../actionmanager.cpp" line="1473"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation>Французская открывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1467"/>
+        <location filename="../actionmanager.cpp" line="1474"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation>Французская закрывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1468"/>
+        <location filename="../actionmanager.cpp" line="1475"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation>Нижняя одиночная запятая</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1469"/>
+        <location filename="../actionmanager.cpp" line="1476"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation>Немецкая открывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1470"/>
+        <location filename="../actionmanager.cpp" line="1477"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation>Азиатская открывающая одиночная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1471"/>
+        <location filename="../actionmanager.cpp" line="1478"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation>Азиатская закрывающая одиночная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1472"/>
+        <location filename="../actionmanager.cpp" line="1479"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation>Азиатская открывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1473"/>
+        <location filename="../actionmanager.cpp" line="1480"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation>Азиатская закрывающая двойная</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1333"/>
+        <location filename="../actionmanager.cpp" line="1346"/>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1226"/>
+        <location filename="../actionmanager.cpp" line="1239"/>
         <source>Edit Latex Source...</source>
         <translation>Изменить исходный код LaTeX...</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;Latex Frame</source>
-        <translation>&amp;Блок LaTeX</translation>
+        <translation type="obsolete">&amp;Блок LaTeX</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1392"/>
         <source>Insert Latex Frame</source>
-        <translation>Вставить блок LaTeX</translation>
+        <translation type="obsolete">Вставить блок LaTeX</translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1392"/>
+        <source>Insert &amp;Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1393"/>
+        <source>Insert &amp;Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1394"/>
+        <source>Insert &amp;Latex Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1395"/>
+        <source>Insert T&amp;able</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1396"/>
+        <source>Insert &amp;Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1397"/>
+        <source>Insert &amp;Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1398"/>
+        <source>Insert &amp;Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1399"/>
+        <source>Insert &amp;Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1400"/>
+        <source>Insert &amp;Freehand Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1427"/>
+        <source>Scribus Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1428"/>
+        <source>Scribus Online Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1429"/>
+        <source>Scribus Wiki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1430"/>
+        <source>Getting Started with Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3791,42 +3833,42 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../aligndistribute.cpp" line="81"/>
+        <location filename="../aligndistribute.cpp" line="79"/>
         <source>Align and Distribute</source>
         <translation>Выравнивание и распределение</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="82"/>
+        <location filename="../aligndistribute.cpp" line="80"/>
         <source>Align</source>
         <translation>Выравнивание</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="84"/>
+        <location filename="../aligndistribute.cpp" line="82"/>
         <source>&amp;Relative to:</source>
         <translation>&amp;Относительно:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="87"/>
+        <location filename="../aligndistribute.cpp" line="85"/>
         <source>First Selected</source>
         <translation>Первого выделенного</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="88"/>
+        <location filename="../aligndistribute.cpp" line="86"/>
         <source>Last Selected</source>
         <translation>Последнего выделенного</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="89"/>
+        <location filename="../aligndistribute.cpp" line="87"/>
         <source>Page</source>
         <translation>Страницы</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="90"/>
+        <location filename="../aligndistribute.cpp" line="88"/>
         <source>Margins</source>
         <translation>Полей</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="92"/>
+        <location filename="../aligndistribute.cpp" line="90"/>
         <source>Selection</source>
         <translation>Выделенного</translation>
     </message>
@@ -3841,12 +3883,12 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Выровнять левые края объектов по правой стороне опорной точки</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="100"/>
+        <location filename="../aligndistribute.cpp" line="98"/>
         <source>Align bottoms</source>
         <translation>Выровнять по нижним краям</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="102"/>
+        <location filename="../aligndistribute.cpp" line="100"/>
         <source>Align right sides</source>
         <translation>Выровнять по правым краям</translation>
     </message>
@@ -3856,17 +3898,17 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Выровнять верхние края объектов по нижнему краю опорной точки</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="106"/>
+        <location filename="../aligndistribute.cpp" line="104"/>
         <source>Center on vertical axis</source>
         <translation>Центрировать по вертикальной оси</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="108"/>
+        <location filename="../aligndistribute.cpp" line="106"/>
         <source>Align left sides</source>
         <translation>Выровнять по левым краям</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="110"/>
+        <location filename="../aligndistribute.cpp" line="108"/>
         <source>Center on horizontal axis</source>
         <translation>Центрировать по горизонтальной оси</translation>
     </message>
@@ -3876,12 +3918,12 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Выровнять нижние края объектов по верхнему краю опорной точки</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="114"/>
+        <location filename="../aligndistribute.cpp" line="112"/>
         <source>Align tops</source>
         <translation>Выровнять по верхним краям</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="83"/>
+        <location filename="../aligndistribute.cpp" line="81"/>
         <source>Distribute</source>
         <translation>Распределение</translation>
     </message>
@@ -3896,17 +3938,17 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Сделать горизонтальные интервалы между объектами равными указанному значению</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="124"/>
+        <location filename="../aligndistribute.cpp" line="122"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Равноудалённо расставить правые края объектов</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="126"/>
+        <location filename="../aligndistribute.cpp" line="124"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Равноудалённо расставить нижние края объектов</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="128"/>
+        <location filename="../aligndistribute.cpp" line="126"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Равноудалённо расставить центры объектов по горизонтали</translation>
     </message>
@@ -3921,27 +3963,27 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Сделать вертикальные интервалы между объектами равными указанному значению</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="134"/>
+        <location filename="../aligndistribute.cpp" line="132"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Равноудалённо расставить левые края объектов</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="136"/>
+        <location filename="../aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Равноудалённо расставить центры объектов по вертикали</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="138"/>
+        <location filename="../aligndistribute.cpp" line="136"/>
         <source>Distribute tops equidistantly</source>
         <translation>Равноудалённо расставить верхние края объектов</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="148"/>
+        <location filename="../aligndistribute.cpp" line="146"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Расстояние:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="149"/>
+        <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Распределить по указанному расстоянию</translation>
     </message>
@@ -3956,87 +3998,87 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">&amp;Разблокировать все</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="91"/>
+        <location filename="../aligndistribute.cpp" line="89"/>
         <source>Guide</source>
         <translation>Направляющей</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="116"/>
+        <location filename="../aligndistribute.cpp" line="114"/>
         <source>&amp;Selected Guide:</source>
         <translation>&amp;Направляющая:</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="151"/>
+        <location filename="../aligndistribute.cpp" line="149"/>
         <source>None Selected</source>
         <translation>Ничего не выбрано</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="431"/>
+        <location filename="../aligndistribute.cpp" line="429"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="439"/>
+        <location filename="../aligndistribute.cpp" line="437"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="96"/>
+        <location filename="../aligndistribute.cpp" line="94"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation>Выровнять правые края объектов по левому краю опорной точки</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="98"/>
+        <location filename="../aligndistribute.cpp" line="96"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation>Выровнять левые края объектов по правому краю опорной точки</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="104"/>
+        <location filename="../aligndistribute.cpp" line="102"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation>Выровнять верхние края объектов по нижнему краю опорной точки</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="112"/>
+        <location filename="../aligndistribute.cpp" line="110"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation>Выровнять нижние края объектов по верхнему краю опорной точки</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="119"/>
+        <location filename="../aligndistribute.cpp" line="117"/>
         <source>Make horizontal gaps between items equal</source>
         <translation>Сделать горизонтальные интервалы между объектами одинаковыми</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="121"/>
+        <location filename="../aligndistribute.cpp" line="119"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation>Сделать горизонтальные интервалы между объектами равными указанному значению</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="130"/>
+        <location filename="../aligndistribute.cpp" line="128"/>
         <source>Make vertical gaps between items equal</source>
         <translation>Сделать вертикальные интервалы между объектами одинаковыми</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="132"/>
+        <location filename="../aligndistribute.cpp" line="130"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation>Сделать вертикальные интервалы между объектами равными указанному значению</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="140"/>
+        <location filename="../aligndistribute.cpp" line="138"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation>Сделать горизонтальные интервалы между объектами и краями страницы одинаковыми</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="142"/>
+        <location filename="../aligndistribute.cpp" line="140"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Сделать вертикальные интервалы между объектами и верхним/нижним краями страницы одинаковыми</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="144"/>
+        <location filename="../aligndistribute.cpp" line="142"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation>Сделать горизонтальные интервалы между объектами и краями полей одинаковыми</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="146"/>
+        <location filename="../aligndistribute.cpp" line="144"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation>Сделать вертикальные интервалы между объектами и верхним/нижним полями одинаковыми</translation>
     </message>
@@ -4072,47 +4114,47 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
 <context>
     <name>Annot</name>
     <message>
-        <location filename="../annot.cpp" line="59"/>
+        <location filename="../annot.cpp" line="61"/>
         <source>Field Properties</source>
         <translation>Свойства поля</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="532"/>
+        <location filename="../annot.cpp" line="534"/>
         <source>Type:</source>
         <translation>Тип:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Button</source>
         <translation>Кнопка</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Text Field</source>
         <translation>Текстовое поле</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Check Box</source>
         <translation>Флажок</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Combo Box</source>
         <translation>Раскрывающийся список</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>List Box</source>
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="109"/>
+        <location filename="../annot.cpp" line="111"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="119"/>
+        <location filename="../annot.cpp" line="121"/>
         <source>Name:</source>
         <translation>Имя:</translation>
     </message>
@@ -4122,87 +4164,87 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Подсказка:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="273"/>
+        <location filename="../annot.cpp" line="275"/>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="174"/>
+        <location filename="../annot.cpp" line="176"/>
         <source>Border</source>
         <translation>Граница</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="180"/>
+        <location filename="../annot.cpp" line="182"/>
         <source>Color:</source>
         <translation>Цвет:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2077"/>
+        <location filename="../annot.cpp" line="2079"/>
         <source>None</source>
         <translation>Не задано</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="196"/>
+        <location filename="../annot.cpp" line="198"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="200"/>
+        <location filename="../annot.cpp" line="202"/>
         <source>Thin</source>
         <translation>Тонкая</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="310"/>
+        <location filename="../annot.cpp" line="312"/>
         <source>Normal</source>
         <translation>Нормальная</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="200"/>
+        <location filename="../annot.cpp" line="202"/>
         <source>Wide</source>
         <translation>Широкая</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="208"/>
+        <location filename="../annot.cpp" line="210"/>
         <source>Style:</source>
         <translation>Стиль:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Solid</source>
         <translation>Сплошная</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Dashed</source>
         <translation>Пунктирная</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Underline</source>
         <translation>Подчёркнутая</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="213"/>
+        <location filename="../annot.cpp" line="215"/>
         <source>Beveled</source>
         <translation>С фаской</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="213"/>
+        <location filename="../annot.cpp" line="215"/>
         <source>Inset</source>
         <translation>Втяжка</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="223"/>
+        <location filename="../annot.cpp" line="225"/>
         <source>Other</source>
         <translation>Другое</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="229"/>
+        <location filename="../annot.cpp" line="231"/>
         <source>Read Only</source>
         <translation>Только для чтения</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="235"/>
+        <location filename="../annot.cpp" line="237"/>
         <source>Required</source>
         <translation>Необходимо</translation>
     </message>
@@ -4212,524 +4254,524 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Не экспортировать значение</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="247"/>
+        <location filename="../annot.cpp" line="249"/>
         <source>Visibility:</source>
         <translation>Видимость:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>Visible</source>
         <translation>Видимо</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>Hidden</source>
         <translation>Скрыто</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>No Print</source>
         <translation>Не  печатается</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="252"/>
+        <location filename="../annot.cpp" line="254"/>
         <source>No View</source>
         <translation>Не видно на экране</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="261"/>
+        <location filename="../annot.cpp" line="263"/>
         <source>Appearance</source>
         <translation>Внешний вид</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="279"/>
+        <location filename="../annot.cpp" line="281"/>
         <source>Text for Button Down</source>
         <translation>Текст нажатой кнопки</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="282"/>
+        <location filename="../annot.cpp" line="284"/>
         <source>Text for Roll Over</source>
         <translation>Текст для Roll Over</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="293"/>
+        <location filename="../annot.cpp" line="295"/>
         <source>Icons</source>
         <translation>Пиктограммы</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="299"/>
+        <location filename="../annot.cpp" line="301"/>
         <source>Use Icons</source>
         <translation>Использовать пиктограммы</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="356"/>
+        <location filename="../annot.cpp" line="358"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="328"/>
+        <location filename="../annot.cpp" line="330"/>
         <source>Pressed</source>
         <translation>Нажато</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="346"/>
+        <location filename="../annot.cpp" line="348"/>
         <source>Roll Over</source>
         <translation>Roll Over</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="365"/>
+        <location filename="../annot.cpp" line="367"/>
         <source>Icon Placement...</source>
         <translation>Расположение...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="413"/>
+        <location filename="../annot.cpp" line="415"/>
         <source>Highlight</source>
         <translation>В фокусе</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Invert</source>
         <translation>Инвертировано</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Outlined</source>
         <translation>Обведено</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Push</source>
         <translation>Нажато</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="437"/>
+        <location filename="../annot.cpp" line="439"/>
         <source>Multi-Line</source>
         <translation>Многострочное</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="441"/>
+        <location filename="../annot.cpp" line="443"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="448"/>
+        <location filename="../annot.cpp" line="450"/>
         <source>Limit of</source>
         <translation>Символов не более</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="459"/>
+        <location filename="../annot.cpp" line="461"/>
         <source>Characters</source>
         <translation>Символы</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="465"/>
+        <location filename="../annot.cpp" line="467"/>
         <source>Do Not Scroll</source>
         <translation>Без прокрутки</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="469"/>
+        <location filename="../annot.cpp" line="471"/>
         <source>Do Not Spell Check</source>
         <translation>Без проверки орфографии</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="484"/>
+        <location filename="../annot.cpp" line="486"/>
         <source>Check Style:</source>
         <translation>Стиль флажка:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Check</source>
         <translation>Галочка</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Cross</source>
         <translation>Крестик</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Diamond</source>
         <translation>Ромб</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Circle</source>
         <translation>Круг</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Star</source>
         <translation>Звезда</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Square</source>
         <translation>Квадрат</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="501"/>
+        <location filename="../annot.cpp" line="503"/>
         <source>Default is Checked</source>
         <translation>По умолчанию включён</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="513"/>
+        <location filename="../annot.cpp" line="515"/>
         <source>Editable</source>
         <translation>Редактируем</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="520"/>
+        <location filename="../annot.cpp" line="522"/>
         <source>Options</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2040"/>
+        <location filename="../annot.cpp" line="2042"/>
         <source>Go To</source>
         <translation>Перейти</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Submit Form</source>
         <translation>Отправить форму</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Reset Form</source>
         <translation>Сбросить введённые данные</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Import Data</source>
         <translation>Импортировать данные</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="569"/>
+        <location filename="../annot.cpp" line="571"/>
         <source>Event:</source>
         <translation>Событие:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Up</source>
         <translation>Mouse Up</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Down</source>
         <translation>Mouse Down</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Enter</source>
         <translation>Mouse Enter</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>Mouse Exit</source>
         <translation>Mouse Exit</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>On Focus</source>
         <translation>On Focus</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>On Blur</source>
         <translation>On Blur</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="584"/>
+        <location filename="../annot.cpp" line="586"/>
         <source>Script:</source>
         <translation>Сценарий:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1088"/>
+        <location filename="../annot.cpp" line="1090"/>
         <source>Edit...</source>
         <translation>Изменить...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="663"/>
+        <location filename="../annot.cpp" line="665"/>
         <source>Submit to URL:</source>
         <translation>Передать на URL:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="671"/>
+        <location filename="../annot.cpp" line="673"/>
         <source>Submit Data as HTML</source>
         <translation>Переслать данные как HTML</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="684"/>
+        <location filename="../annot.cpp" line="686"/>
         <source>Import Data from:</source>
         <translation>Откуда взять данные:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="609"/>
+        <location filename="../annot.cpp" line="611"/>
         <source>Destination</source>
         <translation>Цель</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="615"/>
+        <location filename="../annot.cpp" line="617"/>
         <source>To File:</source>
         <translation>В файл:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="622"/>
+        <location filename="../annot.cpp" line="624"/>
         <source>Change...</source>
         <translation>Изменить...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="625"/>
+        <location filename="../annot.cpp" line="627"/>
         <source>Page:</source>
         <translation>Страница:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="639"/>
+        <location filename="../annot.cpp" line="641"/>
         <source>X-Pos:</source>
         <translation>X-Поз:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="651"/>
+        <location filename="../annot.cpp" line="653"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="647"/>
+        <location filename="../annot.cpp" line="649"/>
         <source>Y-Pos:</source>
         <translation>Y-Поз:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="693"/>
+        <location filename="../annot.cpp" line="695"/>
         <source>Action</source>
         <translation>Действие</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="724"/>
+        <location filename="../annot.cpp" line="726"/>
         <source>Field is formatted as:</source>
         <translation>Формат поля:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Plain</source>
         <translation>Общий</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Number</source>
         <translation>Числовой</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Percentage</source>
         <translation>Проценты</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Date</source>
         <translation>Дата</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Time</source>
         <translation>Время</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Custom</source>
         <translation>Другой</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="745"/>
+        <location filename="../annot.cpp" line="747"/>
         <source>Number Format</source>
         <translation>Числовой формат</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="813"/>
+        <location filename="../annot.cpp" line="815"/>
         <source>Decimals:</source>
         <translation>Цифр в дробной части:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="768"/>
+        <location filename="../annot.cpp" line="770"/>
         <source>Use Currency Symbol</source>
         <translation>Использовать символ валюты</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="777"/>
+        <location filename="../annot.cpp" line="779"/>
         <source>Prepend Currency Symbol</source>
         <translation>Знак валюты перед числом</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="824"/>
+        <location filename="../annot.cpp" line="826"/>
         <source>Formatting</source>
         <translation>Формат</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="804"/>
+        <location filename="../annot.cpp" line="806"/>
         <source>Percent Format</source>
         <translation>Процентный формат</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="847"/>
+        <location filename="../annot.cpp" line="849"/>
         <source>Date Format</source>
         <translation>Формат даты</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="873"/>
+        <location filename="../annot.cpp" line="875"/>
         <source>Time Format</source>
         <translation>Формат времени</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="895"/>
+        <location filename="../annot.cpp" line="897"/>
         <source>Custom Scripts</source>
         <translation>Другие сценарии</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="907"/>
+        <location filename="../annot.cpp" line="909"/>
         <source>Format:</source>
         <translation>Формат:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="933"/>
+        <location filename="../annot.cpp" line="935"/>
         <source>Keystroke:</source>
         <translation>Комбинация клавиш:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="957"/>
+        <location filename="../annot.cpp" line="959"/>
         <source>Format</source>
         <translation>Формат</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="973"/>
+        <location filename="../annot.cpp" line="975"/>
         <source>Value is not validated</source>
         <translation>Значение не проверено</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="982"/>
+        <location filename="../annot.cpp" line="984"/>
         <source>Value must be greater than or equal to:</source>
         <translation>Значение должно быть больше или равно:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="986"/>
+        <location filename="../annot.cpp" line="988"/>
         <source>and less or equal to:</source>
         <translation>и меньше или равно:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="997"/>
+        <location filename="../annot.cpp" line="999"/>
         <source>Custom validate script:</source>
         <translation>Другой сценарий проверки:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1018"/>
+        <location filename="../annot.cpp" line="1020"/>
         <source>Validate</source>
         <translation>Проверка</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1035"/>
+        <location filename="../annot.cpp" line="1037"/>
         <source>Value is not calculated</source>
         <translation>Значение не вычислено</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1044"/>
+        <location filename="../annot.cpp" line="1046"/>
         <source>Value is the</source>
         <translation>Значение является</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>sum</source>
         <translation>суммой</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>product</source>
         <translation>произведением</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>average</source>
         <translation>средним арифметическим</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>minimum</source>
         <translation>минимальным из</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1050"/>
+        <location filename="../annot.cpp" line="1052"/>
         <source>maximum</source>
         <translation>максимальным из</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1057"/>
+        <location filename="../annot.cpp" line="1059"/>
         <source>of the following fields:</source>
         <translation>следующих полей:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1067"/>
+        <location filename="../annot.cpp" line="1069"/>
         <source>Pick...</source>
         <translation>Выбрать</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1072"/>
+        <location filename="../annot.cpp" line="1074"/>
         <source>Custom calculation script:</source>
         <translation>Другой сценарий для вычисления:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1092"/>
+        <location filename="../annot.cpp" line="1094"/>
         <source>Calculate</source>
         <translation>Вычисления</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1111"/>
+        <location filename="../annot.cpp" line="1113"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1115"/>
+        <location filename="../annot.cpp" line="1117"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1168"/>
+        <location filename="../annot.cpp" line="1170"/>
         <source>Enter a comma separated list of fields here</source>
         <translation>Введите разделённый запятыми список полей</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1169"/>
+        <location filename="../annot.cpp" line="1171"/>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
         <translation>Для использования пиктограмм в кнопках необходима, 
 как минимум, пиктограмма для Normal</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2231"/>
+        <location filename="../annot.cpp" line="2233"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1446"/>
+        <location filename="../annot.cpp" line="1448"/>
         <source>Example:</source>
         <translation>Пример:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2069"/>
+        <location filename="../annot.cpp" line="2071"/>
         <source>Selection Change</source>
         <translation>Изменение выделения</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="150"/>
+        <location filename="../annot.cpp" line="152"/>
         <source>Font for use with PDF 1.3:</source>
         <translation>Шрифт для использования с PDF 1.3:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1167"/>
+        <location filename="../annot.cpp" line="1169"/>
         <source>Flag is ignored for PDF 1.3</source>
         <translation>Флажок игнорируется для PDF 1.3
 </translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2231"/>
+        <location filename="../annot.cpp" line="2233"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2078"/>
+        <location filename="../annot.cpp" line="2080"/>
         <source>JavaScript</source>
         <translation>JavaScript</translation>
     </message>
@@ -4739,104 +4781,114 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Изображения (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>None</source>
         <comment>highlight</comment>
         <translation>Ничего</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2040"/>
+        <location filename="../annot.cpp" line="2042"/>
         <source>None</source>
         <comment>action</comment>
         <translation>Ничего</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="132"/>
+        <location filename="../annot.cpp" line="134"/>
         <source>Tooltip:</source>
         <translation>Подсказка:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="241"/>
+        <location filename="../annot.cpp" line="243"/>
         <source>Do Not Export Value</source>
         <translation>Не экспортировать значение</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1335"/>
+        <location filename="../annot.cpp" line="1337"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
         <translation>Изображения (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <location filename="../annot.cpp" line="1282"/>
+        <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Annota</name>
     <message>
-        <location filename="../annota.cpp" line="45"/>
+        <location filename="../annota.cpp" line="46"/>
         <source>Annotation Properties</source>
         <translation>Свойства аннотации</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="75"/>
+        <location filename="../annota.cpp" line="76"/>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="75"/>
+        <location filename="../annota.cpp" line="76"/>
         <source>Link</source>
         <translation>Ссылка</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="75"/>
+        <location filename="../annota.cpp" line="76"/>
         <source>External Link</source>
         <translation>Внешняя ссылка</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="76"/>
+        <location filename="../annota.cpp" line="77"/>
         <source>External Web-Link</source>
         <translation>Внешняя веб-ссылка</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="98"/>
+        <location filename="../annota.cpp" line="100"/>
         <source>Destination</source>
         <translation>Цель</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="148"/>
+        <location filename="../annota.cpp" line="152"/>
         <source> pt</source>
         <translation>  pt</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="350"/>
+        <location filename="../annota.cpp" line="355"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
         <location filename="../annota.cpp" line="350"/>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
+        <translation type="obsolete">PDF-документы (*.pdf);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="81"/>
+        <location filename="../annota.cpp" line="82"/>
         <source>&amp;Type:</source>
         <translation>&amp;Тип:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="109"/>
+        <location filename="../annota.cpp" line="111"/>
         <source>C&amp;hange...</source>
         <translation>Из&amp;менить...</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="120"/>
+        <location filename="../annota.cpp" line="122"/>
         <source>&amp;Page:</source>
         <translation>С&amp;траница:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="143"/>
+        <location filename="../annota.cpp" line="146"/>
         <source>&amp;X-Pos</source>
         <translation>&amp;X-Поз.</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="150"/>
+        <location filename="../annota.cpp" line="154"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Поз:</translation>
+    </message>
+    <message>
+        <location filename="../annota.cpp" line="355"/>
+        <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4961,37 +5013,37 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="285"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="286"/>
         <source>Error opening file: %1</source>
         <translation>Ошибка при открытии файла: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="39"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="40"/>
         <source>12 or 13 digits</source>
         <translation>12 или 13 цифр</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="41"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="42"/>
         <source>8 digits</source>
         <translation>8 цифр</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="43"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="44"/>
         <source>11 or 12 digits</source>
         <translation>11 или 12 цифр</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="45"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="46"/>
         <source>7 or 8 digits</source>
         <translation>7 или 8 цифр</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="47"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="48"/>
         <source>5 digits</source>
         <translation>5 цифр</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="49"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="50"/>
         <source>2 digits</source>
         <translation>2 цифры</translation>
     </message>
@@ -5001,47 +5053,47 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">9 или 10 цифр, разделённых тире</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="56"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="57"/>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
         <translation>Разное количество букв, цифр и любой из символов -. *$/+%.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="65"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="66"/>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
         <translation>Разное количество символов из набора ASCII и специальных функций, начиная с первого символа каждого набора. В случае с UCC/EAN-128s вслед за первым символом сразу должен идти обязательный символ FNC 1. -. *$/+%.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="68"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="69"/>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
         <translation>Разное количество цифр и любой из символов -. *$/+%.</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="91"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="92"/>
         <source>Variable number of digits</source>
         <translation>Разное количество цифр</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="76"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="77"/>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
         <translation>Разное количество цифр. Код ITF-14 состоит из 14 символов и не содержит цифры контрольной суммы</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="87"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="88"/>
         <source>Variable number of digits and capital letters</source>
         <translation>Разное количество цифр и заглавных букв</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="96"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="97"/>
         <source>Variable number of hexadecimal characters</source>
         <translation>Разное количество цифр и шестнадцатеричных символов</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="316"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="317"/>
         <source>Barcode incomplete</source>
         <translation>Штрих-код не завершён</translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="52"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="53"/>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation>12 или 13 цифр, разделённых тире. Устаревший формат ISBN-10 означает 9 или 10 цифр, разделённых тире, но с 1 января 2007 года этот стандарт является устаревшим. (Примечание: для преобразования старого ISBN-10 в новый ISBN-13 введите префикс 978- к первым 9 цифрам, например, 1-56592-479-7 -&gt; 978-1-56592-479. Контрольная цифра будет рассчитана автоматически.)</translation>
     </message>
@@ -5207,27 +5259,27 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrap.cpp" line="1342"/>
+        <location filename="../scrap.cpp" line="1311"/>
         <source>Scrapbook</source>
         <translation>Альбом</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="829"/>
+        <location filename="../scrap.cpp" line="798"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1245"/>
+        <location filename="../scrap.cpp" line="1214"/>
         <source>Object</source>
         <translation>Объект</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1154"/>
+        <location filename="../scrap.cpp" line="1123"/>
         <source>New Entry</source>
         <translation>Новая запись</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="827"/>
+        <location filename="../scrap.cpp" line="796"/>
         <source>Rename</source>
         <translation>Переименовать</translation>
     </message>
@@ -5262,34 +5314,34 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">&amp;Предпросмотр</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1154"/>
+        <location filename="../scrap.cpp" line="1123"/>
         <source>&amp;Name:</source>
         <translation>&amp;Имя:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1048"/>
+        <location filename="../scrap.cpp" line="1017"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation>Имя &quot;%1&quot; уже используется.
 Выберите другое.</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="713"/>
+        <location filename="../scrap.cpp" line="684"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>Выберите каталог для альбома</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="771"/>
+        <location filename="../scrap.cpp" line="740"/>
         <source>Choose a Directory</source>
         <translation>Выберите каталог</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="748"/>
         <source>Scrapbook (*.scs)</source>
-        <translation>Альбом (*.scs)</translation>
+        <translation type="obsolete">Альбом (*.scs)</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="751"/>
+        <location filename="../scrap.cpp" line="720"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Выберите импортируемый файл альбома</translation>
     </message>
@@ -5299,54 +5351,59 @@ Please choose another.</source>
         <translation type="obsolete">&amp;Импортировать файл запасника...</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="581"/>
+        <location filename="../scrap.cpp" line="552"/>
         <source>Main</source>
         <translation>Основной</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="583"/>
+        <location filename="../scrap.cpp" line="554"/>
         <source>Copied Items</source>
         <translation>Скопированные объекты</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="834"/>
+        <location filename="../scrap.cpp" line="803"/>
         <source>Copy To:</source>
         <translation>Скопировать в:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="835"/>
+        <location filename="../scrap.cpp" line="804"/>
         <source>Move To:</source>
         <translation>Переместить в:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1343"/>
+        <location filename="../scrap.cpp" line="1312"/>
         <source>Create a new scrapbook page</source>
         <translation>Создать новую страницу альбома</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1344"/>
+        <location filename="../scrap.cpp" line="1313"/>
         <source>Load an existing scrapbook</source>
         <translation>Загрузить существующий альбом</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1345"/>
+        <location filename="../scrap.cpp" line="1314"/>
         <source>Save the selected scrapbook</source>
         <translation>Сохранить выбранный альбом</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1346"/>
+        <location filename="../scrap.cpp" line="1315"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Импортировать файл альбома из Scribus &lt;=1.3.2</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1347"/>
+        <location filename="../scrap.cpp" line="1316"/>
         <source>Close the selected scrapbook</source>
         <translation>Закрыть выбранный альбом</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1041"/>
+        <location filename="../scrap.cpp" line="1010"/>
         <source>New Name</source>
         <translation>Новое название</translation>
+    </message>
+    <message>
+        <location filename="../scrap.cpp" line="719"/>
+        <source>Scrapbook (*.scs *.SCS)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5354,22 +5411,22 @@ Please choose another.</source>
     <message>
         <location filename="../bookmwin.cpp" line="580"/>
         <source>Bookmarks</source>
-        <translation>Закладки</translation>
+        <translation type="obsolete">Закладки</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="235"/>
         <source>Move Bookmark</source>
-        <translation>Переместить закладку</translation>
+        <translation type="obsolete">Переместить закладку</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="236"/>
         <source>Insert Bookmark</source>
-        <translation>Вставить закладку</translation>
+        <translation type="obsolete">Вставить закладку</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="237"/>
         <source>Cancel</source>
-        <translation>Отменить</translation>
+        <translation type="obsolete">Отменить</translation>
     </message>
 </context>
 <context>
@@ -5491,32 +5548,32 @@ Please choose another.</source>
 <context>
     <name>CMSPrefs</name>
     <message>
-        <location filename="../cmsprefs.cpp" line="33"/>
+        <location filename="../cmsprefs.cpp" line="34"/>
         <source>System Profiles</source>
         <translation>Системные профили</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="82"/>
+        <location filename="../cmsprefs.cpp" line="89"/>
         <source>Rendering Intents</source>
         <translation>Цели цветопередачи</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="196"/>
+        <location filename="../cmsprefs.cpp" line="205"/>
         <source>Perceptual</source>
         <translation>Воспринимаемая</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="196"/>
+        <location filename="../cmsprefs.cpp" line="205"/>
         <source>Relative Colorimetric</source>
         <translation>Относительная колориметрическая</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="197"/>
+        <location filename="../cmsprefs.cpp" line="206"/>
         <source>Saturation</source>
         <translation>Насыщенная</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="197"/>
+        <location filename="../cmsprefs.cpp" line="206"/>
         <source>Absolute Colorimetric</source>
         <translation>Абсолютная колориметрическая</translation>
     </message>
@@ -5527,7 +5584,7 @@ Please choose another.</source>
 для сплошных тонов на странице</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="134"/>
+        <location filename="../cmsprefs.cpp" line="143"/>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
         <translation>Цветовой профиль, созданный вами или полученный 
@@ -5536,7 +5593,7 @@ This profile should be specific to your monitor and not a generic profile (i.e. 
 профиль вроде sRGB.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="135"/>
+        <location filename="../cmsprefs.cpp" line="144"/>
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
         <translation>Цветовой профиль для вашего принтера, созданный 
@@ -5545,7 +5602,7 @@ This profile should be specific to your printer and not a generic profile (i.e. 
 профилем вроде sRGB.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="141"/>
+        <location filename="../cmsprefs.cpp" line="150"/>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Компенсация чёрной точки — это метод улучшения 
@@ -5569,14 +5626,14 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 относительную колориметрическую или воспринимаемую.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="138"/>
+        <location filename="../cmsprefs.cpp" line="147"/>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Включить мягкий режим цветопробы вашего 
 документа на основе выбранного профиля для принтера.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="140"/>
+        <location filename="../cmsprefs.cpp" line="149"/>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
         <translation>Способ отображения на экране тех цветов, которые 
@@ -5584,7 +5641,7 @@ This requires very accurate profiles and serves only as a warning.</source>
 точных профилей и предназначен лишь для предупреждения.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="30"/>
+        <location filename="../cmsprefs.cpp" line="31"/>
         <source>&amp;Activate Color Management</source>
         <translation>&amp;Включить управление цветом</translation>
     </message>
@@ -5594,12 +5651,12 @@ This requires very accurate profiles and serves only as a warning.</source>
         <translation type="obsolete">&amp;Сплошные тона:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="70"/>
+        <location filename="../cmsprefs.cpp" line="75"/>
         <source>&amp;Monitor:</source>
         <translation>&amp;Монитор:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="77"/>
+        <location filename="../cmsprefs.cpp" line="83"/>
         <source>P&amp;rinter:</source>
         <translation>&amp;Принтер:</translation>
     </message>
@@ -5614,77 +5671,77 @@ This requires very accurate profiles and serves only as a warning.</source>
         <translation type="obsolete">Пр&amp;интер:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="104"/>
+        <location filename="../cmsprefs.cpp" line="113"/>
         <source>Sim&amp;ulate Printer on the Screen</source>
         <translation>&amp;Имитировать принтер на экране</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="121"/>
+        <location filename="../cmsprefs.cpp" line="130"/>
         <source>Mark Colors out of &amp;Gamut</source>
         <translation>Пометить цвета вне &amp;гаммы</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="125"/>
+        <location filename="../cmsprefs.cpp" line="134"/>
         <source>Use &amp;Blackpoint Compensation</source>
         <translation>Использовать компенсацию &amp;чёрной точки</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="42"/>
+        <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Pictures:</source>
         <translation>&amp;RGB-изображения:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="49"/>
+        <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Pictures:</source>
         <translation>&amp;CMYK-изображения:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="130"/>
+        <location filename="../cmsprefs.cpp" line="139"/>
         <source>Default color profile for imported CMYK images</source>
         <translation>Используемый по умолчанию профиль для CMYK-изображений</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="131"/>
+        <location filename="../cmsprefs.cpp" line="140"/>
         <source>Default color profile for imported RGB images</source>
         <translation>Используемый по умолчанию профиль для RGB-изображений</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="56"/>
+        <location filename="../cmsprefs.cpp" line="59"/>
         <source>&amp;RGB Solid Colors:</source>
         <translation>Сплошные &amp;тона RGB:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="63"/>
+        <location filename="../cmsprefs.cpp" line="67"/>
         <source>&amp;CMYK Solid Colors:</source>
         <translation>С&amp;плошные тона CMYK:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="91"/>
+        <location filename="../cmsprefs.cpp" line="98"/>
         <source>Pictures:</source>
         <translation>Изображения:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="98"/>
+        <location filename="../cmsprefs.cpp" line="106"/>
         <source>Sol&amp;id Colors:</source>
         <translation>&amp;Сплошные тона:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="112"/>
+        <location filename="../cmsprefs.cpp" line="121"/>
         <source>Convert all colors to printer space</source>
         <translation>Преобразовать все цвета в пространство принтера</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="132"/>
+        <location filename="../cmsprefs.cpp" line="141"/>
         <source>Default color profile for solid RGB colors on the page</source>
         <translation>Используемый по умолчанию цветовой профиль для сплошных тонов RGB</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="133"/>
+        <location filename="../cmsprefs.cpp" line="142"/>
         <source>Default color profile for solid CMYK colors on the page</source>
         <translation>Используемый по умолчанию цветовой профиль для сплошных тонов CMYK</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="136"/>
+        <location filename="../cmsprefs.cpp" line="145"/>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation>Используемое по умолчанию назначение цветопередачи для сплошных тонов. 
@@ -5692,7 +5749,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 колориметрическое или воспринимаемое.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="137"/>
+        <location filename="../cmsprefs.cpp" line="146"/>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation>Используемое по умолчанию назначение цветопередачи для изображений. 
@@ -5700,7 +5757,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 колориметрическое или воспринимаемое.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="139"/>
+        <location filename="../cmsprefs.cpp" line="148"/>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation>Имитация полностью цветоуправляемого окружения: все цвета, 
@@ -5715,17 +5772,17 @@ RGB или CMYK, преобразуются в пространство прин
         <translation>Изменить цвет</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1009"/>
+        <location filename="../cmykfw.cpp" line="1001"/>
         <source>CMYK</source>
         <translation>CMYK</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1011"/>
+        <location filename="../cmykfw.cpp" line="1003"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="878"/>
+        <location filename="../cmykfw.cpp" line="870"/>
         <source>Web Safe RGB</source>
         <translation>RGB для веба</translation>
     </message>
@@ -5740,52 +5797,52 @@ RGB или CMYK, преобразуются в пространство прин
         <translation>Старый</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="819"/>
+        <location filename="../cmykfw.cpp" line="811"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="820"/>
+        <location filename="../cmykfw.cpp" line="812"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="821"/>
+        <location filename="../cmykfw.cpp" line="813"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="349"/>
+        <location filename="../cmykfw.cpp" line="343"/>
         <source>K:</source>
         <translation>K:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="438"/>
+        <location filename="../cmykfw.cpp" line="430"/>
         <source>Dynamic Color Bars</source>
         <translation>Динамические цветовые полосы</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="441"/>
+        <location filename="../cmykfw.cpp" line="433"/>
         <source>Static Color Bars</source>
         <translation>Статические цветовые полосы</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="863"/>
+        <location filename="../cmykfw.cpp" line="855"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="864"/>
+        <location filename="../cmykfw.cpp" line="856"/>
         <source>G:</source>
         <translation>G:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="865"/>
+        <location filename="../cmykfw.cpp" line="857"/>
         <source>B:</source>
         <translation>B:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="818"/>
+        <location filename="../cmykfw.cpp" line="810"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -5815,7 +5872,7 @@ RGB или CMYK, преобразуются в пространство прин
         <translation>Это цвет для приводки</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1081"/>
+        <location filename="../cmykfw.cpp" line="1073"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation>Нельзя создать цвет с именем &quot;%1&quot;.
@@ -5827,12 +5884,12 @@ It is a reserved name for transparent color</source>
         <translation type="obsolete">Это имя цвета уже используется</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="393"/>
+        <location filename="../cmykfw.cpp" line="385"/>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
         <translation>Если выбрать, будет печататься на всех плашках. Цвета для приводки используются для создания пометок для принтера, таких как метки под обрез. Их использование в общих случаях при создании макетов нетипично.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="394"/>
+        <location filename="../cmykfw.cpp" line="386"/>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation>Если выбрать, цвет станет плашечным, то есть при создании плашек или цветоделений будет создаваться ещё одна точка. Это чаще всего нужно, когда необходимо точно воспроизвести цвет логотипа или другого цветного объекта, либо когда невозможно использовать чернила CMYK (в случае с металлическими или флюоресцентными чернилами, к примеру).</translation>
     </message>
@@ -5842,14 +5899,14 @@ It is a reserved name for transparent color</source>
         <translation type="obsolete">Если управление цветом включено, при выходе цвета за рамки цветового охвата согласно указанному профилю печатающего устройства появляется предупреждающий индикатор в форме треугольника. Это означает, что цвет может быть напечатан не таким, каким он виден на экране. Подробная информация по предупреждениям о цветовом охвате содержится в электронной справке, в разделе «Управление цветом».</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1090"/>
+        <location filename="../cmykfw.cpp" line="1082"/>
         <source>The name of the color already exists,
 please choose another one.</source>
         <translation>Цвет с таким названием уже существует, 
 выберите иное название.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="899"/>
+        <location filename="../cmykfw.cpp" line="891"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation>Если управление цветом включено, при выходе цвета за рамки цветового охвата согласно указанному профилю печатающего устройства появляется предупреждающий индикатор в форме треугольника. Это означает, что цвет может быть напечатан не таким, каким он виден на экране. Подробная информация по предупреждениям о цветовом охвате содержится в электронной справке, в разделе «Управление цветом».</translation>
     </message>
@@ -5859,27 +5916,27 @@ please choose another one.</source>
     <message>
         <location filename="../smcstylew.ui" line="13"/>
         <source>Form1</source>
-        <translation>Form1</translation>
+        <translation type="obsolete">Form1</translation>
     </message>
     <message>
         <location filename="../smcstylew.ui" line="49"/>
         <source>Based On:</source>
-        <translation>Основан на:</translation>
+        <translation type="obsolete">Основан на:</translation>
     </message>
     <message>
         <location filename="../smcstylew.ui" line="89"/>
         <source>Basic Formatting</source>
-        <translation>Обычное форматирование</translation>
+        <translation type="obsolete">Обычное форматирование</translation>
     </message>
     <message>
         <location filename="../smcstylew.ui" line="99"/>
         <source>Advanced Formatting</source>
-        <translation>Расширенное форматирование</translation>
+        <translation type="obsolete">Расширенное форматирование</translation>
     </message>
     <message>
         <location filename="../smcstylew.ui" line="109"/>
         <source>Colors</source>
-        <translation>Цвета</translation>
+        <translation type="obsolete">Цвета</translation>
     </message>
 </context>
 <context>
@@ -5908,37 +5965,37 @@ please choose another one.</source>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="318"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="320"/>
         <source>Merging colors</source>
         <translation>Объединение цветов</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Error: </source>
         <translation>Ошибка: </translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Color %1 exists already!</source>
         <translation>Цвет %1 уже существует!</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="329"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="331"/>
         <source>Color %1 appended.</source>
         <translation>Цвет %1 добавлен.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="333"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="335"/>
         <source>Now opening the color manager.</source>
         <translation>Сейчас откроется диалог управления цветами.</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="336"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="338"/>
         <source>Color Merging</source>
         <translation>Объединение цветов</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="487"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="489"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>Невозможно найти запрошенный цвет. Вероятно, был запрошен чёрный, серый или белый цвет. Ни один из них невозможно обработать.</translation>
     </message>
@@ -6352,22 +6409,22 @@ please choose another one.</source>
         <translation type="obsolete">Выбор символа:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="57"/>
+        <location filename="../charselect.ui" line="128"/>
         <source>Font:</source>
         <translation>Шрифтовый файл:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="65"/>
+        <location filename="../charselect.ui" line="151"/>
         <source>Character Class:</source>
         <translation>Класс символов:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="90"/>
+        <location filename="../charselect.ui" line="227"/>
         <source>&amp;Insert</source>
         <translation>В&amp;ставить</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="91"/>
+        <location filename="../charselect.ui" line="237"/>
         <source>C&amp;lear</source>
         <translation>О&amp;чистить</translation>
     </message>
@@ -6377,152 +6434,152 @@ please choose another one.</source>
         <translation type="obsolete">&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="138"/>
+        <location filename="../charselect.ui" line="224"/>
         <source>Insert the characters at the cursor in the text</source>
         <translation>Вставить символы под курсор в тексте</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="139"/>
+        <location filename="../charselect.ui" line="234"/>
         <source>Delete the current selection(s).</source>
         <translation>Удалить текущее выделение(ия).</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="331"/>
+        <location filename="../charselect.cpp" line="245"/>
         <source>Full Character Set</source>
         <translation>Полный набор символов</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="336"/>
+        <location filename="../charselect.cpp" line="250"/>
         <source>Basic Latin</source>
         <translation>Основные латинские</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="342"/>
+        <location filename="../charselect.cpp" line="256"/>
         <source>Latin-1 Supplement</source>
         <translation>Дополнительные латинские</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="348"/>
+        <location filename="../charselect.cpp" line="262"/>
         <source>Latin Extended-A</source>
         <translation>Латинские расширенные-A</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="354"/>
+        <location filename="../charselect.cpp" line="268"/>
         <source>Latin Extended-B</source>
         <translation>Латинские расширенные-B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="360"/>
+        <location filename="../charselect.cpp" line="274"/>
         <source>General Punctuation</source>
         <translation>Общая пунктуация</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="366"/>
+        <location filename="../charselect.cpp" line="280"/>
         <source>Super- and Subscripts</source>
         <translation>Степени и индексы</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="372"/>
+        <location filename="../charselect.cpp" line="286"/>
         <source>Currency Symbols</source>
         <translation>Символы валют</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="378"/>
+        <location filename="../charselect.cpp" line="292"/>
         <source>Letterlike Symbols</source>
         <translation>Буквоподобные символы</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="384"/>
+        <location filename="../charselect.cpp" line="298"/>
         <source>Number Forms</source>
         <translation>Дроби</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="390"/>
+        <location filename="../charselect.cpp" line="304"/>
         <source>Arrows</source>
         <translation>Стрелки</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="396"/>
+        <location filename="../charselect.cpp" line="310"/>
         <source>Mathematical Operators</source>
         <translation>Математические операторы</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="402"/>
+        <location filename="../charselect.cpp" line="316"/>
         <source>Box Drawing</source>
         <translation>Псевдографика</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="408"/>
+        <location filename="../charselect.cpp" line="322"/>
         <source>Block Elements</source>
         <translation>Элементы блоков</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="414"/>
+        <location filename="../charselect.cpp" line="328"/>
         <source>Geometric Shapes</source>
         <translation>Геометрические фигуры</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="420"/>
+        <location filename="../charselect.cpp" line="334"/>
         <source>Miscellaneous Symbols</source>
         <translation>Разные символы</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="426"/>
+        <location filename="../charselect.cpp" line="340"/>
         <source>Dingbats</source>
         <translation>Пиктограммы</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="432"/>
+        <location filename="../charselect.cpp" line="346"/>
         <source>Small Form Variants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="438"/>
+        <location filename="../charselect.cpp" line="352"/>
         <source>Ligatures</source>
         <translation>Лигатуры</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="444"/>
+        <location filename="../charselect.cpp" line="358"/>
         <source>Specials</source>
         <translation>Спецсимволы</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="450"/>
+        <location filename="../charselect.cpp" line="364"/>
         <source>Greek</source>
         <translation>Греческий алфавит</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="456"/>
+        <location filename="../charselect.cpp" line="370"/>
         <source>Greek Extended</source>
         <translation>Греческие расширенные</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="462"/>
+        <location filename="../charselect.cpp" line="376"/>
         <source>Cyrillic</source>
         <translation>Кириллические</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="468"/>
+        <location filename="../charselect.cpp" line="382"/>
         <source>Cyrillic Supplement</source>
         <translation>Кириллические дополнительные</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="474"/>
+        <location filename="../charselect.cpp" line="388"/>
         <source>Arabic</source>
         <translation>Арабские</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="480"/>
+        <location filename="../charselect.cpp" line="394"/>
         <source>Arabic Extended A</source>
         <translation>Арабские расширенные А</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="486"/>
+        <location filename="../charselect.cpp" line="400"/>
         <source>Arabic Extended B</source>
         <translation>Арабские расширенные B</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="492"/>
+        <location filename="../charselect.cpp" line="406"/>
         <source>Hebrew</source>
         <translation>Еврейские</translation>
     </message>
@@ -6542,75 +6599,80 @@ please choose another one.</source>
         <translation type="obsolete">Введите сюда четырёхзначный номер символа Unicode</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="38"/>
+        <location filename="../charselect.ui" line="13"/>
         <source>Character Palette</source>
         <translation>Палитра символов</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="39"/>
+        <location filename="../charselect.cpp" line="36"/>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
         <translation>Палитра символов Scribus (*.ucp);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="48"/>
+        <location filename="../charselect.ui" line="104"/>
         <source>Enhanced Palette</source>
         <translation>Расширенная палитра</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="99"/>
+        <location filename="../charselect.ui" line="25"/>
         <source>Quick Palette</source>
         <translation>Быстрая палитра</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="106"/>
+        <location filename="../charselect.ui" line="49"/>
         <source>Hide Enhanced</source>
         <translation>Скрыть полный вариант</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="140"/>
+        <location filename="../charselect.ui" line="180"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation>Нажмите и удерживайте нажатой правую клавишу мыши для увеличенного просмотра символа. «Вставить» добавляет выбранный символ в строку ниже, а «Удалить» убирает последний добавленный туда символ</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="649"/>
+        <location filename="../charselect.cpp" line="565"/>
         <source>Choose a filename to open</source>
         <translation>Выберите открываемый файл</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="714"/>
+        <location filename="../charselect.cpp" line="625"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="676"/>
+        <location filename="../charselect.cpp" line="592"/>
         <source>Error reading file %1 - file is corrupted propably.</source>
         <translation>Ошибка при чтении файла %1 — вероятно, файл испорчен.</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="695"/>
+        <location filename="../charselect.cpp" line="606"/>
         <source>Choose a filename to save under</source>
         <translation>Выберите сохраняемый файл</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="715"/>
+        <location filename="../charselect.cpp" line="626"/>
         <source>Cannot write file %1</source>
         <translation>Невозможно записать в файл %1</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="723"/>
+        <location filename="../charselect.cpp" line="634"/>
         <source>Clean the Palette?</source>
         <translation>Очистить палитру?</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="724"/>
+        <location filename="../charselect.cpp" line="635"/>
         <source>You will clean all characters from this palette. Are you sure?</source>
         <translation>Вы удалите все символы из этой палитры. Вы уверены?</translation>
+    </message>
+    <message>
+        <location filename="../charselect.ui" line="56"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Искать</translation>
     </message>
 </context>
 <context>
     <name>CharStyleComboBox</name>
     <message>
-        <location filename="../spalette.cpp" line="117"/>
+        <location filename="../spalette.cpp" line="118"/>
         <source>No Style</source>
         <translation>Без стиля</translation>
     </message>
@@ -6634,37 +6696,37 @@ please choose another one.</source>
 <context>
     <name>CheckDocument</name>
     <message>
-        <location filename="../checkDocument.cpp" line="821"/>
+        <location filename="../checkDocument.cpp" line="822"/>
         <source>Current Profile:</source>
         <translation>Текущий профиль:</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="817"/>
+        <location filename="../checkDocument.cpp" line="818"/>
         <source>Items</source>
         <translation>Объекты</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="818"/>
+        <location filename="../checkDocument.cpp" line="819"/>
         <source>Problems</source>
         <translation>Проблемы</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="825"/>
+        <location filename="../checkDocument.cpp" line="826"/>
         <source>Glyphs missing</source>
         <translation>Отсутствующие символы</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="826"/>
+        <location filename="../checkDocument.cpp" line="827"/>
         <source>Text overflow</source>
         <translation>Переполнение текст. блока</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="827"/>
+        <location filename="../checkDocument.cpp" line="828"/>
         <source>Object is not on a Page</source>
         <translation>Объект вне страницы</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="828"/>
+        <location filename="../checkDocument.cpp" line="829"/>
         <source>Missing Image</source>
         <translation>Отсутствует изображение</translation>
     </message>
@@ -6674,97 +6736,97 @@ please choose another one.</source>
         <translation type="obsolete">В изображении точек на дюйм меньше %1</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="831"/>
+        <location filename="../checkDocument.cpp" line="832"/>
         <source>Object has transparency</source>
         <translation>Объект полупрозрачен</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="833"/>
+        <location filename="../checkDocument.cpp" line="834"/>
         <source>Object is a placed PDF</source>
         <translation>Объект является встроенным PDF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="247"/>
+        <location filename="../checkDocument.cpp" line="248"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="251"/>
+        <location filename="../checkDocument.cpp" line="252"/>
         <source>No Problems found</source>
         <translation>Проблем не выявлено</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="627"/>
+        <location filename="../checkDocument.cpp" line="628"/>
         <source>Page </source>
         <translation>Страница </translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="795"/>
+        <location filename="../checkDocument.cpp" line="796"/>
         <source>Free Objects</source>
         <translation>Свободные объекты</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="801"/>
+        <location filename="../checkDocument.cpp" line="802"/>
         <source>Problems found</source>
         <translation>Найдена проблема</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="815"/>
+        <location filename="../checkDocument.cpp" line="816"/>
         <source>Preflight Verifier</source>
         <translation>Валидатор</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="832"/>
+        <location filename="../checkDocument.cpp" line="833"/>
         <source>Object is a PDF Annotation or Field</source>
         <translation>Объект является PDF-аннотацией или полем</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="822"/>
+        <location filename="../checkDocument.cpp" line="823"/>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Игнорировать ошибки</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="252"/>
+        <location filename="../checkDocument.cpp" line="253"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="273"/>
+        <location filename="../checkDocument.cpp" line="274"/>
         <source>Transparency used</source>
         <translation>Используется полупрозрачность</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="276"/>
+        <location filename="../checkDocument.cpp" line="277"/>
         <source>Blendmode used</source>
         <translation>Используется режим наложения</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="283"/>
+        <location filename="../checkDocument.cpp" line="284"/>
         <source>Layer &quot;%1&quot;</source>
         <translation>Слой &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="823"/>
+        <location filename="../checkDocument.cpp" line="824"/>
         <source>Check again</source>
         <translation>Проверить ещё раз</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="829"/>
+        <location filename="../checkDocument.cpp" line="830"/>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
         <translation>У изображения разрешение ниже %1 DPI, а именно: %2 x %3 DPI</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="830"/>
+        <location filename="../checkDocument.cpp" line="831"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
         <translation>У изображения разрешение выше %1 DPI, а именно: %2 x %3 DPI</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="834"/>
+        <location filename="../checkDocument.cpp" line="835"/>
         <source>Image is GIF</source>
         <translation>Изображение является файлом в формате GIF</translation>
     </message>
     <message>
-        <location filename="../checkDocument.cpp" line="835"/>
+        <location filename="../checkDocument.cpp" line="836"/>
         <source>Annotation uses a non TrueType font</source>
         <translation>Аннотация использует не шрифт TrueType</translation>
     </message>
@@ -6938,12 +7000,12 @@ please choose another one.</source>
         <translation type="obsolete">Документы (*.sla *.scd);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="564"/>
+        <location filename="../colorm.cpp" line="568"/>
         <source>Copy of %1</source>
         <translation>Копия %1</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="575"/>
+        <location filename="../colorm.cpp" line="579"/>
         <source>New Color</source>
         <translation>Новый цвет</translation>
     </message>
@@ -6959,22 +7021,22 @@ please choose another one.</source>
 </translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="432"/>
+        <location filename="../colorm.cpp" line="435"/>
         <source>Import</source>
         <translation>Импорт</translation>
     </message>
     <message>
         <location filename="../colorm.cpp" line="432"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation>Документы (*.sla *.sla.gz *.scd *.scd.gz);;Другие файлы (*.eps *.epsi *.ps *.ai);;Все файлы (*)</translation>
+        <translation type="obsolete">Документы (*.sla *.sla.gz *.scd *.scd.gz);;Другие файлы (*.eps *.epsi *.ps *.ai);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="548"/>
+        <location filename="../colorm.cpp" line="552"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="548"/>
+        <location filename="../colorm.cpp" line="552"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -6986,106 +7048,111 @@ See the Edit Colors section of the documentation for more details.</source>
 описание цветов. Вследствие этого импорт цветов из некоторых файлов 
 невозможен. Подробности изложены в разделе «Правка цветов» документации.</translation>
     </message>
+    <message>
+        <location filename="../colorm.cpp" line="435"/>
+        <source>Documents (%1);;Other Files (%2);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
         <source>Monochromatic</source>
         <translation>Монохроматический</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
         <source>Analogous</source>
         <translation>Близкие цвета</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
         <source>Complementary</source>
         <translation>Противоположный цвет</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="138"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
         <source>Split Complementary</source>
         <translation>Разделённые противоположные цвета</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
         <source>Triadic</source>
         <translation>Триады</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
         <source>Tetradic (Double Complementary)</source>
         <translation>Тетрады (двойные противоположные цвета)</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="40"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
         <source>Base Color</source>
         <translation>Базовый цвет</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="202"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
         <source>Monochromatic Light</source>
         <translation>Монохромный светлый</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
         <source>Monochromatic Dark</source>
         <translation>Монохромный тёмный</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="212"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
         <source>1st. Analogous</source>
         <translation>Первый близкий</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="213"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
         <source>2nd. Analogous</source>
         <translation>Второй близкий</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="227"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
         <source>1st. Split</source>
         <translation>Первое деление</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="228"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
         <source>2nd. Split</source>
         <translation>Второе деление</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="229"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
         <source>3rd. Split</source>
         <translation>Третье деление</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
         <source>4th. Split</source>
         <translation>Четвёртое деление</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="237"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
         <source>1st. Triadic</source>
         <translation>Первый триадный</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
         <source>2nd. Triadic</source>
         <translation>Второй триадный</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="245"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>Первая тетрада (базовый противоположный)</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="246"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>Вторая тетрада (угол)</translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="247"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>Третья тетрада (противоположный угол)</translation>
     </message>
@@ -7759,249 +7826,275 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
 </context>
 <context>
+    <name>CopyPageToMasterPageBase</name>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="16"/>
+        <source>Convert Page to Master Page</source>
+        <translation type="unfinished">Преобразовать страницу в мастер-страницу</translation>
+    </message>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="24"/>
+        <source>Name:</source>
+        <translation type="unfinished">Имя:</translation>
+    </message>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="39"/>
+        <source>Copy Applied Master Page Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CopyPageToMasterPageDialog</name>
+    <message>
+        <location filename="../ui/copypagetomasterpagedialog.cpp" line="18"/>
+        <source>New Master Page %1</source>
+        <translation type="unfinished">Новая мастер-страница %1</translation>
+    </message>
+</context>
+<context>
     <name>Cpalette</name>
     <message>
-        <location filename="../cpalette.cpp" line="856"/>
+        <location filename="../cpalette.cpp" line="857"/>
         <source>Normal</source>
         <translation>Обычный</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="844"/>
+        <location filename="../cpalette.cpp" line="845"/>
         <source>Horizontal Gradient</source>
         <translation>Горизонтальный градиент</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="845"/>
+        <location filename="../cpalette.cpp" line="846"/>
         <source>Vertical Gradient</source>
         <translation>Вертикальный градиент</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="846"/>
+        <location filename="../cpalette.cpp" line="847"/>
         <source>Diagonal Gradient</source>
         <translation>Диагональный градиент</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="847"/>
+        <location filename="../cpalette.cpp" line="848"/>
         <source>Cross Diagonal Gradient</source>
         <translation>Перекрёстно-диагональный градиент</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="848"/>
+        <location filename="../cpalette.cpp" line="849"/>
         <source>Radial Gradient</source>
         <translation>Радиальный градиент</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="834"/>
+        <location filename="../cpalette.cpp" line="835"/>
         <source>Opacity:</source>
         <translation>Непрозрачность:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="817"/>
+        <location filename="../cpalette.cpp" line="818"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="833"/>
+        <location filename="../cpalette.cpp" line="834"/>
         <source>Shade:</source>
         <translation>Тень:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="873"/>
+        <location filename="../cpalette.cpp" line="874"/>
         <source>Edit Line Color Properties</source>
         <translation>Изменить свойства цвета линии</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="874"/>
+        <location filename="../cpalette.cpp" line="875"/>
         <source>Edit Fill Color Properties</source>
         <translation>Изменить свойства заливки линии</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="875"/>
+        <location filename="../cpalette.cpp" line="876"/>
         <source>Saturation of color</source>
         <translation>Насыщение цвета</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="876"/>
+        <location filename="../cpalette.cpp" line="877"/>
         <source>Normal or gradient fill method</source>
         <translation>Обычная или градиентная заливка</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="877"/>
+        <location filename="../cpalette.cpp" line="878"/>
         <source>Set the transparency for the color selected</source>
         <translation>Установить прозрачность для выбранного цвета</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="849"/>
+        <location filename="../cpalette.cpp" line="850"/>
         <source>Free linear Gradient</source>
         <translation>Линейный градиент</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="850"/>
+        <location filename="../cpalette.cpp" line="851"/>
         <source>Free radial Gradient</source>
         <translation>Радиальный градиент</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="835"/>
+        <location filename="../cpalette.cpp" line="836"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="836"/>
+        <location filename="../cpalette.cpp" line="837"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="812"/>
+        <location filename="../cpalette.cpp" line="813"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="837"/>
+        <location filename="../cpalette.cpp" line="838"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="838"/>
+        <location filename="../cpalette.cpp" line="839"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="839"/>
+        <location filename="../cpalette.cpp" line="840"/>
         <source>Move Vector</source>
         <translation>Сместить вектор направления</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="878"/>
+        <location filename="../cpalette.cpp" line="879"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>Изменить вектор направления градиента: начало — левой кнопкой мыши, конец — правой</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="853"/>
+        <location filename="../cpalette.cpp" line="854"/>
         <source>Transparency Settings</source>
         <translation>Параметры прозрачности</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="820"/>
+        <location filename="../cpalette.cpp" line="821"/>
         <source>Offsets</source>
         <translation>Смещения</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="821"/>
+        <location filename="../cpalette.cpp" line="822"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="823"/>
+        <location filename="../cpalette.cpp" line="824"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="825"/>
+        <location filename="../cpalette.cpp" line="826"/>
         <source>Scaling</source>
         <translation>Масштаб</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="826"/>
+        <location filename="../cpalette.cpp" line="827"/>
         <source>X-Scale:</source>
         <translation>X-Масшт.:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="828"/>
+        <location filename="../cpalette.cpp" line="829"/>
         <source>Y-Scale:</source>
         <translation>Y-Масшт.:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="830"/>
+        <location filename="../cpalette.cpp" line="831"/>
         <source>Rotation</source>
         <translation>Вращение</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="831"/>
+        <location filename="../cpalette.cpp" line="832"/>
         <source>Angle</source>
         <translation>Угол</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="851"/>
+        <location filename="../cpalette.cpp" line="852"/>
         <source>Pattern</source>
         <translation>Текстура</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="854"/>
+        <location filename="../cpalette.cpp" line="855"/>
         <source>Blend Mode:</source>
         <translation>Режим наложения:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="857"/>
+        <location filename="../cpalette.cpp" line="858"/>
         <source>Darken</source>
         <translation>Затемнение</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="858"/>
+        <location filename="../cpalette.cpp" line="859"/>
         <source>Lighten</source>
         <translation>Осветление</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="859"/>
+        <location filename="../cpalette.cpp" line="860"/>
         <source>Multiply</source>
         <translation>Умножение</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="860"/>
+        <location filename="../cpalette.cpp" line="861"/>
         <source>Screen</source>
         <translation>Экран</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="861"/>
+        <location filename="../cpalette.cpp" line="862"/>
         <source>Overlay</source>
         <translation>Перекрытие</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="862"/>
+        <location filename="../cpalette.cpp" line="863"/>
         <source>Hard Light</source>
         <translation>Направленный свет</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="863"/>
+        <location filename="../cpalette.cpp" line="864"/>
         <source>Soft Light</source>
         <translation>Рассеянный свет</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="864"/>
+        <location filename="../cpalette.cpp" line="865"/>
         <source>Difference</source>
         <translation>Разница</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="865"/>
+        <location filename="../cpalette.cpp" line="866"/>
         <source>Exclusion</source>
         <translation>Вычитание</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="866"/>
+        <location filename="../cpalette.cpp" line="867"/>
         <source>Color Dodge</source>
         <translation>Затемнение штрихов</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="867"/>
+        <location filename="../cpalette.cpp" line="868"/>
         <source>Color Burn</source>
         <translation>Осветление штрихов</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="868"/>
+        <location filename="../cpalette.cpp" line="869"/>
         <source>Hue</source>
         <translation>Тон</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="869"/>
+        <location filename="../cpalette.cpp" line="870"/>
         <source>Saturation</source>
         <translation>Насыщенность</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="870"/>
+        <location filename="../cpalette.cpp" line="871"/>
         <source>Color</source>
         <translation>Цвет</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="871"/>
+        <location filename="../cpalette.cpp" line="872"/>
         <source>Luminosity</source>
         <translation>Яркость</translation>
     </message>
@@ -8009,142 +8102,142 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CreateRange</name>
     <message>
-        <location filename="../createrange.ui" line="13"/>
+        <location filename="../ui/createrange.ui" line="13"/>
         <source>Create Range</source>
         <translation>Создание диапазона страниц</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="33"/>
+        <location filename="../ui/createrange.ui" line="54"/>
         <source>Number of Pages in Document:</source>
         <translation>Всего страниц в документе:</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="43"/>
+        <location filename="../ui/createrange.ui" line="64"/>
         <source>Doc Page Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="91"/>
+        <location filename="../ui/createrange.ui" line="112"/>
         <source>Basic Range Selection</source>
         <translation>Простой выбор диапазона</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="103"/>
+        <location filename="../ui/createrange.ui" line="136"/>
         <source>Range of Pages</source>
         <translation>Диапазон страниц</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="115"/>
+        <location filename="../ui/createrange.ui" line="160"/>
         <source>De&amp;lete</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="118"/>
+        <location filename="../ui/createrange.ui" line="163"/>
         <source>Alt+L</source>
         <translation>Alt+у</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="141"/>
+        <location filename="../ui/createrange.ui" line="186"/>
         <source>Move &amp;Down</source>
         <translation>&amp;Ниже</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="144"/>
+        <location filename="../ui/createrange.ui" line="189"/>
         <source>Alt+D</source>
         <translation>Alt+н</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="151"/>
+        <location filename="../ui/createrange.ui" line="196"/>
         <source>Move &amp;Up</source>
         <translation>&amp;Выше</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="154"/>
+        <location filename="../ui/createrange.ui" line="199"/>
         <source>Alt+U</source>
         <translation>Alt+в</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="173"/>
+        <location filename="../ui/createrange.ui" line="218"/>
         <source>Add a Range of Pages</source>
         <translation>Добавить диапазон страниц</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="185"/>
+        <location filename="../ui/createrange.ui" line="242"/>
         <source>Consecutive Pages</source>
         <translation>Последовательные страницы</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="195"/>
+        <location filename="../ui/createrange.ui" line="252"/>
         <source>Even Pages</source>
         <translation>Чётные страницы</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="202"/>
+        <location filename="../ui/createrange.ui" line="259"/>
         <source>From:</source>
         <translation>От:</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="234"/>
+        <location filename="../ui/createrange.ui" line="291"/>
         <source>To:</source>
         <translation>До:</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="268"/>
+        <location filename="../ui/createrange.ui" line="334"/>
         <source>&amp;Add To Range</source>
         <translation>Доб&amp;авить в диапазон</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="271"/>
+        <location filename="../ui/createrange.ui" line="337"/>
         <source>Alt+A</source>
         <translation>Alt+а</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="296"/>
+        <location filename="../ui/createrange.ui" line="362"/>
         <source>Odd Pages</source>
         <translation>Нечётные страницы</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="306"/>
+        <location filename="../ui/createrange.ui" line="372"/>
         <source>Comma Separated List</source>
         <translation>Разделённый запятыми список</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="317"/>
+        <location filename="../ui/createrange.ui" line="383"/>
         <source>Advanced Reordering</source>
         <translation>Расширенное перераспределение</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="361"/>
+        <location filename="../ui/createrange.ui" line="439"/>
         <source>Page Order</source>
         <translation>Порядок страниц</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="371"/>
+        <location filename="../ui/createrange.ui" line="449"/>
         <source>Sample Page Order:</source>
         <translation>Пример порядка страниц:</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="400"/>
+        <location filename="../ui/createrange.ui" line="478"/>
         <source>Page Group Size:</source>
         <translation>Размер группы страниц:</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="438"/>
+        <location filename="../ui/createrange.ui" line="525"/>
         <source>&amp;OK</source>
         <translation>&amp;ОК</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="441"/>
+        <location filename="../ui/createrange.ui" line="528"/>
         <source>Alt+O</source>
         <translation>Alt+о</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="448"/>
+        <location filename="../ui/createrange.ui" line="535"/>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="451"/>
+        <location filename="../ui/createrange.ui" line="538"/>
         <source>Alt+C</source>
         <translation>Alt+т</translation>
     </message>
@@ -8422,49 +8515,49 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CurveWidget</name>
     <message>
-        <location filename="../curvewidget.cpp" line="433"/>
+        <location filename="../curvewidget.cpp" line="411"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="468"/>
+        <location filename="../curvewidget.cpp" line="446"/>
         <source>Curve Files (*.scu);;All Files (*)</source>
         <translation>Файлы кривых (*.scu);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="468"/>
+        <location filename="../curvewidget.cpp" line="446"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="502"/>
+        <location filename="../curvewidget.cpp" line="480"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Невозможно записать в файл: 
 %1</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="522"/>
+        <location filename="../curvewidget.cpp" line="500"/>
         <source>Inverts the curve</source>
         <translation>Инвертирует кривую</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="523"/>
+        <location filename="../curvewidget.cpp" line="501"/>
         <source>Resets the curve</source>
         <translation>Сбрасывает кривую в исходное состояние</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="524"/>
+        <location filename="../curvewidget.cpp" line="502"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
         <translation>Переключает тип интерполяции кривой между линейной и кубической</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="525"/>
+        <location filename="../curvewidget.cpp" line="503"/>
         <source>Loads a curve</source>
         <translation>Загружает кривую</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="526"/>
+        <location filename="../curvewidget.cpp" line="504"/>
         <source>Saves this curve</source>
         <translation>Сохраняет кривую</translation>
     </message>
@@ -8496,11 +8589,16 @@ This can be set in the Preferences.</source>
     <message>
         <location filename="../customfdialog.cpp" line="304"/>
         <source>&amp;Include ICC Profiles</source>
-        <translation>&amp;Включить ICC-профили</translation>
+        <translation type="obsolete">&amp;Включить ICC-профили</translation>
     </message>
     <message>
         <location filename="../customfdialog.cpp" line="274"/>
         <source>Show Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../customfdialog.cpp" line="304"/>
+        <source>&amp;Include Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8595,7 +8693,7 @@ This can be set in the Preferences.</source>
 <context>
     <name>DeferredTask</name>
     <message>
-        <location filename="../deferredtask.cpp" line="82"/>
+        <location filename="../deferredtask.cpp" line="83"/>
         <source>Cancelled by user</source>
         <translation>Отменено пользователем</translation>
     </message>
@@ -8621,17 +8719,17 @@ This can be set in the Preferences.</source>
 <context>
     <name>DelPages</name>
     <message>
-        <location filename="../delpages.cpp" line="18"/>
+        <location filename="../delpages.cpp" line="17"/>
         <source>Delete Pages</source>
         <translation>Удаление страниц</translation>
     </message>
     <message>
-        <location filename="../delpages.cpp" line="33"/>
+        <location filename="../delpages.cpp" line="34"/>
         <source>to:</source>
         <translation>до:</translation>
     </message>
     <message>
-        <location filename="../delpages.cpp" line="27"/>
+        <location filename="../delpages.cpp" line="26"/>
         <source>Delete From:</source>
         <translation>Удалить от:</translation>
     </message>
@@ -8687,157 +8785,157 @@ This can be set in the Preferences.</source>
         <translation>&amp;Заголовок:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="45"/>
+        <location filename="../docinfo.cpp" line="46"/>
         <source>&amp;Author:</source>
         <translation>&amp;Автор:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="51"/>
+        <location filename="../docinfo.cpp" line="53"/>
         <source>&amp;Keywords:</source>
         <translation>&amp;Ключевые слова:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="58"/>
+        <location filename="../docinfo.cpp" line="61"/>
         <source>Descri&amp;ption:</source>
         <translation>Опи&amp;сание:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="70"/>
+        <location filename="../docinfo.cpp" line="74"/>
         <source>P&amp;ublisher:</source>
         <translation>Изда&amp;тель:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="76"/>
+        <location filename="../docinfo.cpp" line="81"/>
         <source>&amp;Contributors:</source>
         <translation>Соа&amp;вторы:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="83"/>
+        <location filename="../docinfo.cpp" line="89"/>
         <source>Dat&amp;e:</source>
         <translation>Д&amp;ата:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="89"/>
+        <location filename="../docinfo.cpp" line="96"/>
         <source>T&amp;ype:</source>
         <translation>&amp;Тип:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="95"/>
+        <location filename="../docinfo.cpp" line="103"/>
         <source>F&amp;ormat:</source>
         <translation>Фор&amp;мат:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="101"/>
+        <location filename="../docinfo.cpp" line="110"/>
         <source>Identi&amp;fier:</source>
         <translation>Идентиф&amp;икатор:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="107"/>
+        <location filename="../docinfo.cpp" line="117"/>
         <source>&amp;Source:</source>
         <translation>&amp;Источник:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="113"/>
+        <location filename="../docinfo.cpp" line="124"/>
         <source>&amp;Language:</source>
         <translation>Я&amp;зык:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="119"/>
+        <location filename="../docinfo.cpp" line="131"/>
         <source>&amp;Relation:</source>
         <translation>О&amp;тношение:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="125"/>
+        <location filename="../docinfo.cpp" line="138"/>
         <source>Co&amp;verage:</source>
         <translation>&amp;Cфера действия:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="131"/>
+        <location filename="../docinfo.cpp" line="145"/>
         <source>Ri&amp;ghts:</source>
         <translation>Пра&amp;ва:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="138"/>
+        <location filename="../docinfo.cpp" line="153"/>
         <source>Further &amp;Information</source>
         <translation>&amp;Подробнее</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="148"/>
+        <location filename="../docinfo.cpp" line="163"/>
         <source>A person or organisation responsible for making the document available</source>
         <translation>Человек или организация, ответственные за выпуск этого документа</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="149"/>
+        <location filename="../docinfo.cpp" line="164"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
         <translation>Человек или организация, внёсшие вклад в содержимое этого документа</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="150"/>
+        <location filename="../docinfo.cpp" line="165"/>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
         <translation>Дата, связанная с событием в жизненном цикле этого документа, в формате ГГГГ-ММ-ДД согласно ISO 8601</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="151"/>
+        <location filename="../docinfo.cpp" line="166"/>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
         <translation>Природа жанра содержимого этого документа, например, категории, функции и т.д.</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="153"/>
+        <location filename="../docinfo.cpp" line="168"/>
         <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
         <translation>Уникальная ссылка на этот документ посредством ISBN или URI</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="156"/>
+        <location filename="../docinfo.cpp" line="171"/>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
         <translation>Ссылка на документ с родственной тематикой, возможно, с формальным идентификатором, таким как ISBN или URI</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="157"/>
+        <location filename="../docinfo.cpp" line="172"/>
         <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
         <translation>Область охвата данного документа, возможно, включая место, время и область юрисдикции</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="158"/>
+        <location filename="../docinfo.cpp" line="173"/>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
         <translation>Информация о правах на документ и его содержимое, например, авторские и патентные права, торговая марка</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="154"/>
+        <location filename="../docinfo.cpp" line="169"/>
         <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
         <translation>Ссылка на документ, производным от которого является данный документ, например, в виде ISBN или URI</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="137"/>
+        <location filename="../docinfo.cpp" line="152"/>
         <source>Documen&amp;t</source>
         <translation>&amp;Документ</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="144"/>
+        <location filename="../docinfo.cpp" line="159"/>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation>Название организации, в первую очередь ответственной за создание этого документа. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="145"/>
+        <location filename="../docinfo.cpp" line="160"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation>Имя, данное документу. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="146"/>
+        <location filename="../docinfo.cpp" line="161"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
         <translation>Краткое описание содержимого документа. Это поле для краткого описания или аннотации к документу, встраиваемое в экспортируемый файл PDF</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="147"/>
+        <location filename="../docinfo.cpp" line="162"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
         <translation>Тема этого документа. Это поле содержит ключевые слова документа для встраивания в файл PDF для упрощения поиска и индексирования таких файлов</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="152"/>
+        <location filename="../docinfo.cpp" line="167"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
         <translation>Физическое или цифровое представление этого документа. Стоит указать тип носителя и его размеры. Также полезны RFC2045 и RFC2046 для типов MIME</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="155"/>
+        <location filename="../docinfo.cpp" line="170"/>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>Язык, на котором написан документ, обычно обозначенный кодом ISO-639, по выбору с суффиксом в виде дефиса и кодом страны по ISO-3166, например: en-GB, fr-CH</translation>
     </message>
@@ -9240,52 +9338,52 @@ This can be set in the Preferences.</source>
 <context>
     <name>Druck</name>
     <message>
-        <location filename="../druck.cpp" line="66"/>
+        <location filename="../druck.cpp" line="67"/>
         <source>Setup Printer</source>
         <translation>Параметры принтера</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="796"/>
+        <location filename="../druck.cpp" line="797"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="222"/>
+        <location filename="../druck.cpp" line="226"/>
         <source>Options</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="821"/>
+        <location filename="../druck.cpp" line="822"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="619"/>
+        <location filename="../druck.cpp" line="620"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="820"/>
+        <location filename="../druck.cpp" line="821"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="819"/>
+        <location filename="../druck.cpp" line="820"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="818"/>
+        <location filename="../druck.cpp" line="819"/>
         <source>Yellow</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="817"/>
+        <location filename="../druck.cpp" line="818"/>
         <source>Black</source>
         <translation>Black</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="376"/>
+        <location filename="../druck.cpp" line="380"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -9295,152 +9393,152 @@ a range of pages or a single page number.</source>
 номером одиночной страницы.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="73"/>
+        <location filename="../druck.cpp" line="74"/>
         <source>Print Destination</source>
         <translation>Путь к принтеру</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="114"/>
+        <location filename="../druck.cpp" line="115"/>
         <source>&amp;Options...</source>
         <translation>&amp;Параметры...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="126"/>
+        <location filename="../druck.cpp" line="127"/>
         <source>&amp;File:</source>
         <translation>&amp;Файл:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="131"/>
+        <location filename="../druck.cpp" line="133"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Изменить...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="138"/>
+        <location filename="../druck.cpp" line="140"/>
         <source>A&amp;lternative Printer Command</source>
         <translation>&amp;Альтернативная команда для принтера</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="147"/>
+        <location filename="../druck.cpp" line="149"/>
         <source>Co&amp;mmand:</source>
         <translation>&amp;Команда:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="154"/>
+        <location filename="../druck.cpp" line="157"/>
         <source>Range</source>
         <translation>Диапазон</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="159"/>
+        <location filename="../druck.cpp" line="162"/>
         <source>Print &amp;All</source>
         <translation>Напечатать &amp;все</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="633"/>
+        <location filename="../druck.cpp" line="634"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Напечатать те&amp;кущую страницу</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="163"/>
+        <location filename="../druck.cpp" line="166"/>
         <source>Print &amp;Range</source>
         <translation>Напечатать ди&amp;апазон</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="183"/>
+        <location filename="../druck.cpp" line="186"/>
         <source>N&amp;umber of Copies:</source>
         <translation>Ко&amp;личество копий:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="349"/>
+        <location filename="../druck.cpp" line="353"/>
         <source>&amp;Print</source>
         <translation>&amp;Напечатать</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="581"/>
+        <location filename="../druck.cpp" line="582"/>
         <source>Print Normal</source>
         <translation>Обычная печать</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="195"/>
+        <location filename="../druck.cpp" line="199"/>
         <source>Print Separations</source>
         <translation>Печать цветоделений</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="199"/>
+        <location filename="../druck.cpp" line="203"/>
         <source>Print in Color if Available</source>
         <translation>Печать в цвете, если возможно</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="200"/>
+        <location filename="../druck.cpp" line="204"/>
         <source>Print in Grayscale</source>
         <translation>Печать в градациях серого</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="217"/>
+        <location filename="../druck.cpp" line="221"/>
         <source>PostScript Level 1</source>
         <translation>PostScript Level 1</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="218"/>
+        <location filename="../druck.cpp" line="222"/>
         <source>PostScript Level 2</source>
         <translation>PostScript Level 2</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="219"/>
+        <location filename="../druck.cpp" line="223"/>
         <source>PostScript Level 3</source>
         <translation>PostScript Level 3</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="228"/>
+        <location filename="../druck.cpp" line="232"/>
         <source>Page</source>
         <translation>Страница</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="234"/>
+        <location filename="../druck.cpp" line="238"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Зеркально отразить по горизонтали</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="237"/>
+        <location filename="../druck.cpp" line="241"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Зеркально отразить по вертикали</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="240"/>
+        <location filename="../druck.cpp" line="244"/>
         <source>Set Media Size</source>
         <translation>Указать размер носителя</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="246"/>
+        <location filename="../druck.cpp" line="250"/>
         <source>Color</source>
         <translation>Цвет</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="252"/>
+        <location filename="../druck.cpp" line="256"/>
         <source>Apply Under Color Removal</source>
         <translation>Применить вычитание из-под чёрного</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="255"/>
+        <location filename="../druck.cpp" line="259"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Преобразовать сплошные тона в печатные</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="263"/>
         <source>Apply ICC Profiles</source>
-        <translation>Применить ICC-профили</translation>
+        <translation type="obsolete">Применить ICC-профили</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="267"/>
+        <location filename="../druck.cpp" line="271"/>
         <source>Advanced Options</source>
         <translation>Дополнительные параметры</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="344"/>
+        <location filename="../druck.cpp" line="348"/>
         <source>Preview...</source>
         <translation>Предпросмотр...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="378"/>
+        <location filename="../druck.cpp" line="382"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Указывает уровень PostScript.
@@ -9448,157 +9546,157 @@ a range of pages or a single page number.</source>
 созданию огромных файлов</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="619"/>
+        <location filename="../druck.cpp" line="620"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Файлы PostScript (*.ps);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="377"/>
+        <location filename="../druck.cpp" line="381"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation>Использовать альтернативный менеджер печати, например kprinter или gtklp, для расширенной настройки печати</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="379"/>
+        <location filename="../druck.cpp" line="383"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на чёрный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании этого способа также снижается вероятность избыточной яркости изображения.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="380"/>
+        <location filename="../druck.cpp" line="384"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Разрешить преобразование плашечных цветов в композитные. Если вы не собираетесь печатать плашечные цвета в типографии, то лучше оставьте опцию включённой.</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="383"/>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation>Встраивать ICC-профили в печатный поток при включённом управлении цветом</translation>
+        <translation type="obsolete">Встраивать ICC-профили в печатный поток при включённом управлении цветом</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="384"/>
+        <location filename="../druck.cpp" line="388"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>Напрямую указать размер носителя в PostScript-файле. Не рекомендуется использовать эту функцию, пока этого не потребует принтер.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="569"/>
+        <location filename="../druck.cpp" line="570"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Не удалось получить параметры принтера</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="242"/>
+        <location filename="../druck.cpp" line="246"/>
         <source>Clip to Page Margins</source>
         <translation>Обрезать до полей</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="373"/>
+        <location filename="../druck.cpp" line="377"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>Не показывать объекты вне полей на распечатанной странице</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="258"/>
+        <location filename="../druck.cpp" line="262"/>
         <source>Force Overprint Mode</source>
         <translation>Принудительный режим надпечатки</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="274"/>
+        <location filename="../druck.cpp" line="278"/>
         <source>Printer Marks</source>
         <translation>Метки печати</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="279"/>
+        <location filename="../druck.cpp" line="283"/>
         <source>Crop Marks</source>
         <translation>Обрезные метки</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="281"/>
+        <location filename="../druck.cpp" line="285"/>
         <source>Bleed Marks</source>
         <translation>Метки выпуска под обрез</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="283"/>
+        <location filename="../druck.cpp" line="287"/>
         <source>Registration Marks</source>
         <translation>Метки совмещения</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="285"/>
+        <location filename="../druck.cpp" line="289"/>
         <source>Color Bars</source>
         <translation>Контрольные цветовые полосы</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="288"/>
+        <location filename="../druck.cpp" line="292"/>
         <source>Offset:</source>
         <translation>Смещение:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="293"/>
+        <location filename="../druck.cpp" line="297"/>
         <source>Marks</source>
         <translation>Метки</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="300"/>
+        <location filename="../druck.cpp" line="304"/>
         <source>Bleed Settings</source>
         <translation>Параметры выпуска под обрез</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="306"/>
+        <location filename="../druck.cpp" line="310"/>
         <source>Top:</source>
         <translation>Сверху:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="311"/>
+        <location filename="../druck.cpp" line="315"/>
         <source>Bottom:</source>
         <translation>Снизу:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="316"/>
+        <location filename="../druck.cpp" line="320"/>
         <source>Left:</source>
         <translation>Слева:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="321"/>
+        <location filename="../druck.cpp" line="325"/>
         <source>Right:</source>
         <translation>Справа:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="325"/>
+        <location filename="../druck.cpp" line="329"/>
         <source>Use Document Bleeds</source>
         <translation>Выпуск под обрез из параметров документа</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="329"/>
+        <location filename="../druck.cpp" line="333"/>
         <source>Bleeds</source>
         <translation>Выпуск под обрез</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="332"/>
+        <location filename="../druck.cpp" line="336"/>
         <source>Inside:</source>
         <translation>Изнутри:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="333"/>
+        <location filename="../druck.cpp" line="337"/>
         <source>Outside:</source>
         <translation>Снаружи:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="390"/>
+        <location filename="../druck.cpp" line="394"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Расстояние от линии обреза до верха физической страницы</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="391"/>
+        <location filename="../druck.cpp" line="395"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Расстояние от линии обреза до низа физической страницы</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="392"/>
+        <location filename="../druck.cpp" line="396"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Расстояние от линии обреза до левого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="393"/>
+        <location filename="../druck.cpp" line="397"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Расстояние от линии обреза до правого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="381"/>
+        <location filename="../druck.cpp" line="385"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Включить глобальный режим надпечатки, игнорируя соответствующий параметр отдельных объектов</translation>
     </message>
@@ -9608,40 +9706,50 @@ a range of pages or a single page number.</source>
         <translation type="obsolete">Создать в PDF обрезные метки, показывающие, где бумага должна быть порезана при печати.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="386"/>
+        <location filename="../druck.cpp" line="390"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>Создать метки выпуска под обрез, изображаемы в виде _ . _ и показывающие предел выпуска под обрез</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="387"/>
+        <location filename="../druck.cpp" line="391"/>
         <source>Add registration marks which are added to each separation</source>
         <translation>Метки совмещения, добавляемые в каждое цветоделение</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="388"/>
+        <location filename="../druck.cpp" line="392"/>
         <source>Add color calibration bars</source>
         <translation>Добавить контрольные цветовые полосы</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="389"/>
+        <location filename="../druck.cpp" line="393"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation>Показать расстояние сдвига меток  совмещения</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="394"/>
+        <location filename="../druck.cpp" line="398"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation>Использовать имеющиеся параметры документа для выпуска под обрез</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="385"/>
+        <location filename="../druck.cpp" line="389"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation>Создать в PDF обрезные метки, показывающие, где бумага должна быть порезана после печати</translation>
+    </message>
+    <message>
+        <location filename="../druck.cpp" line="267"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../druck.cpp" line="387"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="500"/>
+        <location filename="../plugins/psimport/importps.cpp" line="502"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -9650,17 +9758,17 @@ failed!</source>
 не удался!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="501"/>
+        <location filename="../plugins/psimport/importps.cpp" line="503"/>
         <source>Fatal Error</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="856"/>
+        <location filename="../plugins/psimport/importps.cpp" line="858"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="506"/>
+        <location filename="../plugins/psimport/importps.cpp" line="508"/>
         <source>Generating Items</source>
         <translation>Обобщение объектов</translation>
     </message>
@@ -9675,7 +9783,7 @@ failed!</source>
         <translation>Анализируется PostScript:</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="855"/>
+        <location filename="../plugins/psimport/importps.cpp" line="857"/>
         <source>Converting of %1 images failed!</source>
         <translation>Преобразование %1 изображений не удалось!</translation>
     </message>
@@ -9685,7 +9793,7 @@ failed!</source>
         <translation>Импорт: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="726"/>
+        <location filename="../plugins/psimport/importps.cpp" line="728"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
@@ -9974,157 +10082,157 @@ failed!</source>
 <context>
     <name>EffectsDialog</name>
     <message>
-        <location filename="../effectsdialog.cpp" line="43"/>
+        <location filename="../effectsdialog.cpp" line="44"/>
         <source>Image Effects</source>
         <translation>Эффекты для изображения</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="80"/>
+        <location filename="../effectsdialog.cpp" line="81"/>
         <source>Options:</source>
         <translation>Параметры:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="97"/>
+        <location filename="../effectsdialog.cpp" line="98"/>
         <source>Color:</source>
         <translation>Цвет:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="108"/>
+        <location filename="../effectsdialog.cpp" line="109"/>
         <source>Shade:</source>
         <translation>Затенение:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="124"/>
+        <location filename="../effectsdialog.cpp" line="125"/>
         <source>Brightness:</source>
         <translation>Яркость:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="146"/>
+        <location filename="../effectsdialog.cpp" line="147"/>
         <source>Contrast:</source>
         <translation>Контраст:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="197"/>
+        <location filename="../effectsdialog.cpp" line="198"/>
         <source>Radius:</source>
         <translation>Радиус:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="179"/>
+        <location filename="../effectsdialog.cpp" line="180"/>
         <source>Value:</source>
         <translation>Значение:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="215"/>
+        <location filename="../effectsdialog.cpp" line="216"/>
         <source>Posterize:</source>
         <translation>Постеризация:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="499"/>
+        <location filename="../effectsdialog.cpp" line="500"/>
         <source>Available Effects</source>
         <translation>Доступные эффекты</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1385"/>
+        <location filename="../effectsdialog.cpp" line="1386"/>
         <source>Blur</source>
         <translation>Размытие</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1363"/>
+        <location filename="../effectsdialog.cpp" line="1364"/>
         <source>Brightness</source>
         <translation>Яркость</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1354"/>
+        <location filename="../effectsdialog.cpp" line="1355"/>
         <source>Colorize</source>
         <translation>Тонирование</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1369"/>
+        <location filename="../effectsdialog.cpp" line="1370"/>
         <source>Contrast</source>
         <translation>Контраст</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="972"/>
+        <location filename="../effectsdialog.cpp" line="973"/>
         <source>Grayscale</source>
         <translation>Градации серого</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="974"/>
+        <location filename="../effectsdialog.cpp" line="975"/>
         <source>Invert</source>
         <translation>Негатив</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1398"/>
+        <location filename="../effectsdialog.cpp" line="1399"/>
         <source>Posterize</source>
         <translation>Постеризация</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1375"/>
+        <location filename="../effectsdialog.cpp" line="1376"/>
         <source>Sharpen</source>
         <translation>Повышение резкости</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="481"/>
+        <location filename="../effectsdialog.cpp" line="482"/>
         <source>&gt;&gt;</source>
         <translation>&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="485"/>
+        <location filename="../effectsdialog.cpp" line="486"/>
         <source>&lt;&lt;</source>
         <translation>&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="496"/>
+        <location filename="../effectsdialog.cpp" line="497"/>
         <source>Effects in use</source>
         <translation>Используемые эффекты</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="610"/>
+        <location filename="../effectsdialog.cpp" line="611"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="614"/>
+        <location filename="../effectsdialog.cpp" line="615"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="350"/>
+        <location filename="../effectsdialog.cpp" line="351"/>
         <source>Color 1:</source>
         <translation>Цвет 1:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="370"/>
+        <location filename="../effectsdialog.cpp" line="371"/>
         <source>Color 2:</source>
         <translation>Цвет 2:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="390"/>
+        <location filename="../effectsdialog.cpp" line="391"/>
         <source>Color 3:</source>
         <translation>Цвет 3:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="410"/>
+        <location filename="../effectsdialog.cpp" line="411"/>
         <source>Color 4:</source>
         <translation>Цвет 4:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1404"/>
+        <location filename="../effectsdialog.cpp" line="1405"/>
         <source>Duotone</source>
         <translation>Дуплекс</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1440"/>
+        <location filename="../effectsdialog.cpp" line="1441"/>
         <source>Tritone</source>
         <translation>Триплекс</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1491"/>
+        <location filename="../effectsdialog.cpp" line="1492"/>
         <source>Quadtone</source>
         <translation>Квадроплекс</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1557"/>
+        <location filename="../effectsdialog.cpp" line="1558"/>
         <source>Curves</source>
         <translation>Кривые</translation>
     </message>
@@ -10155,29 +10263,29 @@ failed!</source>
         <translation>&amp;Все страницы</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="115"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="117"/>
         <source>Change the output directory</source>
         <translation>Сменить каталог вывода</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="114"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="116"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>Каталог вывода — каталог, в который помещаются изображения.
 Файлы будут иметь имена вида «имядокумента-номерстраницы.расширение»</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="109"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="111"/>
         <source>Export only the current page</source>
         <translation>Только текущую страницу</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="115"/>
         <source>Available export formats</source>
         <translation>Возможные форматы для экспорта</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="69"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="71"/>
         <source>Choose a Export Directory</source>
         <translation>Выберите каталог для экспорта</translation>
     </message>
@@ -10247,12 +10355,12 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="obsolete">C</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="106"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="108"/>
         <source>Export a range of pages</source>
         <translation>Экспортировать диапазон страниц</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="107"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="109"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -10262,12 +10370,12 @@ a range of pages or a single page number.</source>
 номером одиночной страницы.</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="108"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="110"/>
         <source>Export all pages</source>
         <translation>Экспортировать все страницы</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="110"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="112"/>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
         <translation>Разрешение изображений
@@ -10275,7 +10383,7 @@ Use 72 dpi for Images intended for the Screen</source>
 ориентированных на просмотр с экрана</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="112"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="114"/>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation>Качество изображений — 100% является наилучшим, 1% — наихудшим значением</translation>
     </message>
@@ -10285,7 +10393,7 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Раз&amp;мер:</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="111"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>Размер изображений. 100% — без изменений, 200% — в 2  раза больше и т.д.</translation>
     </message>
@@ -10303,92 +10411,92 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>ExtImageProps</name>
     <message>
-        <location filename="../extimageprops.cpp" line="36"/>
+        <location filename="../extimageprops.cpp" line="37"/>
         <source>Extended Image Properties</source>
         <translation>Расширенные свойства изображения</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="96"/>
+        <location filename="../extimageprops.cpp" line="98"/>
         <source>Normal</source>
         <translation>Обычный</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="97"/>
+        <location filename="../extimageprops.cpp" line="99"/>
         <source>Darken</source>
         <translation>Затемнение</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="98"/>
+        <location filename="../extimageprops.cpp" line="100"/>
         <source>Lighten</source>
         <translation>Осветление</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="99"/>
+        <location filename="../extimageprops.cpp" line="101"/>
         <source>Hue</source>
         <translation>Тон</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="100"/>
+        <location filename="../extimageprops.cpp" line="102"/>
         <source>Saturation</source>
         <translation>Насыщенность</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="101"/>
+        <location filename="../extimageprops.cpp" line="103"/>
         <source>Color</source>
         <translation>Цвет</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="102"/>
+        <location filename="../extimageprops.cpp" line="104"/>
         <source>Luminosity</source>
         <translation>Яркость</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="103"/>
+        <location filename="../extimageprops.cpp" line="105"/>
         <source>Multiply</source>
         <translation>Умножение</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="104"/>
+        <location filename="../extimageprops.cpp" line="106"/>
         <source>Screen</source>
         <translation>Экран</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="105"/>
+        <location filename="../extimageprops.cpp" line="107"/>
         <source>Dissolve</source>
         <translation>Растворение</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="106"/>
+        <location filename="../extimageprops.cpp" line="108"/>
         <source>Overlay</source>
         <translation>Перекрытие</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="107"/>
+        <location filename="../extimageprops.cpp" line="109"/>
         <source>Hard Light</source>
         <translation>Направленный свет</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="108"/>
+        <location filename="../extimageprops.cpp" line="110"/>
         <source>Soft Light</source>
         <translation>Рассеянный свет</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="109"/>
+        <location filename="../extimageprops.cpp" line="111"/>
         <source>Difference</source>
         <translation>Разница</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="110"/>
+        <location filename="../extimageprops.cpp" line="112"/>
         <source>Exclusion</source>
         <translation>Вычитание</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="111"/>
+        <location filename="../extimageprops.cpp" line="113"/>
         <source>Color Dodge</source>
         <translation>Затемнение штрихов</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="112"/>
+        <location filename="../extimageprops.cpp" line="114"/>
         <source>Color Burn</source>
         <translation>Осветление штрихов</translation>
     </message>
@@ -10398,22 +10506,22 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Исключение</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="92"/>
+        <location filename="../extimageprops.cpp" line="94"/>
         <source>Blend Mode:</source>
         <translation>Режим наложения:</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="115"/>
+        <location filename="../extimageprops.cpp" line="117"/>
         <source>Opacity:</source>
         <translation>Непрозрачность:</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="121"/>
+        <location filename="../extimageprops.cpp" line="123"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="127"/>
+        <location filename="../extimageprops.cpp" line="129"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
@@ -10423,17 +10531,17 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Фон</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="208"/>
+        <location filename="../extimageprops.cpp" line="210"/>
         <source>Layers</source>
         <translation>Слои</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="261"/>
+        <location filename="../extimageprops.cpp" line="263"/>
         <source>Don&apos;t use any Path</source>
         <translation>Не использовать контуры</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="263"/>
+        <location filename="../extimageprops.cpp" line="265"/>
         <source>Paths</source>
         <translation>Контуры</translation>
     </message>
@@ -10522,12 +10630,12 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>FontComboH</name>
     <message>
-        <location filename="../fontcombo.cpp" line="136"/>
+        <location filename="../fontcombo.cpp" line="137"/>
         <source>Face:</source>
         <translation>Гарнитура:</translation>
     </message>
     <message>
-        <location filename="../fontcombo.cpp" line="137"/>
+        <location filename="../fontcombo.cpp" line="138"/>
         <source>Style:</source>
         <translation>Начертание:</translation>
     </message>
@@ -10679,13 +10787,13 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>FontPreview</name>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="90"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="97"/>
         <source>User</source>
         <comment>font preview</comment>
         <translation>Пользователь</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="91"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="98"/>
         <source>System</source>
         <comment>font preview</comment>
         <translation>Система</translation>
@@ -10694,32 +10802,32 @@ Use 72 dpi for Images intended for the Screen</source>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="162"/>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation>Добавить выбранный шрифт в Стиль (меню «Шрифт»)</translation>
+        <translation type="obsolete">Добавить выбранный шрифт в Стиль (меню «Шрифт»)</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="163"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Закрыть этот диалог</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="104"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation>А ещё неплохо бы на зависть другим уметь красиво читать и писать</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
         <source>Start searching</source>
         <translation>Начать поиск</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
         <source>Size of the selected font</source>
         <translation>Кегль выбранного шрифта</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
         <translation>Для быстрого поиска нужного шрифта введите сюда его имя. Поиск регистронезависим, можно использовать шаблоны (*, ?, [...]). Пример: t* выведет все шрифты, начинающиеся с t или T. *bold* выведет все шрифты, имеющие в названии слово bold.</translation>
     </message>
@@ -10729,27 +10837,27 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation type="obsolete">Пример будет показан здесь по отпускании клавиши</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="41"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
         <source>Font Name</source>
         <translation>Имя шрифта</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
         <source>Doc</source>
         <translation>В этом документе</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
         <source>Subset</source>
         <translation>Подмножество</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Access</source>
         <translation>Доступ</translation>
     </message>
@@ -10806,20 +10914,20 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
         <source>&amp;Append</source>
-        <translation>&amp;Добавить</translation>
+        <translation type="obsolete">&amp;Добавить</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
         <source>Alt+A</source>
-        <translation>Alt+д</translation>
+        <translation type="obsolete">Alt+д</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="219"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="222"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
         <source>Alt+C</source>
         <translation>Alt+з</translation>
     </message>
@@ -10943,42 +11051,42 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>FontReplaceDialog</name>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="28"/>
+        <location filename="../fontreplacedialog.cpp" line="30"/>
         <source>Font Substitution</source>
         <translation>Замена шрифта</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="43"/>
+        <location filename="../fontreplacedialog.cpp" line="45"/>
         <source>Original Font</source>
         <translation>Исходный шрифт</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="44"/>
+        <location filename="../fontreplacedialog.cpp" line="46"/>
         <source>Substitution Font</source>
         <translation>Шрифт замены</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="70"/>
+        <location filename="../fontreplacedialog.cpp" line="72"/>
         <source>Make these substitutions permanent</source>
         <translation>Использовать эту замену всегда</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="38"/>
+        <location filename="../fontreplacedialog.cpp" line="40"/>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
         <translation>Некоторые шрифты, используемые в этом документе, отсутствуют в вашей системе. Выберите замену для них. Нажав кнопку «Отмена», вы прекратите загрузку документа.</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="81"/>
+        <location filename="../fontreplacedialog.cpp" line="83"/>
         <source>Cancels these font substitutions and stops loading the document.</source>
         <translation>Отмену замену шрифтов и прекратить загрузку документа.</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="82"/>
+        <location filename="../fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
         <translation>Постоянно производить такую замену шрифтов в будущем. При желании это можно отключить в параметрах шрифтов диалога параметров Scribus.</translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="83"/>
+        <location filename="../fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
         <translation>Если нажать ОК, а затем сохранить, то эта замена станет постоянной для сохранённого документа.</translation>
     </message>
@@ -10986,17 +11094,17 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>GradientEditor</name>
     <message>
-        <location filename="../gradienteditor.cpp" line="313"/>
+        <location filename="../gradienteditor.cpp" line="311"/>
         <source>Position:</source>
         <translation>Положение:</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="314"/>
+        <location filename="../gradienteditor.cpp" line="312"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="312"/>
+        <location filename="../gradienteditor.cpp" line="320"/>
         <source>Add, change or remove color stops here</source>
         <translation>Добавить, изменить или удалить опорные точки</translation>
     </message>
@@ -11456,7 +11564,7 @@ Use 72 dpi for Images intended for the Screen</source>
         <location filename="../helpbrowser.cpp" line="265"/>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation>Извините, но руководство недоступно! 
+        <translation type="obsolete">Извините, но руководство недоступно! 
 Посетите сайт http://docs.scribus.net 
 для получения актуальной документации.</translation>
     </message>
@@ -11471,7 +11579,7 @@ and www.scribus.net for downloads.</source>
         <translation type="obsolete">Ссылка</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="264"/>
+        <location filename="../helpbrowser.cpp" line="273"/>
         <source>Scribus Online Help</source>
         <translation>Электронная справка по Scribus</translation>
     </message>
@@ -11526,27 +11634,27 @@ and www.scribus.net for downloads.</source>
         <translation type="obsolete">Строка поиска регистронезависима</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="324"/>
+        <location filename="../helpbrowser.cpp" line="364"/>
         <source>Find</source>
         <translation>Искать</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="324"/>
+        <location filename="../helpbrowser.cpp" line="364"/>
         <source>Search Term:</source>
         <translation>Искомый термин:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="356"/>
+        <location filename="../helpbrowser.cpp" line="396"/>
         <source>New Bookmark</source>
         <translation>Новая закладка</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="356"/>
+        <location filename="../helpbrowser.cpp" line="396"/>
         <source>New Bookmark&apos;s Title:</source>
         <translation>Название новой закладки:</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="208"/>
+        <location filename="../helpbrowser.cpp" line="275"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
@@ -11556,22 +11664,22 @@ and www.scribus.net for downloads.</source>
         <translation>&amp;Найти...</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="218"/>
+        <location filename="../helpbrowser.cpp" line="282"/>
         <source>Find &amp;Next</source>
         <translation>Найти &amp;следующее совпадение</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="219"/>
+        <location filename="../helpbrowser.cpp" line="283"/>
         <source>Find &amp;Previous</source>
         <translation>Найти &amp;предыдущее совпадение</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="209"/>
+        <location filename="../helpbrowser.cpp" line="276"/>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="220"/>
+        <location filename="../helpbrowser.cpp" line="284"/>
         <source>&amp;Add Bookmark</source>
         <translation>&amp;Добавить закладку</translation>
     </message>
@@ -11581,7 +11689,7 @@ and www.scribus.net for downloads.</source>
         <translation>&amp;Удалить все</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="210"/>
+        <location filename="../helpbrowser.cpp" line="277"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Закладки</translation>
     </message>
@@ -11626,9 +11734,53 @@ and www.scribus.net for downloads.</source>
         <translation>&amp;Добавить</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="216"/>
+        <location filename="../helpbrowser.cpp" line="280"/>
         <source>&amp;Quit</source>
         <translation>В&amp;ыход</translation>
+    </message>
+    <message>
+        <location filename="../helpbrowser.cpp" line="702"/>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <comment>HTML message for no documentation available to show</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpBrowser2</name>
+    <message>
+        <location filename="../ui/hb2.ui" line="13"/>
+        <source>Dialog</source>
+        <translation type="unfinished">Диалог</translation>
+    </message>
+    <message>
+        <location filename="../ui/hb2.ui" line="30"/>
+        <source>&amp;Contents</source>
+        <translation type="unfinished">&amp;Содержание</translation>
+    </message>
+    <message>
+        <location filename="../ui/hb2.ui" line="84"/>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <location filename="../ui/hb2.ui" line="49"/>
+        <source>Se&amp;arch</source>
+        <translation type="unfinished">Ис&amp;кать</translation>
+    </message>
+    <message>
+        <location filename="../ui/hb2.ui" line="57"/>
+        <source>Searching is case insensitive</source>
+        <translation type="unfinished">Поиск регистронезависим</translation>
+    </message>
+    <message>
+        <location filename="../ui/hb2.ui" line="64"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Искать</translation>
+    </message>
+    <message>
+        <location filename="../ui/hb2.ui" line="77"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished">&amp;Закладки</translation>
     </message>
 </context>
 <context>
@@ -11719,22 +11871,22 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="obsolete">Переносов &amp;подряд не более:</translation>
     </message>
     <message>
-        <location filename="../hysettings.cpp" line="83"/>
+        <location filename="../hysettings.cpp" line="84"/>
         <source>Ignore List</source>
         <translation>Список игнорируемых слов</translation>
     </message>
     <message>
-        <location filename="../hysettings.cpp" line="112"/>
+        <location filename="../hysettings.cpp" line="113"/>
         <source>Add a new Entry</source>
         <translation>Добавить новую запись</translation>
     </message>
     <message>
-        <location filename="../hysettings.cpp" line="124"/>
+        <location filename="../hysettings.cpp" line="125"/>
         <source>Edit Entry</source>
         <translation>Изменить запись</translation>
     </message>
     <message>
-        <location filename="../hysettings.cpp" line="124"/>
+        <location filename="../hysettings.cpp" line="125"/>
         <source>Exception List</source>
         <translation>Список исключений</translation>
     </message>
@@ -11855,17 +12007,17 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>ImportAIPlugin</name>
     <message>
-        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="57"/>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="58"/>
         <source>Import AI...</source>
         <translation>Импортировать AI...</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="78"/>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="79"/>
         <source>Imports Illustrator Files</source>
         <translation>Импорт файлов Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="79"/>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="80"/>
         <source>Imports most Illustrator files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Импортирует файлы Adobe Illustrator в текущий документ,
@@ -11877,42 +12029,42 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../smstyleimport.cpp" line="27"/>
         <source>Choose Styles</source>
-        <translation>Выберите стили</translation>
+        <translation type="obsolete">Выберите стили</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="32"/>
         <source>Available Styles</source>
-        <translation>Доступные стили</translation>
+        <translation type="obsolete">Доступные стили</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="37"/>
         <source>Character Styles</source>
-        <translation>Символьные стили</translation>
+        <translation type="obsolete">Символьные стили</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="46"/>
         <source>Paragraph Styles</source>
-        <translation>Абзацные стили</translation>
+        <translation type="obsolete">Абзацные стили</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="55"/>
         <source>Line Styles</source>
-        <translation>Стили линий</translation>
+        <translation type="obsolete">Стили линий</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="73"/>
         <source>In case of a name clash</source>
-        <translation>В случае конфликта имён</translation>
+        <translation type="obsolete">В случае конфликта имён</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="74"/>
         <source>Rename imported style</source>
-        <translation>Переименовать импортированный стиль</translation>
+        <translation type="obsolete">Переименовать импортированный стиль</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="76"/>
         <source>Replace existing style</source>
-        <translation>Заменить существующий стиль</translation>
+        <translation type="obsolete">Заменить существующий стиль</translation>
     </message>
 </context>
 <context>
@@ -11920,18 +12072,18 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
         <source>Import &amp;EPS/PS...</source>
-        <translation>Импортировать &amp;EPS/PS...</translation>
+        <translation type="obsolete">Импортировать &amp;EPS/PS...</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="78"/>
         <source>Imports EPS Files</source>
-        <translation>Импортирует файлы EPS</translation>
+        <translation type="obsolete">Импортирует файлы EPS</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="79"/>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Импортирует файлы EPS в текущий документ,
+        <translation type="obsolete">Импортирует файлы EPS в текущий документ,
 преобразовывая их данные в векторные объекты Scribus.</translation>
     </message>
     <message>
@@ -11942,18 +12094,34 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="105"/>
         <source>PDF</source>
-        <translation>PDF</translation>
+        <translation type="obsolete">PDF</translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
+        <source>Import PostScript...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="78"/>
+        <source>Imports PostScript Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="79"/>
+        <source>Imports most PostScript files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Imposition</name>
     <message>
-        <location filename="../plugins/imposition/imposition.cpp" line="70"/>
+        <location filename="../plugins/imposition/imposition.cpp" line="72"/>
         <source>Portrait</source>
         <translation>Портрет</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/imposition.cpp" line="71"/>
+        <location filename="../plugins/imposition/imposition.cpp" line="73"/>
         <source>Landscape</source>
         <translation>Альбом</translation>
     </message>
@@ -11996,89 +12164,122 @@ converting their vector data into Scribus objects.</source>
         <translation>Обратная сторона</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="240"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="253"/>
         <source>&amp;Booklet</source>
         <translation>&amp;Буклет</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="263"/>
         <source>Layout</source>
-        <translation>Макет</translation>
+        <translation type="obsolete">Макет</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="279"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="339"/>
         <source>Fold</source>
         <translation>Фальцовка</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="355"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="415"/>
         <source>Destination page</source>
         <translation>Страница на выходе</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="398"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="455"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="430"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="487"/>
         <source>Orientation</source>
         <translation>Ориентация</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="462"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="519"/>
         <source>Width</source>
         <translation>Ширина</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="507"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="564"/>
         <source>Height</source>
         <translation>Высота</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="550"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="620"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="601"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="671"/>
         <source>&amp;OK</source>
         <translation>&amp;ОК</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="604"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="674"/>
         <source>Alt+G</source>
         <translation>Alt+G</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="611"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="681"/>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="614"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="684"/>
         <source>Alt+C</source>
         <translation>Alt+т</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="289"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="349"/>
         <source>Front page from</source>
         <translation>Лицевая сторона от</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="316"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="376"/>
         <source>Double sided</source>
         <translation>С двух сторон</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="327"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="387"/>
         <source>Back page from</source>
         <translation>Обратная сторона от</translation>
     </message>
     <message>
-        <location filename="../plugins/imposition/impositionbase.ui" line="557"/>
+        <location filename="../plugins/imposition/impositionbase.ui" line="627"/>
         <source>Refresh preview</source>
         <translation>Обновить предпросмотр</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="285"/>
+        <source>Pages per sheet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="296"/>
+        <source>4</source>
+        <translation type="unfinished">4</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="301"/>
+        <source>8</source>
+        <translation type="unfinished">8</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="306"/>
+        <source>16</source>
+        <translation type="unfinished">16</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="318"/>
+        <source>Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="325"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12102,22 +12303,22 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>InsPage</name>
     <message>
-        <location filename="../inspage.cpp" line="29"/>
+        <location filename="../inspage.cpp" line="30"/>
         <source>Insert Page</source>
         <translation>Вставка страницы</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="46"/>
+        <location filename="../inspage.cpp" line="50"/>
         <source>before Page</source>
         <translation>перед страницей</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="47"/>
+        <location filename="../inspage.cpp" line="51"/>
         <source>after Page</source>
         <translation>после страницы</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="48"/>
+        <location filename="../inspage.cpp" line="52"/>
         <source>at End</source>
         <translation>в конец</translation>
     </message>
@@ -12127,27 +12328,27 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="42"/>
+        <location filename="../inspage.cpp" line="46"/>
         <source>Page(s)</source>
         <translation>Страниц(а)</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="58"/>
+        <location filename="../inspage.cpp" line="63"/>
         <source>&amp;Insert</source>
         <translation>В&amp;ставить</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="72"/>
+        <location filename="../inspage.cpp" line="77"/>
         <source>&amp;Master Page:</source>
         <translation>&amp;Мастер-страница:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="198"/>
+        <location filename="../inspage.cpp" line="205"/>
         <source>Page Size</source>
         <translation>Формат страницы</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="202"/>
+        <location filename="../inspage.cpp" line="209"/>
         <source>&amp;Size:</source>
         <translation>&amp;Формат:</translation>
     </message>
@@ -12157,37 +12358,37 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Другой...</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="218"/>
+        <location filename="../inspage.cpp" line="224"/>
         <source>Orie&amp;ntation:</source>
         <translation>Ор&amp;иентация:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="221"/>
+        <location filename="../inspage.cpp" line="227"/>
         <source>Portrait</source>
         <translation>Портрет</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="222"/>
+        <location filename="../inspage.cpp" line="228"/>
         <source>Landscape</source>
         <translation>Альбом</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="228"/>
+        <location filename="../inspage.cpp" line="233"/>
         <source>&amp;Width:</source>
         <translation>&amp;Ширина:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="235"/>
+        <location filename="../inspage.cpp" line="240"/>
         <source>&amp;Height:</source>
         <translation>&amp;Высота:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="239"/>
+        <location filename="../inspage.cpp" line="245"/>
         <source>Move Objects with their Page</source>
         <translation>Перемещать объекты с их страницей</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="62"/>
+        <location filename="../inspage.cpp" line="67"/>
         <source>Master Pages</source>
         <translation>Мастер-страницы</translation>
     </message>
@@ -12195,12 +12396,12 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>InsertAFrame</name>
     <message>
-        <location filename="../insertaframe.cpp" line="113"/>
+        <location filename="../insertaframe.cpp" line="115"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
         <translation>&lt;b&gt;Вставка тестового блока&lt;/b&gt;&lt;br/&gt;При помощи текстового блока вы можете вставить текст в любую область страницы с нужным вам форматированием. На вкладке «Параметры» вы можете указать текстовый файл, который хотите использовать в текстовом блоке. Scribus поддерживает массу текстовых форматов от простого текста до OpenOffice.org.&lt;br/&gt;Импорированный текст может быть изменён и переформатирован прямо на странице или в Story Editor.</translation>
     </message>
     <message>
-        <location filename="../insertaframe.cpp" line="117"/>
+        <location filename="../insertaframe.cpp" line="119"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
         <translation>&lt;b&gt;Вставка блока изображения&lt;/b&gt;&lt;br/&gt;При помощи блоков изображений на страницы добавляются иллюстрации. К изображениям можно применять различные эффекты обработки, такие как смена прозрачности, яркости, постеризация и другие, благодаря которым можно получить интересные результаты, не меняя исходные файлы изображений. Масштабирование блока и изменение его очертания выполняется через палитру «Свойства».</translation>
     </message>
@@ -12903,6 +13104,102 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>LatexEditor</name>
+    <message>
+        <location filename="../latexeditor.ui" line="13"/>
+        <source>Dialog</source>
+        <translation type="unfinished">Диалог</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="30"/>
+        <source>Enter Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="42"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="49"/>
+        <source>Revert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="62"/>
+        <source>Program Messages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="81"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="93"/>
+        <source>Status: Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="103"/>
+        <source>Kill Program</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="118"/>
+        <source>Options</source>
+        <translation type="unfinished">Параметры</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="126"/>
+        <source>Resolution:</source>
+        <translation type="unfinished">Разрешение:</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="133"/>
+        <source>Automatic</source>
+        <translation type="unfinished">Автоматически</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="136"/>
+        <source> DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="153"/>
+        <source>Program:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="161"/>
+        <source>LaTeX</source>
+        <translation type="unfinished">LaTeX</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="171"/>
+        <source>Use Preamble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="178"/>
+        <source>Update Application Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="199"/>
+        <source>Fonts and Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="211"/>
+        <source>Will be filled later</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LayerPalette</name>
     <message>
         <location filename="../layers.cpp" line="484"/>
@@ -13081,6 +13378,59 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>LensDialogBase</name>
+    <message>
+        <location filename="../lensdialogbase.ui" line="13"/>
+        <source>Optical Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="64"/>
+        <source>Add Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="71"/>
+        <source>Remove Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="98"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="105"/>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="123"/>
+        <source>Lens Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="147"/>
+        <source>X Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="164"/>
+        <source>Y Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="181"/>
+        <source>Radius:</source>
+        <translation type="unfinished">Радиус:</translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="198"/>
+        <source>Strength:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LineFormate</name>
     <message>
         <location filename="../lineformats.cpp" line="33"/>
@@ -13163,12 +13513,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../smlinestylew.ui" line="184"/>
         <source>%</source>
-        <translation>%</translation>
+        <translation type="obsolete">%</translation>
     </message>
     <message>
         <location filename="../smlinestylew.ui" line="208"/>
         <source>Line Width:</source>
-        <translation>Толщина линии:</translation>
+        <translation type="obsolete">Толщина линии:</translation>
     </message>
 </context>
 <context>
@@ -13194,37 +13544,37 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../smlinestyle.cpp" line="181"/>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="53"/>
         <source>Flat Cap</source>
-        <translation>Плоская шляпка</translation>
+        <translation type="obsolete">Плоская шляпка</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="54"/>
         <source>Square Cap</source>
-        <translation>Квадратная шляпка</translation>
+        <translation type="obsolete">Квадратная шляпка</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="55"/>
         <source>Round Cap</source>
-        <translation>Округлая шляпка</translation>
+        <translation type="obsolete">Округлая шляпка</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="57"/>
         <source>Miter Join</source>
-        <translation>Фацетное соединение</translation>
+        <translation type="obsolete">Фацетное соединение</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="58"/>
         <source>Bevel Join</source>
-        <translation>Фасочное соединение</translation>
+        <translation type="obsolete">Фасочное соединение</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="59"/>
         <source>Round Join</source>
-        <translation>Скруглённое соединение</translation>
+        <translation type="obsolete">Скруглённое соединение</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -13254,42 +13604,42 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../smlinestyle.cpp" line="71"/>
         <source>Add a new line</source>
-        <translation>Добавить новую линию</translation>
+        <translation type="obsolete">Добавить новую линию</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="72"/>
         <source>Remove a line</source>
-        <translation>Удалить линию</translation>
+        <translation type="obsolete">Удалить линию</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="73"/>
         <source>Line style</source>
-        <translation>Стиль линии</translation>
+        <translation type="obsolete">Стиль линии</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="74"/>
         <source>Line width</source>
-        <translation>Толщина линии</translation>
+        <translation type="obsolete">Толщина линии</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="75"/>
         <source>End style</source>
-        <translation>Стиль концов линии</translation>
+        <translation type="obsolete">Стиль концов линии</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="76"/>
         <source>Join style</source>
-        <translation>Стиль соединения</translation>
+        <translation type="obsolete">Стиль соединения</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="77"/>
         <source>Line color</source>
-        <translation>Цвет линии</translation>
+        <translation type="obsolete">Цвет линии</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="78"/>
         <source>Line shade</source>
-        <translation>Оттенение линии</translation>
+        <translation type="obsolete">Оттенение линии</translation>
     </message>
 </context>
 <context>
@@ -13308,47 +13658,47 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LoremManager</name>
     <message>
-        <location filename="../loremipsum.cpp" line="118"/>
+        <location filename="../loremipsum.cpp" line="123"/>
         <source>Select Lorem Ipsum</source>
         <translation>Выберите шаблонный текст</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="183"/>
+        <location filename="../loremipsum.cpp" line="188"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="185"/>
+        <location filename="../loremipsum.cpp" line="190"/>
         <source>Get More:</source>
         <translation>Больше:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="187"/>
+        <location filename="../loremipsum.cpp" line="192"/>
         <source>XML File:</source>
         <translation>XML-файл:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="206"/>
+        <location filename="../loremipsum.cpp" line="211"/>
         <source>Lorem Ipsum</source>
         <translation>Шаблонный текст</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="207"/>
+        <location filename="../loremipsum.cpp" line="212"/>
         <source>Paragraphs:</source>
         <translation>Абзацев:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="209"/>
+        <location filename="../loremipsum.cpp" line="214"/>
         <source>Alt+O</source>
         <translation>ALT+О</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="211"/>
+        <location filename="../loremipsum.cpp" line="216"/>
         <source>Alt+C</source>
         <translation>Alt+Т</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="212"/>
+        <location filename="../loremipsum.cpp" line="217"/>
         <source>Standard Lorem Ipsum</source>
         <translation>Обычный Lorem Ipsum</translation>
     </message>
@@ -13401,27 +13751,27 @@ converting their vector data into Scribus objects.</source>
         <translation>&amp;Высота:</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="82"/>
+        <location filename="../margindialog.cpp" line="83"/>
         <source>Move Objects with their Page</source>
         <translation>Переместить объекты с их страницей</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="108"/>
+        <location filename="../margindialog.cpp" line="109"/>
         <source>Margin Guides</source>
         <translation>Поля</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="88"/>
+        <location filename="../margindialog.cpp" line="89"/>
         <source>Type:</source>
         <translation>Тип:</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="114"/>
+        <location filename="../margindialog.cpp" line="115"/>
         <source>Other Settings</source>
         <translation>Другие параметры</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="119"/>
+        <location filename="../margindialog.cpp" line="120"/>
         <source>Master Page:</source>
         <translation>Мастер-страница:</translation>
     </message>
@@ -13429,42 +13779,42 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>MarginWidget</name>
     <message>
-        <location filename="../marginWidget.cpp" line="48"/>
+        <location filename="../marginWidget.cpp" line="49"/>
         <source>&amp;Bottom:</source>
         <translation>Сн&amp;изу:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="49"/>
+        <location filename="../marginWidget.cpp" line="51"/>
         <source>&amp;Top:</source>
         <translation>Св&amp;ерху:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="203"/>
+        <location filename="../marginWidget.cpp" line="208"/>
         <source>&amp;Right:</source>
         <translation>С&amp;права:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="202"/>
+        <location filename="../marginWidget.cpp" line="207"/>
         <source>&amp;Left:</source>
         <translation>С&amp;лева:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="148"/>
+        <location filename="../marginWidget.cpp" line="153"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation>Расстояние между направляющей верхнего поля и краем страницы</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="149"/>
+        <location filename="../marginWidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Расстояние между направляющей нижнего поля и краем страницы</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="202"/>
+        <location filename="../marginWidget.cpp" line="207"/>
         <source>&amp;Inside:</source>
         <translation>&amp;Изнутри:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="203"/>
+        <location filename="../marginWidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
         <translation>С&amp;наружи:</translation>
     </message>
@@ -13479,7 +13829,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Использовать эти поля во всех страницах</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="83"/>
+        <location filename="../marginWidget.cpp" line="88"/>
         <source>Apply the margin changes to all existing pages in the document</source>
         <translation>Использовать новые параметры полей во всех страницах документа</translation>
     </message>
@@ -13494,102 +13844,102 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Расстояние между направляющей правого поля и краем страницы. Если страницы указаны как парные, пространство поля используется для получения правильных полей при брошюровке</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="95"/>
+        <location filename="../marginWidget.cpp" line="100"/>
         <source>Printer Margins...</source>
         <translation>Поля принтера...</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="97"/>
+        <location filename="../marginWidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
         <translation>Импортировать параметры полей из настроенных принтеров.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="72"/>
+        <location filename="../marginWidget.cpp" line="77"/>
         <source>Apply settings to:</source>
         <translation>Применить параметры к:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="75"/>
+        <location filename="../marginWidget.cpp" line="80"/>
         <source>All Document Pages</source>
         <translation>Все страницы документа</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="79"/>
+        <location filename="../marginWidget.cpp" line="84"/>
         <source>All Master Pages</source>
         <translation>Все мастер-страницы</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="84"/>
+        <location filename="../marginWidget.cpp" line="89"/>
         <source>Apply the margin changes to all existing master pages in the document</source>
         <translation>Применить изменения полей ко всем мастер-страницам документа</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="101"/>
+        <location filename="../marginWidget.cpp" line="106"/>
         <source>Margin Guides</source>
         <translation>Направляющие полей</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="119"/>
+        <location filename="../marginWidget.cpp" line="124"/>
         <source>Top:</source>
         <translation>Сверху:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="124"/>
+        <location filename="../marginWidget.cpp" line="129"/>
         <source>Bottom:</source>
         <translation>Снизу:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="135"/>
+        <location filename="../marginWidget.cpp" line="140"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Расстояние от линии обреза до верхнего края физической страницы</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="136"/>
+        <location filename="../marginWidget.cpp" line="141"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Расстояние от линии обреза до низа физической страницы</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="137"/>
+        <location filename="../marginWidget.cpp" line="142"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Расстояние от линии обреза до левого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="138"/>
+        <location filename="../marginWidget.cpp" line="143"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Расстояние от линии обреза до правого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="144"/>
+        <location filename="../marginWidget.cpp" line="149"/>
         <source>Bleeds</source>
         <translation>Выпуск под обрез</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="150"/>
+        <location filename="../marginWidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Расстояние между направляющей левого поля и краем страницы. Если страницы указаны как парные, либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="151"/>
+        <location filename="../marginWidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Расстояние между направляющей правого поля и краем страницы. Если страницы указаны как парные, либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginWidget.cpp" line="213"/>
         <source>Inside:</source>
         <translation>Изнутри:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="209"/>
+        <location filename="../marginWidget.cpp" line="214"/>
         <source>Outside:</source>
         <translation>Снаружи:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="213"/>
+        <location filename="../marginWidget.cpp" line="218"/>
         <source>Left:</source>
         <translation>Слева:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="214"/>
+        <location filename="../marginWidget.cpp" line="219"/>
         <source>Right:</source>
         <translation>Справа:</translation>
     </message>
@@ -13677,22 +14027,22 @@ converting their vector data into Scribus objects.</source>
         <translation>Новая мастер-страница %1</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="360"/>
+        <location filename="../muster.cpp" line="366"/>
         <source>Unable to Rename Master Page</source>
         <translation>Невозможно переименовать мастер-страницу</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="360"/>
+        <location filename="../muster.cpp" line="366"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>Не разрешается переименовывать страницу «Обычная».</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="364"/>
+        <location filename="../muster.cpp" line="370"/>
         <source>Rename Master Page</source>
         <translation>Переименовка мастер-страницы</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="364"/>
+        <location filename="../muster.cpp" line="370"/>
         <source>New Name:</source>
         <translation>Новое имя:</translation>
     </message>
@@ -13725,7 +14075,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Смещение по &amp;вертикали:</translation>
     </message>
 </context>
-<context>
+<context encoding="UTF-8">
     <name>Measurements</name>
     <message>
         <location filename="../measurements.cpp" line="115"/>
@@ -13775,18 +14125,23 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../measurements.cpp" line="49"/>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../measurements.cpp" line="109"/>
+        <source> °</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MergeDoc</name>
     <message>
-        <location filename="../mergedoc.cpp" line="132"/>
+        <location filename="../mergedoc.cpp" line="135"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="132"/>
+        <location filename="../mergedoc.cpp" line="135"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Документы (*.sla *.sla.gz *.scd *.scd.gz);;Все файлы (*)</translation>
     </message>
@@ -13801,17 +14156,17 @@ converting their vector data into Scribus objects.</source>
         <translation>Импортировать страницы</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="74"/>
+        <location filename="../mergedoc.cpp" line="75"/>
         <source> from 0</source>
         <translation>из 0</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="77"/>
+        <location filename="../mergedoc.cpp" line="78"/>
         <source>Create Page(s)</source>
         <translation>Создать страницы</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="187"/>
+        <location filename="../mergedoc.cpp" line="190"/>
         <source> from %1</source>
         <translation>из %1</translation>
     </message>
@@ -13821,32 +14176,32 @@ converting their vector data into Scribus objects.</source>
         <translation>Из &amp;документа:</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="51"/>
+        <location filename="../mergedoc.cpp" line="52"/>
         <source>Chan&amp;ge...</source>
         <translation>Из&amp;менить...</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="54"/>
+        <location filename="../mergedoc.cpp" line="55"/>
         <source>&amp;Import Page(s):</source>
         <translation>Импортировать &amp;страниц:</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="81"/>
+        <location filename="../mergedoc.cpp" line="82"/>
         <source>Before Page</source>
         <translation>Перед страницей</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="82"/>
+        <location filename="../mergedoc.cpp" line="83"/>
         <source>After Page</source>
         <translation>После страницы</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="83"/>
+        <location filename="../mergedoc.cpp" line="84"/>
         <source>At End</source>
         <translation>В конец</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="98"/>
+        <location filename="../mergedoc.cpp" line="101"/>
         <source>&amp;Import</source>
         <translation>&amp;Импортировать</translation>
     </message>
@@ -13856,12 +14211,12 @@ converting their vector data into Scribus objects.</source>
         <translation>Импортировать мастер-страницу</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="58"/>
+        <location filename="../mergedoc.cpp" line="59"/>
         <source>&amp;Import Master Page</source>
         <translation>Импортировать &amp;мастер-страницу</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="71"/>
+        <location filename="../mergedoc.cpp" line="72"/>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation>Вставить сюда разделённый запятыми список шаблонов, где каждый шаблон может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
     </message>
@@ -13869,22 +14224,22 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>MissingFont</name>
     <message>
-        <location filename="../missing.cpp" line="308"/>
+        <location filename="../missing.cpp" line="309"/>
         <source>Missing Font</source>
         <translation>Шрифт отсутствует</translation>
     </message>
     <message>
-        <location filename="../missing.cpp" line="316"/>
+        <location filename="../missing.cpp" line="317"/>
         <source>The Font %1 is not installed.</source>
         <translation>Шрифт %1 не установлен.</translation>
     </message>
     <message>
-        <location filename="../missing.cpp" line="321"/>
+        <location filename="../missing.cpp" line="322"/>
         <source>Use</source>
         <translation>Использовать</translation>
     </message>
     <message>
-        <location filename="../missing.cpp" line="335"/>
+        <location filename="../missing.cpp" line="336"/>
         <source>instead</source>
         <translation>вместо</translation>
     </message>
@@ -13897,7 +14252,7 @@ converting their vector data into Scribus objects.</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="../werktoolb.cpp" line="130"/>
+        <location filename="../werktoolb.cpp" line="110"/>
         <source>Properties...</source>
         <translation>Свойства...</translation>
     </message>
@@ -13915,7 +14270,7 @@ converting their vector data into Scribus objects.</source>
         <translation>Скопировать страницу</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="73"/>
+        <location filename="../movepage.cpp" line="78"/>
         <source>Move Page(s):</source>
         <translation>Переместить страницу(ы):</translation>
     </message>
@@ -13925,27 +14280,27 @@ converting their vector data into Scribus objects.</source>
         <translation>Переместить страниц(у)</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="64"/>
+        <location filename="../movepage.cpp" line="68"/>
         <source>Before Page</source>
         <translation>Перед страницей</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="65"/>
+        <location filename="../movepage.cpp" line="69"/>
         <source>After Page</source>
         <translation>После страницы</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="66"/>
+        <location filename="../movepage.cpp" line="70"/>
         <source>At End</source>
         <translation>В конец</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="46"/>
+        <location filename="../movepage.cpp" line="48"/>
         <source>To:</source>
         <translation>До:</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="54"/>
+        <location filename="../movepage.cpp" line="58"/>
         <source>Number of copies:</source>
         <translation>Количество копий:</translation>
     </message>
@@ -13953,297 +14308,297 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>Mpalette</name>
     <message>
-        <location filename="../mpalette.cpp" line="4291"/>
+        <location filename="../mpalette.cpp" line="4319"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4301"/>
+        <location filename="../mpalette.cpp" line="4329"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4302"/>
+        <location filename="../mpalette.cpp" line="4330"/>
         <source>Geometry</source>
         <translation>Геометрия</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4471"/>
+        <location filename="../mpalette.cpp" line="4500"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4309"/>
+        <location filename="../mpalette.cpp" line="4337"/>
         <source>Level</source>
         <translation>Уровень</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4353"/>
+        <location filename="../mpalette.cpp" line="4381"/>
         <source>Show Curve</source>
         <translation>Показать кривую</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4355"/>
+        <location filename="../mpalette.cpp" line="4383"/>
         <source>Start Offset:</source>
         <translation>Смещение от начала кривой:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4356"/>
+        <location filename="../mpalette.cpp" line="4384"/>
         <source>Distance from Curve:</source>
         <translation>Расстояние от кривой:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4334"/>
+        <location filename="../mpalette.cpp" line="4362"/>
         <source>Distance of Text</source>
         <translation>Расстояние до текста</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4459"/>
+        <location filename="../mpalette.cpp" line="4488"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4402"/>
+        <location filename="../mpalette.cpp" line="4430"/>
         <source>Input Profile:</source>
         <translation>Входной профиль:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4403"/>
+        <location filename="../mpalette.cpp" line="4431"/>
         <source>Rendering Intent:</source>
         <translation>Тип цветопередачи:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4409"/>
+        <location filename="../mpalette.cpp" line="4438"/>
         <source>Perceptual</source>
         <translation>Воспринимаемая</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4410"/>
+        <location filename="../mpalette.cpp" line="4439"/>
         <source>Relative Colorimetric</source>
         <translation>Относительная колориметрическая</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4411"/>
+        <location filename="../mpalette.cpp" line="4440"/>
         <source>Saturation</source>
         <translation>Насыщенная</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4412"/>
+        <location filename="../mpalette.cpp" line="4441"/>
         <source>Absolute Colorimetric</source>
         <translation>Абсолютная колориметрическая</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4416"/>
+        <location filename="../mpalette.cpp" line="4445"/>
         <source>Left Point</source>
         <translation>Левая точка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4417"/>
+        <location filename="../mpalette.cpp" line="4446"/>
         <source>End Points</source>
         <translation>Конечные точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4436"/>
+        <location filename="../mpalette.cpp" line="4465"/>
         <source>Miter Join</source>
         <translation>Фацетное соединение</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4437"/>
+        <location filename="../mpalette.cpp" line="4466"/>
         <source>Bevel Join</source>
         <translation>Фасочное соединение</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4438"/>
+        <location filename="../mpalette.cpp" line="4467"/>
         <source>Round Join</source>
         <translation>Скруглённое соединение</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4443"/>
+        <location filename="../mpalette.cpp" line="4472"/>
         <source>Flat Cap</source>
         <translation>Плоская шляпка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4444"/>
+        <location filename="../mpalette.cpp" line="4473"/>
         <source>Square Cap</source>
         <translation>Квадратная шляпка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4445"/>
+        <location filename="../mpalette.cpp" line="4474"/>
         <source>Round Cap</source>
         <translation>Округлая шляпка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4497"/>
+        <location filename="../mpalette.cpp" line="4526"/>
         <source>No Style</source>
         <translation>Без стиля</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4629"/>
+        <location filename="../mpalette.cpp" line="4658"/>
         <source>Font Size</source>
         <translation>Кегль шрифта</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4639"/>
+        <location filename="../mpalette.cpp" line="4668"/>
         <source>Line Spacing</source>
         <translation>Межстрочное расстояние</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4312"/>
+        <location filename="../mpalette.cpp" line="4340"/>
         <source>Shape:</source>
         <translation>Очертание:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4308"/>
+        <location filename="../mpalette.cpp" line="4336"/>
         <source>Basepoint:</source>
         <translation>Опорная точка:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4449"/>
+        <location filename="../mpalette.cpp" line="4478"/>
         <source>Cell Lines</source>
         <translation>Линии ячейки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4450"/>
+        <location filename="../mpalette.cpp" line="4479"/>
         <source>Line at Top</source>
         <translation>Линия вверху</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4451"/>
+        <location filename="../mpalette.cpp" line="4480"/>
         <source>Line at the Left</source>
         <translation>Линия слева</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4452"/>
+        <location filename="../mpalette.cpp" line="4481"/>
         <source>Line at the Right </source>
         <translation>Линия справа</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4453"/>
+        <location filename="../mpalette.cpp" line="4482"/>
         <source>Line at Bottom</source>
         <translation>Линия внизу</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4592"/>
+        <location filename="../mpalette.cpp" line="4621"/>
         <source>Name of selected object</source>
         <translation>Имя выбранного объекта</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4593"/>
+        <location filename="../mpalette.cpp" line="4622"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Горизонтальное положение опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4594"/>
+        <location filename="../mpalette.cpp" line="4623"/>
         <source>Vertical position of current basepoint</source>
         <translation>Вертикальное положение опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4595"/>
+        <location filename="../mpalette.cpp" line="4624"/>
         <source>Width</source>
         <translation>Ширина</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4596"/>
+        <location filename="../mpalette.cpp" line="4625"/>
         <source>Height</source>
         <translation>Высота</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4597"/>
+        <location filename="../mpalette.cpp" line="4626"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Вращение объекта относительно опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4598"/>
+        <location filename="../mpalette.cpp" line="4627"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Точка, относительно которой вычисляются углы поворота</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4599"/>
+        <location filename="../mpalette.cpp" line="4628"/>
         <source>Select top left for basepoint</source>
         <translation>Выберите верхний левый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4600"/>
+        <location filename="../mpalette.cpp" line="4629"/>
         <source>Select top right for basepoint</source>
         <translation>Выберите верхний правый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4601"/>
+        <location filename="../mpalette.cpp" line="4630"/>
         <source>Select bottom left for basepoint</source>
         <translation>Выберите нижний левый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4602"/>
+        <location filename="../mpalette.cpp" line="4631"/>
         <source>Select bottom right for basepoint</source>
         <translation>Выберите нижний правый угол в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4603"/>
+        <location filename="../mpalette.cpp" line="4632"/>
         <source>Select center for basepoint</source>
         <translation>Выберите центр в качестве опорной точки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4606"/>
+        <location filename="../mpalette.cpp" line="4635"/>
         <source>Flip Horizontal</source>
         <translation>Перевернуть по горизонтали</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4607"/>
+        <location filename="../mpalette.cpp" line="4636"/>
         <source>Flip Vertical</source>
         <translation>Перевернуть по вертикали</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4608"/>
+        <location filename="../mpalette.cpp" line="4637"/>
         <source>Move one level up</source>
         <translation>На уровень выше</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4609"/>
+        <location filename="../mpalette.cpp" line="4638"/>
         <source>Move one level down</source>
         <translation>На уровень ниже</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4610"/>
+        <location filename="../mpalette.cpp" line="4639"/>
         <source>Move to front</source>
         <translation>На самый высокий уровень</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4611"/>
+        <location filename="../mpalette.cpp" line="4640"/>
         <source>Move to back</source>
         <translation>На самый низкий уровень</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4613"/>
+        <location filename="../mpalette.cpp" line="4642"/>
         <source>Lock or unlock the object</source>
         <translation>Заблокировать или разблокировать объект</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4614"/>
+        <location filename="../mpalette.cpp" line="4643"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Заблокировать или разблокировать размер объекта</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4615"/>
         <source>Enable or disable printing of the object</source>
-        <translation>Разрешить или запретить печать объекта</translation>
+        <translation type="obsolete">Разрешить или запретить печать объекта</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4628"/>
+        <location filename="../mpalette.cpp" line="4657"/>
         <source>Font of selected text or object</source>
         <translation>Шрифт выделенного текста или объекта</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4631"/>
+        <location filename="../mpalette.cpp" line="4660"/>
         <source>Scaling width of characters</source>
         <translation>Изменяемая ширина символов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4635"/>
+        <location filename="../mpalette.cpp" line="4664"/>
         <source>Saturation of color of text stroke</source>
         <translation>Насыщенность цвета контура текста</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4636"/>
+        <location filename="../mpalette.cpp" line="4665"/>
         <source>Saturation of color of text fill</source>
         <translation>Насыщенность цвета заливки текста</translation>
     </message>
@@ -14253,228 +14608,228 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Стиль текущего абзаца</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4653"/>
+        <location filename="../mpalette.cpp" line="4682"/>
         <source>Change settings for left or end points</source>
         <translation>Изменить параметры левой или конечной точек</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4654"/>
+        <location filename="../mpalette.cpp" line="4683"/>
         <source>Pattern of line</source>
         <translation>Шаблон линии</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4655"/>
+        <location filename="../mpalette.cpp" line="4684"/>
         <source>Thickness of line</source>
         <translation>Толщина линии</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4656"/>
+        <location filename="../mpalette.cpp" line="4685"/>
         <source>Type of line joins</source>
         <translation>Тип соединения линий</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4657"/>
+        <location filename="../mpalette.cpp" line="4686"/>
         <source>Type of line end</source>
         <translation>Тип окончания линий</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4658"/>
+        <location filename="../mpalette.cpp" line="4687"/>
         <source>Line style of current object</source>
         <translation>Стиль линии текущего объекта</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4660"/>
+        <location filename="../mpalette.cpp" line="4689"/>
         <source>Choose the shape of frame...</source>
         <translation>Выбрать очертание блока...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4661"/>
+        <location filename="../mpalette.cpp" line="4690"/>
         <source>Edit shape of the frame...</source>
         <translation>Изменить очертание блока...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4662"/>
+        <location filename="../mpalette.cpp" line="4691"/>
         <source>Set radius of corner rounding</source>
         <translation>Указать радиус скругления углов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4663"/>
+        <location filename="../mpalette.cpp" line="4692"/>
         <source>Number of columns in text frame</source>
         <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4665"/>
+        <location filename="../mpalette.cpp" line="4694"/>
         <source>Distance between columns</source>
         <translation>Расстояние между столбцами</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4666"/>
+        <location filename="../mpalette.cpp" line="4695"/>
         <source>Distance of text from top of frame</source>
         <translation>Расстояние между текстом и верхом блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4667"/>
+        <location filename="../mpalette.cpp" line="4696"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Расстояние между текстом и низом блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4668"/>
+        <location filename="../mpalette.cpp" line="4697"/>
         <source>Distance of text from left of frame</source>
         <translation>Расстояние между текстом и левой стороной блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4669"/>
+        <location filename="../mpalette.cpp" line="4698"/>
         <source>Distance of text from right of frame</source>
         <translation>Расстояние между текстом и правой стороной блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4670"/>
+        <location filename="../mpalette.cpp" line="4699"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Изменить табуляторы текстового блока...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4672"/>
+        <location filename="../mpalette.cpp" line="4701"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Разрешить изображению иметь отличный от блока размер</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4673"/>
+        <location filename="../mpalette.cpp" line="4702"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Горизонтальное смещение изображения относительно блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4674"/>
+        <location filename="../mpalette.cpp" line="4703"/>
         <source>Vertical offset of image within frame</source>
         <translation>Вертикальное смещение изображения относительно блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4675"/>
+        <location filename="../mpalette.cpp" line="4704"/>
         <source>Resize the image horizontally</source>
         <translation>Изменить размер изображения по горизонтали</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4676"/>
+        <location filename="../mpalette.cpp" line="4705"/>
         <source>Resize the image vertically</source>
         <translation>Изменить размер изображения по вертикали</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4677"/>
+        <location filename="../mpalette.cpp" line="4706"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Сохранить пропорции при масштабировании</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4679"/>
+        <location filename="../mpalette.cpp" line="4708"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Уместить изображение в блоке</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4680"/>
+        <location filename="../mpalette.cpp" line="4709"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Использовать пропорции изображения вместо пропорций блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4678"/>
+        <location filename="../mpalette.cpp" line="4707"/>
         <source>Keep the aspect ratio</source>
         <translation>Сохранять соотношение сторон</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4681"/>
+        <location filename="../mpalette.cpp" line="4710"/>
         <source>Source profile of the image</source>
         <translation>Исходный профиль для изображения</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4682"/>
+        <location filename="../mpalette.cpp" line="4711"/>
         <source>Rendering intent for the image</source>
         <translation>Тип цветопередачи изображения</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4347"/>
+        <location filename="../mpalette.cpp" line="4375"/>
         <source>Path Text Properties</source>
         <translation>Свойства текста на контуре</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4612"/>
+        <location filename="../mpalette.cpp" line="4641"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Уровень объекта  относительно других. Ноль обозначает, что объект находится в самом низу</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4664"/>
+        <location filename="../mpalette.cpp" line="4693"/>
         <source>Switches between Gap or Column width</source>
         <translation>Переключиться между интервалом и шириной столбцов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2989"/>
+        <location filename="../mpalette.cpp" line="3021"/>
         <source>Column width</source>
         <translation>Ширина столбцов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4293"/>
+        <location filename="../mpalette.cpp" line="4321"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4296"/>
+        <location filename="../mpalette.cpp" line="4324"/>
         <source>&amp;Shape</source>
         <translation>О&amp;чертания</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4294"/>
+        <location filename="../mpalette.cpp" line="4322"/>
         <source>&amp;Text</source>
         <translation>&amp;Текст</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4295"/>
+        <location filename="../mpalette.cpp" line="4323"/>
         <source>&amp;Image</source>
         <translation>&amp;Изображение</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4297"/>
+        <location filename="../mpalette.cpp" line="4325"/>
         <source>&amp;Line</source>
         <translation>&amp;Линия</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4298"/>
+        <location filename="../mpalette.cpp" line="4326"/>
         <source>&amp;Colors</source>
         <translation>&amp;Цвета</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4394"/>
+        <location filename="../mpalette.cpp" line="4422"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Поз:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4395"/>
+        <location filename="../mpalette.cpp" line="4423"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Поз:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4305"/>
+        <location filename="../mpalette.cpp" line="4333"/>
         <source>&amp;Width:</source>
         <translation>&amp;Ширина:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4306"/>
+        <location filename="../mpalette.cpp" line="4334"/>
         <source>&amp;Height:</source>
         <translation>&amp;Высота:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4307"/>
+        <location filename="../mpalette.cpp" line="4335"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Поворот:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4313"/>
+        <location filename="../mpalette.cpp" line="4341"/>
         <source>&amp;Edit Shape...</source>
         <translation>Изменить &amp;очертания...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4333"/>
+        <location filename="../mpalette.cpp" line="4361"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>За&amp;круглённые углы:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4335"/>
+        <location filename="../mpalette.cpp" line="4363"/>
         <source>Colu&amp;mns:</source>
         <translation>С&amp;толбцов:</translation>
     </message>
@@ -14484,27 +14839,27 @@ Corners:</source>
         <translation type="obsolete">&amp;Интервал:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4342"/>
+        <location filename="../mpalette.cpp" line="4370"/>
         <source>To&amp;p:</source>
         <translation>С&amp;верху:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4343"/>
+        <location filename="../mpalette.cpp" line="4371"/>
         <source>&amp;Bottom:</source>
         <translation>С&amp;низу:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4344"/>
+        <location filename="../mpalette.cpp" line="4372"/>
         <source>&amp;Left:</source>
         <translation>С&amp;лева:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4345"/>
+        <location filename="../mpalette.cpp" line="4373"/>
         <source>&amp;Right:</source>
         <translation>С&amp;права:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4346"/>
+        <location filename="../mpalette.cpp" line="4374"/>
         <source>T&amp;abulators...</source>
         <translation>Т&amp;абуляторы...</translation>
     </message>
@@ -14514,12 +14869,12 @@ Corners:</source>
         <translation type="obsolete">Текст о&amp;бтекает блок</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4369"/>
+        <location filename="../mpalette.cpp" line="4397"/>
         <source>Use &amp;Bounding Box</source>
         <translation>По &amp;площадке (BB)</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4370"/>
+        <location filename="../mpalette.cpp" line="4398"/>
         <source>&amp;Use Contour Line</source>
         <translation>По &amp;контурной линии</translation>
     </message>
@@ -14534,52 +14889,52 @@ Corners:</source>
         <translation type="obsolete">Я&amp;зык:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4391"/>
+        <location filename="../mpalette.cpp" line="4419"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Свободное масштабирование</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4396"/>
+        <location filename="../mpalette.cpp" line="4424"/>
         <source>X-Sc&amp;ale:</source>
         <translation>X-М&amp;асшт.:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4397"/>
+        <location filename="../mpalette.cpp" line="4425"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Y-Мас&amp;шт.:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4398"/>
+        <location filename="../mpalette.cpp" line="4426"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>&amp;Масштабировать до размера блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4399"/>
+        <location filename="../mpalette.cpp" line="4427"/>
         <source>P&amp;roportional</source>
         <translation>Пропорц&amp;ионально</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4419"/>
+        <location filename="../mpalette.cpp" line="4448"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Базовая точка:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4420"/>
+        <location filename="../mpalette.cpp" line="4449"/>
         <source>T&amp;ype of Line:</source>
         <translation>&amp;Тип линии:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4432"/>
+        <location filename="../mpalette.cpp" line="4461"/>
         <source>Line &amp;Width:</source>
         <translation>То&amp;лщина линии:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4433"/>
+        <location filename="../mpalette.cpp" line="4462"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Края:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4447"/>
+        <location filename="../mpalette.cpp" line="4476"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Окончания:</translation>
     </message>
@@ -14590,107 +14945,107 @@ Corners:</source>
 переносов в блоке</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3196"/>
+        <location filename="../mpalette.cpp" line="3228"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3197"/>
+        <location filename="../mpalette.cpp" line="3229"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3198"/>
+        <location filename="../mpalette.cpp" line="3230"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3199"/>
+        <location filename="../mpalette.cpp" line="3231"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4637"/>
+        <location filename="../mpalette.cpp" line="4666"/>
         <source>Right to Left Writing</source>
         <translation>Написание справа налево</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4421"/>
+        <location filename="../mpalette.cpp" line="4450"/>
         <source>Start Arrow:</source>
         <translation>Начальная стрелка:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4422"/>
+        <location filename="../mpalette.cpp" line="4451"/>
         <source>End Arrow:</source>
         <translation>Конечная стрелка:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4404"/>
+        <location filename="../mpalette.cpp" line="4433"/>
         <source>Fixed Linespacing</source>
         <translation>Фиксированный интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4405"/>
+        <location filename="../mpalette.cpp" line="4434"/>
         <source>Automatic Linespacing</source>
         <translation>Автоматический интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4406"/>
+        <location filename="../mpalette.cpp" line="4435"/>
         <source>Align to Baseline Grid</source>
         <translation>Выровнять по базовой линии</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4392"/>
+        <location filename="../mpalette.cpp" line="4420"/>
         <source>Actual X-DPI:</source>
         <translation>Текущий X-DPI: </translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4393"/>
+        <location filename="../mpalette.cpp" line="4421"/>
         <source>Actual Y-DPI:</source>
         <translation>Текущий Y-DPI: </translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4630"/>
+        <location filename="../mpalette.cpp" line="4659"/>
         <source>Offset to baseline of characters</source>
         <translation>Смещение символов от базовой линии</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4632"/>
+        <location filename="../mpalette.cpp" line="4661"/>
         <source>Scaling height of characters</source>
         <translation>Изменяемая высота символов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4638"/>
+        <location filename="../mpalette.cpp" line="4667"/>
         <source>Manual Tracking</source>
         <translation>Ручной трекинг</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4176"/>
+        <location filename="../mpalette.cpp" line="4204"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Имя &quot;%1&quot; уже использовано.&lt;br/&gt;Выберите другое.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4357"/>
+        <location filename="../mpalette.cpp" line="4385"/>
         <source>Fill Rule</source>
         <translation>Правило заполнения</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4358"/>
+        <location filename="../mpalette.cpp" line="4386"/>
         <source>Even-Odd</source>
         <translation>Чёт-нечет</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4359"/>
+        <location filename="../mpalette.cpp" line="4387"/>
         <source>Non Zero</source>
         <translation>Не ноль</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4633"/>
+        <location filename="../mpalette.cpp" line="4662"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>Цвет обводки текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4634"/>
+        <location filename="../mpalette.cpp" line="4663"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Цвет текста. Если включённ эффект «Контур», то это будет цвет заливки. Если включён эффект отбрасываемой тени, то это будет цвет текста.</translation>
     </message>
@@ -14700,7 +15055,7 @@ Corners:</source>
         <translation type="obsolete">Включить обтекание текста вокруг объектов более высоких уровней. Есть два варианта, выбираемых ниже.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4624"/>
+        <location filename="../mpalette.cpp" line="4653"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Использовать площадку, которая всегда прямоугольна. </translation>
     </message>
@@ -14710,299 +15065,304 @@ Corners:</source>
         <translation type="obsolete">Использовать очертания объекта. </translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2384"/>
+        <location filename="../mpalette.cpp" line="2415"/>
         <source>Auto</source>
         <translation>Авто</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4640"/>
+        <location filename="../mpalette.cpp" line="4669"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Щёлкните и держите нажатой для выбора межстрочного режима.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4314"/>
+        <location filename="../mpalette.cpp" line="4342"/>
         <source>Transparency Settings</source>
         <translation>Параметры прозрачности</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4299"/>
+        <location filename="../mpalette.cpp" line="4327"/>
         <source>&amp;Group</source>
         <translation>&amp;Группа объектов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4315"/>
+        <location filename="../mpalette.cpp" line="4343"/>
         <source>Opacity:</source>
         <translation>Непрозрачность:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4316"/>
+        <location filename="../mpalette.cpp" line="4344"/>
         <source>Blend Mode:</source>
         <translation>Режим наложения:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4318"/>
+        <location filename="../mpalette.cpp" line="4346"/>
         <source>Normal</source>
         <translation>Обычный</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4319"/>
+        <location filename="../mpalette.cpp" line="4347"/>
         <source>Darken</source>
         <translation>Затемнение</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4320"/>
+        <location filename="../mpalette.cpp" line="4348"/>
         <source>Lighten</source>
         <translation>Осветление</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4321"/>
+        <location filename="../mpalette.cpp" line="4349"/>
         <source>Multiply</source>
         <translation>Умножение</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4322"/>
+        <location filename="../mpalette.cpp" line="4350"/>
         <source>Screen</source>
         <translation>Экран</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4323"/>
+        <location filename="../mpalette.cpp" line="4351"/>
         <source>Overlay</source>
         <translation>Перекрытие</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4324"/>
+        <location filename="../mpalette.cpp" line="4352"/>
         <source>Hard Light</source>
         <translation>Направленный свет</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4325"/>
+        <location filename="../mpalette.cpp" line="4353"/>
         <source>Soft Light</source>
         <translation>Рассеянный свет</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4326"/>
+        <location filename="../mpalette.cpp" line="4354"/>
         <source>Difference</source>
         <translation>Разница</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4327"/>
+        <location filename="../mpalette.cpp" line="4355"/>
         <source>Exclusion</source>
         <translation>Вычитание</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4328"/>
+        <location filename="../mpalette.cpp" line="4356"/>
         <source>Color Dodge</source>
         <translation>Затемнение штрихов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4329"/>
+        <location filename="../mpalette.cpp" line="4357"/>
         <source>Color Burn</source>
         <translation>Осветление штрихов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4330"/>
+        <location filename="../mpalette.cpp" line="4358"/>
         <source>Hue</source>
         <translation>Тон</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4332"/>
+        <location filename="../mpalette.cpp" line="4360"/>
         <source>Color</source>
         <translation>Цвет</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4338"/>
+        <location filename="../mpalette.cpp" line="4366"/>
         <source>Gap:</source>
         <translation>Интервал:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4339"/>
+        <location filename="../mpalette.cpp" line="4367"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4349"/>
+        <location filename="../mpalette.cpp" line="4377"/>
         <source>Default</source>
         <translation>По умолчанию</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4350"/>
+        <location filename="../mpalette.cpp" line="4378"/>
         <source>Stair Step</source>
         <translation>Лесенка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4351"/>
+        <location filename="../mpalette.cpp" line="4379"/>
         <source>Skew</source>
         <translation>Скос</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4352"/>
+        <location filename="../mpalette.cpp" line="4380"/>
         <source>Flip Text</source>
         <translation>Перевернуть текст</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4354"/>
+        <location filename="../mpalette.cpp" line="4382"/>
         <source>Type:</source>
         <translation>Тип:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4366"/>
+        <location filename="../mpalette.cpp" line="4394"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>Обтекание &amp;текстом вокруг блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4367"/>
+        <location filename="../mpalette.cpp" line="4395"/>
         <source>Disabled</source>
         <translation>Выключено</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4368"/>
+        <location filename="../mpalette.cpp" line="4396"/>
         <source>Use Frame &amp;Shape</source>
         <translation>По о&amp;чертаниям блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4371"/>
+        <location filename="../mpalette.cpp" line="4399"/>
         <source>Use Image Clip Path</source>
         <translation>По обтравочному контуру</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4372"/>
+        <location filename="../mpalette.cpp" line="4400"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>&amp;Абзацный стиль:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4373"/>
+        <location filename="../mpalette.cpp" line="4401"/>
         <source>Character St&amp;yle:</source>
         <translation>Си&amp;мвольный стиль:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4374"/>
+        <location filename="../mpalette.cpp" line="4402"/>
         <source>Optical Margins:</source>
         <translation>Оптические поля:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4385"/>
+        <location filename="../mpalette.cpp" line="4413"/>
         <source>Word Tracking</source>
         <translation>Трекинг</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4389"/>
+        <location filename="../mpalette.cpp" line="4417"/>
         <source>Min:</source>
         <translation>Мин.:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4390"/>
+        <location filename="../mpalette.cpp" line="4418"/>
         <source>Max:</source>
         <translation>Макс.:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4388"/>
+        <location filename="../mpalette.cpp" line="4416"/>
         <source>Glyph Extension</source>
         <translation>Расширение знаков</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4400"/>
+        <location filename="../mpalette.cpp" line="4428"/>
         <source>Image Effects</source>
         <translation>Эффекты изображения</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4401"/>
+        <location filename="../mpalette.cpp" line="4429"/>
         <source>Extended Image Properties</source>
         <translation>Расширенные свойства изображения</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4455"/>
+        <location filename="../mpalette.cpp" line="4484"/>
         <source>Overprinting</source>
         <translation>Надпечатка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4456"/>
+        <location filename="../mpalette.cpp" line="4485"/>
         <source>Knockout</source>
         <translation>Выворотка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4457"/>
+        <location filename="../mpalette.cpp" line="4486"/>
         <source>Overprint</source>
         <translation>Надпечатка</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4604"/>
+        <location filename="../mpalette.cpp" line="4633"/>
         <source>Group the selected objects</source>
         <translation>Сгруппировать выделенные объекты</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4605"/>
+        <location filename="../mpalette.cpp" line="4634"/>
         <source>Destroys the selected group</source>
         <translation>Разбивает выделенную группу</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4622"/>
+        <location filename="../mpalette.cpp" line="4651"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>Отключить обтекание текстом объектов уровнем выше</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4623"/>
+        <location filename="../mpalette.cpp" line="4652"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>Использовать очертания объекта для обтекания текстом под объектом.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4625"/>
+        <location filename="../mpalette.cpp" line="4654"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4626"/>
+        <location filename="../mpalette.cpp" line="4655"/>
         <source>Use the clipping path of the image</source>
         <translation>Использовать встроенный в изображение обтравочный контур</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4641"/>
+        <location filename="../mpalette.cpp" line="4670"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Стиль выделенного абзаца или текстового блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4642"/>
+        <location filename="../mpalette.cpp" line="4671"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Символьный стиль выбранного текста или текстового блока</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4387"/>
+        <location filename="../mpalette.cpp" line="4415"/>
         <source>Norm:</source>
         <translation>Обычн.:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4647"/>
+        <location filename="../mpalette.cpp" line="4676"/>
         <source>Minimal width of spaces between words</source>
         <translation>Минимальный пробел между словами</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4648"/>
+        <location filename="../mpalette.cpp" line="4677"/>
         <source>Normal width of spaces between words</source>
         <translation>Обычный пробел между словами</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4649"/>
+        <location filename="../mpalette.cpp" line="4678"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Минимальное сжатие знаков для выключки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4650"/>
+        <location filename="../mpalette.cpp" line="4679"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Максимальное сжатие знаков для выключки</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4651"/>
+        <location filename="../mpalette.cpp" line="4680"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation>Использование висячей пунктуации и кернинга полей для получения более ровных столбцов</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4643"/>
+        <location filename="../mpalette.cpp" line="4672"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Удалить прямое абзацное форматирование</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4644"/>
+        <location filename="../mpalette.cpp" line="4673"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Удалить прямое символьное форматирование</translation>
+    </message>
+    <message>
+        <location filename="../mpalette.cpp" line="4644"/>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15157,12 +15517,12 @@ Corners:</source>
         <translation>Смещение по &amp;вертикали:</translation>
     </message>
     <message>
-        <location filename="../multipleduplicate.cpp" line="68"/>
+        <location filename="../multipleduplicate.cpp" line="69"/>
         <source>&amp;Horizontal Gap:</source>
         <translation>Интервал по го&amp;ризонтали:</translation>
     </message>
     <message>
-        <location filename="../multipleduplicate.cpp" line="69"/>
+        <location filename="../multipleduplicate.cpp" line="70"/>
         <source>&amp;Vertical Gap:</source>
         <translation>Интервал по в&amp;ертикали:</translation>
     </message>
@@ -15527,17 +15887,17 @@ Corners:</source>
 <context>
     <name>NewFromTemplatePlugin</name>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="60"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="59"/>
         <source>New &amp;from Template...</source>
         <translation>Созд&amp;ать из шаблона...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="79"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="78"/>
         <source>Load documents with predefined layout</source>
         <translation>Загрузка документов с готовым макетом</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="81"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="80"/>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation>Создать новый документ из готового шаблона (к примеру, для документов со строгим стилевым оформлением)</translation>
     </message>
@@ -15545,203 +15905,213 @@ Corners:</source>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../frameedit.cpp" line="808"/>
+        <location filename="../frameedit.cpp" line="839"/>
         <source>Nodes</source>
         <translation>Узлы</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="819"/>
+        <location filename="../frameedit.cpp" line="852"/>
         <source>Move Nodes</source>
         <translation>Переместить узлы</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="820"/>
+        <location filename="../frameedit.cpp" line="853"/>
         <source>Move Control Points</source>
         <translation>Переместить контрольные точки</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="821"/>
+        <location filename="../frameedit.cpp" line="854"/>
         <source>Add Nodes</source>
         <translation>Добавить узлы</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="822"/>
+        <location filename="../frameedit.cpp" line="855"/>
         <source>Delete Nodes</source>
         <translation>Удалить узлы</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="825"/>
+        <location filename="../frameedit.cpp" line="858"/>
         <source>Reset Control Points</source>
         <translation>Восстановить контрольные точки</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="826"/>
+        <location filename="../frameedit.cpp" line="859"/>
         <source>Reset this Control Point</source>
         <translation>Восстановить эту контрольную точку</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="811"/>
+        <location filename="../frameedit.cpp" line="842"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Абсолютные координаты</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="812"/>
+        <location filename="../frameedit.cpp" line="843"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Поз:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="813"/>
+        <location filename="../frameedit.cpp" line="844"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Поз:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="814"/>
+        <location filename="../frameedit.cpp" line="845"/>
         <source>Edit &amp;Contour Line</source>
         <translation>&amp;Изменить контурную линию</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="815"/>
+        <location filename="../frameedit.cpp" line="846"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Восстановить 
 контурную линию</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="818"/>
+        <location filename="../frameedit.cpp" line="851"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Завершить</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="823"/>
+        <location filename="../frameedit.cpp" line="856"/>
         <source>Move Control Points Independently</source>
         <translation>Переместить контрольные точки независимо</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="824"/>
+        <location filename="../frameedit.cpp" line="857"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Переместить контрольные точки симметрично</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="827"/>
+        <location filename="../frameedit.cpp" line="860"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Разомкнуть многоугольник или кривую Безье</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="828"/>
+        <location filename="../frameedit.cpp" line="861"/>
         <source>Close this Bezier Curve</source>
         <translation>Замкнуть эту кривую Безье</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="829"/>
+        <location filename="../frameedit.cpp" line="862"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Зеркально отразить этот 
 контур по горизонтали</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="830"/>
+        <location filename="../frameedit.cpp" line="863"/>
         <source>Mirror the Path Vertically</source>
         <translation>Зеркально отразить этот 
 контур по вертикали</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="831"/>
+        <location filename="../frameedit.cpp" line="864"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Разрезать контур по 
 горизонтали направо</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="832"/>
+        <location filename="../frameedit.cpp" line="865"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Разрезать контур по 
 горизонтали направо</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="833"/>
+        <location filename="../frameedit.cpp" line="866"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Разрезать контур 
 по вертикали вверх</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="834"/>
+        <location filename="../frameedit.cpp" line="867"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Разрезать контур 
 по вертикали вниз</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="835"/>
+        <location filename="../frameedit.cpp" line="868"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Вращать контур против 
 часовой стрелки</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="836"/>
+        <location filename="../frameedit.cpp" line="869"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Вращать контур по 
 часовой стрелке</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="838"/>
+        <location filename="../frameedit.cpp" line="871"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Увеличить контур на показываемые %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="841"/>
+        <location filename="../frameedit.cpp" line="874"/>
         <source>Angle of Rotation</source>
         <translation>Угол вращения</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="844"/>
+        <location filename="../frameedit.cpp" line="877"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Включить режим правки контурной линии</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="845"/>
+        <location filename="../frameedit.cpp" line="878"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Восстановить исходную контурную линию</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="809"/>
+        <location filename="../frameedit.cpp" line="840"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="847"/>
+        <location filename="../frameedit.cpp" line="880"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Если включено, координаты отсчитываются относительно страницы, в противном случае — относительно объекта.</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="837"/>
+        <location filename="../frameedit.cpp" line="870"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Уменьшить контур на показываемые %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="839"/>
+        <location filename="../frameedit.cpp" line="872"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Уменьшить размер контура на показываемое значение</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="840"/>
+        <location filename="../frameedit.cpp" line="873"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Увеличить размер контура на показываемое значение</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="842"/>
+        <location filename="../frameedit.cpp" line="875"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>%, на который увеличить или уменьшить</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="843"/>
+        <location filename="../frameedit.cpp" line="876"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Значение, на которое увеличить или уменьшить</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="816"/>
+        <location filename="../frameedit.cpp" line="847"/>
         <source>Set Contour to Image Clip</source>
         <translation>Контур по обтравочному контуру</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="846"/>
+        <location filename="../frameedit.cpp" line="879"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Уподобить контурную линию обтравочному контуру изображения</translation>
+    </message>
+    <message>
+        <location filename="../frameedit.cpp" line="849"/>
+        <source>Lens Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../frameedit.cpp" line="850"/>
+        <source>Apply fancy Lens Effects</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15752,7 +16122,7 @@ Corners:</source>
         <translation>Этот документ не похож на файл OpenOffice Draw.</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="664"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="666"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
@@ -15800,57 +16170,57 @@ Corners:</source>
 <context>
     <name>OdtDialog</name>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="54"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="52"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Перезаписать абзацные стили</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="56"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="54"/>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Во включённом состоянии перезаписывает существующие стили текущего документа Scribus</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="63"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="61"/>
         <source>Merge Paragraph Styles</source>
         <translation>Объединить абзацные стили</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="65"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="63"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
         <translation>Объединить абзацные стили по атрибутам. В результате получается меньше стилей, но с теми же атрибутами, даже если исходные стили документа именуются иначе.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="72"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="70"/>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="74"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="72"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
         <translation>Добавить имя документа в начало имени стиля в Scribus.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="81"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="79"/>
         <source>Do not ask again</source>
         <translation>Больше не спрашивать</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="83"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="92"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="90"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="45"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="43"/>
         <source>OpenDocument Importer Options</source>
         <translation>Параметры импорта OpenDocument</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="94"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="92"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
@@ -15982,32 +16352,32 @@ Corners:</source>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../pdflib_core.cpp" line="119"/>
+        <location filename="../pdflib_core.cpp" line="127"/>
         <source>Saving PDF</source>
         <translation>Сохранение в PDF</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="123"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Master Page:</source>
         <translation>Экспорт мастер-страницы:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="123"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Page:</source>
         <translation>Экспорт страницы:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="123"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Экспорт объектов текущей страницы:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2306"/>
+        <location filename="../pdflib_core.cpp" line="2315"/>
         <source>Page:</source>
         <translation>Страница:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2319"/>
+        <location filename="../pdflib_core.cpp" line="2328"/>
         <source>Date:</source>
         <translation>Дата:</translation>
     </message>
@@ -16015,7 +16385,7 @@ Corners:</source>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="135"/>
+        <location filename="../werktoolb.cpp" line="115"/>
         <source>PDF Tools</source>
         <translation>PDF-инструменты</translation>
     </message>
@@ -16191,7 +16561,7 @@ Corners:</source>
         <translation>Закрыть</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="1095"/>
+        <location filename="../preview.cpp" line="1100"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -16248,7 +16618,7 @@ Corners:</source>
     <message>
         <location filename="../preview.cpp" line="256"/>
         <source>Apply ICC Profiles</source>
-        <translation>Применить ICC-профили</translation>
+        <translation type="obsolete">Применить ICC-профили</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="279"/>
@@ -16283,7 +16653,17 @@ Corners:</source>
     <message>
         <location filename="../preview.cpp" line="327"/>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation>Встраивать ICC-профили в печатный поток при включённом управлении цветом</translation>
+        <translation type="obsolete">Встраивать ICC-профили в печатный поток при включённом управлении цветом</translation>
+    </message>
+    <message>
+        <location filename="../preview.cpp" line="256"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../preview.cpp" line="327"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16299,12 +16679,12 @@ Corners:</source>
         <translation type="obsolete">Экспорт страниц:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1673"/>
+        <location filename="../pslib.cpp" line="1694"/>
         <source>Processing Master Page:</source>
         <translation>Обработка мастер-страницы:</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1673"/>
+        <location filename="../pslib.cpp" line="1694"/>
         <source>Exporting Page:</source>
         <translation>Экспорт страницы:</translation>
     </message>
@@ -16314,42 +16694,42 @@ Corners:</source>
     <message>
         <location filename="../smpstylew.ui" line="13"/>
         <source>Form1</source>
-        <translation>Form1</translation>
+        <translation type="obsolete">Form1</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="26"/>
         <source>Properties</source>
-        <translation>Свойства</translation>
+        <translation type="obsolete">Свойства</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="46"/>
         <source>Tabulators and Indentation</source>
-        <translation>Табуляторы и отступы</translation>
+        <translation type="obsolete">Табуляторы и отступы</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="64"/>
         <source>Based On:</source>
-        <translation>Основан на:</translation>
+        <translation type="obsolete">Основан на:</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="104"/>
         <source>Distances and Alignment</source>
-        <translation>Расстояния и выключка</translation>
+        <translation type="obsolete">Расстояния и выключка</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="130"/>
         <source>Drop Caps</source>
-        <translation>Капитель</translation>
+        <translation type="obsolete">Капитель</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="146"/>
         <source>Parent&apos;s Drop Cap Status</source>
-        <translation>Статус родительской капители</translation>
+        <translation type="obsolete">Статус родительской капители</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="190"/>
         <source>Ch&amp;aracter Style</source>
-        <translation>Си&amp;мвольный стиль</translation>
+        <translation type="obsolete">Си&amp;мвольный стиль</translation>
     </message>
 </context>
 <context>
@@ -16393,37 +16773,37 @@ Corners:</source>
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="351"/>
+        <location filename="../pageitem.cpp" line="361"/>
         <source>Image</source>
         <translation>Изображение</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="355"/>
+        <location filename="../pageitem.cpp" line="365"/>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="359"/>
+        <location filename="../pageitem.cpp" line="369"/>
         <source>Line</source>
         <translation>Линия</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="363"/>
+        <location filename="../pageitem.cpp" line="373"/>
         <source>Polygon</source>
         <translation>Многоугольник</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="367"/>
+        <location filename="../pageitem.cpp" line="377"/>
         <source>Polyline</source>
         <translation>Ломаная линия</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="371"/>
+        <location filename="../pageitem.cpp" line="381"/>
         <source>PathText</source>
         <translation>Контурный текст</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3343"/>
+        <location filename="../pageitem.cpp" line="3377"/>
         <source>Copy of</source>
         <translation>Копия</translation>
     </message>
@@ -16431,22 +16811,22 @@ Corners:</source>
 <context>
     <name>PageItemAttributes</name>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Relates To</source>
         <translation>Соотносится с</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Is Parent Of</source>
         <translation>Выше по иерархии</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Is Child Of</source>
         <translation>Ниже по иерархии</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>None</source>
         <comment>relationship</comment>
         <translation>Никак</translation>
@@ -16626,61 +17006,183 @@ Corners:</source>
     </message>
 </context>
 <context>
+    <name>PageItem_ImageFrame</name>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="244"/>
+        <source>Picture</source>
+        <translation type="unfinished">Изображение</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="332"/>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Параметры предпросмотра</translation>
+    </message>
+</context>
+<context>
     <name>PageItem_LatexFrame</name>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="473"/>
+        <location filename="../pageitem_latexframe.cpp" line="539"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="171"/>
+        <location filename="../pageitem_latexframe.cpp" line="219"/>
         <source>Running the external application failed!</source>
         <translation>Запуск внешнего приложения провалился!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="247"/>
+        <location filename="../pageitem_latexframe.cpp" line="285"/>
         <source>Could not create a temporary file to run the application!</source>
         <translation>Не удалось создать временный файл для запуска приложения!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="310"/>
+        <location filename="../pageitem_latexframe.cpp" line="362"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="269"/>
+        <location filename="../pageitem_latexframe.cpp" line="308"/>
         <source>Please specify a latex executable in the preferences!</source>
         <translation>Укажите исполняемый файл LaTeX в настройках!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="304"/>
+        <location filename="../pageitem_latexframe.cpp" line="356"/>
         <source>An editor for this frame is already running!</source>
         <translation>Редактор для этого блока уже запущен!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="312"/>
+        <location filename="../pageitem_latexframe.cpp" line="364"/>
         <source>Please specify an editor in the preferences!</source>
         <translation>Укажите редактор в настройках!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="386"/>
+        <location filename="../pageitem_latexframe.cpp" line="451"/>
         <source>Could not create a temporary file to run the external editor!</source>
         <translation>Не удалось создать временный файл для запуска внешнего редактора!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="448"/>
+        <location filename="../pageitem_latexframe.cpp" line="515"/>
         <source>Running the editor failed with exitcode %d!</source>
         <translation>Запуск редактора провалился с кодом ошибки %d!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="464"/>
+        <location filename="../pageitem_latexframe.cpp" line="531"/>
         <source>Running the editor &quot;%1&quot; failed!</source>
         <translation>Запуск редактора &quot;%1&quot; провалился!</translation>
     </message>
     <message>
-        <location filename="../pageitem_latexframe.cpp" line="480"/>
+        <location filename="../pageitem_latexframe.cpp" line="547"/>
         <source>Running the application &quot;%1&quot; failed!</source>
         <translation>Запуск приложения &quot;%1&quot; провалился!</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="47"/>
+        <source>Latex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="66"/>
+        <source>\section*{Manual}
+Your \LaTeX-frames setup is working when you can read this text!\\
+Placing formulas is very easy:\\
+Right click $\Rightarrow$ Edit Latex Source\\
+And replace this text with your own. Here is an example:
+\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
+becomes
+\[J = \int r^2 \mathrm{d}m\]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="631"/>
+        <source>Latex-Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="634"/>
+        <source>Command: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="639"/>
+        <source>DPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="644"/>
+        <source>Status: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="647"/>
+        <source>OK</source>
+        <translation type="unfinished">ОК</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="649"/>
+        <source>Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="651"/>
+        <source>Errorcode </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_PathText</name>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="390"/>
+        <source>Paragraphs: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="398"/>
+        <source>Lines: </source>
+        <translation type="unfinished">Строк: </translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="404"/>
+        <source>Words: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="412"/>
+        <source>Chars: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_TextFrame</name>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3313"/>
+        <source>Linked Text</source>
+        <translation type="unfinished">Связанный текст</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3315"/>
+        <source>Text Frame</source>
+        <translation type="unfinished">Текстовый блок</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3319"/>
+        <source>Paragraphs: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3327"/>
+        <source>Lines: </source>
+        <translation type="unfinished">Строк: </translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3333"/>
+        <source>Words: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3341"/>
+        <source>Chars: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16714,12 +17216,12 @@ Corners:</source>
         <translation type="obsolete">Средняя правая</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="562"/>
+        <location filename="../seiten.cpp" line="557"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation>Перетащите страницы или мастер-страницы на корзину для их удаления</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="563"/>
+        <location filename="../seiten.cpp" line="558"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation>Здесь ваши мастер-страницы. Для создания новой страницы перетащите мастер-страницу вниз на список страниц</translation>
     </message>
@@ -16729,17 +17231,17 @@ Corners:</source>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="847"/>
+        <location filename="../seiten.cpp" line="853"/>
         <source>Arrange Pages</source>
         <translation>Палитра страниц</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="848"/>
+        <location filename="../seiten.cpp" line="854"/>
         <source>Available Master Pages:</source>
         <translation>Доступные мастер-страницы:</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="849"/>
+        <location filename="../seiten.cpp" line="855"/>
         <source>Document Pages:</source>
         <translation>Страницы документа:</translation>
     </message>
@@ -16747,7 +17249,7 @@ Corners:</source>
 <context>
     <name>PageSelector</name>
     <message>
-        <location filename="../pageselector.cpp" line="245"/>
+        <location filename="../pageselector.cpp" line="247"/>
         <source>%1 of %2</source>
         <translation>%1 из %2</translation>
     </message>
@@ -16873,7 +17375,7 @@ Corners:</source>
 <context>
     <name>ParaStyleComboBox</name>
     <message>
-        <location filename="../spalette.cpp" line="61"/>
+        <location filename="../spalette.cpp" line="62"/>
         <source>No Style</source>
         <translation>Без стиля</translation>
     </message>
@@ -16881,22 +17383,22 @@ Corners:</source>
 <context>
     <name>PatternDialog</name>
     <message>
-        <location filename="../patterndialog.cpp" line="95"/>
+        <location filename="../patterndialog.cpp" line="96"/>
         <source>Choose a Directory</source>
         <translation>Выберите каталог</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="123"/>
+        <location filename="../patterndialog.cpp" line="124"/>
         <source>Loading Patterns</source>
         <translation>Идёт загрузка текстур</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="198"/>
+        <location filename="../patterndialog.cpp" line="199"/>
         <source>All Files (*)</source>
         <translation>Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="201"/>
+        <location filename="../patterndialog.cpp" line="202"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
@@ -17065,12 +17567,12 @@ Corners:</source>
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../picsearchoptions.cpp" line="48"/>
+        <location filename="../picsearchoptions.cpp" line="49"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="55"/>
+        <location filename="../picsearchoptions.cpp" line="56"/>
         <source>Cancel Search</source>
         <translation>Отменить поиск</translation>
     </message>
@@ -17080,17 +17582,17 @@ Corners:</source>
         <translation>Начать поиск</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="82"/>
+        <location filename="../picsearchoptions.cpp" line="83"/>
         <source>Select a base directory for search</source>
         <translation>Выберите базовый каталог для поиска</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="137"/>
+        <location filename="../picsearchoptions.cpp" line="138"/>
         <source>Scribus - Image Search</source>
         <translation>Scribus — Поиск изображений</translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="137"/>
+        <location filename="../picsearchoptions.cpp" line="138"/>
         <source>The search failed: %1</source>
         <translation>Поиск не удался: %1</translation>
     </message>
@@ -17201,7 +17703,7 @@ Corners:</source>
         <translation type="obsolete">Статус</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="510"/>
+        <location filename="../picstatus.ui" line="575"/>
         <source>Goto</source>
         <translation>Перейти</translation>
     </message>
@@ -17236,7 +17738,7 @@ Corners:</source>
         <translation>Управление изображениями</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="289"/>
+        <location filename="../picstatus.cpp" line="291"/>
         <source>Scribus - Image Search</source>
         <translation>Scribus — Поиск изображений</translation>
     </message>
@@ -17246,7 +17748,7 @@ Corners:</source>
         <translation type="obsolete">Поиск не удался: %1</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="289"/>
+        <location filename="../picstatus.cpp" line="291"/>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation>Не найдено ни одного изображения с именем &quot;%1&quot;.</translation>
     </message>
@@ -17256,47 +17758,47 @@ Corners:</source>
         <translation type="obsolete">Выберите базовый каталог для поиска</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="141"/>
+        <location filename="../picstatus.cpp" line="142"/>
         <source>Not on a Page</source>
         <translation>Не на странице</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="156"/>
+        <location filename="../picstatus.cpp" line="157"/>
         <source>JPG</source>
         <translation>JPG</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="159"/>
+        <location filename="../picstatus.cpp" line="160"/>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="162"/>
+        <location filename="../picstatus.cpp" line="163"/>
         <source>PSD</source>
         <translation>PSD</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="165"/>
+        <location filename="../picstatus.cpp" line="166"/>
         <source>EPS/PS</source>
         <translation>EPS/PS</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="168"/>
+        <location filename="../picstatus.cpp" line="169"/>
         <source>PDF</source>
         <translation>PDF</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="171"/>
+        <location filename="../picstatus.cpp" line="172"/>
         <source>JPG2000</source>
         <translation>JPEG2000</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="177"/>
+        <location filename="../picstatus.cpp" line="178"/>
         <source>emb. PSD</source>
         <translation>Встр. PSD</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="183"/>
+        <location filename="../picstatus.cpp" line="184"/>
         <source>Unknown</source>
         <translation>Неизвестно</translation>
     </message>
@@ -17321,129 +17823,134 @@ Corners:</source>
         <translation type="obsolete">Дуплекс</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="217"/>
+        <location filename="../picstatus.cpp" line="201"/>
         <source>n/a</source>
         <translation>н/д</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="74"/>
+        <location filename="../picstatus.ui" line="81"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="135"/>
+        <location filename="../picstatus.ui" line="159"/>
         <source>Path:</source>
         <translation>Путь:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="145"/>
+        <location filename="../picstatus.ui" line="169"/>
         <source>Search...</source>
         <translation>Найти...</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="199"/>
+        <location filename="../picstatus.ui" line="219"/>
         <source>Name:</source>
         <translation>Имя:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="219"/>
+        <location filename="../picstatus.ui" line="248"/>
         <source>Image</source>
         <translation>Изображение</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="305"/>
+        <location filename="../picstatus.ui" line="346"/>
         <source>DPI:</source>
         <translation>DPI:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="292"/>
+        <location filename="../picstatus.ui" line="333"/>
         <source>Format:</source>
         <translation>Формат:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="279"/>
+        <location filename="../picstatus.ui" line="320"/>
         <source>Colorspace:</source>
         <translation>Цветовое пространство:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="321"/>
+        <location filename="../picstatus.ui" line="362"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="401"/>
+        <location filename="../picstatus.ui" line="454"/>
         <source>Pixels:</source>
         <translation>Пикселов:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="391"/>
+        <location filename="../picstatus.ui" line="444"/>
         <source>Scale:</source>
         <translation>Масштаб:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="365"/>
+        <location filename="../picstatus.ui" line="418"/>
         <source>Printed:</source>
         <translation>При печати:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="414"/>
+        <location filename="../picstatus.ui" line="467"/>
         <source>Layout</source>
         <translation>Макет</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="523"/>
+        <location filename="../picstatus.ui" line="588"/>
         <source>On Page:</source>
         <translation>На стр.:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="497"/>
+        <location filename="../picstatus.ui" line="562"/>
         <source>eff. DPI:</source>
         <translation>Эффективн. DPI:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="487"/>
+        <location filename="../picstatus.ui" line="552"/>
         <source>Object:</source>
         <translation>Объект:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="474"/>
+        <location filename="../picstatus.ui" line="539"/>
         <source>Select</source>
         <translation>Выбрать</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="539"/>
+        <location filename="../picstatus.ui" line="604"/>
         <source>Image Tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="558"/>
         <source>Layers &amp;&amp; Paths...</source>
-        <translation>Слои и контуры...</translation>
+        <translation type="obsolete">Слои и контуры...</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="575"/>
+        <location filename="../picstatus.ui" line="652"/>
         <source>Image Visible</source>
         <translation>Изображение видимо</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="582"/>
+        <location filename="../picstatus.ui" line="659"/>
         <source>Image Effects...</source>
         <translation>Эффекты изображения...</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="568"/>
+        <location filename="../picstatus.ui" line="645"/>
         <source>Edit Image...</source>
         <translation>Изменить изображение...</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="551"/>
+        <location filename="../picstatus.ui" line="628"/>
         <source>Print Image</source>
         <translation>Печатать изображение</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="633"/>
+        <location filename="../picstatus.ui" line="719"/>
         <source>Close</source>
         <translation>Закрыть</translation>
+    </message>
+    <message>
+        <location filename="../picstatus.ui" line="635"/>
+        <source>Extended Image Properties...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17610,66 +18117,66 @@ Corners:</source>
 <context>
     <name>PluginManager</name>
     <message>
-        <location filename="../pluginmanager.cpp" line="71"/>
+        <location filename="../pluginmanager.cpp" line="69"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
         <translation>Невозможно найти расширение</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="60"/>
+        <location filename="../pluginmanager.cpp" line="58"/>
         <source>unknown error</source>
         <comment>plugin manager</comment>
         <translation>неизвестная ошибка</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="96"/>
+        <location filename="../pluginmanager.cpp" line="94"/>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation>Невозможно найти символ (%1)</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="156"/>
+        <location filename="../pluginmanager.cpp" line="154"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
         <translation>Расширение: загружается %1</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="260"/>
+        <location filename="../pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation>инициализация не удалась</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="266"/>
+        <location filename="../pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation>неизвестный тип модуля</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="270"/>
+        <location filename="../pluginmanager.cpp" line="268"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation>Расширение: %1 загружен</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="274"/>
+        <location filename="../pluginmanager.cpp" line="272"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Расширение: %1 не удалось загрузить: %2</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="227"/>
+        <location filename="../pluginmanager.cpp" line="225"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation>Возникла проблема с загрузкой %1 из %2 расширений. %3 Вероятно это вызвано какой-либо неучтённой зависимостью или наличием старых расширений в каталоге Scribus. Если вы очистите каталог и переустановите Scribus, но проблема не исчезнет, сообщите нам о ней через bugs.scribus.net.</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="314"/>
+        <location filename="../pluginmanager.cpp" line="312"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation>Расширение: инициализация %1 прошла успешно </translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="317"/>
+        <location filename="../pluginmanager.cpp" line="315"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation>Расширение: послеинициализация %1 не удалась</translation>
@@ -17744,53 +18251,53 @@ Corners:</source>
 <context>
     <name>PolygonWidget</name>
     <message>
-        <location filename="../polygonwidget.cpp" line="48"/>
+        <location filename="../polygonwidget.cpp" line="55"/>
         <source>Corn&amp;ers:</source>
         <translation>&amp;Углы:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="67"/>
+        <location filename="../polygonwidget.cpp" line="75"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Поворот:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="82"/>
+        <location filename="../polygonwidget.cpp" line="91"/>
         <source>Apply &amp;Factor</source>
         <translation>Использовать &amp;коэффициент</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="97"/>
+        <location filename="../polygonwidget.cpp" line="106"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="101"/>
+        <location filename="../polygonwidget.cpp" line="110"/>
         <source>&amp;Factor:</source>
         <translation>Коэ&amp;ффициент:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="130"/>
+        <location filename="../polygonwidget.cpp" line="140"/>
         <source>Number of corners for polygons</source>
         <translation>Количество углов в многоугольнике</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="132"/>
+        <location filename="../polygonwidget.cpp" line="142"/>
         <source>Degrees of rotation for polygons</source>
         <translation>Градусы вращения многоугольников</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="133"/>
+        <location filename="../polygonwidget.cpp" line="143"/>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
         <translation>Использовать коэффициент для создания многоугольника 
 с выпуклыми или вогнутыми сторонами</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="134"/>
+        <location filename="../polygonwidget.cpp" line="144"/>
         <source>Sample Polygon</source>
         <translation>Пример многоугольника</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="136"/>
+        <location filename="../polygonwidget.cpp" line="146"/>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
         <translation>Отрицательное значение сделает многоугольник вогнутым (в форме звезды), а положительное - выпуклым</translation>
     </message>
@@ -17798,37 +18305,37 @@ Corners:</source>
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../prefs.cpp" line="70"/>
+        <location filename="../prefs.cpp" line="71"/>
         <source>Preferences</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="73"/>
+        <location filename="../prefs.cpp" line="74"/>
         <source>General</source>
         <translation>Общие</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="76"/>
+        <location filename="../prefs.cpp" line="77"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="79"/>
+        <location filename="../prefs.cpp" line="80"/>
         <source>Guides</source>
         <translation>Направляющие</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="82"/>
+        <location filename="../prefs.cpp" line="83"/>
         <source>Typography</source>
         <translation>Типографика</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="85"/>
+        <location filename="../prefs.cpp" line="86"/>
         <source>Tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="136"/>
+        <location filename="../prefs.cpp" line="137"/>
         <source>Display</source>
         <translation>Отображение</translation>
     </message>
@@ -17888,7 +18395,7 @@ Corners:</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="139"/>
+        <location filename="../prefs.cpp" line="140"/>
         <source>External Tools</source>
         <translation>Внешние инструменты</translation>
     </message>
@@ -18125,27 +18632,27 @@ Corners:</source>
         <translation type="obsolete">Помнить действий:</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="88"/>
+        <location filename="../prefs.cpp" line="89"/>
         <source>Hyphenator</source>
         <translation>Перенос слов</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="91"/>
+        <location filename="../prefs.cpp" line="92"/>
         <source>Fonts</source>
         <translation>Шрифты</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="102"/>
+        <location filename="../prefs.cpp" line="103"/>
         <source>Color Management</source>
         <translation>Управление цветом</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="117"/>
+        <location filename="../prefs.cpp" line="118"/>
         <source>PDF Export</source>
         <translation>Экспорт в PDF</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="130"/>
+        <location filename="../prefs.cpp" line="131"/>
         <source>Keyboard Shortcuts</source>
         <translation>Клавиатурные комбинации</translation>
     </message>
@@ -18185,7 +18692,7 @@ Corners:</source>
         <translation type="obsolete">Монтажный стол</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="146"/>
+        <location filename="../prefs.cpp" line="147"/>
         <source>Plugins</source>
         <translation>Расширения</translation>
     </message>
@@ -18205,12 +18712,12 @@ Corners:</source>
         <translation type="obsolete">&amp;Шаблоны документов:</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="122"/>
+        <location filename="../prefs.cpp" line="123"/>
         <source>Document Item Attributes</source>
         <translation>Атрибуты объекта документа</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="127"/>
+        <location filename="../prefs.cpp" line="128"/>
         <source>Table of Contents and Indexes</source>
         <translation>Указатель оглавления и индексы</translation>
     </message>
@@ -18230,7 +18737,7 @@ Corners:</source>
         <translation type="obsolete">Просмотр изменений абзацных стилей «на лету»</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="142"/>
+        <location filename="../prefs.cpp" line="143"/>
         <source>Miscellaneous</source>
         <translation>Разное</translation>
     </message>
@@ -18275,7 +18782,7 @@ Corners:</source>
         <translation type="obsolete">Сколько пространства под листом использовать в качестве монтажного стола</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="97"/>
+        <location filename="../prefs.cpp" line="98"/>
         <source>Preflight Verifier</source>
         <translation>Валидатор</translation>
     </message>
@@ -18400,12 +18907,12 @@ Corners:</source>
         <translation type="obsolete">Добавьте путь к интерпретатору GhostScript в системе. Пользователям версии для Windows стоит помнить, что использоваться должен файл gswin32c.exe,а никак не gswin32.exe. В противном случае Scribus «повиснет» при запуске.</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="94"/>
+        <location filename="../prefs.cpp" line="95"/>
         <source>Printer</source>
         <translation>Принтер</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="133"/>
+        <location filename="../prefs.cpp" line="134"/>
         <source>Scrapbook</source>
         <translation>Альбом</translation>
     </message>
@@ -18413,7 +18920,7 @@ Corners:</source>
 <context>
     <name>PrefsDialogBase</name>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="162"/>
+        <location filename="../prefsdialogbase.cpp" line="184"/>
         <source>&amp;Defaults</source>
         <translation>По у&amp;молчанию</translation>
     </message>
@@ -18423,32 +18930,32 @@ Corners:</source>
         <translation type="obsolete">Сохранить...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="176"/>
+        <location filename="../prefsdialogbase.cpp" line="193"/>
         <source>Save Preferences</source>
         <translation>Сохранить параметры</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="161"/>
+        <location filename="../prefsdialogbase.cpp" line="183"/>
         <source>Export...</source>
         <translation>Экспортировать...</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="163"/>
+        <location filename="../prefsdialogbase.cpp" line="185"/>
         <source>&amp;Apply</source>
         <translation>&amp;Применить</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="164"/>
+        <location filename="../prefsdialogbase.cpp" line="186"/>
         <source>All preferences can be reset here</source>
         <translation>Сбросить все изменения параметров</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="165"/>
+        <location filename="../prefsdialogbase.cpp" line="187"/>
         <source>Apply all changes without closing the dialog</source>
         <translation>Применить изменения без закрытия диалога</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="166"/>
+        <location filename="../prefsdialogbase.cpp" line="188"/>
         <source>Export current preferences into file</source>
         <translation>Экспортировать текущие параметры в файл</translation>
     </message>
@@ -18456,44 +18963,44 @@ Corners:</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../prefsmanager.cpp" line="1880"/>
+        <location filename="../prefsmanager.cpp" line="1899"/>
         <source>Postscript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="671"/>
+        <location filename="../prefsmanager.cpp" line="676"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Перенести прежние параметры Scribus?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="673"/>
+        <location filename="../prefsmanager.cpp" line="678"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Вы хотите использовать параметры 
 предыдущей версии Scribus?</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1880"/>
+        <location filename="../prefsmanager.cpp" line="1899"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1521"/>
+        <location filename="../prefsmanager.cpp" line="1540"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Не удалось открыть файл параметров &quot;%1&quot; для записи: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1534"/>
+        <location filename="../prefsmanager.cpp" line="1552"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Запись в файл параметров &quot;%1&quot; не удалась: QIODevice status code %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1548"/>
+        <location filename="../prefsmanager.cpp" line="1566"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Не удалось открыть файл с параметрами &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1558"/>
+        <location filename="../prefsmanager.cpp" line="1576"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Не удалось прочитать XML-файл с параметрами &quot;%1&quot;: %2 в строке %3, столбце %4</translation>
     </message>
@@ -18513,23 +19020,23 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2198"/>
+        <location filename="../prefsmanager.cpp" line="2221"/>
         <source>Error Writing Preferences</source>
         <translation>Произошла ошибка при записи параметров</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2204"/>
+        <location filename="../prefsmanager.cpp" line="2227"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Не удалось записать параметры Scribus:&lt;br&gt;%1&lt;br&gt;Проверьте права на запись каталога и файла параметров и, а также доступное свободное место на диске.</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2217"/>
+        <location filename="../prefsmanager.cpp" line="2240"/>
         <source>Error Loading Preferences</source>
         <translation>Произошла ошибка при загрузке параметров</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2222"/>
+        <location filename="../prefsmanager.cpp" line="2245"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Не удалось загрузить параметры Scribus:&lt;br&gt;%1&lt;br&gt;Будут использованы исходные параметры.</translation>
     </message>
@@ -18542,27 +19049,27 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>PresetLayout</name>
     <message>
-        <location filename="../marginWidget.cpp" line="479"/>
+        <location filename="../marginWidget.cpp" line="484"/>
         <source>Magazine</source>
         <translation>Журнал</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="480"/>
+        <location filename="../marginWidget.cpp" line="485"/>
         <source>Fibonacci</source>
         <translation>Фибоначчи</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="481"/>
+        <location filename="../marginWidget.cpp" line="486"/>
         <source>Golden Mean</source>
         <translation>Золотая середина</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="482"/>
+        <location filename="../marginWidget.cpp" line="487"/>
         <source>Nine Parts</source>
         <translation>Девять долей</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="478"/>
+        <location filename="../marginWidget.cpp" line="483"/>
         <source>Gutenberg</source>
         <translation>Гутенберг</translation>
     </message>
@@ -18572,13 +19079,13 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="obsolete">Здесь можно выбрать готовые параметры макета. «Ничего» — оставить поля как есть. «Гутенберг» устанавливает обычные книжные поля. «Журнал» устанавливает одинаковое значение для всех полей. Ведущим является значение Левое/Внутреннее.</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="477"/>
+        <location filename="../marginWidget.cpp" line="482"/>
         <source>None</source>
         <comment>layout type</comment>
         <translation>Ничего</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="485"/>
+        <location filename="../marginWidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation>Здесь можно выбрать готовые параметры макета. «Ничего» — оставить поля как есть. «Гутенберг» устанавливает обычные книжные поля. «Журнал» устанавливает одинаковое значение для всех полей. Ведущим является значение Левое/Внутреннее.</translation>
     </message>
@@ -18641,7 +19148,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="obsolete">Сценарии на Python (*.py)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="196"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="192"/>
         <source>Save the Python Commands in File</source>
         <translation>Сохранить файл с командами на Python</translation>
     </message>
@@ -18656,7 +19163,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Текстовые файлы (*.txt)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="220"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="215"/>
         <source>Save Current Output</source>
         <translation>Сохранить текущий консольный вывод</translation>
     </message>
@@ -18681,7 +19188,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="obsolete">Это функционально урезанная в части пробелов версия Python-консоли. Подробности изложены в документации к Scribus.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="161"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="158"/>
         <source>Open Python Script File</source>
         <translation>Открыть файл сценария на Python</translation>
     </message>
@@ -18691,7 +19198,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="obsolete">Строка: %1 Столбец: %2</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="193"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="194"/>
         <source>Python Scripts (*.py *.PY)</source>
         <translation>Сценарии на Python (*.py *.PY);;Все файлы (*)</translation>
     </message>
@@ -19259,7 +19766,7 @@ Check path and filename.</source>
         <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="139"/>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation>Вы действительно хотите перезаписать файл:
+        <translation type="obsolete">Вы действительно хотите перезаписать файл:
 %1 ?</translation>
     </message>
     <message>
@@ -19275,7 +19782,7 @@ Check path and filename.</source>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="153"/>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation>SVG-изображения (*.svg *.svgz);;Все файлы (*)</translation>
+        <translation type="obsolete">SVG-изображения (*.svg *.svgz);;Все файлы (*)</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -19293,7 +19800,7 @@ Check path and filename.</source>
         <translation type="obsolete">Нет</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="231"/>
+        <location filename="../scribuscore.cpp" line="235"/>
         <source>Initializing...</source>
         <translation>Инициализация...</translation>
     </message>
@@ -19333,112 +19840,112 @@ Check path and filename.</source>
         <translation type="obsolete">Экспорт прошёл успешно</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="136"/>
+        <location filename="../util_formats.cpp" line="239"/>
         <source>All Files (*)</source>
         <translation>Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="74"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="155"/>
         <source>Newsletters</source>
         <translation>Бюллетени</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="76"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="156"/>
         <source>Brochures</source>
         <translation>Буклеты</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="78"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="157"/>
         <source>Catalogs</source>
         <translation>Каталоги</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="80"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="158"/>
         <source>Flyers</source>
         <translation>Флайеры</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="82"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="159"/>
         <source>Signs</source>
         <translation>Знаки</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="84"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="160"/>
         <source>Cards</source>
         <translation>Карточки</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="86"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="161"/>
         <source>Letterheads</source>
         <translation>Фирменные бланки</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="88"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="162"/>
         <source>Envelopes</source>
         <translation>Конверты</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="90"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="163"/>
         <source>Business Cards</source>
         <translation>Визитные карточки</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="92"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="164"/>
         <source>Calendars</source>
         <translation>Календари</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="94"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="165"/>
         <source>Advertisements</source>
         <translation>Рекламные проспекты</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="96"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="166"/>
         <source>Labels</source>
         <translation>Этикетки</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="98"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="167"/>
         <source>Menus</source>
         <translation>Меню</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="100"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="168"/>
         <source>Programs</source>
         <translation>Программы</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="102"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="169"/>
         <source>PDF Forms</source>
         <translation>PDF-формы</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="104"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="170"/>
         <source>PDF Presentations</source>
         <translation>PDF-презентации</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="106"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="171"/>
         <source>Magazines</source>
         <translation>Журналы</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="108"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="172"/>
         <source>Posters</source>
         <translation>Плакаты</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="110"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="173"/>
         <source>Announcements</source>
         <translation>Объявления</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="112"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="174"/>
         <source>Text Documents</source>
         <translation>Текстовые документы</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="114"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="175"/>
         <source>Folds</source>
         <translation>Буклеты-гармошки</translation>
     </message>
@@ -19478,7 +19985,7 @@ Check path and filename.</source>
         <translation>Импортируется текст</translation>
     </message>
     <message>
-        <location filename="../util_formats.cpp" line="92"/>
+        <location filename="../util_formats.cpp" line="192"/>
         <source>All Supported Formats</source>
         <translation>Все поддерживаемые форматы</translation>
     </message>
@@ -19518,7 +20025,7 @@ Check path and filename.</source>
         <translation>Шрифт %1 повреждён и не будет использован</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="621"/>
+        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="620"/>
         <source>
 External Links
 </source>
@@ -19532,7 +20039,7 @@ External Links
         <translation>Текстовые фильтры</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="116"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="176"/>
         <source>Media Cases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19577,7 +20084,7 @@ External Links
         <translation>Голландский</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="194"/>
+        <location filename="../langmgr.cpp" line="195"/>
         <source>English</source>
         <translation>Английский</translation>
     </message>
@@ -20087,7 +20594,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="79"/>
+        <location filename="../page.cpp" line="81"/>
         <source>Page</source>
         <translation>Страница</translation>
     </message>
@@ -20097,7 +20604,7 @@ External Links
         <translation type="obsolete">Другой...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="544"/>
+        <location filename="../scribus.cpp" line="570"/>
         <source>Scribus Development Version</source>
         <translation>Нестабильная версия Scribus</translation>
     </message>
@@ -20122,42 +20629,42 @@ External Links
         <translation type="obsolete"> p</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="142"/>
+        <location filename="../units.cpp" line="155"/>
         <source>pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="143"/>
+        <location filename="../units.cpp" line="156"/>
         <source>mm</source>
         <translation> mm</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="144"/>
+        <location filename="../units.cpp" line="157"/>
         <source>in</source>
         <translation>in</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="145"/>
+        <location filename="../units.cpp" line="158"/>
         <source>p</source>
         <translation>p</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="194"/>
+        <location filename="../units.cpp" line="207"/>
         <source>Points (pt)</source>
         <translation>Пункты (pt)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="196"/>
+        <location filename="../units.cpp" line="209"/>
         <source>Inches (in)</source>
         <translation>Дюймы (in)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="197"/>
+        <location filename="../units.cpp" line="210"/>
         <source>Picas (p)</source>
         <translation>Пики (p)</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="437"/>
+        <location filename="../util.cpp" line="453"/>
         <source>File exists</source>
         <translation>Файл с таким именем уже существует</translation>
     </message>
@@ -20167,7 +20674,7 @@ External Links
         <translation type="obsolete">За&amp;менить</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="2125"/>
+        <location filename="../pslib.cpp" line="2146"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
@@ -20184,27 +20691,27 @@ External Links
         <translation>Не удалось сохранить документ.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="40"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="39"/>
         <source>Argument must be page item name, or PyCObject instance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="91"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="90"/>
         <source>Property not found</source>
         <translation>Свойство не найдено</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="202"/>
         <source>Child not found</source>
-        <translation>Потомок не найден</translation>
+        <translation type="obsolete">Потомок не найден</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="309"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="310"/>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="441"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="442"/>
         <source>Property type &apos;%1&apos; not supported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20214,7 +20721,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="470"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="469"/>
         <source>Types matched, but setting property failed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20374,7 +20881,7 @@ External Links
         <translation>&amp;ОК</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="88"/>
+        <location filename="../page.cpp" line="90"/>
         <source>Master Page </source>
         <translation>Мастер-страница </translation>
     </message>
@@ -20588,22 +21095,22 @@ External Links
         <translation type="obsolete"> cm</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="146"/>
+        <location filename="../units.cpp" line="159"/>
         <source>cm</source>
         <translation>cm</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="195"/>
+        <location filename="../units.cpp" line="208"/>
         <source>Millimeters (mm)</source>
         <translation>Миллиметры (mm)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="198"/>
+        <location filename="../units.cpp" line="211"/>
         <source>Centimeters (cm)</source>
         <translation>Сантиметры (cm)</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="116"/>
         <source>Document Template: </source>
         <translation>Шаблон документа: </translation>
     </message>
@@ -20685,7 +21192,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtim.cpp" line="44"/>
+        <location filename="../plugins/gettext/odtim/odtim.cpp" line="47"/>
         <source>OpenDocument Text Documents</source>
         <translation>Текстовые документы OpenDocument</translation>
     </message>
@@ -20695,12 +21202,12 @@ is not exhaustive due to exceptions from called functions.
         <translation type="obsolete"> c</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="147"/>
+        <location filename="../units.cpp" line="160"/>
         <source>c</source>
         <translation>c</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="199"/>
+        <location filename="../units.cpp" line="212"/>
         <source>Cicero (c)</source>
         <translation>Цицеро (с)</translation>
     </message>
@@ -20717,28 +21224,28 @@ is not exhaustive due to exceptions from called functions.
         <translation>Имя файла не должно быть пустой строкой.</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="867"/>
+        <location filename="../util.cpp" line="617"/>
         <source>page</source>
         <comment>page export</comment>
         <translation>страница</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1839"/>
+        <location filename="../pslib.cpp" line="1860"/>
         <source>Black</source>
         <translation>Black</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1841"/>
+        <location filename="../pslib.cpp" line="1862"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1843"/>
+        <location filename="../pslib.cpp" line="1864"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1845"/>
+        <location filename="../pslib.cpp" line="1866"/>
         <source>Yellow</source>
         <translation>Yellow</translation>
     </message>
@@ -20763,7 +21270,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Мой модуль</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="70"/>
         <source>New From Template</source>
         <translation>Новый документ из шаблона</translation>
     </message>
@@ -20775,7 +21282,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
         <source>PS/EPS Importer</source>
-        <translation>Импорт PS/EPS</translation>
+        <translation type="obsolete">Импорт PS/EPS</translation>
     </message>
     <message>
         <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="65"/>
@@ -20793,12 +21300,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>Короткие слова</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="92"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="94"/>
         <source>SVG Export</source>
         <translation>Экспорт в SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="95"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="96"/>
         <source>SVG Import</source>
         <translation>Импорт SVG</translation>
     </message>
@@ -20848,12 +21355,12 @@ is not exhaustive due to exceptions from called functions.
         <translation type="obsolete">Вы работаете с нестабильной версией  Scribus 1.3.x. Текущий документ был создан в Scribus версии 1.2.3 или ниже. Если вы сейчас сохраните этот документ, работать с ним в Scribus 1.2.3 будет уже нельзя, если вы не сохраните его под другим именем. Вы точно хотите просто сохранить этот файл?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4079"/>
+        <location filename="../scribus.cpp" line="4027"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Вы не сохранили внесённые изменения и хотите отменить их все. Продолжить?</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="438"/>
+        <location filename="../util.cpp" line="454"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Файл с именем &apos;%1&apos; уже существует.&lt;br/&gt;Вы хотите заменить его тем, который сохраняете сейчас?</translation>
     </message>
@@ -20874,27 +21381,27 @@ is not exhaustive due to exceptions from called functions.
         <translation>Немецкий (Традиц.)</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1663"/>
+        <location filename="../pslib.cpp" line="1684"/>
         <source>Exporting PostScript File</source>
         <translation>Идёт экспорт в файл PostScript</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1665"/>
+        <location filename="../pslib.cpp" line="1686"/>
         <source>Printing File</source>
         <translation>Идёт печать в файл</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3478"/>
+        <location filename="../scribus.cpp" line="3423"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Вы пытаетесь импортировать больше страниц, чем есть в текущем документе, считая с текущей страницы.&lt;/p&gt;Выберите одно из следующих действий:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Создать&lt;/b&gt; недостающие страницы&lt;/li&gt;&lt;li&gt;&lt;b&gt;Импортировать&lt;/b&gt; страницы до последней&lt;/li&gt;&lt;li&gt;&lt;b&gt;Отменить&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3479"/>
+        <location filename="../scribus.cpp" line="3424"/>
         <source>C&amp;reate</source>
         <translation>&amp;Создать</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3480"/>
+        <location filename="../scribus.cpp" line="3425"/>
         <source>&amp;Import</source>
         <translation>&amp;Импортировать</translation>
     </message>
@@ -20974,7 +21481,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Исландский</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_tiff.cpp" line="872"/>
+        <location filename="../scimgdataloader_tiff.cpp" line="868"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 может быть испорчен : отсутствуют тэги разрешения</translation>
     </message>
@@ -21210,7 +21717,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>E</translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_ps.cpp" line="466"/>
+        <location filename="../scimgdataloader_ps.cpp" line="474"/>
         <source>The Font(s):
 %1 are not available.
 They have been replaced by &quot;Courier&quot;
@@ -21221,12 +21728,12 @@ Therefore the image may be not correct</source>
 Изображение не будет корректным</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="545"/>
+        <location filename="../scribus.cpp" line="571"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Вы работаете с нестабильной версией Scribus 1.3.x. Открытый вами документ был создан в Scribus 1.2.x. Если вы сохраните его в 1.3.x, его будет невозможно открыть в Scribus 1.2.x. Чтобы сохранить возможность открыть этот документ в 1.2.x, сохраните его под другим именем и далее редактируйте только новый файл. Вы действительно хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../serializer.cpp" line="345"/>
+        <location filename="../serializer.cpp" line="347"/>
         <source>Copy of %1 (%2)</source>
         <translation>Копия %1 (%2)</translation>
     </message>
@@ -21328,7 +21835,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="141"/>
         <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
-        <translation>Все поддерживаемые форматы (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
+        <translation type="obsolete">Все поддерживаемые форматы (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.cpp" line="173"/>
@@ -21354,7 +21861,7 @@ Therefore the image may be not correct</source>
         <translation>Поддержка Scribus 1.2.x</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="61"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="63"/>
         <source>Scribus 1.3.4 Support</source>
         <translation>Поддержка Scribus 1.3.4</translation>
     </message>
@@ -21379,12 +21886,12 @@ Therefore the image may be not correct</source>
         <translation>Поддержка Scribus 1.3.0-&gt;1.3.3.х</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="150"/>
+        <location filename="../units.cpp" line="163"/>
         <source>%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="148"/>
+        <location filename="../units.cpp" line="161"/>
         <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation>°</translation>
@@ -21410,14 +21917,14 @@ Therefore the image may be not correct</source>
         <translation>Спуск полос</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="90"/>
         <source>WMF Import</source>
         <translation>Импорт WMF</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="147"/>
         <source>WMF Files (*.wmf);;All Files (*)</source>
-        <translation>Файлы WMF (*.wmf);;Все файлы (*)</translation>
+        <translation type="obsolete">Файлы WMF (*.wmf);;Все файлы (*)</translation>
     </message>
     <message>
         <location filename="../scdocoutput_ps2.cpp" line="107"/>
@@ -21434,20 +21941,101 @@ Therefore the image may be not correct</source>
         <source>New Layer</source>
         <translation>Новый слой</translation>
     </message>
-    <message encoding="UTF-8">
-        <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
-        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="70"/>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="71"/>
         <source>Adobe Illustrator Importer</source>
         <translation>Импорт файлов Adobe Illustrator</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="129"/>
         <source>All Supported Formats (*.ai *.AI);;</source>
-        <translation>Все поддерживаемые форматы (*.ai *.AI);;</translation>
+        <translation type="obsolete">Все поддерживаемые форматы (*.ai *.AI);;</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../langmgr.cpp" line="91"/>
+        <source>Norwegian (Bokm�l)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
+        <source>PostScript Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="122"/>
+        <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="141"/>
+        <source>Do you really want to overwrite the file:
+%1 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="33"/>
+        <source>Encapsulated PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="34"/>
+        <source>GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="35"/>
+        <source>JPEG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="36"/>
+        <source>Pattern Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="37"/>
+        <source>PDF Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="38"/>
+        <source>PNG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="39"/>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="40"/>
+        <source>Adobe Photoshop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="41"/>
+        <source>TIFF</source>
+        <translation type="unfinished">TIFF</translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="42"/>
+        <source>XPM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="43"/>
+        <source>Windows Meta File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="44"/>
+        <source>Scalable Vector Graphics</source>
+        <translation type="unfinished">Масштабируемая векторная графика (SVG)</translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="45"/>
+        <source>Adobe Illustrator</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21899,13 +22487,13 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMAlignSelect</name>
     <message>
-        <location filename="../smwidgets.cpp" line="288"/>
+        <location filename="../smalignselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation>Р</translation>
     </message>
     <message>
-        <location filename="../smwidgets.cpp" line="289"/>
+        <location filename="../smalignselect.cpp" line="21"/>
         <source>Use parent style&apos;s alignment instead of overriding it</source>
         <translation>Использовать родительскую выключку вместо собственное</translation>
     </message>
@@ -21930,7 +22518,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../stylemanager.ui" line="96"/>
         <source>Alt+A</source>
-        <translation>Alt+Д</translation>
+        <translation type="obsolete">Alt+Д</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -21945,17 +22533,17 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../stylemanager.ui" line="358"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Удалить</translation>
+        <translation type="obsolete">&amp;Удалить</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="361"/>
         <source>Alt+D</source>
-        <translation>Alt+У</translation>
+        <translation type="obsolete">Alt+У</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="429"/>
         <source>Name:</source>
-        <translation>Имя:</translation>
+        <translation type="obsolete">Имя:</translation>
     </message>
     <message>
         <location filename="" line="136960432"/>
@@ -21985,62 +22573,62 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../stylemanager.ui" line="266"/>
         <source>Alt+N</source>
-        <translation>Alt+Т</translation>
+        <translation type="obsolete">Alt+Т</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="69"/>
         <source>&lt;&lt; &amp;Done</source>
-        <translation>&lt;&lt; &amp;Готово</translation>
+        <translation type="obsolete">&lt;&lt; &amp;Готово</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="93"/>
         <source>&amp;Apply</source>
-        <translation>&amp;Применить</translation>
+        <translation type="obsolete">&amp;Применить</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="117"/>
         <source>&amp;Reset</source>
-        <translation>С&amp;бросить</translation>
+        <translation type="obsolete">С&amp;бросить</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="120"/>
         <source>Alt+R</source>
-        <translation>Alt+б</translation>
+        <translation type="obsolete">Alt+б</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="263"/>
         <source>&amp;New</source>
-        <translation>&amp;Создать</translation>
+        <translation type="obsolete">&amp;Создать</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="296"/>
         <source>&amp;Clone</source>
-        <translation>С&amp;клонировать</translation>
+        <translation type="obsolete">С&amp;клонировать</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="299"/>
         <source>Alt+C</source>
-        <translation>Alt+к</translation>
+        <translation type="obsolete">Alt+к</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="340"/>
         <source>&amp;Import</source>
-        <translation>&amp;Импортировать</translation>
+        <translation type="obsolete">&amp;Импортировать</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="343"/>
         <source>Alt+I</source>
-        <translation>Alt+и</translation>
+        <translation type="obsolete">Alt+и</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="460"/>
         <source>Please select a unique name for the style</source>
-        <translation>Выберите для стиля уникальное название </translation>
+        <translation type="obsolete">Выберите для стиля уникальное название </translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="293"/>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>Клон копирует стиль, чтобы упростить создание схожих стилей.</translation>
+        <translation type="obsolete">Клон копирует стиль, чтобы упростить создание схожих стилей.</translation>
     </message>
 </context>
 <context>
@@ -22048,113 +22636,216 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="239"/>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="217"/>
         <source>Parent style</source>
-        <translation>Родительский стиль</translation>
+        <translation type="obsolete">Родительский стиль</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="218"/>
         <source>Font face</source>
-        <translation>Имя шрифта</translation>
+        <translation type="obsolete">Имя шрифта</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="219"/>
         <source>Font size</source>
-        <translation>Кегль</translation>
+        <translation type="obsolete">Кегль</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="220"/>
         <source>Tracking</source>
-        <translation>Трекинг</translation>
+        <translation type="obsolete">Трекинг</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="221"/>
         <source>Baseline offset</source>
-        <translation>Смещение базовых линий</translation>
+        <translation type="obsolete">Смещение базовых линий</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="222"/>
         <source>Horizontal scaling</source>
-        <translation>Масштабирование по горизонтали</translation>
+        <translation type="obsolete">Масштабирование по горизонтали</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="223"/>
         <source>Vertical scaling</source>
-        <translation>Масштабирование по вертикали</translation>
+        <translation type="obsolete">Масштабирование по вертикали</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="224"/>
         <source>Language</source>
-        <translation>Язык</translation>
+        <translation type="obsolete">Язык</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="225"/>
         <source>Fill color</source>
-        <translation>Цвет заливки</translation>
+        <translation type="obsolete">Цвет заливки</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="226"/>
         <source>Fill shade</source>
-        <translation>Тень заливки</translation>
+        <translation type="obsolete">Тень заливки</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="227"/>
         <source>Stroke color</source>
-        <translation>Цвет обводки</translation>
+        <translation type="obsolete">Цвет обводки</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="228"/>
         <source>Stroke shade</source>
-        <translation>Тень обводки</translation>
+        <translation type="obsolete">Тень обводки</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="234"/>
         <source>Based On:</source>
-        <translation>Основан на:</translation>
+        <translation type="obsolete">Основан на:</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="235"/>
         <source>Language:</source>
-        <translation>Язык:</translation>
+        <translation type="obsolete">Язык:</translation>
     </message>
     <message>
         <location filename="../smtextstylewidgets.cpp" line="576"/>
         <source>Shade</source>
-        <translation>Тень</translation>
+        <translation type="obsolete">Тень</translation>
+    </message>
+</context>
+<context>
+    <name>SMCStyleWidget</name>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="67"/>
+        <source>Parent style</source>
+        <translation type="unfinished">Родительский стиль</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="68"/>
+        <source>Font face</source>
+        <translation type="unfinished">Имя шрифта</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="69"/>
+        <source>Font size</source>
+        <translation type="unfinished">Кегль</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="70"/>
+        <source>Tracking</source>
+        <translation type="unfinished">Трекинг</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="71"/>
+        <source>Baseline offset</source>
+        <translation type="unfinished">Смещение базовых линий</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="72"/>
+        <source>Horizontal scaling</source>
+        <translation type="unfinished">Масштабирование по горизонтали</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="73"/>
+        <source>Vertical scaling</source>
+        <translation type="unfinished">Масштабирование по вертикали</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="74"/>
+        <source>Language</source>
+        <translation type="unfinished">Язык</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="75"/>
+        <source>Fill color</source>
+        <translation type="unfinished">Цвет заливки</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="76"/>
+        <source>Fill shade</source>
+        <translation type="unfinished">Тень заливки</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="77"/>
+        <source>Stroke color</source>
+        <translation type="unfinished">Цвет обводки</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="78"/>
+        <source>Stroke shade</source>
+        <translation type="unfinished">Тень обводки</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="33"/>
+        <source>Based On:</source>
+        <translation type="unfinished">Основан на:</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="298"/>
+        <source>Language:</source>
+        <translation type="unfinished">Язык:</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="426"/>
+        <source>Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="55"/>
+        <source>Basic Formatting</source>
+        <translation type="unfinished">Обычное форматирование</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="268"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="195"/>
+        <source>Advanced Formatting</source>
+        <translation type="unfinished">Расширенное форматирование</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="416"/>
+        <source>TextLabel</source>
+        <translation type="unfinished">TextLabel</translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="339"/>
+        <source>Colors</source>
+        <translation type="unfinished">Цвета</translation>
     </message>
 </context>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="1490"/>
+        <location filename="../smtextstyles.cpp" line="1494"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1191"/>
+        <location filename="../smtextstyles.cpp" line="1195"/>
         <source>Character Styles</source>
         <translation>Символьные стили</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1196"/>
+        <location filename="../smtextstyles.cpp" line="1200"/>
         <source>Character Style</source>
         <translation>Символьный стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1319"/>
+        <location filename="../smtextstyles.cpp" line="1323"/>
         <source>New Style</source>
         <translation>Новый стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1332"/>
+        <location filename="../smtextstyles.cpp" line="1336"/>
         <source>Clone of %1</source>
         <translation>Клон %1</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1358"/>
+        <location filename="../smtextstyles.cpp" line="1362"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
@@ -22163,7 +22854,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMColorCombo</name>
     <message>
-        <location filename="../smwidgets.cpp" line="669"/>
+        <location filename="../smcolorcombo.cpp" line="121"/>
         <source>Use Parent Value</source>
         <translation>Использовать родительское значение</translation>
     </message>
@@ -22171,7 +22862,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMFontComboH</name>
     <message>
-        <location filename="../smwidgets.cpp" line="683"/>
+        <location filename="../smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
         <translation>Использовать родительский шрифт</translation>
     </message>
@@ -22179,7 +22870,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMLineStyle</name>
     <message>
-        <location filename="../smlinestyle.cpp" line="214"/>
+        <location filename="../smlinestyle.cpp" line="30"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
@@ -22189,81 +22880,169 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Линии</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="222"/>
+        <location filename="../smlinestyle.cpp" line="39"/>
         <source>Line Styles</source>
         <translation>Стили линий</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="227"/>
+        <location filename="../smlinestyle.cpp" line="44"/>
         <source>Line Style</source>
         <translation>Стиль линии</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="370"/>
+        <location filename="../smlinestyle.cpp" line="187"/>
         <source>New Style</source>
         <translation>Новый стиль</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="380"/>
+        <location filename="../smlinestyle.cpp" line="197"/>
         <source>Clone of %1</source>
         <translation>Клон %1</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="396"/>
+        <location filename="../smlinestyle.cpp" line="213"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="764"/>
+        <location filename="../smlinestyle.cpp" line="581"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="858"/>
+        <location filename="../smlinestyle.cpp" line="676"/>
         <source>Solid Line</source>
         <translation>Целая линия</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="846"/>
+        <location filename="../smlinestyle.cpp" line="664"/>
         <source>Dashed Line</source>
         <translation>Линейный пунктир</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="849"/>
+        <location filename="../smlinestyle.cpp" line="667"/>
         <source>Dotted Line</source>
         <translation>Пунктир</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="852"/>
+        <location filename="../smlinestyle.cpp" line="670"/>
         <source>Dash Dot Line</source>
         <translation>Тире-точка</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="855"/>
+        <location filename="../smlinestyle.cpp" line="673"/>
         <source>Dash Dot Dot Line</source>
         <translation>Тире-точка-точка</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="839"/>
+        <location filename="../smlinestyle.cpp" line="657"/>
         <source> pt </source>
         <translation> pt </translation>
     </message>
 </context>
 <context>
+    <name>SMLineStyleWidget</name>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="34"/>
+        <source>Flat Cap</source>
+        <translation type="unfinished">Плоская шляпка</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="35"/>
+        <source>Square Cap</source>
+        <translation type="unfinished">Квадратная шляпка</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="36"/>
+        <source>Round Cap</source>
+        <translation type="unfinished">Округлая шляпка</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="38"/>
+        <source>Miter Join</source>
+        <translation type="unfinished">Фацетное соединение</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="39"/>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Фасочное соединение</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="40"/>
+        <source>Round Join</source>
+        <translation type="unfinished">Скруглённое соединение</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="52"/>
+        <source>Add a new line</source>
+        <translation type="unfinished">Добавить новую линию</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="53"/>
+        <source>Remove a line</source>
+        <translation type="unfinished">Удалить линию</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="54"/>
+        <source>Line style</source>
+        <translation type="unfinished">Стиль линии</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="55"/>
+        <source>Line width</source>
+        <translation type="unfinished">Толщина линии</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="56"/>
+        <source>End style</source>
+        <translation type="unfinished">Стиль концов линии</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="57"/>
+        <source>Join style</source>
+        <translation type="unfinished">Стиль соединения</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="58"/>
+        <source>Line color</source>
+        <translation type="unfinished">Цвет линии</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="59"/>
+        <source>Line shade</source>
+        <translation type="unfinished">Оттенение линии</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="162"/>
+        <source> pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.ui" line="234"/>
+        <source>%</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.ui" line="256"/>
+        <source>Line Width:</source>
+        <translation type="unfinished">Толщина линии:</translation>
+    </message>
+</context>
+<context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="983"/>
+        <location filename="../smpstylewidget.cpp" line="238"/>
         <source>Fixed Linespacing</source>
         <translation>Фиксированный интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="984"/>
+        <location filename="../smpstylewidget.cpp" line="239"/>
         <source>Automatic Linespacing</source>
         <translation>Автоматический интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="985"/>
+        <location filename="../smpstylewidget.cpp" line="240"/>
         <source>Align to Baseline Grid</source>
         <translation>Выровнять по базовой линии</translation>
     </message>
@@ -22273,125 +23052,140 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Родительский стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="760"/>
+        <location filename="../smpstylewidget.cpp" line="64"/>
         <source>Alignment</source>
         <translation>Выключка</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="1212"/>
+        <location filename="../smpstylewidget.ui" line="61"/>
         <source>Based On:</source>
         <translation>Основан на:</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="779"/>
+        <location filename="../smpstylewidget.ui" line="89"/>
         <source>Distances and Alignment</source>
         <translation>Расстояния и выключка</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="780"/>
+        <location filename="../smpstylewidget.ui" line="201"/>
         <source>Drop Caps</source>
         <translation>Капитель</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="781"/>
+        <location filename="../smpstylewidget.ui" line="294"/>
         <source>Tabulators and Indentation</source>
         <translation>Табуляторы и отступы</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="782"/>
+        <location filename="../smpstylewidget.ui" line="38"/>
         <source>Properties</source>
         <translation>Свойства</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="783"/>
+        <location filename="../smpstylewidget.cpp" line="87"/>
         <source>Character Style</source>
         <translation>Символьный стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="809"/>
+        <location filename="../smpstylewidget.ui" line="213"/>
         <source>&amp;Lines:</source>
         <translation>&amp;Линии:</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="815"/>
+        <location filename="../smpstylewidget.ui" line="246"/>
         <source>Distance from Text:</source>
         <translation>Расстояние до текста:</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="751"/>
+        <location filename="../smpstylewidget.cpp" line="55"/>
         <source>Parent Style</source>
         <translation>Родительский стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="752"/>
+        <location filename="../smpstylewidget.cpp" line="56"/>
         <source>Line Spacing Mode</source>
         <translation>Тип интерлиньяжа</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="753"/>
+        <location filename="../smpstylewidget.cpp" line="57"/>
         <source>Line Spacing</source>
         <translation>Интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="754"/>
+        <location filename="../smpstylewidget.cpp" line="58"/>
         <source>Space Above</source>
         <translation>Перед абзацем</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="755"/>
+        <location filename="../smpstylewidget.cpp" line="59"/>
         <source>Space Below</source>
         <translation>После абзаца</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="758"/>
+        <location filename="../smpstylewidget.cpp" line="62"/>
         <source>Drop Cap Lines</source>
         <translation>Линии капители</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="759"/>
+        <location filename="../smpstylewidget.cpp" line="63"/>
         <source>Drop Cap Offset</source>
         <translation>Смещение капители</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="761"/>
+        <location filename="../smpstylewidget.cpp" line="65"/>
         <source>First Line Indent</source>
         <translation>Красная строка</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="762"/>
+        <location filename="../smpstylewidget.cpp" line="66"/>
         <source>Left Indent</source>
         <translation>Отступ слева</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="763"/>
+        <location filename="../smpstylewidget.cpp" line="67"/>
         <source>Right Indent</source>
         <translation>Отступ справа</translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="160"/>
+        <source>TextLabel</source>
+        <translation type="unfinished">TextLabel</translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="279"/>
+        <source>Parent&apos;s Drop Cap Status</source>
+        <translation type="unfinished">Статус родительской капители</translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="340"/>
+        <source>Ch&amp;aracter Style</source>
+        <translation type="unfinished">Си&amp;мвольный стиль</translation>
     </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="49"/>
+        <location filename="../smtextstyles.cpp" line="53"/>
         <source>Paragraph Styles</source>
         <translation>Абзацный стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="54"/>
+        <location filename="../smtextstyles.cpp" line="58"/>
         <source>Paragraph Style</source>
         <translation>Абзацный стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="202"/>
+        <location filename="../smtextstyles.cpp" line="206"/>
         <source>New Style</source>
         <translation>Новый стиль</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="215"/>
+        <location filename="../smtextstyles.cpp" line="219"/>
         <source>Clone of %1</source>
         <translation>Клон %1</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="242"/>
+        <location filename="../smtextstyles.cpp" line="246"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
@@ -22400,12 +23194,12 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMReplaceDia</name>
     <message>
-        <location filename="../smreplacedia.cpp" line="66"/>
+        <location filename="../smreplacedia.cpp" line="65"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../smreplacedia.cpp" line="67"/>
+        <location filename="../smreplacedia.cpp" line="66"/>
         <source>Replace with</source>
         <translation>Заменить на</translation>
     </message>
@@ -22456,7 +23250,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMRowWidget</name>
     <message>
-        <location filename="../smreplacedia.cpp" line="27"/>
+        <location filename="../smreplacedia.cpp" line="23"/>
         <source>No Style</source>
         <translation>Без стиля</translation>
     </message>
@@ -22464,7 +23258,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../smwidgets.cpp" line="271"/>
+        <location filename="../smsccombobox.cpp" line="82"/>
         <source>Use Parent Value</source>
         <translation>Использовать родительское значение</translation>
     </message>
@@ -22472,21 +23266,64 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMShadeButton</name>
     <message>
-        <location filename="../smwidgets.cpp" line="542"/>
+        <location filename="../smshadebutton.cpp" line="74"/>
         <source>Use Parent Value</source>
         <translation>Использовать родительское значение</translation>
     </message>
 </context>
 <context>
+    <name>SMStyleImport</name>
+    <message>
+        <location filename="../smstyleimport.cpp" line="22"/>
+        <source>Character Styles</source>
+        <translation type="unfinished">Символьные стили</translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.cpp" line="34"/>
+        <source>Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.cpp" line="46"/>
+        <source>Line Styles</source>
+        <translation type="unfinished">Стили линий</translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="13"/>
+        <source>Choose Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="20"/>
+        <source>Available Styles</source>
+        <translation type="unfinished">Доступные стили</translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="28"/>
+        <source>In case of the name clash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="34"/>
+        <source>&amp;Rename Imported Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="44"/>
+        <source>R&amp;eplace Existing Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SMStyleSelect</name>
     <message>
-        <location filename="../smwidgets.cpp" line="372"/>
+        <location filename="../smstyleselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation>Р</translation>
     </message>
     <message>
-        <location filename="../smwidgets.cpp" line="373"/>
+        <location filename="../smstyleselect.cpp" line="21"/>
         <source>Use parent style&apos;s effects instead of overriding them</source>
         <translation>Использовать эффекты родительского стиля вместо собственных</translation>
     </message>
@@ -22494,7 +23331,7 @@ Therefore the image may be not correct</source>
 <context>
     <name>SMTabruler</name>
     <message>
-        <location filename="../smwidgets.cpp" line="777"/>
+        <location filename="../smtabruler.cpp" line="20"/>
         <source> Parent Tabs </source>
         <translation> Родительская табуляция </translation>
     </message>
@@ -22502,12 +23339,12 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../story.cpp" line="1118"/>
+        <location filename="../story.cpp" line="1130"/>
         <source>Style Settings</source>
         <translation>Параметры стиля</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1135"/>
+        <location filename="../story.cpp" line="1147"/>
         <source>Style of current paragraph</source>
         <translation>Стиль текущего абзаца</translation>
     </message>
@@ -22515,17 +23352,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../story.cpp" line="881"/>
+        <location filename="../story.cpp" line="888"/>
         <source>Fill Color Settings</source>
         <translation>Параметры заливки цветом</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="907"/>
+        <location filename="../story.cpp" line="914"/>
         <source>Color of text fill</source>
         <translation>Цвет заливки текста</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="908"/>
+        <location filename="../story.cpp" line="915"/>
         <source>Saturation of color of text fill</source>
         <translation>Цветонасыщенность заливки текста</translation>
     </message>
@@ -22533,17 +23370,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../story.cpp" line="940"/>
+        <location filename="../story.cpp" line="952"/>
         <source>Stroke Color Settings</source>
         <translation>Параметры цвета контура</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="965"/>
+        <location filename="../story.cpp" line="977"/>
         <source>Color of text stroke</source>
         <translation>Цвет контура текста</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="966"/>
+        <location filename="../story.cpp" line="978"/>
         <source>Saturation of color of text stroke</source>
         <translation>Цветонасыщенность контура текста</translation>
     </message>
@@ -22551,37 +23388,37 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../story.cpp" line="1155"/>
+        <location filename="../story.cpp" line="1167"/>
         <source>Font Settings</source>
         <translation>Параметры шрифта</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1164"/>
+        <location filename="../story.cpp" line="1176"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1183"/>
+        <location filename="../story.cpp" line="1195"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1199"/>
+        <location filename="../story.cpp" line="1211"/>
         <source>Font of selected text</source>
         <translation>Шрифт выделенного текста</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1200"/>
+        <location filename="../story.cpp" line="1212"/>
         <source>Font Size</source>
         <translation>Кегль шрифта</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1201"/>
+        <location filename="../story.cpp" line="1213"/>
         <source>Scaling width of characters</source>
         <translation>Изменяемая ширина символов</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1202"/>
+        <location filename="../story.cpp" line="1214"/>
         <source>Scaling height of characters</source>
         <translation>Изменяемая ширина высота символов</translation>
     </message>
@@ -22589,17 +23426,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../story.cpp" line="998"/>
+        <location filename="../story.cpp" line="1010"/>
         <source>Character Settings</source>
         <translation>Параметры символа</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1010"/>
+        <location filename="../story.cpp" line="1022"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1030"/>
+        <location filename="../story.cpp" line="1042"/>
         <source>Manual Tracking</source>
         <translation>Ручной трекинг</translation>
     </message>
@@ -22612,17 +23449,17 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">Сохран&amp;ить страницу как SVG...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="99"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="101"/>
         <source>Exports SVG Files</source>
         <translation>Экспортирует страницы в файлы SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="100"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Экспортирует текущую страницу в файл SVG.</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="84"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="86"/>
         <source>Save as &amp;SVG...</source>
         <translation>Сохран&amp;ить как SVG...</translation>
     </message>
@@ -22630,17 +23467,17 @@ Therefore the image may be not correct</source>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="87"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="88"/>
         <source>Import &amp;SVG...</source>
         <translation>Импортировать &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="102"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="103"/>
         <source>Imports SVG Files</source>
         <translation>Импортирует файлы SVG</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="103"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Импортирует большинство файлов SVG в текущий документ,
@@ -22649,7 +23486,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="117"/>
         <source>Scalable Vector Graphics</source>
-        <translation>Масштабируемая векторная графика (SVG)</translation>
+        <translation type="obsolete">Масштабируемая векторная графика (SVG)</translation>
     </message>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="181"/>
@@ -22665,7 +23502,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="896"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="902"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
@@ -22766,7 +23603,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation>Пользовательские параметры уже существуют. Вы точно хотите их перезаписать?</translation>
+        <translation type="obsolete">Пользовательские параметры уже существуют. Вы точно хотите их перезаписать?</translation>
     </message>
     <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
@@ -22787,6 +23624,11 @@ converting their vector data into Scribus objects.</source>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="154"/>
         <source>Cannot open file %1</source>
         <translation>Невозможно открыть файл %1</translation>
+    </message>
+    <message>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
+        <source>User configuration exists already. Do you really want to overwrite it?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22810,17 +23652,17 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScGTFileDialog</name>
     <message>
-        <location filename="../scgtplugin.cpp" line="109"/>
+        <location filename="../scgtplugin.cpp" line="108"/>
         <source>Select a file to import</source>
         <translation>Выберите импортируемый файл</translation>
     </message>
     <message>
-        <location filename="../scgtplugin.cpp" line="130"/>
+        <location filename="../scgtplugin.cpp" line="128"/>
         <source>Append</source>
         <translation>Добавить в конец</translation>
     </message>
     <message>
-        <location filename="../scgtplugin.cpp" line="132"/>
+        <location filename="../scgtplugin.cpp" line="130"/>
         <source>Show options</source>
         <translation>Показать параметры</translation>
     </message>
@@ -22886,17 +23728,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../sctextbrowser.cpp" line="67"/>
         <source>Locate your web browser</source>
-        <translation>Укажите расположение браузера</translation>
+        <translation type="obsolete">Укажите расположение браузера</translation>
     </message>
     <message>
         <location filename="../sctextbrowser.cpp" line="78"/>
         <source>External Web Browser Failed to Start</source>
-        <translation>Не удалось запустить внешний веб-браузер</translation>
+        <translation type="obsolete">Не удалось запустить внешний веб-браузер</translation>
     </message>
     <message>
         <location filename="../sctextbrowser.cpp" line="78"/>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
-        <translation>Scribus не удалось запустить внешний веб-браузер %1. Проверьте настройки программы</translation>
+        <translation type="obsolete">Scribus не удалось запустить внешний веб-браузер %1. Проверьте настройки программы</translation>
     </message>
 </context>
 <context>
@@ -22945,7 +23787,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScWinPrint</name>
     <message>
-        <location filename="../scwinprint.cpp" line="324"/>
+        <location filename="../scwinprint.cpp" line="323"/>
         <source>Printing...</source>
         <translation>Идёт вывод на печать...</translation>
     </message>
@@ -22976,7 +23818,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Фон</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="1450"/>
+        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="1716"/>
         <source>Copy #%1 of </source>
         <translation>Копия #%1 из </translation>
     </message>
@@ -22984,12 +23826,12 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="80"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="82"/>
         <source>Scribus 1.3.4 Document</source>
         <translation>Документ Scribus 1.3.4</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3325"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3326"/>
         <source>Copy #%1 of </source>
         <translation>Копия #%1 из </translation>
     </message>
@@ -23018,49 +23860,54 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../scribuscore.cpp" line="156"/>
+        <location filename="../scribuscore.cpp" line="167"/>
         <source>Initializing Plugins</source>
         <translation>Инициализируются расширения</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="168"/>
+        <location filename="../scribuscore.cpp" line="179"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>Инициализируются клавиатурные комбинации</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="170"/>
+        <location filename="../scribuscore.cpp" line="181"/>
         <source>Reading Preferences</source>
         <translation>Читаются параметры программы</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="180"/>
         <source>Reading ICC Profiles</source>
-        <translation>Читаются ICC-профили</translation>
+        <translation type="obsolete">Читаются ICC-профили</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="322"/>
+        <location filename="../scribuscore.cpp" line="326"/>
         <source>Searching for Fonts</source>
         <translation>Идёт поиск шрифтов</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="327"/>
+        <location filename="../scribuscore.cpp" line="331"/>
         <source>There are no fonts found on your system.</source>
         <translation>В вашей системе нет шрифтов.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="328"/>
+        <location filename="../scribuscore.cpp" line="332"/>
         <source>Exiting now.</source>
         <translation>Завершается работа приложения.</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="329"/>
+        <location filename="../scribuscore.cpp" line="333"/>
         <source>Fatal Error</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="332"/>
+        <location filename="../scribuscore.cpp" line="336"/>
         <source>Font System Initialized</source>
         <translation>Шрифтовая подсистема инициализирована</translation>
+    </message>
+    <message>
+        <location filename="../scribuscore.cpp" line="191"/>
+        <source>Reading Color Profiles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23076,67 +23923,67 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Normal</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="188"/>
+        <location filename="../scribusdoc.cpp" line="217"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="409"/>
+        <location filename="../scribusdoc.cpp" line="452"/>
         <source>Background</source>
         <translation>Фоновый слой</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6409"/>
+        <location filename="../scribusdoc.cpp" line="6836"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Вы действительно хотите удалить весь текст?</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6451"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Невозможно удалить используемый объект</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6451"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="620"/>
+        <location filename="../scribusdoc.cpp" line="704"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Произошла ошибка при открытии ICC-профилей, управление цветом не включено.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="361"/>
+        <location filename="../scribusdoc.cpp" line="404"/>
         <source>Default Paragraph Style</source>
         <translation>Обычный абзацный стиль</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="376"/>
+        <location filename="../scribusdoc.cpp" line="419"/>
         <source>Default Character Style</source>
         <translation>Обычный символьный стиль</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="751"/>
+        <location filename="../scribusdoc.cpp" line="836"/>
         <source>Adjusting Colors</source>
         <translation>Выполняется цветокоррекция</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6891"/>
+        <location filename="../scribusdoc.cpp" line="7354"/>
         <source>Some objects are locked.</source>
         <translation>Некоторые объекты заперты.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6887"/>
+        <location filename="../scribusdoc.cpp" line="7350"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Разблокировать все</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6888"/>
+        <location filename="../scribusdoc.cpp" line="7351"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Пропустить запертые объекты</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7933"/>
+        <location filename="../scribusdoc.cpp" line="8439"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -23147,7 +23994,7 @@ Rotation: %4</source>
 Вращение: %4</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7960"/>
+        <location filename="../scribusdoc.cpp" line="8467"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -23156,17 +24003,17 @@ Vertical gap: %3</source>
 Интервал по вертикали: %3</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5294"/>
+        <location filename="../scribusdoc.cpp" line="5671"/>
         <source>remove direct paragraph formatting</source>
         <translation>удалить прямое абзацное форматирование</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5518"/>
+        <location filename="../scribusdoc.cpp" line="5906"/>
         <source>remove direct char formatting</source>
         <translation>удалить прямое символьное форматирование</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8722"/>
+        <location filename="../scribusdoc.cpp" line="9465"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
@@ -23189,7 +24036,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Читаются параметры программы</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="303"/>
+        <location filename="../scribus.cpp" line="321"/>
         <source>Initializing Story Editor</source>
         <translation>Инициализируется Story Editor</translation>
     </message>
@@ -23199,27 +24046,27 @@ Vertical gap: %3</source>
         <translation type="obsolete">Читаются ICC-профили</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="310"/>
+        <location filename="../scribus.cpp" line="328"/>
         <source>Initializing Hyphenator</source>
         <translation>Инициализируется модуль переносов</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="316"/>
+        <location filename="../scribus.cpp" line="334"/>
         <source>Reading Scrapbook</source>
         <translation>Читается альбом</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="288"/>
+        <location filename="../scribus.cpp" line="306"/>
         <source>Setting up Shortcuts</source>
         <translation>Устанавливаются клавиатурные комбинации</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="356"/>
+        <location filename="../scribus.cpp" line="373"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="366"/>
+        <location filename="../scribus.cpp" line="386"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
@@ -23239,7 +24086,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Завершается работа приложения.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3635"/>
+        <location filename="../scribus.cpp" line="3580"/>
         <source>Fatal Error</source>
         <translation>Критическая ошибка</translation>
     </message>
@@ -23249,62 +24096,62 @@ Vertical gap: %3</source>
         <translation type="obsolete">Шрифтовая подсистема инициализирована</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9253"/>
+        <location filename="../scribus.cpp" line="8974"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9254"/>
+        <location filename="../scribus.cpp" line="8975"/>
         <source>Open &amp;Recent</source>
         <translation>Н&amp;едавние документы</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9256"/>
+        <location filename="../scribus.cpp" line="8977"/>
         <source>&amp;Import</source>
         <translation>&amp;Импортировать</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9257"/>
+        <location filename="../scribus.cpp" line="8978"/>
         <source>&amp;Export</source>
         <translation>&amp;Экспортировать</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9258"/>
+        <location filename="../scribus.cpp" line="8979"/>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9260"/>
+        <location filename="../scribus.cpp" line="8981"/>
         <source>St&amp;yle</source>
         <translation>Ст&amp;иль</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9261"/>
+        <location filename="../scribus.cpp" line="8982"/>
         <source>&amp;Color</source>
         <translation>&amp;Цвет</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9262"/>
+        <location filename="../scribus.cpp" line="8983"/>
         <source>&amp;Size</source>
         <translation>Раз&amp;мер</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9263"/>
+        <location filename="../scribus.cpp" line="8984"/>
         <source>&amp;Shade</source>
         <translation>&amp;Оттенение</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9264"/>
+        <location filename="../scribus.cpp" line="8985"/>
         <source>&amp;Font</source>
         <translation>&amp;Шрифт</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9265"/>
+        <location filename="../scribus.cpp" line="8986"/>
         <source>&amp;Effects</source>
         <translation>&amp;Эффекты</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9266"/>
+        <location filename="../scribus.cpp" line="8987"/>
         <source>&amp;Item</source>
         <translation>&amp;Объект</translation>
     </message>
@@ -23324,107 +24171,107 @@ Vertical gap: %3</source>
         <translation>Перенести в сло&amp;й</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9270"/>
+        <location filename="../scribus.cpp" line="8991"/>
         <source>&amp;PDF Options</source>
         <translation>Пара&amp;метры PDF</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9271"/>
+        <location filename="../scribus.cpp" line="8992"/>
         <source>&amp;Shape</source>
         <translation>О&amp;чертание</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9272"/>
+        <location filename="../scribus.cpp" line="8993"/>
         <source>C&amp;onvert To</source>
         <translation>&amp;Преобразовать в</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9273"/>
+        <location filename="../scribus.cpp" line="8994"/>
         <source>I&amp;nsert</source>
         <translation>Вст&amp;авка</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9274"/>
+        <location filename="../scribus.cpp" line="8995"/>
         <source>Character</source>
         <translation>Символ</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9275"/>
+        <location filename="../scribus.cpp" line="8996"/>
         <source>Quote</source>
         <translation>Кавычки</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9276"/>
+        <location filename="../scribus.cpp" line="8997"/>
         <source>Space</source>
         <translation>Пробел</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9278"/>
+        <location filename="../scribus.cpp" line="8999"/>
         <source>&amp;Page</source>
         <translation>Стра&amp;ница</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9279"/>
+        <location filename="../scribus.cpp" line="9000"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9281"/>
+        <location filename="../scribus.cpp" line="9002"/>
         <source>E&amp;xtras</source>
         <translation>&amp;Расширения</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9282"/>
+        <location filename="../scribus.cpp" line="9003"/>
         <source>&amp;Windows</source>
         <translation>О&amp;кна</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9283"/>
+        <location filename="../scribus.cpp" line="9004"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9284"/>
+        <location filename="../scribus.cpp" line="9005"/>
         <source>&amp;Alignment</source>
         <translation>&amp;Выключка</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9295"/>
+        <location filename="../scribus.cpp" line="9017"/>
         <source>Ready</source>
         <translation>Готово</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3982"/>
+        <location filename="../scribus.cpp" line="3930"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3445"/>
+        <location filename="../scribus.cpp" line="3390"/>
         <source>Importing Pages...</source>
         <translation>Идёт импорт страниц...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3474"/>
+        <location filename="../scribus.cpp" line="3419"/>
         <source>Import Page(s)</source>
         <translation>Импорт страниц(ы)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3516"/>
+        <location filename="../scribus.cpp" line="3461"/>
         <source>Import done</source>
         <translation>Импорт завершён</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3520"/>
+        <location filename="../scribus.cpp" line="3465"/>
         <source>Found nothing to import</source>
         <translation>Данные для импорта не найдены</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3635"/>
+        <location filename="../scribus.cpp" line="3580"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Файл %1 в неподдерживаемом формате</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3656"/>
+        <location filename="../scribus.cpp" line="3601"/>
         <source>Loading...</source>
         <translation>Файл загружается...</translation>
     </message>
@@ -23436,15 +24283,15 @@ Vertical gap: %3</source>
     <message>
         <location filename="../scribus.cpp" line="3800"/>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation>У вас нет некоторых ICC-профилей из этого документа:</translation>
+        <translation type="obsolete">У вас нет некоторых ICC-профилей из этого документа:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3803"/>
+        <location filename="../scribus.cpp" line="3748"/>
         <source> was replaced by: </source>
         <translation> был заменён на: </translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3830"/>
+        <location filename="../scribus.cpp" line="3780"/>
         <source>(converted)</source>
         <translation>(преобразовано)</translation>
     </message>
@@ -23459,7 +24306,7 @@ Vertical gap: %3</source>
         <translation type="obsolete">Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8001"/>
+        <location filename="../scribus.cpp" line="7722"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Невозможно записать в файл: 
@@ -23476,17 +24323,17 @@ Vertical gap: %3</source>
         <translation type="obsolete">Документы (*.sla *.scd);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4154"/>
+        <location filename="../scribus.cpp" line="4102"/>
         <source>Save As</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4181"/>
+        <location filename="../scribus.cpp" line="4128"/>
         <source>Saving...</source>
         <translation>Файл сохраняется...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7721"/>
+        <location filename="../scribus.cpp" line="7442"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus обнаружил ошибки. Вам стоит запустить валидатор, чтобы исправить их</translation>
     </message>
@@ -23501,47 +24348,47 @@ Vertical gap: %3</source>
         <translation type="obsolete">&amp;Прервать</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4441"/>
+        <location filename="../scribus.cpp" line="4387"/>
         <source>Printing...</source>
         <translation>Идёт вывод на печать...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7832"/>
+        <location filename="../scribus.cpp" line="7553"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4500"/>
+        <location filename="../scribus.cpp" line="4446"/>
         <source>Printing failed!</source>
         <translation>Напечатать не удалась!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4624"/>
+        <location filename="../scribus.cpp" line="4575"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Невозможно вырезать используемый объект</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4624"/>
+        <location filename="../scribus.cpp" line="4575"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Объект %1 сейчас открыт в Story Editor. Вырезание отменяется</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5262"/>
+        <location filename="../scribus.cpp" line="5215"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5267"/>
+        <location filename="../scribus.cpp" line="5220"/>
         <source>Scribus Manual</source>
         <translation>Руководство по Scribus</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7855"/>
+        <location filename="../scribus.cpp" line="7576"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5292"/>
+        <location filename="../scribus.cpp" line="5245"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Текстовые файлы (*.txt);;Все файлы (*)</translation>
     </message>
@@ -23553,55 +24400,55 @@ Vertical gap: %3</source>
     <message>
         <location filename="../scribus.cpp" line="5456"/>
         <source>Name:</source>
-        <translation>Имя:</translation>
+        <translation type="obsolete">Имя:</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="5456"/>
         <source>Convert Page to Master Page</source>
-        <translation>Преобразовать страницу в мастер-страницу</translation>
+        <translation type="obsolete">Преобразовать страницу в мастер-страницу</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6692"/>
+        <location filename="../scribus.cpp" line="6646"/>
         <source>&amp;Size:</source>
         <translation>Раз&amp;мер:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6692"/>
+        <location filename="../scribus.cpp" line="6646"/>
         <source>Size</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6744"/>
+        <location filename="../scribus.cpp" line="6676"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Тень:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6744"/>
+        <location filename="../scribus.cpp" line="6676"/>
         <source>Shade</source>
         <translation>Тень</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6852"/>
+        <location filename="../scribus.cpp" line="6778"/>
         <source>No Style</source>
         <translation>Без стиля</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7619"/>
+        <location filename="../scribus.cpp" line="7340"/>
         <source>The following programs are missing:</source>
         <translation>Следующие программы отсутствуют:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7621"/>
+        <location filename="../scribus.cpp" line="7342"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation>Ghostscript : невозможно использовать изображения формата EPS или просматривать печатную версию</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7757"/>
+        <location filename="../scribus.cpp" line="7478"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7801"/>
+        <location filename="../scribus.cpp" line="7522"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Обнаружены ошибки.
@@ -23610,102 +24457,102 @@ Consider using the Preflight Verifier  to correct them.</source>
     <message>
         <location filename="../scribus.cpp" line="7855"/>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation>Файлы в EPS (*.eps);;Все файлы (*)</translation>
+        <translation type="obsolete">Файлы в EPS (*.eps);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7886"/>
+        <location filename="../scribus.cpp" line="7607"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Обнаружены ошибки.
 Запустите валидатор  для их устранения</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7978"/>
+        <location filename="../scribus.cpp" line="7699"/>
         <source>-Page%1</source>
         <translation>-Страница%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8347"/>
+        <location filename="../scribus.cpp" line="8064"/>
         <source>Some objects are locked.</source>
         <translation>Некоторые объекты заблокированы.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8343"/>
+        <location filename="../scribus.cpp" line="8060"/>
         <source>&amp;Lock All</source>
         <translation>За&amp;блокировать все</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8344"/>
+        <location filename="../scribus.cpp" line="8061"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Разблокировать все</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9026"/>
+        <location filename="../scribus.cpp" line="8747"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9026"/>
+        <location filename="../scribus.cpp" line="8747"/>
         <source>The program %1 is already running!</source>
         <translation>Программа %1 уже запущена!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9064"/>
+        <location filename="../scribus.cpp" line="8785"/>
         <source>The program %1 is missing!</source>
         <translation>Программа %1 отсутствует!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9178"/>
+        <location filename="../scribus.cpp" line="8899"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation>Выбранный цвет отсутствует в цветовой палитре документа. Введите имя для этого нового цвета.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9181"/>
+        <location filename="../scribus.cpp" line="8902"/>
         <source>Color Not Found</source>
         <translation>Цвет не найден</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9185"/>
+        <location filename="../scribus.cpp" line="8906"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation>Выбранное вами имя уже существует. Введите другое имя для этого цвета.</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9267"/>
+        <location filename="../scribus.cpp" line="8988"/>
         <source>&amp;Level</source>
         <translation>&amp;Уровень</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9268"/>
+        <location filename="../scribus.cpp" line="8989"/>
         <source>Send to Layer</source>
         <translation>Перенести в слой</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9269"/>
+        <location filename="../scribus.cpp" line="8990"/>
         <source>Previe&amp;w Settings</source>
         <translation>Параметры предпрос&amp;мотра</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9280"/>
+        <location filename="../scribus.cpp" line="9001"/>
         <source>&amp;Tools</source>
         <translation>С&amp;ервис</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9291"/>
+        <location filename="../scribus.cpp" line="9013"/>
         <source>X-Pos:</source>
         <translation>X-Поз:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9292"/>
+        <location filename="../scribus.cpp" line="9014"/>
         <source>Y-Pos:</source>
         <translation>Y-Поз:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7623"/>
+        <location filename="../scribus.cpp" line="7344"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation>Ghostscript : Вы не можете использовать изображения в формате EPS или просматривать печать PostScript</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7668"/>
+        <location filename="../scribus.cpp" line="7389"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript отсутствует : просмотр печати Postscript недоступен</translation>
     </message>
@@ -23717,10 +24564,10 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../scribus.cpp" line="5456"/>
         <source>New Master Page %1</source>
-        <translation>Новая мастер-страница %1</translation>
+        <translation type="obsolete">Новая мастер-страница %1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9442"/>
+        <location filename="../scribus.cpp" line="9138"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Вы действительно хотите заменить уже присутствующее изображение?</translation>
     </message>
@@ -23739,47 +24586,47 @@ Vertical shift: %3</source>
 Смещение по вертикали: %3</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9259"/>
+        <location filename="../scribus.cpp" line="8980"/>
         <source>Contents</source>
         <translation>Содержимое</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9277"/>
+        <location filename="../scribus.cpp" line="8998"/>
         <source>Liga&amp;ture</source>
         <translation>&amp;Лигатура</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9255"/>
+        <location filename="../scribus.cpp" line="8976"/>
         <source>Paste Recent</source>
         <translation>Вставить недавнее</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="780"/>
+        <location filename="../scribus.cpp" line="772"/>
         <source>&amp;Character</source>
         <translation>С&amp;имволы</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="798"/>
+        <location filename="../scribus.cpp" line="789"/>
         <source>&amp;Quote</source>
         <translation>&amp;Кавычки</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="824"/>
+        <location filename="../scribus.cpp" line="814"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>Про&amp;белы и разрывы</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="2434"/>
+        <location filename="../scribus.cpp" line="2405"/>
         <source>Updating Pictures</source>
         <translation>Обновляются изображения</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4012"/>
+        <location filename="../scribus.cpp" line="3960"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Вы действительно хотите удалить весь текст?</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4151"/>
+        <location filename="../scribus.cpp" line="4099"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Документы (*.sla *.sla.gz);;Все файлы (*)</translation>
     </message>
@@ -23789,9 +24636,24 @@ Vertical shift: %3</source>
         <translation type="obsolete">Группа%1</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="251"/>
+        <location filename="../scribus.cpp" line="270"/>
         <source>Scribus </source>
         <translation>Scribus </translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="9006"/>
+        <source>Online &amp;Tutorials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="3745"/>
+        <source>Some color profiles used by this document are not installed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="7576"/>
+        <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23807,122 +24669,122 @@ Vertical shift: %3</source>
         <translation>Файл %1 не существует, прерывание операции.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="397"/>
+        <location filename="../scribusapp.cpp" line="401"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation>Использование: scribus [ключ ... ] [файл]</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="398"/>
+        <location filename="../scribusapp.cpp" line="402"/>
         <source>Options:</source>
         <translation>Параметры:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="400"/>
+        <location filename="../scribusapp.cpp" line="404"/>
         <source>Print help (this message) and exit</source>
         <translation>Напечатать справку (это сообщение) и выйти</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="401"/>
+        <location filename="../scribusapp.cpp" line="405"/>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
         <translation>Использует сокращение вида xx для обозначения языка, например, &quot;en&quot; или &quot;de&quot;</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="402"/>
+        <location filename="../scribusapp.cpp" line="406"/>
         <source>List the currently installed interface languages</source>
         <translation>Вывести список установленных переводов интерфейса</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="399"/>
+        <location filename="../scribusapp.cpp" line="403"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation>Показать информацию в консоли при загрузке шрифтов</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="403"/>
+        <location filename="../scribusapp.cpp" line="407"/>
         <source>Do not show the splashscreen on startup</source>
         <translation>Не показывать заставку при старте</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>Output version information and exit</source>
         <translation>Показать информацию о версии и выйти</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="407"/>
+        <location filename="../scribusapp.cpp" line="411"/>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
         <translation>Использовать обратный порядок кнопок в диалоге (например, Отменить/Нет/Да вместо Да/Нет/Отменить)</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>filename</source>
         <translation>имя_файла</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>Use filename as path for user given preferences</source>
         <translation>Использовать имя файла как путь к указанным пользователем параметрам</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="428"/>
+        <location filename="../scribusapp.cpp" line="432"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation>Установлены переводы интерфейса Scribus на следующие языки:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="436"/>
+        <location filename="../scribusapp.cpp" line="440"/>
         <source>To override the default language choice:</source>
         <translation>Для аннуляции системных параметров языкового окружения выберите:</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="437"/>
+        <location filename="../scribusapp.cpp" line="441"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation>scribus -l xx или scribus --lang xx, где xx — избранный язык.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="442"/>
+        <location filename="../scribusapp.cpp" line="446"/>
         <source>Scribus Version</source>
         <translation>Версия Scribus</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="451"/>
+        <location filename="../scribusapp.cpp" line="455"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation>Scribus, Предпечатная подготовка свободными средствами</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="459"/>
+        <location filename="../scribusapp.cpp" line="463"/>
         <source>Homepage</source>
         <translation>Веб-сайт</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="460"/>
+        <location filename="../scribusapp.cpp" line="464"/>
         <source>Documentation</source>
         <translation>Документация</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="461"/>
+        <location filename="../scribusapp.cpp" line="465"/>
         <source>Wiki</source>
         <translation>Вики</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="462"/>
+        <location filename="../scribusapp.cpp" line="466"/>
         <source>Issues</source>
         <translation>Проблемы</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="413"/>
+        <location filename="../scribusapp.cpp" line="417"/>
         <source>Display a console window</source>
         <translation>Показать окно консоли</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="404"/>
+        <location filename="../scribusapp.cpp" line="408"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation>Прекратить отображение заставки при старте программы; записывает файл .neversplash в ~/.scribus.</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="406"/>
+        <location filename="../scribusapp.cpp" line="410"/>
         <source>Show location ICC profile information on console while starting</source>
         <translation>Показать в консоли информацию об ICC-профилях при старте</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="408"/>
+        <location filename="../scribusapp.cpp" line="412"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation>Скачать файл с сайта Scribus и показать номер наиболее новой доступной версии программы.</translation>
     </message>
@@ -23935,7 +24797,7 @@ Vertical shift: %3</source>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../scribusview.cpp" line="192"/>
+        <location filename="../scribusview.cpp" line="201"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -23945,127 +24807,127 @@ Vertical shift: %3</source>
         <translation type="obsolete">Слой</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2081"/>
+        <location filename="../scribusview.cpp" line="949"/>
         <source>Copy Here</source>
         <translation>Скопировать сюда</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2082"/>
+        <location filename="../scribusview.cpp" line="950"/>
         <source>Move Here</source>
         <translation>Переместить сюда</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2083"/>
+        <location filename="../scribusview.cpp" line="951"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2780"/>
+        <location filename="../canvasmode_nodeedit.cpp" line="498"/>
         <source>&amp;Paste</source>
         <translation>Вст&amp;авить</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2947"/>
         <source>Picture</source>
-        <translation>Изображение</translation>
+        <translation type="obsolete">Изображение</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2922"/>
+        <location filename="../pageitem_imageframe.cpp" line="257"/>
         <source>File: </source>
         <translation>Файл:</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2926"/>
+        <location filename="../pageitem_imageframe.cpp" line="262"/>
         <source>Original PPI: </source>
         <translation>Исходный PPI: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2930"/>
+        <location filename="../pageitem_imageframe.cpp" line="267"/>
         <source>Actual PPI: </source>
         <translation>Текущий PPI: </translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2973"/>
         <source>Linked Text</source>
-        <translation>Связанный текст</translation>
+        <translation type="obsolete">Связанный текст</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2975"/>
         <source>Text Frame</source>
-        <translation>Текстовый блок</translation>
+        <translation type="obsolete">Текстовый блок</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2978"/>
         <source>Text on a Path</source>
-        <translation>Текст по контуру</translation>
+        <translation type="obsolete">Текст по контуру</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2981"/>
         <source>Paragraphs: </source>
-        <translation>Абзацев: </translation>
+        <translation type="obsolete">Абзацев: </translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2992"/>
         <source>Words: </source>
-        <translation>Слов: </translation>
+        <translation type="obsolete">Слов: </translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2999"/>
         <source>Chars: </source>
-        <translation>Символов: </translation>
+        <translation type="obsolete">Символов: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3010"/>
+        <location filename="../canvasmode_legacy.cpp" line="4368"/>
         <source>Print: </source>
         <translation>Печать: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3013"/>
+        <location filename="../canvasmode_legacy.cpp" line="4371"/>
         <source>Enabled</source>
         <translation>Включено</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3015"/>
+        <location filename="../canvasmode_legacy.cpp" line="4373"/>
         <source>Disabled</source>
         <translation>Выключено</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3024"/>
+        <location filename="../canvasmode_legacy.cpp" line="4383"/>
         <source>In&amp;fo</source>
         <translation>&amp;Информация</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3092"/>
+        <location filename="../pageitem_textframe.cpp" line="3384"/>
         <source>&amp;PDF Options</source>
         <translation>Пара&amp;метры PDF</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3116"/>
+        <location filename="../canvasmode_legacy.cpp" line="4420"/>
         <source>Send to La&amp;yer</source>
         <translation>Перенести в сло&amp;й</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3144"/>
+        <location filename="../canvasmode_legacy.cpp" line="4449"/>
         <source>Le&amp;vel</source>
         <translation>Уро&amp;вень</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3198"/>
+        <location filename="../canvasmode_legacy.cpp" line="4469"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Преобразовать в</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3208"/>
+        <location filename="../canvasmode_legacy.cpp" line="4480"/>
         <source>&amp;Delete</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="3051"/>
         <source>Preview Settings</source>
-        <translation>Параметры предпросмотра</translation>
+        <translation type="obsolete">Параметры предпросмотра</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6882"/>
+        <location filename="../canvasmode_legacy.cpp" line="1687"/>
         <source>Linking Text Frames</source>
         <translation>Связанные текстовые блоки</translation>
     </message>
@@ -24075,27 +24937,27 @@ Vertical shift: %3</source>
         <translation type="obsolete">Вы пытаетесь перенести текст в уже заполненный блок или исходный блок.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="11128"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Невозможно преобразовать используемый объект</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="11128"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно преобразовать в контуры</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="9773"/>
+        <location filename="../scribusview.cpp" line="3116"/>
         <source>Page %1 to %2</source>
         <translation>Страница %1 до %2</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2934"/>
+        <location filename="../pageitem_imageframe.cpp" line="272"/>
         <source>Colorspace: </source>
         <translation>Цветовое пространство: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2939"/>
+        <location filename="../pageitem_imageframe.cpp" line="277"/>
         <source>Unknown</source>
         <translation>Неизвестно</translation>
     </message>
@@ -24115,39 +24977,39 @@ Vertical shift: %3</source>
         <translation type="obsolete">Градации серого</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3230"/>
+        <location filename="../canvasmode_legacy.cpp" line="4485"/>
         <source>Contents</source>
         <translation>Содержимое</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="310"/>
+        <location filename="../scribusview.cpp" line="325"/>
         <source>Switches Color Management on or off</source>
         <translation>Включает и отключает управление цветом</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="311"/>
+        <location filename="../scribusview.cpp" line="326"/>
         <source>Enables the Preview Mode</source>
         <translation>Включает режим предпросмотра</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="312"/>
+        <location filename="../scribusview.cpp" line="327"/>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
         <translation>Здесь вы можете выбрать представление цветов на мониторе.
 Вы можете выбрать между обычным представлением и имитацией разных форм дальтонизма.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="350"/>
+        <location filename="../scribusview.cpp" line="365"/>
         <source>Preview Mode</source>
         <translation>Режим предпросмотра</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="351"/>
+        <location filename="../scribusview.cpp" line="366"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation>Управление цветом активно., поэтому восприятие цветов дальтониками может быть неверным.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2796"/>
+        <location filename="../canvasmode_nodeedit.cpp" line="515"/>
         <source>Paste Recent</source>
         <translation>Вставить недавнее</translation>
     </message>
@@ -24157,32 +25019,32 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Дуплекс</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2949"/>
+        <location filename="../pageitem_imageframe.cpp" line="283"/>
         <source>No Image Loaded</source>
         <translation>Изображение не загружено</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2988"/>
         <source>Lines: </source>
-        <translation>Строк: </translation>
+        <translation type="obsolete">Строк: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3322"/>
+        <location filename="../canvasmode_legacy.cpp" line="2326"/>
         <source>Enter Object Size</source>
         <translation>Введите размер объекта</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6876"/>
+        <location filename="../canvasmode_legacy.cpp" line="1681"/>
         <source>You are trying to link a frame to itself.</source>
         <translation>Вы пытаетесь связать блок с ним же.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6883"/>
+        <location filename="../canvasmode_legacy.cpp" line="1688"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation>Вы пытаетесь связать блок с блоком, который уже связан с другим.</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="10829"/>
+        <location filename="../scribusview.cpp" line="4260"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
@@ -24190,12 +25052,12 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ScribusWin</name>
     <message>
-        <location filename="../scribuswin.cpp" line="105"/>
+        <location filename="../scribuswin.cpp" line="107"/>
         <source>Document:</source>
         <translation>Документ:</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="107"/>
+        <location filename="../scribuswin.cpp" line="109"/>
         <source>has been changed since the last save.</source>
         <translation>изменился с момента последнего сохранения.</translation>
     </message>
@@ -24350,7 +25212,7 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="92"/>
         <source>Select Color</source>
-        <translation>Выберите цвет</translation>
+        <translation type="obsolete">Выберите цвет</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="72"/>
@@ -24358,7 +25220,7 @@ You can choose between normal and several color blindness forms</source>
         <translation>Изменить...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="117"/>
+        <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="129"/>
         <source>Locate Startup Script</source>
         <translation>Указать сценарий запуска</translation>
     </message>
@@ -24406,7 +25268,7 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../seiten.cpp" line="81"/>
+        <location filename="../seiten.cpp" line="55"/>
         <source>Show Page Previews</source>
         <translation>Просмотр  страниц</translation>
     </message>
@@ -24585,12 +25447,12 @@ You can choose between normal and several color blindness forms</source>
         <translation>Другое...</translation>
     </message>
     <message>
-        <location filename="../shadebutton.cpp" line="50"/>
+        <location filename="../shadebutton.cpp" line="49"/>
         <source>Shade</source>
         <translation>Тень</translation>
     </message>
     <message>
-        <location filename="../shadebutton.cpp" line="50"/>
+        <location filename="../shadebutton.cpp" line="49"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Тень:</translation>
     </message>
@@ -24635,77 +25497,77 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ShortcutWidget</name>
     <message>
-        <location filename="../stylemanager.cpp" line="1477"/>
+        <location filename="../shortcutwidget.ui" line="16"/>
         <source>&amp;No Key</source>
         <translation>&amp;Без горячих клавиш</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1478"/>
+        <location filename="../shortcutwidget.ui" line="23"/>
         <source>&amp;User Defined Key</source>
         <translation>&amp;Собственная комбинация</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="1443"/>
         <source>ALT+SHIFT+T</source>
-        <translation>ALT+SHIFT+T</translation>
+        <translation type="obsolete">ALT+SHIFT+T</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1479"/>
+        <location filename="../shortcutwidget.ui" line="30"/>
         <source>Set &amp;Key</source>
         <translation>&amp;Установить</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1469"/>
+        <location filename="../shortcutwidget.cpp" line="33"/>
         <source>No shortcut for the style</source>
         <translation>У стиля нет клавиатурной комбинации</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1470"/>
+        <location filename="../shortcutwidget.cpp" line="34"/>
         <source>Style has user defined shortcut</source>
         <translation>Клавиатурная комбинация стиля определена пользователем</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1471"/>
+        <location filename="../shortcutwidget.cpp" line="35"/>
         <source>Assign a shortcut for the style</source>
         <translation>Назначить стилю клавиатурную комбинацию</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1568"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1568"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1568"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1568"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1509"/>
+        <location filename="../shortcutwidget.cpp" line="65"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1513"/>
+        <location filename="../shortcutwidget.cpp" line="69"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1517"/>
+        <location filename="../shortcutwidget.cpp" line="73"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1521"/>
+        <location filename="../shortcutwidget.cpp" line="77"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
@@ -24715,12 +25577,12 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <location filename="../story.cpp" line="157"/>
         <source>No Style</source>
-        <translation>Без стиля</translation>
+        <translation type="obsolete">Без стиля</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="120"/>
         <source>Edit Styles...</source>
-        <translation>Изменить стили...</translation>
+        <translation type="obsolete">Изменить стили...</translation>
     </message>
 </context>
 <context>
@@ -24792,222 +25654,222 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../story.cpp" line="1804"/>
+        <location filename="../story.cpp" line="1813"/>
         <source>Story Editor</source>
         <translation>Story Editor</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1720"/>
+        <location filename="../story.cpp" line="1730"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1722"/>
+        <location filename="../story.cpp" line="1732"/>
         <source>Current Paragraph:</source>
         <translation>Текущий абзац:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1727"/>
+        <location filename="../story.cpp" line="1737"/>
         <source>Words: </source>
         <translation>Слов:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1728"/>
+        <location filename="../story.cpp" line="1738"/>
         <source>Chars: </source>
         <translation>Символов:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1725"/>
+        <location filename="../story.cpp" line="1735"/>
         <source>Totals:</source>
         <translation>Итого:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1726"/>
+        <location filename="../story.cpp" line="1736"/>
         <source>Paragraphs: </source>
         <translation>Абзацев:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2905"/>
+        <location filename="../story.cpp" line="2927"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2941"/>
+        <location filename="../story.cpp" line="2962"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Текстовые файлы (*.txt);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2941"/>
+        <location filename="../story.cpp" line="2962"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1841"/>
+        <location filename="../story.cpp" line="1853"/>
         <source>Do you want to save your changes?</source>
         <translation>Вы хотите сохранить изменения?</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1684"/>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation type="obsolete">&amp;Новый</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1686"/>
+        <location filename="../story.cpp" line="1696"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Восстановить текст из блока</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1687"/>
+        <location filename="../story.cpp" line="1697"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Сохранить в файл...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1688"/>
+        <location filename="../story.cpp" line="1698"/>
         <source>&amp;Load from File...</source>
         <translation>За&amp;грузить из файла...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1689"/>
+        <location filename="../story.cpp" line="1699"/>
         <source>Save &amp;Document</source>
         <translation>Сохранить до&amp;кумент</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1690"/>
+        <location filename="../story.cpp" line="1700"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>&amp;Обновить текст в блоке и выйти</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1691"/>
+        <location filename="../story.cpp" line="1701"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>Выйти &amp;без обновления текста в блоке</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1694"/>
+        <location filename="../story.cpp" line="1704"/>
         <source>Select &amp;All</source>
         <translation>Выделить в&amp;сё</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1695"/>
+        <location filename="../story.cpp" line="1705"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Вырезать</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1696"/>
+        <location filename="../story.cpp" line="1706"/>
         <source>&amp;Copy</source>
         <translation>С&amp;копировать</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1697"/>
+        <location filename="../story.cpp" line="1707"/>
         <source>&amp;Paste</source>
         <translation>Вст&amp;авить</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1698"/>
+        <location filename="../story.cpp" line="1708"/>
         <source>C&amp;lear</source>
         <translation>О&amp;чистить</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1699"/>
+        <location filename="../story.cpp" line="1709"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Найти/Заменить...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1700"/>
+        <location filename="../story.cpp" line="1710"/>
         <source>&amp;Edit Styles...</source>
         <translation>&amp;Изменить стили...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1701"/>
+        <location filename="../story.cpp" line="1711"/>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Просмотреть шрифты...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1702"/>
+        <location filename="../story.cpp" line="1712"/>
         <source>&amp;Update Text Frame</source>
         <translation>&amp;Обновить текстовый блок</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1713"/>
+        <location filename="../story.cpp" line="1723"/>
         <source>&amp;Background...</source>
         <translation>&amp;Фон...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1714"/>
+        <location filename="../story.cpp" line="1724"/>
         <source>&amp;Display Font...</source>
         <translation>&amp;Шрифт текста...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1683"/>
+        <location filename="../story.cpp" line="1694"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1693"/>
+        <location filename="../story.cpp" line="1703"/>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1712"/>
+        <location filename="../story.cpp" line="1722"/>
         <source>&amp;Settings</source>
         <translation>&amp;Параметры</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1715"/>
+        <location filename="../story.cpp" line="1725"/>
         <source>&amp;Smart text selection</source>
         <translation>&amp;Умное выделение текста</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1709"/>
+        <location filename="../story.cpp" line="1719"/>
         <source>&amp;Insert Glyph...</source>
         <translation>В&amp;ставить символ...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1685"/>
+        <location filename="../story.cpp" line="1695"/>
         <source>Clear All Text</source>
         <translation>Удалить весь текст</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1787"/>
+        <location filename="../story.cpp" line="1797"/>
         <source>Story Editor - %1</source>
         <translation>Story Editor — %1</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2406"/>
+        <location filename="../story.cpp" line="2437"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Вы действительно хотите потерять все изменения?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2435"/>
+        <location filename="../story.cpp" line="2466"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Вы действительно хотите удалить весь текст?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1705"/>
+        <location filename="../story.cpp" line="1715"/>
         <source>&amp;Insert</source>
         <translation>В&amp;ставка</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1706"/>
+        <location filename="../story.cpp" line="1716"/>
         <source>Character</source>
         <translation>Символ</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1707"/>
+        <location filename="../story.cpp" line="1717"/>
         <source>Quote</source>
         <translation>Кавычки</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1708"/>
+        <location filename="../story.cpp" line="1718"/>
         <source>Space</source>
         <translation>Пробел</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1522"/>
+        <location filename="../story.cpp" line="1528"/>
         <source>Ligature</source>
         <translation>Лигатура</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1510"/>
+        <location filename="../story.cpp" line="1516"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Пробелы и разрывы</translation>
     </message>
@@ -25043,195 +25905,240 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Выбрано больше одного объекта</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="48"/>
+        <location filename="../stylemanager.ui" line="62"/>
         <source>Name</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="953"/>
+        <location filename="../stylemanager.ui" line="67"/>
         <source>Shortcut</source>
         <translation>Клавиатурная комбинация</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="104"/>
+        <location filename="../stylemanager.cpp" line="89"/>
         <source>Apply all changes and exit edit mode</source>
         <translation>Применить все изменения и выйти из режима правки</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="106"/>
+        <location filename="../stylemanager.cpp" line="91"/>
         <source>Edit styles</source>
         <translation>Изменить стили</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="108"/>
+        <location filename="../stylemanager.cpp" line="93"/>
         <source>Name of the selected style</source>
         <translation>Название выбранного стиля</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="109"/>
+        <location filename="../stylemanager.cpp" line="94"/>
         <source>Reset all changes</source>
         <translation>Сбросить все изменения</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="110"/>
+        <location filename="../stylemanager.cpp" line="95"/>
         <source>Apply all changes</source>
         <translation>Применить все изменения</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="111"/>
+        <location filename="../stylemanager.cpp" line="96"/>
         <source>Create a new style</source>
         <translation>Создать новый стиль</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="112"/>
+        <location filename="../stylemanager.cpp" line="97"/>
         <source>Import styles from another document</source>
         <translation>Импортировать стили из другого документа</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="113"/>
+        <location filename="../stylemanager.cpp" line="98"/>
         <source>Clone selected style</source>
         <translation>Склонировать выбранный стиль</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="114"/>
+        <location filename="../stylemanager.cpp" line="99"/>
         <source>Delete selected styles</source>
         <translation>Удалить выбранные стили</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="120"/>
+        <location filename="../stylemanager.ui" line="340"/>
         <source>Name:</source>
         <translation>Имя:</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="121"/>
+        <location filename="../stylemanager.ui" line="489"/>
         <source>&amp;Reset</source>
         <translation>С&amp;бросить</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="122"/>
+        <location filename="../stylemanager.ui" line="467"/>
         <source>&amp;Apply</source>
         <translation>&amp;Применить</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="123"/>
+        <location filename="../stylemanager.cpp" line="108"/>
         <source>&amp;Done</source>
         <translation>&amp;Готово</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="715"/>
+        <location filename="../stylemanager.cpp" line="689"/>
         <source>&amp;Edit</source>
         <translation>&amp;Изменить</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="126"/>
+        <location filename="../stylemanager.ui" line="158"/>
         <source>&amp;New</source>
         <translation>&amp;Создать</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="127"/>
+        <location filename="../stylemanager.ui" line="224"/>
         <source>&amp;Import</source>
         <translation>&amp;Импортировать</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="128"/>
+        <location filename="../stylemanager.ui" line="189"/>
         <source>&amp;Clone</source>
         <translation>С&amp;клонировать</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="129"/>
+        <location filename="../stylemanager.ui" line="240"/>
         <source>&amp;Delete</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="626"/>
+        <location filename="../stylemanager.cpp" line="601"/>
         <source>New</source>
         <translation>Новый</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="158"/>
+        <location filename="../stylemanager.cpp" line="145"/>
         <source>Import</source>
         <translation>Импортировать</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="160"/>
+        <location filename="../stylemanager.cpp" line="147"/>
         <source>Edit</source>
         <translation>Изменить</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="161"/>
+        <location filename="../stylemanager.cpp" line="148"/>
         <source>Clone</source>
         <translation>Склонировать</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="162"/>
+        <location filename="../stylemanager.cpp" line="149"/>
         <source>Send to Scrapbook</source>
         <translation>Передать в альбом</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="164"/>
+        <location filename="../stylemanager.cpp" line="151"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="294"/>
+        <location filename="../stylemanager.cpp" line="283"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="294"/>
+        <location filename="../stylemanager.cpp" line="283"/>
         <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Документы (*.sla *.sla.gz *.scd *.scd.gz);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="614"/>
+        <location filename="../stylemanager.cpp" line="588"/>
         <source>New %1</source>
         <translation>Новый %1</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1017"/>
+        <location filename="../stylemanager.cpp" line="978"/>
         <source>This key sequence is already in use</source>
         <translation>Эта комбинация уже использована</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1105"/>
+        <location filename="../stylemanager.cpp" line="1066"/>
         <source>More than one style selected</source>
         <translation>Выбрано больше одного стиля</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="161"/>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="186"/>
+        <source>Clone copies the style to make similar styles easily.</source>
+        <translation type="unfinished">Клон копирует стиль, чтобы упростить создание схожих стилей.</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="192"/>
+        <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="227"/>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="448"/>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="371"/>
+        <source>Please select a unique name for the style</source>
+        <translation type="unfinished">Выберите для стиля уникальное название </translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="445"/>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation type="unfinished">&lt;&lt; &amp;Готово</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="470"/>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="492"/>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>StyleSelect</name>
     <message>
-        <location filename="../styleselect.cpp" line="273"/>
+        <location filename="../styleselect.cpp" line="257"/>
         <source>Small Caps</source>
         <translation>Капитель</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="274"/>
+        <location filename="../styleselect.cpp" line="258"/>
         <source>Subscript</source>
         <translation>Нижний индекс</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="275"/>
+        <location filename="../styleselect.cpp" line="259"/>
         <source>Superscript</source>
         <translation>Верхний индекс</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="272"/>
+        <location filename="../styleselect.cpp" line="256"/>
         <source>All Caps</source>
         <translation>Все капителью</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="270"/>
+        <location filename="../styleselect.cpp" line="254"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Подчёркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="271"/>
+        <location filename="../styleselect.cpp" line="255"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Подчёркнуты только слова. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="276"/>
+        <location filename="../styleselect.cpp" line="260"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Вычеркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
     </message>
@@ -25241,12 +26148,12 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Контур. Подержите кнопку нажатой для указания толщины штриха контура.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="278"/>
+        <location filename="../styleselect.cpp" line="262"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation>Оттенённый текст. Подержите кнопку нажатой для указания смещения.</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="277"/>
+        <location filename="../styleselect.cpp" line="261"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
         <translation>Контур. Подержите кнопку нажатой для указания толщины обводки контура.</translation>
@@ -25313,22 +26220,22 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
-        <location filename="../tocindexprefs.cpp" line="103"/>
+        <location filename="../tocindexprefs.cpp" line="105"/>
         <source>None</source>
         <translation>Ничего</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="105"/>
+        <location filename="../tocindexprefs.cpp" line="107"/>
         <source>At the beginning</source>
         <translation>В начале</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="107"/>
+        <location filename="../tocindexprefs.cpp" line="109"/>
         <source>At the end</source>
         <translation>В конце</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="109"/>
+        <location filename="../tocindexprefs.cpp" line="111"/>
         <source>Not Shown</source>
         <translation>Не показывать</translation>
     </message>
@@ -25413,7 +26320,7 @@ You can choose between normal and several color blindness forms</source>
         <translation>Блок назначения:</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="245"/>
+        <location filename="../tocindexprefs.cpp" line="247"/>
         <source>Table of Contents %1</source>
         <translation>Указатель оглавления %1</translation>
     </message>
@@ -25504,17 +26411,17 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>TabCheckDoc</name>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="34"/>
+        <location filename="../tabcheckdoc.cpp" line="35"/>
         <source>Ignore all errors</source>
         <translation>Игнорировать все ошибки</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="37"/>
+        <location filename="../tabcheckdoc.cpp" line="38"/>
         <source>Automatic check before printing or exporting</source>
         <translation>Автоматически проверять перед печатью или экспортом</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="40"/>
+        <location filename="../tabcheckdoc.cpp" line="41"/>
         <source>Check for missing glyphs</source>
         <translation>Искать отсутствующие символы</translation>
     </message>
@@ -25524,7 +26431,7 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Искать объекты вне страницы</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="46"/>
+        <location filename="../tabcheckdoc.cpp" line="47"/>
         <source>Check for overflow in text frames</source>
         <translation>Искать переполнения текстовых блоков</translation>
     </message>
@@ -25534,67 +26441,67 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Искать полупрозрачные объекты</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="52"/>
+        <location filename="../tabcheckdoc.cpp" line="53"/>
         <source>Check for missing images</source>
         <translation>Искать отсутствующие изображения</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="55"/>
+        <location filename="../tabcheckdoc.cpp" line="56"/>
         <source>Check image resolution</source>
         <translation>Проверять разрешение изображений</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="62"/>
+        <location filename="../tabcheckdoc.cpp" line="63"/>
         <source>Lowest allowed resolution</source>
         <translation>Мин. допускаемое разрешение</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="75"/>
+        <location filename="../tabcheckdoc.cpp" line="76"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="85"/>
+        <location filename="../tabcheckdoc.cpp" line="86"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation>Искать PDF-аннотации и поля</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="95"/>
+        <location filename="../tabcheckdoc.cpp" line="96"/>
         <source>Add Profile</source>
         <translation>Добавить профиль</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="97"/>
+        <location filename="../tabcheckdoc.cpp" line="98"/>
         <source>Remove Profile</source>
         <translation>Удалить профиль</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="79"/>
+        <location filename="../tabcheckdoc.cpp" line="80"/>
         <source>Check for placed PDF Files</source>
         <translation>Проверять наличие встроенных файлов PDF</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="43"/>
+        <location filename="../tabcheckdoc.cpp" line="44"/>
         <source>Check for items not on a page</source>
         <translation>Проверять наличие объектов вне страниц</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="49"/>
+        <location filename="../tabcheckdoc.cpp" line="50"/>
         <source>Check for used transparencies</source>
         <translation>Проверять на использование полупрозрачности</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="70"/>
+        <location filename="../tabcheckdoc.cpp" line="71"/>
         <source>Highest allowed resolution</source>
         <translation>Макс. допускаемое разрешение</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="82"/>
+        <location filename="../tabcheckdoc.cpp" line="83"/>
         <source>Check for GIF images</source>
         <translation>Проверять на использование изображений в формате GIF</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="88"/>
+        <location filename="../tabcheckdoc.cpp" line="89"/>
         <source>Ignore non-printable Layers</source>
         <translation>Игнорировать непечатаемые слои</translation>
     </message>
@@ -26043,129 +26950,129 @@ You can choose between normal and several color blindness forms</source>
         <translation>&amp;Формат:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="84"/>
+        <location filename="../tabdocument.cpp" line="85"/>
         <source>Portrait</source>
         <translation>Портрет</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="85"/>
+        <location filename="../tabdocument.cpp" line="86"/>
         <source>Landscape</source>
         <translation>Альбом</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="87"/>
+        <location filename="../tabdocument.cpp" line="88"/>
         <source>Orie&amp;ntation:</source>
         <translation>Ор&amp;иентация:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="93"/>
+        <location filename="../tabdocument.cpp" line="95"/>
         <source>Units:</source>
         <translation>Единица измерения:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="104"/>
+        <location filename="../tabdocument.cpp" line="107"/>
         <source>&amp;Width:</source>
         <translation>&amp;Ширина:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="110"/>
+        <location filename="../tabdocument.cpp" line="114"/>
         <source>&amp;Height:</source>
         <translation>&amp;Высота:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="118"/>
+        <location filename="../tabdocument.cpp" line="123"/>
         <source>Apply settings to:</source>
         <translation>Применить параметры к:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="121"/>
+        <location filename="../tabdocument.cpp" line="126"/>
         <source>All Document Pages</source>
         <translation>Все страницы документа</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="125"/>
+        <location filename="../tabdocument.cpp" line="130"/>
         <source>All Master Pages</source>
         <translation>Все мастер-страницы</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="135"/>
+        <location filename="../tabdocument.cpp" line="140"/>
         <source>Margin Guides</source>
         <translation>Направляющие полей</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="145"/>
+        <location filename="../tabdocument.cpp" line="150"/>
         <source>Autosave</source>
         <translation>Автосохранение</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="154"/>
+        <location filename="../tabdocument.cpp" line="159"/>
         <source>min</source>
         <translation>мин</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="155"/>
+        <location filename="../tabdocument.cpp" line="160"/>
         <source>&amp;Interval:</source>
         <translation>&amp;Интервал:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="160"/>
+        <location filename="../tabdocument.cpp" line="166"/>
         <source>Undo/Redo</source>
         <translation>Отмена и повтор действий</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="174"/>
+        <location filename="../tabdocument.cpp" line="180"/>
         <source>Action history length</source>
         <translation>Помнить действий</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="183"/>
+        <location filename="../tabdocument.cpp" line="190"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>Ширина страниц документа, настраиваемая в том случае, если 
 выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="184"/>
+        <location filename="../tabdocument.cpp" line="191"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>Высота страниц документа, настраиваемая в том случае, если 
 выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="185"/>
+        <location filename="../tabdocument.cpp" line="192"/>
         <source>Default page size, either a standard size or a custom size</source>
         <translation>Стандартный, либо изменяемый формат страницы</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="186"/>
+        <location filename="../tabdocument.cpp" line="193"/>
         <source>Default orientation of document pages</source>
         <translation>Стандартная ориентация страниц документа</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="187"/>
+        <location filename="../tabdocument.cpp" line="194"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Стандартная единица измерений</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="188"/>
+        <location filename="../tabdocument.cpp" line="195"/>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
         <translation>Если включить, через указанный промежуток времени Scribus будет сохранять копию документа в файл с расширением .bak</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="189"/>
+        <location filename="../tabdocument.cpp" line="196"/>
         <source>Time period between saving automatically</source>
         <translation>Период времени между автоматическим сохранением</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="190"/>
+        <location filename="../tabdocument.cpp" line="197"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation>Здесь указывается количество изменений, которые помнит Scribus. Если указать 0, будут запоминаться абсолютно все действия.</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="191"/>
+        <location filename="../tabdocument.cpp" line="198"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation>Использовать новые параметры для всех страниц текущего документа</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="192"/>
+        <location filename="../tabdocument.cpp" line="199"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
         <translation>Использовать новые параметры для всех мастер-страниц текущего документа</translation>
     </message>
@@ -26173,17 +27080,17 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>TabExternalToolsWidget</name>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="100"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="125"/>
         <source>Locate Ghostscript</source>
         <translation>Найти Ghostscript</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="108"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="133"/>
         <source>Locate your image editor</source>
         <translation>Найти графический редактор</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="116"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="141"/>
         <source>Locate your web browser</source>
         <translation>Найти браузер</translation>
     </message>
@@ -26203,12 +27110,12 @@ You can choose between normal and several color blindness forms</source>
         <translation>Веб-браузер</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="491"/>
+        <location filename="../tabexternaltoolswidget.ui" line="498"/>
         <source>&amp;Change...</source>
         <translation>&amp;Изменить...</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="494"/>
+        <location filename="../tabexternaltoolswidget.ui" line="501"/>
         <source>Alt+C</source>
         <translation>Alt+и</translation>
     </message>
@@ -26268,12 +27175,12 @@ You can choose between normal and several color blindness forms</source>
         <translation>Alt+г</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="426"/>
+        <location filename="../tabexternaltoolswidget.ui" line="433"/>
         <source>Resolution:</source>
         <translation>Разрешение:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="439"/>
+        <location filename="../tabexternaltoolswidget.ui" line="446"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
@@ -26293,27 +27200,27 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Из&amp;менить...</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="539"/>
+        <location filename="../tabexternaltoolswidget.ui" line="617"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation>Повторно просканировать систему на наличие внешних инструментов в указанном расположении</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="542"/>
+        <location filename="../tabexternaltoolswidget.ui" line="620"/>
         <source>&amp;Rescan</source>
         <translation>&amp;Просканировать повторно</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="545"/>
+        <location filename="../tabexternaltoolswidget.ui" line="623"/>
         <source>Alt+R</source>
         <translation>Alt+п</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="124"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="149"/>
         <source>Locate your LaTeX executable</source>
         <translation>Укажите исполняемый файл LaTeX</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="132"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="157"/>
         <source>Locate your LaTeX editor</source>
         <translation>Укажите редактор LaTeX</translation>
     </message>
@@ -26325,7 +27232,7 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="351"/>
         <source>&lt;qt&gt;Path to LaTeX executable. Must be a script that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Путь к исполняемому файлу LaTeX. Должен быть сценарием, который создаст файл в поддерживаемом формате блоков изображений!&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Путь к исполняемому файлу LaTeX. Должен быть сценарием, который создаст файл в поддерживаемом формате блоков изображений!&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="387"/>
@@ -26333,24 +27240,49 @@ You can choose between normal and several color blindness forms</source>
         <translation>Расширение файла вывода:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="416"/>
+        <location filename="../tabexternaltoolswidget.ui" line="423"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="419"/>
+        <location filename="../tabexternaltoolswidget.ui" line="426"/>
         <source>Force DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="471"/>
+        <location filename="../tabexternaltoolswidget.ui" line="478"/>
         <source>Latex Editor:</source>
         <translation>Редактор LaTeX:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="484"/>
+        <location filename="../tabexternaltoolswidget.ui" line="491"/>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Путь к исполняемому файлу редактора.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="351"/>
+        <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="416"/>
+        <source>Start with empty frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="511"/>
+        <source>Use Embedded Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="527"/>
+        <source>Preamble:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="548"/>
+        <source>End:</source>
+        <translation type="unfinished">Конец:</translation>
     </message>
 </context>
 <context>
@@ -26479,57 +27411,57 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>TabGeneral</name>
     <message>
-        <location filename="../tabgeneral.cpp" line="63"/>
+        <location filename="../tabgeneral.cpp" line="66"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation>Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы параметры брались из системного языкового окружения. Системные параметры можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="64"/>
+        <location filename="../tabgeneral.cpp" line="67"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Количество недавно открытых документов, отображаемых в меню «Файл»</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="65"/>
+        <location filename="../tabgeneral.cpp" line="68"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation>Количество строк, прокручиваемых за один раз при помощи колеса мыши</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="66"/>
+        <location filename="../tabgeneral.cpp" line="69"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>Выберите стиль оформления графических элементов интерфейса программы. Scribus использует стили KDE и Qt, если таковые доступны.</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="67"/>
+        <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the menus and windows</source>
         <translation>Стандартный кегль шрифта для меню и окон</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="68"/>
+        <location filename="../tabgeneral.cpp" line="71"/>
         <source>Default font size for the tool windows</source>
         <translation>Кегль шрифта для диалогов программы</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="69"/>
+        <location filename="../tabgeneral.cpp" line="72"/>
         <source>Default documents directory</source>
         <translation>Стандартный каталог для документов</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="71"/>
+        <location filename="../tabgeneral.cpp" line="74"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation>Стандартный каталог для поиска ICC-профилей. Пока открыт хотя бы документ, изменить этот параметр невозможно. По умолчанию Scribus ищет профили в соответствующих системных каталогах Mac OS X и Windows. В Linux и Unix такими каталогами являются $home/.color/icc,/usr/share/color/icc и /usr/local/share/color/icc </translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="72"/>
+        <location filename="../tabgeneral.cpp" line="75"/>
         <source>Default Scripter scripts directory</source>
         <translation>Стандартный каталог для сценариев</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="73"/>
+        <location filename="../tabgeneral.cpp" line="76"/>
         <source>Additional directory for document templates</source>
         <translation>Дополнительный каталог с шаблонами</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="129"/>
+        <location filename="../tabgeneral.cpp" line="132"/>
         <source>Choose a Directory</source>
         <translation>Выберите каталог</translation>
     </message>
@@ -26664,7 +27596,7 @@ You can choose between normal and several color blindness forms</source>
         <translation>Alt+е</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="70"/>
+        <location filename="../tabgeneral.cpp" line="73"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
         <translation>Лкна палитр используют экономные элементы интерфейса. Необходим перезапуск приложения</translation>
     </message>
@@ -26810,87 +27742,87 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>TabGuides</name>
     <message>
-        <location filename="../tabguides.cpp" line="37"/>
+        <location filename="../tabguides.cpp" line="36"/>
         <source>Common Settings</source>
         <translation>Основные параметры</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="43"/>
+        <location filename="../tabguides.cpp" line="42"/>
         <source>Placing in Documents</source>
         <translation>Расположение в документах</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="49"/>
+        <location filename="../tabguides.cpp" line="48"/>
         <source>In the Background</source>
         <translation>На заднем плане</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="52"/>
+        <location filename="../tabguides.cpp" line="51"/>
         <source>In the Foreground</source>
         <translation>На переднем плане</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="57"/>
+        <location filename="../tabguides.cpp" line="56"/>
         <source>Snapping</source>
         <translation>Прилипание</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="62"/>
+        <location filename="../tabguides.cpp" line="61"/>
         <source>Snap Distance:</source>
         <translation>Зона прилипания:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="70"/>
+        <location filename="../tabguides.cpp" line="69"/>
         <source>Grab Radius:</source>
         <translation>Чувствительность захвата:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="272"/>
+        <location filename="../tabguides.cpp" line="273"/>
         <source> px</source>
         <translation> px</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="83"/>
+        <location filename="../tabguides.cpp" line="82"/>
         <source>Show Guides</source>
         <translation>Показывать направляющие</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="101"/>
+        <location filename="../tabguides.cpp" line="100"/>
         <source>Show Margins</source>
         <translation>Показывать поля</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="119"/>
+        <location filename="../tabguides.cpp" line="118"/>
         <source>Show Page Grid</source>
         <translation>Показывать сетку</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="126"/>
+        <location filename="../tabguides.cpp" line="125"/>
         <source>Major Grid</source>
         <translation>Основная сетка</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="182"/>
+        <location filename="../tabguides.cpp" line="181"/>
         <source>Color:</source>
         <translation>Цвет:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="164"/>
+        <location filename="../tabguides.cpp" line="163"/>
         <source>Spacing:</source>
         <translation>Интервал:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="148"/>
+        <location filename="../tabguides.cpp" line="147"/>
         <source>Minor Grid</source>
         <translation>Вспомогательная сетка</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="175"/>
+        <location filename="../tabguides.cpp" line="174"/>
         <source>Show Baseline Grid</source>
         <translation>Показывать базовые линии</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="201"/>
+        <location filename="../tabguides.cpp" line="200"/>
         <source>Baseline &amp;Grid:</source>
         <translation>&amp;Базовые линии:</translation>
     </message>
@@ -26900,97 +27832,97 @@ You can choose between normal and several color blindness forms</source>
         <translation>С&amp;мещение базовых линий:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="220"/>
+        <location filename="../tabguides.cpp" line="221"/>
         <source>Distance between the minor grid lines</source>
         <translation>Расстояние между малыми ячейками сетки</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="221"/>
+        <location filename="../tabguides.cpp" line="222"/>
         <source>Distance between the major grid lines</source>
         <translation>Расстояние между большими ячейками сетки</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="222"/>
+        <location filename="../tabguides.cpp" line="223"/>
         <source>Distance within which an object will snap to your placed guides</source>
         <translation>Расстояние, начиная с которого объект начнёт «прилипать» к направляющим линиям</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="223"/>
+        <location filename="../tabguides.cpp" line="224"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
         <translation>Радиус области, внутри которой можно захватывать точки контроля над объектом</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="224"/>
+        <location filename="../tabguides.cpp" line="225"/>
         <source>Color of the minor grid lines</source>
         <translation>Цвет малых ячеек сетки</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="225"/>
+        <location filename="../tabguides.cpp" line="226"/>
         <source>Color of the major grid lines</source>
         <translation>Цвет больших ячеек сетки</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="226"/>
+        <location filename="../tabguides.cpp" line="227"/>
         <source>Color of the guide lines you insert</source>
         <translation>Цвет направляющих линий</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="227"/>
+        <location filename="../tabguides.cpp" line="228"/>
         <source>Color for the margin lines</source>
         <translation>Цвет линий полей</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="229"/>
+        <location filename="../tabguides.cpp" line="230"/>
         <source>Turns the basegrid on or off</source>
         <translation>Включить или отключить показ основной сетки</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="232"/>
+        <location filename="../tabguides.cpp" line="233"/>
         <source>Turns the gridlines on or off</source>
         <translation>Включить или отключить показ линий сетки</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="233"/>
+        <location filename="../tabguides.cpp" line="234"/>
         <source>Turns the guides on or off</source>
         <translation>Включить или отключить показ направляющих</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="234"/>
+        <location filename="../tabguides.cpp" line="235"/>
         <source>Turns the margins on or off</source>
         <translation>Включить или отключить показ полей</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="194"/>
+        <location filename="../tabguides.cpp" line="193"/>
         <source>Baseline Settings</source>
         <translation>Параметры базовых линий</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="228"/>
+        <location filename="../tabguides.cpp" line="229"/>
         <source>Color for the baseline grid</source>
         <translation>Цвет базовых линий</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="218"/>
+        <location filename="../tabguides.cpp" line="219"/>
         <source>Guides are not visible through objects on the page</source>
         <translation>Направляющие не видны за объектами на страницы</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="219"/>
+        <location filename="../tabguides.cpp" line="220"/>
         <source>Guides are visible above all objects on the page</source>
         <translation>Направляющие всегда выше объектов страницы</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="230"/>
+        <location filename="../tabguides.cpp" line="231"/>
         <source>Distance between the lines of the baseline grid</source>
         <translation>Расстояние между линиями сетки основной линии</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="231"/>
+        <location filename="../tabguides.cpp" line="232"/>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Расстояние от верха страницы до первой базовой линии</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="270"/>
+        <location filename="../tabguides.cpp" line="271"/>
         <source>px</source>
         <translation> px</translation>
     </message>
@@ -26998,52 +27930,52 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>TabKeyboardShortcutsWidget</name>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="138"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Key Set XML Files (*.ksxml)</source>
         <translation>Файлы клавиатурных комбинаций (*.ksxml)</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="527"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="527"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Ctrl</source>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="527"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Shift</source>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="527"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="477"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="478"/>
         <source>Meta+</source>
         <translation>Meta+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="481"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="482"/>
         <source>Shift+</source>
         <translation>Shift+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="485"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="486"/>
         <source>Alt+</source>
         <translation>Alt+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="489"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="490"/>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="499"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="500"/>
         <source>This key sequence is already in use</source>
         <translation>Эта комбинация уже использована</translation>
     </message>
@@ -27176,6 +28108,26 @@ You can choose between normal and several color blindness forms</source>
         <location filename="../tabkeyboardshortcutswidget.ui" line="248"/>
         <source>Keyboard shortcut sets available to load</source>
         <translation>Доступные схемы клавиатурных комбинаций</translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="131"/>
+        <source>Choose a file to read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
+        <source>Choose a file to save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <source>Export Keyboard Shortcuts to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <source>Enter the name of the shortcut set:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27383,112 +28335,112 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>TabPDFOptions</name>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="256"/>
+        <location filename="../tabpdfoptions.cpp" line="257"/>
         <source>Export Range</source>
         <translation>Диапазон экспорта</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="261"/>
+        <location filename="../tabpdfoptions.cpp" line="262"/>
         <source>&amp;All Pages</source>
         <translation>&amp;Все страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="266"/>
+        <location filename="../tabpdfoptions.cpp" line="267"/>
         <source>C&amp;hoose Pages</source>
         <translation>Вы&amp;брать страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="281"/>
+        <location filename="../tabpdfoptions.cpp" line="282"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Поворот:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="308"/>
+        <location filename="../tabpdfoptions.cpp" line="309"/>
         <source>File Options</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="313"/>
+        <location filename="../tabpdfoptions.cpp" line="314"/>
         <source>Compatibilit&amp;y:</source>
         <translation>Сов&amp;местимость:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="326"/>
+        <location filename="../tabpdfoptions.cpp" line="327"/>
         <source>&amp;Binding:</source>
         <translation>П&amp;ереплёт:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="330"/>
+        <location filename="../tabpdfoptions.cpp" line="331"/>
         <source>Left Margin</source>
         <translation>По левому полю</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="331"/>
+        <location filename="../tabpdfoptions.cpp" line="332"/>
         <source>Right Margin</source>
         <translation>По правому полю</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="335"/>
+        <location filename="../tabpdfoptions.cpp" line="336"/>
         <source>Generate &amp;Thumbnails</source>
         <translation>Создать &amp;миниатюры</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="337"/>
+        <location filename="../tabpdfoptions.cpp" line="338"/>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
         <translation>Сохранить св&amp;язанные текст. блоки как PDF-Articles</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="339"/>
+        <location filename="../tabpdfoptions.cpp" line="340"/>
         <source>&amp;Include Bookmarks</source>
         <translation>Добавить &amp;закладки</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="384"/>
+        <location filename="../tabpdfoptions.cpp" line="388"/>
         <source> dpi</source>
         <translation>dpi</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="353"/>
+        <location filename="../tabpdfoptions.cpp" line="355"/>
         <source>Com&amp;press Text and Vector Graphics</source>
         <translation>С&amp;жать текст и векторную графику</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="362"/>
+        <location filename="../tabpdfoptions.cpp" line="364"/>
         <source>Automatic</source>
         <translation>Автоматически</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="365"/>
+        <location filename="../tabpdfoptions.cpp" line="367"/>
         <source>None</source>
         <translation>Ничего</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="372"/>
+        <location filename="../tabpdfoptions.cpp" line="375"/>
         <source>Maximum</source>
         <translation>Максимальное</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="373"/>
+        <location filename="../tabpdfoptions.cpp" line="376"/>
         <source>High</source>
         <translation>Высокое</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="374"/>
+        <location filename="../tabpdfoptions.cpp" line="377"/>
         <source>Medium</source>
         <translation>Среднее</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="375"/>
+        <location filename="../tabpdfoptions.cpp" line="378"/>
         <source>Low</source>
         <translation>Низкое</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="376"/>
+        <location filename="../tabpdfoptions.cpp" line="379"/>
         <source>Minimum</source>
         <translation>Наихудшее</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="389"/>
+        <location filename="../tabpdfoptions.cpp" line="393"/>
         <source>&amp;General</source>
         <translation>&amp;Общие</translation>
     </message>
@@ -27503,12 +28455,12 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">&amp;Вычесть неиспользуемые знаки из всех шрифтовых файлов</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="396"/>
+        <location filename="../tabpdfoptions.cpp" line="400"/>
         <source>Embedding</source>
         <translation>Внедрение</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="404"/>
+        <location filename="../tabpdfoptions.cpp" line="408"/>
         <source>Available Fonts:</source>
         <translation>Доступные шрифты:</translation>
     </message>
@@ -27523,7 +28475,7 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="427"/>
+        <location filename="../tabpdfoptions.cpp" line="431"/>
         <source>Fonts to embed:</source>
         <translation>Внедряемые шрифты:</translation>
     </message>
@@ -27533,344 +28485,344 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Из каких шрифтовых файлов вычесть знаки:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="458"/>
+        <location filename="../tabpdfoptions.cpp" line="462"/>
         <source>&amp;Fonts</source>
         <translation>&amp;Шрифты</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="463"/>
+        <location filename="../tabpdfoptions.cpp" line="467"/>
         <source>Enable &amp;Presentation Effects</source>
         <translation>&amp;Включить презентационные эффекты</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1755"/>
+        <location filename="../tabpdfoptions.cpp" line="1759"/>
         <source>Page</source>
         <translation>Страница</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="468"/>
+        <location filename="../tabpdfoptions.cpp" line="472"/>
         <source>Show Page Pre&amp;views</source>
         <translation>Показывать &amp;страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="470"/>
+        <location filename="../tabpdfoptions.cpp" line="474"/>
         <source>Effects</source>
         <translation>Эффекты</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="475"/>
+        <location filename="../tabpdfoptions.cpp" line="479"/>
         <source>&amp;Display Duration:</source>
         <translation>Продолжительность
 &amp;отображения:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="477"/>
+        <location filename="../tabpdfoptions.cpp" line="481"/>
         <source>Effec&amp;t Duration:</source>
         <translation>Продолжительность
 &amp;эффекта:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="479"/>
+        <location filename="../tabpdfoptions.cpp" line="483"/>
         <source>Effect T&amp;ype:</source>
         <translation>&amp;Тип эффекта:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="481"/>
+        <location filename="../tabpdfoptions.cpp" line="485"/>
         <source>&amp;Moving Lines:</source>
         <translation>Дви&amp;жущиеся линии:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="483"/>
+        <location filename="../tabpdfoptions.cpp" line="487"/>
         <source>F&amp;rom the:</source>
         <translation>От&amp;куда:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="485"/>
+        <location filename="../tabpdfoptions.cpp" line="489"/>
         <source>D&amp;irection:</source>
         <translation>&amp;Направление:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="494"/>
+        <location filename="../tabpdfoptions.cpp" line="498"/>
         <source> sec</source>
         <translation>сек</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="500"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>No Effect</source>
         <translation>Без эффекта</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="500"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Blinds</source>
         <translation>Blinds</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="500"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Box</source>
         <translation>Box</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="500"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Dissolve</source>
         <translation>Растворение</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="500"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Glitter</source>
         <translation>Мерцание</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="500"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Split</source>
         <translation>Разделение</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="500"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Wipe</source>
         <translation>Расчистка</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="508"/>
+        <location filename="../tabpdfoptions.cpp" line="512"/>
         <source>Horizontal</source>
         <translation>По горизонтали</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="509"/>
+        <location filename="../tabpdfoptions.cpp" line="513"/>
         <source>Vertical</source>
         <translation>По вертикали</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="514"/>
+        <location filename="../tabpdfoptions.cpp" line="518"/>
         <source>Inside</source>
         <translation>Изнутри</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="515"/>
+        <location filename="../tabpdfoptions.cpp" line="519"/>
         <source>Outside</source>
         <translation>Снаружи</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="520"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Left to Right</source>
         <translation>Слева направо</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="520"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Top to Bottom</source>
         <translation>Сверху вниз</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="520"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Bottom to Top</source>
         <translation>Снизу вверх</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="520"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Right to Left</source>
         <translation>Справа налево</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="525"/>
         <source>Top-left to Bottom-Right</source>
         <translation>Из верхнего левого в правый нижний</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="528"/>
+        <location filename="../tabpdfoptions.cpp" line="532"/>
         <source>&amp;Apply Effect on all Pages</source>
         <translation>&amp;Применить эффект ко всем страницам</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="531"/>
+        <location filename="../tabpdfoptions.cpp" line="535"/>
         <source>E&amp;xtras</source>
         <translation>&amp;Эффекты</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="615"/>
+        <location filename="../tabpdfoptions.cpp" line="619"/>
         <source>&amp;Use Encryption</source>
         <translation>Использовать &amp;шифрование</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="617"/>
+        <location filename="../tabpdfoptions.cpp" line="621"/>
         <source>Passwords</source>
         <translation>Пароли</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="624"/>
+        <location filename="../tabpdfoptions.cpp" line="627"/>
         <source>&amp;User:</source>
         <translation>&amp;Пользователь:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="626"/>
+        <location filename="../tabpdfoptions.cpp" line="629"/>
         <source>&amp;Owner:</source>
         <translation>&amp;Владелец:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="638"/>
+        <location filename="../tabpdfoptions.cpp" line="641"/>
         <source>Settings</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="645"/>
+        <location filename="../tabpdfoptions.cpp" line="647"/>
         <source>Allow &amp;Printing the Document</source>
         <translation>Разрешить &amp;печать документа</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="647"/>
+        <location filename="../tabpdfoptions.cpp" line="649"/>
         <source>Allow &amp;Changing the Document</source>
         <translation>Разрешить &amp;изменения в документе</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="649"/>
+        <location filename="../tabpdfoptions.cpp" line="651"/>
         <source>Allow Cop&amp;ying Text and Graphics</source>
         <translation>Разрешить &amp;копирование текста и графики</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="651"/>
+        <location filename="../tabpdfoptions.cpp" line="653"/>
         <source>Allow Adding &amp;Annotations and Fields</source>
         <translation>Разрешить добавление &amp;аннотаций и полей</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="654"/>
+        <location filename="../tabpdfoptions.cpp" line="656"/>
         <source>S&amp;ecurity</source>
         <translation>&amp;Безопасность</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="660"/>
+        <location filename="../tabpdfoptions.cpp" line="662"/>
         <source>General</source>
         <translation>Общие</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="665"/>
+        <location filename="../tabpdfoptions.cpp" line="667"/>
         <source>Output &amp;Intended For:</source>
         <translation>Назначение в&amp;ывода:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="668"/>
+        <location filename="../tabpdfoptions.cpp" line="670"/>
         <source>Screen / Web</source>
         <translation>Просмотр с монитора / Веб (RGB)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="669"/>
+        <location filename="../tabpdfoptions.cpp" line="671"/>
         <source>Printer</source>
         <translation>Вывод на печать (CMYK)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="670"/>
+        <location filename="../tabpdfoptions.cpp" line="672"/>
         <source>Grayscale</source>
         <translation>Градации серого</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="682"/>
+        <location filename="../tabpdfoptions.cpp" line="684"/>
         <source>&amp;Use Custom Rendering Settings</source>
         <translation>&amp;Другие параметры цветопередачи</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="684"/>
+        <location filename="../tabpdfoptions.cpp" line="686"/>
         <source>Rendering Settings</source>
         <translation>Параметры цветопередачи</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="692"/>
+        <location filename="../tabpdfoptions.cpp" line="694"/>
         <source>Fre&amp;quency:</source>
         <translation>&amp;Частота:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="699"/>
+        <location filename="../tabpdfoptions.cpp" line="701"/>
         <source>&amp;Angle:</source>
         <translation>&amp;Угол:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="707"/>
+        <location filename="../tabpdfoptions.cpp" line="709"/>
         <source>S&amp;pot Function:</source>
         <translation>Сп&amp;от-функция:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="711"/>
+        <location filename="../tabpdfoptions.cpp" line="713"/>
         <source>Simple Dot</source>
         <translation>Простая точка</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="712"/>
+        <location filename="../tabpdfoptions.cpp" line="714"/>
         <source>Line</source>
         <translation>Линия</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="713"/>
+        <location filename="../tabpdfoptions.cpp" line="715"/>
         <source>Round</source>
         <translation>Окружность</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="714"/>
+        <location filename="../tabpdfoptions.cpp" line="716"/>
         <source>Ellipse</source>
         <translation>Эллипс</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="720"/>
+        <location filename="../tabpdfoptions.cpp" line="722"/>
         <source>Solid Colors:</source>
         <translation>Сплошные тона:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="750"/>
         <source>Use ICC Profile</source>
-        <translation>Использовать ICC-профиль</translation>
+        <translation type="obsolete">Использовать ICC-профиль</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="756"/>
+        <location filename="../tabpdfoptions.cpp" line="758"/>
         <source>Profile:</source>
         <translation>Профиль:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="759"/>
+        <location filename="../tabpdfoptions.cpp" line="761"/>
         <source>Rendering-Intent:</source>
         <translation>Цель цветопередачи:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="738"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Perceptual</source>
         <translation>Воспринимаемая</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="738"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Relative Colorimetric</source>
         <translation>Относительная колориметрическая</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="738"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Saturation</source>
         <translation>Насыщенная</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="738"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Absolute Colorimetric</source>
         <translation>Абсолютная колориметрическая</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="745"/>
+        <location filename="../tabpdfoptions.cpp" line="747"/>
         <source>Images:</source>
         <translation>Изображения:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="753"/>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>Не использовать встроенные ICC-профили</translation>
+        <translation type="obsolete">Не использовать встроенные ICC-профили</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="773"/>
+        <location filename="../tabpdfoptions.cpp" line="775"/>
         <source>C&amp;olor</source>
         <translation>Ц&amp;вет</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="837"/>
+        <location filename="../tabpdfoptions.cpp" line="839"/>
         <source>PDF/X-3 Output Intent</source>
         <translation>Тип вывода в PDF/X-3</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="847"/>
+        <location filename="../tabpdfoptions.cpp" line="849"/>
         <source>&amp;Info String:</source>
         <translation>&amp;Инфострока:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="849"/>
+        <location filename="../tabpdfoptions.cpp" line="852"/>
         <source>Output &amp;Profile:</source>
         <translation>Профи&amp;ль вывода:</translation>
     </message>
@@ -27885,186 +28837,186 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">PDF/X-&amp;3</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="895"/>
+        <location filename="../tabpdfoptions.cpp" line="899"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Показывать миниатюры каждой 
 указанной выше страницы.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="898"/>
+        <location filename="../tabpdfoptions.cpp" line="902"/>
         <source>Type of the display effect.</source>
         <translation>Тип отображаемого эффекта.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="899"/>
+        <location filename="../tabpdfoptions.cpp" line="903"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation>Направление движения линий в эффектах split и blind.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="900"/>
+        <location filename="../tabpdfoptions.cpp" line="904"/>
         <source>Starting position for the box and split effects.</source>
         <translation>Стартовая позиция эффектов box и split.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="901"/>
+        <location filename="../tabpdfoptions.cpp" line="905"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation>Направление эффектов glitter и wipe.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="902"/>
+        <location filename="../tabpdfoptions.cpp" line="906"/>
         <source>Apply the selected effect to all pages.</source>
         <translation>Применить выбранный эффект ко всем страницам.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="935"/>
+        <location filename="../tabpdfoptions.cpp" line="939"/>
         <source>Export all pages to PDF</source>
         <translation>Экспортировать все страницы в PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="936"/>
+        <location filename="../tabpdfoptions.cpp" line="940"/>
         <source>Export a range of pages to PDF</source>
         <translation>Экспортировать часть страниц в PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="944"/>
+        <location filename="../tabpdfoptions.cpp" line="948"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Если параметр включён, Scribus создаст PDF-Articles, 
 что полезно для навигации по связанным статьям в PDF.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="952"/>
+        <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (кол-во точек на дюйм) при экспорте изображений.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="955"/>
+        <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Выберите пароль для доступа на чтение PDF-документа.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="956"/>
+        <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation>Разрешить печать документа.
 При невыставленном флажке печатать 
 файл PDF будет невозможно.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="957"/>
+        <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Разрешить изменения в документе. 
 При невыставленном флажке изменять 
 файл PDF будет невозможно.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="962"/>
+        <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Встроить цветовой профиль для сплошных тонов</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="963"/>
+        <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Color profile for solid colors</source>
         <translation>Цветовой профиль для сплошных тонов</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="964"/>
+        <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Rendering intent for solid colors</source>
         <translation>Тип цветопередачи сплошных тонов</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="965"/>
+        <location filename="../tabpdfoptions.cpp" line="969"/>
         <source>Embed a color profile for images</source>
         <translation>Встроить цветовой профиль для изображений</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="966"/>
+        <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation>Не использовать цветовые профили, 
 встроенные в исходные изображения</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="967"/>
+        <location filename="../tabpdfoptions.cpp" line="971"/>
         <source>Color profile for images</source>
         <translation>Цветовой профиль для изображений</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="968"/>
+        <location filename="../tabpdfoptions.cpp" line="972"/>
         <source>Rendering intent for images</source>
         <translation>Тип цветопередачи изображений</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="986"/>
+        <location filename="../tabpdfoptions.cpp" line="990"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Профиль вывода на печать. При возможности 
 получите информацию в вашей типографии 
 о необходимом профиле.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="981"/>
+        <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Расстояние от линии обреза до верха физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="982"/>
+        <location filename="../tabpdfoptions.cpp" line="986"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Расстояние от линии обреза до низа физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="983"/>
+        <location filename="../tabpdfoptions.cpp" line="987"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Расстояние от линии обреза до левого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="984"/>
+        <location filename="../tabpdfoptions.cpp" line="988"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Расстояние от линии обреза до правого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="969"/>
+        <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>Mirror Page(s) horizontally</source>
         <translation>Зеркально отразить по горизонтали</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="970"/>
+        <location filename="../tabpdfoptions.cpp" line="974"/>
         <source>Mirror Page(s) vertically</source>
         <translation>Зеркально отразить по вертикали</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="347"/>
+        <location filename="../tabpdfoptions.cpp" line="348"/>
         <source>&amp;Resolution for EPS Graphics:</source>
         <translation>&amp;Разрешение для EPS-графики:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="676"/>
+        <location filename="../tabpdfoptions.cpp" line="678"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Преобразовать сплошные тона в печатные</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="378"/>
+        <location filename="../tabpdfoptions.cpp" line="381"/>
         <source>Compression &amp;Quality:</source>
         <translation>Качество после сжат&amp;ия:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="958"/>
+        <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Разрешить копирование текста и/или графики. Если отключено, текст и графику копировать нельзя.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="959"/>
+        <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Разрешить добавление аннотация и полей в файл PDF. Если отключено, изменять аннотации и поля нельзя.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="972"/>
+        <location filename="../tabpdfoptions.cpp" line="976"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Разрешить преобразование плашечных цветов в композитные. Если вы не собираетесь печатать плашечные цвета в типографии, то лучше оставьте опцию включённой.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="341"/>
+        <location filename="../tabpdfoptions.cpp" line="342"/>
         <source>Include La&amp;yers</source>
         <translation>Включить с&amp;лои</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="367"/>
+        <location filename="../tabpdfoptions.cpp" line="369"/>
         <source>Compression Metho&amp;d:</source>
         <translation>Способ с&amp;жатия:</translation>
     </message>
@@ -28074,67 +29026,67 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Изменить разрешение всего растра &amp;до:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="893"/>
+        <location filename="../tabpdfoptions.cpp" line="897"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Встроить шрифты в файл PDF, чтобы документ везде выглядел так, как он выглядит на вашем компьютере.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="897"/>
+        <location filename="../tabpdfoptions.cpp" line="901"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Длительность действия эффекта. Чем меньше значение, тем быстрее воспроизводится эффект, и наоборот.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="939"/>
+        <location filename="../tabpdfoptions.cpp" line="943"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation>Вставить сюда разделённый запятыми список маркёров, где каждый маркёр может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="942"/>
+        <location filename="../tabpdfoptions.cpp" line="946"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Определяет переплёт страниц документа в PDF. Если точно не знаете, что нужно изменить, оставьте значение по умолчанию — по левому полю.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="943"/>
+        <location filename="../tabpdfoptions.cpp" line="947"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Создать миниатюрные изображения каждой страницы в файле PDF. В некоторых просмотрщиках это облегчает навигацию по документу.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="946"/>
+        <location filename="../tabpdfoptions.cpp" line="950"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation>Встроить в документ созданные вами закладки, упрощающие навигацию по большим документам.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="947"/>
+        <location filename="../tabpdfoptions.cpp" line="951"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation>Изменить разрешение для текста и векторной графики. Это изменение не затрагивает растровые изображения.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="948"/>
+        <location filename="../tabpdfoptions.cpp" line="952"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation>Включить сжатие текста и графики без потерь в качестве, чтобы снизить размер файла PDF. Оставьте включённым, если нет особых причин отключить.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="953"/>
+        <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Включить функции безопасности в экспортируемом файле PDF. Если выбран PDF 1.3, файл будет зашифрован 40-битным ключом. Если выбран PDF 1.4, файл будет зашифрован 128-битным ключом. Помните, что шифрование в PDF менее мощное и более ограниченное в сравнении с GPG и PGP.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="954"/>
+        <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation>Выберите общий пароль для включения и отключения функций безопасности в экспортируемом файле PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="961"/>
+        <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>Это отключенные по умолчанию расширенные параметры. Включить их нужно лишь в том случае, если этого требует принтер или если они точно обеспечивают желаемый уровень детализации. В противном случае полученный файл PDF может некорректно напечататься и не будет полностью переносимым между системами.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="987"/>
+        <location filename="../tabpdfoptions.cpp" line="991"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Обязательная строка для PDF/X-3 или PDF нарушит соответствие PDF/X-3. Рекомендуется использовать заголовок документа.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="537"/>
+        <location filename="../tabpdfoptions.cpp" line="541"/>
         <source>Display Settings</source>
         <translation>Параметры отображения документа</translation>
     </message>
@@ -28144,113 +29096,113 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Способ показа страниц</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="552"/>
+        <location filename="../tabpdfoptions.cpp" line="556"/>
         <source>Single Page</source>
         <translation>По одной за раз</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="555"/>
+        <location filename="../tabpdfoptions.cpp" line="559"/>
         <source>Continuous</source>
         <translation>Бесконечной лентой</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="558"/>
+        <location filename="../tabpdfoptions.cpp" line="562"/>
         <source>Double Page Left</source>
         <translation>По две слева</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="561"/>
+        <location filename="../tabpdfoptions.cpp" line="565"/>
         <source>Double Page Right</source>
         <translation>По две справа</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="565"/>
+        <location filename="../tabpdfoptions.cpp" line="569"/>
         <source>Visual Appearance</source>
         <translation>Прочие параметры</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="571"/>
+        <location filename="../tabpdfoptions.cpp" line="575"/>
         <source>Use Viewers Defaults</source>
         <translation>Использовать параметры просмотрщика</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="574"/>
+        <location filename="../tabpdfoptions.cpp" line="578"/>
         <source>Use Full Screen Mode</source>
         <translation>Включить полноэкранный режим</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="577"/>
+        <location filename="../tabpdfoptions.cpp" line="581"/>
         <source>Display Bookmarks Tab</source>
         <translation>Показывать вкладку Bookmarks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="580"/>
+        <location filename="../tabpdfoptions.cpp" line="584"/>
         <source>Display Thumbnails</source>
         <translation>Показывать вкладку Thumbnails</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="583"/>
+        <location filename="../tabpdfoptions.cpp" line="587"/>
         <source>Display Layers Tab</source>
         <translation>Показывать вкладку Layers</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="585"/>
+        <location filename="../tabpdfoptions.cpp" line="589"/>
         <source>Hide Viewers Toolbar</source>
         <translation>Прятатать панель Viewers</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="587"/>
+        <location filename="../tabpdfoptions.cpp" line="591"/>
         <source>Hide Viewers Menubar</source>
         <translation>Прятатать меню Viewers</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="589"/>
+        <location filename="../tabpdfoptions.cpp" line="593"/>
         <source>Zoom Pages to fit Viewer Window</source>
         <translation>Отмасштабировать страницы до размера окна</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="595"/>
+        <location filename="../tabpdfoptions.cpp" line="599"/>
         <source>Special Actions</source>
         <translation>Специальные действия</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1165"/>
+        <location filename="../tabpdfoptions.cpp" line="1169"/>
         <source>No Script</source>
         <translation>Без сценария</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="608"/>
+        <location filename="../tabpdfoptions.cpp" line="612"/>
         <source>Viewer</source>
         <translation>Просмотрщик</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="304"/>
+        <location filename="../tabpdfoptions.cpp" line="305"/>
         <source>Clip to Page Margins</source>
         <translation>Обрезать до полей страницы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="363"/>
+        <location filename="../tabpdfoptions.cpp" line="365"/>
         <source>Lossy - JPEG</source>
         <translation>С потерями в качестве — JPEG</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="364"/>
+        <location filename="../tabpdfoptions.cpp" line="366"/>
         <source>Lossless - Zip</source>
         <translation>Без потерь в качестве — ZIP</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="355"/>
+        <location filename="../tabpdfoptions.cpp" line="357"/>
         <source>Image Compression Method</source>
         <translation>Способ сжатия изображений</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="601"/>
+        <location filename="../tabpdfoptions.cpp" line="605"/>
         <source>Javascript to be executed
 when PDF document is opened:</source>
         <translation>Javascript для исполнения при открытии PDF-документа:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="894"/>
+        <location filename="../tabpdfoptions.cpp" line="898"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Включает презентационные эффекты, работающие в Adobe&amp;#174; Reader&amp;#174; и других просмотрщиках PDF-документов, имеющих полноэкранный режим и поддержку этой функции.</translation>
     </message>
@@ -28260,7 +29212,7 @@ when PDF document is opened:</source>
         <translation type="obsolete">Здесь определяется совместимость PDF. По умолчанию используется PDF 1.3, обеспечивающий максимально возможную совместимость. Выбирайте PDF 1.4, если в документе используется полупрозрачность или необходимо 128-битное шифрование.  PDF 1.5 необходим, если объекты должны остаться в своих слоях.  PDF/X-3 предназначен для экспорта в PDF, когда необходим файл с управлением цветом в RGB для  коммерческой печати, и когда управление цветом включено.  Используйте PDF/X-3 только если точно знаете, что он поддерживается, либо, в некоторых случаях, когда ожидается печать на 4-цветный лазерный принтер.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="945"/>
+        <location filename="../tabpdfoptions.cpp" line="949"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation>Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
     </message>
@@ -28270,22 +29222,22 @@ when PDF document is opened:</source>
         <translation type="obsolete">Пересэмплировать все растровые изображения до указанного значения DPI. Отключите, если хотите, чтобы изображения сохранили исходное разрешение. При пересэмплировании может увеличиться потребление памяти и замедлиться экспорт.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="960"/>
+        <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>Цветовая модель для экспортируемого PDF. Выберите «Просмотр с монитора/Веб» для PDF, которые предполагается читать с экрана или печатать на обычном струйном принтере. Выберите «Вывод на печать», если собираетесь печатать на 4-цветный CMYK-принтер.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="973"/>
+        <location filename="../tabpdfoptions.cpp" line="977"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Не показывать объекты за полями в экспортируемом файле</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="896"/>
+        <location filename="../tabpdfoptions.cpp" line="900"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Как долго отображается страница. Значение 0 приравнивается к отключению автоматического перелистывания.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="949"/>
+        <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation>Способ сжатия растровых изображений. По умолчанию Scribus сам выбирает подходящий. ZIP сжимает без потерь в качестве изображения. JPEG больше подходит для создания небольших файлов PDF с большим количеством фотографий внутри, но удаляет из них полезную информацию. В типовых ситуациях предоставьте Scribus самостоятельно выбрать подходящий способ.</translation>
     </message>
@@ -28305,7 +29257,7 @@ when PDF document is opened:</source>
         <translation type="obsolete">Встроить вс&amp;е</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="449"/>
+        <location filename="../tabpdfoptions.cpp" line="453"/>
         <source>Fonts to outline:</source>
         <translation>Оконтуриваемые шрифты:</translation>
     </message>
@@ -28315,7 +29267,7 @@ when PDF document is opened:</source>
         <translation type="obsolete">Око&amp;нтурить все</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="546"/>
+        <location filename="../tabpdfoptions.cpp" line="550"/>
         <source>Document Layout</source>
         <translation>Макет документа</translation>
     </message>
@@ -28330,187 +29282,187 @@ when PDF document is opened:</source>
         <translation type="obsolete">Встроить в PDF все гарнитуры с вычитанием. Это означает, что будут встроены только те глифы, которые используются в документе, а не весь комплект знаков. Некоторые шрифты, такие как OpenType, могут быть вставлены лишь с вычитанием глифов, поскольку их встраивание предусмотрено только в PDF 1.6.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="381"/>
+        <location filename="../tabpdfoptions.cpp" line="385"/>
         <source>Maximum Image Resolution:</source>
         <translation>Максимальное разрешение растра:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="436"/>
+        <location filename="../tabpdfoptions.cpp" line="440"/>
         <source>&amp;Embed all</source>
         <translation>Встроить вс&amp;е</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="454"/>
+        <location filename="../tabpdfoptions.cpp" line="458"/>
         <source>&amp;Outline all</source>
         <translation>Око&amp;нтурить все</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="679"/>
+        <location filename="../tabpdfoptions.cpp" line="681"/>
         <source>Force Overprint Mode</source>
         <translation>Принудительный режим надпечатки</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="781"/>
+        <location filename="../tabpdfoptions.cpp" line="783"/>
         <source>Printer Marks</source>
         <translation>Метки печати</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="786"/>
+        <location filename="../tabpdfoptions.cpp" line="788"/>
         <source>Crop Marks</source>
         <translation>Обрезные метки</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="788"/>
+        <location filename="../tabpdfoptions.cpp" line="790"/>
         <source>Bleed Marks</source>
         <translation>Метки для выпуска под обрез</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="790"/>
+        <location filename="../tabpdfoptions.cpp" line="792"/>
         <source>Registration Marks</source>
         <translation>Метки совмещения</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="792"/>
+        <location filename="../tabpdfoptions.cpp" line="794"/>
         <source>Color Bars</source>
         <translation>Контрольные цветовые полосы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="794"/>
+        <location filename="../tabpdfoptions.cpp" line="796"/>
         <source>Page Information</source>
         <translation>Информация о странице</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="797"/>
+        <location filename="../tabpdfoptions.cpp" line="799"/>
         <source>Offset:</source>
         <translation>Смещение:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="807"/>
+        <location filename="../tabpdfoptions.cpp" line="809"/>
         <source>Bleed Settings</source>
         <translation>Параметры выпуска под обрез</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="813"/>
+        <location filename="../tabpdfoptions.cpp" line="815"/>
         <source>Top:</source>
         <translation>Сверху:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="818"/>
+        <location filename="../tabpdfoptions.cpp" line="820"/>
         <source>Bottom:</source>
         <translation>Снизу:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="823"/>
+        <location filename="../tabpdfoptions.cpp" line="825"/>
         <source>Left:</source>
         <translation>Слева:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="828"/>
+        <location filename="../tabpdfoptions.cpp" line="830"/>
         <source>Right:</source>
         <translation>Справа:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="832"/>
+        <location filename="../tabpdfoptions.cpp" line="834"/>
         <source>Use Document Bleeds</source>
         <translation>Выпуск под обрез из параметров документа</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="856"/>
+        <location filename="../tabpdfoptions.cpp" line="860"/>
         <source>Pre-Press</source>
         <translation>Полиграфия</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="903"/>
+        <location filename="../tabpdfoptions.cpp" line="907"/>
         <source>Convert all glyphs in the document to outlines.</source>
         <translation>Преобразовать все символы документа в кривые.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="941"/>
+        <location filename="../tabpdfoptions.cpp" line="945"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Здесь определяется совместимость PDF.&lt;br/&gt;По умолчанию используется &lt;b&gt;PDF 1.3&lt;/b&gt;, обеспечивающий максимально возможную совместимость.&lt;br/&gt;Выбирайте &lt;b&gt;PDF 1.4&lt;/b&gt;, если в документе используется полупрозрачность или необходимо 128-битное шифрование.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; необходим, если объекты должны остаться в своих слоях.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; предназначен для экспорта в PDF, когда необходим файл с управлением цветом в RGB для коммерческой печати, и когда управление цветом включено.  Используйте PDF/X-3 только если точно знаете, что он поддерживается, либо, в некоторых случаях, когда ожидается печать на 4-цветный лазерный принтер.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="950"/>
+        <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation>Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="951"/>
+        <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="971"/>
+        <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Включить глобальный режим надпечатки, игнорируя соответствующий параметр отдельных объектов</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1340"/>
+        <location filename="../tabpdfoptions.cpp" line="1344"/>
         <source>Inside:</source>
         <translation>Изнутри:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1341"/>
+        <location filename="../tabpdfoptions.cpp" line="1345"/>
         <source>Outside:</source>
         <translation>Снаружи:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="905"/>
+        <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Show the document in single page mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="906"/>
+        <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="907"/>
+        <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="908"/>
+        <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="909"/>
+        <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="910"/>
+        <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Enables viewing the document in full screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="911"/>
+        <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Display the bookmarks upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="912"/>
+        <location filename="../tabpdfoptions.cpp" line="916"/>
         <source>Display the page thumbnails upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="913"/>
+        <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="914"/>
+        <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="915"/>
+        <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="916"/>
+        <location filename="../tabpdfoptions.cpp" line="920"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28520,7 +29472,7 @@ when PDF document is opened:</source>
         <translation type="obsolete">Создать в PDF обрезные метки, показывающие, где бумага должна быть порезана при печати.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="976"/>
+        <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>Создать метки выпуска под обрез, изображаемы в виде _ . _ и показывающие предел выпуска под обрез</translation>
     </message>
@@ -28530,70 +29482,80 @@ when PDF document is opened:</source>
         <translation type="obsolete">Добавить метки совмещения, добавляемые в каждое цветоделение</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="978"/>
+        <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add color calibration bars</source>
         <translation>Добавить контрольные цветовые полосы</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="979"/>
+        <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation>Добавить информацию о документе, включающую название документа и номера страниц</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="980"/>
+        <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation>Показать расстояние сдвига меток  совмещения</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="985"/>
+        <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation>Использовать имеющиеся параметры документа для выпуска под обрез</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="975"/>
+        <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation>Создать в PDF обрезные метки, показывающие, где бумага должна быть порезана после печати</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="977"/>
+        <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add registration marks to each separation</source>
         <translation>Добавить метки совмещения, добавляемые в каждое цветоделение</translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="752"/>
+        <source>Use Color Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="755"/>
+        <source>Do not use embedded color profiles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TabPrinter</name>
     <message>
-        <location filename="../tabprinter.cpp" line="27"/>
+        <location filename="../tabprinter.cpp" line="28"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Расстояние от линии обреза до верха физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="28"/>
+        <location filename="../tabprinter.cpp" line="29"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Расстояние от линии обреза до низа физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="29"/>
+        <location filename="../tabprinter.cpp" line="30"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Расстояние от линии обреза до левого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="30"/>
+        <location filename="../tabprinter.cpp" line="31"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Расстояние от линии обреза до правого края физической страницы</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="31"/>
+        <location filename="../tabprinter.cpp" line="32"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>Не показывать объекты вне полей на распечатанной странице</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="32"/>
+        <location filename="../tabprinter.cpp" line="33"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation>Использовать альтернативный менеджер печати, например kprinter или gtklp, для расширенной настройки печати</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="33"/>
+        <location filename="../tabprinter.cpp" line="34"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Указывает уровень PostScript.
@@ -28601,37 +29563,37 @@ when PDF document is opened:</source>
 созданию огромных файлов</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="34"/>
+        <location filename="../tabprinter.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на чёрный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании этого способа также снижается вероятность избыточной насыщенности изображения при использовании красок CMY.</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="35"/>
+        <location filename="../tabprinter.cpp" line="36"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Разрешить преобразование плашечных цветов в композитные. Если вы не собираетесь печатать плашечные цвета в типографии, то лучше оставьте параметр включённым.</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="36"/>
+        <location filename="../tabprinter.cpp" line="37"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Включить глобальный режим надпечатки, игнорируя соответствующий параметр отдельных объектов</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="37"/>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation>Встраивать ICC-профили в печатный поток при включённом управлении цветом</translation>
+        <translation type="obsolete">Встраивать ICC-профили в печатный поток при включённом управлении цветом</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="38"/>
+        <location filename="../tabprinter.cpp" line="39"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>Напрямую указать размер носителя в PostScript-файле. Не рекомендуется использовать эту функцию, пока этого не потребует принтер.</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="82"/>
+        <location filename="../tabprinter.cpp" line="83"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../tabprinter.cpp" line="143"/>
+        <location filename="../tabprinter.cpp" line="144"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
@@ -28834,6 +29796,11 @@ when PDF document is opened:</source>
         <location filename="../tabprinter.ui" line="408"/>
         <source>Command:</source>
         <translation>Команда:</translation>
+    </message>
+    <message>
+        <location filename="../tabprinter.cpp" line="38"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29123,338 +30090,338 @@ when PDF document is opened:</source>
         <translation>Шрифт:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="595"/>
+        <location filename="../tabtools.cpp" line="633"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="123"/>
+        <location filename="../tabtools.cpp" line="124"/>
         <source>Size:</source>
         <translation>Размер:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="709"/>
+        <location filename="../tabtools.cpp" line="747"/>
         <source>None</source>
         <translation>Ничего</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="156"/>
+        <location filename="../tabtools.cpp" line="162"/>
         <source>Fill Color:</source>
         <translation>Цвет заливки:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="170"/>
+        <location filename="../tabtools.cpp" line="178"/>
         <source>Stroke Color:</source>
         <translation>Цвет контура:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="196"/>
+        <location filename="../tabtools.cpp" line="208"/>
         <source>Colu&amp;mns:</source>
         <translation>С&amp;толбцов:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="201"/>
+        <location filename="../tabtools.cpp" line="214"/>
         <source>&amp;Gap:</source>
         <translation>&amp;Интервал:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="925"/>
+        <location filename="../tabtools.cpp" line="962"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>А ещё неплохо бы на зависть другим уметь красиво читать и писать</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="271"/>
+        <location filename="../tabtools.cpp" line="291"/>
         <source>&amp;Line Color:</source>
         <translation>&amp;Цвет линии:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="427"/>
+        <location filename="../tabtools.cpp" line="461"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="278"/>
+        <location filename="../tabtools.cpp" line="299"/>
         <source>&amp;Shading:</source>
         <translation>&amp;Затенение:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="235"/>
+        <location filename="../tabtools.cpp" line="251"/>
         <source>&amp;Fill Color:</source>
         <translation>Цвет за&amp;ливки:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="365"/>
+        <location filename="../tabtools.cpp" line="394"/>
         <source>S&amp;hading:</source>
         <translation>За&amp;тенение:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="249"/>
+        <location filename="../tabtools.cpp" line="267"/>
         <source>Line Style:</source>
         <translation>Стиль линии:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="302"/>
+        <location filename="../tabtools.cpp" line="327"/>
         <source>Line &amp;Width:</source>
         <translation>То&amp;лщина линии:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="284"/>
+        <location filename="../tabtools.cpp" line="306"/>
         <source>Line S&amp;tyle:</source>
         <translation>Стиль &amp;линии:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="291"/>
+        <location filename="../tabtools.cpp" line="314"/>
         <source>Arrows:</source>
         <translation>Стрелки:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="293"/>
+        <location filename="../tabtools.cpp" line="316"/>
         <source>Start:</source>
         <translation>Начало:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="295"/>
+        <location filename="../tabtools.cpp" line="319"/>
         <source>End:</source>
         <translation>Конец:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="317"/>
+        <location filename="../tabtools.cpp" line="343"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Свободное масштабирование</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="328"/>
+        <location filename="../tabtools.cpp" line="354"/>
         <source>&amp;Horizontal Scaling:</source>
         <translation>Масштабирование по &amp;горизонтали:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="336"/>
+        <location filename="../tabtools.cpp" line="363"/>
         <source>&amp;Vertical Scaling:</source>
         <translation>Масштабирование по &amp;вертикали:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="346"/>
+        <location filename="../tabtools.cpp" line="374"/>
         <source>&amp;Scale Picture to Frame Size</source>
         <translation>Масштабировать &amp;изображение до блока</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="352"/>
+        <location filename="../tabtools.cpp" line="380"/>
         <source>Keep Aspect &amp;Ratio</source>
         <translation>Сохранять &amp;соотношение сторон</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="358"/>
+        <location filename="../tabtools.cpp" line="386"/>
         <source>F&amp;ill Color:</source>
         <translation>Цвет &amp;заливки:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="415"/>
+        <location filename="../tabtools.cpp" line="445"/>
         <source>Mi&amp;nimum:</source>
         <translation>&amp;Минимум:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="423"/>
+        <location filename="../tabtools.cpp" line="454"/>
         <source>Ma&amp;ximum:</source>
         <translation>Ма&amp;ксимум:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="429"/>
+        <location filename="../tabtools.cpp" line="463"/>
         <source>&amp;Stepping:</source>
         <translation>Ш&amp;аг:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="485"/>
+        <location filename="../tabtools.cpp" line="523"/>
         <source>Text Frame Properties</source>
         <translation>Свойства текстового блока</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="486"/>
+        <location filename="../tabtools.cpp" line="524"/>
         <source>Picture Frame Properties</source>
         <translation>Свойства блока изображения</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="487"/>
+        <location filename="../tabtools.cpp" line="525"/>
         <source>Shape Drawing Properties</source>
         <translation>Свойства очертаний</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="488"/>
+        <location filename="../tabtools.cpp" line="526"/>
         <source>Magnification Level Defaults</source>
         <translation>Лупа</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="489"/>
+        <location filename="../tabtools.cpp" line="527"/>
         <source>Line Drawing Properties</source>
         <translation>Свойства линии</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="490"/>
+        <location filename="../tabtools.cpp" line="528"/>
         <source>Polygon Drawing Properties</source>
         <translation>Свойства многоугольника</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="492"/>
+        <location filename="../tabtools.cpp" line="530"/>
         <source>Font for new text frames</source>
         <translation>Шрифт для новых текстовых рамок</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="493"/>
+        <location filename="../tabtools.cpp" line="531"/>
         <source>Size of font for new text frames</source>
         <translation>Кегль шрифта для новых текстовых рамок</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="494"/>
+        <location filename="../tabtools.cpp" line="532"/>
         <source>Color of font</source>
         <translation>Цвет шрифта</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="495"/>
+        <location filename="../tabtools.cpp" line="533"/>
         <source>Number of columns in a text frame</source>
         <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="496"/>
+        <location filename="../tabtools.cpp" line="534"/>
         <source>Gap between text frame columns</source>
         <translation>Расстояние между столбцами в текстовом блоке</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="497"/>
+        <location filename="../tabtools.cpp" line="535"/>
         <source>Sample of your font</source>
         <translation>Так выглядит указанный шрифт</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="498"/>
+        <location filename="../tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
         <translation>Блоки позволяют произвольно масштабировать изображения</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="499"/>
+        <location filename="../tabtools.cpp" line="537"/>
         <source>Horizontal scaling of images</source>
         <translation>Масштабирование изображений по горизонтали</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="500"/>
+        <location filename="../tabtools.cpp" line="538"/>
         <source>Vertical scaling of images</source>
         <translation>Масштабирование изображений по вертикали</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="501"/>
+        <location filename="../tabtools.cpp" line="539"/>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation>Сохранять соотношение сторон при масштабировании</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="502"/>
+        <location filename="../tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
         <translation>Изображения в блоке масштабируются под его размер</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="503"/>
+        <location filename="../tabtools.cpp" line="541"/>
         <source>Automatically scaled pictures keep their original proportions</source>
         <translation>Автоматически масштабируемые изображения 
 сохраняют исходное соотношение сторон</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="504"/>
+        <location filename="../tabtools.cpp" line="542"/>
         <source>Fill color of picture frames</source>
         <translation>Цвет заливки рамок изображений</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="509"/>
+        <location filename="../tabtools.cpp" line="547"/>
         <source>Saturation of color of fill</source>
         <translation>Насыщение цвета заливки</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="506"/>
+        <location filename="../tabtools.cpp" line="544"/>
         <source>Line color of shapes</source>
         <translation>Цвет линий фигур</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="507"/>
+        <location filename="../tabtools.cpp" line="545"/>
         <source>Saturation of color of lines</source>
         <translation>Насыщение цвета линий</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="508"/>
+        <location filename="../tabtools.cpp" line="546"/>
         <source>Fill color of shapes</source>
         <translation>Цвет заливки фигур</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="510"/>
+        <location filename="../tabtools.cpp" line="548"/>
         <source>Line style of shapes</source>
         <translation>Стиль линий фигур</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="511"/>
+        <location filename="../tabtools.cpp" line="549"/>
         <source>Line width of shapes</source>
         <translation>Толщина линий фигур</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="512"/>
+        <location filename="../tabtools.cpp" line="550"/>
         <source>Minimum magnification allowed</source>
         <translation>Включено минимально возможное «прилипание»</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="513"/>
+        <location filename="../tabtools.cpp" line="551"/>
         <source>Maximum magnification allowed</source>
         <translation>Включено максимально возможное «прилипание»</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="514"/>
+        <location filename="../tabtools.cpp" line="552"/>
         <source>Change in magnification for each zoom operation</source>
         <translation>Изменить «прилипание» для каждого шага масштабирования</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="515"/>
+        <location filename="../tabtools.cpp" line="553"/>
         <source>Color of lines</source>
         <translation>Цвет линий</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="516"/>
+        <location filename="../tabtools.cpp" line="554"/>
         <source>Saturation of color</source>
         <translation>Насыщенность цвета</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="517"/>
+        <location filename="../tabtools.cpp" line="555"/>
         <source>Style of lines</source>
         <translation>Стиль линий</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="518"/>
+        <location filename="../tabtools.cpp" line="556"/>
         <source>Width of lines</source>
         <translation>Толщина линий</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="184"/>
+        <location filename="../tabtools.cpp" line="194"/>
         <source>Tab Fill Character:</source>
         <translation>Заполняющий символ табуляции:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="189"/>
+        <location filename="../tabtools.cpp" line="200"/>
         <source>Tab Width:</source>
         <translation>Ширина табуляции:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="368"/>
+        <location filename="../tabtools.cpp" line="398"/>
         <source>Use embedded Clipping Path</source>
         <translation>Использовать встроенный обтравочный контур</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="372"/>
+        <location filename="../tabtools.cpp" line="402"/>
         <source>On Screen Preview</source>
         <translation>Просмотр на экране</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="378"/>
+        <location filename="../tabtools.cpp" line="408"/>
         <source>Full Resolution Preview</source>
         <translation>С полным разрешением</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="381"/>
+        <location filename="../tabtools.cpp" line="411"/>
         <source>Normal Resolution Preview</source>
         <translation>С обычным разрешением</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="384"/>
+        <location filename="../tabtools.cpp" line="414"/>
         <source>Low Resolution Preview</source>
         <translation>С низким разрешением</translation>
     </message>
@@ -29469,37 +30436,37 @@ when PDF document is opened:</source>
         <translation type="obsolete">Другой: </translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="129"/>
+        <location filename="../tabtools.cpp" line="131"/>
         <source>Text Color:</source>
         <translation>Цвет текста:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="178"/>
+        <location filename="../tabtools.cpp" line="187"/>
         <source>Shading:</source>
         <translation>Оттенение:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="142"/>
+        <location filename="../tabtools.cpp" line="146"/>
         <source>Text Stroke:</source>
         <translation>Обводка текста:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="663"/>
+        <location filename="../tabtools.cpp" line="701"/>
         <source>Dot</source>
         <translation>Точка</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="664"/>
+        <location filename="../tabtools.cpp" line="702"/>
         <source>Hyphen</source>
         <translation>Перенос</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="665"/>
+        <location filename="../tabtools.cpp" line="703"/>
         <source>Underscore</source>
         <translation>Подчёркивание</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="666"/>
+        <location filename="../tabtools.cpp" line="704"/>
         <source>Custom</source>
         <translation>Другой</translation>
     </message>
@@ -29509,93 +30476,93 @@ when PDF document is opened:</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="216"/>
+        <location filename="../tabtools.cpp" line="230"/>
         <source>Shapes</source>
         <translation>Фигуры</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="265"/>
+        <location filename="../tabtools.cpp" line="285"/>
         <source>Lines</source>
         <translation>Линии</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="311"/>
+        <location filename="../tabtools.cpp" line="337"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="395"/>
+        <location filename="../tabtools.cpp" line="425"/>
         <source>Regular Polygons</source>
         <translation>Обычные многоугольники</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="407"/>
+        <location filename="../tabtools.cpp" line="437"/>
         <source>Zoom</source>
         <translation>Лупа</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="438"/>
+        <location filename="../tabtools.cpp" line="473"/>
         <source>Miscellaneous Settings</source>
         <translation>Различные параметры</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="443"/>
+        <location filename="../tabtools.cpp" line="478"/>
         <source>Item Duplicate</source>
         <translation>Дубликация объектов</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="451"/>
+        <location filename="../tabtools.cpp" line="486"/>
         <source>X Displacement</source>
         <translation>Смещение по X</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="457"/>
+        <location filename="../tabtools.cpp" line="493"/>
         <source>Y Displacement</source>
         <translation>Смещение по Y</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="462"/>
+        <location filename="../tabtools.cpp" line="499"/>
         <source>Rotation Tool</source>
         <translation>Вращение</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="471"/>
+        <location filename="../tabtools.cpp" line="508"/>
         <source>Constrain to:</source>
         <translation>Ограничить до:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="473"/>
+        <location filename="../tabtools.cpp" line="511"/>
         <source>Degrees</source>
         <translation>градусов</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="491"/>
+        <location filename="../tabtools.cpp" line="529"/>
         <source>Other Properties</source>
         <translation>Прочие свойства</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="519"/>
+        <location filename="../tabtools.cpp" line="557"/>
         <source>Horizontal displacement of page items</source>
         <translation>Смещение объектов по горизонтали</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="520"/>
+        <location filename="../tabtools.cpp" line="558"/>
         <source>Vertical displacement of page items</source>
         <translation>Смещение объектов по вертикали</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="521"/>
+        <location filename="../tabtools.cpp" line="559"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation>Шаг вращения объектов в градусах при нажатии модификатора</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="662"/>
+        <location filename="../tabtools.cpp" line="700"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="522"/>
+        <location filename="../tabtools.cpp" line="560"/>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation>Использовать встроенные обтравочные контуры при импорте изображений. Среди поддерживающих такие контуры форматов — JPEG, PSD и TIFF.</translation>
     </message>
@@ -29608,7 +30575,7 @@ when PDF document is opened:</source>
         <translation>Нижний индекс</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="137"/>
+        <location filename="../tabtypography.cpp" line="142"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -29618,112 +30585,112 @@ when PDF document is opened:</source>
         <translation>&amp;Смещение:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="40"/>
+        <location filename="../tabtypography.cpp" line="41"/>
         <source>&amp;Scaling:</source>
         <translation>&amp;Масштабирование:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="45"/>
+        <location filename="../tabtypography.cpp" line="47"/>
         <source>Superscript</source>
         <translation>Верхний индекс</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="54"/>
+        <location filename="../tabtypography.cpp" line="56"/>
         <source>D&amp;isplacement:</source>
         <translation>Смеще&amp;ние:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="61"/>
+        <location filename="../tabtypography.cpp" line="64"/>
         <source>S&amp;caling:</source>
         <translation>&amp;Масштабирование:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="114"/>
+        <location filename="../tabtypography.cpp" line="118"/>
         <source>Small Caps</source>
         <translation>Капитель</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="124"/>
+        <location filename="../tabtypography.cpp" line="128"/>
         <source>Sc&amp;aling:</source>
         <translation>Ма&amp;сштабирование:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="144"/>
+        <location filename="../tabtypography.cpp" line="150"/>
         <source>Displacement above the baseline of the font on a line</source>
         <translation>Смещение выше базовой линии</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="145"/>
+        <location filename="../tabtypography.cpp" line="151"/>
         <source>Relative size of the superscript compared to the normal font</source>
         <translation>Относительный размер верхнего индекса по отношению к обычному шрифту</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="146"/>
+        <location filename="../tabtypography.cpp" line="152"/>
         <source>Displacement below the baseline of the normal font on a line</source>
         <translation>Смещение ниже базовой линии</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="147"/>
+        <location filename="../tabtypography.cpp" line="153"/>
         <source>Relative size of the subscript compared to the normal font</source>
         <translation>Относительный размер нижнего индекса по отношению к обычному шрифту</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="148"/>
+        <location filename="../tabtypography.cpp" line="154"/>
         <source>Relative size of the small caps font compared to the normal font</source>
         <translation>Относительный размер капители по отношению к обычному шрифту</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="66"/>
+        <location filename="../tabtypography.cpp" line="70"/>
         <source>Underline</source>
         <translation>Подчёркивание</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="96"/>
+        <location filename="../tabtypography.cpp" line="100"/>
         <source>Displacement:</source>
         <translation>Смещение:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="109"/>
+        <location filename="../tabtypography.cpp" line="113"/>
         <source>Auto</source>
         <translation>Авто</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="104"/>
+        <location filename="../tabtypography.cpp" line="108"/>
         <source>Line Width:</source>
         <translation>Толщина линии:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="90"/>
+        <location filename="../tabtypography.cpp" line="94"/>
         <source>Strikethru</source>
         <translation>Зачёркнутый</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="129"/>
+        <location filename="../tabtypography.cpp" line="134"/>
         <source>Automatic &amp;Line Spacing</source>
         <translation>Автоматический &amp;интерлиньяж</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="139"/>
+        <location filename="../tabtypography.cpp" line="144"/>
         <source>Line Spacing:</source>
         <translation>Между строк:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="149"/>
+        <location filename="../tabtypography.cpp" line="155"/>
         <source>Percentage increase over the font size for the line spacing</source>
         <translation>Увеличение межстрочного интервала в процентах размера шрифта</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="150"/>
+        <location filename="../tabtypography.cpp" line="156"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
         <translation>Смещение ниже базовой линии, выраженное в процентном соотношении нисхождения шрифтов</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="153"/>
+        <location filename="../tabtypography.cpp" line="159"/>
         <source>Line width expressed as a percentage of the font size</source>
         <translation>Толщина линии, выраженная процентным соотношением от кегля шрифта</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="152"/>
+        <location filename="../tabtypography.cpp" line="158"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
         <translation>Смещение выше базовой линии, выраженное в процентном соотношении восхождения шрифтов</translation>
     </message>
@@ -29731,52 +30698,52 @@ when PDF document is opened:</source>
 <context>
     <name>Tabruler</name>
     <message>
-        <location filename="../tabruler.cpp" line="477"/>
+        <location filename="../tabruler.cpp" line="488"/>
         <source>Left</source>
         <translation>Влево</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="478"/>
+        <location filename="../tabruler.cpp" line="489"/>
         <source>Right</source>
         <translation>Вправо</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="479"/>
+        <location filename="../tabruler.cpp" line="490"/>
         <source>Full Stop</source>
         <translation>По точке</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="480"/>
+        <location filename="../tabruler.cpp" line="491"/>
         <source>Comma</source>
         <translation>По запятой</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="481"/>
+        <location filename="../tabruler.cpp" line="492"/>
         <source>Center</source>
         <translation>По центру</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="528"/>
+        <location filename="../tabruler.cpp" line="545"/>
         <source>Delete All</source>
         <translation>Удалить всё</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="580"/>
+        <location filename="../tabruler.cpp" line="597"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Отступ первой строки абзаца</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="581"/>
+        <location filename="../tabruler.cpp" line="598"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Отступ слева для всего абзаца</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="584"/>
+        <location filename="../tabruler.cpp" line="601"/>
         <source>Delete all Tabulators</source>
         <translation>Удалить все табуляторы</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="485"/>
+        <location filename="../tabruler.cpp" line="496"/>
         <source>&amp;Position:</source>
         <translation>&amp;Положение:</translation>
     </message>
@@ -29786,7 +30753,7 @@ when PDF document is opened:</source>
         <translation type="obsolete">Ничего</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="495"/>
+        <location filename="../tabruler.cpp" line="507"/>
         <source>Fill Char:</source>
         <translation>Заполняющий символ:</translation>
     </message>
@@ -29801,48 +30768,48 @@ when PDF document is opened:</source>
         <translation type="obsolete">Другой: </translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="491"/>
+        <location filename="../tabruler.cpp" line="503"/>
         <source>Dot</source>
         <translation>Точка</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="492"/>
+        <location filename="../tabruler.cpp" line="504"/>
         <source>Hyphen</source>
         <translation>Перенос</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="493"/>
+        <location filename="../tabruler.cpp" line="505"/>
         <source>Underscore</source>
         <translation>Подчёркивание</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="494"/>
+        <location filename="../tabruler.cpp" line="506"/>
         <source>Custom</source>
         <translation>Другой</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="490"/>
+        <location filename="../tabruler.cpp" line="502"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="582"/>
+        <location filename="../tabruler.cpp" line="599"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Отступ справа для всего абзаца</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="567"/>
+        <location filename="../tabruler.cpp" line="584"/>
         <source>Fill Character of Tab</source>
         <translation>Символ заполнения табулятора</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="568"/>
+        <location filename="../tabruler.cpp" line="585"/>
         <source>Type/Orientation of Tab</source>
         <translation>Тип/ориентация табулятора</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="569"/>
+        <location filename="../tabruler.cpp" line="586"/>
         <source>Position of Tab</source>
         <translation>Положение табулятора</translation>
     </message>
@@ -29868,27 +30835,27 @@ when PDF document is opened:</source>
 <context>
     <name>Tree</name>
     <message>
-        <location filename="../tree.cpp" line="1153"/>
+        <location filename="../tree.cpp" line="1156"/>
         <source>Outline</source>
         <translation>Схема документа</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1154"/>
+        <location filename="../tree.cpp" line="1157"/>
         <source>Element</source>
         <translation>Элемент</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1131"/>
+        <location filename="../tree.cpp" line="1134"/>
         <source>Group </source>
         <translation>Группа</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1094"/>
+        <location filename="../tree.cpp" line="1097"/>
         <source>Free Objects</source>
         <translation>Свободные объекты</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1039"/>
+        <location filename="../tree.cpp" line="1042"/>
         <source>Page </source>
         <translation>Страница </translation>
     </message>
@@ -29985,7 +30952,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tree.cpp" line="380"/>
         <source>Print: </source>
-        <translation>Печать: </translation>
+        <translation type="obsolete">Печать: </translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="383"/>
@@ -29998,47 +30965,47 @@ when PDF document is opened:</source>
         <translation>Выключено</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="392"/>
+        <location filename="../tree.cpp" line="393"/>
         <source>In&amp;fo</source>
         <translation>&amp;Инфо</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="418"/>
+        <location filename="../tree.cpp" line="420"/>
         <source>Preview Settings</source>
         <translation>Параметры предпросмотра</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="459"/>
+        <location filename="../tree.cpp" line="461"/>
         <source>&amp;PDF Options</source>
         <translation>Пара&amp;метры PDF</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="483"/>
+        <location filename="../tree.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
         <translation>Перенести в сло&amp;й</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="492"/>
+        <location filename="../tree.cpp" line="494"/>
         <source>Le&amp;vel</source>
         <translation>Уро&amp;вень</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="542"/>
+        <location filename="../tree.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Преобразовать в</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="545"/>
+        <location filename="../tree.cpp" line="548"/>
         <source>Rename</source>
         <translation>Переименовать</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="553"/>
+        <location filename="../tree.cpp" line="556"/>
         <source>&amp;Delete</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="575"/>
+        <location filename="../tree.cpp" line="578"/>
         <source>Contents</source>
         <translation>Содержимое</translation>
     </message>
@@ -30046,6 +31013,11 @@ when PDF document is opened:</source>
         <location filename="" line="136960432"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="obsolete">Имя &quot;%1&quot; уже использовано.&lt;br/&gt;Выберите другое.</translation>
+    </message>
+    <message>
+        <location filename="../tree.cpp" line="380"/>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30412,112 +31384,112 @@ to %2</source>
         <translation>Текстовый блок</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="757"/>
+        <location filename="../undomanager.cpp" line="758"/>
         <source>Polygon</source>
         <translation>Многоугольник</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="758"/>
+        <location filename="../undomanager.cpp" line="759"/>
         <source>Bezier curve</source>
         <translation>Кривая Безье</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="759"/>
+        <location filename="../undomanager.cpp" line="760"/>
         <source>Polyline</source>
         <translation>Ломаная линия</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="761"/>
+        <location filename="../undomanager.cpp" line="762"/>
         <source>Convert to</source>
         <translation>Преобразование в</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="762"/>
+        <location filename="../undomanager.cpp" line="763"/>
         <source>Import SVG image</source>
         <translation>Импорт SVG-изображения</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="763"/>
+        <location filename="../undomanager.cpp" line="764"/>
         <source>Import EPS image</source>
         <translation>Импорт EPS-изображения</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="765"/>
+        <location filename="../undomanager.cpp" line="766"/>
         <source>Scratch space</source>
         <translation>Рабочий стол</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="767"/>
+        <location filename="../undomanager.cpp" line="768"/>
         <source>Text flows around the frame</source>
         <translation>Обтекание текстом вокруг блока</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="768"/>
+        <location filename="../undomanager.cpp" line="769"/>
         <source>Text flows around bounding box</source>
         <translation>Обтекание текстом вокруг площадки</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="769"/>
+        <location filename="../undomanager.cpp" line="770"/>
         <source>Text flows around contour line</source>
         <translation>Обтекание текстом вокруг контурной линии</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="771"/>
+        <location filename="../undomanager.cpp" line="772"/>
         <source>No text flow</source>
         <translation>Снятие обтекания текстом</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="773"/>
+        <location filename="../undomanager.cpp" line="774"/>
         <source>No bounding box</source>
         <translation>Без площадки</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="774"/>
+        <location filename="../undomanager.cpp" line="775"/>
         <source>No contour line</source>
         <translation>Без контурной линии</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="775"/>
+        <location filename="../undomanager.cpp" line="776"/>
         <source>Page %1</source>
         <translation>Страница %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="776"/>
+        <location filename="../undomanager.cpp" line="777"/>
         <source>Set image scaling</source>
         <translation>Изменить масштаб изображения</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="777"/>
+        <location filename="../undomanager.cpp" line="778"/>
         <source>Frame size</source>
         <translation>Размер блока</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="778"/>
+        <location filename="../undomanager.cpp" line="779"/>
         <source>Free scaling</source>
         <translation>Свободное масштабирование</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="779"/>
+        <location filename="../undomanager.cpp" line="780"/>
         <source>Keep aspect ratio</source>
         <translation>Сохранять пропорции</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="780"/>
+        <location filename="../undomanager.cpp" line="781"/>
         <source>Break aspect ratio</source>
         <translation>Не сохранять пропорции</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="804"/>
+        <location filename="../undomanager.cpp" line="806"/>
         <source>Edit contour line</source>
         <translation>Изменить контурную линию</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="782"/>
+        <location filename="../undomanager.cpp" line="783"/>
         <source>Edit shape</source>
         <translation>Правка очертаний</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="783"/>
+        <location filename="../undomanager.cpp" line="784"/>
         <source>Reset contour line</source>
         <translation>Восстановить контурную линию</translation>
     </message>
@@ -30532,82 +31504,82 @@ to %2</source>
         <translation>Смена высоты шрифта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="764"/>
+        <location filename="../undomanager.cpp" line="765"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation>Импорт изображения OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="784"/>
+        <location filename="../undomanager.cpp" line="785"/>
         <source>Add page</source>
         <translation>Добавка страницы</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="785"/>
+        <location filename="../undomanager.cpp" line="786"/>
         <source>Add pages</source>
         <translation>Добавка страниц</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="786"/>
+        <location filename="../undomanager.cpp" line="787"/>
         <source>Delete page</source>
         <translation>Удаление страницы</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="787"/>
+        <location filename="../undomanager.cpp" line="788"/>
         <source>Delete pages</source>
         <translation>Удаление страниц</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="788"/>
+        <location filename="../undomanager.cpp" line="789"/>
         <source>Add layer</source>
         <translation>Добавка слоя</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="789"/>
+        <location filename="../undomanager.cpp" line="790"/>
         <source>Delete layer</source>
         <translation>Удаление слоя</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="790"/>
+        <location filename="../undomanager.cpp" line="791"/>
         <source>Rename layer</source>
         <translation>Переименование слоя</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="791"/>
+        <location filename="../undomanager.cpp" line="792"/>
         <source>Raise layer</source>
         <translation>Поднятие слой</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="792"/>
+        <location filename="../undomanager.cpp" line="793"/>
         <source>Lower layer</source>
         <translation>Опускание слоя</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="793"/>
+        <location filename="../undomanager.cpp" line="794"/>
         <source>Send to layer</source>
         <translation>Перекладывание в слой</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="794"/>
+        <location filename="../undomanager.cpp" line="795"/>
         <source>Enable printing of layer</source>
         <translation>Включение печати слоя</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="795"/>
+        <location filename="../undomanager.cpp" line="796"/>
         <source>Disable printing of layer</source>
         <translation>Отключение печати слоя</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="796"/>
+        <location filename="../undomanager.cpp" line="797"/>
         <source>Change name of the layer</source>
         <translation>Переименование слоя</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="797"/>
+        <location filename="../undomanager.cpp" line="798"/>
         <source>Get image</source>
         <translation>Вставка изображения</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="760"/>
+        <location filename="../undomanager.cpp" line="761"/>
         <source>Text on a Path</source>
         <translation>Текст по контуру</translation>
     </message>
@@ -30646,17 +31618,17 @@ X: %4, Y: %5</translation>
         <translation>Отключение печати объекта</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="798"/>
+        <location filename="../undomanager.cpp" line="800"/>
         <source>Multiple duplicate</source>
         <translation>Многократное дублирование</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="805"/>
+        <location filename="../undomanager.cpp" line="807"/>
         <source>Reset control point</source>
         <translation>Сброс контрольной точки</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="806"/>
+        <location filename="../undomanager.cpp" line="808"/>
         <source>Reset control points</source>
         <translation>Сброс контрольных точек</translation>
     </message>
@@ -30671,74 +31643,74 @@ X: %4, Y: %5</translation>
         <translation>Смена конечного и начального маркера</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="770"/>
+        <location filename="../undomanager.cpp" line="771"/>
         <source>Text flows around image clipping path</source>
         <translation>Обтекание текстом вокруг обтравочного контура</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="772"/>
+        <location filename="../undomanager.cpp" line="773"/>
         <source>No object frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="799"/>
+        <location filename="../undomanager.cpp" line="801"/>
         <source>Apply text style</source>
         <translation>Применение текстового стиля</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="800"/>
+        <location filename="../undomanager.cpp" line="802"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
         <translation>&amp;Отменить: %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="801"/>
+        <location filename="../undomanager.cpp" line="803"/>
         <source>&amp;Undo</source>
         <translation>&amp;Отменить</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="802"/>
+        <location filename="../undomanager.cpp" line="804"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
         <translation>Пов&amp;торить: %1</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="803"/>
+        <location filename="../undomanager.cpp" line="805"/>
         <source>&amp;Redo</source>
         <translation>Пов&amp;торить</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="807"/>
+        <location filename="../undomanager.cpp" line="809"/>
         <source>Apply image effects</source>
         <translation>Применение растровых эффектов</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="808"/>
+        <location filename="../undomanager.cpp" line="810"/>
         <source>Insert frame</source>
         <translation>Вставка блока</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="809"/>
+        <location filename="../undomanager.cpp" line="811"/>
         <source>Adjust frame to the image size</source>
         <translation>Блок до размеров изображения</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="810"/>
+        <location filename="../undomanager.cpp" line="812"/>
         <source>Remove all guides</source>
         <translation>Удаление всех направляющих</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="812"/>
+        <location filename="../undomanager.cpp" line="814"/>
         <source>Copy</source>
         <translation>Копирование</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="813"/>
+        <location filename="../undomanager.cpp" line="815"/>
         <source>Copy page</source>
         <translation>Копирование страницы</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="814"/>
+        <location filename="../undomanager.cpp" line="816"/>
         <source>Convert to outlines</source>
         <translation>Оконтуривание</translation>
     </message>
@@ -30753,35 +31725,45 @@ X: %4, Y: %5</translation>
         <translation>Удаление гор. автомат. направляющей</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="811"/>
+        <location filename="../undomanager.cpp" line="813"/>
         <source>Remove page guides</source>
         <translation>Удаление направляющих страницы</translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="757"/>
+        <source>Latex frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="799"/>
+        <source>Change formula</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
-        <location filename="../undogui.cpp" line="293"/>
+        <location filename="../undogui.cpp" line="296"/>
         <source>Action History</source>
         <translation>История действий</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="294"/>
+        <location filename="../undogui.cpp" line="297"/>
         <source>Show selected object only</source>
         <translation>Только выделенный объект</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="295"/>
+        <location filename="../undogui.cpp" line="298"/>
         <source>&amp;Undo</source>
         <translation>О&amp;тменить</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="296"/>
+        <location filename="../undogui.cpp" line="299"/>
         <source>&amp;Redo</source>
         <translation>&amp;Повторить</translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="280"/>
+        <location filename="../undogui.cpp" line="279"/>
         <source>Initial State</source>
         <translation>Исходное состояние</translation>
     </message>
@@ -30789,7 +31771,7 @@ X: %4, Y: %5</translation>
 <context>
     <name>UndoWidget</name>
     <message>
-        <location filename="../undogui.cpp" line="156"/>
+        <location filename="../undogui.cpp" line="146"/>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
@@ -30798,7 +31780,7 @@ X: %4, Y: %5</translation>
 <context>
     <name>UnicodeChooseButton</name>
     <message>
-        <location filename="../unicodesearch.cpp" line="44"/>
+        <location filename="../unicodesearch.cpp" line="47"/>
         <source>&amp;Search</source>
         <translation>&amp;Искать</translation>
     </message>
@@ -30811,7 +31793,7 @@ X: %4, Y: %5</translation>
         <translation>Поиск юникодного символа</translation>
     </message>
     <message>
-        <location filename="../unicodesearch.ui" line="42"/>
+        <location filename="../unicodesearch.ui" line="38"/>
         <source>&amp;Search:</source>
         <translation>&amp;Искать:</translation>
     </message>
@@ -30852,61 +31834,80 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../upgradechecker.cpp" line="84"/>
+        <location filename="../upgradechecker.cpp" line="85"/>
         <source>Attempting to get the Scribus version update file</source>
         <translation>Предпринимается попытка получить файл обновления версии Scribus</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="85"/>
+        <location filename="../upgradechecker.cpp" line="86"/>
         <source>(No data on your computer will be sent to an external location)</source>
         <translation>(Никакие данные с вашего компьютера не будут передаваться наружу)</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="105"/>
+        <location filename="../upgradechecker.cpp" line="106"/>
         <source>Timed out when attempting to get update file.</source>
         <translation>Кончилось время, отведённое на попытку получить файл обновления.</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="110"/>
+        <location filename="../upgradechecker.cpp" line="111"/>
         <source>Error when attempting to get update file: %1</source>
         <translation>Ошибка при попытке получить файл обновления: %1</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="140"/>
+        <location filename="../upgradechecker.cpp" line="141"/>
         <source>File not found on server</source>
         <translation>Файл не найден на сервере</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="142"/>
+        <location filename="../upgradechecker.cpp" line="143"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation>Не удалось получить файл версии: %1
 Ошибкаr:%2 строка: %3, столбец: %4</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="217"/>
+        <location filename="../upgradechecker.cpp" line="218"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation>Произошла ошибка при получении файла обновления Scribus. Проверьте соединение с Интернетом.</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="221"/>
+        <location filename="../upgradechecker.cpp" line="222"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation>Для Scribus %1 обновлений нет</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="224"/>
+        <location filename="../upgradechecker.cpp" line="225"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation>Доступно одно или более обновлений для вашей версии Scribus (%1):</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="225"/>
+        <location filename="../upgradechecker.cpp" line="226"/>
         <source>This list may contain development versions.</source>
         <translation>В этом списке могут быть нестабильные версии программы.</translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="228"/>
+        <location filename="../upgradechecker.cpp" line="229"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation>Посетите www.scribus.net, чтобы узнать подробности.</translation>
+    </message>
+</context>
+<context>
+    <name>UrlLauncher</name>
+    <message>
+        <location filename="../urllauncher.cpp" line="64"/>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../urllauncher.cpp" line="77"/>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished">Не удалось запустить внешний веб-браузер</translation>
+    </message>
+    <message>
+        <location filename="../urllauncher.cpp" line="77"/>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.
+Would you like to start the system&apos;s default browser instead?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31061,7 +32062,7 @@ Error:%2 at line: %3, row: %4</source>
 <context>
     <name>WMFImport</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="498"/>
+        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="515"/>
         <source>Group%1</source>
         <translation>Группа%1</translation>
     </message>
@@ -31069,17 +32070,17 @@ Error:%2 at line: %3, row: %4</source>
 <context>
     <name>WMFImportPlugin</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="81"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="82"/>
         <source>Import &amp;WMF...</source>
         <translation>Импортировать &amp;WMF...</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="96"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
         <source>Imports WMF Files</source>
         <translation>Импорт файлов WMF</translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="98"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Импортирует большинство файлов WMF в текущий документ,преобразовывая их векторные данные в объекты Scribus.</translation>
@@ -31087,7 +32088,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="111"/>
         <source>Windows metafiles</source>
-        <translation>Windows metafiles</translation>
+        <translation type="obsolete">Windows metafiles</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="173"/>
@@ -31222,17 +32223,17 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>gtImporterDialog</name>
     <message>
-        <location filename="../gtdialogs.cpp" line="63"/>
+        <location filename="../gtdialogs.cpp" line="67"/>
         <source>Choose the importer to use</source>
         <translation>Выберите фильтр импорта</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="73"/>
+        <location filename="../gtdialogs.cpp" line="79"/>
         <source>Remember association</source>
         <translation>Запомнить ассоциацию</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="75"/>
+        <location filename="../gtdialogs.cpp" line="81"/>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
         <translation>Запомнить расширение файла - ассоциацию импортировщика, и больше не спрашивать о выборе средства импорта для этого файла.</translation>
     </message>
@@ -31331,114 +32332,114 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Новый документ из шаблона</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="56"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="57"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="125"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="127"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
         <source>Page Size</source>
         <translation>Формат страницы</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="129"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
         <source>Colors</source>
         <translation>Цвета</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="131"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="133"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
         <source>Usage</source>
         <translation>Использование</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="135"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
         <source>Created with</source>
         <translation>Создано при помощи:</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="139"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="142"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="30"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="31"/>
         <source>&amp;Remove</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="31"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="32"/>
         <source>&amp;Open</source>
         <translation>&amp;Открыть</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="160"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="163"/>
         <source>Downloading Templates</source>
         <translation>Скачивание шаблонов</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="166"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="169"/>
         <source>Installing Templates</source>
         <translation>Установка шаблонов</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="172"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="175"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
         <translation>Распакуйте архив в каталог шаблонов ~/.scribus/templates 
 для текущего пользователя или в PREFIX/share/scribus/templates 
 для всех пользователей системы.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="175"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
         <source>Preparing a template</source>
         <translation>Подготовка шаблона</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="180"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
         <source>Removing a template</source>
         <translation>Удаление шаблона</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="185"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
         <source>Translating template.xml</source>
         <translation>Перевод template.xml</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="137"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
         <source>Date</source>
         <translation>Дата</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="163"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="166"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
         <translation>Шаблоны документов можно найти на сайте http://www.scribus.net/ в разделе Downloads.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="177"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="180"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
         <translation>Убедитесь в том, что используемые изображения доступны с любого другого компьютера. Если шрифты не доступны отовсюду, не собирайте их при сохранении шаблона.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
         <translation>Создатель шаблона должен убедиться в том, что раздел «Установка шаблонов» действителен и для его шаблонов. Это означает, что у пользователя не должно возникнуть проблем при скачивании пакета, извлечении файлов шаблонов из него и использовании этих шаблонов.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="182"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="185"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation>Удаление шаблона из данного диалога означает лишь удаление записи из template.xml, а сами файлы с документами удалены не будут. Всплывающее меню с пунктом «Удалить» появится только в том случае, если у вас есть права на запись в файл template.xml.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="187"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="190"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Скопируйте существующий template.xml в файл с именем вида template.lang_COUNTRY.xml (используйте тот же код страны, что и в qm-файле для вашего языка), например template.fi.xml для template.xml на финском языке. Копия должна находиться в том же каталоге, что и исходный template.xml, так чтобы Scribus мог загрузить этот файл.</translation>
     </message>
@@ -31559,32 +32560,32 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="obsolete">Менее подробно</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="141"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="205"/>
         <source>Legal</source>
         <translation>Legal</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="142"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Letter</source>
         <translation>Letter</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="142"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Tabloid</source>
         <translation>Таблоид</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="149"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="213"/>
         <source>landscape</source>
         <translation>альбом</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="154"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="218"/>
         <source>portrait</source>
         <translation>портрет</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="170"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="234"/>
         <source>custom</source>
         <translation>другой</translation>
     </message>
@@ -31597,22 +32598,22 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>tfDia</name>
     <message>
-        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="32"/>
+        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="33"/>
         <source>Create filter</source>
         <translation>Создать фильтр</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="55"/>
+        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="56"/>
         <source>C&amp;lear</source>
         <translation>О&amp;чистить</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="58"/>
+        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="59"/>
         <source>&amp;Delete</source>
         <translation>У&amp;далить</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="65"/>
+        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="66"/>
         <source>Choose a previously saved filter</source>
         <translation>Выбрать предыдущий сохранённый фильтр</translation>
     </message>
@@ -31622,7 +32623,7 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Дать имя этому фильтру для запоминания</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="120"/>
+        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="121"/>
         <source>Give a name for saving</source>
         <translation>Дать имя для запоминания</translation>
     </message>
@@ -31630,97 +32631,97 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>tfFilter</name>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="108"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="110"/>
         <source>Disable or enable this filter row</source>
         <translation>Отключить или включить эту строку фильтра</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="134"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="136"/>
         <source>Remove this filter row</source>
         <translation>Удалить эту строку фильтра</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="139"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="141"/>
         <source>Add a new filter row</source>
         <translation>Добавить новую строку фильтра</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="392"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="394"/>
         <source>to</source>
         <translation>для</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="208"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="210"/>
         <source>and</source>
         <translation>и</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="212"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="214"/>
         <source>remove match</source>
         <translation>удалить совпадение</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="213"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="215"/>
         <source>do not remove match</source>
         <translation>не удалять совпадение</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="223"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="225"/>
         <source>words</source>
         <translation>слов</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="262"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="264"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="263"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="265"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="264"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="266"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="421"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="423"/>
         <source>Value at the left is a regular expression</source>
         <translation>Значение слева является регулярным выражением</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="297"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="299"/>
         <source>with</source>
         <translation>на</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="309"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="311"/>
         <source>paragraph style</source>
         <translation>абзацный стиль</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="313"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="315"/>
         <source>all instances of</source>
         <translation>все вхождения</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="395"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="397"/>
         <source>all paragraphs</source>
         <translation>всех абзацев</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="396"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="398"/>
         <source>paragraphs starting with</source>
         <translation>абзацев, начинающихся с</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="397"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="399"/>
         <source>paragraphs with less than</source>
         <translation>абзацев с размером меньше</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="398"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="400"/>
         <source>paragraphs with more than</source>
         <translation>абзацев с размером больше</translation>
     </message>

@@ -612,16 +612,6 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
-        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="113"/>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
 
@@ -705,18 +695,6 @@ Moves the object &quot;name&quot; to a new location. The coordinates are express
 the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdmani.h" line="48"/>
-        <source>rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertext at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1137,18 +1115,6 @@ May raise IndexError if the page number is out of range
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
-        <source>gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="100"/>
         <source>pageCount() -&gt; integer
 
@@ -1462,28 +1428,6 @@ See getProperty() for more information.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.h" line="184"/>
-        <source>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
-
-Return a list of children of `object&apos;, possibly restricted to children
-of class named `ofclass&apos; or children named `ofname&apos;. If `recursive&apos; is true,
-search recursively through children, grandchildren, etc.
-
-See QObject::children() in the Qt docs for more information.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.h" line="201"/>
-        <source>getChild(object, childname, ofclass=None, recursive=True)
-
-Return the first child of `object&apos; named `childname&apos;, possibly restricting
-the search to children of type name `ofclass&apos;. If `recursive&apos; is true,
-search recursively through children, grandchildren, etc.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="62"/>
         <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
@@ -1538,17 +1482,6 @@ If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
 use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
-        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2032,7 +1965,7 @@ True for haspreview enables a small preview widget in the FileSelect box.  When
 the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
 otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
 the dialog shows and returns only directories. The default for all of the
-opional parameters is False.
+optional parameters is False.
 
 The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
 For example &apos;Images (*.png *.xpm *.jpg)&apos;.
@@ -2042,6 +1975,74 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdgetprop.h" line="102"/>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdmani.h" line="48"/>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertex at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdpage.h" line="91"/>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/cmdtext.h" line="342"/>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AIPlug</name>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="116"/>
+        <source>Importing: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="119"/>
+        <source>Analyzing File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="273"/>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importai.cpp" line="2190"/>
+        <source>Generating Items</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2065,12 +2066,12 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Bou-ID:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="140"/>
+        <location filename="../about.cpp" line="136"/>
         <source>&amp;About</source>
         <translation>&amp;Oor</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="158"/>
+        <location filename="../about.cpp" line="154"/>
         <source>Contributions from:</source>
         <translation>Bydraes vanaf:</translation>
     </message>
@@ -2080,7 +2081,7 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Windows-weergawe:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="211"/>
+        <location filename="../about.cpp" line="207"/>
         <source>A&amp;uthors</source>
         <translation>O&amp;uteurs</translation>
     </message>
@@ -2190,32 +2191,32 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Sweeds:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="387"/>
+        <location filename="../about.cpp" line="383"/>
         <source>&amp;Translations</source>
         <translation>Ver&amp;talings</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="408"/>
+        <location filename="../about.cpp" line="404"/>
         <source>&amp;Online</source>
         <translation>&amp;Aanlyn</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="427"/>
+        <location filename="../about.cpp" line="423"/>
         <source>&amp;Close</source>
         <translation>&amp;Sluit</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="146"/>
+        <location filename="../about.cpp" line="142"/>
         <source>Development Team:</source>
         <translation>Ontwikkelingspan:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="189"/>
+        <location filename="../about.cpp" line="185"/>
         <source>Official Documentation:</source>
         <translation>Offisiële dokumentasie:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="197"/>
+        <location filename="../about.cpp" line="193"/>
         <source>Other Documentation:</source>
         <translation>Ander dokumentasie:</translation>
     </message>
@@ -2225,32 +2226,32 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Engels (Brits):</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="393"/>
+        <location filename="../about.cpp" line="389"/>
         <source>Homepage</source>
         <translation>Tuisblad</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="395"/>
+        <location filename="../about.cpp" line="391"/>
         <source>Online Reference</source>
         <translation>Aanlyn handleiding</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="399"/>
+        <location filename="../about.cpp" line="395"/>
         <source>Bugs and Feature Requests</source>
         <translation>Foute en funksiewense</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="401"/>
+        <location filename="../about.cpp" line="397"/>
         <source>Mailing List</source>
         <translation>Poslys</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="48"/>
+        <location filename="../about.cpp" line="46"/>
         <source>About Scribus %1</source>
         <translation>Oor Scribus %1</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="219"/>
+        <location filename="../about.cpp" line="215"/>
         <source>Official Translations and Translators:</source>
         <translation>Amptelike vertalings en vertalers:</translation>
     </message>
@@ -2280,7 +2281,7 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
         <translation type="obsolete">Spaans:</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="346"/>
+        <location filename="../about.cpp" line="342"/>
         <source>Previous Translation Contributors:</source>
         <translation>Vorige vertalingsbydraers:</translation>
     </message>
@@ -2295,102 +2296,102 @@ Die C-C-T verwys na C=littlecms C=CUPS T=TIFF.
 Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="397"/>
+        <location filename="../about.cpp" line="393"/>
         <source>Wiki</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="75"/>
+        <location filename="../about.cpp" line="73"/>
         <source>%1 %2 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="83"/>
+        <location filename="../about.cpp" line="81"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="135"/>
+        <location filename="../about.cpp" line="131"/>
         <source>Using Ghostscript version %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="137"/>
+        <location filename="../about.cpp" line="133"/>
         <source>No Ghostscript version available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="138"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Build ID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="177"/>
+        <location filename="../about.cpp" line="173"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="185"/>
+        <location filename="../about.cpp" line="181"/>
         <source>Windows&amp;#174; Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="205"/>
+        <location filename="../about.cpp" line="201"/>
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="411"/>
+        <location filename="../about.cpp" line="407"/>
         <source>&amp;Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="415"/>
+        <location filename="../about.cpp" line="411"/>
         <source>Check for &amp;Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="440"/>
+        <location filename="../about.cpp" line="436"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="181"/>
+        <location filename="../about.cpp" line="177"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="202"/>
+        <location filename="../about.cpp" line="198"/>
         <source>Splash Screen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="436"/>
+        <location filename="../about.cpp" line="432"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="437"/>
+        <location filename="../about.cpp" line="433"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="438"/>
+        <location filename="../about.cpp" line="434"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="439"/>
+        <location filename="../about.cpp" line="435"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="138"/>
+        <location filename="../about.cpp" line="134"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../about.cpp" line="138"/>
+        <location filename="../about.cpp" line="134"/>
         <source>Scribus Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2464,57 +2465,57 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../actionmanager.cpp" line="1175"/>
+        <location filename="../actionmanager.cpp" line="1206"/>
         <source>&amp;New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1176"/>
+        <location filename="../actionmanager.cpp" line="1207"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Maak oop...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1177"/>
+        <location filename="../actionmanager.cpp" line="1208"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1178"/>
+        <location filename="../actionmanager.cpp" line="1209"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1179"/>
+        <location filename="../actionmanager.cpp" line="1210"/>
         <source>Save &amp;As...</source>
         <translation type="unfinished">Stoor &amp;as...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1180"/>
+        <location filename="../actionmanager.cpp" line="1211"/>
         <source>Re&amp;vert to Saved</source>
         <translation type="unfinished">Gaa&amp;n terug na gestoorde</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1181"/>
+        <location filename="../actionmanager.cpp" line="1212"/>
         <source>Collect for O&amp;utput...</source>
         <translation type="unfinished">Versamel vir &amp;uitvoer...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1182"/>
+        <location filename="../actionmanager.cpp" line="1213"/>
         <source>Get Text...</source>
         <translation type="unfinished">Teks verkrygen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1183"/>
+        <location filename="../actionmanager.cpp" line="1214"/>
         <source>Append &amp;Text...</source>
         <translation type="unfinished">Voeg teks &amp;toe...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1184"/>
+        <location filename="../actionmanager.cpp" line="1215"/>
         <source>Get Image...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1185"/>
+        <location filename="../actionmanager.cpp" line="1216"/>
         <source>Save &amp;Text...</source>
         <translation type="unfinished">Stoor &amp;teks...</translation>
     </message>
@@ -2524,52 +2525,52 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="obsolete">Bladsy stoor als &amp;EPS...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1187"/>
+        <location filename="../actionmanager.cpp" line="1218"/>
         <source>Save as P&amp;DF...</source>
         <translation type="unfinished">Stoor as P&amp;DF...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1188"/>
+        <location filename="../actionmanager.cpp" line="1219"/>
         <source>Document &amp;Setup...</source>
         <translation type="unfinished">Documentin&amp;stellingen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1190"/>
+        <location filename="../actionmanager.cpp" line="1221"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">Afdru&amp;kken...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1192"/>
+        <location filename="../actionmanager.cpp" line="1223"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">A&amp;fsluiten</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1194"/>
+        <location filename="../actionmanager.cpp" line="1225"/>
         <source>&amp;Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1195"/>
+        <location filename="../actionmanager.cpp" line="1226"/>
         <source>&amp;Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1196"/>
+        <location filename="../actionmanager.cpp" line="1227"/>
         <source>&amp;Item Action Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1197"/>
+        <location filename="../actionmanager.cpp" line="1228"/>
         <source>Cu&amp;t</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1200"/>
+        <location filename="../actionmanager.cpp" line="1231"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1201"/>
+        <location filename="../actionmanager.cpp" line="1232"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2579,27 +2580,27 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="obsolete">Maak Inhoud &amp;leeg</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1204"/>
+        <location filename="../actionmanager.cpp" line="1235"/>
         <source>Select &amp;All</source>
         <translation type="unfinished">&amp;Alles selecteren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1205"/>
+        <location filename="../actionmanager.cpp" line="1236"/>
         <source>&amp;Deselect All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1206"/>
+        <location filename="../actionmanager.cpp" line="1237"/>
         <source>&amp;Search/Replace...</source>
         <translation type="unfinished">&amp;Zoeken/vervangen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1207"/>
+        <location filename="../actionmanager.cpp" line="1238"/>
         <source>Edit Image...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1208"/>
+        <location filename="../actionmanager.cpp" line="1240"/>
         <source>C&amp;olors...</source>
         <translation type="unfinished">Kle&amp;uren...</translation>
     </message>
@@ -2614,7 +2615,7 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="obsolete">&amp;Lynstylen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1211"/>
+        <location filename="../actionmanager.cpp" line="1243"/>
         <source>&amp;Master Pages...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2624,87 +2625,87 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1189"/>
+        <location filename="../actionmanager.cpp" line="1220"/>
         <source>P&amp;references...</source>
         <translation type="unfinished">&amp;Voorkeuren...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1219"/>
+        <location filename="../actionmanager.cpp" line="1251"/>
         <source>%1 pt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1234"/>
+        <location filename="../actionmanager.cpp" line="1266"/>
         <source>&amp;Other...</source>
         <translation type="unfinished">&amp;Overig...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1222"/>
+        <location filename="../actionmanager.cpp" line="1254"/>
         <source>&amp;Left</source>
         <translation type="unfinished">&amp;Links</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1223"/>
+        <location filename="../actionmanager.cpp" line="1255"/>
         <source>&amp;Center</source>
         <translation type="unfinished">&amp;Midden</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1224"/>
+        <location filename="../actionmanager.cpp" line="1256"/>
         <source>&amp;Right</source>
         <translation type="unfinished">&amp;Regs</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1225"/>
+        <location filename="../actionmanager.cpp" line="1257"/>
         <source>&amp;Block</source>
         <translation type="unfinished">&amp;Blok</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1226"/>
+        <location filename="../actionmanager.cpp" line="1258"/>
         <source>&amp;Forced</source>
         <translation type="unfinished">Ge&amp;forceerd</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1231"/>
+        <location filename="../actionmanager.cpp" line="1263"/>
         <source>&amp;%1 %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1235"/>
+        <location filename="../actionmanager.cpp" line="1267"/>
         <source>&amp;Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1236"/>
+        <location filename="../actionmanager.cpp" line="1268"/>
         <source>&amp;Underline</source>
         <translation type="unfinished">&amp;Onderstreep</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1237"/>
+        <location filename="../actionmanager.cpp" line="1269"/>
         <source>Underline &amp;Words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1238"/>
+        <location filename="../actionmanager.cpp" line="1270"/>
         <source>&amp;Strike Through</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1239"/>
+        <location filename="../actionmanager.cpp" line="1271"/>
         <source>&amp;All Caps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1240"/>
+        <location filename="../actionmanager.cpp" line="1272"/>
         <source>Small &amp;Caps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1241"/>
+        <location filename="../actionmanager.cpp" line="1273"/>
         <source>Su&amp;perscript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1242"/>
+        <location filename="../actionmanager.cpp" line="1274"/>
         <source>Su&amp;bscript</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2714,172 +2715,172 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="obsolete">&amp;Outline</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1244"/>
+        <location filename="../actionmanager.cpp" line="1276"/>
         <source>S&amp;hadow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1246"/>
+        <location filename="../actionmanager.cpp" line="1278"/>
         <source>&amp;Image Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1247"/>
+        <location filename="../actionmanager.cpp" line="1279"/>
         <source>&amp;Tabulators...</source>
         <translation type="unfinished">&amp;Tabulators...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1250"/>
+        <location filename="../actionmanager.cpp" line="1282"/>
         <source>D&amp;uplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1251"/>
+        <location filename="../actionmanager.cpp" line="1283"/>
         <source>&amp;Multiple Duplicate</source>
         <translation type="unfinished">&amp;Meervoudig dupliceren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1252"/>
+        <location filename="../actionmanager.cpp" line="1284"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1253"/>
+        <location filename="../actionmanager.cpp" line="1285"/>
         <source>&amp;Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1254"/>
+        <location filename="../actionmanager.cpp" line="1286"/>
         <source>&amp;Ungroup</source>
         <translation type="unfinished">&amp;Groep losmaken</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1255"/>
+        <location filename="../actionmanager.cpp" line="1287"/>
         <source>Is &amp;Locked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1256"/>
+        <location filename="../actionmanager.cpp" line="1288"/>
         <source>Si&amp;ze is Locked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1260"/>
+        <location filename="../actionmanager.cpp" line="1292"/>
         <source>Lower to &amp;Bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1261"/>
+        <location filename="../actionmanager.cpp" line="1293"/>
         <source>Raise to &amp;Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1262"/>
+        <location filename="../actionmanager.cpp" line="1294"/>
         <source>&amp;Lower</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1263"/>
+        <location filename="../actionmanager.cpp" line="1295"/>
         <source>&amp;Raise</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1264"/>
+        <location filename="../actionmanager.cpp" line="1296"/>
         <source>Send to S&amp;crapbook</source>
         <translation type="unfinished">Stuur na &amp;kladblok</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1266"/>
+        <location filename="../actionmanager.cpp" line="1298"/>
         <source>&amp;Attributes...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1268"/>
+        <location filename="../actionmanager.cpp" line="1300"/>
         <source>I&amp;mage Visible</source>
         <translation type="unfinished">P&amp;rent sigbaar</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1269"/>
+        <location filename="../actionmanager.cpp" line="1301"/>
         <source>&amp;Update Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1270"/>
+        <location filename="../actionmanager.cpp" line="1302"/>
         <source>Adjust Frame to Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1271"/>
+        <location filename="../actionmanager.cpp" line="1303"/>
         <source>Extended Image Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1272"/>
+        <location filename="../actionmanager.cpp" line="1304"/>
         <source>&amp;Low Resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1273"/>
+        <location filename="../actionmanager.cpp" line="1305"/>
         <source>&amp;Normal Resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1274"/>
+        <location filename="../actionmanager.cpp" line="1306"/>
         <source>&amp;Full Resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1275"/>
+        <location filename="../actionmanager.cpp" line="1307"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation type="unfinished">Dit is &apos;n PDF-&amp;boekmerk</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1276"/>
+        <location filename="../actionmanager.cpp" line="1308"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation type="unfinished">Dit is &apos;n PDF-a&amp;nnotasie</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1277"/>
+        <location filename="../actionmanager.cpp" line="1309"/>
         <source>Annotation P&amp;roperties</source>
         <translation type="unfinished">&amp;Eienskappe van annotasie</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1278"/>
+        <location filename="../actionmanager.cpp" line="1310"/>
         <source>Field P&amp;roperties</source>
         <translation type="unfinished">&amp;Veldeienskappe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1279"/>
+        <location filename="../actionmanager.cpp" line="1311"/>
         <source>&amp;Edit Shape...</source>
         <translation type="unfinished">&amp;Bewerk Vorm...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1280"/>
+        <location filename="../actionmanager.cpp" line="1312"/>
         <source>&amp;Attach Text to Path</source>
         <translation type="unfinished">Teks &amp;aan pad toevoegen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1281"/>
+        <location filename="../actionmanager.cpp" line="1313"/>
         <source>&amp;Detach Text from Path</source>
         <translation type="unfinished">Teks van &amp;pad losmaken</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1282"/>
+        <location filename="../actionmanager.cpp" line="1314"/>
         <source>&amp;Combine Polygons</source>
         <translation type="unfinished">Polygonen &amp;samenvoegen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1283"/>
+        <location filename="../actionmanager.cpp" line="1315"/>
         <source>Split &amp;Polygons</source>
         <translation type="unfinished">&amp;Polygonen opsplitsen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1355"/>
+        <location filename="../actionmanager.cpp" line="1316"/>
         <source>&amp;Bezier Curve</source>
         <translation type="unfinished">&amp;Bezierkurwe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1350"/>
+        <location filename="../actionmanager.cpp" line="1317"/>
         <source>&amp;Image Frame</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2889,82 +2890,82 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="obsolete">&amp;Buitelyne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1353"/>
+        <location filename="../actionmanager.cpp" line="1319"/>
         <source>&amp;Polygon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1349"/>
+        <location filename="../actionmanager.cpp" line="1320"/>
         <source>&amp;Text Frame</source>
         <translation type="unfinished">&amp;Teksraam</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1292"/>
+        <location filename="../actionmanager.cpp" line="1324"/>
         <source>&amp;Glyph...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1293"/>
+        <location filename="../actionmanager.cpp" line="1325"/>
         <source>Sample Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1297"/>
+        <location filename="../actionmanager.cpp" line="1329"/>
         <source>&amp;Insert...</source>
         <translation type="unfinished">&amp;Invoegen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1298"/>
+        <location filename="../actionmanager.cpp" line="1330"/>
         <source>Im&amp;port...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1299"/>
+        <location filename="../actionmanager.cpp" line="1331"/>
         <source>&amp;Delete...</source>
         <translation type="unfinished">Verwy&amp;deren...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1300"/>
+        <location filename="../actionmanager.cpp" line="1332"/>
         <source>&amp;Copy...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1301"/>
+        <location filename="../actionmanager.cpp" line="1333"/>
         <source>&amp;Move...</source>
         <translation type="unfinished">&amp;Verplaatsen...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1302"/>
+        <location filename="../actionmanager.cpp" line="1334"/>
         <source>&amp;Apply Master Page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1304"/>
+        <location filename="../actionmanager.cpp" line="1336"/>
         <source>Manage &amp;Guides...</source>
         <translation type="unfinished">&amp;Hulplynen beheren...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1305"/>
+        <location filename="../actionmanager.cpp" line="1337"/>
         <source>Manage Page Properties...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1310"/>
+        <location filename="../actionmanager.cpp" line="1342"/>
         <source>&amp;50%</source>
         <translation type="unfinished">&amp;50%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1311"/>
+        <location filename="../actionmanager.cpp" line="1343"/>
         <source>&amp;75%</source>
         <translation type="unfinished">&amp;75%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1312"/>
+        <location filename="../actionmanager.cpp" line="1344"/>
         <source>&amp;100%</source>
         <translation type="unfinished">&amp;100%</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1313"/>
+        <location filename="../actionmanager.cpp" line="1345"/>
         <source>&amp;200%</source>
         <translation type="unfinished">&amp;200%</translation>
     </message>
@@ -2974,755 +2975,770 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <translation type="obsolete">Minia&amp;turen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1316"/>
+        <location filename="../actionmanager.cpp" line="1348"/>
         <source>Show &amp;Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1318"/>
+        <location filename="../actionmanager.cpp" line="1350"/>
         <source>Show &amp;Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1320"/>
+        <location filename="../actionmanager.cpp" line="1352"/>
         <source>Show &amp;Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1321"/>
+        <location filename="../actionmanager.cpp" line="1353"/>
         <source>Show &amp;Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1322"/>
+        <location filename="../actionmanager.cpp" line="1354"/>
         <source>Show G&amp;uides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1324"/>
+        <location filename="../actionmanager.cpp" line="1356"/>
         <source>Show &amp;Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1325"/>
+        <location filename="../actionmanager.cpp" line="1357"/>
         <source>Show &amp;Text Chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1326"/>
+        <location filename="../actionmanager.cpp" line="1358"/>
         <source>Show Control Characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1328"/>
+        <location filename="../actionmanager.cpp" line="1360"/>
         <source>Rulers relative to Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1329"/>
+        <location filename="../actionmanager.cpp" line="1361"/>
         <source>Sn&amp;ap to Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1330"/>
+        <location filename="../actionmanager.cpp" line="1362"/>
         <source>Sna&amp;p to Guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1334"/>
+        <location filename="../actionmanager.cpp" line="1366"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Eienskappe</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1336"/>
+        <location filename="../actionmanager.cpp" line="1368"/>
         <source>&amp;Scrapbook</source>
         <translation type="unfinished">&amp;Kladblok</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1337"/>
+        <location filename="../actionmanager.cpp" line="1369"/>
         <source>&amp;Layers</source>
         <translation type="unfinished">&amp;Lagen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1338"/>
+        <location filename="../actionmanager.cpp" line="1370"/>
         <source>&amp;Arrange Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1339"/>
+        <location filename="../actionmanager.cpp" line="1371"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Bladwyzers</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1340"/>
+        <location filename="../actionmanager.cpp" line="1372"/>
         <source>&amp;Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1341"/>
+        <location filename="../actionmanager.cpp" line="1373"/>
         <source>Action &amp;History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1342"/>
+        <location filename="../actionmanager.cpp" line="1374"/>
         <source>Preflight &amp;Verifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1343"/>
+        <location filename="../actionmanager.cpp" line="1375"/>
         <source>&amp;Align and Distribute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1344"/>
+        <location filename="../actionmanager.cpp" line="1376"/>
         <source>&amp;Tools</source>
         <translation type="unfinished">&amp;Gereedschappen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1345"/>
+        <location filename="../actionmanager.cpp" line="1377"/>
         <source>P&amp;DF Tools</source>
         <translation type="unfinished">P&amp;DF-gereedschappen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1348"/>
+        <location filename="../actionmanager.cpp" line="1380"/>
         <source>Select Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1351"/>
-        <source>T&amp;able</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1352"/>
         <source>&amp;Shape</source>
-        <translation type="unfinished">&amp;Vorm</translation>
+        <translation type="obsolete">&amp;Vorm</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1354"/>
         <source>&amp;Line</source>
-        <translation type="unfinished">&amp;Lyn</translation>
+        <translation type="obsolete">&amp;Lyn</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1356"/>
-        <source>&amp;Freehand Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1357"/>
+        <location filename="../actionmanager.cpp" line="1381"/>
         <source>Rotate Item</source>
         <translation type="unfinished">Item roteren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1358"/>
+        <location filename="../actionmanager.cpp" line="1382"/>
         <source>Zoom in or out</source>
         <translation type="unfinished">In- of uitzoomen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1359"/>
+        <location filename="../actionmanager.cpp" line="1383"/>
         <source>Zoom in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1360"/>
+        <location filename="../actionmanager.cpp" line="1384"/>
         <source>Zoom out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1361"/>
+        <location filename="../actionmanager.cpp" line="1385"/>
         <source>Edit Contents of Frame</source>
         <translation type="unfinished">Inhoud van raam bewerken</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1362"/>
+        <location filename="../actionmanager.cpp" line="1386"/>
         <source>Edit Text...</source>
         <translation type="unfinished">Bewerk Teks...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1363"/>
+        <location filename="../actionmanager.cpp" line="1387"/>
         <source>Link Text Frames</source>
         <translation type="unfinished">Teksrame koppelen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1364"/>
+        <location filename="../actionmanager.cpp" line="1388"/>
         <source>Unlink Text Frames</source>
         <translation type="unfinished">Teksrame loskoppelen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1365"/>
+        <location filename="../actionmanager.cpp" line="1389"/>
         <source>&amp;Eye Dropper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1366"/>
+        <location filename="../actionmanager.cpp" line="1390"/>
         <source>Copy Item Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1368"/>
         <source>Edit the text with the Story Editor</source>
-        <translation type="unfinished">Teks met de story-editor bewerken</translation>
+        <translation type="obsolete">Teks met de story-editor bewerken</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1370"/>
         <source>Insert Text Frame</source>
-        <translation type="unfinished">Teksraam invoegen</translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1371"/>
-        <source>Insert Image Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1372"/>
-        <source>Insert Table</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1373"/>
-        <source>Insert Shape</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1374"/>
-        <source>Insert Polygon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1375"/>
-        <source>Insert Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1376"/>
-        <source>Insert Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Teksraam invoegen</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1377"/>
         <source>Insert Freehand Line</source>
-        <translation type="unfinished">Vryehand-curve invoegen</translation>
+        <translation type="obsolete">Vryehand-curve invoegen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1389"/>
+        <location filename="../actionmanager.cpp" line="1412"/>
         <source>&amp;Manage Pictures</source>
         <translation type="unfinished">Prente &amp;beheren</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1390"/>
+        <location filename="../actionmanager.cpp" line="1413"/>
         <source>&amp;Hyphenate Text</source>
         <translation type="unfinished">Teks a&amp;fbreken</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1391"/>
+        <location filename="../actionmanager.cpp" line="1414"/>
         <source>Dehyphenate Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1392"/>
+        <location filename="../actionmanager.cpp" line="1415"/>
         <source>&amp;Generate Table Of Contents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1399"/>
+        <location filename="../actionmanager.cpp" line="1422"/>
         <source>&amp;About Scribus</source>
         <translation type="unfinished">&amp;Info over Scribus</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1401"/>
+        <location filename="../actionmanager.cpp" line="1424"/>
         <source>About &amp;Qt</source>
         <translation type="unfinished">Info over &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1402"/>
+        <location filename="../actionmanager.cpp" line="1425"/>
         <source>Toolti&amp;ps</source>
         <translation type="unfinished">Hul&amp;pballonnen</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1403"/>
+        <location filename="../actionmanager.cpp" line="1426"/>
         <source>Scribus &amp;Manual...</source>
         <translation type="unfinished">Scribus &amp;handboek...</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1415"/>
+        <location filename="../actionmanager.cpp" line="1443"/>
         <source>Smart &amp;Hyphen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1416"/>
+        <location filename="../actionmanager.cpp" line="1444"/>
         <source>Non Breaking Dash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1417"/>
+        <location filename="../actionmanager.cpp" line="1445"/>
         <source>Non Breaking &amp;Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1418"/>
+        <location filename="../actionmanager.cpp" line="1446"/>
         <source>Page &amp;Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1465"/>
+        <location filename="../actionmanager.cpp" line="1447"/>
         <source>New Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1466"/>
+        <location filename="../actionmanager.cpp" line="1448"/>
         <source>Frame Break</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1467"/>
+        <location filename="../actionmanager.cpp" line="1449"/>
         <source>Column Break</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1424"/>
+        <location filename="../actionmanager.cpp" line="1452"/>
         <source>Copyright</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1425"/>
+        <location filename="../actionmanager.cpp" line="1453"/>
         <source>Registered Trademark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1426"/>
+        <location filename="../actionmanager.cpp" line="1454"/>
         <source>Trademark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1428"/>
+        <location filename="../actionmanager.cpp" line="1456"/>
         <source>Bullet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1430"/>
+        <location filename="../actionmanager.cpp" line="1458"/>
         <source>Em Dash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1431"/>
+        <location filename="../actionmanager.cpp" line="1459"/>
         <source>En Dash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1432"/>
+        <location filename="../actionmanager.cpp" line="1460"/>
         <source>Figure Dash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1433"/>
+        <location filename="../actionmanager.cpp" line="1461"/>
         <source>Quotation Dash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1406"/>
+        <location filename="../actionmanager.cpp" line="1433"/>
         <source>Toggle Palettes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1407"/>
+        <location filename="../actionmanager.cpp" line="1434"/>
         <source>Toggle Guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1191"/>
+        <location filename="../actionmanager.cpp" line="1222"/>
         <source>Print Previe&amp;w</source>
         <translation type="unfinished">Druk&amp;voorbeeld</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1212"/>
+        <location filename="../actionmanager.cpp" line="1244"/>
         <source>&amp;JavaScripts...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1303"/>
+        <location filename="../actionmanager.cpp" line="1335"/>
         <source>Convert to Master Page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1395"/>
+        <location filename="../actionmanager.cpp" line="1418"/>
         <source>&amp;Cascade</source>
         <translation type="unfinished">&amp;Trapsgewys</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1396"/>
+        <location filename="../actionmanager.cpp" line="1419"/>
         <source>&amp;Tile</source>
         <translation type="unfinished">&amp;Tegels</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1400"/>
+        <location filename="../actionmanager.cpp" line="1423"/>
         <source>&amp;About Plug-ins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1267"/>
+        <location filename="../actionmanager.cpp" line="1299"/>
         <source>More Info...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1257"/>
+        <location filename="../actionmanager.cpp" line="1289"/>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1258"/>
+        <location filename="../actionmanager.cpp" line="1290"/>
         <source>&amp;Flip Horizontally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1259"/>
+        <location filename="../actionmanager.cpp" line="1291"/>
         <source>&amp;Flip Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1327"/>
+        <location filename="../actionmanager.cpp" line="1359"/>
         <source>Show Rulers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1335"/>
+        <location filename="../actionmanager.cpp" line="1367"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation type="unfinished">&amp;Outline</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1427"/>
+        <location filename="../actionmanager.cpp" line="1455"/>
         <source>Solidus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1429"/>
+        <location filename="../actionmanager.cpp" line="1457"/>
         <source>Middle Dot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1454"/>
+        <location filename="../actionmanager.cpp" line="1482"/>
         <source>En Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1455"/>
+        <location filename="../actionmanager.cpp" line="1483"/>
         <source>Em Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1456"/>
+        <location filename="../actionmanager.cpp" line="1484"/>
         <source>Thin Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1457"/>
+        <location filename="../actionmanager.cpp" line="1485"/>
         <source>Thick Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1458"/>
+        <location filename="../actionmanager.cpp" line="1486"/>
         <source>Mid Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1459"/>
+        <location filename="../actionmanager.cpp" line="1487"/>
         <source>Hair Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1461"/>
-        <source>Insert Smart Hyphen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1462"/>
-        <source>Insert Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../actionmanager.cpp" line="1463"/>
-        <source>Insert Non Breaking Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1464"/>
         <source>Insert Page Number</source>
-        <translation type="unfinished">Voeg bladsynommer in</translation>
+        <translation type="obsolete">Voeg bladsynommer in</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1471"/>
+        <location filename="../actionmanager.cpp" line="1499"/>
         <source>ff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1472"/>
+        <location filename="../actionmanager.cpp" line="1500"/>
         <source>fi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1473"/>
+        <location filename="../actionmanager.cpp" line="1501"/>
         <source>fl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1474"/>
+        <location filename="../actionmanager.cpp" line="1502"/>
         <source>ffi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1475"/>
+        <location filename="../actionmanager.cpp" line="1503"/>
         <source>ffl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1476"/>
+        <location filename="../actionmanager.cpp" line="1504"/>
         <source>ft</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1477"/>
+        <location filename="../actionmanager.cpp" line="1505"/>
         <source>st</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1210"/>
+        <location filename="../actionmanager.cpp" line="1242"/>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1243"/>
+        <location filename="../actionmanager.cpp" line="1275"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation type="unfinished">&amp;Outline</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1286"/>
+        <location filename="../actionmanager.cpp" line="1318"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Buitelyne</translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1202"/>
+        <location filename="../actionmanager.cpp" line="1233"/>
         <source>Paste (&amp;Absolute)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1203"/>
+        <location filename="../actionmanager.cpp" line="1234"/>
         <source>C&amp;lear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1379"/>
+        <location filename="../actionmanager.cpp" line="1402"/>
         <source>Insert PDF Push Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1380"/>
+        <location filename="../actionmanager.cpp" line="1403"/>
         <source>Insert PDF Text Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1381"/>
+        <location filename="../actionmanager.cpp" line="1404"/>
         <source>Insert PDF Check Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1382"/>
+        <location filename="../actionmanager.cpp" line="1405"/>
         <source>Insert PDF Combo Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1383"/>
+        <location filename="../actionmanager.cpp" line="1406"/>
         <source>Insert PDF List Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1384"/>
+        <location filename="../actionmanager.cpp" line="1407"/>
         <source>Insert Text Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1385"/>
+        <location filename="../actionmanager.cpp" line="1408"/>
         <source>Insert Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1186"/>
+        <location filename="../actionmanager.cpp" line="1217"/>
         <source>Save as &amp;EPS...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1323"/>
+        <location filename="../actionmanager.cpp" line="1355"/>
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1291"/>
+        <location filename="../actionmanager.cpp" line="1323"/>
         <source>&amp;Frame...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1315"/>
+        <location filename="../actionmanager.cpp" line="1347"/>
         <source>Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1319"/>
+        <location filename="../actionmanager.cpp" line="1351"/>
         <source>Show Layer Indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1209"/>
+        <location filename="../actionmanager.cpp" line="1241"/>
         <source>Patterns...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1265"/>
+        <location filename="../actionmanager.cpp" line="1297"/>
         <source>Send to Patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1294"/>
+        <location filename="../actionmanager.cpp" line="1326"/>
         <source>Sticky Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1308"/>
+        <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Fit to Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1309"/>
+        <location filename="../actionmanager.cpp" line="1341"/>
         <source>Fit to Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1317"/>
+        <location filename="../actionmanager.cpp" line="1349"/>
         <source>Show Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1468"/>
+        <location filename="../actionmanager.cpp" line="1450"/>
         <source>&amp;Zero Width Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1469"/>
+        <location filename="../actionmanager.cpp" line="1451"/>
         <source>Zero Width NB Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1435"/>
+        <location filename="../actionmanager.cpp" line="1463"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1436"/>
+        <location filename="../actionmanager.cpp" line="1464"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1437"/>
+        <location filename="../actionmanager.cpp" line="1465"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1438"/>
+        <location filename="../actionmanager.cpp" line="1466"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1439"/>
+        <location filename="../actionmanager.cpp" line="1467"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1440"/>
+        <location filename="../actionmanager.cpp" line="1468"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1441"/>
+        <location filename="../actionmanager.cpp" line="1469"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1442"/>
+        <location filename="../actionmanager.cpp" line="1470"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1443"/>
+        <location filename="../actionmanager.cpp" line="1471"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1444"/>
+        <location filename="../actionmanager.cpp" line="1472"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1445"/>
+        <location filename="../actionmanager.cpp" line="1473"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1446"/>
+        <location filename="../actionmanager.cpp" line="1474"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1447"/>
+        <location filename="../actionmanager.cpp" line="1475"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1448"/>
+        <location filename="../actionmanager.cpp" line="1476"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1449"/>
+        <location filename="../actionmanager.cpp" line="1477"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1450"/>
+        <location filename="../actionmanager.cpp" line="1478"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1451"/>
+        <location filename="../actionmanager.cpp" line="1479"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1452"/>
+        <location filename="../actionmanager.cpp" line="1480"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../actionmanager.cpp" line="1314"/>
+        <location filename="../actionmanager.cpp" line="1346"/>
         <source>&amp;400%</source>
         <translation type="unfinished">&amp;200% {400%?}</translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1239"/>
+        <source>Edit Latex Source...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1392"/>
+        <source>Insert &amp;Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1393"/>
+        <source>Insert &amp;Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1394"/>
+        <source>Insert &amp;Latex Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1395"/>
+        <source>Insert T&amp;able</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1396"/>
+        <source>Insert &amp;Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1397"/>
+        <source>Insert &amp;Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1398"/>
+        <source>Insert &amp;Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1399"/>
+        <source>Insert &amp;Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1400"/>
+        <source>Insert &amp;Freehand Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1427"/>
+        <source>Scribus Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1428"/>
+        <source>Scribus Online Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1429"/>
+        <source>Scribus Wiki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../actionmanager.cpp" line="1430"/>
+        <source>Getting Started with Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3986,202 +4002,202 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../aligndistribute.cpp" line="81"/>
+        <location filename="../aligndistribute.cpp" line="79"/>
         <source>Align and Distribute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="82"/>
+        <location filename="../aligndistribute.cpp" line="80"/>
         <source>Align</source>
         <translation type="unfinished">Skouer</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="84"/>
+        <location filename="../aligndistribute.cpp" line="82"/>
         <source>&amp;Relative to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="87"/>
+        <location filename="../aligndistribute.cpp" line="85"/>
         <source>First Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="88"/>
+        <location filename="../aligndistribute.cpp" line="86"/>
         <source>Last Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="89"/>
+        <location filename="../aligndistribute.cpp" line="87"/>
         <source>Page</source>
         <translation type="unfinished">Bladsy</translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="90"/>
+        <location filename="../aligndistribute.cpp" line="88"/>
         <source>Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="91"/>
+        <location filename="../aligndistribute.cpp" line="89"/>
         <source>Guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="92"/>
+        <location filename="../aligndistribute.cpp" line="90"/>
         <source>Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="100"/>
+        <location filename="../aligndistribute.cpp" line="98"/>
         <source>Align bottoms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="102"/>
+        <location filename="../aligndistribute.cpp" line="100"/>
         <source>Align right sides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="106"/>
+        <location filename="../aligndistribute.cpp" line="104"/>
         <source>Center on vertical axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="108"/>
+        <location filename="../aligndistribute.cpp" line="106"/>
         <source>Align left sides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="110"/>
+        <location filename="../aligndistribute.cpp" line="108"/>
         <source>Center on horizontal axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="114"/>
+        <location filename="../aligndistribute.cpp" line="112"/>
         <source>Align tops</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="116"/>
+        <location filename="../aligndistribute.cpp" line="114"/>
         <source>&amp;Selected Guide:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="124"/>
+        <location filename="../aligndistribute.cpp" line="122"/>
         <source>Distribute right sides equidistantly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="126"/>
+        <location filename="../aligndistribute.cpp" line="124"/>
         <source>Distribute bottoms equidistantly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="128"/>
+        <location filename="../aligndistribute.cpp" line="126"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="134"/>
+        <location filename="../aligndistribute.cpp" line="132"/>
         <source>Distribute left sides equidistantly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="136"/>
+        <location filename="../aligndistribute.cpp" line="134"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="138"/>
+        <location filename="../aligndistribute.cpp" line="136"/>
         <source>Distribute tops equidistantly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="148"/>
+        <location filename="../aligndistribute.cpp" line="146"/>
         <source>&amp;Distance:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="149"/>
+        <location filename="../aligndistribute.cpp" line="147"/>
         <source>Distribute the items with the distance specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="151"/>
+        <location filename="../aligndistribute.cpp" line="149"/>
         <source>None Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="431"/>
+        <location filename="../aligndistribute.cpp" line="429"/>
         <source>Y: %1%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="439"/>
+        <location filename="../aligndistribute.cpp" line="437"/>
         <source>X: %1%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="96"/>
+        <location filename="../aligndistribute.cpp" line="94"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="98"/>
+        <location filename="../aligndistribute.cpp" line="96"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="104"/>
+        <location filename="../aligndistribute.cpp" line="102"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="112"/>
+        <location filename="../aligndistribute.cpp" line="110"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="119"/>
+        <location filename="../aligndistribute.cpp" line="117"/>
         <source>Make horizontal gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="121"/>
+        <location filename="../aligndistribute.cpp" line="119"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="130"/>
+        <location filename="../aligndistribute.cpp" line="128"/>
         <source>Make vertical gaps between items equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="132"/>
+        <location filename="../aligndistribute.cpp" line="130"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="140"/>
+        <location filename="../aligndistribute.cpp" line="138"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="146"/>
+        <location filename="../aligndistribute.cpp" line="144"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="144"/>
+        <location filename="../aligndistribute.cpp" line="142"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="142"/>
+        <location filename="../aligndistribute.cpp" line="140"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aligndistribute.cpp" line="83"/>
+        <location filename="../aligndistribute.cpp" line="81"/>
         <source>Distribute</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4189,27 +4205,27 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
 <context>
     <name>AlignSelect</name>
     <message>
-        <location filename="../alignselect.cpp" line="101"/>
+        <location filename="../alignselect.cpp" line="100"/>
         <source>Align Text Left</source>
         <translation>Teks links skouer</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="102"/>
+        <location filename="../alignselect.cpp" line="101"/>
         <source>Align Text Right</source>
         <translation>Teks regs skouer</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="103"/>
+        <location filename="../alignselect.cpp" line="102"/>
         <source>Align Text Center</source>
         <translation>Teks sentreer</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="104"/>
+        <location filename="../alignselect.cpp" line="103"/>
         <source>Align Text Justified</source>
         <translation>Teks dubbelskouer</translation>
     </message>
     <message>
-        <location filename="../alignselect.cpp" line="105"/>
+        <location filename="../alignselect.cpp" line="104"/>
         <source>Align Text Forced Justified</source>
         <translation>Teks geforseerd dubbelskouer</translation>
     </message>
@@ -4217,47 +4233,47 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
 <context>
     <name>Annot</name>
     <message>
-        <location filename="../annot.cpp" line="59"/>
+        <location filename="../annot.cpp" line="61"/>
         <source>Field Properties</source>
         <translation>Veldeienskappe</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="532"/>
+        <location filename="../annot.cpp" line="534"/>
         <source>Type:</source>
         <translation>Tipe:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Button</source>
         <translation>Knop</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Text Field</source>
         <translation>Teksveld</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Check Box</source>
         <translation>Keusevakkie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>Combo Box</source>
         <translation>Komboboks</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="94"/>
+        <location filename="../annot.cpp" line="96"/>
         <source>List Box</source>
         <translation>Lys</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="109"/>
+        <location filename="../annot.cpp" line="111"/>
         <source>Properties</source>
         <translation>Eienskappe</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="119"/>
+        <location filename="../annot.cpp" line="121"/>
         <source>Name:</source>
         <translation>Naam:</translation>
     </message>
@@ -4267,92 +4283,92 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <translation type="obsolete">Hulpballon:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="273"/>
+        <location filename="../annot.cpp" line="275"/>
         <source>Text</source>
         <translation>Teks</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="150"/>
+        <location filename="../annot.cpp" line="152"/>
         <source>Font for use with PDF 1.3:</source>
         <translation>Lettertipe vir PDF 1.3:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="174"/>
+        <location filename="../annot.cpp" line="176"/>
         <source>Border</source>
         <translation>Rand</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="180"/>
+        <location filename="../annot.cpp" line="182"/>
         <source>Color:</source>
         <translation>Kleur:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2077"/>
+        <location filename="../annot.cpp" line="2079"/>
         <source>None</source>
         <translation>Geen</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="196"/>
+        <location filename="../annot.cpp" line="198"/>
         <source>Width:</source>
         <translation>Breedte:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="200"/>
+        <location filename="../annot.cpp" line="202"/>
         <source>Thin</source>
         <translation>Smal</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="310"/>
+        <location filename="../annot.cpp" line="312"/>
         <source>Normal</source>
         <translation>Normaal</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="200"/>
+        <location filename="../annot.cpp" line="202"/>
         <source>Wide</source>
         <translation>Breed</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="208"/>
+        <location filename="../annot.cpp" line="210"/>
         <source>Style:</source>
         <translation>Styl:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Solid</source>
         <translation>Solied</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Dashed</source>
         <translation>Gestreep</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="212"/>
+        <location filename="../annot.cpp" line="214"/>
         <source>Underline</source>
         <translation>Onderstreep</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="213"/>
+        <location filename="../annot.cpp" line="215"/>
         <source>Beveled</source>
         <translation>Afgeskuins</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="213"/>
+        <location filename="../annot.cpp" line="215"/>
         <source>Inset</source>
         <translation>Inlêend</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="223"/>
+        <location filename="../annot.cpp" line="225"/>
         <source>Other</source>
         <translation>Ander</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="229"/>
+        <location filename="../annot.cpp" line="231"/>
         <source>Read Only</source>
         <translation>Lees-alleen</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="235"/>
+        <location filename="../annot.cpp" line="237"/>
         <source>Required</source>
         <translation>Vereis</translation>
     </message>
@@ -4362,172 +4378,172 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <translation type="obsolete">Waarde nie uitvoer nie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="247"/>
+        <location filename="../annot.cpp" line="249"/>
         <source>Visibility:</source>
         <translation>Sigbaarheid:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>Visible</source>
         <translation>Sigbaar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>Hidden</source>
         <translation>Onsigbaar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="251"/>
+        <location filename="../annot.cpp" line="253"/>
         <source>No Print</source>
         <translation>Nie druk</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="252"/>
+        <location filename="../annot.cpp" line="254"/>
         <source>No View</source>
         <translation>Nie weergee nie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="261"/>
+        <location filename="../annot.cpp" line="263"/>
         <source>Appearance</source>
         <translation>Voorkoms</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="279"/>
+        <location filename="../annot.cpp" line="281"/>
         <source>Text for Button Down</source>
         <translation>Teks vir gedrukte knop</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="282"/>
+        <location filename="../annot.cpp" line="284"/>
         <source>Text for Roll Over</source>
         <translation>Teks vir muis-oor</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="293"/>
+        <location filename="../annot.cpp" line="295"/>
         <source>Icons</source>
         <translation>Ikone</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="299"/>
+        <location filename="../annot.cpp" line="301"/>
         <source>Use Icons</source>
         <translation>Gebruik Ikone</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="356"/>
+        <location filename="../annot.cpp" line="358"/>
         <source>Remove</source>
         <translation>Verwyder</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="328"/>
+        <location filename="../annot.cpp" line="330"/>
         <source>Pressed</source>
         <translation>Ingedruk</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="346"/>
+        <location filename="../annot.cpp" line="348"/>
         <source>Roll Over</source>
         <translation>Muis-oor</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="365"/>
+        <location filename="../annot.cpp" line="367"/>
         <source>Icon Placement...</source>
         <translation>Plaatsing van ikoon...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="413"/>
+        <location filename="../annot.cpp" line="415"/>
         <source>Highlight</source>
         <translation>Beklemtoon</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Invert</source>
         <translation>Keerom</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Outlined</source>
         <translation>Buitelyn</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>Push</source>
         <translation>Druk</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="437"/>
+        <location filename="../annot.cpp" line="439"/>
         <source>Multi-Line</source>
         <translation>Meerlynig</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="441"/>
+        <location filename="../annot.cpp" line="443"/>
         <source>Password</source>
         <translation>Wagwoord</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="448"/>
+        <location filename="../annot.cpp" line="450"/>
         <source>Limit of</source>
         <translation>Limiet van</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="459"/>
+        <location filename="../annot.cpp" line="461"/>
         <source>Characters</source>
         <translation>Karakters</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="465"/>
+        <location filename="../annot.cpp" line="467"/>
         <source>Do Not Scroll</source>
         <translation>Moenie skuif nie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="469"/>
+        <location filename="../annot.cpp" line="471"/>
         <source>Do Not Spell Check</source>
         <translation>Geen spellingkontrole</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="484"/>
+        <location filename="../annot.cpp" line="486"/>
         <source>Check Style:</source>
         <translation>Kontroleer styl:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Check</source>
         <translation>Kontroleer</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Cross</source>
         <translation>Kruis</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Diamond</source>
         <translation>Diamant</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Circle</source>
         <translation>Sirkel</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Star</source>
         <translation>Ster</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="487"/>
+        <location filename="../annot.cpp" line="489"/>
         <source>Square</source>
         <translation>Vierkant</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="501"/>
+        <location filename="../annot.cpp" line="503"/>
         <source>Default is Checked</source>
         <translation>Verstek is gekeis</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="513"/>
+        <location filename="../annot.cpp" line="515"/>
         <source>Editable</source>
         <translation>Bewerkbaar</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="520"/>
+        <location filename="../annot.cpp" line="522"/>
         <source>Options</source>
         <translation>Opsies</translation>
     </message>
@@ -4537,327 +4553,327 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <translation type="obsolete">Javascript</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2040"/>
+        <location filename="../annot.cpp" line="2042"/>
         <source>Go To</source>
         <translation>Gaan na</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Submit Form</source>
         <translation>Stuur vorm</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Reset Form</source>
         <translation>Maak vorm skoon</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2041"/>
+        <location filename="../annot.cpp" line="2043"/>
         <source>Import Data</source>
         <translation>Voer data in</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="569"/>
+        <location filename="../annot.cpp" line="571"/>
         <source>Event:</source>
         <translation>Gebeurtenis:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Up</source>
         <translation>Muisknop hoog</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Down</source>
         <translation>Muisknop laag</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2020"/>
+        <location filename="../annot.cpp" line="2022"/>
         <source>Mouse Enter</source>
         <translation>Muis kom oor</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>Mouse Exit</source>
         <translation>Muis gaan weg</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>On Focus</source>
         <translation>Met fokus</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2021"/>
+        <location filename="../annot.cpp" line="2023"/>
         <source>On Blur</source>
         <translation>Met verlaat van fokus</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="584"/>
+        <location filename="../annot.cpp" line="586"/>
         <source>Script:</source>
         <translation>Script:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1088"/>
+        <location filename="../annot.cpp" line="1090"/>
         <source>Edit...</source>
         <translation>Bewerk...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="663"/>
+        <location filename="../annot.cpp" line="665"/>
         <source>Submit to URL:</source>
         <translation>Stuur na URL:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="671"/>
+        <location filename="../annot.cpp" line="673"/>
         <source>Submit Data as HTML</source>
         <translation>Stuur data as HTML</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="684"/>
+        <location filename="../annot.cpp" line="686"/>
         <source>Import Data from:</source>
         <translation>Voer data in vanaf:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="609"/>
+        <location filename="../annot.cpp" line="611"/>
         <source>Destination</source>
         <translation>Bestemming</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="615"/>
+        <location filename="../annot.cpp" line="617"/>
         <source>To File:</source>
         <translation>Na lêer:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="622"/>
+        <location filename="../annot.cpp" line="624"/>
         <source>Change...</source>
         <translation>Wysig...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="625"/>
+        <location filename="../annot.cpp" line="627"/>
         <source>Page:</source>
         <translation>Bladsy:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="639"/>
+        <location filename="../annot.cpp" line="641"/>
         <source>X-Pos:</source>
         <translation>X-posisie:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="651"/>
+        <location filename="../annot.cpp" line="653"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="647"/>
+        <location filename="../annot.cpp" line="649"/>
         <source>Y-Pos:</source>
         <translation>Y-posisie:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="693"/>
+        <location filename="../annot.cpp" line="695"/>
         <source>Action</source>
         <translation>Aksie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="724"/>
+        <location filename="../annot.cpp" line="726"/>
         <source>Field is formatted as:</source>
         <translation>Veld is geformatteer as:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Plain</source>
         <translation>Eenvoudig</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Number</source>
         <translation>Nommer</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Percentage</source>
         <translation>Persentasie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Time</source>
         <translation>Tyd</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="727"/>
+        <location filename="../annot.cpp" line="729"/>
         <source>Custom</source>
         <translation>Aangepas</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="745"/>
+        <location filename="../annot.cpp" line="747"/>
         <source>Number Format</source>
         <translation>Nommerformaat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="813"/>
+        <location filename="../annot.cpp" line="815"/>
         <source>Decimals:</source>
         <translation>Desimale:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="768"/>
+        <location filename="../annot.cpp" line="770"/>
         <source>Use Currency Symbol</source>
         <translation>Gebruik geldeenheid-simbool</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="777"/>
+        <location filename="../annot.cpp" line="779"/>
         <source>Prepend Currency Symbol</source>
         <translation>plaas geldeenheid simbool vooraan</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="824"/>
+        <location filename="../annot.cpp" line="826"/>
         <source>Formatting</source>
         <translation>Formattering</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="804"/>
+        <location filename="../annot.cpp" line="806"/>
         <source>Percent Format</source>
         <translation>Persentasieformaat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="847"/>
+        <location filename="../annot.cpp" line="849"/>
         <source>Date Format</source>
         <translation>Datumformaat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="873"/>
+        <location filename="../annot.cpp" line="875"/>
         <source>Time Format</source>
         <translation>Tydformaat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="895"/>
+        <location filename="../annot.cpp" line="897"/>
         <source>Custom Scripts</source>
         <translation>Eie scripts</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="907"/>
+        <location filename="../annot.cpp" line="909"/>
         <source>Format:</source>
         <translation>Formaat:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="933"/>
+        <location filename="../annot.cpp" line="935"/>
         <source>Keystroke:</source>
         <translation>Sleuteldruk:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="957"/>
+        <location filename="../annot.cpp" line="959"/>
         <source>Format</source>
         <translation>Formaat</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="973"/>
+        <location filename="../annot.cpp" line="975"/>
         <source>Value is not validated</source>
         <translation>Waarde is nie gevalideer nie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="982"/>
+        <location filename="../annot.cpp" line="984"/>
         <source>Value must be greater than or equal to:</source>
         <translation>Waarde moet groter of gelyk aan wees:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="986"/>
+        <location filename="../annot.cpp" line="988"/>
         <source>and less or equal to:</source>
         <translation>en kleiner of gelyk aan:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="997"/>
+        <location filename="../annot.cpp" line="999"/>
         <source>Custom validate script:</source>
         <translation>Eie validasiescript:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1018"/>
+        <location filename="../annot.cpp" line="1020"/>
         <source>Validate</source>
         <translation>Valideer</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1035"/>
+        <location filename="../annot.cpp" line="1037"/>
         <source>Value is not calculated</source>
         <translation>Waarde is niee berekend nie</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1044"/>
+        <location filename="../annot.cpp" line="1046"/>
         <source>Value is the</source>
         <translation>Waarde is</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>sum</source>
         <translation>die som</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>product</source>
         <translation>produk</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>average</source>
         <translation>gemiddeld</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1049"/>
+        <location filename="../annot.cpp" line="1051"/>
         <source>minimum</source>
         <translation>minimum</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1050"/>
+        <location filename="../annot.cpp" line="1052"/>
         <source>maximum</source>
         <translation>maksimum</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1057"/>
+        <location filename="../annot.cpp" line="1059"/>
         <source>of the following fields:</source>
         <translation>van die volgende velde:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1067"/>
+        <location filename="../annot.cpp" line="1069"/>
         <source>Pick...</source>
         <translation>Kies...</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1072"/>
+        <location filename="../annot.cpp" line="1074"/>
         <source>Custom calculation script:</source>
         <translation>Eie berekeningscript:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1092"/>
+        <location filename="../annot.cpp" line="1094"/>
         <source>Calculate</source>
         <translation>Bereken</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1111"/>
+        <location filename="../annot.cpp" line="1113"/>
         <source>OK</source>
         <translation>Reg</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1115"/>
+        <location filename="../annot.cpp" line="1117"/>
         <source>Cancel</source>
         <translation>Kanselleer</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1167"/>
+        <location filename="../annot.cpp" line="1169"/>
         <source>Flag is ignored for PDF 1.3</source>
         <translation>Hierdie vlag word genegeer in PDF 1.3</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1168"/>
+        <location filename="../annot.cpp" line="1170"/>
         <source>Enter a comma separated list of fields here</source>
         <translation>Voer &apos;n komma geskeide lys van velde hier in</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1169"/>
+        <location filename="../annot.cpp" line="1171"/>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
         <translation>U het tenminste &apos;n ikoon vir Normaal nodig om ikone vir knoppe te kan gebruik</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2231"/>
+        <location filename="../annot.cpp" line="2233"/>
         <source>Open</source>
         <translation>Maak oop</translation>
     </message>
@@ -4867,50 +4883,55 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <translation type="obsolete">Beelde (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1446"/>
+        <location filename="../annot.cpp" line="1448"/>
         <source>Example:</source>
         <translation>Voorbeeld:</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2069"/>
+        <location filename="../annot.cpp" line="2071"/>
         <source>Selection Change</source>
         <translation>Keuse verandering</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2231"/>
+        <location filename="../annot.cpp" line="2233"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-lêers (*.pdf);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2078"/>
+        <location filename="../annot.cpp" line="2080"/>
         <source>JavaScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="420"/>
+        <location filename="../annot.cpp" line="422"/>
         <source>None</source>
         <comment>highlight</comment>
         <translation type="unfinished">Geen</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="2040"/>
+        <location filename="../annot.cpp" line="2042"/>
         <source>None</source>
         <comment>action</comment>
         <translation type="unfinished">Geen</translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="132"/>
+        <location filename="../annot.cpp" line="134"/>
         <source>Tooltip:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="241"/>
+        <location filename="../annot.cpp" line="243"/>
         <source>Do Not Export Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../annot.cpp" line="1335"/>
+        <location filename="../annot.cpp" line="1337"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../annot.cpp" line="1282"/>
+        <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4942,24 +4963,24 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <translation>Eksterne webskakel</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="99"/>
+        <location filename="../annota.cpp" line="100"/>
         <source>Destination</source>
         <translation>Bestemming</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="149"/>
+        <location filename="../annota.cpp" line="152"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="351"/>
+        <location filename="../annota.cpp" line="355"/>
         <source>Open</source>
         <translation>Maak oop</translation>
     </message>
     <message>
         <location filename="../annota.cpp" line="351"/>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>PDF-lêers (*.pdf);;Alle lêers (*)</translation>
+        <translation type="obsolete">PDF-lêers (*.pdf);;Alle lêers (*)</translation>
     </message>
     <message>
         <location filename="../annota.cpp" line="82"/>
@@ -4967,22 +4988,22 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <translation>&amp;Tipe:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="110"/>
+        <location filename="../annota.cpp" line="111"/>
         <source>C&amp;hange...</source>
         <translation>V&amp;erander...</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="121"/>
+        <location filename="../annota.cpp" line="122"/>
         <source>&amp;Page:</source>
         <translation>&amp;Bladsy:</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="144"/>
+        <location filename="../annota.cpp" line="146"/>
         <source>&amp;X-Pos</source>
         <translation>&amp;X-Pos</translation>
     </message>
     <message>
-        <location filename="../annota.cpp" line="151"/>
+        <location filename="../annota.cpp" line="154"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pos:</translation>
     </message>
@@ -4995,6 +5016,11 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <location filename="" line="136966680"/>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Kanselleer</translation>
+    </message>
+    <message>
+        <location filename="../annota.cpp" line="355"/>
+        <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5172,82 +5198,82 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="285"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="286"/>
         <source>Error opening file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="39"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="40"/>
         <source>12 or 13 digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="41"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="42"/>
         <source>8 digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="43"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="44"/>
         <source>11 or 12 digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="45"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="46"/>
         <source>7 or 8 digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="47"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="48"/>
         <source>5 digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="49"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="50"/>
         <source>2 digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="56"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="57"/>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="65"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="66"/>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="68"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="69"/>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="76"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="77"/>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="91"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="92"/>
         <source>Variable number of digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="87"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="88"/>
         <source>Variable number of digits and capital letters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="96"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="97"/>
         <source>Variable number of hexadecimal characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="316"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="317"/>
         <source>Barcode incomplete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="52"/>
+        <location filename="../plugins/barcodegenerator/barcodegenerator.cpp" line="53"/>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5413,7 +5439,7 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrap.cpp" line="1341"/>
+        <location filename="../scrap.cpp" line="1311"/>
         <source>Scrapbook</source>
         <translation>Kladblok</translation>
     </message>
@@ -5473,12 +5499,12 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
         <translation type="obsolete">Kladbloklêers (*.scs);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="826"/>
+        <location filename="../scrap.cpp" line="796"/>
         <source>Rename</source>
         <translation>Herbenoem</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="828"/>
+        <location filename="../scrap.cpp" line="798"/>
         <source>Delete</source>
         <translation>Verwyder</translation>
     </message>
@@ -5500,94 +5526,94 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Reg</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1244"/>
+        <location filename="../scrap.cpp" line="1214"/>
         <source>Object</source>
         <translation>Objek</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1153"/>
+        <location filename="../scrap.cpp" line="1123"/>
         <source>&amp;Name:</source>
         <translation>&amp;Naam:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1153"/>
+        <location filename="../scrap.cpp" line="1123"/>
         <source>New Entry</source>
         <translation>Nuwe inskrywing</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1047"/>
+        <location filename="../scrap.cpp" line="1017"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="712"/>
+        <location filename="../scrap.cpp" line="684"/>
         <source>Choose a Scrapbook Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="770"/>
+        <location filename="../scrap.cpp" line="740"/>
         <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="747"/>
-        <source>Scrapbook (*.scs)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scrap.cpp" line="750"/>
+        <location filename="../scrap.cpp" line="720"/>
         <source>Choose a scrapbook file to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1342"/>
+        <location filename="../scrap.cpp" line="1312"/>
         <source>Create a new scrapbook page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1343"/>
+        <location filename="../scrap.cpp" line="1313"/>
         <source>Load an existing scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1344"/>
+        <location filename="../scrap.cpp" line="1314"/>
         <source>Save the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1345"/>
+        <location filename="../scrap.cpp" line="1315"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1346"/>
+        <location filename="../scrap.cpp" line="1316"/>
         <source>Close the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="833"/>
+        <location filename="../scrap.cpp" line="803"/>
         <source>Copy To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="834"/>
+        <location filename="../scrap.cpp" line="804"/>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="580"/>
+        <location filename="../scrap.cpp" line="552"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="582"/>
+        <location filename="../scrap.cpp" line="554"/>
         <source>Copied Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1040"/>
+        <location filename="../scrap.cpp" line="1010"/>
         <source>New Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scrap.cpp" line="719"/>
+        <source>Scrapbook (*.scs *.SCS)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5596,22 +5622,22 @@ Please choose another.</source>
     <message>
         <location filename="../bookmwin.cpp" line="554"/>
         <source>Bookmarks</source>
-        <translation>Bladwysers</translation>
+        <translation type="obsolete">Bladwysers</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="219"/>
         <source>Move Bookmark</source>
-        <translation>Skuif Bladwyser</translation>
+        <translation type="obsolete">Skuif Bladwyser</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="220"/>
         <source>Insert Bookmark</source>
-        <translation>Voeg Bladwyser in</translation>
+        <translation type="obsolete">Voeg Bladwyser in</translation>
     </message>
     <message>
         <location filename="../bookmwin.cpp" line="221"/>
         <source>Cancel</source>
-        <translation>Kanselleer</translation>
+        <translation type="obsolete">Kanselleer</translation>
     </message>
 </context>
 <context>
@@ -5625,107 +5651,107 @@ Please choose another.</source>
 <context>
     <name>ButtonIcon</name>
     <message>
-        <location filename="../buttonicon.cpp" line="30"/>
+        <location filename="../buttonicon.cpp" line="29"/>
         <source>Icon Placement</source>
         <translation>Plasing van ikone</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="39"/>
+        <location filename="../buttonicon.cpp" line="38"/>
         <source>Layout:</source>
         <translation>Uitleg:</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Caption only</source>
         <translation>Slegs opskrif</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Icon only</source>
         <translation>Slegs ikoon</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Caption below Icon</source>
         <translation>Opskrif onder ikoon</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="42"/>
+        <location filename="../buttonicon.cpp" line="41"/>
         <source>Caption above Icon</source>
         <translation>Opskrif bo ikoon</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="43"/>
+        <location filename="../buttonicon.cpp" line="42"/>
         <source>Caption right to Icon</source>
         <translation>Opskrif regs van ikoon</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="43"/>
+        <location filename="../buttonicon.cpp" line="42"/>
         <source>Caption left to Icon</source>
         <translation>Opskrif links van ikoon</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="43"/>
+        <location filename="../buttonicon.cpp" line="42"/>
         <source>Caption overlays Icon</source>
         <translation>Opskrif dwarsoor ikoon</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="51"/>
+        <location filename="../buttonicon.cpp" line="50"/>
         <source>Scale:</source>
         <translation>Skaal:</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="56"/>
+        <location filename="../buttonicon.cpp" line="55"/>
         <source>Always</source>
         <translation>Altyd</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="56"/>
+        <location filename="../buttonicon.cpp" line="55"/>
         <source>When Icon is too small</source>
         <translation>As ikoon te klein is</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="57"/>
+        <location filename="../buttonicon.cpp" line="56"/>
         <source>When Icon is too big</source>
         <translation>As ikoon te groot is</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="57"/>
+        <location filename="../buttonicon.cpp" line="56"/>
         <source>Never</source>
         <translation>Nooit</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="64"/>
+        <location filename="../buttonicon.cpp" line="63"/>
         <source>Scale How:</source>
         <translation>Skaalmetode:</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="67"/>
+        <location filename="../buttonicon.cpp" line="66"/>
         <source>Proportional</source>
         <translation>Proporsioneel</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="68"/>
+        <location filename="../buttonicon.cpp" line="67"/>
         <source>Non Proportional</source>
         <translation>Nie proporsioneel nie</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="91"/>
+        <location filename="../buttonicon.cpp" line="90"/>
         <source>Icon</source>
         <translation>Ikoon</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="118"/>
+        <location filename="../buttonicon.cpp" line="117"/>
         <source>OK</source>
         <translation>Reg</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="122"/>
+        <location filename="../buttonicon.cpp" line="121"/>
         <source>Cancel</source>
         <translation>Kanselleer</translation>
     </message>
     <message>
-        <location filename="../buttonicon.cpp" line="125"/>
+        <location filename="../buttonicon.cpp" line="124"/>
         <source>Reset</source>
         <translation>Begin oor</translation>
     </message>
@@ -5738,12 +5764,12 @@ Please choose another.</source>
         <translation type="obsolete">Instelling van kleurbeheer</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="28"/>
+        <location filename="../cmsprefs.cpp" line="31"/>
         <source>&amp;Activate Color Management</source>
         <translation>Kleurbeheer &amp;aktiveer</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="31"/>
+        <location filename="../cmsprefs.cpp" line="34"/>
         <source>System Profiles</source>
         <translation>Stelselprofiele</translation>
     </message>
@@ -5758,37 +5784,37 @@ Please choose another.</source>
         <translation type="obsolete">&amp;Soliede kleure:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="68"/>
+        <location filename="../cmsprefs.cpp" line="75"/>
         <source>&amp;Monitor:</source>
         <translation>&amp;Skerm:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="75"/>
+        <location filename="../cmsprefs.cpp" line="83"/>
         <source>P&amp;rinter:</source>
         <translation>&amp;Drukker:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="80"/>
+        <location filename="../cmsprefs.cpp" line="89"/>
         <source>Rendering Intents</source>
         <translation>Rendering intents</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="194"/>
+        <location filename="../cmsprefs.cpp" line="205"/>
         <source>Perceptual</source>
         <translation>Perseptueel</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="194"/>
+        <location filename="../cmsprefs.cpp" line="205"/>
         <source>Relative Colorimetric</source>
         <translation>Relatief Kleurmeetries</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="195"/>
+        <location filename="../cmsprefs.cpp" line="206"/>
         <source>Saturation</source>
         <translation>Versadiging</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="195"/>
+        <location filename="../cmsprefs.cpp" line="206"/>
         <source>Absolute Colorimetric</source>
         <translation>Absoluut kleurmeetries</translation>
     </message>
@@ -5803,17 +5829,17 @@ Please choose another.</source>
         <translation type="obsolete">D&amp;rukker:</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="102"/>
+        <location filename="../cmsprefs.cpp" line="113"/>
         <source>Sim&amp;ulate Printer on the Screen</source>
         <translation>Sim&amp;uleer drukker op skerm</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="119"/>
+        <location filename="../cmsprefs.cpp" line="130"/>
         <source>Mark Colors out of &amp;Gamut</source>
         <translation>Merk kleure buite &amp;gamut</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="123"/>
+        <location filename="../cmsprefs.cpp" line="134"/>
         <source>Use &amp;Blackpoint Compensation</source>
         <translation>Gebruiken &amp;Swartpuntkompensasie</translation>
     </message>
@@ -5838,14 +5864,14 @@ Please choose another.</source>
         <translation type="obsolete">Standaard kleurprofiel vir effen kleuren op de bladsy</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="132"/>
+        <location filename="../cmsprefs.cpp" line="143"/>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
         <translation>Door uzelf aangemaakt of via fabrikant verkregen kleurprofiel.
 Dit profiel is specifiek vir uw beeldscherm en niet algemeen (zoals byv. sRGB).</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="133"/>
+        <location filename="../cmsprefs.cpp" line="144"/>
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
         <translation>Kleurprofiel vir uw printer van de printerfabrikant.
@@ -5866,95 +5892,95 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 wat u doet, vir Relatief colorimetrisch of Perceptueel.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="136"/>
+        <location filename="../cmsprefs.cpp" line="147"/>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Laat een weergave op uw scherm zien, gebaseerd
 op het gekozen printerprofiel.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="138"/>
+        <location filename="../cmsprefs.cpp" line="149"/>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
         <translation>Hiermee kunnen kleurgebieden gemarkeerd worden die niet correct zouden worden
 afgedrukt. Dit vereist zeer accurate profielen en dient enkel als waarschuwing.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="139"/>
+        <location filename="../cmsprefs.cpp" line="150"/>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Zwartpuntcompensatie is een methode om het contrast in foto&apos;s te verbeteren.
 Als uw dokument foto&apos;s bevat wordt deze instelling aangeraden.</translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="40"/>
+        <location filename="../cmsprefs.cpp" line="43"/>
         <source>&amp;RGB Pictures:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="47"/>
+        <location filename="../cmsprefs.cpp" line="51"/>
         <source>&amp;CMYK Pictures:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="128"/>
+        <location filename="../cmsprefs.cpp" line="139"/>
         <source>Default color profile for imported CMYK images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="129"/>
+        <location filename="../cmsprefs.cpp" line="140"/>
         <source>Default color profile for imported RGB images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="54"/>
+        <location filename="../cmsprefs.cpp" line="59"/>
         <source>&amp;RGB Solid Colors:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="61"/>
+        <location filename="../cmsprefs.cpp" line="67"/>
         <source>&amp;CMYK Solid Colors:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="89"/>
+        <location filename="../cmsprefs.cpp" line="98"/>
         <source>Pictures:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="96"/>
+        <location filename="../cmsprefs.cpp" line="106"/>
         <source>Sol&amp;id Colors:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="110"/>
+        <location filename="../cmsprefs.cpp" line="121"/>
         <source>Convert all colors to printer space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="130"/>
+        <location filename="../cmsprefs.cpp" line="141"/>
         <source>Default color profile for solid RGB colors on the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="131"/>
+        <location filename="../cmsprefs.cpp" line="142"/>
         <source>Default color profile for solid CMYK colors on the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="134"/>
+        <location filename="../cmsprefs.cpp" line="145"/>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="135"/>
+        <location filename="../cmsprefs.cpp" line="146"/>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmsprefs.cpp" line="137"/>
+        <location filename="../cmsprefs.cpp" line="148"/>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation type="unfinished"></translation>
@@ -5963,42 +5989,42 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
 <context>
     <name>CMYKChoose</name>
     <message>
-        <location filename="../cmykfw.cpp" line="88"/>
+        <location filename="../cmykfw.cpp" line="90"/>
         <source>Edit Color</source>
         <translation>Bewerk kleur</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="97"/>
+        <location filename="../cmykfw.cpp" line="99"/>
         <source>&amp;Name:</source>
         <translation>&amp;Naam:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="107"/>
+        <location filename="../cmykfw.cpp" line="109"/>
         <source>Color &amp;Model</source>
         <translation>Kleur&amp;model</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1007"/>
+        <location filename="../cmykfw.cpp" line="1001"/>
         <source>CMYK</source>
         <translation>CMYK</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1009"/>
+        <location filename="../cmykfw.cpp" line="1003"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="876"/>
+        <location filename="../cmykfw.cpp" line="870"/>
         <source>Web Safe RGB</source>
         <translation>RGB vir web</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="137"/>
+        <location filename="../cmykfw.cpp" line="139"/>
         <source>New</source>
         <translation>Nuut</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="154"/>
+        <location filename="../cmykfw.cpp" line="156"/>
         <source>Old</source>
         <translation>Oud</translation>
     </message>
@@ -6013,57 +6039,57 @@ all colors, rgb or cmyk, are converted to printer color space.</source>
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="192"/>
+        <location filename="../cmykfw.cpp" line="194"/>
         <source>HSV-Colormap</source>
         <translation>HSV-kleurkaart</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="817"/>
+        <location filename="../cmykfw.cpp" line="811"/>
         <source>C:</source>
         <translation>C:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="816"/>
+        <location filename="../cmykfw.cpp" line="810"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="818"/>
+        <location filename="../cmykfw.cpp" line="812"/>
         <source>M:</source>
         <translation>M:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="819"/>
+        <location filename="../cmykfw.cpp" line="813"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="347"/>
+        <location filename="../cmykfw.cpp" line="343"/>
         <source>K:</source>
         <translation>K:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="436"/>
+        <location filename="../cmykfw.cpp" line="430"/>
         <source>Dynamic Color Bars</source>
         <translation>Dinamiese kleurbalke</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="439"/>
+        <location filename="../cmykfw.cpp" line="433"/>
         <source>Static Color Bars</source>
         <translation>Statiese kleurbalke</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="861"/>
+        <location filename="../cmykfw.cpp" line="855"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="862"/>
+        <location filename="../cmykfw.cpp" line="856"/>
         <source>G:</source>
         <translation>G:</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="863"/>
+        <location filename="../cmykfw.cpp" line="857"/>
         <source>B:</source>
         <translation>B:</translation>
     </message>
@@ -6095,105 +6121,80 @@ It&apos;s a reserved name for transparent color</source>
 Dit dien as plekhouer vir deursigtig.</translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="121"/>
+        <location filename="../cmykfw.cpp" line="123"/>
         <source>Is Spot Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="126"/>
+        <location filename="../cmykfw.cpp" line="128"/>
         <source>Is Registration Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1079"/>
+        <location filename="../cmykfw.cpp" line="1073"/>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="391"/>
+        <location filename="../cmykfw.cpp" line="385"/>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="1088"/>
+        <location filename="../cmykfw.cpp" line="1082"/>
         <source>The name of the color already exists,
 please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="392"/>
+        <location filename="../cmykfw.cpp" line="386"/>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cmykfw.cpp" line="897"/>
+        <location filename="../cmykfw.cpp" line="891"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CStyleP</name>
-    <message>
-        <location filename="../smcstylew.ui" line="13"/>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smcstylew.ui" line="49"/>
-        <source>Based On:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smcstylew.ui" line="89"/>
-        <source>Basic Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smcstylew.ui" line="99"/>
-        <source>Advanced Formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smcstylew.ui" line="109"/>
-        <source>Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="318"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="320"/>
         <source>Merging colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Color %1 exists already!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="329"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="331"/>
         <source>Color %1 appended.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="333"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="335"/>
         <source>Now opening the color manager.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="336"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="338"/>
         <source>Color Merging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/cwdialog.cpp" line="487"/>
+        <location filename="../plugins/colorwheel/cwdialog.cpp" line="489"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6464,32 +6465,32 @@ please choose another one.</source>
         <translation type="obsolete">Karakter selecteren:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="56"/>
+        <location filename="../charselect.ui" line="128"/>
         <source>Font:</source>
         <translation type="unfinished">Lettertype:</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="64"/>
+        <location filename="../charselect.ui" line="151"/>
         <source>Character Class:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="89"/>
+        <location filename="../charselect.ui" line="227"/>
         <source>&amp;Insert</source>
         <translation type="unfinished">&amp;Invoegen</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="90"/>
+        <location filename="../charselect.ui" line="237"/>
         <source>C&amp;lear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="137"/>
+        <location filename="../charselect.ui" line="224"/>
         <source>Insert the characters at the cursor in the text</source>
         <translation type="unfinished">Voegt de tekens in op de huidige cursorpositie</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="138"/>
+        <location filename="../charselect.ui" line="234"/>
         <source>Delete the current selection(s).</source>
         <translation type="unfinished">Verwydert de huidige selectie(s).</translation>
     </message>
@@ -6499,215 +6500,220 @@ please choose another one.</source>
         <translation type="obsolete">Sluit deze dialoog om verder te werken aan de teks.</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="330"/>
+        <location filename="../charselect.cpp" line="245"/>
         <source>Full Character Set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="335"/>
+        <location filename="../charselect.cpp" line="250"/>
         <source>Basic Latin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="341"/>
+        <location filename="../charselect.cpp" line="256"/>
         <source>Latin-1 Supplement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="347"/>
+        <location filename="../charselect.cpp" line="262"/>
         <source>Latin Extended-A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="353"/>
+        <location filename="../charselect.cpp" line="268"/>
         <source>Latin Extended-B</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="359"/>
+        <location filename="../charselect.cpp" line="274"/>
         <source>General Punctuation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="365"/>
+        <location filename="../charselect.cpp" line="280"/>
         <source>Super- and Subscripts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="371"/>
+        <location filename="../charselect.cpp" line="286"/>
         <source>Currency Symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="377"/>
+        <location filename="../charselect.cpp" line="292"/>
         <source>Letterlike Symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="383"/>
+        <location filename="../charselect.cpp" line="298"/>
         <source>Number Forms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="389"/>
+        <location filename="../charselect.cpp" line="304"/>
         <source>Arrows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="395"/>
+        <location filename="../charselect.cpp" line="310"/>
         <source>Mathematical Operators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="401"/>
+        <location filename="../charselect.cpp" line="316"/>
         <source>Box Drawing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="407"/>
+        <location filename="../charselect.cpp" line="322"/>
         <source>Block Elements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="413"/>
+        <location filename="../charselect.cpp" line="328"/>
         <source>Geometric Shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="419"/>
+        <location filename="../charselect.cpp" line="334"/>
         <source>Miscellaneous Symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="425"/>
+        <location filename="../charselect.cpp" line="340"/>
         <source>Dingbats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="431"/>
+        <location filename="../charselect.cpp" line="346"/>
         <source>Small Form Variants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="437"/>
+        <location filename="../charselect.cpp" line="352"/>
         <source>Ligatures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="443"/>
+        <location filename="../charselect.cpp" line="358"/>
         <source>Specials</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="449"/>
+        <location filename="../charselect.cpp" line="364"/>
         <source>Greek</source>
         <translation type="unfinished">Grieks</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="455"/>
+        <location filename="../charselect.cpp" line="370"/>
         <source>Greek Extended</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="461"/>
+        <location filename="../charselect.cpp" line="376"/>
         <source>Cyrillic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="467"/>
+        <location filename="../charselect.cpp" line="382"/>
         <source>Cyrillic Supplement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="473"/>
+        <location filename="../charselect.cpp" line="388"/>
         <source>Arabic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="479"/>
+        <location filename="../charselect.cpp" line="394"/>
         <source>Arabic Extended A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="485"/>
+        <location filename="../charselect.cpp" line="400"/>
         <source>Arabic Extended B</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="491"/>
+        <location filename="../charselect.cpp" line="406"/>
         <source>Hebrew</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="139"/>
+        <location filename="../charselect.ui" line="180"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="38"/>
+        <location filename="../charselect.cpp" line="36"/>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="47"/>
+        <location filename="../charselect.ui" line="104"/>
         <source>Enhanced Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="98"/>
+        <location filename="../charselect.ui" line="25"/>
         <source>Quick Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="105"/>
+        <location filename="../charselect.ui" line="49"/>
         <source>Hide Enhanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="648"/>
+        <location filename="../charselect.cpp" line="565"/>
         <source>Choose a filename to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="713"/>
+        <location filename="../charselect.cpp" line="625"/>
         <source>Error</source>
         <translation type="unfinished">Fout</translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="675"/>
+        <location filename="../charselect.cpp" line="592"/>
         <source>Error reading file %1 - file is corrupted propably.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="694"/>
+        <location filename="../charselect.cpp" line="606"/>
         <source>Choose a filename to save under</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="714"/>
+        <location filename="../charselect.cpp" line="626"/>
         <source>Cannot write file %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="722"/>
+        <location filename="../charselect.cpp" line="634"/>
         <source>Clean the Palette?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="723"/>
+        <location filename="../charselect.cpp" line="635"/>
         <source>You will clean all characters from this palette. Are you sure?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../charselect.cpp" line="37"/>
+        <location filename="../charselect.ui" line="13"/>
         <source>Character Palette</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../charselect.ui" line="56"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Zoeken</translation>
     </message>
 </context>
 <context>
     <name>CharStyleComboBox</name>
     <message>
-        <location filename="../spalette.cpp" line="117"/>
+        <location filename="../spalette.cpp" line="118"/>
         <source>No Style</source>
         <translation type="unfinished">Geen styl</translation>
     </message>
@@ -6897,107 +6903,107 @@ please choose another one.</source>
 <context>
     <name>ColorManager</name>
     <message>
-        <location filename="../colorm.cpp" line="50"/>
+        <location filename="../colorm.cpp" line="54"/>
         <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="76"/>
+        <location filename="../colorm.cpp" line="80"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Voer in</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="78"/>
+        <location filename="../colorm.cpp" line="82"/>
         <source>&amp;New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="80"/>
+        <location filename="../colorm.cpp" line="84"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="84"/>
+        <location filename="../colorm.cpp" line="88"/>
         <source>D&amp;uplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="87"/>
+        <location filename="../colorm.cpp" line="91"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="92"/>
+        <location filename="../colorm.cpp" line="96"/>
         <source>&amp;Remove Unused</source>
         <translation type="unfinished">Ve&amp;rwyder ongebruikte</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="99"/>
+        <location filename="../colorm.cpp" line="103"/>
         <source>Color Sets</source>
         <translation type="unfinished">Kleurstelle</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="105"/>
+        <location filename="../colorm.cpp" line="109"/>
         <source>Current Color Set:</source>
         <translation type="unfinished">Huidige kleurstel:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="148"/>
+        <location filename="../colorm.cpp" line="152"/>
         <source>&amp;Save Color Set</source>
         <translation type="unfinished">&amp;Stoor kleurstel</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="167"/>
+        <location filename="../colorm.cpp" line="171"/>
         <source>Choose a color set to load</source>
         <translation type="unfinished">Kies kleurstel om te laai</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="168"/>
+        <location filename="../colorm.cpp" line="172"/>
         <source>Save the current color set</source>
         <translation type="unfinished">Stoor huidige kleurstel</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="173"/>
+        <location filename="../colorm.cpp" line="177"/>
         <source>Remove unused colors from current document&apos;s color set</source>
         <translation type="unfinished">Verwyder ongebruikte kleure uit dokument se kleurstel</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="175"/>
+        <location filename="../colorm.cpp" line="179"/>
         <source>Import colors to the current set from an existing document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="176"/>
+        <location filename="../colorm.cpp" line="180"/>
         <source>Create a new color within the current set</source>
         <translation type="unfinished">Maak &apos;n nuwe kleur in huidige kleurstel</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="177"/>
+        <location filename="../colorm.cpp" line="181"/>
         <source>Edit the currently selected color</source>
         <translation type="unfinished">Verander gekiesde kleur</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="178"/>
+        <location filename="../colorm.cpp" line="182"/>
         <source>Make a copy of the currently selected color</source>
         <translation type="unfinished">Maak &apos;n kopie van huidiglik gekiesde kleur</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="179"/>
+        <location filename="../colorm.cpp" line="183"/>
         <source>Delete the currently selected color</source>
         <translation type="unfinished">Verwyder huidig gekiesde kleur</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="180"/>
+        <location filename="../colorm.cpp" line="184"/>
         <source>Make the current colorset the default color set</source>
         <translation type="unfinished">Maak huidige kleurstel die verstek</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="198"/>
+        <location filename="../colorm.cpp" line="202"/>
         <source>&amp;Name:</source>
         <translation type="unfinished">&amp;Naam:</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="198"/>
+        <location filename="../colorm.cpp" line="202"/>
         <source>Choose a Name</source>
         <translation type="unfinished">Kies &apos;n naam</translation>
     </message>
@@ -7017,37 +7023,32 @@ please choose another one.</source>
         <translation type="obsolete">Dokumente (*.sla *.scd);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="560"/>
+        <location filename="../colorm.cpp" line="568"/>
         <source>Copy of %1</source>
         <translation type="unfinished">Kopie van %1</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="571"/>
+        <location filename="../colorm.cpp" line="579"/>
         <source>New Color</source>
         <translation type="unfinished">Nuwe kleur</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="181"/>
+        <location filename="../colorm.cpp" line="185"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="428"/>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../colorm.cpp" line="544"/>
+        <location filename="../colorm.cpp" line="552"/>
         <source>Information</source>
         <translation type="unfinished">Info</translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="428"/>
+        <location filename="../colorm.cpp" line="435"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../colorm.cpp" line="544"/>
+        <location filename="../colorm.cpp" line="552"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -7055,106 +7056,111 @@ Not all files have DSC conformant comments where the color descriptions are loca
 See the Edit Colors section of the documentation for more details.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../colorm.cpp" line="435"/>
+        <source>Documents (%1);;Other Files (%2);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
         <source>Monochromatic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
         <source>Analogous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
         <source>Complementary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="138"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
         <source>Split Complementary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
         <source>Triadic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
         <source>Tetradic (Double Complementary)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="40"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
         <source>Base Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="202"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
         <source>Monochromatic Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
         <source>Monochromatic Dark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="212"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
         <source>1st. Analogous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="213"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
         <source>2nd. Analogous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="227"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
         <source>1st. Split</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="228"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
         <source>2nd. Split</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="229"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
         <source>3rd. Split</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
         <source>4th. Split</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="237"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
         <source>1st. Triadic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
         <source>2nd. Triadic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="245"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="246"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
         <source>2nd. Tetradic (angle)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="247"/>
+        <location filename="../plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7607,109 +7613,135 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
 </context>
 <context>
+    <name>CopyPageToMasterPageBase</name>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="16"/>
+        <source>Convert Page to Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="24"/>
+        <source>Name:</source>
+        <translation type="unfinished">Naam:</translation>
+    </message>
+    <message>
+        <location filename="../ui/copypagetomasterpage.ui" line="39"/>
+        <source>Copy Applied Master Page Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CopyPageToMasterPageDialog</name>
+    <message>
+        <location filename="../ui/copypagetomasterpagedialog.cpp" line="18"/>
+        <source>New Master Page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Cpalette</name>
     <message>
-        <location filename="../cpalette.cpp" line="833"/>
+        <location filename="../cpalette.cpp" line="834"/>
         <source>Shade:</source>
         <translation>Skadu:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="817"/>
+        <location filename="../cpalette.cpp" line="818"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="834"/>
+        <location filename="../cpalette.cpp" line="835"/>
         <source>Opacity:</source>
         <translation>Ondeursigtigheid:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="856"/>
+        <location filename="../cpalette.cpp" line="857"/>
         <source>Normal</source>
         <translation>Normaal</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="844"/>
+        <location filename="../cpalette.cpp" line="845"/>
         <source>Horizontal Gradient</source>
         <translation>Horisontale gradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="845"/>
+        <location filename="../cpalette.cpp" line="846"/>
         <source>Vertical Gradient</source>
         <translation>Vertikale gradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="846"/>
+        <location filename="../cpalette.cpp" line="847"/>
         <source>Diagonal Gradient</source>
         <translation>Diagonale gradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="847"/>
+        <location filename="../cpalette.cpp" line="848"/>
         <source>Cross Diagonal Gradient</source>
         <translation>Kruisdiagonale gradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="848"/>
+        <location filename="../cpalette.cpp" line="849"/>
         <source>Radial Gradient</source>
         <translation>Straalgradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="849"/>
+        <location filename="../cpalette.cpp" line="850"/>
         <source>Free linear Gradient</source>
         <translation>Vry liniêre gradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="850"/>
+        <location filename="../cpalette.cpp" line="851"/>
         <source>Free radial Gradient</source>
         <translation>Vry straalgradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="835"/>
+        <location filename="../cpalette.cpp" line="836"/>
         <source>X1:</source>
         <translation>X1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="836"/>
+        <location filename="../cpalette.cpp" line="837"/>
         <source>Y1:</source>
         <translation>Y1:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="812"/>
+        <location filename="../cpalette.cpp" line="813"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="837"/>
+        <location filename="../cpalette.cpp" line="838"/>
         <source>X2:</source>
         <translation>X2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="838"/>
+        <location filename="../cpalette.cpp" line="839"/>
         <source>Y2:</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="873"/>
+        <location filename="../cpalette.cpp" line="874"/>
         <source>Edit Line Color Properties</source>
         <translation>Kies lynkleur</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="874"/>
+        <location filename="../cpalette.cpp" line="875"/>
         <source>Edit Fill Color Properties</source>
         <translation>Kies vulkleur</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="875"/>
+        <location filename="../cpalette.cpp" line="876"/>
         <source>Saturation of color</source>
         <translation>Kleurversadiging</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="876"/>
+        <location filename="../cpalette.cpp" line="877"/>
         <source>Normal or gradient fill method</source>
         <translation>Vulmetode: normaal of gradiënt</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="877"/>
+        <location filename="../cpalette.cpp" line="878"/>
         <source>Set the transparency for the color selected</source>
         <translation>Kies deursigtigheid van gekose kleur</translation>
     </message>
@@ -7739,142 +7771,142 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="839"/>
+        <location filename="../cpalette.cpp" line="840"/>
         <source>Move Vector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="878"/>
+        <location filename="../cpalette.cpp" line="879"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="853"/>
+        <location filename="../cpalette.cpp" line="854"/>
         <source>Transparency Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="854"/>
+        <location filename="../cpalette.cpp" line="855"/>
         <source>Blend Mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="857"/>
+        <location filename="../cpalette.cpp" line="858"/>
         <source>Darken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="858"/>
+        <location filename="../cpalette.cpp" line="859"/>
         <source>Lighten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="859"/>
+        <location filename="../cpalette.cpp" line="860"/>
         <source>Multiply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="860"/>
+        <location filename="../cpalette.cpp" line="861"/>
         <source>Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="861"/>
+        <location filename="../cpalette.cpp" line="862"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="862"/>
+        <location filename="../cpalette.cpp" line="863"/>
         <source>Hard Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="863"/>
+        <location filename="../cpalette.cpp" line="864"/>
         <source>Soft Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="864"/>
+        <location filename="../cpalette.cpp" line="865"/>
         <source>Difference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="866"/>
+        <location filename="../cpalette.cpp" line="867"/>
         <source>Color Dodge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="867"/>
+        <location filename="../cpalette.cpp" line="868"/>
         <source>Color Burn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="868"/>
+        <location filename="../cpalette.cpp" line="869"/>
         <source>Hue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="869"/>
+        <location filename="../cpalette.cpp" line="870"/>
         <source>Saturation</source>
         <translation type="unfinished">Versadiging</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="870"/>
+        <location filename="../cpalette.cpp" line="871"/>
         <source>Color</source>
         <translation type="unfinished">Kleur</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="871"/>
+        <location filename="../cpalette.cpp" line="872"/>
         <source>Luminosity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="820"/>
+        <location filename="../cpalette.cpp" line="821"/>
         <source>Offsets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="821"/>
+        <location filename="../cpalette.cpp" line="822"/>
         <source>X:</source>
         <translation type="unfinished">X:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="823"/>
+        <location filename="../cpalette.cpp" line="824"/>
         <source>Y:</source>
         <translation type="unfinished">Y:</translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="825"/>
+        <location filename="../cpalette.cpp" line="826"/>
         <source>Scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="830"/>
+        <location filename="../cpalette.cpp" line="831"/>
         <source>Rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="831"/>
+        <location filename="../cpalette.cpp" line="832"/>
         <source>Angle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="851"/>
+        <location filename="../cpalette.cpp" line="852"/>
         <source>Pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="865"/>
+        <location filename="../cpalette.cpp" line="866"/>
         <source>Exclusion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="826"/>
+        <location filename="../cpalette.cpp" line="827"/>
         <source>X-Scale:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cpalette.cpp" line="828"/>
+        <location filename="../cpalette.cpp" line="829"/>
         <source>Y-Scale:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7882,142 +7914,142 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CreateRange</name>
     <message>
-        <location filename="../createrange.ui" line="13"/>
+        <location filename="../ui/createrange.ui" line="13"/>
         <source>Create Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="33"/>
+        <location filename="../ui/createrange.ui" line="54"/>
         <source>Number of Pages in Document:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="43"/>
+        <location filename="../ui/createrange.ui" line="64"/>
         <source>Doc Page Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="91"/>
+        <location filename="../ui/createrange.ui" line="112"/>
         <source>Basic Range Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="103"/>
+        <location filename="../ui/createrange.ui" line="136"/>
         <source>Range of Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="115"/>
+        <location filename="../ui/createrange.ui" line="160"/>
         <source>De&amp;lete</source>
         <translation type="unfinished">Ve&amp;rwyder</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="118"/>
+        <location filename="../ui/createrange.ui" line="163"/>
         <source>Alt+L</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="141"/>
+        <location filename="../ui/createrange.ui" line="186"/>
         <source>Move &amp;Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="144"/>
+        <location filename="../ui/createrange.ui" line="189"/>
         <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="151"/>
+        <location filename="../ui/createrange.ui" line="196"/>
         <source>Move &amp;Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="154"/>
+        <location filename="../ui/createrange.ui" line="199"/>
         <source>Alt+U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="173"/>
+        <location filename="../ui/createrange.ui" line="218"/>
         <source>Add a Range of Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="185"/>
+        <location filename="../ui/createrange.ui" line="242"/>
         <source>Consecutive Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="195"/>
+        <location filename="../ui/createrange.ui" line="252"/>
         <source>Even Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="202"/>
+        <location filename="../ui/createrange.ui" line="259"/>
         <source>From:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="234"/>
+        <location filename="../ui/createrange.ui" line="291"/>
         <source>To:</source>
         <translation type="unfinished">Tot:</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="268"/>
+        <location filename="../ui/createrange.ui" line="334"/>
         <source>&amp;Add To Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="271"/>
+        <location filename="../ui/createrange.ui" line="337"/>
         <source>Alt+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="296"/>
+        <location filename="../ui/createrange.ui" line="362"/>
         <source>Odd Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="306"/>
+        <location filename="../ui/createrange.ui" line="372"/>
         <source>Comma Separated List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="317"/>
+        <location filename="../ui/createrange.ui" line="383"/>
         <source>Advanced Reordering</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="361"/>
+        <location filename="../ui/createrange.ui" line="439"/>
         <source>Page Order</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="371"/>
+        <location filename="../ui/createrange.ui" line="449"/>
         <source>Sample Page Order:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="400"/>
+        <location filename="../ui/createrange.ui" line="478"/>
         <source>Page Group Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="438"/>
+        <location filename="../ui/createrange.ui" line="525"/>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;Reg</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="441"/>
+        <location filename="../ui/createrange.ui" line="528"/>
         <source>Alt+O</source>
         <translation type="unfinished">Atl+O</translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="448"/>
+        <location filename="../ui/createrange.ui" line="535"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../createrange.ui" line="451"/>
+        <location filename="../ui/createrange.ui" line="538"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
@@ -8213,48 +8245,48 @@ Een * geeft aan welke bibliotheken ontbreken</translation>
 <context>
     <name>CurveWidget</name>
     <message>
-        <location filename="../curvewidget.cpp" line="433"/>
+        <location filename="../curvewidget.cpp" line="411"/>
         <source>Open</source>
         <translation type="unfinished">Maak oop</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="468"/>
+        <location filename="../curvewidget.cpp" line="446"/>
         <source>Curve Files (*.scu);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="468"/>
+        <location filename="../curvewidget.cpp" line="446"/>
         <source>Save as</source>
         <translation type="unfinished">Stoor as</translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="502"/>
+        <location filename="../curvewidget.cpp" line="480"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="522"/>
+        <location filename="../curvewidget.cpp" line="500"/>
         <source>Inverts the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="523"/>
+        <location filename="../curvewidget.cpp" line="501"/>
         <source>Resets the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="524"/>
+        <location filename="../curvewidget.cpp" line="502"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="525"/>
+        <location filename="../curvewidget.cpp" line="503"/>
         <source>Loads a curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../curvewidget.cpp" line="526"/>
+        <location filename="../curvewidget.cpp" line="504"/>
         <source>Saves this curve</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8262,17 +8294,17 @@ Een * geeft aan welke bibliotheken ontbreken</translation>
 <context>
     <name>CustomFDialog</name>
     <message>
-        <location filename="../customfdialog.cpp" line="333"/>
+        <location filename="../customfdialog.cpp" line="323"/>
         <source>&amp;Compress File</source>
         <translation>&amp;Krimp lêer</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="312"/>
+        <location filename="../customfdialog.cpp" line="302"/>
         <source>&amp;Include Fonts</source>
         <translation>&amp;Sluit lettertipes in</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="353"/>
+        <location filename="../customfdialog.cpp" line="343"/>
         <source>Encoding:</source>
         <translation>Enkodering:</translation>
     </message>
@@ -8284,13 +8316,13 @@ This can be set in the Preferences.</source>
 Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="314"/>
-        <source>&amp;Include ICC Profiles</source>
+        <location filename="../customfdialog.cpp" line="274"/>
+        <source>Show Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="284"/>
-        <source>Show Preview</source>
+        <location filename="../customfdialog.cpp" line="304"/>
+        <source>&amp;Include Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8345,7 +8377,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
 <context>
     <name>DeferredTask</name>
     <message>
-        <location filename="../deferredtask.cpp" line="82"/>
+        <location filename="../deferredtask.cpp" line="83"/>
         <source>Cancelled by user</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8353,7 +8385,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
 <context>
     <name>DelColor</name>
     <message>
-        <location filename="../dcolor.cpp" line="30"/>
+        <location filename="../dcolor.cpp" line="28"/>
         <source>Delete Color</source>
         <translation>Verwyder kleur</translation>
     </message>
@@ -8388,12 +8420,12 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../dcolor.cpp" line="38"/>
+        <location filename="../dcolor.cpp" line="36"/>
         <source>Delete Color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dcolor.cpp" line="47"/>
+        <location filename="../dcolor.cpp" line="45"/>
         <source>Replace With:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8401,7 +8433,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
 <context>
     <name>DelPages</name>
     <message>
-        <location filename="../delpages.cpp" line="18"/>
+        <location filename="../delpages.cpp" line="17"/>
         <source>Delete Pages</source>
         <translation>Verwyder bladsye</translation>
     </message>
@@ -8411,7 +8443,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation type="obsolete">Verwyder vorm:</translation>
     </message>
     <message>
-        <location filename="../delpages.cpp" line="33"/>
+        <location filename="../delpages.cpp" line="34"/>
         <source>to:</source>
         <translation>tot:</translation>
     </message>
@@ -8427,7 +8459,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
 </translation>
     </message>
     <message>
-        <location filename="../delpages.cpp" line="27"/>
+        <location filename="../delpages.cpp" line="26"/>
         <source>Delete From:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8485,12 +8517,12 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
 <context>
     <name>DocInfos</name>
     <message>
-        <location filename="../docinfo.cpp" line="31"/>
+        <location filename="../docinfo.cpp" line="30"/>
         <source>Document Information</source>
         <translation>Dokumentinformasie</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="40"/>
+        <location filename="../docinfo.cpp" line="39"/>
         <source>&amp;Title:</source>
         <translation>&amp;Titel:</translation>
     </message>
@@ -8500,67 +8532,67 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation>&amp;Outeur:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="52"/>
+        <location filename="../docinfo.cpp" line="53"/>
         <source>&amp;Keywords:</source>
         <translation>&amp;Sleutelwoorde:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="59"/>
+        <location filename="../docinfo.cpp" line="61"/>
         <source>Descri&amp;ption:</source>
         <translation>&amp;Beskrywing:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="71"/>
+        <location filename="../docinfo.cpp" line="74"/>
         <source>P&amp;ublisher:</source>
         <translation>&amp;Uitgewer:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="77"/>
+        <location filename="../docinfo.cpp" line="81"/>
         <source>&amp;Contributors:</source>
         <translation>&amp;Medewerkers:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="84"/>
+        <location filename="../docinfo.cpp" line="89"/>
         <source>Dat&amp;e:</source>
         <translation>&amp;Datum:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="90"/>
+        <location filename="../docinfo.cpp" line="96"/>
         <source>T&amp;ype:</source>
         <translation>T&amp;ipe:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="96"/>
+        <location filename="../docinfo.cpp" line="103"/>
         <source>F&amp;ormat:</source>
         <translation>&amp;Formaat:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="102"/>
+        <location filename="../docinfo.cpp" line="110"/>
         <source>Identi&amp;fier:</source>
         <translation>&amp;Identifiseerder:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="108"/>
+        <location filename="../docinfo.cpp" line="117"/>
         <source>&amp;Source:</source>
         <translation>Br&amp;on:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="114"/>
+        <location filename="../docinfo.cpp" line="124"/>
         <source>&amp;Language:</source>
         <translation>T&amp;aal:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="120"/>
+        <location filename="../docinfo.cpp" line="131"/>
         <source>&amp;Relation:</source>
         <translation>R&amp;elasie:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="126"/>
+        <location filename="../docinfo.cpp" line="138"/>
         <source>Co&amp;verage:</source>
         <translation>&amp;Dekking:</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="132"/>
+        <location filename="../docinfo.cpp" line="145"/>
         <source>Ri&amp;ghts:</source>
         <translation>Reg&amp;te:</translation>
     </message>
@@ -8570,7 +8602,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation type="obsolete">Doku&amp;ment</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="139"/>
+        <location filename="../docinfo.cpp" line="153"/>
         <source>Further &amp;Information</source>
         <translation>Meer &amp;informasie</translation>
     </message>
@@ -8603,22 +8635,22 @@ This field is for document keywords you wish to embed in a PDF, to assist search
 Deze sleutelwoorden worden ingebed in de PDF om zoeken en indexeren van PDF-lêers mogelyk te maken</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="149"/>
+        <location filename="../docinfo.cpp" line="163"/>
         <source>A person or organisation responsible for making the document available</source>
         <translation>De persoon of organisatie die dit dokument beschikbaar maakt</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="150"/>
+        <location filename="../docinfo.cpp" line="164"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
         <translation>Personen of organisaties die hebben bygedragen aan dit dokument</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="151"/>
+        <location filename="../docinfo.cpp" line="165"/>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
         <translation>Datum die by het dokument hoort, byv. de aanmaakdatum, in JJJJ-MM-DD formaat, zoals in ISO 8601</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="152"/>
+        <location filename="../docinfo.cpp" line="166"/>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
         <translation>Genre, categorie of type van dit dokument</translation>
     </message>
@@ -8630,12 +8662,12 @@ RFC2045,RFC2046 for MIME types are also useful here</source>
 RFC2045, RFC2046 vir MIME-lêerstypen zyn ook bruikbaar hier</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="154"/>
+        <location filename="../docinfo.cpp" line="168"/>
         <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
         <translation>Een exacte referentie na dit dokument, zoals een ISBN-nummer of een URI</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="155"/>
+        <location filename="../docinfo.cpp" line="169"/>
         <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
         <translation>Een verwyzing na een dokument waar dit dokument van is afgelyk, byv. ISBN of een URI</translation>
     </message>
@@ -8647,17 +8679,17 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
 optioneel gevolgd door een koppelteken en een ISO-3166 landcode, byv. en-GB, nl-BE</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="157"/>
+        <location filename="../docinfo.cpp" line="171"/>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
         <translation>Een verwyzing na een gerelateerd dokument, mogelyk via een ISBN-nummer of URI</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="158"/>
+        <location filename="../docinfo.cpp" line="172"/>
         <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
         <translation>Het bereik dat door het dokument wordt omvat, byvoorbeeld in plaats, tyd of jurisdictie</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="159"/>
+        <location filename="../docinfo.cpp" line="173"/>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
         <translation>Informatie over rechten die vir dit dokument gelden, zoals copyright, patenten of handelsmerken</translation>
     </message>
@@ -8672,37 +8704,37 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, byv. en-GB, nl-
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="138"/>
+        <location filename="../docinfo.cpp" line="152"/>
         <source>Documen&amp;t</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="145"/>
+        <location filename="../docinfo.cpp" line="159"/>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="146"/>
+        <location filename="../docinfo.cpp" line="160"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="147"/>
+        <location filename="../docinfo.cpp" line="161"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="148"/>
+        <location filename="../docinfo.cpp" line="162"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="153"/>
+        <location filename="../docinfo.cpp" line="167"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../docinfo.cpp" line="156"/>
+        <location filename="../docinfo.cpp" line="170"/>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9010,37 +9042,37 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, byv. en-GB, nl-
 <context>
     <name>Druck</name>
     <message>
-        <location filename="../druck.cpp" line="66"/>
+        <location filename="../druck.cpp" line="67"/>
         <source>Setup Printer</source>
         <translation>Drukker instelling</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="73"/>
+        <location filename="../druck.cpp" line="74"/>
         <source>Print Destination</source>
         <translation>Druk na</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="796"/>
+        <location filename="../druck.cpp" line="797"/>
         <source>File</source>
         <translation>Lêer</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="114"/>
+        <location filename="../druck.cpp" line="115"/>
         <source>&amp;Options...</source>
         <translation>&amp;Opsies...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="126"/>
+        <location filename="../druck.cpp" line="127"/>
         <source>&amp;File:</source>
         <translation>&amp;Lêer:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="131"/>
+        <location filename="../druck.cpp" line="133"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Wysiging...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="138"/>
+        <location filename="../druck.cpp" line="140"/>
         <source>A&amp;lternative Printer Command</source>
         <translation>A&amp;lternatiewe drukopdrag</translation>
     </message>
@@ -9052,32 +9084,32 @@ to utilize additional printing options</source>
 om extra printopties te kunnen gebruiken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="147"/>
+        <location filename="../druck.cpp" line="149"/>
         <source>Co&amp;mmand:</source>
         <translation>O&amp;pdrag:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="154"/>
+        <location filename="../druck.cpp" line="157"/>
         <source>Range</source>
         <translation>Bereik</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="159"/>
+        <location filename="../druck.cpp" line="162"/>
         <source>Print &amp;All</source>
         <translation>Druk &amp;Alles</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="633"/>
+        <location filename="../druck.cpp" line="634"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Druk huidige bla&amp;dsy</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="163"/>
+        <location filename="../druck.cpp" line="166"/>
         <source>Print &amp;Range</source>
         <translation>Druk Be&amp;reik</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="376"/>
+        <location filename="../druck.cpp" line="380"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -9085,12 +9117,12 @@ a range of pages or a single page number.</source>
 of * vir almal.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="183"/>
+        <location filename="../druck.cpp" line="186"/>
         <source>N&amp;umber of Copies:</source>
         <translation>Aantal &amp;kopieë:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="222"/>
+        <location filename="../druck.cpp" line="226"/>
         <source>Options</source>
         <translation>Opsies</translation>
     </message>
@@ -9105,27 +9137,27 @@ of * vir almal.</translation>
         <translation type="obsolete">Druk &amp;skydings</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="821"/>
+        <location filename="../druck.cpp" line="822"/>
         <source>All</source>
         <translation>Alles</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="820"/>
+        <location filename="../druck.cpp" line="821"/>
         <source>Cyan</source>
         <translation>Cyaan</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="819"/>
+        <location filename="../druck.cpp" line="820"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="818"/>
+        <location filename="../druck.cpp" line="819"/>
         <source>Yellow</source>
         <translation>Geel</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="817"/>
+        <location filename="../druck.cpp" line="818"/>
         <source>Black</source>
         <translation>Swart</translation>
     </message>
@@ -9145,7 +9177,7 @@ of * vir almal.</translation>
         <translation type="obsolete">Ge&amp;vorderde opsies...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="349"/>
+        <location filename="../druck.cpp" line="353"/>
         <source>&amp;Print</source>
         <translation>&amp;Druk</translation>
     </message>
@@ -9155,7 +9187,7 @@ of * vir almal.</translation>
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="619"/>
+        <location filename="../druck.cpp" line="620"/>
         <source>Save as</source>
         <translation>Stoor as</translation>
     </message>
@@ -9165,128 +9197,118 @@ of * vir almal.</translation>
         <translation type="obsolete">Postscriptlêers (*.ps);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="581"/>
+        <location filename="../druck.cpp" line="582"/>
         <source>Print Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="195"/>
+        <location filename="../druck.cpp" line="199"/>
         <source>Print Separations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="199"/>
+        <location filename="../druck.cpp" line="203"/>
         <source>Print in Color if Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="200"/>
+        <location filename="../druck.cpp" line="204"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="217"/>
+        <location filename="../druck.cpp" line="221"/>
         <source>PostScript Level 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="218"/>
+        <location filename="../druck.cpp" line="222"/>
         <source>PostScript Level 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="219"/>
+        <location filename="../druck.cpp" line="223"/>
         <source>PostScript Level 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="228"/>
+        <location filename="../druck.cpp" line="232"/>
         <source>Page</source>
         <translation type="unfinished">Bladsy</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="234"/>
+        <location filename="../druck.cpp" line="238"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="237"/>
+        <location filename="../druck.cpp" line="241"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="240"/>
+        <location filename="../druck.cpp" line="244"/>
         <source>Set Media Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="246"/>
+        <location filename="../druck.cpp" line="250"/>
         <source>Color</source>
         <translation type="unfinished">Kleur</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="252"/>
+        <location filename="../druck.cpp" line="256"/>
         <source>Apply Under Color Removal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="255"/>
+        <location filename="../druck.cpp" line="259"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="263"/>
-        <source>Apply ICC Profiles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../druck.cpp" line="267"/>
+        <location filename="../druck.cpp" line="271"/>
         <source>Advanced Options</source>
         <translation type="unfinished">Gevorderde opsies</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="344"/>
+        <location filename="../druck.cpp" line="348"/>
         <source>Preview...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="378"/>
+        <location filename="../druck.cpp" line="382"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="619"/>
+        <location filename="../druck.cpp" line="620"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="377"/>
+        <location filename="../druck.cpp" line="381"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="379"/>
+        <location filename="../druck.cpp" line="383"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="380"/>
+        <location filename="../druck.cpp" line="384"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="383"/>
-        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../druck.cpp" line="384"/>
+        <location filename="../druck.cpp" line="388"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="242"/>
+        <location filename="../druck.cpp" line="246"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9296,160 +9318,170 @@ of * vir almal.</translation>
         <translation type="obsolete">Moenie objekte buite die kantlyne op gedrukte of uitgevoerde lêers wys nie</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="569"/>
+        <location filename="../druck.cpp" line="570"/>
         <source>Failed to retrieve printer settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="373"/>
+        <location filename="../druck.cpp" line="377"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="258"/>
+        <location filename="../druck.cpp" line="262"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="381"/>
+        <location filename="../druck.cpp" line="385"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="274"/>
+        <location filename="../druck.cpp" line="278"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="279"/>
+        <location filename="../druck.cpp" line="283"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="281"/>
+        <location filename="../druck.cpp" line="285"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="283"/>
+        <location filename="../druck.cpp" line="287"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="285"/>
+        <location filename="../druck.cpp" line="289"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="288"/>
+        <location filename="../druck.cpp" line="292"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="293"/>
+        <location filename="../druck.cpp" line="297"/>
         <source>Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="300"/>
+        <location filename="../druck.cpp" line="304"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="306"/>
+        <location filename="../druck.cpp" line="310"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="311"/>
+        <location filename="../druck.cpp" line="315"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="316"/>
+        <location filename="../druck.cpp" line="320"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="321"/>
+        <location filename="../druck.cpp" line="325"/>
         <source>Right:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="325"/>
+        <location filename="../druck.cpp" line="329"/>
         <source>Use Document Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="329"/>
+        <location filename="../druck.cpp" line="333"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="332"/>
+        <location filename="../druck.cpp" line="336"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="333"/>
+        <location filename="../druck.cpp" line="337"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="390"/>
+        <location filename="../druck.cpp" line="394"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die bokant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="391"/>
+        <location filename="../druck.cpp" line="395"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die onderkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="392"/>
+        <location filename="../druck.cpp" line="396"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die linkerkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="393"/>
+        <location filename="../druck.cpp" line="397"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die regterkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="385"/>
+        <location filename="../druck.cpp" line="389"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="386"/>
+        <location filename="../druck.cpp" line="390"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="387"/>
+        <location filename="../druck.cpp" line="391"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="388"/>
+        <location filename="../druck.cpp" line="392"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="389"/>
+        <location filename="../druck.cpp" line="393"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="394"/>
+        <location filename="../druck.cpp" line="398"/>
         <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../druck.cpp" line="267"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../druck.cpp" line="387"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EPSPlug</name>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="499"/>
+        <location filename="../plugins/psimport/importps.cpp" line="502"/>
         <source>Importing File:
 %1
 failed!</source>
@@ -9458,37 +9490,37 @@ failed!</source>
 het misluk!</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="500"/>
+        <location filename="../plugins/psimport/importps.cpp" line="503"/>
         <source>Fatal Error</source>
         <translation>Fatale fout</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="855"/>
+        <location filename="../plugins/psimport/importps.cpp" line="858"/>
         <source>Error</source>
         <translation type="unfinished">Fout</translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="73"/>
+        <location filename="../plugins/psimport/importps.cpp" line="74"/>
         <source>Analyzing PostScript:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="505"/>
+        <location filename="../plugins/psimport/importps.cpp" line="508"/>
         <source>Generating Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="854"/>
+        <location filename="../plugins/psimport/importps.cpp" line="857"/>
         <source>Converting of %1 images failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="725"/>
+        <location filename="../plugins/psimport/importps.cpp" line="728"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/psimport/importps.cpp" line="70"/>
+        <location filename="../plugins/psimport/importps.cpp" line="71"/>
         <source>Importing: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9825,157 +9857,157 @@ het misluk!</translation>
 <context>
     <name>EffectsDialog</name>
     <message>
-        <location filename="../effectsdialog.cpp" line="41"/>
+        <location filename="../effectsdialog.cpp" line="44"/>
         <source>Image Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="78"/>
+        <location filename="../effectsdialog.cpp" line="81"/>
         <source>Options:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="95"/>
+        <location filename="../effectsdialog.cpp" line="98"/>
         <source>Color:</source>
         <translation type="unfinished">Kleur:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="106"/>
+        <location filename="../effectsdialog.cpp" line="109"/>
         <source>Shade:</source>
         <translation type="unfinished">Skadu:</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="122"/>
+        <location filename="../effectsdialog.cpp" line="125"/>
         <source>Brightness:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="144"/>
+        <location filename="../effectsdialog.cpp" line="147"/>
         <source>Contrast:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="195"/>
+        <location filename="../effectsdialog.cpp" line="198"/>
         <source>Radius:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="177"/>
+        <location filename="../effectsdialog.cpp" line="180"/>
         <source>Value:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="213"/>
+        <location filename="../effectsdialog.cpp" line="216"/>
         <source>Posterize:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="497"/>
+        <location filename="../effectsdialog.cpp" line="500"/>
         <source>Available Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1383"/>
+        <location filename="../effectsdialog.cpp" line="1386"/>
         <source>Blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1361"/>
+        <location filename="../effectsdialog.cpp" line="1364"/>
         <source>Brightness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1352"/>
+        <location filename="../effectsdialog.cpp" line="1355"/>
         <source>Colorize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1367"/>
+        <location filename="../effectsdialog.cpp" line="1370"/>
         <source>Contrast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="970"/>
+        <location filename="../effectsdialog.cpp" line="973"/>
         <source>Grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="972"/>
+        <location filename="../effectsdialog.cpp" line="975"/>
         <source>Invert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1396"/>
+        <location filename="../effectsdialog.cpp" line="1399"/>
         <source>Posterize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1373"/>
+        <location filename="../effectsdialog.cpp" line="1376"/>
         <source>Sharpen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="479"/>
+        <location filename="../effectsdialog.cpp" line="482"/>
         <source>&gt;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="483"/>
+        <location filename="../effectsdialog.cpp" line="486"/>
         <source>&lt;&lt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="494"/>
+        <location filename="../effectsdialog.cpp" line="497"/>
         <source>Effects in use</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="608"/>
+        <location filename="../effectsdialog.cpp" line="611"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="612"/>
+        <location filename="../effectsdialog.cpp" line="615"/>
         <source>Cancel</source>
         <translation type="unfinished">Kanselleer</translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="348"/>
+        <location filename="../effectsdialog.cpp" line="351"/>
         <source>Color 1:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="368"/>
+        <location filename="../effectsdialog.cpp" line="371"/>
         <source>Color 2:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="388"/>
+        <location filename="../effectsdialog.cpp" line="391"/>
         <source>Color 3:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="408"/>
+        <location filename="../effectsdialog.cpp" line="411"/>
         <source>Color 4:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1402"/>
+        <location filename="../effectsdialog.cpp" line="1405"/>
         <source>Duotone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1438"/>
+        <location filename="../effectsdialog.cpp" line="1441"/>
         <source>Tritone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1489"/>
+        <location filename="../effectsdialog.cpp" line="1492"/>
         <source>Quadtone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../effectsdialog.cpp" line="1555"/>
+        <location filename="../effectsdialog.cpp" line="1558"/>
         <source>Curves</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9996,7 +10028,7 @@ het misluk!</translation>
 <context>
     <name>ExportForm</name>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="68"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="71"/>
         <source>Choose a Export Directory</source>
         <translation>Kies uitvoer gids</translation>
     </message>
@@ -10081,12 +10113,12 @@ het misluk!</translation>
         <translation type="obsolete">C</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="105"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="108"/>
         <source>Export a range of pages</source>
         <translation>Voer bereik van bladsye uit</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="106"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="109"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -10094,41 +10126,41 @@ a range of pages or a single page number.</source>
 of * vir almal.</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="107"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="110"/>
         <source>Export all pages</source>
         <translation>Voer alle bladsye uit</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="108"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="111"/>
         <source>Export only the current page</source>
         <translation>Voer net huidige bladsy uit</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="109"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="112"/>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
         <translation>Resolusie van beelde. 
 Gebruik 72dpi vir beelde bedoel vir skerms</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="111"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="114"/>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation>Beeldkwaliteit: 100% vir beste, 1% vir swakste kwaliteit</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="112"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="115"/>
         <source>Available export formats</source>
         <translation>Beskikbare uitvoerformate</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="116"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>Uitvoergids - die plek om beelde te stoor. 
 Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="114"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="117"/>
         <source>Change the output directory</source>
         <translation>Wysig uitvoergids</translation>
     </message>
@@ -10138,7 +10170,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation>&amp;Grootte:</translation>
     </message>
     <message>
-        <location filename="../plugins/pixmapexport/dialog.cpp" line="110"/>
+        <location filename="../plugins/pixmapexport/dialog.cpp" line="113"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>Beeldgrootte. 100% geen verandering, 200% twee maal groter.</translation>
     </message>
@@ -10156,112 +10188,112 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
 <context>
     <name>ExtImageProps</name>
     <message>
-        <location filename="../extimageprops.cpp" line="35"/>
+        <location filename="../extimageprops.cpp" line="37"/>
         <source>Extended Image Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="95"/>
+        <location filename="../extimageprops.cpp" line="98"/>
         <source>Normal</source>
         <translation type="unfinished">Normaal</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="96"/>
+        <location filename="../extimageprops.cpp" line="99"/>
         <source>Darken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="97"/>
+        <location filename="../extimageprops.cpp" line="100"/>
         <source>Lighten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="98"/>
+        <location filename="../extimageprops.cpp" line="101"/>
         <source>Hue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="99"/>
+        <location filename="../extimageprops.cpp" line="102"/>
         <source>Saturation</source>
         <translation type="unfinished">Versadiging</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="100"/>
+        <location filename="../extimageprops.cpp" line="103"/>
         <source>Color</source>
         <translation type="unfinished">Kleur</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="101"/>
+        <location filename="../extimageprops.cpp" line="104"/>
         <source>Luminosity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="102"/>
+        <location filename="../extimageprops.cpp" line="105"/>
         <source>Multiply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="103"/>
+        <location filename="../extimageprops.cpp" line="106"/>
         <source>Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="104"/>
+        <location filename="../extimageprops.cpp" line="107"/>
         <source>Dissolve</source>
         <translation type="unfinished">Oplos</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="105"/>
+        <location filename="../extimageprops.cpp" line="108"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="106"/>
+        <location filename="../extimageprops.cpp" line="109"/>
         <source>Hard Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="107"/>
+        <location filename="../extimageprops.cpp" line="110"/>
         <source>Soft Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="108"/>
+        <location filename="../extimageprops.cpp" line="111"/>
         <source>Difference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="109"/>
+        <location filename="../extimageprops.cpp" line="112"/>
         <source>Exclusion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="110"/>
+        <location filename="../extimageprops.cpp" line="113"/>
         <source>Color Dodge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="111"/>
+        <location filename="../extimageprops.cpp" line="114"/>
         <source>Color Burn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="91"/>
+        <location filename="../extimageprops.cpp" line="94"/>
         <source>Blend Mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="114"/>
+        <location filename="../extimageprops.cpp" line="117"/>
         <source>Opacity:</source>
         <translation type="unfinished">Ondeursigtigheid:</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="120"/>
+        <location filename="../extimageprops.cpp" line="123"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="126"/>
+        <location filename="../extimageprops.cpp" line="129"/>
         <source>Name</source>
         <translation type="unfinished">Naam</translation>
     </message>
@@ -10271,17 +10303,17 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Agtergrond</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="207"/>
+        <location filename="../extimageprops.cpp" line="210"/>
         <source>Layers</source>
         <translation type="unfinished">Lae</translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="260"/>
+        <location filename="../extimageprops.cpp" line="263"/>
         <source>Don&apos;t use any Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../extimageprops.cpp" line="262"/>
+        <location filename="../extimageprops.cpp" line="265"/>
         <source>Paths</source>
         <translation type="unfinished">Paaie</translation>
     </message>
@@ -10289,42 +10321,42 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
 <context>
     <name>FDialogPreview</name>
     <message>
-        <location filename="../customfdialog.cpp" line="192"/>
+        <location filename="../customfdialog.cpp" line="196"/>
         <source>Size:</source>
         <translation>Grootte:</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="219"/>
+        <location filename="../customfdialog.cpp" line="223"/>
         <source>Title:</source>
         <translation>Titel:</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="222"/>
+        <location filename="../customfdialog.cpp" line="226"/>
         <source>No Title</source>
         <translation>Geen titel</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="224"/>
+        <location filename="../customfdialog.cpp" line="228"/>
         <source>Author:</source>
         <translation>Outeur:</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="227"/>
+        <location filename="../customfdialog.cpp" line="231"/>
         <source>Unknown</source>
         <translation>Onbekend</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="229"/>
+        <location filename="../customfdialog.cpp" line="233"/>
         <source>Scribus Document</source>
         <translation>Scribus dokument</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="193"/>
+        <location filename="../customfdialog.cpp" line="197"/>
         <source>Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="193"/>
+        <location filename="../customfdialog.cpp" line="197"/>
         <source>DPI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10339,7 +10371,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="../customfdialog.cpp" line="199"/>
+        <location filename="../customfdialog.cpp" line="203"/>
         <source>Colorspace:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10513,12 +10545,12 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
 <context>
     <name>FontComboH</name>
     <message>
-        <location filename="../fontcombo.cpp" line="136"/>
+        <location filename="../fontcombo.cpp" line="137"/>
         <source>Face:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontcombo.cpp" line="137"/>
+        <location filename="../fontcombo.cpp" line="138"/>
         <source>Style:</source>
         <translation type="unfinished">Styl:</translation>
     </message>
@@ -10531,17 +10563,17 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Programwye lettertipe-instellings</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="47"/>
+        <location filename="../fontprefs.cpp" line="46"/>
         <source>Available Fonts</source>
         <translation>Beskikbare lettertipes</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="47"/>
+        <location filename="../fontprefs.cpp" line="46"/>
         <source>Font Substitutions</source>
         <translation>Lettertipe-vervangings</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="47"/>
+        <location filename="../fontprefs.cpp" line="46"/>
         <source>Additional Paths</source>
         <translation>Additionele lokasies</translation>
     </message>
@@ -10556,12 +10588,12 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Ja</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="88"/>
+        <location filename="../fontprefs.cpp" line="87"/>
         <source>Font Name</source>
         <translation>Lettertipe Naam</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="58"/>
+        <location filename="../fontprefs.cpp" line="57"/>
         <source>Use Font</source>
         <translation type="unfinished">Gebruik Lettertipe</translation>
     </message>
@@ -10571,7 +10603,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Inbed in:</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="60"/>
+        <location filename="../fontprefs.cpp" line="59"/>
         <source>Subset</source>
         <translation type="unfinished">Substel</translation>
     </message>
@@ -10581,47 +10613,47 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Tipe</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="61"/>
+        <location filename="../fontprefs.cpp" line="60"/>
         <source>Path to Font File</source>
         <translation type="unfinished">Pad na lettertipelêer</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="80"/>
+        <location filename="../fontprefs.cpp" line="79"/>
         <source>&amp;Available Fonts</source>
         <translation>Beskikbare &amp;lettertipes</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="89"/>
+        <location filename="../fontprefs.cpp" line="88"/>
         <source>Replacement</source>
         <translation>Vervanging</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="104"/>
+        <location filename="../fontprefs.cpp" line="103"/>
         <source>&amp;Delete</source>
         <translation>Verwy&amp;der</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="110"/>
+        <location filename="../fontprefs.cpp" line="109"/>
         <source>Font &amp;Substitutions</source>
         <translation>Lettertipe-&amp;vervanging</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="129"/>
+        <location filename="../fontprefs.cpp" line="128"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Wysig...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="131"/>
+        <location filename="../fontprefs.cpp" line="130"/>
         <source>A&amp;dd...</source>
         <translation>&amp;Toevoeg...</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="133"/>
+        <location filename="../fontprefs.cpp" line="132"/>
         <source>&amp;Remove</source>
         <translation>Ve&amp;rwyder</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="157"/>
+        <location filename="../fontprefs.cpp" line="156"/>
         <source>Additional &amp;Paths</source>
         <translation>Additionele &amp;paaie</translation>
     </message>
@@ -10636,7 +10668,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="300"/>
+        <location filename="../fontprefs.cpp" line="299"/>
         <source>Choose a Directory</source>
         <translation>Kies &apos;n gids</translation>
     </message>
@@ -10671,12 +10703,12 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Pad na lettertipelêer</translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="152"/>
+        <location filename="../fontprefs.cpp" line="151"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontprefs.cpp" line="59"/>
+        <location filename="../fontprefs.cpp" line="58"/>
         <source>Embed in PostScript</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10704,7 +10736,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="222"/>
+        <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
@@ -10736,13 +10768,13 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Substel</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="92"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="97"/>
         <source>User</source>
         <comment>font preview</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="93"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="98"/>
         <source>System</source>
         <comment>font preview</comment>
         <translation type="unfinished"></translation>
@@ -10775,16 +10807,16 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Voeg gekose lettertipe in styl, Lettertipe kieskaart in</translation>
+        <translation type="obsolete">Voeg gekose lettertipe in styl, Lettertipe kieskaart in</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="164"/>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation type="unfinished">Verlaat voorbeeld</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="106"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="111"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation type="unfinished">Filmquiz bracht knappe ex-yogi van de wys</translation>
@@ -10795,42 +10827,42 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="unfinished">&amp;Zoeken</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
         <source>Start searching</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="168"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="167"/>
         <source>Size of the selected font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="166"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="165"/>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
         <source>Font Name</source>
         <translation type="unfinished">Lettertipe Naam</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
         <source>Doc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
         <source>Subset</source>
         <translation type="unfinished">Substel</translation>
     </message>
     <message>
-        <location filename="../plugins/fontpreview/fontpreview.cpp" line="47"/>
+        <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Access</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10876,16 +10908,6 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
-        <source>&amp;Append</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
-        <source>Alt+A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/fontpreview/fontpreview.ui" line="219"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10944,42 +10966,42 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
 <context>
     <name>FontReplaceDialog</name>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="29"/>
+        <location filename="../fontreplacedialog.cpp" line="30"/>
         <source>Font Substitution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="44"/>
+        <location filename="../fontreplacedialog.cpp" line="45"/>
         <source>Original Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="45"/>
+        <location filename="../fontreplacedialog.cpp" line="46"/>
         <source>Substitution Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="71"/>
+        <location filename="../fontreplacedialog.cpp" line="72"/>
         <source>Make these substitutions permanent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="39"/>
+        <location filename="../fontreplacedialog.cpp" line="40"/>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="82"/>
+        <location filename="../fontreplacedialog.cpp" line="83"/>
         <source>Cancels these font substitutions and stops loading the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="83"/>
+        <location filename="../fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../fontreplacedialog.cpp" line="84"/>
+        <location filename="../fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10987,12 +11009,12 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
 <context>
     <name>GradientEditor</name>
     <message>
-        <location filename="../gradienteditor.cpp" line="313"/>
+        <location filename="../gradienteditor.cpp" line="311"/>
         <source>Position:</source>
         <translation>Posisie:</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="314"/>
+        <location filename="../gradienteditor.cpp" line="312"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -11002,7 +11024,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Hier kan u kleur-stops toevoeg, bewerk of verwyder.</translation>
     </message>
     <message>
-        <location filename="../gradienteditor.cpp" line="312"/>
+        <location filename="../gradienteditor.cpp" line="320"/>
         <source>Add, change or remove color stops here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11045,12 +11067,12 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">&amp;Y-pos:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="60"/>
+        <location filename="../guidemanager.ui" line="61"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Toevoeg</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="70"/>
+        <location filename="../guidemanager.ui" line="71"/>
         <source>D&amp;elete</source>
         <translation type="unfinished">V&amp;erwyder</translation>
     </message>
@@ -11065,17 +11087,17 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">&amp;X-pos:</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="107"/>
+        <location filename="../guidemanager.ui" line="97"/>
         <source>A&amp;dd</source>
         <translation type="unfinished">Toe&amp;voeg</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="117"/>
+        <location filename="../guidemanager.ui" line="107"/>
         <source>De&amp;lete</source>
         <translation type="unfinished">Ve&amp;rwyder</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="132"/>
+        <location filename="../guidemanager.ui" line="122"/>
         <source>&amp;Lock Guides</source>
         <translation type="unfinished">S&amp;luit Hulplyne</translation>
     </message>
@@ -11090,7 +11112,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="332"/>
+        <location filename="../guidemanager.ui" line="284"/>
         <source>&amp;Page</source>
         <translation type="unfinished">&amp;Bladsy</translation>
     </message>
@@ -11100,147 +11122,127 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="obsolete">Voorbeeld</translation>
     </message>
     <message>
-        <location filename="../guidemanager.cpp" line="229"/>
-        <source>Edit Guide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../guidemanager.cpp" line="257"/>
-        <source>Enter a position:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../guidemanager.cpp" line="256"/>
-        <source>New Guide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../guidemanager.ui" line="28"/>
+        <location filename="../guidemanager.ui" line="40"/>
         <source>&amp;Single</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="159"/>
+        <location filename="../guidemanager.ui" line="149"/>
         <source>Horizontals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="99"/>
-        <source>Guide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../guidemanager.ui" line="407"/>
+        <location filename="../guidemanager.ui" line="359"/>
         <source>Alt+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="358"/>
+        <location filename="../guidemanager.ui" line="310"/>
         <source>Alt+E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="265"/>
+        <location filename="../guidemanager.ui" line="236"/>
         <source>Verticals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="110"/>
+        <location filename="../guidemanager.ui" line="100"/>
         <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="135"/>
+        <location filename="../guidemanager.ui" line="125"/>
         <source>Alt+L</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="371"/>
+        <location filename="../guidemanager.ui" line="323"/>
         <source>Appl&amp;y to All Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="374"/>
+        <location filename="../guidemanager.ui" line="326"/>
         <source>Alt+Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="153"/>
+        <location filename="../guidemanager.ui" line="143"/>
         <source>&amp;Column/Row</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="168"/>
+        <location filename="../guidemanager.ui" line="155"/>
         <source>&amp;Number:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="191"/>
+        <location filename="../guidemanager.ui" line="178"/>
         <source>U&amp;se Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="194"/>
+        <location filename="../guidemanager.ui" line="181"/>
         <source>Alt+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="323"/>
+        <location filename="../guidemanager.ui" line="278"/>
         <source>Refer To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="394"/>
+        <location filename="../guidemanager.ui" line="346"/>
         <source>Alt+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="345"/>
+        <location filename="../guidemanager.ui" line="297"/>
         <source>M&amp;argins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="355"/>
+        <location filename="../guidemanager.ui" line="307"/>
         <source>S&amp;election</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="274"/>
+        <location filename="../guidemanager.ui" line="242"/>
         <source>Nu&amp;mber:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="297"/>
+        <location filename="../guidemanager.ui" line="265"/>
         <source>Use &amp;Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="300"/>
+        <location filename="../guidemanager.ui" line="268"/>
         <source>Alt+G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="382"/>
+        <location filename="../guidemanager.ui" line="334"/>
         <source>&amp;Misc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="388"/>
+        <location filename="../guidemanager.ui" line="340"/>
         <source>Delete all guides from the current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="391"/>
+        <location filename="../guidemanager.ui" line="343"/>
         <source>Delete Guides from Current &amp;Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="401"/>
+        <location filename="../guidemanager.ui" line="353"/>
         <source>Delete all guides from the current document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../guidemanager.ui" line="404"/>
+        <location filename="../guidemanager.ui" line="356"/>
         <source>Delete Guides from &amp;All Pages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11289,7 +11291,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <location filename="../helpbrowser.cpp" line="265"/>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation>Helaas, geen handleiding beskikbaar! Kyk op http://docs.scribus.net/ vir bygewerkte dokumentasie en op http://www.scribus.net/ vir downloads.</translation>
+        <translation type="obsolete">Helaas, geen handleiding beskikbaar! Kyk op http://docs.scribus.net/ vir bygewerkte dokumentasie en op http://www.scribus.net/ vir downloads.</translation>
     </message>
     <message>
         <location filename="../helpbrowser.cpp" line="457"/>
@@ -11302,7 +11304,7 @@ and www.scribus.net for downloads.</source>
         <translation type="obsolete">Skakel</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="264"/>
+        <location filename="../helpbrowser.cpp" line="273"/>
         <source>Scribus Online Help</source>
         <translation>Scribus aanlyn hulp</translation>
     </message>
@@ -11342,32 +11344,27 @@ and www.scribus.net for downloads.</source>
         <translation type="unfinished">Afdru&amp;kken...</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="216"/>
-        <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../helpbrowser.cpp" line="324"/>
+        <location filename="../helpbrowser.cpp" line="364"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="324"/>
+        <location filename="../helpbrowser.cpp" line="364"/>
         <source>Search Term:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="356"/>
+        <location filename="../helpbrowser.cpp" line="396"/>
         <source>New Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="356"/>
+        <location filename="../helpbrowser.cpp" line="396"/>
         <source>New Bookmark&apos;s Title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="208"/>
+        <location filename="../helpbrowser.cpp" line="275"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Lêer</translation>
     </message>
@@ -11377,22 +11374,22 @@ and www.scribus.net for downloads.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="218"/>
+        <location filename="../helpbrowser.cpp" line="282"/>
         <source>Find &amp;Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="219"/>
+        <location filename="../helpbrowser.cpp" line="283"/>
         <source>Find &amp;Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="209"/>
+        <location filename="../helpbrowser.cpp" line="276"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="220"/>
+        <location filename="../helpbrowser.cpp" line="284"/>
         <source>&amp;Add Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11402,7 +11399,7 @@ and www.scribus.net for downloads.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../helpbrowser.cpp" line="210"/>
+        <location filename="../helpbrowser.cpp" line="277"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Bladwyzers</translation>
     </message>
@@ -11440,6 +11437,17 @@ and www.scribus.net for downloads.</source>
         <location filename="../ui/helpbrowser.ui" line="173"/>
         <source>&amp;Add</source>
         <translation type="unfinished">&amp;Toevoeg</translation>
+    </message>
+    <message>
+        <location filename="../helpbrowser.cpp" line="280"/>
+        <source>&amp;Quit</source>
+        <translation type="unfinished">A&amp;fsluiten</translation>
+    </message>
+    <message>
+        <location filename="../helpbrowser.cpp" line="702"/>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <comment>HTML message for no documentation available to show</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11483,24 +11491,36 @@ and www.scribus.net for downloads.</source>
 <context>
     <name>HyAsk</name>
     <message>
-        <location filename="../hyask.cpp" line="46"/>
+        <location filename="../hyask.cpp" line="48"/>
         <source>Possible Hyphenation</source>
         <translation>Moontlike afkapping</translation>
     </message>
     <message>
-        <location filename="../hyask.cpp" line="65"/>
+        <location filename="../hyask.cpp" line="68"/>
         <source>Accept</source>
         <translation>Aanvaar</translation>
     </message>
     <message>
-        <location filename="../hyask.cpp" line="71"/>
+        <location filename="../hyask.cpp" line="89"/>
         <source>Skip</source>
         <translation>Oorslaan</translation>
     </message>
     <message>
-        <location filename="../hyask.cpp" line="76"/>
+        <location filename="../hyask.cpp" line="107"/>
         <source>Cancel</source>
         <translation>Kanselleer</translation>
+    </message>
+    <message>
+        <location filename="../hyask.cpp" line="77"/>
+        <source>Add to the
+Exception List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hyask.cpp" line="97"/>
+        <source>Add to the
+Ignore List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11513,12 +11533,12 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../hysettings.cpp" line="40"/>
         <source>&amp;Language:</source>
-        <translation>&amp;Taal:</translation>
+        <translation type="obsolete">&amp;Taal:</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="46"/>
         <source>&amp;Smallest Word:</source>
-        <translation>&amp;Kleinste woord:</translation>
+        <translation type="obsolete">&amp;Kleinste woord:</translation>
     </message>
     <message>
         <location filename="" line="136966680"/>
@@ -11533,60 +11553,80 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../hysettings.cpp" line="58"/>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Lengte van korste afkapbare woord.</translation>
+        <translation type="obsolete">Lengte van korste afkapbare woord.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="59"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation>Maksimum aantal opeenvolgende afkappings.
+        <translation type="obsolete">Maksimum aantal opeenvolgende afkappings.
 0 beteken onbeperk.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="20"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>A&amp;fkapvoorstelle</translation>
+        <translation type="obsolete">A&amp;fkapvoorstelle</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="23"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation>Kap woorde ty&amp;dens tik af</translation>
+        <translation type="obsolete">Kap woorde ty&amp;dens tik af</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="56"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation>Met opsie Ekstra, Teksafkap kry u n dialoogvenster met alle afkapmoontlikhede vir elke woord.</translation>
+        <translation type="obsolete">Met opsie Ekstra, Teksafkap kry u n dialoogvenster met alle afkapmoontlikhede vir elke woord.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="57"/>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation>Sit intydse -terwyl jy tik- afkapping aan.</translation>
+        <translation type="obsolete">Sit intydse -terwyl jy tik- afkapping aan.</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="52"/>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation>Opeenvolgende &amp;afkappings toegelaat:</translation>
+        <translation type="obsolete">Opeenvolgende &amp;afkappings toegelaat:</translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="84"/>
+        <source>Ignore List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="113"/>
+        <source>Add a new Entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="125"/>
+        <source>Edit Entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettings.cpp" line="125"/>
+        <source>Exception List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImageInfoDialog</name>
     <message>
-        <location filename="../imageinfodialog.cpp" line="24"/>
+        <location filename="../imageinfodialog.cpp" line="23"/>
         <source>Image Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="31"/>
+        <location filename="../imageinfodialog.cpp" line="30"/>
         <source>General Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="35"/>
+        <location filename="../imageinfodialog.cpp" line="34"/>
         <source>Date / Time:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="39"/>
+        <location filename="../imageinfodialog.cpp" line="38"/>
         <source>Has Embedded Profile:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11601,150 +11641,311 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="obsolete">Nee</translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="47"/>
+        <location filename="../imageinfodialog.cpp" line="46"/>
         <source>Profile Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="51"/>
+        <location filename="../imageinfodialog.cpp" line="50"/>
         <source>Has Embedded Paths:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="59"/>
+        <location filename="../imageinfodialog.cpp" line="58"/>
         <source>Has Layers:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="70"/>
+        <location filename="../imageinfodialog.cpp" line="69"/>
         <source>EXIF Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="85"/>
+        <location filename="../imageinfodialog.cpp" line="84"/>
         <source>Artist:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="127"/>
+        <location filename="../imageinfodialog.cpp" line="126"/>
         <source>Comment:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="128"/>
+        <location filename="../imageinfodialog.cpp" line="127"/>
         <source>User Comment:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="129"/>
+        <location filename="../imageinfodialog.cpp" line="128"/>
         <source>Camera Model:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="130"/>
+        <location filename="../imageinfodialog.cpp" line="129"/>
         <source>Camera Manufacturer:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="136"/>
+        <location filename="../imageinfodialog.cpp" line="135"/>
         <source>Description:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="137"/>
+        <location filename="../imageinfodialog.cpp" line="136"/>
         <source>Copyright:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="138"/>
+        <location filename="../imageinfodialog.cpp" line="137"/>
         <source>Scanner Model:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="139"/>
+        <location filename="../imageinfodialog.cpp" line="138"/>
         <source>Scanner Manufacturer:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="131"/>
+        <location filename="../imageinfodialog.cpp" line="130"/>
         <source>Exposure time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="132"/>
+        <location filename="../imageinfodialog.cpp" line="131"/>
         <source>Aperture:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../imageinfodialog.cpp" line="133"/>
+        <location filename="../imageinfodialog.cpp" line="132"/>
         <source>ISO equiv.:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
+    <name>ImportAIPlugin</name>
+    <message>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="58"/>
+        <source>Import AI...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="79"/>
+        <source>Imports Illustrator Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="80"/>
+        <source>Imports most Illustrator files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportDialog</name>
-    <message>
-        <location filename="../smstyleimport.cpp" line="30"/>
-        <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="35"/>
-        <source>Available Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="40"/>
-        <source>Character Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="49"/>
-        <source>Paragraph Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="58"/>
-        <source>Line Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="76"/>
-        <source>In case of a name clash</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="77"/>
-        <source>Rename imported style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smstyleimport.cpp" line="79"/>
-        <source>Replace existing style</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ImportPSPlugin</name>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
         <source>Import &amp;EPS/PS...</source>
-        <translation type="unfinished">Voer &amp;EPS/PS in...</translation>
+        <translation type="obsolete">Voer &amp;EPS/PS in...</translation>
+    </message>
+    <message>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
+        <source>Import PostScript...</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="78"/>
-        <source>Imports EPS Files</source>
+        <source>Imports PostScript Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="79"/>
-        <source>Imports most EPS files into the current document,
+        <source>Imports most PostScript files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>Imposition</name>
     <message>
-        <location filename="../plugins/psimport/importpsplugin.cpp" line="105"/>
-        <source>PDF</source>
+        <location filename="../plugins/imposition/imposition.cpp" line="72"/>
+        <source>Portrait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/imposition.cpp" line="73"/>
+        <source>Landscape</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImpositionBase</name>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="19"/>
+        <source>Imposition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="44"/>
+        <source>Gri&amp;d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="102"/>
+        <source>Copies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="157"/>
+        <source>Do&amp;uble sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="160"/>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="186"/>
+        <source>Front side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="218"/>
+        <source>Back side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="253"/>
+        <source>&amp;Booklet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="285"/>
+        <source>Pages per sheet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="296"/>
+        <source>4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="301"/>
+        <source>8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="306"/>
+        <source>16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="318"/>
+        <source>Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="325"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="339"/>
+        <source>Fold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="349"/>
+        <source>Front page from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="376"/>
+        <source>Double sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="387"/>
+        <source>Back page from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="415"/>
+        <source>Destination page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="455"/>
+        <source>Size</source>
+        <translation type="unfinished">Grootte</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="487"/>
+        <source>Orientation</source>
+        <translation type="unfinished">Oriëntasie</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="519"/>
+        <source>Width</source>
+        <translation type="unfinished">Breedte</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="564"/>
+        <source>Height</source>
+        <translation type="unfinished">Hoogte</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="620"/>
+        <source>Preview</source>
+        <translation type="unfinished">Voorbeeld</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="627"/>
+        <source>Refresh preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="671"/>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Reg</translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="674"/>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="681"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionbase.ui" line="684"/>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+</context>
+<context>
+    <name>ImpositionPlugin</name>
+    <message>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="37"/>
+        <source>&amp;Imposition...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="66"/>
+        <source>Imposition dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="67"/>
+        <source>Imposition on grids, booklets and folds</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11761,22 +11962,22 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">&amp;Invoeging</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="43"/>
+        <location filename="../inspage.cpp" line="46"/>
         <source>Page(s)</source>
         <translation>Bladsy(e)</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="47"/>
+        <location filename="../inspage.cpp" line="50"/>
         <source>before Page</source>
         <translation>voor bladsy</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="48"/>
+        <location filename="../inspage.cpp" line="51"/>
         <source>after Page</source>
         <translation>na bladsy</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="49"/>
+        <location filename="../inspage.cpp" line="52"/>
         <source>at End</source>
         <translation>aan die einde</translation>
     </message>
@@ -11816,57 +12017,57 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="59"/>
+        <location filename="../inspage.cpp" line="63"/>
         <source>&amp;Insert</source>
         <translation type="unfinished">&amp;Invoegen</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="63"/>
+        <location filename="../inspage.cpp" line="67"/>
         <source>Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="73"/>
+        <location filename="../inspage.cpp" line="77"/>
         <source>&amp;Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="199"/>
+        <location filename="../inspage.cpp" line="205"/>
         <source>Page Size</source>
         <translation type="unfinished">Bladsygrootte</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="203"/>
+        <location filename="../inspage.cpp" line="209"/>
         <source>&amp;Size:</source>
         <translation type="unfinished">&amp;Grootte:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="219"/>
+        <location filename="../inspage.cpp" line="224"/>
         <source>Orie&amp;ntation:</source>
         <translation type="unfinished">Orië&amp;ntasie:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="222"/>
+        <location filename="../inspage.cpp" line="227"/>
         <source>Portrait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="223"/>
+        <location filename="../inspage.cpp" line="228"/>
         <source>Landscape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="229"/>
+        <location filename="../inspage.cpp" line="233"/>
         <source>&amp;Width:</source>
         <translation type="unfinished">&amp;Breedte:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="236"/>
+        <location filename="../inspage.cpp" line="240"/>
         <source>&amp;Height:</source>
         <translation type="unfinished">&amp;Hoogte:</translation>
     </message>
     <message>
-        <location filename="../inspage.cpp" line="240"/>
+        <location filename="../inspage.cpp" line="245"/>
         <source>Move Objects with their Page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11874,17 +12075,17 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>InsertAFrame</name>
     <message>
-        <location filename="../insertaframe.cpp" line="201"/>
+        <location filename="../insertaframe.cpp" line="205"/>
         <source>Open</source>
         <translation type="unfinished">Maak oop</translation>
     </message>
     <message>
-        <location filename="../insertaframe.cpp" line="111"/>
+        <location filename="../insertaframe.cpp" line="115"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../insertaframe.cpp" line="115"/>
+        <location filename="../insertaframe.cpp" line="119"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12110,7 +12311,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>InsertTable</name>
     <message>
-        <location filename="../insertTable.cpp" line="16"/>
+        <location filename="../insertTable.cpp" line="15"/>
         <source>Insert Table</source>
         <translation>Voeg Tabel in</translation>
     </message>
@@ -12135,12 +12336,12 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Kanselleer</translation>
     </message>
     <message>
-        <location filename="../insertTable.cpp" line="29"/>
+        <location filename="../insertTable.cpp" line="28"/>
         <source>Number of rows:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../insertTable.cpp" line="30"/>
+        <location filename="../insertTable.cpp" line="29"/>
         <source>Number of columns:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12148,37 +12349,37 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>JavaDocs</name>
     <message>
-        <location filename="../javadocs.cpp" line="28"/>
+        <location filename="../javadocs.cpp" line="27"/>
         <source>Edit JavaScripts</source>
         <translation>Verander JavaScripts</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="47"/>
+        <location filename="../javadocs.cpp" line="46"/>
         <source>&amp;Edit...</source>
         <translation>B&amp;ewerk...</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="50"/>
+        <location filename="../javadocs.cpp" line="49"/>
         <source>&amp;Add...</source>
         <translation>&amp;Toevoeg...</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="53"/>
+        <location filename="../javadocs.cpp" line="52"/>
         <source>&amp;Delete</source>
         <translation>Verwy&amp;der</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="58"/>
+        <location filename="../javadocs.cpp" line="57"/>
         <source>&amp;Close</source>
         <translation>&amp;Maak toe</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="78"/>
+        <location filename="../javadocs.cpp" line="77"/>
         <source>&amp;New Script:</source>
         <translation>&amp;Nuwe script:</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="79"/>
+        <location filename="../javadocs.cpp" line="78"/>
         <source>New Script</source>
         <translation>Nuwe script</translation>
     </message>
@@ -12203,12 +12404,12 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Wil u die script werklik verwyder?</translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="124"/>
+        <location filename="../javadocs.cpp" line="123"/>
         <source>Do you really want to delete this script?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../javadocs.cpp" line="72"/>
+        <location filename="../javadocs.cpp" line="71"/>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12307,9 +12508,105 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>LatexEditor</name>
+    <message>
+        <location filename="../latexeditor.ui" line="13"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="30"/>
+        <source>Enter Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="42"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="49"/>
+        <source>Revert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="62"/>
+        <source>Program Messages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="81"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="93"/>
+        <source>Status: Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="103"/>
+        <source>Kill Program</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="118"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="126"/>
+        <source>Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="133"/>
+        <source>Automatic</source>
+        <translation type="unfinished">Outomaties</translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="136"/>
+        <source> DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="153"/>
+        <source>Program:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="161"/>
+        <source>LaTeX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="171"/>
+        <source>Use Preamble</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="178"/>
+        <source>Update Application Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="199"/>
+        <source>Fonts and Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../latexeditor.ui" line="211"/>
+        <source>Will be filled later</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../layers.cpp" line="485"/>
+        <location filename="../layers.cpp" line="484"/>
         <source>Layers</source>
         <translation>Lae</translation>
     </message>
@@ -12319,7 +12616,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Voeg Nuwe laag by</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="275"/>
+        <location filename="../layers.cpp" line="274"/>
         <source>Delete Layer</source>
         <translation>Verwyder Laag</translation>
     </message>
@@ -12344,168 +12641,221 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Wil jy alle objekte in hierdie laag ook uitvee?</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="506"/>
+        <location filename="../layers.cpp" line="505"/>
         <source>Name</source>
         <translation type="unfinished">Naam</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="276"/>
+        <location filename="../layers.cpp" line="275"/>
         <source>Do you want to delete all objects on this layer too?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="512"/>
+        <location filename="../layers.cpp" line="511"/>
         <source>Add a new layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="514"/>
+        <location filename="../layers.cpp" line="513"/>
         <source>Delete layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="515"/>
+        <location filename="../layers.cpp" line="514"/>
         <source>Raise layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="516"/>
+        <location filename="../layers.cpp" line="515"/>
         <source>Lower layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="504"/>
+        <location filename="../layers.cpp" line="503"/>
         <source>Opacity:</source>
         <translation type="unfinished">Ondeursigtigheid:</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="505"/>
+        <location filename="../layers.cpp" line="504"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="486"/>
+        <location filename="../layers.cpp" line="485"/>
         <source>Blend Mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="488"/>
+        <location filename="../layers.cpp" line="487"/>
         <source>Normal</source>
         <translation type="unfinished">Normaal</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="489"/>
+        <location filename="../layers.cpp" line="488"/>
         <source>Darken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="490"/>
+        <location filename="../layers.cpp" line="489"/>
         <source>Lighten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="491"/>
+        <location filename="../layers.cpp" line="490"/>
         <source>Multiply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="492"/>
+        <location filename="../layers.cpp" line="491"/>
         <source>Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="493"/>
+        <location filename="../layers.cpp" line="492"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="494"/>
+        <location filename="../layers.cpp" line="493"/>
         <source>Hard Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="495"/>
+        <location filename="../layers.cpp" line="494"/>
         <source>Soft Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="496"/>
+        <location filename="../layers.cpp" line="495"/>
         <source>Difference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="498"/>
+        <location filename="../layers.cpp" line="497"/>
         <source>Color Dodge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="499"/>
+        <location filename="../layers.cpp" line="498"/>
         <source>Color Burn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="497"/>
+        <location filename="../layers.cpp" line="496"/>
         <source>Exclusion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="500"/>
+        <location filename="../layers.cpp" line="499"/>
         <source>Hue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="501"/>
+        <location filename="../layers.cpp" line="500"/>
         <source>Saturation</source>
         <translation type="unfinished">Versadiging</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="502"/>
+        <location filename="../layers.cpp" line="501"/>
         <source>Color</source>
         <translation type="unfinished">Kleur</translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="503"/>
+        <location filename="../layers.cpp" line="502"/>
         <source>Luminosity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="513"/>
+        <location filename="../layers.cpp" line="512"/>
         <source>Duplicates the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="517"/>
+        <location filename="../layers.cpp" line="516"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="518"/>
+        <location filename="../layers.cpp" line="517"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="519"/>
+        <location filename="../layers.cpp" line="518"/>
         <source>Print Layer - Uncheck to disable printing. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="520"/>
+        <location filename="../layers.cpp" line="519"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="521"/>
+        <location filename="../layers.cpp" line="520"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="522"/>
+        <location filename="../layers.cpp" line="521"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.cpp" line="523"/>
+        <location filename="../layers.cpp" line="522"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LensDialogBase</name>
+    <message>
+        <location filename="../lensdialogbase.ui" line="13"/>
+        <source>Optical Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="64"/>
+        <source>Add Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="71"/>
+        <source>Remove Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="98"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="105"/>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="123"/>
+        <source>Lens Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="147"/>
+        <source>X Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="164"/>
+        <source>Y Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="181"/>
+        <source>Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lensdialogbase.ui" line="198"/>
+        <source>Strength:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12610,14 +12960,9 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LineStyleW</name>
     <message>
-        <location filename="../smlinestylew.ui" line="184"/>
-        <source>%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../smlinestylew.ui" line="208"/>
         <source>Line Width:</source>
-        <translation type="unfinished">Lyndikte:</translation>
+        <translation type="obsolete">Lyndikte:</translation>
     </message>
 </context>
 <context>
@@ -12633,37 +12978,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../smlinestyle.cpp" line="180"/>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="52"/>
-        <source>Flat Cap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="53"/>
-        <source>Square Cap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="54"/>
-        <source>Round Cap</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="56"/>
         <source>Miter Join</source>
-        <translation type="unfinished">Miter koppel</translation>
+        <translation type="obsolete">Miter koppel</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="57"/>
         <source>Bevel Join</source>
-        <translation type="unfinished">Bevel koppel</translation>
+        <translation type="obsolete">Bevel koppel</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="58"/>
         <source>Round Join</source>
-        <translation type="unfinished">Ronde koppel</translation>
+        <translation type="obsolete">Ronde koppel</translation>
     </message>
     <message>
         <location filename="" line="136966680"/>
@@ -12690,46 +13020,6 @@ converting their vector data into Scribus objects.</source>
         <source>Dash Dot Dot Line</source>
         <translation type="obsolete">Streep-stip-stip lyn</translation>
     </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="70"/>
-        <source>Add a new line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="71"/>
-        <source>Remove a line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="72"/>
-        <source>Line style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="73"/>
-        <source>Line width</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="74"/>
-        <source>End style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="75"/>
-        <source>Join style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="76"/>
-        <source>Line color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smlinestyle.cpp" line="77"/>
-        <source>Line shade</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>LoadSavePlugin</name>
@@ -12747,47 +13037,47 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LoremManager</name>
     <message>
-        <location filename="../loremipsum.cpp" line="118"/>
+        <location filename="../loremipsum.cpp" line="123"/>
         <source>Select Lorem Ipsum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="183"/>
+        <location filename="../loremipsum.cpp" line="188"/>
         <source>Author:</source>
         <translation type="unfinished">Outeur:</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="185"/>
+        <location filename="../loremipsum.cpp" line="190"/>
         <source>Get More:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="187"/>
+        <location filename="../loremipsum.cpp" line="192"/>
         <source>XML File:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="206"/>
+        <location filename="../loremipsum.cpp" line="211"/>
         <source>Lorem Ipsum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="207"/>
+        <location filename="../loremipsum.cpp" line="212"/>
         <source>Paragraphs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="209"/>
+        <location filename="../loremipsum.cpp" line="214"/>
         <source>Alt+O</source>
         <translation type="unfinished">Atl+O</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="211"/>
+        <location filename="../loremipsum.cpp" line="216"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
     <message>
-        <location filename="../loremipsum.cpp" line="212"/>
+        <location filename="../loremipsum.cpp" line="217"/>
         <source>Standard Lorem Ipsum</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12861,42 +13151,42 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>MarginDialog</name>
     <message>
-        <location filename="../margindialog.cpp" line="32"/>
+        <location filename="../margindialog.cpp" line="31"/>
         <source>Manage Page Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="40"/>
+        <location filename="../margindialog.cpp" line="39"/>
         <source>Page Size</source>
         <translation type="unfinished">Bladsygrootte</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="45"/>
+        <location filename="../margindialog.cpp" line="44"/>
         <source>&amp;Size:</source>
         <translation type="unfinished">&amp;Grootte:</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="61"/>
+        <location filename="../margindialog.cpp" line="60"/>
         <source>Orie&amp;ntation:</source>
         <translation type="unfinished">Orië&amp;ntasie:</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="64"/>
+        <location filename="../margindialog.cpp" line="63"/>
         <source>Portrait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="65"/>
+        <location filename="../margindialog.cpp" line="64"/>
         <source>Landscape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="72"/>
+        <location filename="../margindialog.cpp" line="71"/>
         <source>&amp;Width:</source>
         <translation type="unfinished">&amp;Breedte:</translation>
     </message>
     <message>
-        <location filename="../margindialog.cpp" line="79"/>
+        <location filename="../margindialog.cpp" line="78"/>
         <source>&amp;Height:</source>
         <translation type="unfinished">&amp;Hoogte:</translation>
     </message>
@@ -12934,42 +13224,42 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>MarginWidget</name>
     <message>
-        <location filename="../marginWidget.cpp" line="48"/>
+        <location filename="../marginWidget.cpp" line="49"/>
         <source>&amp;Bottom:</source>
         <translation type="unfinished">On&amp;der:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="49"/>
+        <location filename="../marginWidget.cpp" line="51"/>
         <source>&amp;Top:</source>
         <translation type="unfinished">&amp;Bo:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="203"/>
+        <location filename="../marginWidget.cpp" line="208"/>
         <source>&amp;Right:</source>
         <translation type="unfinished">&amp;Regs:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="202"/>
+        <location filename="../marginWidget.cpp" line="207"/>
         <source>&amp;Left:</source>
         <translation type="unfinished">&amp;Links:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="148"/>
+        <location filename="../marginWidget.cpp" line="153"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="149"/>
+        <location filename="../marginWidget.cpp" line="154"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="202"/>
+        <location filename="../marginWidget.cpp" line="207"/>
         <source>&amp;Inside:</source>
         <translation type="unfinished">B&amp;innenkant:</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="203"/>
+        <location filename="../marginWidget.cpp" line="208"/>
         <source>O&amp;utside:</source>
         <translation type="unfinished">B&amp;uitenkant:</translation>
     </message>
@@ -12979,107 +13269,107 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="83"/>
+        <location filename="../marginWidget.cpp" line="88"/>
         <source>Apply the margin changes to all existing pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="95"/>
+        <location filename="../marginWidget.cpp" line="100"/>
         <source>Printer Margins...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="97"/>
+        <location filename="../marginWidget.cpp" line="102"/>
         <source>Import the margins for the selected page size from the available printers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="72"/>
+        <location filename="../marginWidget.cpp" line="77"/>
         <source>Apply settings to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="75"/>
+        <location filename="../marginWidget.cpp" line="80"/>
         <source>All Document Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="79"/>
+        <location filename="../marginWidget.cpp" line="84"/>
         <source>All Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="84"/>
+        <location filename="../marginWidget.cpp" line="89"/>
         <source>Apply the margin changes to all existing master pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="101"/>
+        <location filename="../marginWidget.cpp" line="106"/>
         <source>Margin Guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="119"/>
+        <location filename="../marginWidget.cpp" line="124"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="124"/>
+        <location filename="../marginWidget.cpp" line="129"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="135"/>
+        <location filename="../marginWidget.cpp" line="140"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die bokant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="136"/>
+        <location filename="../marginWidget.cpp" line="141"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die onderkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="137"/>
+        <location filename="../marginWidget.cpp" line="142"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die linkerkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="138"/>
+        <location filename="../marginWidget.cpp" line="143"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die regterkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="144"/>
+        <location filename="../marginWidget.cpp" line="149"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="208"/>
+        <location filename="../marginWidget.cpp" line="213"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="209"/>
+        <location filename="../marginWidget.cpp" line="214"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="213"/>
+        <location filename="../marginWidget.cpp" line="218"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="214"/>
+        <location filename="../marginWidget.cpp" line="219"/>
         <source>Right:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="150"/>
+        <location filename="../marginWidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="151"/>
+        <location filename="../marginWidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13167,22 +13457,22 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="360"/>
+        <location filename="../muster.cpp" line="366"/>
         <source>Unable to Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="360"/>
+        <location filename="../muster.cpp" line="366"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="364"/>
+        <location filename="../muster.cpp" line="370"/>
         <source>Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="364"/>
+        <location filename="../muster.cpp" line="370"/>
         <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13315,7 +13605,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../measurements.cpp" line="49"/>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation type="obsolete">pt</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../measurements.cpp" line="109"/>
+        <source> °</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13354,7 +13649,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Voer templaat in</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="38"/>
+        <location filename="../mergedoc.cpp" line="37"/>
         <source>Import Page(s)</source>
         <translation>Voer bladsy(e) in</translation>
     </message>
@@ -13417,12 +13712,12 @@ of * vir almal.</translation>
         <translation type="obsolete">Kanselleer</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="133"/>
+        <location filename="../mergedoc.cpp" line="135"/>
         <source>Open</source>
         <translation>Maak oop</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="133"/>
+        <location filename="../mergedoc.cpp" line="135"/>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle lêers (*)</translation>
     </message>
@@ -13432,12 +13727,12 @@ of * vir almal.</translation>
         <translation type="obsolete">Dokumente (*.sla *.scd);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="188"/>
+        <location filename="../mergedoc.cpp" line="190"/>
         <source> from %1</source>
         <translation> vanaf %1</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="49"/>
+        <location filename="../mergedoc.cpp" line="48"/>
         <source>&amp;From Document:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13467,12 +13762,12 @@ of * vir almal.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="99"/>
+        <location filename="../mergedoc.cpp" line="101"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Voer in</translation>
     </message>
     <message>
-        <location filename="../mergedoc.cpp" line="38"/>
+        <location filename="../mergedoc.cpp" line="37"/>
         <source>Import Master Page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13518,12 +13813,12 @@ of * vir almal.</translation>
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="39"/>
+        <location filename="../werktoolb.cpp" line="38"/>
         <source>Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../werktoolb.cpp" line="130"/>
+        <location filename="../werktoolb.cpp" line="110"/>
         <source>Properties...</source>
         <translation type="unfinished">Eienskappe...</translation>
     </message>
@@ -13541,7 +13836,7 @@ of * vir almal.</translation>
         <translation>Kopiër Bladsy</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="73"/>
+        <location filename="../movepage.cpp" line="78"/>
         <source>Move Page(s):</source>
         <translation>Skuif Bladsy(e):</translation>
     </message>
@@ -13581,27 +13876,27 @@ of * vir almal.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="64"/>
+        <location filename="../movepage.cpp" line="68"/>
         <source>Before Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="65"/>
+        <location filename="../movepage.cpp" line="69"/>
         <source>After Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="66"/>
+        <location filename="../movepage.cpp" line="70"/>
         <source>At End</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="46"/>
+        <location filename="../movepage.cpp" line="48"/>
         <source>To:</source>
         <translation type="unfinished">Tot:</translation>
     </message>
     <message>
-        <location filename="../movepage.cpp" line="54"/>
+        <location filename="../movepage.cpp" line="58"/>
         <source>Number of copies:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13609,114 +13904,114 @@ of * vir almal.</translation>
 <context>
     <name>Mpalette</name>
     <message>
-        <location filename="../mpalette.cpp" line="4296"/>
+        <location filename="../mpalette.cpp" line="4319"/>
         <source>Properties</source>
         <translation>Eienskappe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4298"/>
+        <location filename="../mpalette.cpp" line="4321"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4301"/>
+        <location filename="../mpalette.cpp" line="4324"/>
         <source>&amp;Shape</source>
         <translation>&amp;Vorm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4299"/>
+        <location filename="../mpalette.cpp" line="4322"/>
         <source>&amp;Text</source>
         <translation>&amp;Teks</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4300"/>
+        <location filename="../mpalette.cpp" line="4323"/>
         <source>&amp;Image</source>
         <translation>&amp;Prent</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4302"/>
+        <location filename="../mpalette.cpp" line="4325"/>
         <source>&amp;Line</source>
         <translation>&amp;Lyn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4303"/>
+        <location filename="../mpalette.cpp" line="4326"/>
         <source>&amp;Colors</source>
         <translation>&amp;Kleure</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4306"/>
+        <location filename="../mpalette.cpp" line="4329"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4307"/>
+        <location filename="../mpalette.cpp" line="4330"/>
         <source>Geometry</source>
         <translation>Plasing</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4476"/>
+        <location filename="../mpalette.cpp" line="4500"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4399"/>
+        <location filename="../mpalette.cpp" line="4422"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-pos:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4400"/>
+        <location filename="../mpalette.cpp" line="4423"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pos:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4310"/>
+        <location filename="../mpalette.cpp" line="4333"/>
         <source>&amp;Width:</source>
         <translation>&amp;Breedte:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4311"/>
+        <location filename="../mpalette.cpp" line="4334"/>
         <source>&amp;Height:</source>
         <translation>&amp;Hoogte:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4312"/>
+        <location filename="../mpalette.cpp" line="4335"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Rotasie:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4313"/>
+        <location filename="../mpalette.cpp" line="4336"/>
         <source>Basepoint:</source>
         <translation>Basispunt:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4314"/>
+        <location filename="../mpalette.cpp" line="4337"/>
         <source>Level</source>
         <translation>Vlak</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4317"/>
+        <location filename="../mpalette.cpp" line="4340"/>
         <source>Shape:</source>
         <translation>Vorm:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4318"/>
+        <location filename="../mpalette.cpp" line="4341"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Bewerk Vorm...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4338"/>
+        <location filename="../mpalette.cpp" line="4361"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>R&amp;onde
 hoeke:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4339"/>
+        <location filename="../mpalette.cpp" line="4362"/>
         <source>Distance of Text</source>
         <translation>Afstand van teks</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4340"/>
+        <location filename="../mpalette.cpp" line="4363"/>
         <source>Colu&amp;mns:</source>
         <translation>Kolo&amp;mme:</translation>
     </message>
@@ -13726,47 +14021,47 @@ hoeke:</translation>
         <translation type="obsolete">Tussen&amp;ruimte:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4347"/>
+        <location filename="../mpalette.cpp" line="4370"/>
         <source>To&amp;p:</source>
         <translation>&amp;Bo:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4348"/>
+        <location filename="../mpalette.cpp" line="4371"/>
         <source>&amp;Bottom:</source>
         <translation>On&amp;der:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4349"/>
+        <location filename="../mpalette.cpp" line="4372"/>
         <source>&amp;Left:</source>
         <translation>&amp;Links:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4350"/>
+        <location filename="../mpalette.cpp" line="4373"/>
         <source>&amp;Right:</source>
         <translation>&amp;Regs:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4351"/>
+        <location filename="../mpalette.cpp" line="4374"/>
         <source>T&amp;abulators...</source>
         <translation>T&amp;abuleerders...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4352"/>
+        <location filename="../mpalette.cpp" line="4375"/>
         <source>Path Text Properties</source>
         <translation>Tekspad-eienskappe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4358"/>
+        <location filename="../mpalette.cpp" line="4381"/>
         <source>Show Curve</source>
         <translation>Wys kurwe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4360"/>
+        <location filename="../mpalette.cpp" line="4383"/>
         <source>Start Offset:</source>
         <translation>Beginafstand:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4361"/>
+        <location filename="../mpalette.cpp" line="4384"/>
         <source>Distance from Curve:</source>
         <translation>Afstand vanaf kurwe:</translation>
     </message>
@@ -13776,12 +14071,12 @@ hoeke:</translation>
         <translation type="obsolete">Teks &amp;loop om raam</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4374"/>
+        <location filename="../mpalette.cpp" line="4397"/>
         <source>Use &amp;Bounding Box</source>
         <translation>Gebruiken &amp;Bounding Box</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4375"/>
+        <location filename="../mpalette.cpp" line="4398"/>
         <source>&amp;Use Contour Line</source>
         <translation>Gebr&amp;uik Kontourlyn</translation>
     </message>
@@ -13791,7 +14086,7 @@ hoeke:</translation>
         <translation type="obsolete">&amp;Lettertipe grootte:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4464"/>
+        <location filename="../mpalette.cpp" line="4488"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -13826,264 +14121,264 @@ hoeke:</translation>
         <translation type="obsolete">&amp;Taal:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4396"/>
+        <location filename="../mpalette.cpp" line="4419"/>
         <source>&amp;Free Scaling</source>
         <translation>Skaleer &amp;Vrylik</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4401"/>
+        <location filename="../mpalette.cpp" line="4424"/>
         <source>X-Sc&amp;ale:</source>
         <translation>&amp;X-skaal:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4402"/>
+        <location filename="../mpalette.cpp" line="4425"/>
         <source>Y-Scal&amp;e:</source>
         <translation>&amp;Y-skaal:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4403"/>
+        <location filename="../mpalette.cpp" line="4426"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Skaal na &amp;raamgrootte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4404"/>
+        <location filename="../mpalette.cpp" line="4427"/>
         <source>P&amp;roportional</source>
         <translation>&amp;Proporsioneel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4407"/>
+        <location filename="../mpalette.cpp" line="4430"/>
         <source>Input Profile:</source>
         <translation>Voer profiel in:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4408"/>
+        <location filename="../mpalette.cpp" line="4431"/>
         <source>Rendering Intent:</source>
         <translation>Rendering intent:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4414"/>
+        <location filename="../mpalette.cpp" line="4438"/>
         <source>Perceptual</source>
         <translation>Perseptueel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4415"/>
+        <location filename="../mpalette.cpp" line="4439"/>
         <source>Relative Colorimetric</source>
         <translation>Relatief kleurmetries</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4416"/>
+        <location filename="../mpalette.cpp" line="4440"/>
         <source>Saturation</source>
         <translation>Versadiging</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4417"/>
+        <location filename="../mpalette.cpp" line="4441"/>
         <source>Absolute Colorimetric</source>
         <translation>Absoluut kleurmetries</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4421"/>
+        <location filename="../mpalette.cpp" line="4445"/>
         <source>Left Point</source>
         <translation>Linker punt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4422"/>
+        <location filename="../mpalette.cpp" line="4446"/>
         <source>End Points</source>
         <translation>Eindpunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4424"/>
+        <location filename="../mpalette.cpp" line="4448"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Basispunt:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4425"/>
+        <location filename="../mpalette.cpp" line="4449"/>
         <source>T&amp;ype of Line:</source>
         <translation>Lynt&amp;ipe:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4437"/>
+        <location filename="../mpalette.cpp" line="4461"/>
         <source>Line &amp;Width:</source>
         <translation>Lyndi&amp;kte:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4441"/>
+        <location filename="../mpalette.cpp" line="4465"/>
         <source>Miter Join</source>
         <translation>Miter koppel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4442"/>
+        <location filename="../mpalette.cpp" line="4466"/>
         <source>Bevel Join</source>
         <translation>Bevel koppel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4443"/>
+        <location filename="../mpalette.cpp" line="4467"/>
         <source>Round Join</source>
         <translation>Ronde koppel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4438"/>
+        <location filename="../mpalette.cpp" line="4462"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Hoeke:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4448"/>
+        <location filename="../mpalette.cpp" line="4472"/>
         <source>Flat Cap</source>
         <translation>Plat</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4449"/>
+        <location filename="../mpalette.cpp" line="4473"/>
         <source>Square Cap</source>
         <translation>Vierkant</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4450"/>
+        <location filename="../mpalette.cpp" line="4474"/>
         <source>Round Cap</source>
         <translation>Rond</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4452"/>
+        <location filename="../mpalette.cpp" line="4476"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Eindpunte:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4501"/>
+        <location filename="../mpalette.cpp" line="4526"/>
         <source>No Style</source>
         <translation>Geen styl</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4454"/>
+        <location filename="../mpalette.cpp" line="4478"/>
         <source>Cell Lines</source>
         <translation>Sellyne</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4455"/>
+        <location filename="../mpalette.cpp" line="4479"/>
         <source>Line at Top</source>
         <translation>Bolyn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4456"/>
+        <location filename="../mpalette.cpp" line="4480"/>
         <source>Line at the Left</source>
         <translation>Linkerlyn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4457"/>
+        <location filename="../mpalette.cpp" line="4481"/>
         <source>Line at the Right </source>
         <translation>Regterlyn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4458"/>
+        <location filename="../mpalette.cpp" line="4482"/>
         <source>Line at Bottom</source>
         <translation>Onderlyn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4596"/>
+        <location filename="../mpalette.cpp" line="4621"/>
         <source>Name of selected object</source>
         <translation>Naam van gekose objek</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4597"/>
+        <location filename="../mpalette.cpp" line="4622"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Horisontale posisie van huidige basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4598"/>
+        <location filename="../mpalette.cpp" line="4623"/>
         <source>Vertical position of current basepoint</source>
         <translation>Vertikale posisie van het huidige basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4599"/>
+        <location filename="../mpalette.cpp" line="4624"/>
         <source>Width</source>
         <translation>Breedte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4600"/>
+        <location filename="../mpalette.cpp" line="4625"/>
         <source>Height</source>
         <translation>Hoogte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4601"/>
+        <location filename="../mpalette.cpp" line="4626"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Rotasie van objek op huidige basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4602"/>
+        <location filename="../mpalette.cpp" line="4627"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Punt waarvandaan die rotasiehoek bereken word</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4603"/>
+        <location filename="../mpalette.cpp" line="4628"/>
         <source>Select top left for basepoint</source>
         <translation>Kies linksbo as basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4604"/>
+        <location filename="../mpalette.cpp" line="4629"/>
         <source>Select top right for basepoint</source>
         <translation>Kies regtsbo as basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4605"/>
+        <location filename="../mpalette.cpp" line="4630"/>
         <source>Select bottom left for basepoint</source>
         <translation>Kies linksonder as basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4606"/>
+        <location filename="../mpalette.cpp" line="4631"/>
         <source>Select bottom right for basepoint</source>
         <translation>Kies regtsonder as basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4607"/>
+        <location filename="../mpalette.cpp" line="4632"/>
         <source>Select center for basepoint</source>
         <translation>Kies middel as basispunt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4610"/>
+        <location filename="../mpalette.cpp" line="4635"/>
         <source>Flip Horizontal</source>
         <translation>Spieël Horisontaal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4611"/>
+        <location filename="../mpalette.cpp" line="4636"/>
         <source>Flip Vertical</source>
         <translation>Spieël Vertikaal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4612"/>
+        <location filename="../mpalette.cpp" line="4637"/>
         <source>Move one level up</source>
         <translation>Skuif een vlak op</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4613"/>
+        <location filename="../mpalette.cpp" line="4638"/>
         <source>Move one level down</source>
         <translation>Skuif een vlak af</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4614"/>
+        <location filename="../mpalette.cpp" line="4639"/>
         <source>Move to front</source>
         <translation>Bring na voorgrond</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4615"/>
+        <location filename="../mpalette.cpp" line="4640"/>
         <source>Move to back</source>
         <translation>Stuur na agtergrond</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4616"/>
+        <location filename="../mpalette.cpp" line="4641"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Dui vlak waarop objek is, 0 beteken onder</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4617"/>
+        <location filename="../mpalette.cpp" line="4642"/>
         <source>Lock or unlock the object</source>
         <translation>Sluit of ontsluit objek</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4618"/>
+        <location filename="../mpalette.cpp" line="4643"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Sluit of ontsluit objekgrootte</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4619"/>
         <source>Enable or disable printing of the object</source>
-        <translation>Skakel druk van objek aan/af</translation>
+        <translation type="obsolete">Skakel druk van objek aan/af</translation>
     </message>
     <message>
         <location filename="" line="136966680"/>
@@ -14101,17 +14396,17 @@ hoeke:</translation>
         <translation type="obsolete">Gebruik &apos;n tweede lyn gebaseerd op die raamvorm vir teksvloei</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4632"/>
+        <location filename="../mpalette.cpp" line="4657"/>
         <source>Font of selected text or object</source>
         <translation>Lettertipe van geselekteerde teks of objek</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4633"/>
+        <location filename="../mpalette.cpp" line="4658"/>
         <source>Font Size</source>
         <translation>Lettergrootte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4635"/>
+        <location filename="../mpalette.cpp" line="4660"/>
         <source>Scaling width of characters</source>
         <translation>Skaalbreedte van letters</translation>
     </message>
@@ -14126,12 +14421,12 @@ hoeke:</translation>
         <translation type="obsolete">Kleur van teksagtergrond</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4639"/>
+        <location filename="../mpalette.cpp" line="4664"/>
         <source>Saturation of color of text stroke</source>
         <translation>Versadiging van tekskleur</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4640"/>
+        <location filename="../mpalette.cpp" line="4665"/>
         <source>Saturation of color of text fill</source>
         <translation>Versadiging van teksagtergrondkleur</translation>
     </message>
@@ -14141,7 +14436,7 @@ hoeke:</translation>
         <translation type="obsolete">Handgestelde letterspasiëring</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4643"/>
+        <location filename="../mpalette.cpp" line="4668"/>
         <source>Line Spacing</source>
         <translation>Lynspasiëring</translation>
     </message>
@@ -14156,162 +14451,162 @@ hoeke:</translation>
         <translation type="obsolete">Afkaptaalinstelling van raam</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4657"/>
+        <location filename="../mpalette.cpp" line="4682"/>
         <source>Change settings for left or end points</source>
         <translation>Verander instellings vir linker of eindpunte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4658"/>
+        <location filename="../mpalette.cpp" line="4683"/>
         <source>Pattern of line</source>
         <translation>Lynpatroon</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4659"/>
+        <location filename="../mpalette.cpp" line="4684"/>
         <source>Thickness of line</source>
         <translation>Lyndikte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4660"/>
+        <location filename="../mpalette.cpp" line="4685"/>
         <source>Type of line joins</source>
         <translation>Tipe lynverbindings</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4661"/>
+        <location filename="../mpalette.cpp" line="4686"/>
         <source>Type of line end</source>
         <translation>Tipe lyneinde</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4662"/>
+        <location filename="../mpalette.cpp" line="4687"/>
         <source>Line style of current object</source>
         <translation>Lynstyl van huidige objek</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4664"/>
+        <location filename="../mpalette.cpp" line="4689"/>
         <source>Choose the shape of frame...</source>
         <translation>Kies raamvorm...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4665"/>
+        <location filename="../mpalette.cpp" line="4690"/>
         <source>Edit shape of the frame...</source>
         <translation>Verander raamvorm...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4666"/>
+        <location filename="../mpalette.cpp" line="4691"/>
         <source>Set radius of corner rounding</source>
         <translation>Stel straal van ronde hoeke</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4667"/>
+        <location filename="../mpalette.cpp" line="4692"/>
         <source>Number of columns in text frame</source>
         <translation>Aantal kolomme in teksraam</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4668"/>
+        <location filename="../mpalette.cpp" line="4693"/>
         <source>Switches between Gap or Column width</source>
         <translation>Skakel tussen Tussenruimte of Kolombreedte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4669"/>
+        <location filename="../mpalette.cpp" line="4694"/>
         <source>Distance between columns</source>
         <translation>Afstand tussen kolomme</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4670"/>
+        <location filename="../mpalette.cpp" line="4695"/>
         <source>Distance of text from top of frame</source>
         <translation>Afstand van teks tot raambokant</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4671"/>
+        <location filename="../mpalette.cpp" line="4696"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Afstand van teks tot raamonderkant</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4672"/>
+        <location filename="../mpalette.cpp" line="4697"/>
         <source>Distance of text from left of frame</source>
         <translation>Afstand van teks tot raamlinkerkant</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4673"/>
+        <location filename="../mpalette.cpp" line="4698"/>
         <source>Distance of text from right of frame</source>
         <translation>Afstand van teks tot raamregterkant</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4674"/>
+        <location filename="../mpalette.cpp" line="4699"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Verander Tabinstelling van teksraam...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4676"/>
+        <location filename="../mpalette.cpp" line="4701"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Laat prent en raam grootte verskille toe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4677"/>
+        <location filename="../mpalette.cpp" line="4702"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Horisontale afstand van prente in raam</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4678"/>
+        <location filename="../mpalette.cpp" line="4703"/>
         <source>Vertical offset of image within frame</source>
         <translation>Vertikale afstand van prente in raam</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4679"/>
+        <location filename="../mpalette.cpp" line="4704"/>
         <source>Resize the image horizontally</source>
         <translation>Skaleer prent horisontaal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4680"/>
+        <location filename="../mpalette.cpp" line="4705"/>
         <source>Resize the image vertically</source>
         <translation>Skaleer prent vertikaal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4681"/>
+        <location filename="../mpalette.cpp" line="4706"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Hou X- en Y-skaal gelyk</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4682"/>
+        <location filename="../mpalette.cpp" line="4707"/>
         <source>Keep the aspect ratio</source>
         <translation>Hoe prent in verhouding</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4683"/>
+        <location filename="../mpalette.cpp" line="4708"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Maak prent presies in raam pas</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4684"/>
+        <location filename="../mpalette.cpp" line="4709"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Gebruik prent proporsies ipv raam proporsies</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4685"/>
+        <location filename="../mpalette.cpp" line="4710"/>
         <source>Source profile of the image</source>
         <translation>Bronprofiel van prent</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4686"/>
+        <location filename="../mpalette.cpp" line="4711"/>
         <source>Rendering intent for the image</source>
         <translation>Rendering intent van prent</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3201"/>
+        <location filename="../mpalette.cpp" line="3228"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3202"/>
+        <location filename="../mpalette.cpp" line="3229"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3203"/>
+        <location filename="../mpalette.cpp" line="3230"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3204"/>
+        <location filename="../mpalette.cpp" line="3231"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
@@ -14331,7 +14626,7 @@ hoeke:</translation>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2994"/>
+        <location filename="../mpalette.cpp" line="3021"/>
         <source>Column width</source>
         <translation>Kolombreedte</translation>
     </message>
@@ -14358,388 +14653,393 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Reg</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4641"/>
+        <location filename="../mpalette.cpp" line="4666"/>
         <source>Right to Left Writing</source>
         <translation>Regs na Links Skryf</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4426"/>
+        <location filename="../mpalette.cpp" line="4450"/>
         <source>Start Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4427"/>
+        <location filename="../mpalette.cpp" line="4451"/>
         <source>End Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4409"/>
+        <location filename="../mpalette.cpp" line="4433"/>
         <source>Fixed Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4410"/>
+        <location filename="../mpalette.cpp" line="4434"/>
         <source>Automatic Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4411"/>
+        <location filename="../mpalette.cpp" line="4435"/>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4397"/>
+        <location filename="../mpalette.cpp" line="4420"/>
         <source>Actual X-DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4398"/>
+        <location filename="../mpalette.cpp" line="4421"/>
         <source>Actual Y-DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4634"/>
+        <location filename="../mpalette.cpp" line="4659"/>
         <source>Offset to baseline of characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4636"/>
+        <location filename="../mpalette.cpp" line="4661"/>
         <source>Scaling height of characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4642"/>
+        <location filename="../mpalette.cpp" line="4667"/>
         <source>Manual Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4181"/>
+        <location filename="../mpalette.cpp" line="4204"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4362"/>
+        <location filename="../mpalette.cpp" line="4385"/>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4363"/>
+        <location filename="../mpalette.cpp" line="4386"/>
         <source>Even-Odd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4364"/>
+        <location filename="../mpalette.cpp" line="4387"/>
         <source>Non Zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4460"/>
+        <location filename="../mpalette.cpp" line="4484"/>
         <source>Overprinting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4461"/>
+        <location filename="../mpalette.cpp" line="4485"/>
         <source>Knockout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4462"/>
+        <location filename="../mpalette.cpp" line="4486"/>
         <source>Overprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4637"/>
+        <location filename="../mpalette.cpp" line="4662"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4638"/>
+        <location filename="../mpalette.cpp" line="4663"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4343"/>
+        <location filename="../mpalette.cpp" line="4366"/>
         <source>Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4344"/>
+        <location filename="../mpalette.cpp" line="4367"/>
         <source>Width:</source>
         <translation type="unfinished">Breedte:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4371"/>
+        <location filename="../mpalette.cpp" line="4394"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4372"/>
+        <location filename="../mpalette.cpp" line="4395"/>
         <source>Disabled</source>
         <translation type="unfinished">Af</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4373"/>
+        <location filename="../mpalette.cpp" line="4396"/>
         <source>Use Frame &amp;Shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4405"/>
+        <location filename="../mpalette.cpp" line="4428"/>
         <source>Image Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4406"/>
+        <location filename="../mpalette.cpp" line="4429"/>
         <source>Extended Image Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4626"/>
+        <location filename="../mpalette.cpp" line="4651"/>
         <source>Disable text flow from lower frames around object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4627"/>
+        <location filename="../mpalette.cpp" line="4652"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4628"/>
+        <location filename="../mpalette.cpp" line="4653"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4319"/>
+        <location filename="../mpalette.cpp" line="4342"/>
         <source>Transparency Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4304"/>
+        <location filename="../mpalette.cpp" line="4327"/>
         <source>&amp;Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4320"/>
+        <location filename="../mpalette.cpp" line="4343"/>
         <source>Opacity:</source>
         <translation type="unfinished">Ondeursigtigheid:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4321"/>
+        <location filename="../mpalette.cpp" line="4344"/>
         <source>Blend Mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4323"/>
+        <location filename="../mpalette.cpp" line="4346"/>
         <source>Normal</source>
         <translation type="unfinished">Normaal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4324"/>
+        <location filename="../mpalette.cpp" line="4347"/>
         <source>Darken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4325"/>
+        <location filename="../mpalette.cpp" line="4348"/>
         <source>Lighten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4326"/>
+        <location filename="../mpalette.cpp" line="4349"/>
         <source>Multiply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4327"/>
+        <location filename="../mpalette.cpp" line="4350"/>
         <source>Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4328"/>
+        <location filename="../mpalette.cpp" line="4351"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4329"/>
+        <location filename="../mpalette.cpp" line="4352"/>
         <source>Hard Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4330"/>
+        <location filename="../mpalette.cpp" line="4353"/>
         <source>Soft Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4331"/>
+        <location filename="../mpalette.cpp" line="4354"/>
         <source>Difference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4332"/>
+        <location filename="../mpalette.cpp" line="4355"/>
         <source>Exclusion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4333"/>
+        <location filename="../mpalette.cpp" line="4356"/>
         <source>Color Dodge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4334"/>
+        <location filename="../mpalette.cpp" line="4357"/>
         <source>Color Burn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4335"/>
+        <location filename="../mpalette.cpp" line="4358"/>
         <source>Hue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4337"/>
+        <location filename="../mpalette.cpp" line="4360"/>
         <source>Color</source>
         <translation type="unfinished">Kleur</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4608"/>
+        <location filename="../mpalette.cpp" line="4633"/>
         <source>Group the selected objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4609"/>
+        <location filename="../mpalette.cpp" line="4634"/>
         <source>Destroys the selected group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2389"/>
+        <location filename="../mpalette.cpp" line="2415"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4629"/>
+        <location filename="../mpalette.cpp" line="4654"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4644"/>
+        <location filename="../mpalette.cpp" line="4669"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4354"/>
+        <location filename="../mpalette.cpp" line="4377"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4355"/>
+        <location filename="../mpalette.cpp" line="4378"/>
         <source>Stair Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4356"/>
+        <location filename="../mpalette.cpp" line="4379"/>
         <source>Skew</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4357"/>
+        <location filename="../mpalette.cpp" line="4380"/>
         <source>Flip Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4359"/>
+        <location filename="../mpalette.cpp" line="4382"/>
         <source>Type:</source>
         <translation type="unfinished">Tipe:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4376"/>
+        <location filename="../mpalette.cpp" line="4399"/>
         <source>Use Image Clip Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4377"/>
+        <location filename="../mpalette.cpp" line="4400"/>
         <source>Paragraph St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4378"/>
+        <location filename="../mpalette.cpp" line="4401"/>
         <source>Character St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4379"/>
+        <location filename="../mpalette.cpp" line="4402"/>
         <source>Optical Margins:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4390"/>
+        <location filename="../mpalette.cpp" line="4413"/>
         <source>Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4394"/>
+        <location filename="../mpalette.cpp" line="4417"/>
         <source>Min:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4392"/>
+        <location filename="../mpalette.cpp" line="4415"/>
         <source>Norm:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4393"/>
+        <location filename="../mpalette.cpp" line="4416"/>
         <source>Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4395"/>
+        <location filename="../mpalette.cpp" line="4418"/>
         <source>Max:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4630"/>
+        <location filename="../mpalette.cpp" line="4655"/>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4645"/>
+        <location filename="../mpalette.cpp" line="4670"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4646"/>
+        <location filename="../mpalette.cpp" line="4671"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4647"/>
+        <location filename="../mpalette.cpp" line="4672"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4648"/>
+        <location filename="../mpalette.cpp" line="4673"/>
         <source>Remove Direct Character Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4651"/>
+        <location filename="../mpalette.cpp" line="4676"/>
         <source>Minimal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4652"/>
+        <location filename="../mpalette.cpp" line="4677"/>
         <source>Normal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4653"/>
+        <location filename="../mpalette.cpp" line="4678"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4654"/>
+        <location filename="../mpalette.cpp" line="4679"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4655"/>
+        <location filename="../mpalette.cpp" line="4680"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mpalette.cpp" line="4644"/>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14894,12 +15194,12 @@ Kies &apos;n ander naam.</translation>
         <translation type="unfinished">&amp;Vertikale verplasing:</translation>
     </message>
     <message>
-        <location filename="../multipleduplicate.cpp" line="68"/>
+        <location filename="../multipleduplicate.cpp" line="69"/>
         <source>&amp;Horizontal Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../multipleduplicate.cpp" line="69"/>
+        <location filename="../multipleduplicate.cpp" line="70"/>
         <source>&amp;Vertical Gap:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15192,7 +15492,7 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="101"/>
+        <location filename="../newfile.cpp" line="99"/>
         <source>New Document</source>
         <translation>Nuwe dokument</translation>
     </message>
@@ -15202,7 +15502,7 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Bladsygrootte</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="219"/>
+        <location filename="../newfile.cpp" line="217"/>
         <source>&amp;Size:</source>
         <translation>&amp;Grootte:</translation>
     </message>
@@ -15227,27 +15527,27 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Tuisgemaak</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="228"/>
+        <location filename="../newfile.cpp" line="226"/>
         <source>Orie&amp;ntation:</source>
         <translation>Orië&amp;ntasie:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="231"/>
+        <location filename="../newfile.cpp" line="229"/>
         <source>Portrait</source>
         <translation>Regop</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="232"/>
+        <location filename="../newfile.cpp" line="230"/>
         <source>Landscape</source>
         <translation>Gekantel</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="238"/>
+        <location filename="../newfile.cpp" line="236"/>
         <source>&amp;Width:</source>
         <translation>&amp;Breedte:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="244"/>
+        <location filename="../newfile.cpp" line="242"/>
         <source>&amp;Height:</source>
         <translation>&amp;Hoogte:</translation>
     </message>
@@ -15262,7 +15562,7 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Linker&amp;bladsy eerste</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="260"/>
+        <location filename="../newfile.cpp" line="258"/>
         <source>Margin Guides</source>
         <translation>Kant hulplyne</translation>
     </message>
@@ -15287,7 +15587,7 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">On&amp;der:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="278"/>
+        <location filename="../newfile.cpp" line="276"/>
         <source>Options</source>
         <translation>Opsies</translation>
     </message>
@@ -15297,7 +15597,7 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">&amp;Eerste bladsy nommer:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="289"/>
+        <location filename="../newfile.cpp" line="287"/>
         <source>&amp;Default Unit:</source>
         <translation>&amp;Verstek eenheid:</translation>
     </message>
@@ -15322,7 +15622,7 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Picas (p)</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="301"/>
+        <location filename="../newfile.cpp" line="299"/>
         <source>&amp;Automatic Text Frames</source>
         <translation>&amp;Outomatise teksrame</translation>
     </message>
@@ -15332,12 +15632,12 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Kolom hulplyne</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="312"/>
+        <location filename="../newfile.cpp" line="310"/>
         <source>&amp;Gap:</source>
         <translation>&amp;Ruimte:</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="303"/>
+        <location filename="../newfile.cpp" line="301"/>
         <source>Colu&amp;mns:</source>
         <translation>Kolo&amp;mme:</translation>
     </message>
@@ -15352,22 +15652,22 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">&amp;Kanselleer</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="141"/>
+        <location filename="../newfile.cpp" line="139"/>
         <source>Document page size, either a standard size or a custom size</source>
         <translation>Bladsygrootte, standaard of aangepas</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="142"/>
+        <location filename="../newfile.cpp" line="140"/>
         <source>Orientation of the document&apos;s pages</source>
         <translation>Oriëntatie van dokumentbladsye</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="143"/>
+        <location filename="../newfile.cpp" line="141"/>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Breedte van dokumentbladsye, kies &apos;Tuisgemaak&apos; om self &apos;n waarde te kan insit</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="144"/>
+        <location filename="../newfile.cpp" line="142"/>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Hoogte van dokumentbladsye, kies &apos;Tuisgemaak&apos; om self &apos;n waarde te kan insit</translation>
     </message>
@@ -15411,22 +15711,22 @@ As &apos;Teenoorstaande bladsye&apos; gekies is, word die breedte gebruik vir ko
         <translation type="obsolete">Eerste bladsynommer van dokument</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="146"/>
+        <location filename="../newfile.cpp" line="144"/>
         <source>Default unit of measurement for document editing</source>
         <translation>Verstek meeteenheid vir dokumentbewerking</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="147"/>
+        <location filename="../newfile.cpp" line="145"/>
         <source>Create text frames automatically when new pages are added</source>
         <translation>Maak outomaties teksrame saammet bladsy byvoeging</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="148"/>
+        <location filename="../newfile.cpp" line="146"/>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Aantal kolomme in outomaties geskepte teksrame</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="149"/>
+        <location filename="../newfile.cpp" line="147"/>
         <source>Distance between automatically created columns</source>
         <translation>Afstand tussen outomaties geskepte kolomme</translation>
     </message>
@@ -15456,17 +15756,17 @@ As &apos;Teenoorstaande bladsye&apos; gekies is, word die breedte gebruik vir ko
         <translation type="obsolete">Grootboek</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="127"/>
+        <location filename="../newfile.cpp" line="125"/>
         <source>Do not show this dialog again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="145"/>
+        <location filename="../newfile.cpp" line="143"/>
         <source>Initial number of pages of the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="283"/>
+        <location filename="../newfile.cpp" line="281"/>
         <source>N&amp;umber of Pages:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15476,37 +15776,37 @@ As &apos;Teenoorstaande bladsye&apos; gekies is, word die breedte gebruik vir ko
         <translation type="obsolete">Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="359"/>
+        <location filename="../newfile.cpp" line="357"/>
         <source>Open</source>
         <translation type="unfinished">Maak oop</translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="111"/>
+        <location filename="../newfile.cpp" line="109"/>
         <source>&amp;New Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="113"/>
+        <location filename="../newfile.cpp" line="111"/>
         <source>Open &amp;Existing Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="116"/>
+        <location filename="../newfile.cpp" line="114"/>
         <source>Open Recent &amp;Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="251"/>
+        <location filename="../newfile.cpp" line="249"/>
         <source>First Page is:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="325"/>
+        <location filename="../newfile.cpp" line="323"/>
         <source>Show Document Settings After Creation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../newfile.cpp" line="176"/>
+        <location filename="../newfile.cpp" line="174"/>
         <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15514,17 +15814,17 @@ As &apos;Teenoorstaande bladsye&apos; gekies is, word die breedte gebruik vir ko
 <context>
     <name>NewFromTemplatePlugin</name>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="60"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="59"/>
         <source>New &amp;from Template...</source>
         <translation type="unfinished">Nuut van &amp;templaat...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="79"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="78"/>
         <source>Load documents with predefined layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="81"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="80"/>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15555,127 +15855,127 @@ As &apos;Teenoorstaande bladsye&apos; gekies is, word die breedte gebruik vir ko
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../frameedit.cpp" line="809"/>
+        <location filename="../frameedit.cpp" line="839"/>
         <source>Nodes</source>
         <translation>Nodes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="812"/>
+        <location filename="../frameedit.cpp" line="842"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Absolute koördinate</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="813"/>
+        <location filename="../frameedit.cpp" line="843"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-pos:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="814"/>
+        <location filename="../frameedit.cpp" line="844"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pos:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="815"/>
+        <location filename="../frameedit.cpp" line="845"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Verander &amp;Kontoerlyn</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="816"/>
+        <location filename="../frameedit.cpp" line="846"/>
         <source>&amp;Reset Contour Line</source>
         <translation>Herstel Kontoe&amp;rlyn</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="819"/>
+        <location filename="../frameedit.cpp" line="851"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Beëindigen bewerking</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="820"/>
+        <location filename="../frameedit.cpp" line="852"/>
         <source>Move Nodes</source>
         <translation>Skuif Nodes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="821"/>
+        <location filename="../frameedit.cpp" line="853"/>
         <source>Move Control Points</source>
         <translation>Skuif Kontrolepunte</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="822"/>
+        <location filename="../frameedit.cpp" line="854"/>
         <source>Add Nodes</source>
         <translation>Voeg Nodes by</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="823"/>
+        <location filename="../frameedit.cpp" line="855"/>
         <source>Delete Nodes</source>
         <translation>Verwyder Nodes</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="824"/>
+        <location filename="../frameedit.cpp" line="856"/>
         <source>Move Control Points Independently</source>
         <translation>Skuif kontrolepunte onafhanklik</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="825"/>
+        <location filename="../frameedit.cpp" line="857"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Skuif kontrolepunte simmetries</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="826"/>
+        <location filename="../frameedit.cpp" line="858"/>
         <source>Reset Control Points</source>
         <translation>Herstel kontrolepunte</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="827"/>
+        <location filename="../frameedit.cpp" line="859"/>
         <source>Reset this Control Point</source>
         <translation>Herstel hierdie kontrolepunt</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="828"/>
+        <location filename="../frameedit.cpp" line="860"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Begin &apos;n Poligoon of sny &apos;n Bezierkurwe</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="829"/>
+        <location filename="../frameedit.cpp" line="861"/>
         <source>Close this Bezier Curve</source>
         <translation>Sluit hierdie Bezierkurwe</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="830"/>
+        <location filename="../frameedit.cpp" line="862"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Spieël pad horisontaal</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="831"/>
+        <location filename="../frameedit.cpp" line="863"/>
         <source>Mirror the Path Vertically</source>
         <translation>Spieël pad vertikaal</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="832"/>
+        <location filename="../frameedit.cpp" line="864"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Trek pad horisontaal na regs skeef</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="833"/>
+        <location filename="../frameedit.cpp" line="865"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Trek pad horisontaal na links skeef</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="834"/>
+        <location filename="../frameedit.cpp" line="866"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Trek pad vertikaal opwaarts skeef</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="835"/>
+        <location filename="../frameedit.cpp" line="867"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Trek pad vertikaal afwaarts skeef</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="836"/>
+        <location filename="../frameedit.cpp" line="868"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Roteer pad antikloksgewys</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="837"/>
+        <location filename="../frameedit.cpp" line="869"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Roteer pad kloksgewys</translation>
     </message>
@@ -15685,12 +15985,12 @@ As &apos;Teenoorstaande bladsye&apos; gekies is, word die breedte gebruik vir ko
         <translation type="obsolete">Verklein padgrootte met getoonde %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="839"/>
+        <location filename="../frameedit.cpp" line="871"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Vergroot padgrootte met getoonde %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="842"/>
+        <location filename="../frameedit.cpp" line="874"/>
         <source>Angle of Rotation</source>
         <translation>Rotasiehoek</translation>
     </message>
@@ -15700,12 +16000,12 @@ As &apos;Teenoorstaande bladsye&apos; gekies is, word die breedte gebruik vir ko
         <translation type="obsolete">% om mee te vergroot of verklein</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="845"/>
+        <location filename="../frameedit.cpp" line="877"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Aktiveer Kontoerlyn bewerking modus</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="846"/>
+        <location filename="../frameedit.cpp" line="878"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Herstel kontoerlyn na oorspronklik raamgrootte</translation>
     </message>
@@ -15717,60 +16017,70 @@ otherwise Coordinates are relative to the Object.</source>
 gebruik, anders is koördinate relatief tot die objek.</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="810"/>
+        <location filename="../frameedit.cpp" line="840"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="848"/>
+        <location filename="../frameedit.cpp" line="880"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="838"/>
+        <location filename="../frameedit.cpp" line="870"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="840"/>
+        <location filename="../frameedit.cpp" line="872"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="841"/>
+        <location filename="../frameedit.cpp" line="873"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="843"/>
+        <location filename="../frameedit.cpp" line="875"/>
         <source>% to Enlarge or Shrink By</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="844"/>
+        <location filename="../frameedit.cpp" line="876"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="817"/>
+        <location filename="../frameedit.cpp" line="847"/>
         <source>Set Contour to Image Clip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="847"/>
+        <location filename="../frameedit.cpp" line="879"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../frameedit.cpp" line="849"/>
+        <source>Lens Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../frameedit.cpp" line="850"/>
+        <source>Apply fancy Lens Effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="292"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="294"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="662"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="666"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15778,39 +16088,39 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="92"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="94"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="unfinished">Voer &amp;OpenOffice.org Draw in...</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="107"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="109"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="108"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="110"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="122"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="124"/>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="134"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="136"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="200"/>
         <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="196"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15818,57 +16128,57 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
 <context>
     <name>OdtDialog</name>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="46"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="43"/>
         <source>OpenDocument Importer Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="55"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="52"/>
         <source>Overwrite Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="57"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="54"/>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="64"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="61"/>
         <source>Merge Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="66"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="63"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="73"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="70"/>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation type="unfinished">Documentnaam als prefix vir alineastylen gebruiken</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="75"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="72"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="82"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="79"/>
         <source>Do not ask again</source>
         <translation type="unfinished">Deze vraag niet meer stellen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="84"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="93"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="90"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="95"/>
+        <location filename="../plugins/gettext/odtim/odtdia.cpp" line="92"/>
         <source>Cancel</source>
         <translation type="unfinished">Kanselleer</translation>
     </message>
@@ -15927,12 +16237,12 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
 <context>
     <name>OutlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="96"/>
+        <location filename="../styleselect.cpp" line="95"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="97"/>
+        <location filename="../styleselect.cpp" line="96"/>
         <source>Linewidth</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15948,57 +16258,57 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../pdfopts.cpp" line="150"/>
+        <location filename="../pdfopts.cpp" line="152"/>
         <source>Save as PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="63"/>
+        <location filename="../pdfopts.cpp" line="65"/>
         <source>O&amp;utput to File:</source>
         <translation type="unfinished">Voer &amp;uit na lêer:</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="92"/>
+        <location filename="../pdfopts.cpp" line="94"/>
         <source>Cha&amp;nge...</source>
         <translation type="unfinished">Wysi&amp;g...</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="95"/>
+        <location filename="../pdfopts.cpp" line="97"/>
         <source>Output one file for eac&amp;h page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="108"/>
+        <location filename="../pdfopts.cpp" line="110"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="209"/>
+        <location filename="../pdfopts.cpp" line="211"/>
         <source>Save as</source>
         <translation type="unfinished">Stoor as</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="209"/>
+        <location filename="../pdfopts.cpp" line="211"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="unfinished">PDF-lêers (*.pdf);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="120"/>
+        <location filename="../pdfopts.cpp" line="122"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="121"/>
+        <location filename="../pdfopts.cpp" line="123"/>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="151"/>
+        <location filename="../pdfopts.cpp" line="153"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdfopts.cpp" line="174"/>
+        <location filename="../pdfopts.cpp" line="176"/>
         <source>Cannot create directory: 
 %1</source>
         <translation type="unfinished"></translation>
@@ -16007,32 +16317,32 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../pdflib_core.cpp" line="117"/>
+        <location filename="../pdflib_core.cpp" line="127"/>
         <source>Saving PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="121"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="121"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="121"/>
+        <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Items on Current Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2301"/>
+        <location filename="../pdflib_core.cpp" line="2315"/>
         <source>Page:</source>
         <translation type="unfinished">Bladsy:</translation>
     </message>
     <message>
-        <location filename="../pdflib_core.cpp" line="2314"/>
+        <location filename="../pdflib_core.cpp" line="2328"/>
         <source>Date:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16040,7 +16350,7 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="135"/>
+        <location filename="../werktoolb.cpp" line="115"/>
         <source>PDF Tools</source>
         <translation type="unfinished">PDF-gereedschappen</translation>
     </message>
@@ -16933,7 +17243,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
 <context>
     <name>PPreview</name>
     <message>
-        <location filename="../preview.cpp" line="79"/>
+        <location filename="../preview.cpp" line="80"/>
         <source>Print Preview</source>
         <translation>Drukvoorbeeld</translation>
     </message>
@@ -16948,37 +17258,37 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="obsolete">Anti-aliaseer &amp;grafika</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="132"/>
+        <location filename="../preview.cpp" line="133"/>
         <source>Display Trans&amp;parency</source>
         <translation>Vertoon deursi&amp;gtigheid</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="246"/>
+        <location filename="../preview.cpp" line="247"/>
         <source>&amp;Under Color Removal</source>
         <translation>Onderleênde kle&amp;ur verwydering</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="137"/>
+        <location filename="../preview.cpp" line="138"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Vertoon CMYK</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="144"/>
+        <location filename="../preview.cpp" line="145"/>
         <source>&amp;C</source>
         <translation>&amp;C</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="149"/>
+        <location filename="../preview.cpp" line="150"/>
         <source>&amp;M</source>
         <translation>&amp;M</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="154"/>
+        <location filename="../preview.cpp" line="155"/>
         <source>&amp;Y</source>
         <translation>&amp;Y</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="159"/>
+        <location filename="../preview.cpp" line="160"/>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
     </message>
@@ -16989,37 +17299,37 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation type="obsolete">Verskaf mooier teks in ruil vir spoed. Dit het net &apos;n effek op Tipe 1 lettertipes</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="320"/>
+        <location filename="../preview.cpp" line="321"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Vertoon deursigtigheid en deursigtige items in dokument. Vereis Ghostscript 7.07 of nuwer</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="321"/>
+        <location filename="../preview.cpp" line="322"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Gee &apos;n drukvoorbeeld weer met simulaties van CMYK-inke, ipv RGB-kleure</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="346"/>
+        <location filename="../preview.cpp" line="347"/>
         <source>Enable/disable the C (Cyan) ink plate</source>
         <translation>Skakel die C (Cyaan) inkplaat aan of af</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="347"/>
+        <location filename="../preview.cpp" line="348"/>
         <source>Enable/disable the M (Magenta) ink plate</source>
         <translation>Skakel die M (Magenta) inkplaat aan of af</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="348"/>
+        <location filename="../preview.cpp" line="349"/>
         <source>Enable/disable the Y (Yellow) ink plate</source>
         <translation>Skakel die Y (Yellow = geel) inkplaat aan of af</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="349"/>
+        <location filename="../preview.cpp" line="350"/>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Skakel die K (blacK = swart) inkplaat aan of af</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="612"/>
+        <location filename="../preview.cpp" line="613"/>
         <source>All</source>
         <translation>Alles</translation>
     </message>
@@ -17042,155 +17352,155 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">Verskaf mooier TrueType letters, Opentype letters, EPS, PDF en vektorgrafika vertoning, maar maak die proses effens stadiger.</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="172"/>
+        <location filename="../preview.cpp" line="173"/>
         <source>Separation Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="184"/>
+        <location filename="../preview.cpp" line="185"/>
         <source>Cyan</source>
         <translation type="unfinished">Cyaan</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="191"/>
+        <location filename="../preview.cpp" line="192"/>
         <source>Magenta</source>
         <translation type="unfinished">Magenta</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="198"/>
+        <location filename="../preview.cpp" line="199"/>
         <source>Yellow</source>
         <translation type="unfinished">Geel</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="205"/>
+        <location filename="../preview.cpp" line="206"/>
         <source>Black</source>
         <translation type="unfinished">Swart</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="270"/>
+        <location filename="../preview.cpp" line="271"/>
         <source>Scaling:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="294"/>
+        <location filename="../preview.cpp" line="295"/>
         <source>Print...</source>
         <translation type="unfinished">Afdrukken...</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="322"/>
+        <location filename="../preview.cpp" line="323"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="323"/>
+        <location filename="../preview.cpp" line="324"/>
         <source>Resize the scale of the page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="291"/>
+        <location filename="../preview.cpp" line="292"/>
         <source>Close</source>
         <translation type="unfinished">Maak toe</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="1094"/>
+        <location filename="../preview.cpp" line="1100"/>
         <source>File</source>
         <translation type="unfinished">Lêer</translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="249"/>
+        <location filename="../preview.cpp" line="250"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="127"/>
+        <location filename="../preview.cpp" line="128"/>
         <source>Enable &amp;Antialiasing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="278"/>
+        <location filename="../preview.cpp" line="279"/>
         <source>Fit to Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="279"/>
+        <location filename="../preview.cpp" line="280"/>
         <source>Fit to Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="280"/>
+        <location filename="../preview.cpp" line="281"/>
         <source>Fit to Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="319"/>
+        <location filename="../preview.cpp" line="320"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="121"/>
+        <location filename="../preview.cpp" line="122"/>
         <source>Display Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="228"/>
+        <location filename="../preview.cpp" line="229"/>
         <source>Print Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="234"/>
+        <location filename="../preview.cpp" line="235"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="237"/>
+        <location filename="../preview.cpp" line="238"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="240"/>
+        <location filename="../preview.cpp" line="241"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="243"/>
+        <location filename="../preview.cpp" line="244"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="252"/>
+        <location filename="../preview.cpp" line="253"/>
         <source>Convert Spot Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="255"/>
-        <source>Apply ICC Profiles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../preview.cpp" line="324"/>
+        <location filename="../preview.cpp" line="325"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="325"/>
+        <location filename="../preview.cpp" line="326"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../preview.cpp" line="326"/>
-        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <location filename="../preview.cpp" line="256"/>
+        <source>Apply Color Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../preview.cpp" line="327"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PSLib</name>
     <message>
-        <location filename="../pslib.cpp" line="1672"/>
+        <location filename="../pslib.cpp" line="1694"/>
         <source>Processing Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1672"/>
+        <location filename="../pslib.cpp" line="1694"/>
         <source>Exporting Page:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17198,44 +17508,14 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PStyleW</name>
     <message>
-        <location filename="../smpstylew.ui" line="13"/>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../smpstylew.ui" line="26"/>
         <source>Properties</source>
-        <translation type="unfinished">Eienskappe</translation>
+        <translation type="obsolete">Eienskappe</translation>
     </message>
     <message>
         <location filename="../smpstylew.ui" line="46"/>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">Tabs en induiking</translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="64"/>
-        <source>Based On:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="104"/>
-        <source>Distances and Alignment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="130"/>
-        <source>Drop Caps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="146"/>
-        <source>Parent&apos;s Drop Cap Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smpstylew.ui" line="190"/>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Tabs en induiking</translation>
     </message>
 </context>
 <context>
@@ -17617,37 +17897,37 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="358"/>
+        <location filename="../pageitem.cpp" line="361"/>
         <source>Image</source>
         <translation>Prent</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="362"/>
+        <location filename="../pageitem.cpp" line="365"/>
         <source>Text</source>
         <translation>Teks</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="366"/>
+        <location filename="../pageitem.cpp" line="369"/>
         <source>Line</source>
         <translation>Lyn</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="370"/>
+        <location filename="../pageitem.cpp" line="373"/>
         <source>Polygon</source>
         <translation>Polygoon</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="374"/>
+        <location filename="../pageitem.cpp" line="377"/>
         <source>Polyline</source>
         <translation>Polylyn</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="378"/>
+        <location filename="../pageitem.cpp" line="381"/>
         <source>PathText</source>
         <translation>Tekspad</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3344"/>
+        <location filename="../pageitem.cpp" line="3377"/>
         <source>Copy of</source>
         <translation type="unfinished">Kopie van</translation>
     </message>
@@ -17660,17 +17940,17 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">Geen</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Relates To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Is Parent Of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>Is Child Of</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17700,7 +17980,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="unfinished">&amp;Reg</translation>
     </message>
     <message>
-        <location filename="../pageitemattributes.cpp" line="20"/>
+        <location filename="../pageitemattributes.cpp" line="21"/>
         <source>None</source>
         <comment>relationship</comment>
         <translation type="unfinished">Geen</translation>
@@ -17795,14 +18075,194 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
 </context>
 <context>
+    <name>PageItem_ImageFrame</name>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="244"/>
+        <source>Picture</source>
+        <translation type="unfinished">Prent</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_imageframe.cpp" line="332"/>
+        <source>Preview Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_LatexFrame</name>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="47"/>
+        <source>Latex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="66"/>
+        <source>\section*{Manual}
+Your \LaTeX-frames setup is working when you can read this text!\\
+Placing formulas is very easy:\\
+Right click $\Rightarrow$ Edit Latex Source\\
+And replace this text with your own. Here is an example:
+\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
+becomes
+\[J = \int r^2 \mathrm{d}m\]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="539"/>
+        <source>Error</source>
+        <translation type="unfinished">Fout</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="219"/>
+        <source>Running the external application failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="285"/>
+        <source>Could not create a temporary file to run the application!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="362"/>
+        <source>Information</source>
+        <translation type="unfinished">Info</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="308"/>
+        <source>Please specify a latex executable in the preferences!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="356"/>
+        <source>An editor for this frame is already running!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="364"/>
+        <source>Please specify an editor in the preferences!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="451"/>
+        <source>Could not create a temporary file to run the external editor!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="515"/>
+        <source>Running the editor failed with exitcode %d!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="531"/>
+        <source>Running the editor &quot;%1&quot; failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="547"/>
+        <source>Running the application &quot;%1&quot; failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="631"/>
+        <source>Latex-Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="634"/>
+        <source>Command: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="639"/>
+        <source>DPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="644"/>
+        <source>Status: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="647"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="649"/>
+        <source>Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_latexframe.cpp" line="651"/>
+        <source>Errorcode </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_PathText</name>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="390"/>
+        <source>Paragraphs: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="398"/>
+        <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="404"/>
+        <source>Words: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_pathtext.cpp" line="412"/>
+        <source>Chars: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageItem_TextFrame</name>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3313"/>
+        <source>Linked Text</source>
+        <translation type="unfinished">Geskakelde teks</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3315"/>
+        <source>Text Frame</source>
+        <translation type="unfinished">Teksraam</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3319"/>
+        <source>Paragraphs: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3327"/>
+        <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3333"/>
+        <source>Words: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3341"/>
+        <source>Chars: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PageLayouts</name>
     <message>
-        <location filename="../pagelayout.cpp" line="267"/>
+        <location filename="../pagelayout.cpp" line="266"/>
         <source>First Page is:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pagelayout.cpp" line="198"/>
+        <location filename="../pagelayout.cpp" line="197"/>
         <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17810,22 +18270,12 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PagePalette</name>
     <message>
-        <location filename="../seiten.cpp" line="533"/>
-        <source>Double sided</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../seiten.cpp" line="541"/>
-        <source>Middle Right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../seiten.cpp" line="570"/>
+        <location filename="../seiten.cpp" line="557"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="571"/>
+        <location filename="../seiten.cpp" line="558"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17835,17 +18285,17 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">Normaal</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="855"/>
+        <location filename="../seiten.cpp" line="853"/>
         <source>Arrange Pages</source>
         <translation type="unfinished">Bladsye herschikken</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="856"/>
+        <location filename="../seiten.cpp" line="854"/>
         <source>Available Master Pages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="857"/>
+        <location filename="../seiten.cpp" line="855"/>
         <source>Document Pages:</source>
         <translation type="unfinished">Documentbladsye:</translation>
     </message>
@@ -17863,7 +18313,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">van %1</translation>
     </message>
     <message>
-        <location filename="../pageselector.cpp" line="246"/>
+        <location filename="../pageselector.cpp" line="247"/>
         <source>%1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17894,7 +18344,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>ParaStyleComboBox</name>
     <message>
-        <location filename="../spalette.cpp" line="61"/>
+        <location filename="../spalette.cpp" line="62"/>
         <source>No Style</source>
         <translation type="unfinished">Geen styl</translation>
     </message>
@@ -17902,22 +18352,22 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PatternDialog</name>
     <message>
-        <location filename="../patterndialog.cpp" line="95"/>
+        <location filename="../patterndialog.cpp" line="96"/>
         <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="123"/>
+        <location filename="../patterndialog.cpp" line="124"/>
         <source>Loading Patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="198"/>
+        <location filename="../patterndialog.cpp" line="199"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../patterndialog.cpp" line="201"/>
+        <location filename="../patterndialog.cpp" line="202"/>
         <source>Open</source>
         <translation type="unfinished">Maak oop</translation>
     </message>
@@ -17985,22 +18435,22 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="unfinished">Kanselleer</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="106"/>
+        <location filename="../picsearch.cpp" line="108"/>
         <source>Size:</source>
         <translation type="unfinished">Grootte:</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="107"/>
+        <location filename="../picsearch.cpp" line="109"/>
         <source>Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="107"/>
+        <location filename="../picsearch.cpp" line="109"/>
         <source>DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="110"/>
+        <location filename="../picsearch.cpp" line="112"/>
         <source>Unknown</source>
         <translation type="unfinished">Onbekend</translation>
     </message>
@@ -18015,7 +18465,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../picsearch.cpp" line="113"/>
+        <location filename="../picsearch.cpp" line="115"/>
         <source>Colorspace:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18061,12 +18511,12 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../picsearchoptions.cpp" line="48"/>
+        <location filename="../picsearchoptions.cpp" line="49"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="55"/>
+        <location filename="../picsearchoptions.cpp" line="56"/>
         <source>Cancel Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18076,17 +18526,17 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="82"/>
+        <location filename="../picsearchoptions.cpp" line="83"/>
         <source>Select a base directory for search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="137"/>
+        <location filename="../picsearchoptions.cpp" line="138"/>
         <source>Scribus - Image Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picsearchoptions.cpp" line="137"/>
+        <location filename="../picsearchoptions.cpp" line="138"/>
         <source>The search failed: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18159,7 +18609,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">Status</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="510"/>
+        <location filename="../picstatus.ui" line="575"/>
         <source>Goto</source>
         <translation>Ga na</translation>
     </message>
@@ -18194,62 +18644,62 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="unfinished">Prente beheren</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="289"/>
+        <location filename="../picstatus.cpp" line="291"/>
         <source>Scribus - Image Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="289"/>
+        <location filename="../picstatus.cpp" line="291"/>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="633"/>
+        <location filename="../picstatus.ui" line="719"/>
         <source>Close</source>
         <translation type="unfinished">Maak toe</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="141"/>
+        <location filename="../picstatus.cpp" line="142"/>
         <source>Not on a Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="156"/>
+        <location filename="../picstatus.cpp" line="157"/>
         <source>JPG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="159"/>
+        <location filename="../picstatus.cpp" line="160"/>
         <source>TIFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="162"/>
+        <location filename="../picstatus.cpp" line="163"/>
         <source>PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="165"/>
+        <location filename="../picstatus.cpp" line="166"/>
         <source>EPS/PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="168"/>
+        <location filename="../picstatus.cpp" line="169"/>
         <source>PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="171"/>
+        <location filename="../picstatus.cpp" line="172"/>
         <source>JPG2000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="177"/>
+        <location filename="../picstatus.cpp" line="178"/>
         <source>emb. PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="183"/>
+        <location filename="../picstatus.cpp" line="184"/>
         <source>Unknown</source>
         <translation type="unfinished">Onbekend</translation>
     </message>
@@ -18264,123 +18714,123 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../picstatus.cpp" line="217"/>
+        <location filename="../picstatus.cpp" line="201"/>
         <source>n/a</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="74"/>
+        <location filename="../picstatus.ui" line="81"/>
         <source>Information</source>
         <translation type="unfinished">Info</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="135"/>
+        <location filename="../picstatus.ui" line="159"/>
         <source>Path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="145"/>
+        <location filename="../picstatus.ui" line="169"/>
         <source>Search...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="199"/>
+        <location filename="../picstatus.ui" line="219"/>
         <source>Name:</source>
         <translation type="unfinished">Naam:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="219"/>
+        <location filename="../picstatus.ui" line="248"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="305"/>
+        <location filename="../picstatus.ui" line="346"/>
         <source>DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="292"/>
+        <location filename="../picstatus.ui" line="333"/>
         <source>Format:</source>
         <translation type="unfinished">Formaat:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="279"/>
+        <location filename="../picstatus.ui" line="320"/>
         <source>Colorspace:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="321"/>
+        <location filename="../picstatus.ui" line="362"/>
         <source>Size</source>
         <translation type="unfinished">Grootte</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="401"/>
+        <location filename="../picstatus.ui" line="454"/>
         <source>Pixels:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="391"/>
+        <location filename="../picstatus.ui" line="444"/>
         <source>Scale:</source>
         <translation type="unfinished">Skaal:</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="365"/>
+        <location filename="../picstatus.ui" line="418"/>
         <source>Printed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="414"/>
+        <location filename="../picstatus.ui" line="467"/>
         <source>Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="523"/>
+        <location filename="../picstatus.ui" line="588"/>
         <source>On Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="497"/>
+        <location filename="../picstatus.ui" line="562"/>
         <source>eff. DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="487"/>
+        <location filename="../picstatus.ui" line="552"/>
         <source>Object:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="474"/>
+        <location filename="../picstatus.ui" line="539"/>
         <source>Select</source>
         <translation type="unfinished">Kies</translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="539"/>
+        <location filename="../picstatus.ui" line="604"/>
         <source>Image Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="558"/>
-        <source>Layers &amp;&amp; Paths...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../picstatus.ui" line="575"/>
+        <location filename="../picstatus.ui" line="652"/>
         <source>Image Visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="582"/>
+        <location filename="../picstatus.ui" line="659"/>
         <source>Image Effects...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="568"/>
+        <location filename="../picstatus.ui" line="645"/>
         <source>Edit Image...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../picstatus.ui" line="551"/>
+        <location filename="../picstatus.ui" line="628"/>
         <source>Print Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../picstatus.ui" line="635"/>
+        <source>Extended Image Properties...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18420,19 +18870,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PluginManager</name>
     <message>
-        <location filename="../pluginmanager.cpp" line="72"/>
+        <location filename="../pluginmanager.cpp" line="69"/>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="61"/>
+        <location filename="../pluginmanager.cpp" line="58"/>
         <source>unknown error</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="97"/>
+        <location filename="../pluginmanager.cpp" line="94"/>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
@@ -18444,49 +18894,49 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">Onbekend</translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="157"/>
+        <location filename="../pluginmanager.cpp" line="154"/>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="261"/>
+        <location filename="../pluginmanager.cpp" line="258"/>
         <source>init failed</source>
         <comment>plugin load error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="267"/>
+        <location filename="../pluginmanager.cpp" line="264"/>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="271"/>
+        <location filename="../pluginmanager.cpp" line="268"/>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="275"/>
+        <location filename="../pluginmanager.cpp" line="272"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="315"/>
+        <location filename="../pluginmanager.cpp" line="312"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="318"/>
+        <location filename="../pluginmanager.cpp" line="315"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pluginmanager.cpp" line="228"/>
+        <location filename="../pluginmanager.cpp" line="225"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18552,7 +19002,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PolygonProps</name>
     <message>
-        <location filename="../polyprops.cpp" line="21"/>
+        <location filename="../polyprops.cpp" line="20"/>
         <source>Polygon Properties</source>
         <translation>Polygoon-eienskappe</translation>
     </message>
@@ -18622,47 +19072,47 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PolygonWidget</name>
     <message>
-        <location filename="../polygonwidget.cpp" line="48"/>
+        <location filename="../polygonwidget.cpp" line="55"/>
         <source>Corn&amp;ers:</source>
         <translation type="unfinished">Ho&amp;eke:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="67"/>
+        <location filename="../polygonwidget.cpp" line="75"/>
         <source>&amp;Rotation:</source>
         <translation type="unfinished">&amp;Rotasie:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="82"/>
+        <location filename="../polygonwidget.cpp" line="91"/>
         <source>Apply &amp;Factor</source>
         <translation type="unfinished">Pas &amp;Faktor toe</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="97"/>
+        <location filename="../polygonwidget.cpp" line="106"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="101"/>
+        <location filename="../polygonwidget.cpp" line="110"/>
         <source>&amp;Factor:</source>
         <translation type="unfinished">&amp;Faktor:</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="130"/>
+        <location filename="../polygonwidget.cpp" line="140"/>
         <source>Number of corners for polygons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="132"/>
+        <location filename="../polygonwidget.cpp" line="142"/>
         <source>Degrees of rotation for polygons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="133"/>
+        <location filename="../polygonwidget.cpp" line="143"/>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="134"/>
+        <location filename="../polygonwidget.cpp" line="144"/>
         <source>Sample Polygon</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18674,7 +19124,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 &apos;n positiewe waarde maak hom konveks</translation>
     </message>
     <message>
-        <location filename="../polygonwidget.cpp" line="136"/>
+        <location filename="../polygonwidget.cpp" line="146"/>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18682,47 +19132,47 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../prefs.cpp" line="70"/>
+        <location filename="../prefs.cpp" line="71"/>
         <source>Preferences</source>
         <translation>Voorkeure</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="73"/>
+        <location filename="../prefs.cpp" line="74"/>
         <source>General</source>
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="76"/>
+        <location filename="../prefs.cpp" line="77"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="79"/>
+        <location filename="../prefs.cpp" line="80"/>
         <source>Guides</source>
         <translation>Hulplyne</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="82"/>
+        <location filename="../prefs.cpp" line="83"/>
         <source>Typography</source>
         <translation>Typografie</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="85"/>
+        <location filename="../prefs.cpp" line="86"/>
         <source>Tools</source>
         <translation>Gereedskap</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="133"/>
+        <location filename="../prefs.cpp" line="134"/>
         <source>Scrapbook</source>
         <translation type="unfinished">Kladblok</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="136"/>
+        <location filename="../prefs.cpp" line="137"/>
         <source>Display</source>
         <translation>Vertoon</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="139"/>
+        <location filename="../prefs.cpp" line="140"/>
         <source>External Tools</source>
         <translation type="unfinished">Eksterne hulpprogramme</translation>
     </message>
@@ -19864,27 +20314,27 @@ UCR verklein die kans op overversadiging met CMY inke.</translation>
         <translation type="obsolete">Ponie</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="88"/>
+        <location filename="../prefs.cpp" line="89"/>
         <source>Hyphenator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="91"/>
+        <location filename="../prefs.cpp" line="92"/>
         <source>Fonts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="102"/>
+        <location filename="../prefs.cpp" line="103"/>
         <source>Color Management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="117"/>
+        <location filename="../prefs.cpp" line="118"/>
         <source>PDF Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="130"/>
+        <location filename="../prefs.cpp" line="131"/>
         <source>Keyboard Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19894,27 +20344,27 @@ UCR verklein die kans op overversadiging met CMY inke.</translation>
         <translation type="obsolete">Kleur:</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="146"/>
+        <location filename="../prefs.cpp" line="147"/>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="97"/>
+        <location filename="../prefs.cpp" line="98"/>
         <source>Preflight Verifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="122"/>
+        <location filename="../prefs.cpp" line="123"/>
         <source>Document Item Attributes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="127"/>
+        <location filename="../prefs.cpp" line="128"/>
         <source>Table of Contents and Indexes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="142"/>
+        <location filename="../prefs.cpp" line="143"/>
         <source>Miscellaneous</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19934,7 +20384,7 @@ UCR verklein die kans op overversadiging met CMY inke.</translation>
         <translation type="obsolete">Nee</translation>
     </message>
     <message>
-        <location filename="../prefs.cpp" line="94"/>
+        <location filename="../prefs.cpp" line="95"/>
         <source>Printer</source>
         <translation type="unfinished">Drukker (CMYK)</translation>
     </message>
@@ -19947,37 +20397,37 @@ UCR verklein die kans op overversadiging met CMY inke.</translation>
         <translation type="obsolete">&amp;Reg</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="163"/>
+        <location filename="../prefsdialogbase.cpp" line="184"/>
         <source>&amp;Defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="177"/>
+        <location filename="../prefsdialogbase.cpp" line="193"/>
         <source>Save Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="162"/>
+        <location filename="../prefsdialogbase.cpp" line="183"/>
         <source>Export...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="164"/>
+        <location filename="../prefsdialogbase.cpp" line="185"/>
         <source>&amp;Apply</source>
         <translation type="unfinished">Toe&amp;pas</translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="165"/>
+        <location filename="../prefsdialogbase.cpp" line="186"/>
         <source>All preferences can be reset here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="166"/>
+        <location filename="../prefsdialogbase.cpp" line="187"/>
         <source>Apply all changes without closing the dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsdialogbase.cpp" line="167"/>
+        <location filename="../prefsdialogbase.cpp" line="188"/>
         <source>Export current preferences into file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19995,64 +20445,64 @@ UCR verklein die kans op overversadiging met CMY inke.</translation>
         <translation type="obsolete">Regter bladsy</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1829"/>
+        <location filename="../prefsmanager.cpp" line="1899"/>
         <source>Postscript</source>
         <translation type="unfinished">Postscript</translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="663"/>
+        <location filename="../prefsmanager.cpp" line="676"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="665"/>
+        <location filename="../prefsmanager.cpp" line="678"/>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1829"/>
+        <location filename="../prefsmanager.cpp" line="1899"/>
         <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1471"/>
+        <location filename="../prefsmanager.cpp" line="1540"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1484"/>
+        <location filename="../prefsmanager.cpp" line="1552"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1498"/>
+        <location filename="../prefsmanager.cpp" line="1566"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="1508"/>
+        <location filename="../prefsmanager.cpp" line="1576"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2125"/>
+        <location filename="../prefsmanager.cpp" line="2221"/>
         <source>Error Writing Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2131"/>
+        <location filename="../prefsmanager.cpp" line="2227"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2144"/>
+        <location filename="../prefsmanager.cpp" line="2240"/>
         <source>Error Loading Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../prefsmanager.cpp" line="2149"/>
+        <location filename="../prefsmanager.cpp" line="2245"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20065,38 +20515,38 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="obsolete">Geen</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="479"/>
+        <location filename="../marginWidget.cpp" line="484"/>
         <source>Magazine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="480"/>
+        <location filename="../marginWidget.cpp" line="485"/>
         <source>Fibonacci</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="481"/>
+        <location filename="../marginWidget.cpp" line="486"/>
         <source>Golden Mean</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="482"/>
+        <location filename="../marginWidget.cpp" line="487"/>
         <source>Nine Parts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="478"/>
+        <location filename="../marginWidget.cpp" line="483"/>
         <source>Gutenberg</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="477"/>
+        <location filename="../marginWidget.cpp" line="482"/>
         <source>None</source>
         <comment>layout type</comment>
         <translation type="unfinished">Geen</translation>
     </message>
     <message>
-        <location filename="../marginWidget.cpp" line="485"/>
+        <location filename="../marginWidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20104,52 +20554,47 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>PythonConsole</name>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="81"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="93"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Maak oop...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="86"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="98"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="91"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="103"/>
         <source>Save &amp;As...</source>
         <translation type="unfinished">Stoor &amp;as...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="96"/>
-        <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="59"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="71"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Lêer</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="101"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="113"/>
         <source>&amp;Run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="106"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="118"/>
         <source>Run As &amp;Console</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="111"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="123"/>
         <source>&amp;Save Output...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.ui" line="69"/>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="81"/>
         <source>&amp;Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="62"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="60"/>
         <source>Scribus Python Console</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20159,62 +20604,67 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">Scriptkonsole</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="119"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="117"/>
         <source>Write your commands here. A selection is processed as script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="120"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="118"/>
         <source>Output of your script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="198"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="192"/>
         <source>Save the Python Commands in File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="219"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="217"/>
         <source>Text Files (*.txt)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="222"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="215"/>
         <source>Save Current Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="163"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="158"/>
         <source>Open Python Script File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="195"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="194"/>
         <source>Python Scripts (*.py *.PY)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="35"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="33"/>
         <source>Col: %1 Row: %2/%3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="46"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="44"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="47"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="45"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/pconsole.cpp" line="68"/>
+        <location filename="../plugins/scriptplugin/pconsole.cpp" line="66"/>
         <source>This is derived from standard Python console
 so it contains some limitations esp. in the
 case of whitespaces. Please consult Scribus
 manual for more informations.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/pconsole.ui" line="108"/>
+        <source>&amp;Quit</source>
+        <translation type="unfinished">A&amp;fsluiten</translation>
     </message>
 </context>
 <context>
@@ -20747,17 +21197,17 @@ Kontroleer pad en lêernaam.</translation>
         <translation>Teks word ingevoer</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="1490"/>
+        <location filename="../util_formats.cpp" line="192"/>
         <source>All Supported Formats</source>
         <translation>Alle ondersteunde formate</translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="1520"/>
+        <location filename="../util_formats.cpp" line="239"/>
         <source>All Files (*)</source>
         <translation>Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="232"/>
+        <location filename="../scribuscore.cpp" line="235"/>
         <source>Initializing...</source>
         <translation>Besig om te initialiseer...</translation>
     </message>
@@ -20767,7 +21217,7 @@ Kontroleer pad en lêernaam.</translation>
         <translation type="obsolete">Dokument</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1076"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="1078"/>
         <source>Background</source>
         <translation>Agtergrond</translation>
     </message>
@@ -20780,7 +21230,7 @@ Kontroleer pad en lêernaam.</translation>
         <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="139"/>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation>Wil u werklik %1 oorskryf?</translation>
+        <translation type="obsolete">Wil u werklik %1 oorskryf?</translation>
     </message>
     <message>
         <location filename="" line="136966680"/>
@@ -20803,107 +21253,107 @@ Kontroleer pad en lêernaam.</translation>
         <translation type="obsolete">Templaat:</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="76"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="155"/>
         <source>Newsletters</source>
         <translation>Nuusbriewe</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="78"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="156"/>
         <source>Brochures</source>
         <translation>Brosjures</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="80"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="157"/>
         <source>Catalogs</source>
         <translation>Katalogusse</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="82"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="158"/>
         <source>Flyers</source>
         <translation>Pamflette</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="84"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="159"/>
         <source>Signs</source>
         <translation>Tekens</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="86"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="160"/>
         <source>Cards</source>
         <translation>Kaartjies</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="88"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="161"/>
         <source>Letterheads</source>
         <translation>Briefhoofde</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="90"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="162"/>
         <source>Envelopes</source>
         <translation>Briewe</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="92"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="163"/>
         <source>Business Cards</source>
         <translation>Visitekaartjies</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="94"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="164"/>
         <source>Calendars</source>
         <translation>Kalenders</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="96"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="165"/>
         <source>Advertisements</source>
         <translation>Advertenties</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="98"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="166"/>
         <source>Labels</source>
         <translation>Labels</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="100"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="167"/>
         <source>Menus</source>
         <translation>Spyskaarte</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="102"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="168"/>
         <source>Programs</source>
         <translation>Programme</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="104"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="169"/>
         <source>PDF Forms</source>
         <translation>PDF-vorms</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="106"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="170"/>
         <source>PDF Presentations</source>
         <translation>PDF-aanbiedings</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="108"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="171"/>
         <source>Magazines</source>
         <translation>Tydskrifte</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="110"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="172"/>
         <source>Posters</source>
         <translation>Plakkate</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="112"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="173"/>
         <source>Announcements</source>
         <translation>Aankondigings</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="114"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="174"/>
         <source>Text Documents</source>
         <translation>Teksdokumente</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="116"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="175"/>
         <source>Folds</source>
         <translation>Gevoude dokumente</translation>
     </message>
@@ -20998,22 +21448,22 @@ Kontroleer pad en lêernaam.</translation>
         <translation type="obsolete">Scripter &amp;handleiding...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="550"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="548"/>
         <source>&amp;Scribus Scripts</source>
         <translation type="unfinished">&amp;Scribus scripts</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="543"/>
         <source>&amp;Execute Script...</source>
         <translation type="unfinished">Voer Script &amp;uit...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="551"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
         <source>&amp;Recent Scripts</source>
         <translation type="unfinished">&amp;Onlangse scripts</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="546"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="544"/>
         <source>Show &amp;Console</source>
         <translation type="unfinished">Wys &amp;Konsole</translation>
     </message>
@@ -21045,7 +21495,7 @@ Kontroleer pad en lêernaam.</translation>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="151"/>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation>SVG-prente (*.svg *.svgz);;Alle lêers (*)</translation>
+        <translation type="obsolete">SVG-prente (*.svg *.svgz);;Alle lêers (*)</translation>
     </message>
     <message>
         <location filename="" line="136966680"/>
@@ -21083,7 +21533,7 @@ Kontroleer pad en lêernaam.</translation>
         <translation>html</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="621"/>
+        <location filename="../plugins/gettext/htmlim/htmlreader.cpp" line="620"/>
         <source>
 External Links
 </source>
@@ -21102,7 +21552,7 @@ Eksterne skakelings
         <translation>Lettertype %1 is beskadig en word weggelaat</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/textfilter.cpp" line="25"/>
+        <location filename="../plugins/gettext/textfilter/textfilter.cpp" line="26"/>
         <source>Text Filters</source>
         <translation>Teksfilters</translation>
     </message>
@@ -21152,7 +21602,7 @@ Eksterne skakelings
         <translation>Nederlands</translation>
     </message>
     <message>
-        <location filename="../langmgr.cpp" line="194"/>
+        <location filename="../langmgr.cpp" line="195"/>
         <source>English</source>
         <translation>Engels</translation>
     </message>
@@ -21272,7 +21722,7 @@ Eksterne skakelings
         <translation>Servies</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="118"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="176"/>
         <source>Media Cases</source>
         <translation>Media gevalle</translation>
     </message>
@@ -21282,12 +21732,12 @@ Eksterne skakelings
         <translation type="obsolete">Het vordering probeer stel &gt; maksimum vordering</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="545"/>
         <source>&amp;About Script...</source>
         <translation type="unfinished">&amp;Oor Script...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="518"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="516"/>
         <source>About Script</source>
         <translation type="unfinished">Oor Script</translation>
     </message>
@@ -21951,12 +22401,12 @@ Eksterne skakelings
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="80"/>
+        <location filename="../page.cpp" line="81"/>
         <source>Page</source>
         <translation type="unfinished">Bladsy</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="543"/>
+        <location filename="../scribus.cpp" line="570"/>
         <source>Scribus Development Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21981,27 +22431,27 @@ Eksterne skakelings
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="142"/>
+        <location filename="../units.cpp" line="155"/>
         <source>pt</source>
         <translation type="unfinished">pt</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="143"/>
+        <location filename="../units.cpp" line="156"/>
         <source>mm</source>
         <translation type="unfinished">mm</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="144"/>
+        <location filename="../units.cpp" line="157"/>
         <source>in</source>
         <translation type="unfinished">in</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="145"/>
+        <location filename="../units.cpp" line="158"/>
         <source>p</source>
         <translation type="unfinished">p</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="194"/>
+        <location filename="../units.cpp" line="207"/>
         <source>Points (pt)</source>
         <translation type="unfinished">Punte (pt)</translation>
     </message>
@@ -22011,17 +22461,17 @@ Eksterne skakelings
         <translation type="obsolete">Millimeter (mm)</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="196"/>
+        <location filename="../units.cpp" line="209"/>
         <source>Inches (in)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="197"/>
+        <location filename="../units.cpp" line="210"/>
         <source>Picas (p)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="691"/>
+        <location filename="../util.cpp" line="453"/>
         <source>File exists</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22031,7 +22481,7 @@ Eksterne skakelings
         <translation type="obsolete">&amp;Vervangen</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="2124"/>
+        <location filename="../pslib.cpp" line="2146"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22048,27 +22498,22 @@ Eksterne skakelings
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="40"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="39"/>
         <source>Argument must be page item name, or PyCObject instance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="91"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="90"/>
         <source>Property not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="202"/>
-        <source>Child not found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="309"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="310"/>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="441"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="442"/>
         <source>Property type &apos;%1&apos; not supported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22078,7 +22523,7 @@ Eksterne skakelings
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="470"/>
+        <location filename="../plugins/scriptplugin/cmdgetsetprop.cpp" line="469"/>
         <source>Types matched, but setting property failed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22197,7 +22642,7 @@ Eksterne skakelings
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="549"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="547"/>
         <source>&amp;Script</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22232,7 +22677,7 @@ Eksterne skakelings
         <translation type="unfinished">&amp;Reg</translation>
     </message>
     <message>
-        <location filename="../page.cpp" line="89"/>
+        <location filename="../page.cpp" line="90"/>
         <source>Master Page </source>
         <translation type="unfinished"></translation>
     </message>
@@ -22411,32 +22856,32 @@ Eksterne skakelings
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="146"/>
+        <location filename="../units.cpp" line="159"/>
         <source>cm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="147"/>
+        <location filename="../units.cpp" line="160"/>
         <source>c</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="195"/>
+        <location filename="../units.cpp" line="208"/>
         <source>Millimeters (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="198"/>
+        <location filename="../units.cpp" line="211"/>
         <source>Centimeters (cm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="199"/>
+        <location filename="../units.cpp" line="212"/>
         <source>Cicero (c)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="1161"/>
+        <location filename="../util.cpp" line="617"/>
         <source>page</source>
         <comment>page export</comment>
         <translation type="unfinished"></translation>
@@ -22447,7 +22892,7 @@ Eksterne skakelings
         <translation type="obsolete">&amp;Lettertypeweergave...</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="116"/>
         <source>Document Template: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -22506,7 +22951,7 @@ Eksterne skakelings
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="749"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="748"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -22541,32 +22986,32 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/odtim/odtim.cpp" line="44"/>
+        <location filename="../plugins/gettext/odtim/odtim.cpp" line="47"/>
         <source>OpenDocument Text Documents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2590"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="2594"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopie #%1 van</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1838"/>
+        <location filename="../pslib.cpp" line="1860"/>
         <source>Black</source>
         <translation type="unfinished">Swart</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1840"/>
+        <location filename="../pslib.cpp" line="1862"/>
         <source>Cyan</source>
         <translation type="unfinished">Cyaan</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1842"/>
+        <location filename="../pslib.cpp" line="1864"/>
         <source>Magenta</source>
         <translation type="unfinished">Magenta</translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1844"/>
+        <location filename="../pslib.cpp" line="1866"/>
         <source>Yellow</source>
         <translation type="unfinished">Geel</translation>
     </message>
@@ -22586,14 +23031,9 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="71"/>
+        <location filename="../plugins/newfromtemplateplugin/nftemplate.cpp" line="70"/>
         <source>New From Template</source>
         <translation type="unfinished">Nuwe van sjabloon</translation>
-    </message>
-    <message>
-        <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
-        <source>PS/EPS Importer</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugins/saveastemplateplugin/satemplate.cpp" line="65"/>
@@ -22601,7 +23041,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="137"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="133"/>
         <source>Scripter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22611,17 +23051,17 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="92"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="94"/>
         <source>SVG Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="93"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="96"/>
         <source>SVG Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="100"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="102"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22661,12 +23101,12 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">Besig om na lettertipes te soek</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4073"/>
+        <location filename="../scribus.cpp" line="4027"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util.cpp" line="692"/>
+        <location filename="../util.cpp" line="454"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22687,27 +23127,27 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1662"/>
+        <location filename="../pslib.cpp" line="1684"/>
         <source>Exporting PostScript File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pslib.cpp" line="1664"/>
+        <location filename="../pslib.cpp" line="1686"/>
         <source>Printing File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3469"/>
+        <location filename="../scribus.cpp" line="3423"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3470"/>
+        <location filename="../scribus.cpp" line="3424"/>
         <source>C&amp;reate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3471"/>
+        <location filename="../scribus.cpp" line="3425"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Voer in</translation>
     </message>
@@ -22722,7 +23162,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="168"/>
+        <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="170"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22997,7 +23437,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_tiff.cpp" line="872"/>
+        <location filename="../scimgdataloader_tiff.cpp" line="868"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23019,12 +23459,12 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="59"/>
+        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="57"/>
         <source>Scribus 1.2.x Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="59"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="63"/>
         <source>Scribus 1.3.4 Support</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23041,7 +23481,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="544"/>
+        <location filename="../scribus.cpp" line="571"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23071,7 +23511,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scimgdataloader_ps.cpp" line="465"/>
+        <location filename="../scimgdataloader_ps.cpp" line="474"/>
         <source>The Font(s):
 %1 are not available.
 They have been replaced by &quot;Courier&quot;
@@ -23081,11 +23521,6 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../langmgr.cpp" line="61"/>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/psimport/importpsplugin.cpp" line="141"/>
-        <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23109,12 +23544,12 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="60"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="61"/>
         <source>Scribus 1.3.0-&gt;1.3.3.x Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../serializer.cpp" line="344"/>
+        <location filename="../serializer.cpp" line="347"/>
         <source>Copy of %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23184,7 +23619,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished">Tekspad</translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="150"/>
+        <location filename="../units.cpp" line="163"/>
         <source>%</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23214,10 +23649,20 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../units.cpp" line="148"/>
+        <location filename="../units.cpp" line="161"/>
         <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="90"/>
+        <source>WMF Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sclayer.cpp" line="386"/>
+        <source>New Layer</source>
+        <translation type="unfinished">Nuwe laag</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
@@ -23225,19 +23670,95 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="89"/>
-        <source>WMF Import</source>
+        <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="71"/>
+        <source>Adobe Illustrator Importer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="147"/>
-        <source>WMF Files (*.wmf);;All Files (*)</source>
+        <location filename="../plugins/imposition/impositionplugin.cpp" line="58"/>
+        <source>Imposition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sclayer.cpp" line="302"/>
-        <source>New Layer</source>
-        <translation type="unfinished">Nuwe laag</translation>
+        <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
+        <source>PostScript Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="122"/>
+        <source>%1;;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="141"/>
+        <source>Do you really want to overwrite the file:
+%1 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="33"/>
+        <source>Encapsulated PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="34"/>
+        <source>GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="35"/>
+        <source>JPEG</source>
+        <translation type="unfinished">JPEG</translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="36"/>
+        <source>Pattern Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="37"/>
+        <source>PDF Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="38"/>
+        <source>PNG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="39"/>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="40"/>
+        <source>Adobe Photoshop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="41"/>
+        <source>TIFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="42"/>
+        <source>XPM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="43"/>
+        <source>Windows Meta File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="44"/>
+        <source>Scalable Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util_formats.cpp" line="45"/>
+        <source>Adobe Illustrator</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23420,7 +23941,7 @@ Therefore the image may be not correct</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="64"/>
+        <location filename="../reformdoc.cpp" line="62"/>
         <source>Document Setup</source>
         <translation>Dokument instellings</translation>
     </message>
@@ -23604,12 +24125,12 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">&amp;Interval:</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="67"/>
+        <location filename="../reformdoc.cpp" line="65"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="73"/>
+        <location filename="../reformdoc.cpp" line="71"/>
         <source>Guides</source>
         <translation type="unfinished">Hulplyne</translation>
     </message>
@@ -23624,37 +24145,37 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">Vertoon &amp;Nie-drukbare gebiede in kantlynkleur</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="77"/>
+        <location filename="../reformdoc.cpp" line="75"/>
         <source>Display</source>
         <translation type="unfinished">Vertoon</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="80"/>
+        <location filename="../reformdoc.cpp" line="78"/>
         <source>Typography</source>
         <translation type="unfinished">Typografie</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="83"/>
+        <location filename="../reformdoc.cpp" line="81"/>
         <source>Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="86"/>
+        <location filename="../reformdoc.cpp" line="84"/>
         <source>Hyphenator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="89"/>
+        <location filename="../reformdoc.cpp" line="87"/>
         <source>Fonts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="97"/>
+        <location filename="../reformdoc.cpp" line="95"/>
         <source>PDF Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="117"/>
+        <location filename="../reformdoc.cpp" line="115"/>
         <source>Color Management</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23669,22 +24190,22 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">Maskeer gebied buite die kantlyne in die kantlynkleur</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="70"/>
+        <location filename="../reformdoc.cpp" line="68"/>
         <source>Document Information</source>
         <translation type="unfinished">Dokumentinformasie</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="92"/>
+        <location filename="../reformdoc.cpp" line="90"/>
         <source>Preflight Verifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="102"/>
+        <location filename="../reformdoc.cpp" line="100"/>
         <source>Document Item Attributes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="107"/>
+        <location filename="../reformdoc.cpp" line="105"/>
         <source>Table of Contents and Indexes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23699,7 +24220,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="unfinished">Bezig kleuren aan te passen</translation>
     </message>
     <message>
-        <location filename="../reformdoc.cpp" line="111"/>
+        <location filename="../reformdoc.cpp" line="109"/>
         <source>Sections</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23712,27 +24233,31 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">Python scripts (*.py);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/runscriptdialog.cpp" line="22"/>
-        <source>Run as Extension Script</source>
-        <comment>run script dialog</comment>
+        <location filename="../plugins/scriptplugin/runscriptdialog.cpp" line="18"/>
+        <source>Python Scripts (*.py *.PY);; All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/runscriptdialog.cpp" line="18"/>
-        <source>Python Scripts (*.py *.PY);; All Files (*)</source>
+        <location filename="../plugins/scriptplugin/runscriptdialog.ui" line="13"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/scriptplugin/runscriptdialog.ui" line="22"/>
+        <source>Run as Extension Script</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SMAlignSelect</name>
     <message>
-        <location filename="../smwidgets.cpp" line="288"/>
+        <location filename="../smalignselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smwidgets.cpp" line="289"/>
+        <location filename="../smalignselect.cpp" line="21"/>
         <source>Use parent style&apos;s alignment instead of overriding it</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23745,84 +24270,24 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">&amp;Toevoeg</translation>
     </message>
     <message>
-        <location filename="../stylemanager.ui" line="96"/>
-        <source>Alt+A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="358"/>
-        <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="361"/>
-        <source>Alt+D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../stylemanager.ui" line="429"/>
         <source>Name:</source>
-        <translation type="unfinished">Naam:</translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="266"/>
-        <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Naam:</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="93"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished">Toe&amp;pas</translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="263"/>
-        <source>&amp;New</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="296"/>
-        <source>&amp;Clone</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Toe&amp;pas</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="299"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="340"/>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Voer in</translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="343"/>
-        <source>Alt+I</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="460"/>
-        <source>Please select a unique name for the style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="69"/>
-        <source>&lt;&lt; &amp;Done</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="117"/>
-        <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="120"/>
-        <source>Alt+R</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../stylemanager.ui" line="293"/>
-        <source>Clone copies the style to make similar styles easily.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Voer in</translation>
     </message>
 </context>
 <context>
@@ -23832,116 +24297,139 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <source> pt</source>
         <translation type="obsolete">pt</translation>
     </message>
+</context>
+<context>
+    <name>SMCStyleWidget</name>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="240"/>
-        <source> %</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smtextstylewidgets.cpp" line="218"/>
+        <location filename="../smcstylewidget.cpp" line="67"/>
         <source>Parent style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="219"/>
+        <location filename="../smcstylewidget.cpp" line="68"/>
         <source>Font face</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="220"/>
+        <location filename="../smcstylewidget.cpp" line="69"/>
         <source>Font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="221"/>
+        <location filename="../smcstylewidget.cpp" line="70"/>
         <source>Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="222"/>
+        <location filename="../smcstylewidget.cpp" line="71"/>
         <source>Baseline offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="223"/>
+        <location filename="../smcstylewidget.cpp" line="72"/>
         <source>Horizontal scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="224"/>
+        <location filename="../smcstylewidget.cpp" line="73"/>
         <source>Vertical scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="225"/>
+        <location filename="../smcstylewidget.cpp" line="74"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="226"/>
+        <location filename="../smcstylewidget.cpp" line="75"/>
         <source>Fill color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="227"/>
+        <location filename="../smcstylewidget.cpp" line="76"/>
         <source>Fill shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="228"/>
+        <location filename="../smcstylewidget.cpp" line="77"/>
         <source>Stroke color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="229"/>
+        <location filename="../smcstylewidget.cpp" line="78"/>
         <source>Stroke shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="577"/>
-        <source>Shade</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../smtextstylewidgets.cpp" line="235"/>
+        <location filename="../smcstylewidget.ui" line="33"/>
         <source>Based On:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="236"/>
+        <location filename="../smcstylewidget.ui" line="298"/>
         <source>Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.cpp" line="426"/>
+        <source>Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="55"/>
+        <source>Basic Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="268"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="195"/>
+        <source>Advanced Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="416"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smcstylewidget.ui" line="339"/>
+        <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="1490"/>
+        <location filename="../smtextstyles.cpp" line="1494"/>
         <source>Properties</source>
         <translation type="unfinished">Eienskappe</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1191"/>
+        <location filename="../smtextstyles.cpp" line="1195"/>
         <source>Character Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1196"/>
+        <location filename="../smtextstyles.cpp" line="1200"/>
         <source>Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1319"/>
+        <location filename="../smtextstyles.cpp" line="1323"/>
         <source>New Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1332"/>
+        <location filename="../smtextstyles.cpp" line="1336"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="1358"/>
+        <location filename="../smtextstyles.cpp" line="1362"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
@@ -23950,7 +24438,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMColorCombo</name>
     <message>
-        <location filename="../smwidgets.cpp" line="669"/>
+        <location filename="../smcolorcombo.cpp" line="121"/>
         <source>Use Parent Value</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23958,7 +24446,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMFontComboH</name>
     <message>
-        <location filename="../smwidgets.cpp" line="683"/>
+        <location filename="../smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23966,86 +24454,174 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMLineStyle</name>
     <message>
-        <location filename="../smlinestyle.cpp" line="213"/>
+        <location filename="../smlinestyle.cpp" line="30"/>
         <source>Properties</source>
         <translation type="unfinished">Eienskappe</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="221"/>
+        <location filename="../smlinestyle.cpp" line="39"/>
         <source>Line Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="226"/>
+        <location filename="../smlinestyle.cpp" line="44"/>
         <source>Line Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="369"/>
+        <location filename="../smlinestyle.cpp" line="187"/>
         <source>New Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="379"/>
+        <location filename="../smlinestyle.cpp" line="197"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="395"/>
+        <location filename="../smlinestyle.cpp" line="213"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="763"/>
+        <location filename="../smlinestyle.cpp" line="581"/>
         <source> pt</source>
         <translation type="unfinished">pt</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="857"/>
+        <location filename="../smlinestyle.cpp" line="676"/>
         <source>Solid Line</source>
         <translation type="unfinished">Soliede lyn</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="845"/>
+        <location filename="../smlinestyle.cpp" line="664"/>
         <source>Dashed Line</source>
         <translation type="unfinished">Gestreepte lyn</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="848"/>
+        <location filename="../smlinestyle.cpp" line="667"/>
         <source>Dotted Line</source>
         <translation type="unfinished">Stippellyn</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="851"/>
+        <location filename="../smlinestyle.cpp" line="670"/>
         <source>Dash Dot Line</source>
         <translation type="unfinished">Streep-stip lyn</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="854"/>
+        <location filename="../smlinestyle.cpp" line="673"/>
         <source>Dash Dot Dot Line</source>
         <translation type="unfinished">Streep-stip-stip lyn</translation>
     </message>
     <message>
-        <location filename="../smlinestyle.cpp" line="838"/>
+        <location filename="../smlinestyle.cpp" line="657"/>
         <source> pt </source>
         <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
+    <name>SMLineStyleWidget</name>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="34"/>
+        <source>Flat Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="35"/>
+        <source>Square Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="36"/>
+        <source>Round Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="38"/>
+        <source>Miter Join</source>
+        <translation type="unfinished">Miter koppel</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="39"/>
+        <source>Bevel Join</source>
+        <translation type="unfinished">Bevel koppel</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="40"/>
+        <source>Round Join</source>
+        <translation type="unfinished">Ronde koppel</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="52"/>
+        <source>Add a new line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="53"/>
+        <source>Remove a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="54"/>
+        <source>Line style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="55"/>
+        <source>Line width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="56"/>
+        <source>End style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="57"/>
+        <source>Join style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="58"/>
+        <source>Line color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="59"/>
+        <source>Line shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.cpp" line="162"/>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.ui" line="234"/>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smlinestylewidget.ui" line="256"/>
+        <source>Line Width:</source>
+        <translation type="unfinished">Lyndikte:</translation>
+    </message>
+</context>
+<context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="984"/>
+        <location filename="../smpstylewidget.cpp" line="238"/>
         <source>Fixed Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="985"/>
+        <location filename="../smpstylewidget.cpp" line="239"/>
         <source>Automatic Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="986"/>
+        <location filename="../smpstylewidget.cpp" line="240"/>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24055,125 +24631,140 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">pt</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="780"/>
+        <location filename="../smpstylewidget.ui" line="89"/>
         <source>Distances and Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="781"/>
+        <location filename="../smpstylewidget.ui" line="201"/>
         <source>Drop Caps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="782"/>
+        <location filename="../smpstylewidget.ui" line="294"/>
         <source>Tabulators and Indentation</source>
         <translation type="unfinished">Tabs en induiking</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="783"/>
+        <location filename="../smpstylewidget.ui" line="38"/>
         <source>Properties</source>
         <translation type="unfinished">Eienskappe</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="784"/>
+        <location filename="../smpstylewidget.cpp" line="87"/>
         <source>Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="810"/>
+        <location filename="../smpstylewidget.ui" line="213"/>
         <source>&amp;Lines:</source>
         <translation type="unfinished">&amp;Lyne:</translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="816"/>
+        <location filename="../smpstylewidget.ui" line="246"/>
         <source>Distance from Text:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="761"/>
+        <location filename="../smpstylewidget.cpp" line="64"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="752"/>
+        <location filename="../smpstylewidget.cpp" line="55"/>
         <source>Parent Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="753"/>
+        <location filename="../smpstylewidget.cpp" line="56"/>
         <source>Line Spacing Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="754"/>
+        <location filename="../smpstylewidget.cpp" line="57"/>
         <source>Line Spacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="755"/>
+        <location filename="../smpstylewidget.cpp" line="58"/>
         <source>Space Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="756"/>
+        <location filename="../smpstylewidget.cpp" line="59"/>
         <source>Space Below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="759"/>
+        <location filename="../smpstylewidget.cpp" line="62"/>
         <source>Drop Cap Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="760"/>
+        <location filename="../smpstylewidget.cpp" line="63"/>
         <source>Drop Cap Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="762"/>
+        <location filename="../smpstylewidget.cpp" line="65"/>
         <source>First Line Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="763"/>
+        <location filename="../smpstylewidget.cpp" line="66"/>
         <source>Left Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="764"/>
+        <location filename="../smpstylewidget.cpp" line="67"/>
         <source>Right Indent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstylewidgets.cpp" line="1213"/>
+        <location filename="../smpstylewidget.ui" line="61"/>
         <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="160"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="279"/>
+        <source>Parent&apos;s Drop Cap Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smpstylewidget.ui" line="340"/>
+        <source>Ch&amp;aracter Style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
     <message>
-        <location filename="../smtextstyles.cpp" line="49"/>
+        <location filename="../smtextstyles.cpp" line="53"/>
         <source>Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="54"/>
+        <location filename="../smtextstyles.cpp" line="58"/>
         <source>Paragraph Style</source>
         <translation type="unfinished">Alineastyl</translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="202"/>
+        <location filename="../smtextstyles.cpp" line="206"/>
         <source>New Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="215"/>
+        <location filename="../smtextstyles.cpp" line="219"/>
         <source>Clone of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smtextstyles.cpp" line="242"/>
+        <location filename="../smtextstyles.cpp" line="246"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation type="unfinished"></translation>
@@ -24182,12 +24773,12 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMReplaceDia</name>
     <message>
-        <location filename="../smreplacedia.cpp" line="66"/>
+        <location filename="../smreplacedia.cpp" line="65"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smreplacedia.cpp" line="67"/>
+        <location filename="../smreplacedia.cpp" line="66"/>
         <source>Replace with</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24223,7 +24814,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMRowWidget</name>
     <message>
-        <location filename="../smreplacedia.cpp" line="27"/>
+        <location filename="../smreplacedia.cpp" line="23"/>
         <source>No Style</source>
         <translation type="unfinished">Geen styl</translation>
     </message>
@@ -24231,7 +24822,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../smwidgets.cpp" line="271"/>
+        <location filename="../smsccombobox.cpp" line="82"/>
         <source>Use Parent Value</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24239,21 +24830,64 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMShadeButton</name>
     <message>
-        <location filename="../smwidgets.cpp" line="542"/>
+        <location filename="../smshadebutton.cpp" line="74"/>
         <source>Use Parent Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMStyleImport</name>
+    <message>
+        <location filename="../smstyleimport.cpp" line="22"/>
+        <source>Character Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.cpp" line="34"/>
+        <source>Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.cpp" line="46"/>
+        <source>Line Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="13"/>
+        <source>Choose Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="20"/>
+        <source>Available Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="28"/>
+        <source>In case of the name clash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="34"/>
+        <source>&amp;Rename Imported Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../smstyleimport.ui" line="44"/>
+        <source>R&amp;eplace Existing Style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SMStyleSelect</name>
     <message>
-        <location filename="../smwidgets.cpp" line="372"/>
+        <location filename="../smstyleselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../smwidgets.cpp" line="373"/>
+        <location filename="../smstyleselect.cpp" line="21"/>
         <source>Use parent style&apos;s effects instead of overriding them</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24261,7 +24895,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SMTabruler</name>
     <message>
-        <location filename="../smwidgets.cpp" line="777"/>
+        <location filename="../smtabruler.cpp" line="20"/>
         <source> Parent Tabs </source>
         <translation type="unfinished"></translation>
     </message>
@@ -24269,12 +24903,12 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../story.cpp" line="1102"/>
+        <location filename="../story.cpp" line="1130"/>
         <source>Style Settings</source>
         <translation>Stylinstelling</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1115"/>
+        <location filename="../story.cpp" line="1147"/>
         <source>Style of current paragraph</source>
         <translation>Styl van huidige paragraaf</translation>
     </message>
@@ -24282,7 +24916,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../story.cpp" line="884"/>
+        <location filename="../story.cpp" line="888"/>
         <source>Fill Color Settings</source>
         <translation>Vulkleur-instelling</translation>
     </message>
@@ -24292,12 +24926,12 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">Geen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="903"/>
+        <location filename="../story.cpp" line="914"/>
         <source>Color of text fill</source>
         <translation>Kleur van die teks agtergrond</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="904"/>
+        <location filename="../story.cpp" line="915"/>
         <source>Saturation of color of text fill</source>
         <translation>Versadiging van kleur van teks agtergrond</translation>
     </message>
@@ -24305,7 +24939,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../story.cpp" line="936"/>
+        <location filename="../story.cpp" line="952"/>
         <source>Stroke Color Settings</source>
         <translation>Lynkleur-instelling</translation>
     </message>
@@ -24315,12 +24949,12 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">Geen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="955"/>
+        <location filename="../story.cpp" line="977"/>
         <source>Color of text stroke</source>
         <translation>Kleur van die tekslyne</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="956"/>
+        <location filename="../story.cpp" line="978"/>
         <source>Saturation of color of text stroke</source>
         <translation>Versadiging van kleur van tekslyne</translation>
     </message>
@@ -24328,37 +24962,37 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../story.cpp" line="1135"/>
+        <location filename="../story.cpp" line="1167"/>
         <source>Font Settings</source>
         <translation>Lettertipe-instelling</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1142"/>
+        <location filename="../story.cpp" line="1176"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1153"/>
+        <location filename="../story.cpp" line="1195"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1167"/>
+        <location filename="../story.cpp" line="1211"/>
         <source>Font of selected text</source>
         <translation>Lettertipe van gekose teks</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1168"/>
+        <location filename="../story.cpp" line="1212"/>
         <source>Font Size</source>
         <translation>Lettergrootte</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1169"/>
+        <location filename="../story.cpp" line="1213"/>
         <source>Scaling width of characters</source>
         <translation>Skaalbreedte van letters</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1170"/>
+        <location filename="../story.cpp" line="1214"/>
         <source>Scaling height of characters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24366,7 +25000,7 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../story.cpp" line="988"/>
+        <location filename="../story.cpp" line="1010"/>
         <source>Character Settings</source>
         <translation>Letter-instelling</translation>
     </message>
@@ -24386,12 +25020,12 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">Handmatige letterspasiëring</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="996"/>
+        <location filename="../story.cpp" line="1022"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1014"/>
+        <location filename="../story.cpp" line="1042"/>
         <source>Manual Tracking</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24404,17 +25038,17 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
         <translation type="obsolete">Stoor bladsy as &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="99"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="101"/>
         <source>Exports SVG Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="100"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="102"/>
         <source>Exports the current page into an SVG file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="84"/>
+        <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="86"/>
         <source>Save as &amp;SVG...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24422,33 +25056,28 @@ As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant 
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="85"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="88"/>
         <source>Import &amp;SVG...</source>
         <translation type="unfinished">Voer &amp;SVG in...</translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="100"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="103"/>
         <source>Imports SVG Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="101"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="104"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="115"/>
-        <source>Scalable Vector Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="181"/>
         <source>SVG file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="177"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
         <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24456,7 +25085,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="894"/>
+        <location filename="../plugins/svgimplugin/svgplugin.cpp" line="902"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24555,11 +25184,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
-        <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="122"/>
         <source>Cannot write file %1.</source>
         <translation type="unfinished"></translation>
@@ -24577,6 +25201,11 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="154"/>
         <source>Cannot open file %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
+        <source>User configuration exists already. Do you really want to overwrite it?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24611,7 +25240,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scgtplugin.cpp" line="129"/>
+        <location filename="../scgtplugin.cpp" line="130"/>
         <source>Show options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24674,69 +25303,34 @@ converting their vector data into Scribus objects.</source>
 </context>
 <context>
     <name>ScTextBrowser</name>
-    <message>
-        <location filename="../sctextbrowser.cpp" line="67"/>
-        <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sctextbrowser.cpp" line="78"/>
-        <source>External Web Browser Failed to Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sctextbrowser.cpp" line="78"/>
-        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ScToolBar</name>
     <message>
-        <location filename="../sctoolbar.cpp" line="262"/>
-        <source>Top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sctoolbar.cpp" line="263"/>
         <source>Right</source>
-        <translation type="unfinished">Regs</translation>
-    </message>
-    <message>
-        <location filename="../sctoolbar.cpp" line="264"/>
-        <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Regs</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="265"/>
         <source>Left</source>
-        <translation type="unfinished">Links</translation>
-    </message>
-    <message>
-        <location filename="../sctoolbar.cpp" line="266"/>
-        <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Links</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="274"/>
         <source>Horizontal</source>
-        <translation type="unfinished">Horisontaal</translation>
+        <translation type="obsolete">Horisontaal</translation>
     </message>
     <message>
         <location filename="../sctoolbar.cpp" line="275"/>
         <source>Vertical</source>
-        <translation type="unfinished">Vertikaal</translation>
-    </message>
-    <message>
-        <location filename="../sctoolbar.cpp" line="276"/>
-        <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Vertikaal</translation>
     </message>
 </context>
 <context>
     <name>ScWinPrint</name>
     <message>
-        <location filename="../scwinprint.cpp" line="324"/>
+        <location filename="../scwinprint.cpp" line="323"/>
         <source>Printing...</source>
         <translation type="unfinished">Bezig met afdrukken...</translation>
     </message>
@@ -24762,7 +25356,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>Scribus12Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="100"/>
+        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="98"/>
         <source>Scribus 1.2.x Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24772,7 +25366,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Agtergrond</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="1449"/>
+        <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="1716"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopie #%1 van</translation>
     </message>
@@ -24780,12 +25374,12 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="78"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="82"/>
         <source>Scribus 1.3.4 Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3281"/>
+        <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3326"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopie #%1 van</translation>
     </message>
@@ -24793,12 +25387,12 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3035"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3039"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopie #%1 van</translation>
     </message>
     <message>
-        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="79"/>
+        <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="80"/>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26389,48 +26983,48 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../scribuscore.cpp" line="157"/>
+        <location filename="../scribuscore.cpp" line="167"/>
         <source>Initializing Plugins</source>
         <translation type="unfinished">Plugins word geinisialiseer</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="169"/>
+        <location filename="../scribuscore.cpp" line="179"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="171"/>
+        <location filename="../scribuscore.cpp" line="181"/>
         <source>Reading Preferences</source>
         <translation type="unfinished">Voorkeure word gelees</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="181"/>
-        <source>Reading ICC Profiles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribuscore.cpp" line="323"/>
+        <location filename="../scribuscore.cpp" line="326"/>
         <source>Searching for Fonts</source>
         <translation type="unfinished">Besig om na lettertipes te soek</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="328"/>
+        <location filename="../scribuscore.cpp" line="331"/>
         <source>There are no fonts found on your system.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="329"/>
+        <location filename="../scribuscore.cpp" line="332"/>
         <source>Exiting now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="330"/>
+        <location filename="../scribuscore.cpp" line="333"/>
         <source>Fatal Error</source>
         <translation type="unfinished">Fatale fout</translation>
     </message>
     <message>
-        <location filename="../scribuscore.cpp" line="333"/>
+        <location filename="../scribuscore.cpp" line="336"/>
         <source>Font System Initialized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribuscore.cpp" line="191"/>
+        <source>Reading Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26447,84 +27041,84 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Normaal</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="188"/>
+        <location filename="../scribusdoc.cpp" line="217"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="409"/>
+        <location filename="../scribusdoc.cpp" line="452"/>
         <source>Background</source>
         <translation type="unfinished">Agtergrond</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6390"/>
+        <location filename="../scribusdoc.cpp" line="6836"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6432"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>Cannot Delete In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6432"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6872"/>
+        <location filename="../scribusdoc.cpp" line="7354"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6868"/>
+        <location filename="../scribusdoc.cpp" line="7350"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6869"/>
+        <location filename="../scribusdoc.cpp" line="7351"/>
         <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="620"/>
+        <location filename="../scribusdoc.cpp" line="704"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7941"/>
+        <location filename="../scribusdoc.cpp" line="8467"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="751"/>
+        <location filename="../scribusdoc.cpp" line="836"/>
         <source>Adjusting Colors</source>
         <translation type="unfinished">Bezig kleuren aan te passen</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="361"/>
+        <location filename="../scribusdoc.cpp" line="404"/>
         <source>Default Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="376"/>
+        <location filename="../scribusdoc.cpp" line="419"/>
         <source>Default Character Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5289"/>
+        <location filename="../scribusdoc.cpp" line="5671"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5507"/>
+        <location filename="../scribusdoc.cpp" line="5906"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7914"/>
+        <location filename="../scribusdoc.cpp" line="8439"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -26532,7 +27126,7 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8700"/>
+        <location filename="../scribusdoc.cpp" line="9465"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26555,32 +27149,32 @@ Rotation: %4</source>
         <translation type="obsolete">Voorkeure word gelees</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="307"/>
+        <location filename="../scribus.cpp" line="321"/>
         <source>Initializing Story Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="314"/>
+        <location filename="../scribus.cpp" line="328"/>
         <source>Initializing Hyphenator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="320"/>
+        <location filename="../scribus.cpp" line="334"/>
         <source>Reading Scrapbook</source>
         <translation type="unfinished">Kladblok word gelees</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="290"/>
+        <location filename="../scribus.cpp" line="306"/>
         <source>Setting up Shortcuts</source>
         <translation type="unfinished">Kortpaaie word gelaai</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="360"/>
+        <location filename="../scribus.cpp" line="373"/>
         <source>File</source>
         <translation type="unfinished">Lêer</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="370"/>
+        <location filename="../scribus.cpp" line="386"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26590,202 +27184,197 @@ Rotation: %4</source>
         <translation type="obsolete">Besig om na lettertipes te soek</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3632"/>
+        <location filename="../scribus.cpp" line="3580"/>
         <source>Fatal Error</source>
         <translation type="unfinished">Fatale fout</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9234"/>
+        <location filename="../scribus.cpp" line="8974"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Lêer</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9235"/>
+        <location filename="../scribus.cpp" line="8975"/>
         <source>Open &amp;Recent</source>
         <translation type="unfinished">&amp;Onlangs oop gemaak</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9237"/>
+        <location filename="../scribus.cpp" line="8977"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Voer in</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9238"/>
+        <location filename="../scribus.cpp" line="8978"/>
         <source>&amp;Export</source>
         <translation type="unfinished">&amp;Exporteren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9239"/>
+        <location filename="../scribus.cpp" line="8979"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9241"/>
+        <location filename="../scribus.cpp" line="8981"/>
         <source>St&amp;yle</source>
         <translation type="unfinished">Sti&amp;jl</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9242"/>
+        <location filename="../scribus.cpp" line="8982"/>
         <source>&amp;Color</source>
         <translation type="unfinished">&amp;Kleur</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9243"/>
+        <location filename="../scribus.cpp" line="8983"/>
         <source>&amp;Size</source>
         <translation type="unfinished">&amp;Grootte</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9244"/>
+        <location filename="../scribus.cpp" line="8984"/>
         <source>&amp;Shade</source>
         <translation type="unfinished">&amp;Tint</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9245"/>
+        <location filename="../scribus.cpp" line="8985"/>
         <source>&amp;Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9246"/>
+        <location filename="../scribus.cpp" line="8986"/>
         <source>&amp;Effects</source>
         <translation type="unfinished">&amp;Effecten</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9247"/>
+        <location filename="../scribus.cpp" line="8987"/>
         <source>&amp;Item</source>
         <translation type="unfinished">&amp;Item</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="707"/>
+        <location filename="../scribus.cpp" line="710"/>
         <source>Preview Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="692"/>
+        <location filename="../scribus.cpp" line="695"/>
         <source>Level</source>
         <translation type="unfinished">Vlak</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="698"/>
+        <location filename="../scribus.cpp" line="701"/>
         <source>Send to La&amp;yer</source>
         <translation type="unfinished">Stuur na &amp;laag</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9251"/>
+        <location filename="../scribus.cpp" line="8991"/>
         <source>&amp;PDF Options</source>
         <translation type="unfinished">&amp;PDF-opsies</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9252"/>
+        <location filename="../scribus.cpp" line="8992"/>
         <source>&amp;Shape</source>
         <translation type="unfinished">&amp;Vorm</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9253"/>
+        <location filename="../scribus.cpp" line="8993"/>
         <source>C&amp;onvert To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9254"/>
+        <location filename="../scribus.cpp" line="8994"/>
         <source>I&amp;nsert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9255"/>
+        <location filename="../scribus.cpp" line="8995"/>
         <source>Character</source>
         <translation type="unfinished">Karakter</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9256"/>
+        <location filename="../scribus.cpp" line="8996"/>
         <source>Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9257"/>
+        <location filename="../scribus.cpp" line="8997"/>
         <source>Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9259"/>
+        <location filename="../scribus.cpp" line="8999"/>
         <source>&amp;Page</source>
         <translation type="unfinished">&amp;Bladsy</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9260"/>
+        <location filename="../scribus.cpp" line="9000"/>
         <source>&amp;View</source>
         <translation type="unfinished">Beel&amp;d</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9262"/>
+        <location filename="../scribus.cpp" line="9002"/>
         <source>E&amp;xtras</source>
         <translation type="unfinished">E&amp;xtra</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9263"/>
+        <location filename="../scribus.cpp" line="9003"/>
         <source>&amp;Windows</source>
         <translation type="unfinished">&amp;Venster</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9264"/>
+        <location filename="../scribus.cpp" line="9004"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Help</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9265"/>
+        <location filename="../scribus.cpp" line="9005"/>
         <source>&amp;Alignment</source>
         <translation type="unfinished">&amp;Uitlyning</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9276"/>
+        <location filename="../scribus.cpp" line="9017"/>
         <source>Ready</source>
         <translation type="unfinished">Gereed</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3976"/>
+        <location filename="../scribus.cpp" line="3930"/>
         <source>Open</source>
         <translation type="unfinished">Maak oop</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3436"/>
+        <location filename="../scribus.cpp" line="3390"/>
         <source>Importing Pages...</source>
         <translation type="unfinished">Bladsye worden geïmporteerd...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3465"/>
+        <location filename="../scribus.cpp" line="3419"/>
         <source>Import Page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3507"/>
+        <location filename="../scribus.cpp" line="3461"/>
         <source>Import done</source>
         <translation type="unfinished">Importeren voltooid</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3511"/>
+        <location filename="../scribus.cpp" line="3465"/>
         <source>Found nothing to import</source>
         <translation type="unfinished">Niets gevonden om te importeren</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3632"/>
+        <location filename="../scribus.cpp" line="3580"/>
         <source>File %1 is not in an acceptable format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3653"/>
+        <location filename="../scribus.cpp" line="3601"/>
         <source>Loading...</source>
         <translation type="unfinished">Laden...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3797"/>
-        <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribus.cpp" line="3800"/>
+        <location filename="../scribus.cpp" line="3748"/>
         <source> was replaced by: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="3827"/>
+        <location filename="../scribus.cpp" line="3780"/>
         <source>(converted)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26795,7 +27384,7 @@ Rotation: %4</source>
         <translation type="obsolete">Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7994"/>
+        <location filename="../scribus.cpp" line="7722"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="unfinished"></translation>
@@ -26811,62 +27400,62 @@ Rotation: %4</source>
         <translation type="obsolete">Dokumente (*.sla *.scd);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4150"/>
+        <location filename="../scribus.cpp" line="4102"/>
         <source>Save As</source>
         <translation type="unfinished">Stoor as</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4177"/>
+        <location filename="../scribus.cpp" line="4128"/>
         <source>Saving...</source>
         <translation type="unfinished">Stoor...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7714"/>
+        <location filename="../scribus.cpp" line="7442"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4436"/>
+        <location filename="../scribus.cpp" line="4387"/>
         <source>Printing...</source>
         <translation type="unfinished">Bezig met afdrukken...</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7825"/>
+        <location filename="../scribus.cpp" line="7553"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4495"/>
+        <location filename="../scribus.cpp" line="4446"/>
         <source>Printing failed!</source>
         <translation type="unfinished">Afdrukken mislukt!</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4619"/>
+        <location filename="../scribus.cpp" line="4575"/>
         <source>Cannot Cut In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4619"/>
+        <location filename="../scribus.cpp" line="4575"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5257"/>
+        <location filename="../scribus.cpp" line="5215"/>
         <source>About Qt</source>
         <translation type="unfinished">Info over Qt</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5268"/>
+        <location filename="../scribus.cpp" line="5220"/>
         <source>Scribus Manual</source>
         <translation type="unfinished">Scribus handboek</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7848"/>
+        <location filename="../scribus.cpp" line="7576"/>
         <source>Save as</source>
         <translation type="unfinished">Stoor as</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5293"/>
+        <location filename="../scribus.cpp" line="5245"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation type="unfinished">Tekslêers (*.txt);;Alle lêers (*)</translation>
     </message>
@@ -26878,218 +27467,218 @@ Rotation: %4</source>
     <message>
         <location filename="../scribus.cpp" line="5457"/>
         <source>Name:</source>
-        <translation type="unfinished">Naam:</translation>
+        <translation type="obsolete">Naam:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5457"/>
-        <source>Convert Page to Master Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribus.cpp" line="6685"/>
+        <location filename="../scribus.cpp" line="6646"/>
         <source>&amp;Size:</source>
         <translation type="unfinished">&amp;Grootte:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6685"/>
+        <location filename="../scribus.cpp" line="6646"/>
         <source>Size</source>
         <translation type="unfinished">Grootte</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6737"/>
+        <location filename="../scribus.cpp" line="6676"/>
         <source>&amp;Shade:</source>
         <translation type="unfinished">&amp;Tint:</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6737"/>
+        <location filename="../scribus.cpp" line="6676"/>
         <source>Shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="6845"/>
+        <location filename="../scribus.cpp" line="6778"/>
         <source>No Style</source>
         <translation type="unfinished">Geen styl</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7612"/>
+        <location filename="../scribus.cpp" line="7340"/>
         <source>The following programs are missing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7614"/>
+        <location filename="../scribus.cpp" line="7342"/>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7750"/>
+        <location filename="../scribus.cpp" line="7478"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7794"/>
+        <location filename="../scribus.cpp" line="7522"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7848"/>
-        <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribus.cpp" line="7879"/>
+        <location filename="../scribus.cpp" line="7607"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7971"/>
+        <location filename="../scribus.cpp" line="7699"/>
         <source>-Page%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8340"/>
+        <location filename="../scribus.cpp" line="8064"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8336"/>
+        <location filename="../scribus.cpp" line="8060"/>
         <source>&amp;Lock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="8337"/>
+        <location filename="../scribus.cpp" line="8061"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9006"/>
+        <location filename="../scribus.cpp" line="8747"/>
         <source>Information</source>
         <translation type="unfinished">Info</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9006"/>
+        <location filename="../scribus.cpp" line="8747"/>
         <source>The program %1 is already running!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9045"/>
+        <location filename="../scribus.cpp" line="8785"/>
         <source>The program %1 is missing!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9159"/>
+        <location filename="../scribus.cpp" line="8899"/>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9162"/>
+        <location filename="../scribus.cpp" line="8902"/>
         <source>Color Not Found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9166"/>
+        <location filename="../scribus.cpp" line="8906"/>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9248"/>
+        <location filename="../scribus.cpp" line="8988"/>
         <source>&amp;Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9249"/>
+        <location filename="../scribus.cpp" line="8989"/>
         <source>Send to Layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9250"/>
+        <location filename="../scribus.cpp" line="8990"/>
         <source>Previe&amp;w Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9261"/>
+        <location filename="../scribus.cpp" line="9001"/>
         <source>&amp;Tools</source>
         <translation type="unfinished">&amp;Gereedschappen</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9272"/>
+        <location filename="../scribus.cpp" line="9013"/>
         <source>X-Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9273"/>
+        <location filename="../scribus.cpp" line="9014"/>
         <source>Y-Pos:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="5457"/>
-        <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribus.cpp" line="7616"/>
+        <location filename="../scribus.cpp" line="7344"/>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="7661"/>
+        <location filename="../scribus.cpp" line="7389"/>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9423"/>
+        <location filename="../scribus.cpp" line="9138"/>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9240"/>
+        <location filename="../scribus.cpp" line="8980"/>
         <source>Contents</source>
         <translation type="unfinished">Inhoud</translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="776"/>
+        <location filename="../scribus.cpp" line="772"/>
         <source>&amp;Character</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="794"/>
+        <location filename="../scribus.cpp" line="789"/>
         <source>&amp;Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="820"/>
+        <location filename="../scribus.cpp" line="814"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9258"/>
+        <location filename="../scribus.cpp" line="8998"/>
         <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="9236"/>
+        <location filename="../scribus.cpp" line="8976"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="2428"/>
+        <location filename="../scribus.cpp" line="2405"/>
         <source>Updating Pictures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4147"/>
+        <location filename="../scribus.cpp" line="4099"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="4006"/>
+        <location filename="../scribus.cpp" line="3960"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribus.cpp" line="253"/>
+        <location filename="../scribus.cpp" line="270"/>
         <source>Scribus </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="9006"/>
+        <source>Online &amp;Tutorials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="3745"/>
+        <source>Some color profiles used by this document are not installed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../scribus.cpp" line="7576"/>
+        <source>%1;;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27106,122 +27695,122 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="397"/>
+        <location filename="../scribusapp.cpp" line="401"/>
         <source>Usage: scribus [option ... ] [file]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="398"/>
+        <location filename="../scribusapp.cpp" line="402"/>
         <source>Options:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="400"/>
+        <location filename="../scribusapp.cpp" line="404"/>
         <source>Print help (this message) and exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="401"/>
+        <location filename="../scribusapp.cpp" line="405"/>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="402"/>
+        <location filename="../scribusapp.cpp" line="406"/>
         <source>List the currently installed interface languages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="399"/>
+        <location filename="../scribusapp.cpp" line="403"/>
         <source>Show information on the console when fonts are being loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="403"/>
+        <location filename="../scribusapp.cpp" line="407"/>
         <source>Do not show the splashscreen on startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="409"/>
+        <location filename="../scribusapp.cpp" line="413"/>
         <source>Output version information and exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="407"/>
+        <location filename="../scribusapp.cpp" line="411"/>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>filename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="405"/>
+        <location filename="../scribusapp.cpp" line="409"/>
         <source>Use filename as path for user given preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="428"/>
+        <location filename="../scribusapp.cpp" line="432"/>
         <source>Installed interface languages for Scribus are as follows:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="436"/>
+        <location filename="../scribusapp.cpp" line="440"/>
         <source>To override the default language choice:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="437"/>
+        <location filename="../scribusapp.cpp" line="441"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="442"/>
+        <location filename="../scribusapp.cpp" line="446"/>
         <source>Scribus Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="451"/>
+        <location filename="../scribusapp.cpp" line="455"/>
         <source>Scribus, Open Source Desktop Publishing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="459"/>
+        <location filename="../scribusapp.cpp" line="463"/>
         <source>Homepage</source>
         <translation type="unfinished">Tuisblad</translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="460"/>
+        <location filename="../scribusapp.cpp" line="464"/>
         <source>Documentation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="461"/>
+        <location filename="../scribusapp.cpp" line="465"/>
         <source>Wiki</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="462"/>
+        <location filename="../scribusapp.cpp" line="466"/>
         <source>Issues</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="404"/>
+        <location filename="../scribusapp.cpp" line="408"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="408"/>
+        <location filename="../scribusapp.cpp" line="412"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="413"/>
+        <location filename="../scribusapp.cpp" line="417"/>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusapp.cpp" line="406"/>
+        <location filename="../scribusapp.cpp" line="410"/>
         <source>Show location ICC profile information on console while starting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27234,7 +27823,7 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../scribusview.cpp" line="190"/>
+        <location filename="../scribusview.cpp" line="201"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -27269,92 +27858,77 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">Alles</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2074"/>
+        <location filename="../scribusview.cpp" line="949"/>
         <source>Copy Here</source>
         <translation type="unfinished">Kopiër hierheen</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2075"/>
+        <location filename="../scribusview.cpp" line="950"/>
         <source>Move Here</source>
         <translation type="unfinished">Skuif hierheen</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2076"/>
+        <location filename="../scribusview.cpp" line="951"/>
         <source>Cancel</source>
         <translation type="unfinished">Kanselleer</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2773"/>
+        <location filename="../canvasmode_nodeedit.cpp" line="498"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2939"/>
         <source>Picture</source>
-        <translation type="unfinished">Prent</translation>
+        <translation type="obsolete">Prent</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2914"/>
+        <location filename="../pageitem_imageframe.cpp" line="257"/>
         <source>File: </source>
         <translation type="unfinished">Lêer: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2918"/>
+        <location filename="../pageitem_imageframe.cpp" line="262"/>
         <source>Original PPI: </source>
         <translation type="unfinished">Oorspronklike PPI:</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2922"/>
+        <location filename="../pageitem_imageframe.cpp" line="267"/>
         <source>Actual PPI: </source>
         <translation type="unfinished">Werklike PPI:</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2965"/>
         <source>Linked Text</source>
-        <translation type="unfinished">Geskakelde teks</translation>
+        <translation type="obsolete">Geskakelde teks</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2967"/>
         <source>Text Frame</source>
-        <translation type="unfinished">Teksraam</translation>
+        <translation type="obsolete">Teksraam</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="2970"/>
         <source>Text on a Path</source>
-        <translation type="unfinished">Teks op &apos;n pad</translation>
+        <translation type="obsolete">Teks op &apos;n pad</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2973"/>
-        <source>Paragraphs: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribusview.cpp" line="2984"/>
-        <source>Words: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribusview.cpp" line="2991"/>
-        <source>Chars: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribusview.cpp" line="3002"/>
+        <location filename="../canvasmode_legacy.cpp" line="4368"/>
         <source>Print: </source>
         <translation type="unfinished">Druk: </translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3005"/>
+        <location filename="../canvasmode_legacy.cpp" line="4371"/>
         <source>Enabled</source>
         <translation type="unfinished">Aan</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3007"/>
+        <location filename="../canvasmode_legacy.cpp" line="4373"/>
         <source>Disabled</source>
         <translation type="unfinished">Af</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3016"/>
+        <location filename="../canvasmode_legacy.cpp" line="4383"/>
         <source>In&amp;fo</source>
         <translation type="unfinished">In&amp;lig</translation>
     </message>
@@ -27404,7 +27978,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">&amp;Veldeienskappe</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3078"/>
+        <location filename="../pageitem_textframe.cpp" line="3384"/>
         <source>&amp;PDF Options</source>
         <translation type="unfinished">&amp;PDF-opsies</translation>
     </message>
@@ -27429,7 +28003,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">Stuur na &amp;kladblok</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3102"/>
+        <location filename="../canvasmode_legacy.cpp" line="4420"/>
         <source>Send to La&amp;yer</source>
         <translation type="unfinished">Stuur na &amp;laag</translation>
     </message>
@@ -27444,7 +28018,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">Ont&amp;groepeer</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3130"/>
+        <location filename="../canvasmode_legacy.cpp" line="4449"/>
         <source>Le&amp;vel</source>
         <translation type="unfinished">&amp;Vlak</translation>
     </message>
@@ -27474,12 +28048,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">&amp;Bezierkurwe</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3184"/>
+        <location filename="../canvasmode_legacy.cpp" line="4469"/>
         <source>Conve&amp;rt to</source>
         <translation type="unfinished">Skakel om n&amp;a</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3194"/>
+        <location filename="../canvasmode_legacy.cpp" line="4480"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27499,37 +28073,32 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">Kopie van</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3037"/>
-        <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribusview.cpp" line="6826"/>
+        <location filename="../canvasmode_legacy.cpp" line="1687"/>
         <source>Linking Text Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="11046"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>Cannot Convert In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="11046"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="9715"/>
+        <location filename="../scribusview.cpp" line="3116"/>
         <source>Page %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2926"/>
+        <location filename="../pageitem_imageframe.cpp" line="272"/>
         <source>Colorspace: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2931"/>
+        <location filename="../pageitem_imageframe.cpp" line="277"/>
         <source>Unknown</source>
         <translation type="unfinished">Onbekend</translation>
     </message>
@@ -27544,68 +28113,63 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3216"/>
+        <location filename="../canvasmode_legacy.cpp" line="4485"/>
         <source>Contents</source>
         <translation type="unfinished">Inhoud</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2789"/>
+        <location filename="../canvasmode_nodeedit.cpp" line="515"/>
         <source>Paste Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2980"/>
-        <source>Lines: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribusview.cpp" line="10747"/>
+        <location filename="../scribusview.cpp" line="4260"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="309"/>
+        <location filename="../scribusview.cpp" line="326"/>
         <source>Enables the Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="310"/>
+        <location filename="../scribusview.cpp" line="327"/>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="308"/>
+        <location filename="../scribusview.cpp" line="325"/>
         <source>Switches Color Management on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="348"/>
+        <location filename="../scribusview.cpp" line="365"/>
         <source>Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="349"/>
+        <location filename="../scribusview.cpp" line="366"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="3308"/>
+        <location filename="../canvasmode_legacy.cpp" line="2326"/>
         <source>Enter Object Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="2941"/>
+        <location filename="../pageitem_imageframe.cpp" line="283"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6820"/>
+        <location filename="../canvasmode_legacy.cpp" line="1681"/>
         <source>You are trying to link a frame to itself.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="6827"/>
+        <location filename="../canvasmode_legacy.cpp" line="1688"/>
         <source>You are trying to link a frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27628,12 +28192,12 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Waarschuwing</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="111"/>
+        <location filename="../scribuswin.cpp" line="107"/>
         <source>Document:</source>
         <translation>Het dokument:</translation>
     </message>
     <message>
-        <location filename="../scribuswin.cpp" line="113"/>
+        <location filename="../scribuswin.cpp" line="109"/>
         <source>has been changed since the last save.</source>
         <translation>is gewyzigd na de laatste keer stoor.</translation>
     </message>
@@ -27651,12 +28215,12 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>ScriptPlugin</name>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="148"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="144"/>
         <source>Embedded Python scripting support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="200"/>
+        <location filename="../plugins/scriptplugin/scriptplugin.cpp" line="199"/>
         <source>Scripter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27704,17 +28268,17 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Python scripts (*.py);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="570"/>
         <source>Script error</source>
         <translation type="unfinished">Scriptfout</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="351"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation type="unfinished">As dit &apos;n amptelike script is, gee hierdie fout asb. in by &lt;a href=&quot;http://bugs.scribus.net&quot;&gt; bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="355"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="353"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation type="unfinished">Die is in die knip-en-plakbord. Met Ctrl+V kan u die fout in bugtracker gaan plak.</translation>
     </message>
@@ -27729,37 +28293,37 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Oor Script</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="422"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="420"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="495"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
         <source>Examine Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="574"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="572"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="508"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="506"/>
         <source>Documentation for:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="513"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
         <source>Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="513"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="511"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="495"/>
+        <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27810,17 +28374,12 @@ You can choose between normal and several color blindness forms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="92"/>
-        <source>Select Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="72"/>
         <source>Change...</source>
         <translation type="unfinished">Wysig...</translation>
     </message>
     <message>
-        <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="117"/>
+        <location filename="../plugins/scriptplugin/scripterprefsgui.cpp" line="129"/>
         <source>Locate Startup Script</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27868,7 +28427,7 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../seiten.cpp" line="89"/>
+        <location filename="../seiten.cpp" line="55"/>
         <source>Show Page Previews</source>
         <translation>Bladsyvoorbeelden tonen</translation>
     </message>
@@ -27884,82 +28443,82 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>SearchReplace</name>
     <message>
-        <location filename="../search.cpp" line="637"/>
+        <location filename="../search.cpp" line="638"/>
         <source>Search/Replace</source>
         <translation>Zoeken/vervangen</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="57"/>
+        <location filename="../search.cpp" line="58"/>
         <source>Search for:</source>
         <translation>Zoeken na:</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="152"/>
+        <location filename="../search.cpp" line="153"/>
         <source>Text</source>
         <translation>Teks</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="155"/>
+        <location filename="../search.cpp" line="156"/>
         <source>Paragraph Style</source>
         <translation>Alineastyl</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="158"/>
+        <location filename="../search.cpp" line="159"/>
         <source>Font</source>
         <translation>Lettertype</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="161"/>
+        <location filename="../search.cpp" line="162"/>
         <source>Font Size</source>
         <translation>Lettergrootte</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="164"/>
+        <location filename="../search.cpp" line="165"/>
         <source>Font Effects</source>
         <translation>Lettertype-effecten</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="167"/>
+        <location filename="../search.cpp" line="168"/>
         <source>Fill Color</source>
         <translation>Vulkleur</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="170"/>
+        <location filename="../search.cpp" line="171"/>
         <source>Fill Shade</source>
         <translation>Vultint</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="173"/>
+        <location filename="../search.cpp" line="174"/>
         <source>Stroke Color</source>
         <translation>Lynkleur</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="176"/>
+        <location filename="../search.cpp" line="177"/>
         <source>Stroke Shade</source>
         <translation>Lyntint</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Left</source>
         <translation>Links</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Center</source>
         <translation>Midden</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Right</source>
         <translation>Regs</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Block</source>
         <translation>Blok</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="94"/>
+        <location filename="../search.cpp" line="95"/>
         <source>Forced</source>
         <translation>Geforceerd</translation>
     </message>
@@ -27974,42 +28533,42 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Geen</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="146"/>
+        <location filename="../search.cpp" line="147"/>
         <source>Replace with:</source>
         <translation>Vervangen door:</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="236"/>
+        <location filename="../search.cpp" line="237"/>
         <source>&amp;Whole Word</source>
         <translation>&amp;Heel woord</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="240"/>
+        <location filename="../search.cpp" line="241"/>
         <source>&amp;Ignore Case</source>
         <translation>Hoofdletteron&amp;gevoelig</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="249"/>
+        <location filename="../search.cpp" line="250"/>
         <source>&amp;Search</source>
         <translation>&amp;Zoeken</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="252"/>
+        <location filename="../search.cpp" line="253"/>
         <source>&amp;Replace</source>
         <translation>&amp;Vervangen</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="255"/>
+        <location filename="../search.cpp" line="256"/>
         <source>Replace &amp;All</source>
         <translation>&amp;Alles vervangen</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="260"/>
+        <location filename="../search.cpp" line="261"/>
         <source>&amp;Close</source>
         <translation>&amp;Sluiten</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="506"/>
+        <location filename="../search.cpp" line="507"/>
         <source>Search finished</source>
         <translation>Zoeken voltooid</translation>
     </message>
@@ -28019,12 +28578,12 @@ You can choose between normal and several color blindness forms</source>
         <translation type="obsolete">Reg</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="258"/>
+        <location filename="../search.cpp" line="259"/>
         <source>C&amp;lear</source>
         <translation>W&amp;issen</translation>
     </message>
     <message>
-        <location filename="../search.cpp" line="638"/>
+        <location filename="../search.cpp" line="639"/>
         <source>Search finished, found %1 matches</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28082,27 +28641,27 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>SelectFields</name>
     <message>
-        <location filename="../selfield.cpp" line="27"/>
+        <location filename="../selfield.cpp" line="26"/>
         <source>Select Fields</source>
         <translation>Velden selecteren</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="40"/>
+        <location filename="../selfield.cpp" line="39"/>
         <source>Available Fields</source>
         <translation>Beschikbare velden</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="68"/>
+        <location filename="../selfield.cpp" line="67"/>
         <source>&amp;&gt;&gt;</source>
         <translation>&amp;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="70"/>
+        <location filename="../selfield.cpp" line="69"/>
         <source>&amp;&lt;&lt;</source>
         <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../selfield.cpp" line="78"/>
+        <location filename="../selfield.cpp" line="77"/>
         <source>Selected Fields</source>
         <translation>Geselecteerde velden</translation>
     </message>
@@ -28125,12 +28684,12 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation>Overig...</translation>
     </message>
     <message>
-        <location filename="../shadebutton.cpp" line="50"/>
+        <location filename="../shadebutton.cpp" line="49"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Tint:</translation>
     </message>
     <message>
-        <location filename="../shadebutton.cpp" line="50"/>
+        <location filename="../shadebutton.cpp" line="49"/>
         <source>Shade</source>
         <translation>Tint</translation>
     </message>
@@ -28138,17 +28697,17 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>ShadowValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="124"/>
+        <location filename="../styleselect.cpp" line="123"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="123"/>
+        <location filename="../styleselect.cpp" line="122"/>
         <source>X-Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="125"/>
+        <location filename="../styleselect.cpp" line="124"/>
         <source>Y-Offset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28175,77 +28734,77 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>ShortcutWidget</name>
     <message>
-        <location filename="../stylemanager.cpp" line="1495"/>
+        <location filename="../shortcutwidget.ui" line="16"/>
         <source>&amp;No Key</source>
         <translation type="unfinished">&amp;Geen sleutel</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1496"/>
+        <location filename="../shortcutwidget.ui" line="23"/>
         <source>&amp;User Defined Key</source>
         <translation type="unfinished">Gebr&amp;uikersgedefiniëerd</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="1461"/>
         <source>ALT+SHIFT+T</source>
-        <translation type="unfinished">Alt+Shift+T</translation>
+        <translation type="obsolete">Alt+Shift+T</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1497"/>
+        <location filename="../shortcutwidget.ui" line="30"/>
         <source>Set &amp;Key</source>
         <translation type="unfinished">Stel &amp;sleutel</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1586"/>
+        <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Meta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1527"/>
+        <location filename="../shortcutwidget.cpp" line="65"/>
         <source>Meta+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1531"/>
+        <location filename="../shortcutwidget.cpp" line="69"/>
         <source>Shift+</source>
         <translation type="unfinished">Shift+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1535"/>
+        <location filename="../shortcutwidget.cpp" line="73"/>
         <source>Alt+</source>
         <translation type="unfinished">Alt+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1539"/>
+        <location filename="../shortcutwidget.cpp" line="77"/>
         <source>Ctrl+</source>
         <translation type="unfinished">Ctrl+</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1487"/>
+        <location filename="../shortcutwidget.cpp" line="33"/>
         <source>No shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1488"/>
+        <location filename="../shortcutwidget.cpp" line="34"/>
         <source>Style has user defined shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1489"/>
+        <location filename="../shortcutwidget.cpp" line="35"/>
         <source>Assign a shortcut for the style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28255,12 +28814,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     <message>
         <location filename="../story.cpp" line="160"/>
         <source>No Style</source>
-        <translation>Geen styl</translation>
-    </message>
-    <message>
-        <location filename="../story.cpp" line="123"/>
-        <source>Edit Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Geen styl</translation>
     </message>
 </context>
 <context>
@@ -28372,72 +28926,72 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../story.cpp" line="1756"/>
+        <location filename="../story.cpp" line="1813"/>
         <source>Story Editor</source>
         <translation>Story-editor</translation>
     </message>
     <message>
         <location filename="../story.cpp" line="1636"/>
         <source>&amp;New</source>
-        <translation>&amp;Nuwe</translation>
+        <translation type="obsolete">&amp;Nuwe</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1638"/>
+        <location filename="../story.cpp" line="1696"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>Teks uit raam &amp;herladen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1639"/>
+        <location filename="../story.cpp" line="1697"/>
         <source>&amp;Save to File...</source>
         <translation>Op&amp;slaan na lêer...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1640"/>
+        <location filename="../story.cpp" line="1698"/>
         <source>&amp;Load from File...</source>
         <translation>&amp;Laden uit lêer...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1641"/>
+        <location filename="../story.cpp" line="1699"/>
         <source>Save &amp;Document</source>
         <translation>&amp;Document stoor</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1642"/>
+        <location filename="../story.cpp" line="1700"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>Teksraam bywerken en sl&amp;uiten</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1643"/>
+        <location filename="../story.cpp" line="1701"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>Sluit&amp;en zonder teksraam by te werken</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1646"/>
+        <location filename="../story.cpp" line="1704"/>
         <source>Select &amp;All</source>
         <translation>&amp;Alles selecteren</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1647"/>
+        <location filename="../story.cpp" line="1705"/>
         <source>Cu&amp;t</source>
         <translation>Kni&amp;ppen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1648"/>
+        <location filename="../story.cpp" line="1706"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiëren</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1649"/>
+        <location filename="../story.cpp" line="1707"/>
         <source>&amp;Paste</source>
         <translation>P&amp;lakken</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1650"/>
+        <location filename="../story.cpp" line="1708"/>
         <source>C&amp;lear</source>
         <translation>W&amp;issen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1651"/>
+        <location filename="../story.cpp" line="1709"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Zoeken/vervangen...</translation>
     </message>
@@ -28447,47 +29001,47 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">&amp;Invoegen speciaal...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1652"/>
+        <location filename="../story.cpp" line="1710"/>
         <source>&amp;Edit Styles...</source>
         <translation>Stylen b&amp;ewerken...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1653"/>
+        <location filename="../story.cpp" line="1711"/>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Lettertypeweergave...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1654"/>
+        <location filename="../story.cpp" line="1712"/>
         <source>&amp;Update Text Frame</source>
         <translation>Teksraam by&amp;werken</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1665"/>
+        <location filename="../story.cpp" line="1723"/>
         <source>&amp;Background...</source>
         <translation>&amp;Achtergrond...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1666"/>
+        <location filename="../story.cpp" line="1724"/>
         <source>&amp;Display Font...</source>
         <translation>Weergave&amp;lettertype...</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1635"/>
+        <location filename="../story.cpp" line="1694"/>
         <source>&amp;File</source>
         <translation>&amp;Lêer</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1645"/>
+        <location filename="../story.cpp" line="1703"/>
         <source>&amp;Edit</source>
         <translation>Be&amp;werken</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1664"/>
+        <location filename="../story.cpp" line="1722"/>
         <source>&amp;Settings</source>
         <translation>In&amp;stellingen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1672"/>
+        <location filename="../story.cpp" line="1730"/>
         <source>File</source>
         <translation>Lêer</translation>
     </message>
@@ -28532,27 +29086,27 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Zoeken/vervangen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1674"/>
+        <location filename="../story.cpp" line="1732"/>
         <source>Current Paragraph:</source>
         <translation>Huidige alinea:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1679"/>
+        <location filename="../story.cpp" line="1737"/>
         <source>Words: </source>
         <translation>Woorden:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1680"/>
+        <location filename="../story.cpp" line="1738"/>
         <source>Chars: </source>
         <translation>Tekens:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1677"/>
+        <location filename="../story.cpp" line="1735"/>
         <source>Totals:</source>
         <translation>Totalen:</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1678"/>
+        <location filename="../story.cpp" line="1736"/>
         <source>Paragraphs: </source>
         <translation>Alinea&apos;s:</translation>
     </message>
@@ -28562,7 +29116,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Waarschuwing</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1793"/>
+        <location filename="../story.cpp" line="1853"/>
         <source>Do you want to save your changes?</source>
         <translation>Wilt u uw wyzigingen stoor?</translation>
     </message>
@@ -28577,77 +29131,77 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Wilt u werkelyk alle teks wissen?</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2855"/>
+        <location filename="../story.cpp" line="2927"/>
         <source>Open</source>
         <translation>Maak oop</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2891"/>
+        <location filename="../story.cpp" line="2962"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Tekslêers (*.txt);;Alle lêers (*)</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2891"/>
+        <location filename="../story.cpp" line="2962"/>
         <source>Save as</source>
         <translation>Stoor as</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1667"/>
+        <location filename="../story.cpp" line="1725"/>
         <source>&amp;Smart text selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1661"/>
+        <location filename="../story.cpp" line="1719"/>
         <source>&amp;Insert Glyph...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1637"/>
+        <location filename="../story.cpp" line="1695"/>
         <source>Clear All Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1739"/>
+        <location filename="../story.cpp" line="1797"/>
         <source>Story Editor - %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2358"/>
+        <location filename="../story.cpp" line="2437"/>
         <source>Do you really want to lose all your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="2387"/>
+        <location filename="../story.cpp" line="2466"/>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1657"/>
+        <location filename="../story.cpp" line="1715"/>
         <source>&amp;Insert</source>
         <translation type="unfinished">&amp;Invoegen</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1658"/>
+        <location filename="../story.cpp" line="1716"/>
         <source>Character</source>
         <translation type="unfinished">Karakter</translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1659"/>
+        <location filename="../story.cpp" line="1717"/>
         <source>Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1473"/>
+        <location filename="../story.cpp" line="1516"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1485"/>
+        <location filename="../story.cpp" line="1528"/>
         <source>Ligature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../story.cpp" line="1660"/>
+        <location filename="../story.cpp" line="1718"/>
         <source>Space</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28655,22 +29209,22 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>StrikeValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="30"/>
+        <location filename="../styleselect.cpp" line="29"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="41"/>
+        <location filename="../styleselect.cpp" line="40"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="40"/>
+        <location filename="../styleselect.cpp" line="39"/>
         <source>Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="42"/>
+        <location filename="../styleselect.cpp" line="41"/>
         <source>Linewidth</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28678,158 +29232,203 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>StyleManager</name>
     <message>
-        <location filename="../stylemanager.cpp" line="138"/>
+        <location filename="../stylemanager.ui" line="340"/>
         <source>Name:</source>
         <translation type="unfinished">Naam:</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="139"/>
+        <location filename="../stylemanager.ui" line="489"/>
         <source>&amp;Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="140"/>
+        <location filename="../stylemanager.ui" line="467"/>
         <source>&amp;Apply</source>
         <translation type="unfinished">Toe&amp;pas</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="144"/>
+        <location filename="../stylemanager.ui" line="158"/>
         <source>&amp;New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="145"/>
+        <location filename="../stylemanager.ui" line="224"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Voer in</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="146"/>
+        <location filename="../stylemanager.ui" line="189"/>
         <source>&amp;Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="147"/>
+        <location filename="../stylemanager.ui" line="240"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="127"/>
+        <location filename="../stylemanager.cpp" line="94"/>
         <source>Reset all changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="128"/>
+        <location filename="../stylemanager.cpp" line="95"/>
         <source>Apply all changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="122"/>
+        <location filename="../stylemanager.cpp" line="89"/>
         <source>Apply all changes and exit edit mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="129"/>
+        <location filename="../stylemanager.cpp" line="96"/>
         <source>Create a new style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="130"/>
+        <location filename="../stylemanager.cpp" line="97"/>
         <source>Import styles from another document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="131"/>
+        <location filename="../stylemanager.cpp" line="98"/>
         <source>Clone selected style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="132"/>
+        <location filename="../stylemanager.cpp" line="99"/>
         <source>Delete selected styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="644"/>
+        <location filename="../stylemanager.cpp" line="601"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="176"/>
+        <location filename="../stylemanager.cpp" line="145"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="179"/>
+        <location filename="../stylemanager.cpp" line="148"/>
         <source>Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="180"/>
+        <location filename="../stylemanager.cpp" line="149"/>
         <source>Send to Scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="182"/>
+        <location filename="../stylemanager.cpp" line="151"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="733"/>
+        <location filename="../stylemanager.cpp" line="689"/>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="141"/>
+        <location filename="../stylemanager.cpp" line="108"/>
         <source>&amp;Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="971"/>
+        <location filename="../stylemanager.ui" line="67"/>
         <source>Shortcut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="66"/>
+        <location filename="../stylemanager.ui" line="62"/>
         <source>Name</source>
         <translation type="unfinished">Naam</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="124"/>
+        <location filename="../stylemanager.cpp" line="91"/>
         <source>Edit styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="126"/>
+        <location filename="../stylemanager.cpp" line="93"/>
         <source>Name of the selected style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="178"/>
+        <location filename="../stylemanager.cpp" line="147"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="632"/>
+        <location filename="../stylemanager.cpp" line="588"/>
         <source>New %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1035"/>
+        <location filename="../stylemanager.cpp" line="978"/>
         <source>This key sequence is already in use</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="1123"/>
+        <location filename="../stylemanager.cpp" line="1066"/>
         <source>More than one style selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="312"/>
+        <location filename="../stylemanager.cpp" line="283"/>
         <source>Open</source>
         <translation type="unfinished">Maak oop</translation>
     </message>
     <message>
-        <location filename="../stylemanager.cpp" line="312"/>
+        <location filename="../stylemanager.cpp" line="283"/>
         <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="161"/>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="186"/>
+        <source>Clone copies the style to make similar styles easily.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="192"/>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="227"/>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="448"/>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="371"/>
+        <source>Please select a unique name for the style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="445"/>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="470"/>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stylemanager.ui" line="492"/>
+        <source>Alt+R</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28841,17 +29440,17 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Onderstreept</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="274"/>
+        <location filename="../styleselect.cpp" line="257"/>
         <source>Small Caps</source>
         <translation>Kleinkapitalen</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="275"/>
+        <location filename="../styleselect.cpp" line="258"/>
         <source>Subscript</source>
         <translation>Subscript</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="276"/>
+        <location filename="../styleselect.cpp" line="259"/>
         <source>Superscript</source>
         <translation>Superscript</translation>
     </message>
@@ -28871,7 +29470,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Outline</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="273"/>
+        <location filename="../styleselect.cpp" line="256"/>
         <source>All Caps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28882,28 +29481,28 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Outline</translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="271"/>
+        <location filename="../styleselect.cpp" line="254"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="272"/>
+        <location filename="../styleselect.cpp" line="255"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="277"/>
+        <location filename="../styleselect.cpp" line="260"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="278"/>
+        <location filename="../styleselect.cpp" line="261"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="279"/>
+        <location filename="../styleselect.cpp" line="262"/>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28916,57 +29515,57 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Alineastylen bywerken</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="55"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="54"/>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Documentnaam als prefix vir alineastylen gebruiken</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="64"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="63"/>
         <source>Do not ask again</source>
         <translation>Deze vraag niet meer stellen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="75"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="74"/>
         <source>OK</source>
         <translation>Reg</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="28"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="27"/>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="37"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="36"/>
         <source>Overwrite Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="39"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="38"/>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="46"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="45"/>
         <source>Merge Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="48"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="47"/>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="57"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="56"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="66"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="65"/>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="77"/>
+        <location filename="../plugins/gettext/sxwim/sxwdia.cpp" line="76"/>
         <source>Cancel</source>
         <translation type="unfinished">Kanselleer</translation>
     </message>
@@ -28974,22 +29573,22 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
-        <location filename="../tocindexprefs.cpp" line="103"/>
+        <location filename="../tocindexprefs.cpp" line="105"/>
         <source>None</source>
         <translation type="unfinished">Geen</translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="105"/>
+        <location filename="../tocindexprefs.cpp" line="107"/>
         <source>At the beginning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="107"/>
+        <location filename="../tocindexprefs.cpp" line="109"/>
         <source>At the end</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="109"/>
+        <location filename="../tocindexprefs.cpp" line="111"/>
         <source>Not Shown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29074,7 +29673,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tocindexprefs.cpp" line="245"/>
+        <location filename="../tocindexprefs.cpp" line="247"/>
         <source>Table of Contents %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29090,87 +29689,87 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>TabCheckDoc</name>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="34"/>
+        <location filename="../tabcheckdoc.cpp" line="35"/>
         <source>Ignore all errors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="37"/>
+        <location filename="../tabcheckdoc.cpp" line="38"/>
         <source>Automatic check before printing or exporting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="40"/>
+        <location filename="../tabcheckdoc.cpp" line="41"/>
         <source>Check for missing glyphs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="46"/>
+        <location filename="../tabcheckdoc.cpp" line="47"/>
         <source>Check for overflow in text frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="52"/>
+        <location filename="../tabcheckdoc.cpp" line="53"/>
         <source>Check for missing images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="55"/>
+        <location filename="../tabcheckdoc.cpp" line="56"/>
         <source>Check image resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="62"/>
+        <location filename="../tabcheckdoc.cpp" line="63"/>
         <source>Lowest allowed resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="75"/>
+        <location filename="../tabcheckdoc.cpp" line="76"/>
         <source> dpi</source>
         <translation type="unfinished">dpi</translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="85"/>
+        <location filename="../tabcheckdoc.cpp" line="86"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="95"/>
+        <location filename="../tabcheckdoc.cpp" line="96"/>
         <source>Add Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="97"/>
+        <location filename="../tabcheckdoc.cpp" line="98"/>
         <source>Remove Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="79"/>
+        <location filename="../tabcheckdoc.cpp" line="80"/>
         <source>Check for placed PDF Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="70"/>
+        <location filename="../tabcheckdoc.cpp" line="71"/>
         <source>Highest allowed resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="82"/>
+        <location filename="../tabcheckdoc.cpp" line="83"/>
         <source>Check for GIF images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="88"/>
+        <location filename="../tabcheckdoc.cpp" line="89"/>
         <source>Ignore non-printable Layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="43"/>
+        <location filename="../tabcheckdoc.cpp" line="44"/>
         <source>Check for items not on a page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabcheckdoc.cpp" line="49"/>
+        <location filename="../tabcheckdoc.cpp" line="50"/>
         <source>Check for used transparencies</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29474,127 +30073,127 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="unfinished">&amp;Grootte:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="84"/>
+        <location filename="../tabdocument.cpp" line="85"/>
         <source>Portrait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="85"/>
+        <location filename="../tabdocument.cpp" line="86"/>
         <source>Landscape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="87"/>
+        <location filename="../tabdocument.cpp" line="88"/>
         <source>Orie&amp;ntation:</source>
         <translation type="unfinished">Orië&amp;ntasie:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="93"/>
+        <location filename="../tabdocument.cpp" line="95"/>
         <source>Units:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="104"/>
+        <location filename="../tabdocument.cpp" line="107"/>
         <source>&amp;Width:</source>
         <translation type="unfinished">&amp;Breedte:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="110"/>
+        <location filename="../tabdocument.cpp" line="114"/>
         <source>&amp;Height:</source>
         <translation type="unfinished">&amp;Hoogte:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="135"/>
+        <location filename="../tabdocument.cpp" line="140"/>
         <source>Margin Guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="145"/>
+        <location filename="../tabdocument.cpp" line="150"/>
         <source>Autosave</source>
         <translation type="unfinished">Outomaties stoor</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="154"/>
+        <location filename="../tabdocument.cpp" line="159"/>
         <source>min</source>
         <translation type="unfinished">min</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="155"/>
+        <location filename="../tabdocument.cpp" line="160"/>
         <source>&amp;Interval:</source>
         <translation type="unfinished">&amp;Interval:</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="160"/>
+        <location filename="../tabdocument.cpp" line="166"/>
         <source>Undo/Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="174"/>
+        <location filename="../tabdocument.cpp" line="180"/>
         <source>Action history length</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="183"/>
+        <location filename="../tabdocument.cpp" line="190"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation type="unfinished">Breedte van bladsye, kies Tuisgemaak om u eie waardes in te vul</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="184"/>
+        <location filename="../tabdocument.cpp" line="191"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation type="unfinished">Hoogte van bladsye, kies Tuisgemaak om u eie waardes in te vul</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="185"/>
+        <location filename="../tabdocument.cpp" line="192"/>
         <source>Default page size, either a standard size or a custom size</source>
         <translation type="unfinished">Verstek bladsygrootte</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="186"/>
+        <location filename="../tabdocument.cpp" line="193"/>
         <source>Default orientation of document pages</source>
         <translation type="unfinished">Verstekoriëntasie van dokumentbladsye</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="187"/>
+        <location filename="../tabdocument.cpp" line="194"/>
         <source>Default unit of measurement for document editing</source>
         <translation type="unfinished">Verstek meeteenheid vir dokumentbewerking</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="188"/>
+        <location filename="../tabdocument.cpp" line="195"/>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="189"/>
+        <location filename="../tabdocument.cpp" line="196"/>
         <source>Time period between saving automatically</source>
         <translation type="unfinished">Tydsinterval vir outomaties stoor</translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="190"/>
+        <location filename="../tabdocument.cpp" line="197"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="191"/>
+        <location filename="../tabdocument.cpp" line="198"/>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="118"/>
+        <location filename="../tabdocument.cpp" line="123"/>
         <source>Apply settings to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="121"/>
+        <location filename="../tabdocument.cpp" line="126"/>
         <source>All Document Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="125"/>
+        <location filename="../tabdocument.cpp" line="130"/>
         <source>All Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabdocument.cpp" line="192"/>
+        <location filename="../tabdocument.cpp" line="199"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29602,17 +30201,17 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>TabExternalToolsWidget</name>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="77"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="125"/>
         <source>Locate Ghostscript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="85"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="133"/>
         <source>Locate your image editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.cpp" line="93"/>
+        <location filename="../tabexternaltoolswidget.cpp" line="141"/>
         <source>Locate your web browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29622,118 +30221,178 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="25"/>
+        <location filename="../tabexternaltoolswidget.ui" line="255"/>
         <source>Web Browser to launch with links from the Help system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="28"/>
+        <location filename="../tabexternaltoolswidget.ui" line="258"/>
         <source>Web Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="85"/>
+        <location filename="../tabexternaltoolswidget.ui" line="498"/>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Wysig...</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="255"/>
+        <location filename="../tabexternaltoolswidget.ui" line="501"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="50"/>
+        <location filename="../tabexternaltoolswidget.ui" line="292"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="102"/>
+        <location filename="../tabexternaltoolswidget.ui" line="299"/>
         <source>Name of &amp;Executable:</source>
         <translation type="unfinished">Naam van uitvoerbare &amp;program:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="73"/>
+        <location filename="../tabexternaltoolswidget.ui" line="198"/>
         <source>Image Processing Tool</source>
         <translation type="unfinished">Program vir prentverwerking</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="95"/>
+        <location filename="../tabexternaltoolswidget.ui" line="232"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="118"/>
+        <location filename="../tabexternaltoolswidget.ui" line="19"/>
         <source>PostScript Interpreter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="138"/>
+        <location filename="../tabexternaltoolswidget.ui" line="60"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Antialiseer Teks vir EPS en PDF op skerm</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="141"/>
+        <location filename="../tabexternaltoolswidget.ui" line="63"/>
         <source>Antialias &amp;Text</source>
         <translation type="unfinished">Anti-aliaseer &amp;teks</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="144"/>
+        <location filename="../tabexternaltoolswidget.ui" line="66"/>
         <source>Alt+T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="167"/>
+        <location filename="../tabexternaltoolswidget.ui" line="89"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
         <translation type="unfinished">Antialiseer Grafieka vir EPS en PDF op skerm</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="170"/>
+        <location filename="../tabexternaltoolswidget.ui" line="92"/>
         <source>Antialias &amp;Graphics</source>
         <translation type="unfinished">Anti-aliaseer &amp;grafika</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="173"/>
+        <location filename="../tabexternaltoolswidget.ui" line="95"/>
         <source>Alt+G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="196"/>
+        <location filename="../tabexternaltoolswidget.ui" line="433"/>
         <source>Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="209"/>
+        <location filename="../tabexternaltoolswidget.ui" line="446"/>
         <source> dpi</source>
         <translation type="unfinished">dpi</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="232"/>
+        <location filename="../tabexternaltoolswidget.ui" line="338"/>
         <source>&amp;Name of Executable:</source>
         <translation type="unfinished">&amp;Naam van uitvoerbare program:</translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="245"/>
+        <location filename="../tabexternaltoolswidget.ui" line="176"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="252"/>
-        <source>&amp;Change..</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabexternaltoolswidget.ui" line="307"/>
+        <location filename="../tabexternaltoolswidget.ui" line="617"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="310"/>
+        <location filename="../tabexternaltoolswidget.ui" line="620"/>
         <source>&amp;Rescan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabexternaltoolswidget.ui" line="313"/>
+        <location filename="../tabexternaltoolswidget.ui" line="623"/>
         <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="149"/>
+        <source>Locate your LaTeX executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.cpp" line="157"/>
+        <source>Locate your LaTeX editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="315"/>
+        <source>LaTeX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="351"/>
+        <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="387"/>
+        <source>Output file extension:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="416"/>
+        <source>Start with empty frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="423"/>
+        <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="426"/>
+        <source>Force DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="478"/>
+        <source>Latex Editor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="491"/>
+        <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="511"/>
+        <source>Use Embedded Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="527"/>
+        <source>Preamble:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabexternaltoolswidget.ui" line="548"/>
+        <source>End:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29793,57 +30452,57 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>TabGeneral</name>
     <message>
-        <location filename="../tabgeneral.cpp" line="64"/>
+        <location filename="../tabgeneral.cpp" line="66"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="65"/>
+        <location filename="../tabgeneral.cpp" line="67"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation type="unfinished">Aantal onlangs geopende dokumenten wat Scribus in Lêer menu moet vertoon</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="66"/>
+        <location filename="../tabgeneral.cpp" line="68"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
         <translation type="unfinished">Aantal lyntjies wat Scribus deurskuif vir elke muiswiel rol</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="67"/>
+        <location filename="../tabgeneral.cpp" line="69"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="68"/>
+        <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the menus and windows</source>
         <translation type="unfinished">Verstek lettergrootte vir menu&apos;s en vensters</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="69"/>
+        <location filename="../tabgeneral.cpp" line="71"/>
         <source>Default font size for the tool windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="70"/>
+        <location filename="../tabgeneral.cpp" line="72"/>
         <source>Default documents directory</source>
         <translation type="unfinished">Verstekgids vir dokumente</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="71"/>
+        <location filename="../tabgeneral.cpp" line="74"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="72"/>
+        <location filename="../tabgeneral.cpp" line="75"/>
         <source>Default Scripter scripts directory</source>
         <translation type="unfinished">Verstekgids vir Scripts</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="73"/>
+        <location filename="../tabgeneral.cpp" line="76"/>
         <source>Additional directory for document templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.cpp" line="128"/>
+        <location filename="../tabgeneral.cpp" line="132"/>
         <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29853,128 +30512,138 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="27"/>
+        <location filename="../tabgeneral.ui" line="21"/>
         <source>User Interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="39"/>
+        <location filename="../tabgeneral.ui" line="75"/>
         <source>&amp;Recent Documents:</source>
         <translation type="unfinished">&amp;Onlangse dokumente:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="58"/>
+        <location filename="../tabgeneral.ui" line="43"/>
         <source>&amp;Wheel Jump:</source>
         <translation type="unfinished">&amp;Wiel sprong:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="87"/>
+        <location filename="../tabgeneral.ui" line="154"/>
         <source>Show Splashscreen on Startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="97"/>
+        <location filename="../tabgeneral.ui" line="127"/>
         <source>Show Startup Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="150"/>
+        <location filename="../tabgeneral.ui" line="147"/>
         <source> pt</source>
         <translation type="unfinished">pt</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="111"/>
+        <location filename="../tabgeneral.ui" line="91"/>
         <source>&amp;Font Size (Menus):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="124"/>
+        <location filename="../tabgeneral.ui" line="134"/>
         <source>Font Size (&amp;Palettes):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="137"/>
+        <location filename="../tabgeneral.ui" line="164"/>
         <source>Time before a Move or Resize starts:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="157"/>
+        <location filename="../tabgeneral.ui" line="177"/>
         <source> ms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="176"/>
+        <location filename="../tabgeneral.ui" line="59"/>
         <source>&amp;Theme:</source>
         <translation type="unfinished">S&amp;tyl:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="192"/>
+        <location filename="../tabgeneral.ui" line="27"/>
         <source>&amp;Language:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="243"/>
+        <location filename="../tabgeneral.ui" line="238"/>
         <source>Paths</source>
         <translation type="unfinished">Paaie</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="291"/>
+        <location filename="../tabgeneral.ui" line="298"/>
         <source>&amp;Change...</source>
         <translation type="unfinished">&amp;Wysig...</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="294"/>
+        <location filename="../tabgeneral.ui" line="301"/>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="301"/>
+        <location filename="../tabgeneral.ui" line="308"/>
         <source>C&amp;hange...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="304"/>
+        <location filename="../tabgeneral.ui" line="311"/>
         <source>Alt+H</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="311"/>
+        <location filename="../tabgeneral.ui" line="318"/>
         <source>&amp;Scripts:</source>
         <translation type="unfinished">&amp;Scripts:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="334"/>
+        <location filename="../tabgeneral.ui" line="341"/>
         <source>Cha&amp;nge...</source>
         <translation type="unfinished">Wysi&amp;g...</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="337"/>
+        <location filename="../tabgeneral.ui" line="344"/>
         <source>Alt+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="344"/>
+        <location filename="../tabgeneral.ui" line="351"/>
         <source>&amp;ICC Profiles:</source>
         <translation type="unfinished">&amp;ICC-profiele:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="357"/>
+        <location filename="../tabgeneral.ui" line="364"/>
         <source>&amp;Documents:</source>
         <translation type="unfinished">&amp;Dokumente:</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="370"/>
+        <location filename="../tabgeneral.ui" line="377"/>
         <source>Document &amp;Templates:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="383"/>
+        <location filename="../tabgeneral.ui" line="390"/>
         <source>Ch&amp;ange...</source>
         <translation type="unfinished">Wy&amp;sig...</translation>
     </message>
     <message>
-        <location filename="../tabgeneral.ui" line="386"/>
+        <location filename="../tabgeneral.ui" line="393"/>
         <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabgeneral.cpp" line="73"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabgeneral.ui" line="196"/>
+        <source>Use Small Widgets in Palettes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -30049,42 +30718,42 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>TabGuides</name>
     <message>
-        <location filename="../tabguides.cpp" line="37"/>
+        <location filename="../tabguides.cpp" line="36"/>
         <source>Common Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="43"/>
+        <location filename="../tabguides.cpp" line="42"/>
         <source>Placing in Documents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="49"/>
+        <location filename="../tabguides.cpp" line="48"/>
         <source>In the Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="52"/>
+        <location filename="../tabguides.cpp" line="51"/>
         <source>In the Foreground</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="57"/>
+        <location filename="../tabguides.cpp" line="56"/>
         <source>Snapping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="62"/>
+        <location filename="../tabguides.cpp" line="61"/>
         <source>Snap Distance:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="70"/>
+        <location filename="../tabguides.cpp" line="69"/>
         <source>Grab Radius:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="272"/>
+        <location filename="../tabguides.cpp" line="273"/>
         <source> px</source>
         <translation type="unfinished">px</translation>
     </message>
@@ -30094,37 +30763,37 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Hulplyne</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="83"/>
+        <location filename="../tabguides.cpp" line="82"/>
         <source>Show Guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="101"/>
+        <location filename="../tabguides.cpp" line="100"/>
         <source>Show Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="119"/>
+        <location filename="../tabguides.cpp" line="118"/>
         <source>Show Page Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="126"/>
+        <location filename="../tabguides.cpp" line="125"/>
         <source>Major Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="182"/>
+        <location filename="../tabguides.cpp" line="181"/>
         <source>Color:</source>
         <translation type="unfinished">Kleur:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="164"/>
+        <location filename="../tabguides.cpp" line="163"/>
         <source>Spacing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="148"/>
+        <location filename="../tabguides.cpp" line="147"/>
         <source>Minor Grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30134,7 +30803,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Basislyn-rooster</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="175"/>
+        <location filename="../tabguides.cpp" line="174"/>
         <source>Show Baseline Grid</source>
         <translation type="unfinished">Basislyn-raster tonen</translation>
     </message>
@@ -30144,7 +30813,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Outomatise &amp;lynspasiëring:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="201"/>
+        <location filename="../tabguides.cpp" line="200"/>
         <source>Baseline &amp;Grid:</source>
         <translation type="unfinished">Basislyn &amp;rooster:</translation>
     </message>
@@ -30154,62 +30823,62 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="unfinished">Basislyn &amp;beginafstand:</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="220"/>
+        <location filename="../tabguides.cpp" line="221"/>
         <source>Distance between the minor grid lines</source>
         <translation type="unfinished">Afstand tussen kleinroosterlyne</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="221"/>
+        <location filename="../tabguides.cpp" line="222"/>
         <source>Distance between the major grid lines</source>
         <translation type="unfinished">Afstand tussen grootroosterlyne</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="222"/>
+        <location filename="../tabguides.cpp" line="223"/>
         <source>Distance within which an object will snap to your placed guides</source>
         <translation type="unfinished">Afstand waarvandaan &apos;n objek na jou geplaasde hulplyne sal spring</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="223"/>
+        <location filename="../tabguides.cpp" line="224"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
         <translation type="unfinished">Gee die straal aan van die gebied waar Scribus u toelaat om &apos;n object se muisvatsels te gryp</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="224"/>
+        <location filename="../tabguides.cpp" line="225"/>
         <source>Color of the minor grid lines</source>
         <translation type="unfinished">Kleur van kleinroosterlyne</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="225"/>
+        <location filename="../tabguides.cpp" line="226"/>
         <source>Color of the major grid lines</source>
         <translation type="unfinished">Kleur van grootroosterlyne</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="226"/>
+        <location filename="../tabguides.cpp" line="227"/>
         <source>Color of the guide lines you insert</source>
         <translation type="unfinished">Kleur van u eiehulplyne</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="227"/>
+        <location filename="../tabguides.cpp" line="228"/>
         <source>Color for the margin lines</source>
         <translation type="unfinished">Kleur vir die kantlyne</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="229"/>
+        <location filename="../tabguides.cpp" line="230"/>
         <source>Turns the basegrid on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="232"/>
+        <location filename="../tabguides.cpp" line="233"/>
         <source>Turns the gridlines on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="233"/>
+        <location filename="../tabguides.cpp" line="234"/>
         <source>Turns the guides on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="234"/>
+        <location filename="../tabguides.cpp" line="235"/>
         <source>Turns the margins on or off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30219,37 +30888,37 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Persentasie toename van lyn hoogte tov lettergrootte</translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="194"/>
+        <location filename="../tabguides.cpp" line="193"/>
         <source>Baseline Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="218"/>
+        <location filename="../tabguides.cpp" line="219"/>
         <source>Guides are not visible through objects on the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="219"/>
+        <location filename="../tabguides.cpp" line="220"/>
         <source>Guides are visible above all objects on the page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="228"/>
+        <location filename="../tabguides.cpp" line="229"/>
         <source>Color for the baseline grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="230"/>
+        <location filename="../tabguides.cpp" line="231"/>
         <source>Distance between the lines of the baseline grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="231"/>
+        <location filename="../tabguides.cpp" line="232"/>
         <source>Distance from the top of the page for the first baseline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabguides.cpp" line="270"/>
+        <location filename="../tabguides.cpp" line="271"/>
         <source>px</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30257,52 +30926,52 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>TabKeyboardShortcutsWidget</name>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="141"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Key Set XML Files (*.ksxml)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="556"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Meta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="506"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="478"/>
         <source>Meta+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="510"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="482"/>
         <source>Shift+</source>
         <translation type="unfinished">Shift+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="514"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="486"/>
         <source>Alt+</source>
         <translation type="unfinished">Alt+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="518"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="490"/>
         <source>Ctrl+</source>
         <translation type="unfinished">Ctrl+</translation>
     </message>
     <message>
-        <location filename="../tabkeyboardshortcutswidget.cpp" line="527"/>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="500"/>
         <source>This key sequence is already in use</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30436,6 +31105,26 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <source>Keyboard shortcut sets available to load</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="131"/>
+        <source>Choose a file to read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
+        <source>Choose a file to save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <source>Export Keyboard Shortcuts to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
+        <source>Enter the name of the shortcut set:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabKeyboardShortcutsWidgetBase</name>
@@ -30463,7 +31152,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
 <context>
     <name>TabManager</name>
     <message>
-        <location filename="../tabmanager.cpp" line="24"/>
+        <location filename="../tabmanager.cpp" line="23"/>
         <source>Manage Tabulators</source>
         <translation>Tabulators beheren</translation>
     </message>
@@ -30569,7 +31258,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="unfinished">&amp;Voeg Boekmerke in</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="385"/>
+        <location filename="../tabpdfoptions.cpp" line="388"/>
         <source> dpi</source>
         <translation type="unfinished">dpi</translation>
     </message>
@@ -30579,7 +31268,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">&amp;Resolusie:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="354"/>
+        <location filename="../tabpdfoptions.cpp" line="355"/>
         <source>Com&amp;press Text and Vector Graphics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30589,7 +31278,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Prentinstellings</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="363"/>
+        <location filename="../tabpdfoptions.cpp" line="364"/>
         <source>Automatic</source>
         <translation type="unfinished">Outomaties</translation>
     </message>
@@ -30604,7 +31293,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Zip</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="366"/>
+        <location filename="../tabpdfoptions.cpp" line="367"/>
         <source>None</source>
         <translation type="unfinished">Geen</translation>
     </message>
@@ -30619,27 +31308,27 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">&amp;Kwaliteit:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="373"/>
+        <location filename="../tabpdfoptions.cpp" line="375"/>
         <source>Maximum</source>
         <translation type="unfinished">Maksimum</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="374"/>
+        <location filename="../tabpdfoptions.cpp" line="376"/>
         <source>High</source>
         <translation type="unfinished">Hoog</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="375"/>
+        <location filename="../tabpdfoptions.cpp" line="377"/>
         <source>Medium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="376"/>
+        <location filename="../tabpdfoptions.cpp" line="378"/>
         <source>Low</source>
         <translation type="unfinished">Laag</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="377"/>
+        <location filename="../tabpdfoptions.cpp" line="379"/>
         <source>Minimum</source>
         <translation type="unfinished">Minimum</translation>
     </message>
@@ -30649,7 +31338,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">&amp;Hermonster Prente af na:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="390"/>
+        <location filename="../tabpdfoptions.cpp" line="393"/>
         <source>&amp;General</source>
         <translation type="unfinished">Al&amp;gemeen</translation>
     </message>
@@ -30664,12 +31353,12 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">&amp;Substel alle lettertipes</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="397"/>
+        <location filename="../tabpdfoptions.cpp" line="400"/>
         <source>Embedding</source>
         <translation type="unfinished">Inbedding</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="405"/>
+        <location filename="../tabpdfoptions.cpp" line="408"/>
         <source>Available Fonts:</source>
         <translation type="unfinished">Beskikbare lettertipes:</translation>
     </message>
@@ -30684,7 +31373,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="428"/>
+        <location filename="../tabpdfoptions.cpp" line="431"/>
         <source>Fonts to embed:</source>
         <translation type="unfinished">Lettertipes om in te bed:</translation>
     </message>
@@ -30694,342 +31383,342 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="obsolete">Lettertipes om te substel:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="459"/>
+        <location filename="../tabpdfoptions.cpp" line="462"/>
         <source>&amp;Fonts</source>
         <translation type="unfinished">&amp;Lettertipes</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="464"/>
+        <location filename="../tabpdfoptions.cpp" line="467"/>
         <source>Enable &amp;Presentation Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1756"/>
+        <location filename="../tabpdfoptions.cpp" line="1759"/>
         <source>Page</source>
         <translation type="unfinished">Bladsy</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="469"/>
+        <location filename="../tabpdfoptions.cpp" line="472"/>
         <source>Show Page Pre&amp;views</source>
         <translation type="unfinished">&amp;Vertoon Bladsyvoorbeeld</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="471"/>
+        <location filename="../tabpdfoptions.cpp" line="474"/>
         <source>Effects</source>
         <translation type="unfinished">Effekte</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="476"/>
+        <location filename="../tabpdfoptions.cpp" line="479"/>
         <source>&amp;Display Duration:</source>
         <translation type="unfinished">Verton ty&amp;dsduur:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="478"/>
+        <location filename="../tabpdfoptions.cpp" line="481"/>
         <source>Effec&amp;t Duration:</source>
         <translation type="unfinished">Effek &amp;tydsduur:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="480"/>
+        <location filename="../tabpdfoptions.cpp" line="483"/>
         <source>Effect T&amp;ype:</source>
         <translation type="unfinished">Effekt&amp;ipe:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="482"/>
+        <location filename="../tabpdfoptions.cpp" line="485"/>
         <source>&amp;Moving Lines:</source>
         <translation type="unfinished">&amp;Bewegende lyne:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="484"/>
+        <location filename="../tabpdfoptions.cpp" line="487"/>
         <source>F&amp;rom the:</source>
         <translation type="unfinished">&amp;Van die:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="486"/>
+        <location filename="../tabpdfoptions.cpp" line="489"/>
         <source>D&amp;irection:</source>
         <translation type="unfinished">R&amp;igting:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="495"/>
+        <location filename="../tabpdfoptions.cpp" line="498"/>
         <source> sec</source>
         <translation type="unfinished">sec</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>No Effect</source>
         <translation type="unfinished">Geen effek</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Blinds</source>
         <translation type="unfinished">Blinders</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Box</source>
         <translation type="unfinished">Boks</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Dissolve</source>
         <translation type="unfinished">Oplos</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Glitter</source>
         <translation type="unfinished">Glinster</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Split</source>
         <translation type="unfinished">Deel</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="501"/>
+        <location filename="../tabpdfoptions.cpp" line="504"/>
         <source>Wipe</source>
         <translation type="unfinished">Uitvee</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="509"/>
+        <location filename="../tabpdfoptions.cpp" line="512"/>
         <source>Horizontal</source>
         <translation type="unfinished">Horisontaal</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="510"/>
+        <location filename="../tabpdfoptions.cpp" line="513"/>
         <source>Vertical</source>
         <translation type="unfinished">Vertikaal</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="515"/>
+        <location filename="../tabpdfoptions.cpp" line="518"/>
         <source>Inside</source>
         <translation type="unfinished">Binne</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="516"/>
+        <location filename="../tabpdfoptions.cpp" line="519"/>
         <source>Outside</source>
         <translation type="unfinished">Buite</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Left to Right</source>
         <translation type="unfinished">Links na regs</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Top to Bottom</source>
         <translation type="unfinished">Bo na onder</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Bottom to Top</source>
         <translation type="unfinished">Onder na bo</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="521"/>
+        <location filename="../tabpdfoptions.cpp" line="524"/>
         <source>Right to Left</source>
         <translation type="unfinished">Regs na links</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="522"/>
+        <location filename="../tabpdfoptions.cpp" line="525"/>
         <source>Top-left to Bottom-Right</source>
         <translation type="unfinished">Linksbo na regsonder</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="529"/>
+        <location filename="../tabpdfoptions.cpp" line="532"/>
         <source>&amp;Apply Effect on all Pages</source>
         <translation type="unfinished">Pas Effek op &amp;alle bladsye toe</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="532"/>
+        <location filename="../tabpdfoptions.cpp" line="535"/>
         <source>E&amp;xtras</source>
         <translation type="unfinished">E&amp;xtra</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="616"/>
+        <location filename="../tabpdfoptions.cpp" line="619"/>
         <source>&amp;Use Encryption</source>
         <translation type="unfinished">Gebruik enkripsie</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="618"/>
+        <location filename="../tabpdfoptions.cpp" line="621"/>
         <source>Passwords</source>
         <translation type="unfinished">Wagwoord</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="625"/>
+        <location filename="../tabpdfoptions.cpp" line="627"/>
         <source>&amp;User:</source>
         <translation type="unfinished">Gebr&amp;uiker:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="627"/>
+        <location filename="../tabpdfoptions.cpp" line="629"/>
         <source>&amp;Owner:</source>
         <translation type="unfinished">&amp;Eienaar:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="639"/>
+        <location filename="../tabpdfoptions.cpp" line="641"/>
         <source>Settings</source>
         <translation type="unfinished">Instellings</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="646"/>
+        <location filename="../tabpdfoptions.cpp" line="647"/>
         <source>Allow &amp;Printing the Document</source>
         <translation type="unfinished">Laat &amp;druk van dokument toe</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="648"/>
+        <location filename="../tabpdfoptions.cpp" line="649"/>
         <source>Allow &amp;Changing the Document</source>
         <translation type="unfinished">Laat Wy&amp;siging van dokument toe</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="650"/>
+        <location filename="../tabpdfoptions.cpp" line="651"/>
         <source>Allow Cop&amp;ying Text and Graphics</source>
         <translation type="unfinished">Laat &amp;Kopiëring van teks en prente toe</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="652"/>
+        <location filename="../tabpdfoptions.cpp" line="653"/>
         <source>Allow Adding &amp;Annotations and Fields</source>
         <translation type="unfinished">Laat Toevoegen van &amp;annotasies en velde toe</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="655"/>
+        <location filename="../tabpdfoptions.cpp" line="656"/>
         <source>S&amp;ecurity</source>
         <translation type="unfinished">V&amp;eiligheid</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="661"/>
+        <location filename="../tabpdfoptions.cpp" line="662"/>
         <source>General</source>
         <translation type="unfinished">Algemeen</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="666"/>
+        <location filename="../tabpdfoptions.cpp" line="667"/>
         <source>Output &amp;Intended For:</source>
         <translation type="unfinished">&amp;Uitvoer bestem vir:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="669"/>
+        <location filename="../tabpdfoptions.cpp" line="670"/>
         <source>Screen / Web</source>
         <translation type="unfinished">Skerm / web (RGB)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="670"/>
+        <location filename="../tabpdfoptions.cpp" line="671"/>
         <source>Printer</source>
         <translation type="unfinished">Drukker (CMYK)</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="671"/>
+        <location filename="../tabpdfoptions.cpp" line="672"/>
         <source>Grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="683"/>
+        <location filename="../tabpdfoptions.cpp" line="684"/>
         <source>&amp;Use Custom Rendering Settings</source>
         <translation type="unfinished">&amp;Gebruik tuisgemaakte rendering instellings</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="685"/>
+        <location filename="../tabpdfoptions.cpp" line="686"/>
         <source>Rendering Settings</source>
         <translation type="unfinished">Rendering instellings</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="693"/>
+        <location filename="../tabpdfoptions.cpp" line="694"/>
         <source>Fre&amp;quency:</source>
         <translation type="unfinished">Fre&amp;kwensie:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="700"/>
+        <location filename="../tabpdfoptions.cpp" line="701"/>
         <source>&amp;Angle:</source>
         <translation type="unfinished">&amp;Hoek:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="708"/>
+        <location filename="../tabpdfoptions.cpp" line="709"/>
         <source>S&amp;pot Function:</source>
         <translation type="unfinished">&amp;Punt-funksie:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="712"/>
+        <location filename="../tabpdfoptions.cpp" line="713"/>
         <source>Simple Dot</source>
         <translation type="unfinished">Enkele stip</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="713"/>
+        <location filename="../tabpdfoptions.cpp" line="714"/>
         <source>Line</source>
         <translation type="unfinished">Lyn</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="714"/>
+        <location filename="../tabpdfoptions.cpp" line="715"/>
         <source>Round</source>
         <translation type="unfinished">Rond</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="715"/>
+        <location filename="../tabpdfoptions.cpp" line="716"/>
         <source>Ellipse</source>
         <translation type="unfinished">Ovaal</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="721"/>
+        <location filename="../tabpdfoptions.cpp" line="722"/>
         <source>Solid Colors:</source>
         <translation type="unfinished">Soliede kleure:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="751"/>
         <source>Use ICC Profile</source>
-        <translation type="unfinished">Gebruik ICC-profiel</translation>
+        <translation type="obsolete">Gebruik ICC-profiel</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="757"/>
+        <location filename="../tabpdfoptions.cpp" line="758"/>
         <source>Profile:</source>
         <translation type="unfinished">Profiel:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="760"/>
+        <location filename="../tabpdfoptions.cpp" line="761"/>
         <source>Rendering-Intent:</source>
         <translation type="unfinished">Rendering intent:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Perceptual</source>
         <translation type="unfinished">Perseptueel</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Relative Colorimetric</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Saturation</source>
         <translation type="unfinished">Versadiging</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="739"/>
+        <location filename="../tabpdfoptions.cpp" line="740"/>
         <source>Absolute Colorimetric</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="746"/>
+        <location filename="../tabpdfoptions.cpp" line="747"/>
         <source>Images:</source>
         <translation type="unfinished">Prente:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="754"/>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation type="unfinished">Moenie ingebedde ICC-profiele gebruik nie</translation>
+        <translation type="obsolete">Moenie ingebedde ICC-profiele gebruik nie</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="774"/>
+        <location filename="../tabpdfoptions.cpp" line="775"/>
         <source>C&amp;olor</source>
         <translation type="unfinished">&amp;Kleur</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="838"/>
+        <location filename="../tabpdfoptions.cpp" line="839"/>
         <source>PDF/X-3 Output Intent</source>
         <translation type="unfinished">PDF/X-3 uitvoer doel</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="848"/>
+        <location filename="../tabpdfoptions.cpp" line="849"/>
         <source>&amp;Info String:</source>
         <translation type="unfinished">&amp;Inligting teks:</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="850"/>
+        <location filename="../tabpdfoptions.cpp" line="852"/>
         <source>Output &amp;Profile:</source>
         <translation type="unfinished">Uitvoer&amp;profiel:</translation>
     </message>
@@ -31055,7 +31744,7 @@ will preserve the layout and appearance of your document.</source>
         <translation type="obsolete">Skakel aanbieding effekte aan as Acrobat in volskerm modus is.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="896"/>
+        <location filename="../tabpdfoptions.cpp" line="899"/>
         <source>Show page previews of each page listed above.</source>
         <translation type="unfinished">Wys bladsyvoorbeelde van bogenoemde bladsye.</translation>
     </message>
@@ -31072,37 +31761,37 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
 Korter tyd sal effek versnel, &apos;n langer sal dit vertraag.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="899"/>
+        <location filename="../tabpdfoptions.cpp" line="902"/>
         <source>Type of the display effect.</source>
         <translation type="unfinished">Tipe oorgangseffect.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="900"/>
+        <location filename="../tabpdfoptions.cpp" line="903"/>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
         <translation type="unfinished">Rigting van effek van bewegende lyne vir die split en verblind effekte.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="901"/>
+        <location filename="../tabpdfoptions.cpp" line="904"/>
         <source>Starting position for the box and split effects.</source>
         <translation type="unfinished">Beginposisie vir die regthoek en split-effekte.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="902"/>
+        <location filename="../tabpdfoptions.cpp" line="905"/>
         <source>Direction of the glitter or wipe effects.</source>
         <translation type="unfinished">Rigting vir die glinster of vee-effekte.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="903"/>
+        <location filename="../tabpdfoptions.cpp" line="906"/>
         <source>Apply the selected effect to all pages.</source>
         <translation type="unfinished">Pas gekose effek op alle bladsye toe.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="936"/>
+        <location filename="../tabpdfoptions.cpp" line="939"/>
         <source>Export all pages to PDF</source>
         <translation type="unfinished">Voer alle bladsye na PDF uit</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="937"/>
+        <location filename="../tabpdfoptions.cpp" line="940"/>
         <source>Export a range of pages to PDF</source>
         <translation type="unfinished">Voer bereik van bladsye na PDF uit</translation>
     </message>
@@ -31129,7 +31818,7 @@ Some viewers can use the thumbnails for navigation.</source>
 So mmige blaaiers kan dit vir navigasie gebruik.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="945"/>
+        <location filename="../tabpdfoptions.cpp" line="948"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation type="unfinished">Maak PDF-artikels, sodat gemakliker in geskakelde pdfs genavigeer kan word.</translation>
     </message>
@@ -31180,7 +31869,7 @@ Leaving this unchecked will render them at their native resolution.</source>
 As u hierdie los, word hulle in hulle huidige resolusies gestoor.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="953"/>
+        <location filename="../tabpdfoptions.cpp" line="956"/>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation type="unfinished">DPI (kolle per duim) vir prentjie uitvoer.</translation>
     </message>
@@ -31203,17 +31892,17 @@ security features in your exported PDF</source>
 in of uit te schakelen in uw PDF</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="956"/>
+        <location filename="../tabpdfoptions.cpp" line="959"/>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation type="unfinished">Kies een wachtwoord vir gebruikers om de PDF te kunnen lezen.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="957"/>
+        <location filename="../tabpdfoptions.cpp" line="960"/>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
         <translation type="unfinished">Het afdrukken van de PDF toestaan. Indien niet geselecteerd is afdrukken onmogelyk.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="958"/>
+        <location filename="../tabpdfoptions.cpp" line="961"/>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation type="unfinished">Wyzigen van de PDF toestaan. Indien niet geselecteerd is wyzigen onmogelyk.</translation>
     </message>
@@ -31248,42 +31937,42 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation type="obsolete">Hierdie is &apos;n gevorderde stelling wat net gebruik moet word as jou drukker vir jou sê om dit te stel. Raadpleeg die poslys vir u hiermee peuter.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="963"/>
+        <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Embed a color profile for solid colors</source>
         <translation type="unfinished">Inbed &apos;n kleurprofiel vir soliede kleure</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="964"/>
+        <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Color profile for solid colors</source>
         <translation type="unfinished">Kleurprofiel vir soliede kleure</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="965"/>
+        <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Rendering intent for solid colors</source>
         <translation type="unfinished">Rendering doel vir soliede kleure</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="966"/>
+        <location filename="../tabpdfoptions.cpp" line="969"/>
         <source>Embed a color profile for images</source>
         <translation type="unfinished">Inbed van &apos;n kleurprofiel vir prente</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="967"/>
+        <location filename="../tabpdfoptions.cpp" line="970"/>
         <source>Do not use color profiles that are embedded in source images</source>
         <translation type="unfinished">Kleurprofiele in prentjies moenie gebruik word nie</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="968"/>
+        <location filename="../tabpdfoptions.cpp" line="971"/>
         <source>Color profile for images</source>
         <translation type="unfinished">Kleurprofiel vir prente</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="969"/>
+        <location filename="../tabpdfoptions.cpp" line="972"/>
         <source>Rendering intent for images</source>
         <translation type="unfinished">Rendering doel vir prente</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="987"/>
+        <location filename="../tabpdfoptions.cpp" line="990"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation type="unfinished">Uitvoerprofiel vir drukwerk. Indien moontlik, probeer leiding by u drukker te kry.</translation>
     </message>
@@ -31294,32 +31983,32 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="obsolete">Verpligte string vir PDF/X-3, anders voldoen PDF nie aan PDF/X-3 standaard nie. Ons beveel die dokument titel aan.</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="982"/>
+        <location filename="../tabpdfoptions.cpp" line="985"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die bokant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="983"/>
+        <location filename="../tabpdfoptions.cpp" line="986"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die onderkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="984"/>
+        <location filename="../tabpdfoptions.cpp" line="987"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die linkerkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="985"/>
+        <location filename="../tabpdfoptions.cpp" line="988"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Afloop-afstand vanaf die regterkant van die fisiese bladsy</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="970"/>
+        <location filename="../tabpdfoptions.cpp" line="973"/>
         <source>Mirror Page(s) horizontally</source>
         <translation type="unfinished">Spieëlbeeld bladsy(e) horisontaal</translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="971"/>
+        <location filename="../tabpdfoptions.cpp" line="974"/>
         <source>Mirror Page(s) vertically</source>
         <translation type="unfinished">Spieëlbeeld bladsy(e) vertikaal</translation>
     </message>
@@ -31329,27 +32018,27 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="677"/>
+        <location filename="../tabpdfoptions.cpp" line="678"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="379"/>
+        <location filename="../tabpdfoptions.cpp" line="381"/>
         <source>Compression &amp;Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="959"/>
+        <location filename="../tabpdfoptions.cpp" line="962"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="960"/>
+        <location filename="../tabpdfoptions.cpp" line="963"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="973"/>
+        <location filename="../tabpdfoptions.cpp" line="976"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31359,152 +32048,152 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="368"/>
+        <location filename="../tabpdfoptions.cpp" line="369"/>
         <source>Compression Metho&amp;d:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="894"/>
+        <location filename="../tabpdfoptions.cpp" line="897"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="898"/>
+        <location filename="../tabpdfoptions.cpp" line="901"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="940"/>
+        <location filename="../tabpdfoptions.cpp" line="943"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="943"/>
+        <location filename="../tabpdfoptions.cpp" line="946"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="944"/>
+        <location filename="../tabpdfoptions.cpp" line="947"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="947"/>
+        <location filename="../tabpdfoptions.cpp" line="950"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="948"/>
+        <location filename="../tabpdfoptions.cpp" line="951"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="949"/>
+        <location filename="../tabpdfoptions.cpp" line="952"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="954"/>
+        <location filename="../tabpdfoptions.cpp" line="957"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="955"/>
+        <location filename="../tabpdfoptions.cpp" line="958"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="962"/>
+        <location filename="../tabpdfoptions.cpp" line="965"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="988"/>
+        <location filename="../tabpdfoptions.cpp" line="991"/>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="538"/>
+        <location filename="../tabpdfoptions.cpp" line="541"/>
         <source>Display Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="553"/>
+        <location filename="../tabpdfoptions.cpp" line="556"/>
         <source>Single Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="556"/>
+        <location filename="../tabpdfoptions.cpp" line="559"/>
         <source>Continuous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="559"/>
+        <location filename="../tabpdfoptions.cpp" line="562"/>
         <source>Double Page Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="562"/>
+        <location filename="../tabpdfoptions.cpp" line="565"/>
         <source>Double Page Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="566"/>
+        <location filename="../tabpdfoptions.cpp" line="569"/>
         <source>Visual Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="572"/>
+        <location filename="../tabpdfoptions.cpp" line="575"/>
         <source>Use Viewers Defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="575"/>
+        <location filename="../tabpdfoptions.cpp" line="578"/>
         <source>Use Full Screen Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="578"/>
+        <location filename="../tabpdfoptions.cpp" line="581"/>
         <source>Display Bookmarks Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="581"/>
+        <location filename="../tabpdfoptions.cpp" line="584"/>
         <source>Display Thumbnails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="584"/>
+        <location filename="../tabpdfoptions.cpp" line="587"/>
         <source>Display Layers Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="586"/>
+        <location filename="../tabpdfoptions.cpp" line="589"/>
         <source>Hide Viewers Toolbar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="588"/>
+        <location filename="../tabpdfoptions.cpp" line="591"/>
         <source>Hide Viewers Menubar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="590"/>
+        <location filename="../tabpdfoptions.cpp" line="593"/>
         <source>Zoom Pages to fit Viewer Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="596"/>
+        <location filename="../tabpdfoptions.cpp" line="599"/>
         <source>Special Actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1166"/>
+        <location filename="../tabpdfoptions.cpp" line="1169"/>
         <source>No Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="609"/>
+        <location filename="../tabpdfoptions.cpp" line="612"/>
         <source>Viewer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31514,284 +32203,294 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="364"/>
+        <location filename="../tabpdfoptions.cpp" line="365"/>
         <source>Lossy - JPEG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="365"/>
+        <location filename="../tabpdfoptions.cpp" line="366"/>
         <source>Lossless - Zip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="356"/>
+        <location filename="../tabpdfoptions.cpp" line="357"/>
         <source>Image Compression Method</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="602"/>
+        <location filename="../tabpdfoptions.cpp" line="605"/>
         <source>Javascript to be executed
 when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="895"/>
+        <location filename="../tabpdfoptions.cpp" line="898"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="946"/>
+        <location filename="../tabpdfoptions.cpp" line="949"/>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="961"/>
+        <location filename="../tabpdfoptions.cpp" line="964"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="974"/>
+        <location filename="../tabpdfoptions.cpp" line="977"/>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="680"/>
+        <location filename="../tabpdfoptions.cpp" line="681"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="897"/>
+        <location filename="../tabpdfoptions.cpp" line="900"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="972"/>
+        <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="942"/>
+        <location filename="../tabpdfoptions.cpp" line="945"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="437"/>
+        <location filename="../tabpdfoptions.cpp" line="440"/>
         <source>&amp;Embed all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="450"/>
+        <location filename="../tabpdfoptions.cpp" line="453"/>
         <source>Fonts to outline:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="455"/>
+        <location filename="../tabpdfoptions.cpp" line="458"/>
         <source>&amp;Outline all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="782"/>
+        <location filename="../tabpdfoptions.cpp" line="783"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="787"/>
+        <location filename="../tabpdfoptions.cpp" line="788"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="789"/>
+        <location filename="../tabpdfoptions.cpp" line="790"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="791"/>
+        <location filename="../tabpdfoptions.cpp" line="792"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="793"/>
+        <location filename="../tabpdfoptions.cpp" line="794"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="795"/>
+        <location filename="../tabpdfoptions.cpp" line="796"/>
         <source>Page Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="798"/>
+        <location filename="../tabpdfoptions.cpp" line="799"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="808"/>
+        <location filename="../tabpdfoptions.cpp" line="809"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="814"/>
+        <location filename="../tabpdfoptions.cpp" line="815"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="819"/>
+        <location filename="../tabpdfoptions.cpp" line="820"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="824"/>
+        <location filename="../tabpdfoptions.cpp" line="825"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="829"/>
+        <location filename="../tabpdfoptions.cpp" line="830"/>
         <source>Right:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="833"/>
+        <location filename="../tabpdfoptions.cpp" line="834"/>
         <source>Use Document Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="857"/>
+        <location filename="../tabpdfoptions.cpp" line="860"/>
         <source>Pre-Press</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="904"/>
+        <location filename="../tabpdfoptions.cpp" line="907"/>
         <source>Convert all glyphs in the document to outlines.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="950"/>
+        <location filename="../tabpdfoptions.cpp" line="953"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="951"/>
+        <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1341"/>
+        <location filename="../tabpdfoptions.cpp" line="1344"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="1342"/>
+        <location filename="../tabpdfoptions.cpp" line="1345"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="547"/>
+        <location filename="../tabpdfoptions.cpp" line="550"/>
         <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="382"/>
+        <location filename="../tabpdfoptions.cpp" line="385"/>
         <source>Maximum Image Resolution:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="906"/>
+        <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Show the document in single page mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="907"/>
+        <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="908"/>
+        <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="909"/>
+        <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="910"/>
+        <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="911"/>
+        <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Enables viewing the document in full screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="912"/>
+        <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Display the bookmarks upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="913"/>
+        <location filename="../tabpdfoptions.cpp" line="916"/>
         <source>Display the page thumbnails upon opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="914"/>
+        <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="915"/>
+        <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="916"/>
+        <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="917"/>
+        <location filename="../tabpdfoptions.cpp" line="920"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="952"/>
+        <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="976"/>
+        <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="977"/>
+        <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="978"/>
+        <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add registration marks to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="979"/>
+        <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="980"/>
+        <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Add document information which includes the document title and page numbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="981"/>
+        <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabpdfoptions.cpp" line="986"/>
+        <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="752"/>
+        <source>Use Color Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tabpdfoptions.cpp" line="755"/>
+        <source>Do not use embedded color profiles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31846,11 +32545,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabprinter.cpp" line="37"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tabprinter.cpp" line="38"/>
-        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -32068,6 +32762,11 @@ when PDF document is opened:</source>
         <source>Command:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../tabprinter.cpp" line="38"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinterBase</name>
@@ -32133,377 +32832,377 @@ when PDF document is opened:</source>
         <translation type="unfinished">Lettertype:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="595"/>
+        <location filename="../tabtools.cpp" line="633"/>
         <source> pt</source>
         <translation type="unfinished">pt</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="123"/>
+        <location filename="../tabtools.cpp" line="124"/>
         <source>Size:</source>
         <translation type="unfinished">Grootte:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="709"/>
+        <location filename="../tabtools.cpp" line="747"/>
         <source>None</source>
         <translation type="unfinished">Geen</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="156"/>
+        <location filename="../tabtools.cpp" line="162"/>
         <source>Fill Color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="170"/>
+        <location filename="../tabtools.cpp" line="178"/>
         <source>Stroke Color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="196"/>
+        <location filename="../tabtools.cpp" line="208"/>
         <source>Colu&amp;mns:</source>
         <translation type="unfinished">Kolo&amp;mme:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="201"/>
+        <location filename="../tabtools.cpp" line="214"/>
         <source>&amp;Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="925"/>
+        <location filename="../tabtools.cpp" line="962"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation type="unfinished">Filmquiz bracht knappe ex-yogi van de wys</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="271"/>
+        <location filename="../tabtools.cpp" line="291"/>
         <source>&amp;Line Color:</source>
         <translation type="unfinished">&amp;Lynkleur:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="427"/>
+        <location filename="../tabtools.cpp" line="461"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="278"/>
+        <location filename="../tabtools.cpp" line="299"/>
         <source>&amp;Shading:</source>
         <translation type="unfinished">&amp;Skadu:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="235"/>
+        <location filename="../tabtools.cpp" line="251"/>
         <source>&amp;Fill Color:</source>
         <translation type="unfinished">&amp;Vulkleur:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="365"/>
+        <location filename="../tabtools.cpp" line="394"/>
         <source>S&amp;hading:</source>
         <translation type="unfinished">S&amp;kadu:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="249"/>
+        <location filename="../tabtools.cpp" line="267"/>
         <source>Line Style:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="302"/>
+        <location filename="../tabtools.cpp" line="327"/>
         <source>Line &amp;Width:</source>
         <translation type="unfinished">Lyndi&amp;kte:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="284"/>
+        <location filename="../tabtools.cpp" line="306"/>
         <source>Line S&amp;tyle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="291"/>
+        <location filename="../tabtools.cpp" line="314"/>
         <source>Arrows:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="293"/>
+        <location filename="../tabtools.cpp" line="316"/>
         <source>Start:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="295"/>
+        <location filename="../tabtools.cpp" line="319"/>
         <source>End:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="317"/>
+        <location filename="../tabtools.cpp" line="343"/>
         <source>&amp;Free Scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="328"/>
+        <location filename="../tabtools.cpp" line="354"/>
         <source>&amp;Horizontal Scaling:</source>
         <translation type="unfinished">&amp;Horisontale skaal:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="336"/>
+        <location filename="../tabtools.cpp" line="363"/>
         <source>&amp;Vertical Scaling:</source>
         <translation type="unfinished">&amp;Vertikale skaal:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="346"/>
+        <location filename="../tabtools.cpp" line="374"/>
         <source>&amp;Scale Picture to Frame Size</source>
         <translation type="unfinished">&amp;Skaleer prent na raamgrootte</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="352"/>
+        <location filename="../tabtools.cpp" line="380"/>
         <source>Keep Aspect &amp;Ratio</source>
         <translation type="unfinished">Behou Prentve&amp;rhouding</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="358"/>
+        <location filename="../tabtools.cpp" line="386"/>
         <source>F&amp;ill Color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="415"/>
+        <location filename="../tabtools.cpp" line="445"/>
         <source>Mi&amp;nimum:</source>
         <translation type="unfinished">Mi&amp;nimum:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="423"/>
+        <location filename="../tabtools.cpp" line="454"/>
         <source>Ma&amp;ximum:</source>
         <translation type="unfinished">Ma&amp;ksimum:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="429"/>
+        <location filename="../tabtools.cpp" line="463"/>
         <source>&amp;Stepping:</source>
         <translation type="unfinished">&amp;Stappe van:</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="485"/>
+        <location filename="../tabtools.cpp" line="523"/>
         <source>Text Frame Properties</source>
         <translation type="unfinished">Eienskappe van teksraam</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="486"/>
+        <location filename="../tabtools.cpp" line="524"/>
         <source>Picture Frame Properties</source>
         <translation type="unfinished">Eienskappe van prentraam</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="487"/>
+        <location filename="../tabtools.cpp" line="525"/>
         <source>Shape Drawing Properties</source>
         <translation type="unfinished">Eienskappe van vormsteken</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="488"/>
+        <location filename="../tabtools.cpp" line="526"/>
         <source>Magnification Level Defaults</source>
         <translation type="unfinished">Verstek vergroottingsvlakke</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="489"/>
+        <location filename="../tabtools.cpp" line="527"/>
         <source>Line Drawing Properties</source>
         <translation type="unfinished">Lyneienskappe</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="490"/>
+        <location filename="../tabtools.cpp" line="528"/>
         <source>Polygon Drawing Properties</source>
         <translation type="unfinished">Polygooneienskappe</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="492"/>
+        <location filename="../tabtools.cpp" line="530"/>
         <source>Font for new text frames</source>
         <translation type="unfinished">Lettertipe vir nuwe teksrame</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="493"/>
+        <location filename="../tabtools.cpp" line="531"/>
         <source>Size of font for new text frames</source>
         <translation type="unfinished">Lettergrootte vir nuwe teksrame</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="494"/>
+        <location filename="../tabtools.cpp" line="532"/>
         <source>Color of font</source>
         <translation type="unfinished">Letterkleur</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="495"/>
+        <location filename="../tabtools.cpp" line="533"/>
         <source>Number of columns in a text frame</source>
         <translation type="unfinished">Aantal kolomme in &apos;n teksraam</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="496"/>
+        <location filename="../tabtools.cpp" line="534"/>
         <source>Gap between text frame columns</source>
         <translation type="unfinished">Tussenruimte tussen kolomme</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="497"/>
+        <location filename="../tabtools.cpp" line="535"/>
         <source>Sample of your font</source>
         <translation type="unfinished">Voorbeeld van u lettertipe</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="498"/>
+        <location filename="../tabtools.cpp" line="536"/>
         <source>Picture frames allow pictures to scale to any size</source>
         <translation type="unfinished">Prentrame laat prente na enige grootte skaleer</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="499"/>
+        <location filename="../tabtools.cpp" line="537"/>
         <source>Horizontal scaling of images</source>
         <translation type="unfinished">Horisontale skaal vir prente</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="500"/>
+        <location filename="../tabtools.cpp" line="538"/>
         <source>Vertical scaling of images</source>
         <translation type="unfinished">Vertikale skaal vir prente</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="501"/>
+        <location filename="../tabtools.cpp" line="539"/>
         <source>Keep horizontal and vertical scaling the same</source>
         <translation type="unfinished">Hou horisontale en vertikaleskaal gelyk</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="502"/>
+        <location filename="../tabtools.cpp" line="540"/>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
         <translation type="unfinished">Prente in prentrame word altyd na grootte van hul raam geskaleer</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="503"/>
+        <location filename="../tabtools.cpp" line="541"/>
         <source>Automatically scaled pictures keep their original proportions</source>
         <translation type="unfinished">Outomaties geskaalde prente houd hul oorspronklike prentverhouding</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="504"/>
+        <location filename="../tabtools.cpp" line="542"/>
         <source>Fill color of picture frames</source>
         <translation type="unfinished">Vulkleur vir prentrame</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="509"/>
+        <location filename="../tabtools.cpp" line="547"/>
         <source>Saturation of color of fill</source>
         <translation type="unfinished">Versadiging van die vulkleur</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="506"/>
+        <location filename="../tabtools.cpp" line="544"/>
         <source>Line color of shapes</source>
         <translation type="unfinished">Lynkleur van vorms</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="507"/>
+        <location filename="../tabtools.cpp" line="545"/>
         <source>Saturation of color of lines</source>
         <translation type="unfinished">Versadiging van die lynkleur</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="508"/>
+        <location filename="../tabtools.cpp" line="546"/>
         <source>Fill color of shapes</source>
         <translation type="unfinished">Vulkleur van vorms</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="510"/>
+        <location filename="../tabtools.cpp" line="548"/>
         <source>Line style of shapes</source>
         <translation type="unfinished">Lynstyl van vorms</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="511"/>
+        <location filename="../tabtools.cpp" line="549"/>
         <source>Line width of shapes</source>
         <translation type="unfinished">Lyndikte van vorms</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="512"/>
+        <location filename="../tabtools.cpp" line="550"/>
         <source>Minimum magnification allowed</source>
         <translation type="unfinished">Minimum toegelate vergroting</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="513"/>
+        <location filename="../tabtools.cpp" line="551"/>
         <source>Maximum magnification allowed</source>
         <translation type="unfinished">Maksimum toegelate vergroting</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="514"/>
+        <location filename="../tabtools.cpp" line="552"/>
         <source>Change in magnification for each zoom operation</source>
         <translation type="unfinished">Verandering in grootte vir elke zoom-stap</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="515"/>
+        <location filename="../tabtools.cpp" line="553"/>
         <source>Color of lines</source>
         <translation type="unfinished">Lynkleur</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="516"/>
+        <location filename="../tabtools.cpp" line="554"/>
         <source>Saturation of color</source>
         <translation type="unfinished">Kleurversadiging</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="517"/>
+        <location filename="../tabtools.cpp" line="555"/>
         <source>Style of lines</source>
         <translation type="unfinished">Lynstyl</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="518"/>
+        <location filename="../tabtools.cpp" line="556"/>
         <source>Width of lines</source>
         <translation type="unfinished">Dikte van lyne</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="184"/>
+        <location filename="../tabtools.cpp" line="194"/>
         <source>Tab Fill Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="189"/>
+        <location filename="../tabtools.cpp" line="200"/>
         <source>Tab Width:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="368"/>
+        <location filename="../tabtools.cpp" line="398"/>
         <source>Use embedded Clipping Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="372"/>
+        <location filename="../tabtools.cpp" line="402"/>
         <source>On Screen Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="378"/>
+        <location filename="../tabtools.cpp" line="408"/>
         <source>Full Resolution Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="381"/>
+        <location filename="../tabtools.cpp" line="411"/>
         <source>Normal Resolution Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="384"/>
+        <location filename="../tabtools.cpp" line="414"/>
         <source>Low Resolution Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="129"/>
+        <location filename="../tabtools.cpp" line="131"/>
         <source>Text Color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="178"/>
+        <location filename="../tabtools.cpp" line="187"/>
         <source>Shading:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="142"/>
+        <location filename="../tabtools.cpp" line="146"/>
         <source>Text Stroke:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="663"/>
+        <location filename="../tabtools.cpp" line="701"/>
         <source>Dot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="664"/>
+        <location filename="../tabtools.cpp" line="702"/>
         <source>Hyphen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="665"/>
+        <location filename="../tabtools.cpp" line="703"/>
         <source>Underscore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="666"/>
+        <location filename="../tabtools.cpp" line="704"/>
         <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="662"/>
+        <location filename="../tabtools.cpp" line="700"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Geen</translation>
@@ -32514,87 +33213,87 @@ when PDF document is opened:</source>
         <translation type="unfinished">Teks</translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="216"/>
+        <location filename="../tabtools.cpp" line="230"/>
         <source>Shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="265"/>
+        <location filename="../tabtools.cpp" line="285"/>
         <source>Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="311"/>
+        <location filename="../tabtools.cpp" line="337"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="395"/>
+        <location filename="../tabtools.cpp" line="425"/>
         <source>Regular Polygons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="407"/>
+        <location filename="../tabtools.cpp" line="437"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="462"/>
+        <location filename="../tabtools.cpp" line="499"/>
         <source>Rotation Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="471"/>
+        <location filename="../tabtools.cpp" line="508"/>
         <source>Constrain to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="491"/>
+        <location filename="../tabtools.cpp" line="529"/>
         <source>Other Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="438"/>
+        <location filename="../tabtools.cpp" line="473"/>
         <source>Miscellaneous Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="443"/>
+        <location filename="../tabtools.cpp" line="478"/>
         <source>Item Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="451"/>
+        <location filename="../tabtools.cpp" line="486"/>
         <source>X Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="457"/>
+        <location filename="../tabtools.cpp" line="493"/>
         <source>Y Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="519"/>
+        <location filename="../tabtools.cpp" line="557"/>
         <source>Horizontal displacement of page items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="520"/>
+        <location filename="../tabtools.cpp" line="558"/>
         <source>Vertical displacement of page items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="521"/>
+        <location filename="../tabtools.cpp" line="559"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="473"/>
+        <location filename="../tabtools.cpp" line="511"/>
         <source>Degrees</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtools.cpp" line="522"/>
+        <location filename="../tabtools.cpp" line="560"/>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32607,7 +33306,7 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="137"/>
+        <location filename="../tabtypography.cpp" line="142"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32617,112 +33316,112 @@ when PDF document is opened:</source>
         <translation type="unfinished">Ver&amp;plasing:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="40"/>
+        <location filename="../tabtypography.cpp" line="41"/>
         <source>&amp;Scaling:</source>
         <translation type="unfinished">&amp;Skaalering:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="45"/>
+        <location filename="../tabtypography.cpp" line="47"/>
         <source>Superscript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="54"/>
+        <location filename="../tabtypography.cpp" line="56"/>
         <source>D&amp;isplacement:</source>
         <translation type="unfinished">Verpla&amp;sing:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="61"/>
+        <location filename="../tabtypography.cpp" line="64"/>
         <source>S&amp;caling:</source>
         <translation type="unfinished">S&amp;kaalering:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="114"/>
+        <location filename="../tabtypography.cpp" line="118"/>
         <source>Small Caps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="124"/>
+        <location filename="../tabtypography.cpp" line="128"/>
         <source>Sc&amp;aling:</source>
         <translation type="unfinished">Sk&amp;aalering:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="144"/>
+        <location filename="../tabtypography.cpp" line="150"/>
         <source>Displacement above the baseline of the font on a line</source>
         <translation type="unfinished">Verplasing bo basislyn van &apos;n lettertipe op &apos;n lyn</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="145"/>
+        <location filename="../tabtypography.cpp" line="151"/>
         <source>Relative size of the superscript compared to the normal font</source>
         <translation type="unfinished">Relatiewe grootte van boskrif tov normale teks</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="146"/>
+        <location filename="../tabtypography.cpp" line="152"/>
         <source>Displacement below the baseline of the normal font on a line</source>
         <translation type="unfinished">Verplasing onder basislyn van &apos;n lettertipe op &apos;n lyn</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="147"/>
+        <location filename="../tabtypography.cpp" line="153"/>
         <source>Relative size of the subscript compared to the normal font</source>
         <translation type="unfinished">Relatiewe grootte van onderskrif tov normale teks</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="148"/>
+        <location filename="../tabtypography.cpp" line="154"/>
         <source>Relative size of the small caps font compared to the normal font</source>
         <translation type="unfinished">Relatiewe grootte van kleinhoofletters tov normale teks</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="66"/>
+        <location filename="../tabtypography.cpp" line="70"/>
         <source>Underline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="96"/>
+        <location filename="../tabtypography.cpp" line="100"/>
         <source>Displacement:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="109"/>
+        <location filename="../tabtypography.cpp" line="113"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="104"/>
+        <location filename="../tabtypography.cpp" line="108"/>
         <source>Line Width:</source>
         <translation type="unfinished">Lyndikte:</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="90"/>
+        <location filename="../tabtypography.cpp" line="94"/>
         <source>Strikethru</source>
         <translation type="unfinished">Doorhalen</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="129"/>
+        <location filename="../tabtypography.cpp" line="134"/>
         <source>Automatic &amp;Line Spacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="139"/>
+        <location filename="../tabtypography.cpp" line="144"/>
         <source>Line Spacing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="149"/>
+        <location filename="../tabtypography.cpp" line="155"/>
         <source>Percentage increase over the font size for the line spacing</source>
         <translation type="unfinished">Persentasie toename van lyn hoogte tov lettergrootte</translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="150"/>
+        <location filename="../tabtypography.cpp" line="156"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="153"/>
+        <location filename="../tabtypography.cpp" line="159"/>
         <source>Line width expressed as a percentage of the font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabtypography.cpp" line="152"/>
+        <location filename="../tabtypography.cpp" line="158"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32730,32 +33429,32 @@ when PDF document is opened:</source>
 <context>
     <name>Tabruler</name>
     <message>
-        <location filename="../tabruler.cpp" line="478"/>
+        <location filename="../tabruler.cpp" line="488"/>
         <source>Left</source>
         <translation>Links</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="479"/>
+        <location filename="../tabruler.cpp" line="489"/>
         <source>Right</source>
         <translation>Regs</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="480"/>
+        <location filename="../tabruler.cpp" line="490"/>
         <source>Full Stop</source>
         <translation>Volledige stop</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="481"/>
+        <location filename="../tabruler.cpp" line="491"/>
         <source>Comma</source>
         <translation>Komma</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="482"/>
+        <location filename="../tabruler.cpp" line="492"/>
         <source>Center</source>
         <translation>Centreren</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="486"/>
+        <location filename="../tabruler.cpp" line="496"/>
         <source>&amp;Position:</source>
         <translation>&amp;Positie:</translation>
     </message>
@@ -32765,22 +33464,22 @@ when PDF document is opened:</source>
         <translation type="obsolete">Eerste &amp;regel:</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="529"/>
+        <location filename="../tabruler.cpp" line="545"/>
         <source>Delete All</source>
         <translation>Alles verwyderen</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="581"/>
+        <location filename="../tabruler.cpp" line="597"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Inspringen vir de eerste regel van de alinea</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="582"/>
+        <location filename="../tabruler.cpp" line="598"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Inspringen vanaf links vir de hele alinea</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="585"/>
+        <location filename="../tabruler.cpp" line="601"/>
         <source>Delete all Tabulators</source>
         <translation>Alle tabstops verwyderen</translation>
     </message>
@@ -32810,53 +33509,53 @@ when PDF document is opened:</source>
         <translation type="obsolete">Geen</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="492"/>
+        <location filename="../tabruler.cpp" line="503"/>
         <source>Dot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="493"/>
+        <location filename="../tabruler.cpp" line="504"/>
         <source>Hyphen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="494"/>
+        <location filename="../tabruler.cpp" line="505"/>
         <source>Underscore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="495"/>
+        <location filename="../tabruler.cpp" line="506"/>
         <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="496"/>
+        <location filename="../tabruler.cpp" line="507"/>
         <source>Fill Char:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="491"/>
+        <location filename="../tabruler.cpp" line="502"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Geen</translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="583"/>
+        <location filename="../tabruler.cpp" line="599"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="568"/>
+        <location filename="../tabruler.cpp" line="584"/>
         <source>Fill Character of Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="569"/>
+        <location filename="../tabruler.cpp" line="585"/>
         <source>Type/Orientation of Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tabruler.cpp" line="570"/>
+        <location filename="../tabruler.cpp" line="586"/>
         <source>Position of Tab</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32864,12 +33563,12 @@ when PDF document is opened:</source>
 <context>
     <name>Tree</name>
     <message>
-        <location filename="../tree.cpp" line="1145"/>
+        <location filename="../tree.cpp" line="1156"/>
         <source>Outline</source>
         <translation>Outline</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1146"/>
+        <location filename="../tree.cpp" line="1157"/>
         <source>Element</source>
         <translation>Element</translation>
     </message>
@@ -32916,7 +33615,7 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Lettertype:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1123"/>
+        <location filename="../tree.cpp" line="1134"/>
         <source>Group </source>
         <translation>Groep</translation>
     </message>
@@ -32956,42 +33655,42 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">Bladsy</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1086"/>
+        <location filename="../tree.cpp" line="1097"/>
         <source>Free Objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1031"/>
+        <location filename="../tree.cpp" line="1042"/>
         <source>Page </source>
         <translation type="unfinished">Bladsy</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="316"/>
+        <location filename="../tree.cpp" line="319"/>
         <source>Picture</source>
         <translation type="unfinished">Prent</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="291"/>
+        <location filename="../tree.cpp" line="294"/>
         <source>File: </source>
         <translation type="unfinished">Lêer: </translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="295"/>
+        <location filename="../tree.cpp" line="298"/>
         <source>Original PPI: </source>
         <translation type="unfinished">Oorspronklike PPI:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="299"/>
+        <location filename="../tree.cpp" line="302"/>
         <source>Actual PPI: </source>
         <translation type="unfinished">Werklike PPI:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="303"/>
+        <location filename="../tree.cpp" line="306"/>
         <source>Colorspace: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="308"/>
+        <location filename="../tree.cpp" line="311"/>
         <source>Unknown</source>
         <translation type="unfinished">Onbekend</translation>
     </message>
@@ -33006,125 +33705,130 @@ Kies &apos;n ander naam.</translation>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="318"/>
+        <location filename="../tree.cpp" line="321"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="342"/>
+        <location filename="../tree.cpp" line="345"/>
         <source>Linked Text</source>
         <translation type="unfinished">Geskakelde teks</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="344"/>
+        <location filename="../tree.cpp" line="347"/>
         <source>Text Frame</source>
         <translation type="unfinished">Teksraam</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="347"/>
+        <location filename="../tree.cpp" line="350"/>
         <source>Text on a Path</source>
         <translation type="unfinished">Teks op &apos;n pad</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="350"/>
+        <location filename="../tree.cpp" line="353"/>
         <source>Paragraphs: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="357"/>
+        <location filename="../tree.cpp" line="360"/>
         <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="361"/>
+        <location filename="../tree.cpp" line="364"/>
         <source>Words: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="368"/>
+        <location filename="../tree.cpp" line="371"/>
         <source>Chars: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="377"/>
         <source>Print: </source>
-        <translation type="unfinished">Druk: </translation>
+        <translation type="obsolete">Druk: </translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="380"/>
+        <location filename="../tree.cpp" line="383"/>
         <source>Enabled</source>
         <translation type="unfinished">Aan</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="382"/>
+        <location filename="../tree.cpp" line="385"/>
         <source>Disabled</source>
         <translation type="unfinished">Af</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="389"/>
+        <location filename="../tree.cpp" line="393"/>
         <source>In&amp;fo</source>
         <translation type="unfinished">In&amp;lig</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="410"/>
+        <location filename="../tree.cpp" line="420"/>
         <source>Preview Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="451"/>
+        <location filename="../tree.cpp" line="461"/>
         <source>&amp;PDF Options</source>
         <translation type="unfinished">&amp;PDF-opsies</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="475"/>
+        <location filename="../tree.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
         <translation type="unfinished">Stuur na &amp;laag</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="484"/>
+        <location filename="../tree.cpp" line="494"/>
         <source>Le&amp;vel</source>
         <translation type="unfinished">&amp;Vlak</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="534"/>
+        <location filename="../tree.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
         <translation type="unfinished">Skakel om n&amp;a</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="537"/>
+        <location filename="../tree.cpp" line="548"/>
         <source>Rename</source>
         <translation type="unfinished">Herbenoem</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="545"/>
+        <location filename="../tree.cpp" line="556"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="567"/>
+        <location filename="../tree.cpp" line="578"/>
         <source>Contents</source>
         <translation type="unfinished">Inhoud</translation>
+    </message>
+    <message>
+        <location filename="../tree.cpp" line="380"/>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
-        <location filename="../styleselect.cpp" line="63"/>
+        <location filename="../styleselect.cpp" line="62"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="74"/>
+        <location filename="../styleselect.cpp" line="73"/>
         <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="73"/>
+        <location filename="../styleselect.cpp" line="72"/>
         <source>Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../styleselect.cpp" line="75"/>
+        <location filename="../styleselect.cpp" line="74"/>
         <source>Linewidth</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33132,431 +33836,431 @@ Kies &apos;n ander naam.</translation>
 <context>
     <name>UndoManager</name>
     <message>
-        <location filename="../undomanager.cpp" line="682"/>
+        <location filename="../undomanager.cpp" line="680"/>
         <source>Add vertical guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="683"/>
+        <location filename="../undomanager.cpp" line="681"/>
         <source>Add horizontal guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="684"/>
+        <location filename="../undomanager.cpp" line="682"/>
         <source>Remove vertical guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="685"/>
+        <location filename="../undomanager.cpp" line="683"/>
         <source>Remove horizontal guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="688"/>
+        <location filename="../undomanager.cpp" line="686"/>
         <source>Move vertical guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="689"/>
+        <location filename="../undomanager.cpp" line="687"/>
         <source>Move horizontal guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="690"/>
+        <location filename="../undomanager.cpp" line="688"/>
         <source>Lock guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="691"/>
+        <location filename="../undomanager.cpp" line="689"/>
         <source>Unlock guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="692"/>
+        <location filename="../undomanager.cpp" line="690"/>
         <source>Move</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="693"/>
+        <location filename="../undomanager.cpp" line="691"/>
         <source>Resize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="694"/>
+        <location filename="../undomanager.cpp" line="692"/>
         <source>Rotate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="695"/>
+        <location filename="../undomanager.cpp" line="693"/>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="696"/>
+        <location filename="../undomanager.cpp" line="694"/>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="701"/>
+        <location filename="../undomanager.cpp" line="699"/>
         <source>Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="702"/>
+        <location filename="../undomanager.cpp" line="700"/>
         <source>Group</source>
         <translation type="unfinished">Groeperen</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="703"/>
+        <location filename="../undomanager.cpp" line="701"/>
         <source>Selection/Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="704"/>
+        <location filename="../undomanager.cpp" line="702"/>
         <source>Create</source>
         <translation type="unfinished">Aanmaken</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="705"/>
+        <location filename="../undomanager.cpp" line="703"/>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="706"/>
+        <location filename="../undomanager.cpp" line="704"/>
         <source>Align/Distribute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="707"/>
+        <location filename="../undomanager.cpp" line="705"/>
         <source>Items involved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="708"/>
+        <location filename="../undomanager.cpp" line="706"/>
         <source>Cancel</source>
         <translation type="unfinished">Kanselleer</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="709"/>
+        <location filename="../undomanager.cpp" line="707"/>
         <source>Set fill color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="710"/>
+        <location filename="../undomanager.cpp" line="708"/>
         <source>Color1: %1, Color2: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="711"/>
+        <location filename="../undomanager.cpp" line="709"/>
         <source>Set fill color shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="712"/>
+        <location filename="../undomanager.cpp" line="710"/>
         <source>Set line color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="713"/>
+        <location filename="../undomanager.cpp" line="711"/>
         <source>Set line color shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="714"/>
+        <location filename="../undomanager.cpp" line="712"/>
         <source>Flip horizontally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="715"/>
+        <location filename="../undomanager.cpp" line="713"/>
         <source>Flip vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="716"/>
+        <location filename="../undomanager.cpp" line="714"/>
         <source>Lock</source>
         <translation type="unfinished">Vergrendelen</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="717"/>
+        <location filename="../undomanager.cpp" line="715"/>
         <source>Unlock</source>
         <translation type="unfinished">Losmaken</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="718"/>
+        <location filename="../undomanager.cpp" line="716"/>
         <source>Lock size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="719"/>
+        <location filename="../undomanager.cpp" line="717"/>
         <source>Unlock size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="722"/>
+        <location filename="../undomanager.cpp" line="720"/>
         <source>Ungroup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="723"/>
+        <location filename="../undomanager.cpp" line="721"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="724"/>
+        <location filename="../undomanager.cpp" line="722"/>
         <source>Rename</source>
         <translation type="unfinished">Herbenoem</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="725"/>
+        <location filename="../undomanager.cpp" line="723"/>
         <source>From %1
 to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="727"/>
+        <location filename="../undomanager.cpp" line="725"/>
         <source>Paste</source>
         <translation type="unfinished">Plakken</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="728"/>
+        <location filename="../undomanager.cpp" line="726"/>
         <source>Cut</source>
         <translation type="unfinished">Knippen</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="729"/>
+        <location filename="../undomanager.cpp" line="727"/>
         <source>Set fill color transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="730"/>
+        <location filename="../undomanager.cpp" line="728"/>
         <source>Set line color transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="731"/>
+        <location filename="../undomanager.cpp" line="729"/>
         <source>Set line style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="732"/>
+        <location filename="../undomanager.cpp" line="730"/>
         <source>Set the style of line end</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="733"/>
+        <location filename="../undomanager.cpp" line="731"/>
         <source>Set the style of line join</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="734"/>
+        <location filename="../undomanager.cpp" line="732"/>
         <source>Set line width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="735"/>
+        <location filename="../undomanager.cpp" line="733"/>
         <source>No style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="736"/>
+        <location filename="../undomanager.cpp" line="734"/>
         <source>Set custom line style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="737"/>
+        <location filename="../undomanager.cpp" line="735"/>
         <source>Do not use custom line style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="738"/>
+        <location filename="../undomanager.cpp" line="736"/>
         <source>Set start arrow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="739"/>
+        <location filename="../undomanager.cpp" line="737"/>
         <source>Set end arrow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="741"/>
+        <location filename="../undomanager.cpp" line="739"/>
         <source>Create table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="742"/>
+        <location filename="../undomanager.cpp" line="740"/>
         <source>Rows: %1, Cols: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="743"/>
+        <location filename="../undomanager.cpp" line="741"/>
         <source>Set font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="744"/>
+        <location filename="../undomanager.cpp" line="742"/>
         <source>Set font size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="745"/>
+        <location filename="../undomanager.cpp" line="743"/>
         <source>Set font width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="747"/>
+        <location filename="../undomanager.cpp" line="745"/>
         <source>Set font fill color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="748"/>
+        <location filename="../undomanager.cpp" line="746"/>
         <source>Set font stroke color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="749"/>
+        <location filename="../undomanager.cpp" line="747"/>
         <source>Set font fill color shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="750"/>
+        <location filename="../undomanager.cpp" line="748"/>
         <source>Set font stroke color shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="751"/>
+        <location filename="../undomanager.cpp" line="749"/>
         <source>Set kerning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="752"/>
+        <location filename="../undomanager.cpp" line="750"/>
         <source>Set line spacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="753"/>
+        <location filename="../undomanager.cpp" line="751"/>
         <source>Set paragraph style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="754"/>
+        <location filename="../undomanager.cpp" line="752"/>
         <source>Set language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="755"/>
+        <location filename="../undomanager.cpp" line="753"/>
         <source>Align text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="756"/>
+        <location filename="../undomanager.cpp" line="754"/>
         <source>Set font effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="757"/>
+        <location filename="../undomanager.cpp" line="755"/>
         <source>Image frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="758"/>
+        <location filename="../undomanager.cpp" line="756"/>
         <source>Text frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="759"/>
+        <location filename="../undomanager.cpp" line="758"/>
         <source>Polygon</source>
         <translation type="unfinished">Polygoon</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="760"/>
+        <location filename="../undomanager.cpp" line="759"/>
         <source>Bezier curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="761"/>
+        <location filename="../undomanager.cpp" line="760"/>
         <source>Polyline</source>
         <translation type="unfinished">Polylyn</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="763"/>
+        <location filename="../undomanager.cpp" line="762"/>
         <source>Convert to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="764"/>
+        <location filename="../undomanager.cpp" line="763"/>
         <source>Import SVG image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="765"/>
+        <location filename="../undomanager.cpp" line="764"/>
         <source>Import EPS image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="767"/>
+        <location filename="../undomanager.cpp" line="766"/>
         <source>Scratch space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="769"/>
+        <location filename="../undomanager.cpp" line="768"/>
         <source>Text flows around the frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="770"/>
+        <location filename="../undomanager.cpp" line="769"/>
         <source>Text flows around bounding box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="771"/>
+        <location filename="../undomanager.cpp" line="770"/>
         <source>Text flows around contour line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="773"/>
+        <location filename="../undomanager.cpp" line="772"/>
         <source>No text flow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="775"/>
+        <location filename="../undomanager.cpp" line="774"/>
         <source>No bounding box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="776"/>
+        <location filename="../undomanager.cpp" line="775"/>
         <source>No contour line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="777"/>
+        <location filename="../undomanager.cpp" line="776"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="778"/>
+        <location filename="../undomanager.cpp" line="777"/>
         <source>Set image scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="779"/>
+        <location filename="../undomanager.cpp" line="778"/>
         <source>Frame size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="780"/>
+        <location filename="../undomanager.cpp" line="779"/>
         <source>Free scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="781"/>
+        <location filename="../undomanager.cpp" line="780"/>
         <source>Keep aspect ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="782"/>
+        <location filename="../undomanager.cpp" line="781"/>
         <source>Break aspect ratio</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33566,112 +34270,112 @@ to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="784"/>
+        <location filename="../undomanager.cpp" line="783"/>
         <source>Edit shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="785"/>
+        <location filename="../undomanager.cpp" line="784"/>
         <source>Reset contour line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="726"/>
+        <location filename="../undomanager.cpp" line="724"/>
         <source>Apply Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="746"/>
+        <location filename="../undomanager.cpp" line="744"/>
         <source>Set font height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="766"/>
+        <location filename="../undomanager.cpp" line="765"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="786"/>
+        <location filename="../undomanager.cpp" line="785"/>
         <source>Add page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="787"/>
+        <location filename="../undomanager.cpp" line="786"/>
         <source>Add pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="788"/>
+        <location filename="../undomanager.cpp" line="787"/>
         <source>Delete page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="789"/>
+        <location filename="../undomanager.cpp" line="788"/>
         <source>Delete pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="790"/>
+        <location filename="../undomanager.cpp" line="789"/>
         <source>Add layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="791"/>
+        <location filename="../undomanager.cpp" line="790"/>
         <source>Delete layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="792"/>
+        <location filename="../undomanager.cpp" line="791"/>
         <source>Rename layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="793"/>
+        <location filename="../undomanager.cpp" line="792"/>
         <source>Raise layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="794"/>
+        <location filename="../undomanager.cpp" line="793"/>
         <source>Lower layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="795"/>
+        <location filename="../undomanager.cpp" line="794"/>
         <source>Send to layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="796"/>
+        <location filename="../undomanager.cpp" line="795"/>
         <source>Enable printing of layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="797"/>
+        <location filename="../undomanager.cpp" line="796"/>
         <source>Disable printing of layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="798"/>
+        <location filename="../undomanager.cpp" line="797"/>
         <source>Change name of the layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="799"/>
+        <location filename="../undomanager.cpp" line="798"/>
         <source>Get image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="762"/>
+        <location filename="../undomanager.cpp" line="761"/>
         <source>Text on a Path</source>
         <translation type="unfinished">Teks op &apos;n pad</translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="720"/>
+        <location filename="../undomanager.cpp" line="718"/>
         <source>Enable Item Printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="721"/>
+        <location filename="../undomanager.cpp" line="719"/>
         <source>Disable Item Printing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33681,23 +34385,23 @@ to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="697"/>
+        <location filename="../undomanager.cpp" line="695"/>
         <source>Change Image Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="698"/>
+        <location filename="../undomanager.cpp" line="696"/>
         <source>Change Image Scale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="699"/>
+        <location filename="../undomanager.cpp" line="697"/>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="700"/>
+        <location filename="../undomanager.cpp" line="698"/>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
@@ -33730,7 +34434,7 @@ X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="774"/>
+        <location filename="../undomanager.cpp" line="773"/>
         <source>No object frame</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33760,22 +34464,22 @@ X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="740"/>
+        <location filename="../undomanager.cpp" line="738"/>
         <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="686"/>
+        <location filename="../undomanager.cpp" line="684"/>
         <source>Remove vertical auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="687"/>
+        <location filename="../undomanager.cpp" line="685"/>
         <source>Remove horizontal auto guide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undomanager.cpp" line="772"/>
+        <location filename="../undomanager.cpp" line="771"/>
         <source>Text flows around image clipping path</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33804,6 +34508,16 @@ X: %4, Y: %5</source>
         <source>Convert to outlines</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../undomanager.cpp" line="757"/>
+        <source>Latex frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../undomanager.cpp" line="799"/>
+        <source>Change formula</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -33828,7 +34542,7 @@ X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../undogui.cpp" line="283"/>
+        <location filename="../undogui.cpp" line="279"/>
         <source>Initial State</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33836,7 +34550,7 @@ X: %4, Y: %5</source>
 <context>
     <name>UndoWidget</name>
     <message>
-        <location filename="../undogui.cpp" line="159"/>
+        <location filename="../undogui.cpp" line="146"/>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation type="unfinished"></translation>
@@ -33845,7 +34559,7 @@ X: %4, Y: %5</source>
 <context>
     <name>UnicodeChooseButton</name>
     <message>
-        <location filename="../unicodesearch.cpp" line="46"/>
+        <location filename="../unicodesearch.cpp" line="47"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Zoeken</translation>
     </message>
@@ -33858,7 +34572,7 @@ X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../unicodesearch.ui" line="42"/>
+        <location filename="../unicodesearch.ui" line="38"/>
         <source>&amp;Search:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33866,59 +34580,78 @@ X: %4, Y: %5</source>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <location filename="../upgradechecker.cpp" line="83"/>
+        <location filename="../upgradechecker.cpp" line="85"/>
         <source>Attempting to get the Scribus version update file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="84"/>
+        <location filename="../upgradechecker.cpp" line="86"/>
         <source>(No data on your computer will be sent to an external location)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="104"/>
+        <location filename="../upgradechecker.cpp" line="106"/>
         <source>Timed out when attempting to get update file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="109"/>
+        <location filename="../upgradechecker.cpp" line="111"/>
         <source>Error when attempting to get update file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="139"/>
+        <location filename="../upgradechecker.cpp" line="141"/>
         <source>File not found on server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="141"/>
+        <location filename="../upgradechecker.cpp" line="143"/>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="216"/>
+        <location filename="../upgradechecker.cpp" line="218"/>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="220"/>
+        <location filename="../upgradechecker.cpp" line="222"/>
         <source>No updates are available for your version of Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="223"/>
+        <location filename="../upgradechecker.cpp" line="225"/>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="227"/>
+        <location filename="../upgradechecker.cpp" line="229"/>
         <source>Please visit www.scribus.net for details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../upgradechecker.cpp" line="224"/>
+        <location filename="../upgradechecker.cpp" line="226"/>
         <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UrlLauncher</name>
+    <message>
+        <location filename="../urllauncher.cpp" line="64"/>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../urllauncher.cpp" line="77"/>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../urllauncher.cpp" line="77"/>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.
+Would you like to start the system&apos;s default browser instead?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -34068,7 +34801,7 @@ Error:%2 at line: %3, row: %4</source>
 <context>
     <name>WMFImport</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="496"/>
+        <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="515"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34076,24 +34809,19 @@ Error:%2 at line: %3, row: %4</source>
 <context>
     <name>WMFImportPlugin</name>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="81"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="82"/>
         <source>Import &amp;WMF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="96"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
         <source>Imports WMF Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
+        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="98"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="111"/>
-        <source>Windows metafiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -34294,12 +35022,12 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>gtFileDialog</name>
     <message>
-        <location filename="../gtdialogs.cpp" line="64"/>
+        <location filename="../gtfiledialog.cpp" line="21"/>
         <source>Choose the importer to use</source>
         <translation>Selecteer de te gebruiken importer</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="65"/>
+        <location filename="../gtfiledialog.cpp" line="22"/>
         <source>Automatic</source>
         <translation>Outomaties</translation>
     </message>
@@ -34309,40 +35037,50 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Alleen de teks ophalen</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="71"/>
+        <location filename="../gtfiledialog.cpp" line="25"/>
         <source>Import text without any formatting</source>
         <translation>Teks importeren zonder enige opmaak</translation>
     </message>
     <message>
         <location filename="../gtdialogs.cpp" line="78"/>
         <source>Importer:</source>
-        <translation>Importer:</translation>
+        <translation type="obsolete">Importer:</translation>
     </message>
     <message>
         <location filename="../gtdialogs.cpp" line="116"/>
         <source>Encoding:</source>
-        <translation>Codering:</translation>
+        <translation type="obsolete">Codering:</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="70"/>
-        <source>Import Text Only</source>
+        <location filename="../gtfiledialog.ui" line="13"/>
+        <source>Open</source>
+        <translation type="unfinished">Maak oop</translation>
+    </message>
+    <message>
+        <location filename="../gtfiledialog.ui" line="22"/>
+        <source>&amp;Importer:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="48"/>
-        <source>Open</source>
-        <translation type="unfinished">Maak oop</translation>
+        <location filename="../gtfiledialog.ui" line="35"/>
+        <source>Import &amp;Text Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gtfiledialog.ui" line="42"/>
+        <source>&amp;Encoding:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>gtImporterDialog</name>
     <message>
-        <location filename="../gtdialogs.cpp" line="155"/>
+        <location filename="../gtdialogs.cpp" line="67"/>
         <source>Choose the importer to use</source>
         <translation>Selecteer de te gebruiken importer</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="165"/>
+        <location filename="../gtdialogs.cpp" line="79"/>
         <source>Remember association</source>
         <translation>Deze associatie onhouden</translation>
     </message>
@@ -34361,8 +35099,93 @@ van dit type dezelfde importer gebruikt.</translation>
         <translation type="obsolete">Reg</translation>
     </message>
     <message>
-        <location filename="../gtdialogs.cpp" line="167"/>
+        <location filename="../gtdialogs.cpp" line="81"/>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>hysettingsBase</name>
+    <message>
+        <location filename="../hysettingsBase.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="37"/>
+        <source>General Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="58"/>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished">Met opsie Ekstra, Teksafkap kry u n dialoogvenster met alle afkapmoontlikhede vir elke woord.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="61"/>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished">A&amp;fkapvoorstelle</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="68"/>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished">Sit intydse -terwyl jy tik- afkapping aan.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="71"/>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished">Kap woorde ty&amp;dens tik af</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="81"/>
+        <source>Behaviour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="105"/>
+        <source>&amp;Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="118"/>
+        <source>&amp;Smallest Word:</source>
+        <translation type="unfinished">&amp;Kleinste woord:</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="128"/>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation type="unfinished">Lengte van korste afkapbare woord.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="138"/>
+        <source>Chars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="145"/>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished">Opeenvolgende &amp;afkappings toegelaat:</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="158"/>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation type="unfinished">Maksimum aantal opeenvolgende afkappings.
+0 beteken onbeperk.</translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="169"/>
+        <source>Exceptions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="274"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../hysettingsBase.ui" line="233"/>
+        <source>Ignore List</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -34399,97 +35222,97 @@ van dit type dezelfde importer gebruikt.</translation>
         <translation>Alles</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="126"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="128"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
         <source>Page Size</source>
         <translation>Bladsygrootte</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="130"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
         <source>Colors</source>
         <translation>Kleuren</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="132"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
         <source>Description</source>
         <translation>Omschryving</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="134"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
         <source>Usage</source>
         <translation>Gebruik</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="136"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
         <source>Created with</source>
         <translation>Aangemaakt met</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="138"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="140"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="142"/>
         <source>Author</source>
         <translation>Auteur</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="161"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="163"/>
         <source>Downloading Templates</source>
         <translation>Sjablonen downloaden</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="164"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="166"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
         <translation>U kunt dokumentsjablonen vinden op http://www.scribus.net/ in de Downloads-sectie.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="167"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="169"/>
         <source>Installing Templates</source>
         <translation>Sjablonen installeren</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="173"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="175"/>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
         <translation>Pak het pakketje uit in de sjablonenmap van Scibus: ~/.scribus/templates vir de huidige gebruiker of PREFIX/share/scribus/templates vir alle gebruikers van het systeem.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="176"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
         <source>Preparing a template</source>
         <translation>Sjabloon prepareren</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="178"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="180"/>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
         <translation>Vergewis u ervan dat prente en lettertypen vry gebruikt kunnen worden. Als lettertypen niet kunnen worden gedeeld, verzamel deze dan niet als u een dokument opslaat als een sjabloon.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="179"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
         <translation>Wie een sjabloon maakt dient ook zeker te zyn dat het installeren van de sjabllon goed zal werken, zodat een gebruiker deze eenvoudig kan uitpakken en beginnen te gebruiken.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="181"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
         <source>Removing a template</source>
         <translation>Sjablonen verwyderen</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="183"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="185"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation>Als u een sjabloon verwydert wordt enkel de ingang in het lêer template.xml verwyderd, niet de dokumentlêers zelf. De optie verwyderen wordt enkel weergegeven als u schryftoegang hebt tot het template-xml-lêer.</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="186"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
         <source>Translating template.xml</source>
         <translation>Het template.xml-lêer vertalen</translation>
     </message>
     <message>
-        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="188"/>
+        <location filename="../plugins/newfromtemplateplugin/nftdialog.cpp" line="190"/>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Dit kan door een bestaand template.xml te kopiëren na een lêer met de naam template.lang_LANDCODE.xml (gebruik dezelfde landcode als het .ts-lêer vir uw taal), byvoorbeeld template.nl.xml vir de Nederlandse vertaling van sjabloonnamen. De kopie dient zich in dezelfde map te bevingen als het oorspronkelyke lêer, zodat Scribus het kan vinden.</translation>
     </message>
@@ -34580,32 +35403,32 @@ van dit type dezelfde importer gebruikt.</translation>
         <translation type="obsolete">Minder informatie</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="143"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="205"/>
         <source>Legal</source>
         <translation>Legal</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="144"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Letter</source>
         <translation>Letter (US)</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="144"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Tabloid</source>
         <translation>Tabloid</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="151"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="213"/>
         <source>landscape</source>
         <translation>liggend</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="156"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="218"/>
         <source>portrait</source>
         <translation>staand</translation>
     </message>
     <message>
-        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="172"/>
+        <location filename="../plugins/saveastemplateplugin/satdialog.cpp" line="234"/>
         <source>custom</source>
         <translation>aangepast</translation>
     </message>
@@ -34638,7 +35461,7 @@ van dit type dezelfde importer gebruikt.</translation>
         <translation>Kies een eerder bewaard filter</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="251"/>
+        <location filename="../plugins/gettext/textfilter/tfdia.cpp" line="250"/>
         <source>Give a name to this filter for saving</source>
         <translation>Geef dit filter een naam om op te slaan</translation>
     </message>
@@ -34661,97 +35484,97 @@ van dit type dezelfde importer gebruikt.</translation>
 <context>
     <name>tfFilter</name>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="108"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="110"/>
         <source>Disable or enable this filter row</source>
         <translation>Deze filterregel in- of uitschakelen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="134"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="136"/>
         <source>Remove this filter row</source>
         <translation>Deze filterregel verwyderen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="139"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="141"/>
         <source>Add a new filter row</source>
         <translation>Een nuwe regel toevoegen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="392"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="394"/>
         <source>to</source>
         <translation>aan</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="208"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="210"/>
         <source>and</source>
         <translation>en</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="212"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="214"/>
         <source>remove match</source>
         <translation>verwyder overeenkomst</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="213"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="215"/>
         <source>do not remove match</source>
         <translation>verwyder overeenkomst niet</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="223"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="225"/>
         <source>words</source>
         <translation>woorden</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="262"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="264"/>
         <source>Remove</source>
         <translation>Verwyderen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="263"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="265"/>
         <source>Replace</source>
         <translation>Vervangen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="264"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="266"/>
         <source>Apply</source>
         <translation>Toepassen</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="421"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="423"/>
         <source>Value at the left is a regular expression</source>
         <translation>De waarde links is een reguliere expressie</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="297"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="299"/>
         <source>with</source>
         <translation>met</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="309"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="311"/>
         <source>paragraph style</source>
         <translation>alinastyl</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="313"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="315"/>
         <source>all instances of</source>
         <translation>alle instanties van</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="395"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="397"/>
         <source>all paragraphs</source>
         <translation>alle alinea&apos;s</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="396"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="398"/>
         <source>paragraphs starting with</source>
         <translation>alinea&apos;s die beginnen met</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="397"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="399"/>
         <source>paragraphs with less than</source>
         <translation>alinea&apos;s met minder dan</translation>
     </message>
     <message>
-        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="398"/>
+        <location filename="../plugins/gettext/textfilter/tffilter.cpp" line="400"/>
         <source>paragraphs with more than</source>
         <translation>alinea&apos;s met meer dan</translation>
     </message>
