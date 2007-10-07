@@ -290,8 +290,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		newX = mousePointDoc.x(); //m->x();
 		newY = mousePointDoc.y(); //m->y();
-		double dx = abs(Mxp - newX) + 5.0 / m_canvas->scale();
-		double dy = abs(Myp - newY) + 5.0 / m_canvas->scale();
+		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
+		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
 		if (m->buttons() & Qt::LeftButton)
 		{
 			currItem->GrStartX -= (Mxp - newX); // / m_canvas->scale();
@@ -384,7 +384,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			// start drag
 			m_view->dragTimer->stop();
-			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
+			if ((fabs(Dxp - newX) > 10) || (fabs(Dyp - newY) > 10))
 			{
 				m_canvas->resetRenderMode();
 				m_view->dragTimerFired = false;
@@ -458,7 +458,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
 				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
 			}
-			m_canvas->newRedrawPolygon() << QPoint(newX - qRound(currItem->xPos()), newY - qRound(currItem->yPos()));
+			m_canvas->newRedrawPolygon() << QPoint(qRound(newX - currItem->xPos()), qRound(newY - currItem->yPos()));
 			m_view->updateContents();
 			Mxp = newX;
 			Myp = newY;
@@ -512,10 +512,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			}
 //			emit SetAngle(newRot);
 //			emit ItemGeom(sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2)), 0);
-			m_canvas->newRedrawPolygon() << QPoint(qRound(currItem->xPos()), qRound(currItem->yPos())) << QPoint(newX, newY);
+			m_canvas->newRedrawPolygon() << QPoint(qRound(currItem->xPos()), qRound(currItem->yPos())) << QPoint(qRound(newX), qRound(newY));
 			newX = mousePointDoc.x(); //m->x();
 			newY = mousePointDoc.y(); //m->y();
-			m_view->updateContents(QRect(QPoint(Dxp, Dyp), QPoint(newX, newY)).normalized().adjusted(-10, -10, 20, 20));
+			m_view->updateCanvas(QRectF(QPointF(Dxp, Dyp), QPointF(newX, newY)).normalized().adjusted(-10, -10, 20, 20));
 			Mxp = newX;
 			Myp = newY;
 		}
@@ -525,7 +525,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			{
 				QMatrix ro;
 				ro.rotate(-currItem->rotation());
-				QPoint rota = ro.map(QPoint(newX-Mxp,newY-Myp));
+				QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
 				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
 				m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 				Mxp = newX;
@@ -748,10 +748,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 								{
 									newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 									newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-									np2 = QPoint(newX, newY);
-									np2 = m_doc->ApplyGrid(np2);
-									double nx = np2.x();
-									double ny = np2.y();
+//									np2 = QPoint(newX, newY);
+									FPoint newP = m_doc->ApplyGridF(FPoint(newX, newY));
+									double nx = newP.x();
+									double ny = newP.y();
 									m_doc->ApplyGuides(&nx, &ny);
 									QMatrix mp;
 //									mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
@@ -767,10 +767,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						}
 						else
 						{
-							np2 = QPoint(newX, newY);
-							np2 = m_doc->ApplyGrid(np2);
-							double nx = np2.x();
-							double ny = np2.y();
+//							np2 = QPoint(newX, newY);
+							FPoint newP = m_doc->ApplyGridF(FPoint(newX, newY));
+							double nx = newP.x();
+							double ny = newP.y();
 							m_doc->ApplyGuides(&nx, &ny);
 							QMatrix mp;
 //							mp.translate(currItem->xPos() - m_doc->minCanvasCoordinate.x(), currItem->yPos() - m_doc->minCanvasCoordinate.y());
@@ -817,7 +817,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				newY = mousePointDoc.y(); //static_cast<int>(m->y()/sc);
 				m_canvas->m_viewMode.operItemMoving = true;
 				erf = false;
-				int dX=newX-Mxp, dY=newY-Myp;
+				int dX=qRound(newX-Mxp), dY=qRound(newY-Myp);
 				if (!m_doc->m_Selection->isMultipleSelection())
 				{
 					erf=true;
@@ -834,10 +834,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						//Dragging orthogonally - Ctrl Drag
 						if ((m->modifiers() & Qt::ControlModifier) && !(m->modifiers() & Qt::ShiftModifier) && !(m->modifiers() & Qt::AltModifier))
 						{
-							if (abs(dX)>abs(dY))
+							if (abs(dX) > abs(dY))
 								dY=0;
 							else
-							if (abs(dY)>abs(dX))
+							if (abs(dY) > abs(dX))
 								dX=0;
 							erf=false;
 							dX+=qRound(dragConstrainInitPtX-currItem->xPos());
@@ -890,7 +890,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					m_doc->m_Selection->setGroupRect();
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-					int dX=newX-Mxp, dY=newY-Myp;
+					int dX=qRound(newX-Mxp), dY=qRound(newY-Myp);
 					erf = true;
 					if (m->modifiers() & Qt::ControlModifier)
 					{
@@ -1072,7 +1072,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			if (m_doc->appMode == modeDrawTable)
 			{
-				FPoint np2 = m_doc->ApplyGrid(QPoint(newX, newY));
+				FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
 				double nx = np2.x();
 				double ny = np2.y();
 				m_doc->ApplyGuides(&nx, &ny);
@@ -2040,7 +2040,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	if (m_doc->appMode == modeMeasurementTool)
 	{
 		m_canvas->newRedrawPolygon();
-		m_view->updateContents(QRect(QPoint(Dxp, Dyp), QPoint(Mxp, Mxp)).normalized().adjusted(-10, -10, 20, 20));
+		m_view->updateCanvas(QRectF(QPointF(Dxp, Dyp), QPointF(Mxp, Mxp)).normalized().adjusted(-10, -10, 20, 20));
 //		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		//emit PaintingDone();
 		return;
@@ -2060,13 +2060,13 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			QRect AreaR = QRect(static_cast<int>(Mxp), static_cast<int>(Myp), static_cast<int>(SeRx-Mxp), static_cast<int>(SeRy-Myp)).normalized();
 			m_view->HaveSelRect = false;
 			double Tx, Ty, Tw, Th;
-			FPoint np2 = m_doc->ApplyGrid(QPoint(Mxp, Myp));
+			FPoint np2 = m_doc->ApplyGridF(FPoint(Mxp, Myp));
 			Tx = np2.x();
 			Ty = np2.y();
 			m_doc->ApplyGuides(&Tx, &Ty);
 			Mxp = qRound(Tx);
 			Myp = qRound(Ty);
-			np2 = m_doc->ApplyGrid(QPoint(SeRx, SeRy));
+			np2 = m_doc->ApplyGridF(FPoint(SeRx, SeRy));
 			Tw = np2.x();
 			Th = np2.y();
 			m_doc->ApplyGuides(&Tw, &Th);
