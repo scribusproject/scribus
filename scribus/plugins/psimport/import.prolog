@@ -1197,23 +1197,19 @@ currentpagedevice /HWResolution get aload pop
 	currentfont /FontName known
 	% stack: string
 	{
-		currentpoint /ycur exch def /xcur exch def
-		currentpoint	% x y
-		newpath
-		/clipCnt 0 def
-		moveto
-		/completeString exch def
-		% we process each char separately to get smaller paths
-		0 1 completeString length 1 sub
+		currentfont /FontType get dup 3 eq exch 0 eq or
 		{
+			currentpoint /ycur exch def /xcur exch def
+			currentpoint	% x y
+			newpath
+			/clipCnt 0 def
+			moveto
 			(n\n)print			% start polygon
 			writecurrentcolor	% write color
 			storeMatrix
-			dup completeString length 1 sub eq 
-			{ dup completeString exch 1 getinterval stringwidth } 
-			{ dup completeString i_kerning } ifelse 
+			dup
+			stringwidth
 			/curwidthy exch def /curwidthx exch def
-			completeString exch 1 getinterval dup /curstr exch def
 			false root_charpath
 			{i_move} {i_line} {i_curve} {i_close} pathforall
 			(f\n)print			% close polygon
@@ -1222,12 +1218,71 @@ currentpagedevice /HWResolution get aload pop
 			currentpoint /ycur exch def /xcur exch def
 			newpath			% clear graphic stack
 			xcur ycur moveto
-		} for
-		currentpoint	% x y
-		newpath				% clear graphic stack (and current point)
-		moveto
-	} {
-		pop		% string
+		}
+		{
+			currentpoint /ycur exch def /xcur exch def
+			currentpoint	% x y
+			newpath
+			/clipCnt 0 def
+			moveto
+			/completeString exch def
+			% we process each char separately to get smaller paths
+			0 1 completeString length 1 sub
+			{
+				(n\n)print			% start polygon
+				writecurrentcolor	% write color
+				storeMatrix
+				dup completeString length 1 sub eq 
+				{ dup completeString exch 1 getinterval stringwidth } 
+				{ dup completeString i_kerning } ifelse 
+				/curwidthy exch def /curwidthx exch def
+				completeString exch 1 getinterval dup /curstr exch def
+				false root_charpath
+				{i_move} {i_line} {i_curve} {i_close} pathforall
+				(f\n)print			% close polygon
+				newpath
+				curwidthx xcur add curwidthy ycur add moveto
+				currentpoint /ycur exch def /xcur exch def
+				newpath			% clear graphic stack
+				xcur ycur moveto
+			} for
+			currentpoint	% x y
+			newpath				% clear graphic stack (and current point)
+			moveto
+		} ifelse
+	} 
+	{
+		currentfont /FontType known
+		{
+			currentfont /FontType get dup 3 eq exch 0 eq or
+			{
+				currentpoint /ycur exch def /xcur exch def
+				currentpoint	% x y
+				newpath
+				/clipCnt 0 def
+				moveto
+				(n\n)print			% start polygon
+				writecurrentcolor	% write color
+				storeMatrix
+				dup
+				stringwidth
+				/curwidthy exch def /curwidthx exch def
+				false root_charpath
+				{i_move} {i_line} {i_curve} {i_close} pathforall
+				(f\n)print			% close polygon
+				newpath
+				curwidthx xcur add curwidthy ycur add moveto
+				currentpoint /ycur exch def /xcur exch def
+				newpath			% clear graphic stack
+				xcur ycur moveto
+			}
+			{
+				pop
+			} ifelse
+		} 
+		{ 
+			pop
+		} ifelse
 	} ifelse
 	end
 } i_shortcutOverload
@@ -1339,11 +1394,11 @@ currentpagedevice /HWResolution get aload pop
 	awidthshow
 } bind def
 
-/cshow	% proc string
-{
-	exch pop
-	show
-} i_shortcutOverload
+%/cshow	% proc string
+%{
+%	exch pop
+%	show
+%} i_shortcutOverload
 
 /kshow	% proc string
 {
