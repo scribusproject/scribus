@@ -26815,7 +26815,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabpdfoptions.cpp" line="722"/>
         <source>Solid Colors:</source>
-        <translation>Tons directs  :</translation>
+        <translation>Couleurs unies :</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="751"/>
@@ -27030,17 +27030,17 @@ when PDF document is opened:</source>
     <message>
         <location filename="../tabpdfoptions.cpp" line="966"/>
         <source>Embed a color profile for solid colors</source>
-        <translation>Inclure un profil de couleur pour les tons directs</translation>
+        <translation>Inclure un profil de couleur pour les couleurs unies</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="967"/>
         <source>Color profile for solid colors</source>
-        <translation>Profil de couleur pour les tons directs</translation>
+        <translation>Profil de couleur pour les couleurs unies</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="968"/>
         <source>Rendering intent for solid colors</source>
-        <translation>Méthode de rendu pour les tons directs</translation>
+        <translation>Méthode de rendu pour les aplats de couleur</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="969"/>
