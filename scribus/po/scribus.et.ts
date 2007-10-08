@@ -2746,6 +2746,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Save Page as &amp;EPS...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -4564,6 +4568,10 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
         <source>Image has a DPI-Value less than %1 DPI</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5138,6 +5146,10 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     <message>
         <source>Normal Right</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -6727,7 +6739,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -7485,7 +7497,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -8847,7 +8859,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Luba või keela objekti trükkimine</translation>
+        <translation type="obsolete">Luba või keela objekti trükkimine</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
@@ -9047,6 +9059,10 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10844,15 +10860,15 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -12934,6 +12950,10 @@ Välised lingid
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13987,7 +14007,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -14378,6 +14398,10 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -14467,7 +14491,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Trükkimine: </translation>
+        <translation type="obsolete">Trükkimine: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -14528,6 +14552,10 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Antud elemendi kontuuriks teisendamise operatsioon jäetakse vahele.</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16678,7 +16706,7 @@ käivitatav JavaScript:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="obsolete">Puudub</translation>
+        <translation type="unfinished">Puudub</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -17085,7 +17113,7 @@ käivitatav JavaScript:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="obsolete">Puudub</translation>
+        <translation type="unfinished">Puudub</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -17133,7 +17161,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Puudub</translation>
+        <translation type="obsolete">Puudub</translation>
     </message>
 </context>
 <context>

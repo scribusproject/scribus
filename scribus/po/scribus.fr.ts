@@ -2712,6 +2712,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Show Text Frame Columns</source>
         <translation>Afficher les colonnes des cadres de texte</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -4449,6 +4453,10 @@ Ce nom est réservé aux couleurs transparentes</translation>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ignorer les erreurs</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5023,6 +5031,10 @@ pour la sortie du fichier %1</translation>
     <message>
         <source>December</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -6600,7 +6612,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -7223,7 +7235,7 @@ convertissant les données vectorielles en objets Scribus.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -8498,7 +8510,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Autoriser ou non l&apos;impression de l&apos;objet</translation>
+        <translation type="obsolete">Autoriser ou non l&apos;impression de l&apos;objet</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -8686,6 +8698,10 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10426,15 +10442,15 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -12472,6 +12488,10 @@ Liens externes
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13463,7 +13483,7 @@ convertissant les données vectorielles en objets Scribus.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -13810,6 +13830,10 @@ Utilisez le vérificateur afin de les corriger</translation>
         <source>Display a console window</source>
         <translation>Affiche une console</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -13899,7 +13923,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Imprimer : </translation>
+        <translation type="obsolete">Imprimer : </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -13960,6 +13984,10 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
         <source>Contents</source>
         <translation>Contenu</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16081,6 +16109,11 @@ when PDF document is opened:</source>
         <source>Custom: </source>
         <translation>Sur mesure :</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Aucune</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16213,7 +16246,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Aucune</translation>
+        <translation type="obsolete">Aucune</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16258,6 +16291,11 @@ when PDF document is opened:</source>
     <message>
         <source>Custom: </source>
         <translation>Sur mesure :</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Aucune</translation>
     </message>
 </context>
 <context>

@@ -2710,6 +2710,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Show Text Frame Columns</source>
         <translation>Toon tekstframe kolomlijnen</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -4448,6 +4452,10 @@ Het is een naam gereserveerd voor transparantkleur</translation>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Negeer fouten</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5021,6 +5029,10 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>December</source>
         <translation>December</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6634,7 +6646,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -7211,7 +7223,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -8418,7 +8430,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Dit object wel of niet afdrukken</translation>
+        <translation type="obsolete">Dit object wel of niet afdrukken</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -8671,6 +8683,10 @@ hoeken:</translation>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Klik en houd ingedrukt om regelafstand modus te selecteren.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10406,15 +10422,15 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -12450,6 +12466,10 @@ aangeroepen functies.
         <source>German (Swiss)</source>
         <translation>Duits (Zwitsers)</translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13437,7 +13457,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -13789,6 +13809,10 @@ Verticaal shift: %3</translation>
         <source>Display a console window</source>
         <translation>Toon een console venster</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -13858,7 +13882,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Afdrukken:</translation>
+        <translation type="obsolete">Afdrukken:</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -13939,6 +13963,10 @@ Verticaal shift: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Inhoud</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16030,6 +16058,11 @@ als PDF document wordt geopend:</translation>
         <source>Custom</source>
         <translation>Aangepast</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Geen</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16179,7 +16212,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
+        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16208,6 +16241,11 @@ als PDF document wordt geopend:</translation>
     <message>
         <source>Custom: </source>
         <translation>Aangepast: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Geen</translation>
     </message>
 </context>
 <context>

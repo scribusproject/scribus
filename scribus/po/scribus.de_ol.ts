@@ -3799,6 +3799,10 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <source>Show Text Frame Columns</source>
         <translation>Spalten in Textrahmen anzeigen</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -5850,6 +5854,10 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
         <source>&amp;Ignore Errors</source>
         <translation>Fehler ig&amp;norieren</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -6510,6 +6518,10 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     <message>
         <source>December</source>
         <translation>Dezember</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8517,7 +8529,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
@@ -9193,7 +9205,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -10416,7 +10428,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Drucken aktivieren oder deaktivieren</translation>
+        <translation type="obsolete">Drucken aktivieren oder deaktivieren</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -10867,6 +10879,10 @@ ab&amp;runden:</translation>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Halten Sie die Maustaste gedrückt, um die Art des Zeilenabstandes  auszuwählen.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13174,15 +13190,15 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -15508,6 +15524,10 @@ is not exhaustive due to exceptions from called functions.
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17273,7 +17293,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -17629,6 +17649,10 @@ Vertikaler Versatz: %3</translation>
         <source>Display a console window</source>
         <translation>Textkonsole öffnen</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -17698,7 +17722,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Drucken:</translation>
+        <translation type="obsolete">Drucken:</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -17812,6 +17836,10 @@ umgewandelt werden</translation>
     <message>
         <source>Contents</source>
         <translation>Inhalt</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20360,6 +20388,11 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -20508,7 +20541,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>None</source>
-        <translation>Kein</translation>
+        <translation type="obsolete">Kein</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -20537,6 +20570,11 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <message>
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

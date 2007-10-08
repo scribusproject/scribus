@@ -8568,7 +8568,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Разрешить или запретить печать объекта</translation>
+        <translation type="obsolete">Разрешить или запретить печать объекта</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -8965,6 +8965,10 @@ Corners:</source>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Щёлкните и держите нажатой для выбора межстрочного режима.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14082,6 +14086,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation>Показать окно консоли</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -14151,7 +14159,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Печать: </translation>
+        <translation type="obsolete">Печать: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -14232,6 +14240,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation>Содержимое</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16361,6 +16373,11 @@ when PDF document is opened:</source>
         <source>Custom</source>
         <translation>Другой</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16509,7 +16526,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Ничего</translation>
+        <translation type="obsolete">Ничего</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -16538,6 +16555,11 @@ when PDF document is opened:</source>
     <message>
         <source>Custom</source>
         <translation>Другой</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

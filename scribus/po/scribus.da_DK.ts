@@ -3689,6 +3689,10 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
         <source>Show Text Frame Columns</source>
         <translation>Vis kolonner i tekstramme</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -5436,6 +5440,10 @@ Navnet er reserveret for gennemsigtig farve</translation>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ignorér fejl</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -6010,6 +6018,10 @@ Navnet er reserveret for gennemsigtig farve</translation>
     <message>
         <source>December</source>
         <translation>December</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -7627,7 +7639,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -8208,7 +8220,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -9261,7 +9273,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Muliggør eller forhindre udskrivning af objektet</translation>
+        <translation type="obsolete">Muliggør eller forhindre udskrivning af objektet</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -9676,6 +9688,10 @@ hjørner:</translation>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Tryk og hold nede for at vælge linieafstandens tilstand.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11397,15 +11413,15 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -13472,6 +13488,10 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <source>German (Swiss)</source>
         <translation>Tysk (Schweizisk)</translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14466,7 +14486,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -14817,6 +14837,10 @@ Vertikal forskydning: %3</translation>
         <source>Display a console window</source>
         <translation>Åbn et konsol windue</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -14886,7 +14910,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Udskriv: </translation>
+        <translation type="obsolete">Udskriv: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -14967,6 +14991,10 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Indhold</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17058,6 +17086,11 @@ når PDF dokument åbnes:</translation>
         <source>Custom</source>
         <translation>Brugerdefineret</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Ingen</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -17206,7 +17239,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Ingen</translation>
+        <translation type="obsolete">Ingen</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -17235,6 +17268,11 @@ når PDF dokument åbnes:</translation>
     <message>
         <source>Custom</source>
         <translation>Brugerdefineret</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Ingen</translation>
     </message>
 </context>
 <context>

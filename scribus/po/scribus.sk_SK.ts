@@ -2797,6 +2797,10 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -4605,6 +4609,10 @@ a kláves Delete odstráni posledný vložený</translation>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ignorovať chyby</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5209,6 +5217,10 @@ a kláves Delete odstráni posledný vložený</translation>
     </message>
     <message>
         <source>December</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7031,7 +7043,7 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -7720,7 +7732,7 @@ konvertuje ich vektorové dáta do Scribus objektov.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -9052,7 +9064,7 @@ Corners:</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Povoliť alebo zakázať tlač objektu</translation>
+        <translation type="obsolete">Povoliť alebo zakázať tlač objektu</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
@@ -9272,6 +9284,10 @@ Corners:</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11375,15 +11391,15 @@ Chcete ich migrovať na novú verziu?</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -13518,6 +13534,10 @@ Externé odkazy
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15123,7 +15143,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -15472,6 +15492,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -15541,7 +15565,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation> Tlačiť: </translation>
+        <translation type="obsolete"> Tlačiť: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15638,6 +15662,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation type="unfinished">Obsahy</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18078,6 +18106,11 @@ when PDF document is opened:</source>
         <source>Custom: </source>
         <translation> Vlastné:</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -18210,7 +18243,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Žiadne</translation>
+        <translation type="obsolete">Žiadne</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -18255,6 +18288,11 @@ when PDF document is opened:</source>
     <message>
         <source>Custom: </source>
         <translation> Vlastné:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -3100,6 +3100,10 @@ Avsaknad av stöd är markerat med *</translation>
         <source>Show Text Frame Columns</source>
         <translation>Visa kolumner i textram</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -5252,6 +5256,10 @@ Det är ett reserverat namn för genomskinlig färg</translation>
         <source>Image has a DPI-Value less than %1 DPI</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckerPrefsList</name>
@@ -5849,6 +5857,10 @@ Det är ett reserverat namn för genomskinlig färg</translation>
     <message>
         <source>Normal Right</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -7999,7 +8011,7 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -8838,7 +8850,7 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -10445,7 +10457,7 @@ hörn:</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Tillåt/tillåt ej utskrift av objektet</translation>
+        <translation type="obsolete">Tillåt/tillåt ej utskrift av objektet</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
@@ -10767,6 +10779,10 @@ Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14797,15 +14813,15 @@ Vill du föra över dem till den nya versionen av Scribus?</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -17038,6 +17054,10 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19525,7 +19545,7 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -19908,6 +19928,10 @@ Vertikal förskjutning: %3</translation>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -19997,7 +20021,7 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Skriv ut: </translation>
+        <translation type="obsolete">Skriv ut: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -20198,6 +20222,10 @@ Vertikal förskjutning: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Innehåll</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23066,7 +23094,7 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="obsolete">Inget</translation>
+        <translation type="unfinished">Inget</translation>
     </message>
 </context>
 <context>
@@ -23244,7 +23272,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Inget</translation>
+        <translation type="obsolete">Inget</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -23277,7 +23305,7 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="obsolete">Inget</translation>
+        <translation type="unfinished">Inget</translation>
     </message>
 </context>
 <context>

@@ -3926,6 +3926,10 @@ Ghostscript-en bertsioa ere adierazten du.
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">%&amp;400</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -5671,6 +5675,10 @@ hautapenean, eta &apos;Ezabatu&apos; teklak sartutako azkena ezabatzen du.</tran
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ez ikusi egin erroreei</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -6250,6 +6258,10 @@ zuria hautatzea. Ezin da kolore hau prozesatu.</translation>
     <message>
         <source>December</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -7890,7 +7902,7 @@ Esportatutako fitxategiaren izena honelakoa izan daiteke:
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
@@ -8485,7 +8497,7 @@ beraien bektore-datuak Scribus objektuetan bihurtuz.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -9709,7 +9721,7 @@ adierazten du.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Gaitu edo desgaitu objektua inprimatzea</translation>
+        <translation type="obsolete">Gaitu edo desgaitu objektua inprimatzea</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
@@ -9978,6 +9990,10 @@ Biak aukeratzen badira, kolore berdina partekatuko dute.</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11786,15 +11802,15 @@ egoerako %2 kodea</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -13861,6 +13877,10 @@ motakoa dela, eskertuko genizuke arazo honen berri emango bazenu.</translation>
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14854,7 +14874,7 @@ gainean erabiliko da.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -15206,6 +15226,10 @@ Despl-bertikala: %3</translation>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -15275,7 +15299,7 @@ Despl-bertikala: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Inprimatu: </translation>
+        <translation type="obsolete">Inprimatu: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15357,6 +15381,10 @@ eragiketa saltatu egingo da</translation>
     <message>
         <source>Contents</source>
         <translation>Edukia</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17507,6 +17535,11 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
         <source>Custom</source>
         <translation>Pertsonalizatua</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Bat ere ez</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -17655,7 +17688,7 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
     </message>
     <message>
         <source>None</source>
-        <translation>Bat ere ez</translation>
+        <translation type="obsolete">Bat ere ez</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -17684,6 +17717,11 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
     <message>
         <source>Custom: </source>
         <translation>Pertsonalizatua: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Bat ere ez</translation>
     </message>
 </context>
 <context>

@@ -3112,6 +3112,10 @@ Document Outline Palette</comment>
         <comment>Document Outline Palette</comment>
         <translation type="unfinished">&amp;Omriss</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -4847,6 +4851,10 @@ It is a reserved name for transparent color</source>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Overse feil</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5421,6 +5429,10 @@ It is a reserved name for transparent color</source>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
         <translation>Selvvalgt</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">Postscript</translation>
     </message>
 </context>
 <context>
@@ -7031,7 +7043,7 @@ Bruk 72 ppt på bilder som bare skal vises på skjerm</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -7612,7 +7624,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -8680,7 +8692,7 @@ for en rekke sider eller en enkeltside.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Skru av eller på utskrift av objektet</translation>
+        <translation type="obsolete">Skru av eller på utskrift av objektet</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -9074,6 +9086,10 @@ Corners:</source>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Trykk og hold museknappen nede for å angi linjeavstanden.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10778,15 +10794,15 @@ bruke som lagringsplass. Disse elementene kan du dra inn på og ut fra sidene so
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>Pdf 1.3</translation>
+        <translation type="obsolete">Pdf 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>Pdf 1.4</translation>
+        <translation type="obsolete">Pdf 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>Pdf/X-3</translation>
+        <translation type="obsolete">Pdf/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -12916,6 +12932,10 @@ PDB Importer</comment>
         <comment>PDB Importer</comment>
         <translation type="unfinished">PDB_data</translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13902,7 +13922,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -14253,6 +14273,10 @@ Loddrett forskyvning: %3</translation>
         <source>Display a console window</source>
         <translation>Åpne et skall</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -14322,7 +14346,7 @@ Loddrett forskyvning: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Skriv ut: </translation>
+        <translation type="obsolete">Skriv ut: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -14403,6 +14427,10 @@ Loddrett forskyvning: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Innhold</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16496,6 +16524,11 @@ når pdf-dokument åpnes:</translation>
         <source>Custom</source>
         <translation>Selvvalgt</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Ingen</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16644,7 +16677,7 @@ når pdf-dokument åpnes:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Ingen</translation>
+        <translation type="obsolete">Ingen</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -16673,6 +16706,11 @@ når pdf-dokument åpnes:</translation>
     <message>
         <source>Custom</source>
         <translation>Selvvalgt</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Ingen</translation>
     </message>
 </context>
 <context>

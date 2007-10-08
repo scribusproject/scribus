@@ -3526,6 +3526,10 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <source>Show Text Frame Columns</source>
         <translation>Wyświetlaj łamy ramki tekstowej</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -5592,6 +5596,10 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
         <source>Preflight Verifier</source>
         <translation>Weryfikator materiału wejściowego</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckerPrefsList</name>
@@ -6251,6 +6259,10 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>December</source>
         <translation>Grudzień</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -8323,7 +8335,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
@@ -8990,7 +9002,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -10205,7 +10217,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Włącza albo wyłącza drukowanie obiektu</translation>
+        <translation type="obsolete">Włącza albo wyłącza drukowanie obiektu</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -10665,6 +10677,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13109,15 +13125,15 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -15321,6 +15337,10 @@ is not exhaustive due to exceptions from called functions.
         <source>German (Swiss)</source>
         <translation>Niemiecki (Szwajcarski)</translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17134,7 +17154,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -17489,6 +17509,10 @@ Przesunięcie w pionie: %3</translation>
         <source>Display a console window</source>
         <translation>Wyświetlaj okno konsoli</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -17558,7 +17582,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Drukowanie:</translation>
+        <translation type="obsolete">Drukowanie:</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -17691,6 +17715,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Zawartość</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20233,6 +20261,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <source>Custom</source>
         <translation>Definicja użytkownika</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Brak</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -20389,7 +20422,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation type="obsolete">Brak</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -20418,6 +20451,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <source>Custom</source>
         <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Brak</translation>
     </message>
 </context>
 <context>

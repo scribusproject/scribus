@@ -2774,6 +2774,10 @@ is not passed, text flow is toggled.
         <source>Save Page as &amp;EPS...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributeBase</name>
@@ -4753,6 +4757,10 @@ It is a reserved name for transparent color</source>
         <source>Image has a DPI-Value less than %1 DPI</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5325,6 +5333,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>June</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -7073,7 +7085,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -7799,7 +7811,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -9300,7 +9312,7 @@ Corners:</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>オブジェクトの印刷の有効/無効</translation>
+        <translation type="obsolete">オブジェクトの印刷の有効/無効</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -9621,6 +9633,10 @@ Corners:</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11550,15 +11566,15 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -13668,6 +13684,10 @@ External Links
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14916,7 +14936,7 @@ Vertical gap: %3</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -15315,6 +15335,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -15404,7 +15428,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation>印刷: </translation>
+        <translation type="obsolete">印刷: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15465,6 +15489,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation>目次</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18391,7 +18419,7 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="obsolete">なし</translation>
+        <translation type="unfinished">なし</translation>
     </message>
     <message>
         <source>Text</source>
@@ -18594,7 +18622,7 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="obsolete">なし</translation>
+        <translation type="unfinished">なし</translation>
     </message>
     <message>
         <source>Indentation from the right for the whole paragraph</source>
@@ -18602,7 +18630,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">なし</translation>
+        <translation type="obsolete">なし</translation>
     </message>
 </context>
 <context>

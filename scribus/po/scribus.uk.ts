@@ -3816,6 +3816,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Show Text Frame Columns</source>
         <translation>Показати колонки текстової рамки</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -5558,6 +5562,10 @@ It is a reserved name for transparent color</source>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ігнорувати помилки</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -6132,6 +6140,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>December</source>
         <translation>Грудень</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">Постскрипт</translation>
     </message>
 </context>
 <context>
@@ -7757,7 +7769,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Постскрипт</translation>
+        <translation type="obsolete">Постскрипт</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
@@ -8340,7 +8352,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Постскрипт</translation>
+        <translation type="obsolete">Постскрипт</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -9390,7 +9402,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Дозволити або заборонити друкування об&apos;екта</translation>
+        <translation type="obsolete">Дозволити або заборонити друкування об&apos;екта</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -9829,6 +9841,10 @@ Corners:</source>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Натисніть і тримайте для вибору режиму установки міжрядкового інтервалу.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11577,15 +11593,15 @@ Scribus виконає пошук в системних директоріях �
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -13664,6 +13680,10 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14652,7 +14672,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>Постскрипт</translation>
+        <translation type="obsolete">Постскрипт</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -15003,6 +15023,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation>Показати вікно консолі</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -15072,7 +15096,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Друкувати: </translation>
+        <translation type="obsolete">Друкувати: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15153,6 +15177,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation>Зміст</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17310,6 +17338,11 @@ when PDF document is opened:</source>
         <source>Custom</source>
         <translation>Нестандартний</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -17458,7 +17491,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Нічого</translation>
+        <translation type="obsolete">Нічого</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -17487,6 +17520,11 @@ when PDF document is opened:</source>
     <message>
         <source>Custom</source>
         <translation>Нестандартний</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

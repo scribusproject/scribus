@@ -3669,6 +3669,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -5443,6 +5447,10 @@ It is a reserved name for transparent color</source>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;I 忽略错误</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -6021,6 +6029,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>December</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -7659,7 +7671,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
@@ -8313,7 +8325,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -9362,7 +9374,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation type="unfinished">启用或者禁用对象的打印</translation>
+        <translation type="obsolete">启用或者禁用对象的打印</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -9796,6 +9808,10 @@ Corners:</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11602,15 +11618,15 @@ Corners:</source>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="unfinished">PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="unfinished">PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation type="unfinished">PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -13735,6 +13751,10 @@ is not exhaustive due to exceptions from called functions.
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14733,7 +14753,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -15086,6 +15106,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -15155,7 +15179,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation>打印：</translation>
+        <translation type="obsolete">打印：</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15248,6 +15272,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation type="unfinished">内容</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17462,6 +17490,11 @@ when PDF document is opened:</source>
         <source>Custom</source>
         <translation>自定义</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -17610,7 +17643,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>无</translation>
+        <translation type="obsolete">无</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -17639,6 +17672,11 @@ when PDF document is opened:</source>
     <message>
         <source>Custom</source>
         <translation>自定义</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -2838,6 +2838,10 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4895,6 +4899,10 @@ It is a reserved name for transparent color</source>
         <source>&amp;Ignore Errors</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckerPrefsList</name>
@@ -5489,6 +5497,10 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>December</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7631,10 +7643,6 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
         <translation type="unfinished">Llwybr i&apos;r Ffeil Wynebfath</translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8324,10 +8332,6 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     <message>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9752,7 +9756,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>(An)alluogi argraffu&apos;r gwrthrych</translation>
+        <translation type="obsolete">(An)alluogi argraffu&apos;r gwrthrych</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
@@ -10182,6 +10186,10 @@ Co&amp;rneli:</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14054,18 +14062,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error Writing Preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16176,6 +16172,10 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18560,10 +18560,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">Llwytho...</translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some ICC profiles used by this document are not installed:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18907,6 +18903,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -18996,7 +18996,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="unfinished">Argraffu:</translation>
+        <translation type="obsolete">Argraffu:</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -19204,6 +19204,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21734,6 +21738,11 @@ when PDF document is opened:</source>
         <source>Custom</source>
         <translation type="unfinished">Addasiedig</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Dim</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -21906,7 +21915,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Dim</translation>
+        <translation type="obsolete">Dim</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -21935,6 +21944,11 @@ when PDF document is opened:</source>
     <message>
         <source>Custom: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Dim</translation>
     </message>
 </context>
 <context>

@@ -10545,6 +10545,10 @@ Mungesë suporti librarish tregohet me një *</translation>
         <source>Show Text Frame Columns</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -12634,6 +12638,10 @@ It is a reserved name for transparent color</source>
         <source>&amp;Ignore Errors</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckerPrefsList</name>
@@ -13228,6 +13236,10 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>December</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15470,10 +15482,6 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
         <translation type="unfinished">Shteg për te Kartelë Gërmash</translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16184,10 +16192,6 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     <message>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18005,7 +18009,7 @@ të Rrumbullakët:</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Aktivizo ose çaktivizo shtypjen e objektit</translation>
+        <translation type="obsolete">Aktivizo ose çaktivizo shtypjen e objektit</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
@@ -18311,6 +18315,10 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22174,18 +22182,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error Writing Preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24662,6 +24658,10 @@ is not exhaustive due to exceptions from called functions.
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -26984,10 +26984,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">Po ngarkoj...</translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some ICC profiles used by this document are not installed:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27331,6 +27327,10 @@ Vertical shift: %3</source>
         <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -27420,7 +27420,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="unfinished">Shtyp:</translation>
+        <translation type="obsolete">Shtyp:</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -27509,6 +27509,10 @@ Vertical shift: %3</source>
     <message>
         <source>Contents</source>
         <translation type="unfinished">Përmbajtje</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30036,6 +30040,11 @@ when PDF document is opened:</source>
         <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -30208,7 +30217,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Asnjë</translation>
+        <translation type="obsolete">Asnjë</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -30237,6 +30246,11 @@ when PDF document is opened:</source>
     <message>
         <source>Custom: </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Asnjë</translation>
     </message>
 </context>
 <context>

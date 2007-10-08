@@ -2710,6 +2710,10 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>st</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -4435,6 +4439,10 @@ It is a reserved name for transparent color</source>
         <source>&amp;Ignore Errors</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5006,6 +5014,10 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>December</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6568,10 +6580,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Available Fonts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7179,10 +7187,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8456,10 +8460,6 @@ Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable or disable printing of the object</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8641,6 +8641,10 @@ Corners:</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10368,18 +10372,6 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Postscript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12384,6 +12376,10 @@ External Links
         <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13377,10 +13373,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some ICC profiles used by this document are not installed:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13716,6 +13708,10 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Issues</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -13804,10 +13800,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Print: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13865,6 +13857,10 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15955,6 +15951,11 @@ when PDF document is opened:</source>
         <source>Custom: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16086,10 +16087,6 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dot</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16131,6 +16128,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -3198,6 +3198,10 @@ Manjkajoče knjižnice so prikazane s *</translation>
         <source>Show Text Frame Columns</source>
         <translation>Pokaži stolpce okvira z besedilom</translation>
     </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation type="unfinished">&amp;400%</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -5287,6 +5291,10 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Prezri napake</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckerPrefsList</name>
@@ -5916,6 +5924,10 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <source>December</source>
         <translation>December</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -8118,7 +8130,7 @@ uporabite ločljivost 72 dpi</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
@@ -8859,7 +8871,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -10423,7 +10435,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Vključi ali izključi možnost tiskanja predmeta</translation>
+        <translation type="obsolete">Vključi ali izključi možnost tiskanja predmeta</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -10774,6 +10786,10 @@ robovi:</translation>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Klinite in držite pritisnjeno za izbor načina razmikanja črt.</translation>
+    </message>
+    <message>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14981,15 +14997,15 @@ Ali jih želite uporabiti z novo različico?</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -17315,6 +17331,10 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
     <message>
         <source>German (Swiss)</source>
         <translation>nemški (Švica)</translation>
+    </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20141,7 +20161,7 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -20496,6 +20516,10 @@ Navpični zamik: %3</translation>
         <source>Display a console window</source>
         <translation>Pokaži okno konzole</translation>
     </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -20585,7 +20609,7 @@ Navpični zamik: %3</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Natisni: </translation>
+        <translation type="obsolete">Natisni: </translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -20806,6 +20830,10 @@ Navpični zamik: %3</translation>
     <message>
         <source>Contents</source>
         <translation>Vsebina</translation>
+    </message>
+    <message>
+        <source>Export: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23548,6 +23576,11 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <source>Custom</source>
         <translation>Po meri</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Brez</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -23724,7 +23757,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     </message>
     <message>
         <source>None</source>
-        <translation>Brez</translation>
+        <translation type="obsolete">Brez</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -23753,6 +23786,11 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <source>Custom: </source>
         <translation>Po meri: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished">Brez</translation>
     </message>
 </context>
 <context>
