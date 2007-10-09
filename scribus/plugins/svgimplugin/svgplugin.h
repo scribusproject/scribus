@@ -213,7 +213,7 @@ public:
 	QList<PageItem*> parsePolyline(const QDomElement &e);
 	QList<PageItem*> parseRect(const QDomElement &e);
 	QList<PageItem*> parseText(const QDomElement &e);
-	QList<PageItem*> parseTextNode(QDomNode& e, FPoint& currentPos);
+	QList<PageItem*> parseTextNode(const QDomNode& e, FPoint& currentPos);
 	QList<PageItem*> parseSwitch(const QDomElement &e);
 	QList<PageItem*> parseSymbol(const QDomElement &e);
 	QList<PageItem*> parseUse(const QDomElement &e);

@@ -739,7 +739,12 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			continue;
 		QString STag2 = b.tagName();
 		if ( STag2 == "g" )
+		{
+			QString id = b.attribute("id", "");
+			if (!id.isEmpty())
+				m_nodeMap.insert(id, b);
 			parseDefs(b);
+		}
 		else if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
 			parseGradient( b );
 		else if (STag2 == "clipPath")
@@ -823,7 +828,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 	}
 	groupLevel--;
 	SvgStyle *gc = m_gc.top();
-	if (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0))
+	if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
 	{
 		m_Doc->Items->takeAt(z);
 		delete neu;
@@ -1287,7 +1292,7 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 	return GElements;
 }
 
-QList<PageItem*> SVGPlug::parseTextNode(QDomNode& e, FPoint& currentPos)
+QList<PageItem*> SVGPlug::parseTextNode(const QDomNode& e, FPoint& currentPos)
 {
 	QList<PageItem*> GElements;
 	QString nodeId;
