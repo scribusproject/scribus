@@ -465,7 +465,12 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			continue;
 		QString STag2 = b.tagName();
 		if ( STag2 == "g" )
+		{
+			QString id = b.attribute("id", "");
+			if (!id.isEmpty())
+				m_nodeMap.insert(id, b);
 			parseDefs(b);
+		}
 		else if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
 			parseGradient( b );
 		else if ( b.hasAttribute("id") )
