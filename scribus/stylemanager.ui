@@ -4,11 +4,22 @@
   <property name="enabled" >
    <bool>true</bool>
   </property>
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>691</width>
+    <height>237</height>
+   </rect>
+  </property>
   <property name="sizePolicy" >
    <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>Style Manager</string>
   </property>
   <layout class="QGridLayout" >
    <property name="leftMargin" >
