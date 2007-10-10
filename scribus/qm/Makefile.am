@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm \
+EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.sv.qm scribus.fi.qm \
 scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm  \
 scribus.de.qm scribus.el.qm scribus.en_AU.qm scribus.en_GB.qm scribus.en_US.qm scribus.es.qm scribus.es_LA.qm \
 scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm \
@@ -44,11 +44,11 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.pl.qm $(libdir)/scribus/scribus.pl.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.pt_BR.qm $(libdir)/scribus/scribus.pt_BR.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.ru.qm $(libdir)/scribus/scribus.ru.qm
-	$(INSTALL_DATA) $(srcdir)/scribus.se.qm $(libdir)/scribus/scribus.se.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sk.qm $(libdir)/scribus/scribus.sk.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sl.qm $(libdir)/scribus/scribus.sl.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sq.qm $(libdir)/scribus/scribus.sq.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sr.qm $(libdir)/scribus/scribus.sr.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.sv.qm $(libdir)/scribus/scribus.sv.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.tr.qm $(libdir)/scribus/scribus.tr.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.th_TH.qm $(libdir)/scribus/scribus.th_TH.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.uk.qm $(libdir)/scribus/scribus.uk.qm
@@ -90,11 +90,11 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.pl.qm
 	-rm -f $(libdir)/scribus/scribus.pt_BR.qm
 	-rm -f $(libdir)/scribus/scribus.ru.qm
-	-rm -f $(libdir)/scribus/scribus.se.qm
 	-rm -f $(libdir)/scribus/scribus.sk.qm
 	-rm -f $(libdir)/scribus/scribus.sl.qm
 	-rm -f $(libdir)/scribus/scribus.sq.qm
 	-rm -f $(libdir)/scribus/scribus.sr.qm
+	-rm -f $(libdir)/scribus/scribus.sv.qm
 	-rm -f $(libdir)/scribus/scribus.tr.qm
 	-rm -f $(libdir)/scribus/scribus.th_TH.qm
 	-rm -f $(libdir)/scribus/scribus.uk.qm

@@ -35,11 +35,11 @@ scribus.nl.qm
 scribus.pl.qm
 scribus.pt_BR.qm
 scribus.ru.qm
-scribus.se.qm
 scribus.sk.qm
 scribus.sl.qm
 scribus.sq.qm
 scribus.sr.qm
+scribus.sv.qm
 scribus.th_TH.qm
 scribus.tr.qm
 scribus.uk.qm
