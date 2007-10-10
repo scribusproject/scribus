@@ -21,11 +21,12 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QGridLayout>
-#include <QPixmap>
-#include <QLabel>
 #include <QAbstractItemView>
+#include <QEvent>
 #include <QFont>
+#include <QGridLayout>
+#include <QLabel>
+#include <QPixmap>
 #include <QStringList>
 
 #include "sccombobox.h"
@@ -128,6 +129,14 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	languageChange();
+}
+
+void FontComboH::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void FontComboH::languageChange()

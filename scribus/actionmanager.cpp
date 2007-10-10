@@ -1200,6 +1200,14 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(triggered()), currView, SLOT(ToggleBookmark()) );
 }
 
+void ActionManager::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void ActionManager::languageChange()
 {
 	//File Menu

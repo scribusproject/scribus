@@ -29,6 +29,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMap>
 #include <QStringList>
+
+class QEvent;
+
 #include "ui_docsections.h"
 #include "pagestructs.h"
 
@@ -40,6 +43,8 @@ class DocSections : public QWidget, Ui::DocSections
 	public:
 		DocSections(QWidget* parent);
 		~DocSections();
+		
+		virtual void changeEvent(QEvent *e);
 		
 		virtual void setup(const DocumentSectionMap docSections, int maxPageIndex);
 		virtual void updateTable();

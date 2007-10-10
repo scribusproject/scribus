@@ -17,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 #include <QCloseEvent>
 
+class QEvent;
+
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scrspinbox.h"
@@ -31,6 +33,8 @@ class SCRIBUS_API NodePalette : public ScrPaletteBase
 public:
 	NodePalette( QWidget* parent);
 	~NodePalette() {};
+	
+	virtual void changeEvent(QEvent *e);
 
 	QToolButton* MoveNode;
 	QToolButton* MoveControl;

@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef MEASUREMENTS_H
 #define MEASUREMENTS_H
 
+class QEvent;
+
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
@@ -20,6 +22,8 @@ class SCRIBUS_API Measurements : public ScrPaletteBase
 public:
 	Measurements( QWidget* parent );
 	~Measurements() {};
+	
+	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void setValues(double x1, double y1, double x2, double y2, double angle, double length, int unitIndex);

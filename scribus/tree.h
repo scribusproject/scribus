@@ -11,8 +11,9 @@ for which a new license (GPL+exception) is in place.
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QResizeEvent>
-#include <QEvent>
 #include <QList>
+
+class QEvent;
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -48,6 +49,9 @@ class SCRIBUS_API Tree : public ScrPaletteBase
 
 public:
 	Tree( QWidget* parent );
+	
+	virtual void changeEvent(QEvent *e);
+	
 	void resizeEvent(QResizeEvent *r);
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);

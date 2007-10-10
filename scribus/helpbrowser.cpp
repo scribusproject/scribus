@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QDir>
 #include <QDomDocument>
+#include <QEvent>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHeaderView>
@@ -266,6 +267,14 @@ void HelpBrowser::setupLocalUI()
 void HelpBrowser::showLinkContents(const QString &link)
 {
 	statusBar()->showMessage(link);
+}
+
+void HelpBrowser::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void HelpBrowser::languageChange()

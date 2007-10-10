@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QEvent>
+
 #include "styleselect.h"
 
 #include "util_icon.h"
@@ -237,9 +239,20 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	resize(minimumSizeHint());
 }
 
+void StyleSelect::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void StyleSelect::languageChange()
 {
 	ShadowVal->languageChange();
+	OutlineVal->languageChange();
+	UnderlineVal->languageChange();
+	StrikeVal->languageChange();
 
 	underlineButton->setToolTip("");
 	underlineWordButton->setToolTip("");

@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QEvent>
+
 #include "bookpalette.h"
 
 BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
@@ -32,6 +34,14 @@ BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", fal
 	BView->setMinimumSize(QSize(100,150));
 	PaletteLayout->addWidget( BView );
 	languageChange();
+}
+
+void BookPalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void BookPalette::languageChange()

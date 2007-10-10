@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include <QComboBox>
 #include "scribusapi.h"
+
+class QEvent;
 class QFont;
 class QGridLayout;
 class QPixmap;
@@ -43,6 +45,8 @@ class SCRIBUS_API FontCombo : public QComboBox
 public:
 	FontCombo(QWidget* pa);
 	~FontCombo() {};
+	
+	
 
 	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 private:
@@ -61,6 +65,9 @@ class SCRIBUS_API FontComboH : public QWidget
 public:
 	FontComboH(QWidget* parent, bool labels=false);
 	~FontComboH() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	QString currentFont();
 	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 //QPixmap doesnt seem to include this for its mask() code
 #include <QBitmap>
 #include <QCursor>
+#include <QEvent>
 #include <QList>
 #include <QLabel>
 #include <QMenu>
@@ -846,6 +847,14 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 			ret.setMask( pixin.mask() );
 	}
 	return ret;
+}
+
+void PagePalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void PagePalette::languageChange()

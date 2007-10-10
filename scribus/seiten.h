@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
-#include <QEvent>
 #include <QHBoxLayout>
 #include <QImage>
 #include <QLabel>
@@ -27,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include <QSplitter>
 #include <QToolTip>
 #include <QVBoxLayout>
+
+class QEvent;
 
 
 #include "scribusapi.h"
@@ -153,6 +154,8 @@ class SCRIBUS_API PagePalette : public ScrPaletteBase
 public:
 	PagePalette(QWidget* parent);
 	~PagePalette() {};
+	
+	virtual void changeEvent(QEvent *e);
 	
 	//CB FIXME Put these in for now and hide the rest. What are these indicating?
 	const bool getNamen();

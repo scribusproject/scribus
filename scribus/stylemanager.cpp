@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QEvent>
 #include <QMenu>
 #include <QToolTip>
 #include <QMessageBox>
@@ -76,6 +78,14 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 
 	languageChange();
 	slotOk();
+}
+
+void StyleManager::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void StyleManager::languageChange()

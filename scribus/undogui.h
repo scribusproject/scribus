@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "scrpalettebase.h"
 
+class QEvent;
 class QMenu;
 class QListWidget;
 class QCheckBox;
@@ -71,7 +72,7 @@ public:
 
 	/** @brief Empties the undo stack representation. */
 	virtual void clear() = 0;
-
+	
 public slots:
 	/**
 	 * @brief Insert a new undo item.
@@ -341,6 +342,8 @@ public:
 
 	/** @brief Destroys the widget */
 	~UndoPalette();
+	
+	virtual void changeEvent(QEvent *e);
 
 	/** @brief Empties the undo stack for this widget. */
 	void clear();

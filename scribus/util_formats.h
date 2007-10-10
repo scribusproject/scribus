@@ -54,7 +54,35 @@ class SCRIBUS_API FormatsManager
 			SVG				= 2048,   // WMF files
 			AI				= 4096,   // Adobe Illustrator files
 		};
-
+	
+/*
+		enum ScDocumentFormatType
+		{
+			ALLDOCUMENTS	= 1|2,
+			TEXT			= 2|4,
+			SPREADSHEETS	= 2|4,
+			DTP				= 0,
+			WEB				= 0,
+			PRESENTATION	= 0,
+			FORMULAS		= 0,
+			SCRIBUSDOCS		= 1,
+			TEXT			= 2,
+			CSV				= 4,
+			HTML			= 8,
+			XML				= 16,
+			CSV				= 32,
+			CSV				= 64,
+			CSV				= 128,
+			CSV				= 256,
+			CSV				= 512,
+							= 1024,
+			OORG_WRITER		= 2048,
+			MS_WORD			= 4096,
+			ADOBE_INDESIGN	= 8192,
+			ADOBE_PAGEMAKER	= 16384,
+			QUARK_XPRESS	= 32768,
+		};
+*/
 		FormatsManager();
 		~FormatsManager();
 

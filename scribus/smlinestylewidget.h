@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMLINESTYLEWIDGET_H
 #define SMLINESTYLEWIDGET_H
 
+class QEvent;
+
 #include "scribusstructs.h"
 #include "styleitem.h"
 #include "ui_smlinestylewidget.h"
@@ -22,8 +24,10 @@ class SMLineStyleWidget : public QWidget, Ui::SMLineStyleWidget
 public:
 	SMLineStyleWidget();
 	~SMLineStyleWidget();
+	
+	virtual void changeEvent(QEvent *e);
+	
 	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
-
 	void languageChange();
 
 private:

@@ -30,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QList>
 
+class QEvent;
+
 #include "scribusapi.h"
 #include "scribusview.h"
 #include "scrpalettebase.h"
@@ -56,6 +58,8 @@ public:
 
 	virtual void setDoc( ScribusDoc* newDoc );
 	void unitChange();
+	
+	virtual void changeEvent(QEvent *e);
 	
 public slots:
 	void setGuide(int, double);

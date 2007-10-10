@@ -48,13 +48,14 @@ for which a new license (GPL+exception) is in place.
 #include <QDragMoveEvent>
 #include <QDropEvent>
 #include <QMouseEvent>
-#include <QEvent>
 #include <QPaintEvent>
 #include <QRect>
 #include <QRectF>
 #include <QWheelEvent>
 #include <QRubberBand>
 #include <QList>
+
+class QEvent;
 
 // application specific includes
 #include "observable.h"
@@ -327,6 +328,7 @@ private slots:
 
 public:
 	virtual void contentsWheelEvent ( QWheelEvent *ev );
+	virtual void changeEvent(QEvent *e);
 		
 protected: // Protected methods
 	virtual void enterEvent(QEvent *);

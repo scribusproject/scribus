@@ -22,17 +22,20 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gradienteditor.h"
-#include <QPainter>
-#include <QPixmap>
-#include <QCursor>
+
 #include <QApplication>
-#include <QPolygon>
-#include <QPaintEvent>
+#include <QCursor>
+#include <QEvent>
 #include <QFrame>
 #include <QLabel>
 #include <QMouseEvent>
-#include <QEvent>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QPolygon>
 #include <QToolTip>
+
+
 #include "scpainter.h"
 #include "fpoint.h"
 #include "util_icon.h"
@@ -304,6 +307,14 @@ void GradientEditor::changePos(int v)
 {
 	Preview->setActStep(static_cast<double>(v) / 100.0);
 	emit gradientChanged();
+}
+
+void GradientEditor::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void GradientEditor::languageChange()

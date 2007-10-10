@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <QToolTip>
+#include <QEvent>
 #include <QMenu>
 #include <QPixmap>
 
@@ -103,6 +104,14 @@ void ModeToolBar::SelShape(int s, int c, double *vals)
 	ShapeVals = vals;
 	m_ScMW->scrActions["toolsInsertShape"]->setChecked(false);
 	m_ScMW->scrActions["toolsInsertShape"]->setChecked(true);
+}
+
+void ModeToolBar::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void ModeToolBar::languageChange()

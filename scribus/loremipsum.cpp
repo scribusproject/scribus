@@ -14,21 +14,23 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "loremipsum.h"
 
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QPushButton>
-#include <QLabel>
-#include <QSpinBox>
-#include <QDomDocument>
-#include <QFile>
 #include <QDir>
+#include <QDomDocument>
+#include <QEvent>
+#include <QFile>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QLabel>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QSpinBox>
 #include <QString>
 #include <QStringList>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-#include <QHeaderView>
+#include <QVBoxLayout>
+
 
 #include "langmgr.h"
 #include "pageitem.h"
@@ -204,6 +206,14 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 LoremManager::~LoremManager()
 {
 	delete langmgr;
+}
+
+void LoremManager::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void LoremManager::languageChange()

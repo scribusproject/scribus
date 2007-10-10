@@ -10,11 +10,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 
+class QEvent;
 class QHBoxLayout;
-class QVBoxLayout;
-class ScrSpinBox;
 class QLabel;
 class QPushButton;
+class QVBoxLayout;
+
+class ScrSpinBox;
 
 
 /*! \brief A QInputDialog clone with ScrSpinBox widget.
@@ -27,6 +29,8 @@ class ScInputDialog : public QDialog
 public:
 	ScInputDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~ScInputDialog(){};
+	
+	virtual void changeEvent(QEvent *e);
 
 	QLabel* entryLabel;
 	ScrSpinBox* entrySpin;

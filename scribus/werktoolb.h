@@ -28,8 +28,10 @@ for which a new license (GPL+exception) is in place.
 #include "sctoolbar.h"
 #include <QAction>
 #include <QMenu>
-#include <QMenu>
 #include <QWidgetAction>
+
+class QEvent;
+
 class QToolButton;
 class AutoformButtonGroup;
 class ScribusMainWindow;
@@ -50,6 +52,8 @@ public:
 	int SubMode;
 	int ValCount;
 	double *ShapeVals;
+	
+	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void GetPolyProps();

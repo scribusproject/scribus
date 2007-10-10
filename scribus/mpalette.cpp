@@ -4314,6 +4314,14 @@ void Mpalette::spinboxFinishUserAction()
 	}
 }
 
+void Mpalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void Mpalette::languageChange()
 {
 	setWindowTitle( tr("Properties"));

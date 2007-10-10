@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "pageselector.h"
 
+#include <QEvent>
 #include <QLineEdit>
 #if OPTION_USE_QTOOLBUTTON
     #include <QToolButton>
@@ -239,6 +240,14 @@ void PageSelector::goFw()
 	if (APage > LastPG)
 		APage = LastPG;
 	GotoPgE(APage-1);
+}
+
+void PageSelector::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void PageSelector::languageChange()

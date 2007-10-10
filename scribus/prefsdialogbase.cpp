@@ -6,18 +6,19 @@ for which a new license (GPL+exception) is in place.
 */
 #include "prefsdialogbase.h"
 
+#include <QEvent>
+#include <QFileDialog>
+#include <QFont>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
+#include <QLabel>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QLabel>
 #include <QPushButton>
-#include <QToolTip>
-#include <QFont>
-#include <QFileDialog>
 #include <QScrollBar>
+#include <QSpacerItem>
 #include <QStackedWidget>
+#include <QToolTip>
+#include <QVBoxLayout>
 
 #include "commonstrings.h"
 #include "prefsmanager.h"
@@ -172,10 +173,15 @@ void PrefsDialogBase::itemSelected(QListWidgetItem* ic)
 		tabNameLabel->setText(ic->text());
 	}
 }
-/*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
+
+void PrefsDialogBase::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void PrefsDialogBase::languageChange()
 {
 	buttonOk->setText( CommonStrings::tr_OK );

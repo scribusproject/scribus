@@ -23,7 +23,8 @@ for which a new license (GPL+exception) is in place.
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#include <QtDebug>
+#include <QDebug>
+#include <QEvent>
 #include <QPushButton>
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -289,6 +290,14 @@ void UndoPalette::updateFromPrefs()
 	undoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->shortcut());
 	redoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->shortcut());
 	qDebug() << "UndoPalette::updateFromPrefs end";
+}
+
+void UndoPalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void UndoPalette::languageChange()

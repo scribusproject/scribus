@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMPSTYLEWIDGET_H
 #define SMPSTYLEWIDGET_H
 
+class QEvent;
+
 #include "ui_smpstylewidget.h"
 
 // #include "styles/styleset.h"
@@ -19,6 +21,8 @@ class SMPStyleWidget : public QWidget, Ui::SMPStyleWidget
 public:
 	SMPStyleWidget();
 	~SMPStyleWidget();
+	
+	virtual void changeEvent(QEvent *e);
 
 	void show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
 	void show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle> &pstylesAll, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);

@@ -32,7 +32,8 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QEvent>
+
+class QEvent;
 
 #include "scribusapi.h"
 #include "vgradient.h"
@@ -75,6 +76,9 @@ class SCRIBUS_API GradientEditor : public QLabel
 public:
 	GradientEditor(QWidget *pa);
 	~GradientEditor() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	GradientPreview *Preview;
 	QLabel *Desc;
 	QSpinBox *Position;

@@ -15,21 +15,22 @@ for which a new license (GPL+exception) is in place.
 
 #include "layers.h"
 
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QPixmap>
 #include <QCheckBox>
-#include <QToolButton>
-#include <QPushButton>
-#include <QSpinBox>
-#include <QLabel>
 #include <QColorDialog>
-#include <QToolTip>
+#include <QEvent>
+#include <QHBoxLayout>
 #include <QHeaderView>
+#include <QLabel>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QSpinBox>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QMessageBox>
+#include <QToolButton>
+#include <QToolTip>
+#include <QVBoxLayout>
 
 #include "sccombobox.h"
 #include "scribus.h"
@@ -477,6 +478,14 @@ void LayerPalette::setActiveLayer(int row)
 	}
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
+}
+
+void LayerPalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void LayerPalette::languageChange()

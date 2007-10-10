@@ -4,6 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QEvent>
+
 #include "smcstylewidget.h"
 #include "util_icon.h"
 #include "util.h"
@@ -54,6 +57,14 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget()
 	strokeColor_->setEnabled(false);
 
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
+}
+
+void SMCStyleWidget::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void SMCStyleWidget::languageChange()

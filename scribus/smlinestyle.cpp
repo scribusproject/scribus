@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QEvent>
+
 #include "smlinestyle.h"
 #include "smlinestylewidget.h"
 #include "scribus.h"
@@ -324,6 +326,14 @@ void SMLineStyle::nameChanged(const QString &newName)
 	}
 
 	deleted_.append(RemoveItem(oldName, newName));
+}
+
+void SMLineStyle::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void SMLineStyle::languageChange()

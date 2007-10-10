@@ -14,16 +14,17 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "sclayer.h"
 
-class QHBoxLayout;
-class QVBoxLayout;
-class QSpinBox;
-class QLabel;
 class CheckBox;
-class QToolButton;
+class QEvent;
+class QHBoxLayout;
+class QHeaderView;
+class QLabel;
 class QPushButton;
+class QSpinBox;
 class QTableWidget;
 class QTableWidgetItem;
-class QHeaderView;
+class QToolButton;
+class QVBoxLayout;
 class ScComboBox;
 class ScribusDoc;
 
@@ -34,6 +35,9 @@ class SCRIBUS_API LayerPalette : public ScrPaletteBase
 public:
 	LayerPalette(QWidget* parent);
 	~LayerPalette() {};
+	
+	
+	virtual void changeEvent(QEvent *e);
 
 	void setDoc(ScribusDoc* doc);
 	void rebuildList();

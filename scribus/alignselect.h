@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QButtonGroup>
 
+class QEvent;
+
 #include "scribusapi.h"
 
 class SCRIBUS_API AlignSelect : public QWidget
@@ -24,6 +26,8 @@ public:
 	void setStyle(int s);
 	int getStyle();
 	int selectedId();
+	
+	virtual void changeEvent(QEvent *e);
 
 	QButtonGroup* buttonGroup;
 	int selected;

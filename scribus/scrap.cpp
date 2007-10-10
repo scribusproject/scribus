@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 **
 ****************************************************************************/
 #include "scrap.h"
+
+#include <QEvent>
 #include <QDataStream>
 #include <QApplication>
 #include <QHBoxLayout>
@@ -1303,6 +1305,14 @@ void Biblio::CleanUpTemp()
 			}
 			dd.rmdir(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
 		}
+	}
+}
+
+void Biblio::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
 	}
 }
 

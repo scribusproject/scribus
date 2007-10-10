@@ -9,6 +9,9 @@ for which a new license (GPL+exception) is in place.
 #define STYLEMANAGER_H
 
 #include <QPointer>
+
+class QEvent;
+
 #include "scrpalettebase.h"
 #include "ui_stylemanager.h"
 
@@ -24,6 +27,8 @@ class SCRIBUS_API StyleManager : public ScrPaletteBase, Ui::StyleManager
 public:
 	StyleManager(QWidget *parent = 0, const char *name = "StyleManager");
 	~StyleManager();
+	
+	virtual void changeEvent(QEvent *e);
 
 	void addStyle(StyleItem *item);
 	void updateColorList();

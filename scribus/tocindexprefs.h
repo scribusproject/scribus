@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QStringList>
 
+class QEvent;
+
 #include "ui_tocindexprefs.h"
 #include "page.h"
 #include "pagestructs.h"
@@ -35,6 +37,8 @@ class TOCIndexPrefs : public QWidget, Ui::TOCIndexPrefs
 public:
     TOCIndexPrefs( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
     ~TOCIndexPrefs();
+	
+	virtual void changeEvent(QEvent *e);
 
     virtual void enableGUIWidgets();
     virtual ToCSetupVector * getNewToCs();

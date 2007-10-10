@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVariant>
 #include <QWidgetAction>
 
+class QEvent;
 class QGridLayout;
 class QHBoxLayout;
 class QFrame;
@@ -202,6 +203,9 @@ class SCRIBUS_API SToolBColorF : public QToolBar
 public:
 	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* FillIcon;
 	ColorCombo* TxFill;
@@ -227,6 +231,9 @@ class SCRIBUS_API SToolBColorS : public QToolBar
 public:
 	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* StrokeIcon;
 	ColorCombo* TxStroke;
@@ -253,6 +260,9 @@ class SCRIBUS_API SToolBStyle : public QToolBar
 public:
 	SToolBStyle(QMainWindow* parent);
 	~SToolBStyle() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	StyleSelect* SeStyle;
 	QLabel* trackingLabel;
 	ScrSpinBox* Extra;
@@ -290,6 +300,9 @@ class SCRIBUS_API SToolBAlign : public QToolBar
 public:
 	SToolBAlign(QMainWindow* parent);
 	~SToolBAlign() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	AlignSelect* GroupAlign;
 	ParaStyleComboBox *paraStyleCombo;
 	QAction* groupAlignAction;
@@ -312,6 +325,9 @@ class SCRIBUS_API SToolBFont : public QToolBar
 public:
 	SToolBFont(QMainWindow* parent);
 	~SToolBFont() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	FontCombo* Fonts;
 	ScrSpinBox* ChScale;
 	ScrSpinBox* ChScaleV;
@@ -353,6 +369,8 @@ public:
 	StoryEditor( QWidget* parent );
 // 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor();
+	
+	virtual void changeEvent(QEvent *e);
 
 	void setCurrentDocumentAndItem(ScribusDoc *doc=NULL, PageItem *item=NULL);
 

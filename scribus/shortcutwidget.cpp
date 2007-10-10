@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QEvent>
 #include <QToolTip>
 #include <QKeyEvent>
 
@@ -26,6 +28,14 @@ ShortcutWidget::ShortcutWidget(QWidget *parent)
 
 	connect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
+}
+
+void ShortcutWidget::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void ShortcutWidget::languageChange()

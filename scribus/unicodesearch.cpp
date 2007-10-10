@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <QEvent>
 #include <QFile>
 #include <QTableWidget>
 #include <QLineEdit>
@@ -40,6 +42,14 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent)
 // 	connect(m_searchDialog->unicodeList, SIGNAL(itemPressed(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
 	connect(m_searchDialog->unicodeList, SIGNAL(cellDoubleClicked(int, int)),
 			this, SLOT(unicodeList_chosen(int, int)));
+}
+
+void UnicodeChooseButton::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void UnicodeChooseButton::languageChange()

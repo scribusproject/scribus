@@ -42,6 +42,8 @@ for which a new license (GPL+exception) is in place.
 #include <QVariant>
 #include <QWidget>
 
+class QEvent;
+
 #include "ui_helpbrowser.h"
 #include "scribusapi.h"
 #include "util.h"
@@ -65,6 +67,9 @@ public:
 	HelpBrowser(QWidget* parent);
 	HelpBrowser(QWidget* parent, const QString& caption, const QString& guiLangage="en", const QString& jumpToSection="", const QString& jumpToFile="");
 	~HelpBrowser();
+	
+	
+	virtual void changeEvent(QEvent *e);
 
 	/*! \brief History menu. It's public because of history reader - separate class */
 	QMenu* histMenu;

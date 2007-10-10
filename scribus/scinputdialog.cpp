@@ -6,11 +6,14 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scinputdialog.h"
 
+#include <QEvent>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
 #include <QLabel>
 #include <QPushButton>
+#include <QSpacerItem>
+#include <QVBoxLayout>
+
+
 #include "scrspinbox.h"
 #include "util.h"
 #include "util_icon.h"
@@ -60,6 +63,14 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt:
 	// signals and slots connections
 	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+}
+
+void ScInputDialog::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void ScInputDialog::languageChange()

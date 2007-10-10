@@ -33,6 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QActionGroup>
 
+class QEvent;
+
 #include "scribusapi.h"
 #include "scraction.h"
 
@@ -52,6 +54,9 @@ class SCRIBUS_API ActionManager : public QObject
 	public:
 		ActionManager ( QObject * parent );
 		~ActionManager();
+		
+		virtual void changeEvent(QEvent *e);
+		
 		void init(ScribusMainWindow *);
 		static void createDefaultShortcuts();
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};

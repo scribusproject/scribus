@@ -12,6 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QPaintEvent>
+
+class QEvent;
+
 #include "fpointarray.h"
 #include "scribusapi.h"
 
@@ -68,6 +71,9 @@ class SCRIBUS_API CurveWidget : public QWidget
 public:
 	CurveWidget(QWidget* parent);
 	~CurveWidget() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	void setLinear(bool setter);
 	QPushButton* invertButton;
 	QPushButton* resetButton;

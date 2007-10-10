@@ -10,26 +10,28 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidgetItem>
 #include <QLineEdit>
 
-class QToolBox;
-class QMenu;
-class QStackedWidget;
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QFrame;
-class QLabel;
-class QStackedWidget;
-class QRadioButton;
-class QCheckBox;
-class QComboBox;
-class QGroupBox;
 class QButtonGroup;
-class QPushButton;
-class QSpinBox;
-class QWidget;
-class QFocusEvent;
+class QCheckBox;
 class QCloseEvent;
+class QComboBox;
 class QEvent;
+class QEvent;
+class QFocusEvent;
+class QFrame;
+class QGridLayout;
+class QGroupBox;
+class QHBoxLayout;
+class QLabel;
+class QMenu;
+class QPushButton;
+class QRadioButton;
+class QSpinBox;
+class QStackedWidget;
+class QStackedWidget;
+class QToolBox;
+class QVBoxLayout;
+class QWidget;
+
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -127,7 +129,9 @@ public:
 	Mpalette(QWidget* parent);
 	~Mpalette() {};
 
+	virtual void changeEvent(QEvent *e);
 	virtual void closeEvent(QCloseEvent *closeEvent);
+	
 	void updateColorSpecialGradient();
 	const VGradient getFillGradient();
 	void updateColorList();

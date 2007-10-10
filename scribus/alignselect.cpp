@@ -4,7 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
 #include "alignselect.h"
+#include <QEvent>
 #include <QPixmap>
 #include <QToolTip>
 #include "util_icon.h"
@@ -87,6 +89,14 @@ void AlignSelect::setTypeStyle(int a)
 int AlignSelect::selectedId()
 {
 	return selected;
+}
+
+void AlignSelect::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void AlignSelect::languageChange()

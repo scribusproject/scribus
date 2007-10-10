@@ -10,12 +10,14 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 #include <QListWidget>
 #include <QMap>
-class QVBoxLayout;
+
+class QEvent;
 class QHBoxLayout;
 class QLabel;
+class QListWidgetItem;
 class QPushButton;
 class QStackedWidget;
-class QListWidgetItem;
+class QVBoxLayout;
 
 #include "scribusapi.h"
 
@@ -37,6 +39,9 @@ class SCRIBUS_API PrefsDialogBase : public QDialog
 public:
 	PrefsDialogBase( QWidget* parent = 0 );
 	~PrefsDialogBase() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	int addItem(QString name, QPixmap icon, QWidget *tab);
 //	void arrangeIcons();
 	QStackedWidget* prefsWidgets;

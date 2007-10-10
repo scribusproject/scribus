@@ -8,17 +8,20 @@ for which a new license (GPL+exception) is in place.
 
 #include <cmath>
 
-#include <QHBoxLayout>
-#include <QPixmap>
-#include <QPainter>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QPushButton>
-#include <QCursor>
-#include <QMessageBox>
-#include <QToolTip>
 #include <QApplication>
+#include <QCursor>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <QMessageBox>
+#include <QPainter>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSpacerItem>
 #include <QTextStream>
+#include <QToolTip>
+#include <QVBoxLayout>
+
+
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "prefsfile.h"
@@ -482,10 +485,14 @@ void CurveWidget::doSave()
 	}
 }
 
-/*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
+void CurveWidget::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void CurveWidget::languageChange()
 {
 	invertButton->setText( QString::null );

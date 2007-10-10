@@ -1871,6 +1871,14 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 	}
 }
 
+void ScribusMainWindow::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 {
 	QWidgetList windows = wsp->windowList();
@@ -8958,6 +8966,7 @@ void ScribusMainWindow::insertSampleText()
 
 void ScribusMainWindow::languageChange()
 {
+	qDebug() << "void ScribusMainWindow::languageChange()";
 	if (ScCore->initialized())
 	{
 		CommonStrings::languageChange();

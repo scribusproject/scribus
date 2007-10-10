@@ -9,6 +9,9 @@ for which a new license (GPL+exception) is in place.
 #define SHORTCUTWIDGET_H
 
 #include <QWidget>
+
+class QEvent;
+
 #include "ui_shortcutwidget.h"
 
 // class Keys;
@@ -22,6 +25,9 @@ class ShortcutWidget : public QWidget, public Ui::ShortcutWidget
 public:
 	ShortcutWidget(QWidget *parent = 0);
 	~ShortcutWidget();
+	
+	
+	virtual void changeEvent(QEvent *e);
 
 	bool event( QEvent* ev );
 	void keyPressEvent(QKeyEvent *k);

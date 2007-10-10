@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMLINESTYLE_H
 #define SMLINESTYLE_H
 
+class QEvent;
+
 #include "scribusstructs.h"
 #include "styleitem.h"
 
@@ -21,6 +23,9 @@ class SMLineStyle : public StyleItem
 public:
 	SMLineStyle();
 	~SMLineStyle();
+	
+	virtual void changeEvent(QEvent *e);
+	
 	QTabWidget* widget();
 	QString typeNamePlural();
 	QString typeNameSingular();

@@ -7,15 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLESELECT_H
 #define STYLESELECT_H
 
-#include <QToolTip>
-#include <QMenu>
-#include <QLabel>
-#include <QPixmap>
+#include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QLabel>
+#include <QMenu>
+#include <QPixmap>
 #include <QToolButton>
-#include <QFrame>
+#include <QToolTip>
 #include <QWidgetAction>
+
+class QEvent;
+
 #include "scrspinbox.h"
 #include "scribusapi.h"
 
@@ -26,6 +29,7 @@ class SCRIBUS_API StrikeValues : public QFrame
 public:
 	StrikeValues( QWidget* parent );
 	~StrikeValues() {};
+	
 	ScrSpinBox* LPos;
 	ScrSpinBox* LWidth;
 	QLabel* LPosTxt;
@@ -45,6 +49,7 @@ class SCRIBUS_API UnderlineValues : public QFrame
 public:
 	UnderlineValues( QWidget* parent );
 	~UnderlineValues() {};
+	
 	ScrSpinBox* LPos;
 	ScrSpinBox* LWidth;
 	QLabel* LPosTxt;
@@ -64,6 +69,7 @@ class SCRIBUS_API OutlineValues : public QFrame
 public:
 	OutlineValues( QWidget* parent );
 	~OutlineValues() {};
+	
 	ScrSpinBox* LWidth;
 	QLabel* LWidthTxt;
 
@@ -81,6 +87,7 @@ class SCRIBUS_API ShadowValues : public QFrame
 public:
 	ShadowValues( QWidget* parent );
 	~ShadowValues() {};
+	
 	ScrSpinBox* Xoffset;
 	ScrSpinBox* Yoffset;
 	QLabel* XoffsetTxt;
@@ -101,6 +108,9 @@ class SCRIBUS_API StyleSelect : public QWidget
 public:
 	StyleSelect(QWidget* parent);
 	~StyleSelect() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	void setStyle(int s);
 	int getStyle();
 	ShadowValues* ShadowVal;

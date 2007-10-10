@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QWidget>
 
+class QEvent;
 class QHBoxLayout;
 class QLineEdit;
 class QPushButton;
@@ -27,6 +28,9 @@ class SCRIBUS_API PageSelector : public QWidget
 public:
 	PageSelector( QWidget* parent, int maxPg );
 	~PageSelector() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	bool hasFocus();
 	void focusPolicy(Qt::FocusPolicy policy);
 

@@ -23,23 +23,25 @@ for which a new license (GPL+exception) is in place.
 
 #include "cpalette.h"
 
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QStandardItem>
 #include <QAbstractItemView>
+#include <QEvent>
+#include <QFont>
+#include <QFrame>
+#include <QGridLayout>
 #include <QGroupBox>
-#include <QToolButton>
-#include <QSpinBox>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QFrame>
 #include <QPixmap>
 #include <QRect>
-#include <QFont>
+#include <QSpacerItem>
+#include <QSpinBox>
+#include <QStandardItem>
+#include <QToolButton>
 #include <QToolTip>
+#include <QVBoxLayout>
+
 
 #include "colorlistbox.h"
 #include "sccombobox.h"
@@ -806,6 +808,14 @@ void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+}
+
+void Cpalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void Cpalette::languageChange()

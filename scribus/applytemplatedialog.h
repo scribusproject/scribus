@@ -21,16 +21,17 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "page.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QSpacerItem;
-class QLabel;
-class QComboBox;
-class QGroupBox;
-class QRadioButton;
 class QCheckBox;
-class QSpinBox;
+class QComboBox;
+class QEvent;
+class QGroupBox;
+class QHBoxLayout;
+class QLabel;
 class QPushButton;
+class QRadioButton;
+class QSpacerItem;
+class QSpinBox;
+class QVBoxLayout;
 
 class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 {
@@ -39,6 +40,8 @@ class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 public:
 	ApplyMasterPageDialog( QWidget* parent = 0 );
 	~ApplyMasterPageDialog();
+	
+	virtual void changeEvent(QEvent *e);
 
 	QLabel* masterPageLabel;
 	QComboBox* masterPageComboBox;

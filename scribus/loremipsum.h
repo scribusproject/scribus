@@ -21,16 +21,17 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
+class QEvent;
 class QGridLayout;
-class QSpacerItem;
-class QTreeWidget;
+class QHBoxLayout;
 class QLabel;
-class QSpinBox;
 class QPushButton;
+class QSpacerItem;
+class QSpinBox;
 class QString;
 class QStringList;
+class QTreeWidget;
+class QVBoxLayout;
 
 class ScribusDoc;
 class LanguageManager;
@@ -86,6 +87,9 @@ public:
 	/*! Reads all XML files in cfg directory. */
 	LoremManager(ScribusDoc* doc, QWidget* parent = 0);
 	~LoremManager();
+	
+	
+	virtual void changeEvent(QEvent *e);
 
 	//! all lorems with Public Name -> filename structure
 	QMap<QString,QString> availableLorems;

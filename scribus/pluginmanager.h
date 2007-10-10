@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QMap>
 
+class QEvent;
+
 #include "scribusapi.h"
 
 class ScribusDoc;
@@ -122,6 +124,8 @@ public:
 	 */
 	QStringList pluginNames(bool includeDisabled = false,
 									 const char* inherits = 0) const;
+	
+	virtual void changeEvent(QEvent *e);
 
 public slots:
 

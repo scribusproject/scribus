@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QHideEvent>
 
+class QEvent;
+
 #include "ui_unicodesearch.h"
 #include "scribusapi.h"
 #include "fonts/scface.h"
@@ -35,6 +37,7 @@ public:
 	\param modal is modal flag */
 	UnicodeSearch(QWidget* parent = 0);
 	~UnicodeSearch(){};
+	
 	/*! \brief Check if is the m_unicodeMap filled and perform data read if it's empty.
 	It's in separate method to keep the constructor lightweight. This method is
 	called first time user requests the dialog. */
@@ -94,6 +97,9 @@ public:
 	*/
 	UnicodeChooseButton(QWidget * parent);
 	~UnicodeChooseButton(){};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	//! \brief Set currently used font. Passed in the m_searchDialog here only.
 	void setFont(ScFace f) { m_searchDialog->setFont(f); };
 

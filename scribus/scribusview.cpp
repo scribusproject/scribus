@@ -26,31 +26,31 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include <QColor>
+#include <QDrag>
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QEvent>
+#include <QFile>
+#include <QFileInfo>
 #include <QFont>
 #include <QFontMetrics>
+#include <QImage>
+#include <QImageReader>
+#include <QLabel>
+#include <QList>
+#include <QMenu>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QPaintEvent>
 #include <QPixmap>
 #include <QPolygon>
-#include <QStringList>
-#include <QImage>
-#include <QFileInfo>
-#include <QFile>
 #include <QStack>
-//Added by qt3to4:
+#include <QStringList>
 #include <QWheelEvent>
-#include <QPaintEvent>
-#include <QDrag>
-#include <QDragMoveEvent>
-#include <QDragLeaveEvent>
-#include <QMimeData>
-#include <QLabel>
-#include <QDropEvent>
-#include <QMenu>
-#include <QMenu>
-#include <QDragEnterEvent>
-#include <QList>
-#include <QMouseEvent>
-#include <QImageReader>
 #include <QWidgetAction>
+
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -315,6 +315,14 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
 	dragTimer->stop();
 	dragTimerFired = false;
+}
+
+void ScribusView::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void ScribusView::languageChange()

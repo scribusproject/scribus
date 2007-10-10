@@ -25,6 +25,9 @@ for which a new license (GPL+exception) is in place.
 #define BOOKPALETTE_H
 
 #include <QVBoxLayout>
+
+class QEvent;
+
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "bookmwin.h"
@@ -48,6 +51,9 @@ public:
 	*/
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	BookMView	*BView;
 	
 public slots:

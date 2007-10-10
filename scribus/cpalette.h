@@ -26,19 +26,20 @@ for which a new license (GPL+exception) is in place.
 
 #include <QWidget>
 #include <QPointer>
-class QHBoxLayout;
-class QVBoxLayout;
+class QComboBox;
+class QEvent;
+class QFrame;
 class QGridLayout;
-class QSpacerItem;
 class QGroupBox;
-class QToolButton;
-class QSpinBox;
+class QHBoxLayout;
 class QLabel;
 class QListWidget;
 class QListWidgetItem;
-class QFrame;
 class QPixmap;
-class QComboBox;
+class QSpacerItem;
+class QSpinBox;
+class QToolButton;
+class QVBoxLayout;
 #include "scribusapi.h"
 #include "gradienteditor.h"
 #include "scribusdoc.h"
@@ -62,6 +63,8 @@ class SCRIBUS_API Cpalette : public QWidget
 public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
+	
+	virtual void changeEvent(QEvent *e);
 
 	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);

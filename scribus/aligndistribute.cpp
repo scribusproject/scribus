@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "aligndistribute.h"
 
 #include <QComboBox>
+#include <QEvent>
 #include <QImage>
 #include <QLabel>
 #include <QLayout>
@@ -72,6 +73,14 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 
 AlignDistributePalette::~AlignDistributePalette()
 {
+}
+
+void AlignDistributePalette::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void AlignDistributePalette::languageChange()

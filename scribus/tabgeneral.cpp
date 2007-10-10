@@ -4,22 +4,21 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <QComboBox>
-#include <QStringList>
-#include <QPushButton>
-#include <QGroupBox>
 #include <QCheckBox>
-#include <QSpinBox>
+#include <QComboBox>
+#include <QFileDialog>
+#include <QGroupBox>
 #include <QLineEdit>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QStringList>
 #include <QStyleFactory>
 #include <QToolTip>
-#include <QFileDialog>
-
-#include "tabgeneral.h"
 
 #include "prefsmanager.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
+#include "tabgeneral.h"
 #include "util.h"
 
 extern ScribusQApp* ScQApp;

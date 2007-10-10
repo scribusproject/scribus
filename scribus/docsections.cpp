@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QCheckBox>
 #include <QComboBox>
+#include <QEvent>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QTableWidget>
@@ -54,6 +55,14 @@ DocSections::DocSections( QWidget* parent )
 
 DocSections::~DocSections()
 {
+}
+
+void DocSections::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void DocSections::languageChange()

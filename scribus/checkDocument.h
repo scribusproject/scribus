@@ -9,12 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMap>
 
-class QVBoxLayout;
+class QEvent;
 class QHBoxLayout;
-class QTreeWidget;
-class QTreeWidgetItem;
 class QLabel;
 class QPushButton;
+class QTreeWidget;
+class QTreeWidgetItem;
+class QVBoxLayout;
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -34,6 +35,8 @@ class SCRIBUS_API CheckDocument : public ScrPaletteBase
 public:
 	CheckDocument( QWidget* parent, bool modal );
 	~CheckDocument() {};
+	
+	virtual void changeEvent(QEvent *e);
 
 	/*! \brief State of the P.V. */
 	enum CheckMode { checkNULL, checkPDF, checkEPS, checkPrint, checkPrintPreview };

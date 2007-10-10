@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 
 #include <QDir>
+#include <QEvent>
 
 #include "scconfig.h"
 
@@ -474,6 +475,14 @@ int PluginManager::platformDllSearchFlags()
 #else
 	return (QDir::Files | QDir::Executable | QDir::NoSymLinks);
 #endif
+}
+
+void PluginManager::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void PluginManager::languageChange()

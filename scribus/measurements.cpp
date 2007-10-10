@@ -6,9 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 #include "measurements.h"
 
+#include <QEvent>
 #include <QGridLayout>
 #include <QLabel>
 #include <QString>
+
 #include <cmath>
 #include "units.h"
 
@@ -108,6 +110,14 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 	dYData->setText(tmp.setNum(qRound((y2-y1)*uXm) / divisor, 'f', precision)+unitSuffix);
 	angleData->setText(tmp.setNum(fabs(rr), 'f', precision)+ trUtf8(" °"));
 	lengthData->setText(tmp.setNum(qRound(len*uXm) / divisor, 'f', precision)+unitSuffix);
+}
+
+void Measurements::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void Measurements::languageChange()

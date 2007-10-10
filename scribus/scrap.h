@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDragEnterEvent>
 #include <QListWidget>
 
+class QEvent;
+
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
@@ -65,6 +67,9 @@ class SCRIBUS_API Biblio : public ScrPaletteBase
 public:
 	Biblio( QWidget* parent);
 	~Biblio() {};
+	
+	virtual void changeEvent(QEvent *e);
+	
 	void ObjFromCopyAction(QString text);
 	void adjustReferences(QString nam);
 	void CleanUpTemp();

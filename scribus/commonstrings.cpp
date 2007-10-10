@@ -19,8 +19,9 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
+#include <QEvent>
+
 #include "commonstrings.h"
-//#include "commonstrings.moc"
 
 QString CommonStrings::_Apply      = "";
 QString CommonStrings::tr_Apply    = "";
@@ -178,6 +179,14 @@ const QString& CommonStrings::untranslatePageSetLocString(const QString &trStrin
 	if (trString==trPageLocRight)
 		return pageLocRight;
 	return trString;
+}
+
+void CommonStrings::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void CommonStrings::languageChange()

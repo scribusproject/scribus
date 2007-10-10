@@ -907,6 +907,15 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	languageChange();
 }
 
+void SToolBColorF::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
+
 void SToolBColorF::languageChange()
 {
 	TxFill->setToolTip("");
@@ -968,6 +977,14 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	connect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
 
 	languageChange();
+}
+
+void SToolBColorS::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void SToolBColorS::languageChange()
@@ -1034,6 +1051,14 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
 
 	languageChange();
+}
+
+void SToolBStyle::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void SToolBStyle::languageChange()
@@ -1141,6 +1166,14 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 	languageChange();
 }
 
+void SToolBAlign::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void SToolBAlign::languageChange()
 {
 	paraStyleCombo->setToolTip("");
@@ -1200,6 +1233,14 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
 	connect(Size, SIGNAL(valueChanged(double)), this, SIGNAL(NewSize(double)));
+}
+
+void SToolBFont::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void SToolBFont::languageChange()
@@ -1685,6 +1726,14 @@ void StoryEditor::buildGUI()
 //	EditorBar->editor = Editor;
 	Editor->installEventFilter(this);
 	languageChange();
+}
+
+void StoryEditor::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void StoryEditor::languageChange()

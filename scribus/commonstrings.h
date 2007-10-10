@@ -24,6 +24,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 #include <QString>
+
+class QEvent;
+
 #include "scribusapi.h"
 
 /*! \brief A simple common strings class to reduce the string count and ease
@@ -47,6 +50,8 @@ class SCRIBUS_API CommonStrings : public QObject
 	Q_OBJECT
 public:
 	CommonStrings();
+	
+	virtual void changeEvent(QEvent *e);
 
 	/**
 	 * \brief Return the translated Page Set string if given the "untranslated" one

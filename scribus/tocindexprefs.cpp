@@ -21,17 +21,20 @@ for which a new license (GPL+exception) is in place.
 
 #include "tocindexprefs.h"
 
-#include <QVariant>
-#include <QPushButton>
-#include <QTabWidget>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QEvent>
+#include <QLabel>
+#include <QLayout>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QLabel>
-#include <QCheckBox>
-#include <QLayout>
+#include <QPushButton>
+#include <QTabWidget>
 #include <QToolTip>
+#include <QVariant>
+
+
 #include "page.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
@@ -74,10 +77,14 @@ TOCIndexPrefs::~TOCIndexPrefs()
 	// no need to delete child widgets, Qt does it all for us
 }
 
-/*
-*  Sets the strings of the subwidgets using the current
-*  language.
-*/
+void TOCIndexPrefs::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void TOCIndexPrefs::languageChange()
 {
 	setWindowTitle( tr( "Table of Contents and Indexes" ) );

@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QEvent>
+
 #include "smpstylewidget.h"
 #include "units.h"
 #include "util.h"
@@ -43,6 +45,14 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 void SMPStyleWidget::slotLineSpacingModeChanged(int i)
 {
 	lineSpacing_->setEnabled(i == 0);
+}
+
+void SMPStyleWidget::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
 }
 
 void SMPStyleWidget::languageChange()

@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QEvent>
 #include <QHeaderView>
 #include <QHelpEvent>
 #include <QImage>
@@ -1150,6 +1151,15 @@ void Tree::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *s
 		}
 	}
 }
+
+void Tree::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 
 void Tree::languageChange()
 {

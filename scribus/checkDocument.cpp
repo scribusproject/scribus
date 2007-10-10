@@ -6,17 +6,19 @@ for which a new license (GPL+exception) is in place.
 */
 #include "checkDocument.h"
 
+#include <QEvent>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
+#include <QHeaderView>
+#include <QImage>
 #include <QLabel>
+#include <QPixmap>
 #include <QPushButton>
+#include <QSpacerItem>
+#include <QToolTip>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-#include <QHeaderView>
-#include <QPixmap>
-#include <QImage>
-#include <QToolTip>
+#include <QVBoxLayout>
+
 
 #include "sccombobox.h"
 #include "scribuscore.h"
@@ -807,10 +809,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
 }
 
-/*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
+void CheckDocument::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void CheckDocument::languageChange()
 {
 	setWindowTitle( tr( "Preflight Verifier" ) );

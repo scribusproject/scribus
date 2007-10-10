@@ -14,17 +14,18 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "applytemplatedialog.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QSpacerItem>
-#include <QLabel>
-#include <QComboBox>
-#include <QGroupBox>
-#include <QRadioButton>
 #include <QCheckBox>
-#include <QSpinBox>
+#include <QComboBox>
+#include <QEvent>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QLabel>
 #include <QPushButton>
+#include <QRadioButton>
+#include <QSpacerItem>
+#include <QSpinBox>
 #include <QToolTip>
+#include <QVBoxLayout>
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -251,10 +252,14 @@ int ApplyMasterPageDialog::getToPage()
 	return -1;
 }
 
-/*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
+void ApplyMasterPageDialog::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+}
+
 void ApplyMasterPageDialog::languageChange()
 {
 	setWindowTitle( tr( "Apply Master Page" ) );

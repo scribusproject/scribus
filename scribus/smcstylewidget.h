@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMCSTYLEWIDGET_H
 #define SMCSTYLEWIDGET_H
 
+class QEvent;
+
 #include "ui_smcstylewidget.h"
 #include "styles/charstyle.h"
 // #include "styles/styleset.h"
@@ -19,6 +21,8 @@ class SMCStyleWidget : public QWidget, public Ui::SMCStyleWidget
 public:
 	SMCStyleWidget(QWidget *parent = 0);
 	~SMCStyleWidget();
+	
+	virtual void changeEvent(QEvent *e);
 
 	void show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
 	void show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
