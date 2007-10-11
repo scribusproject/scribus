@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "smlinestyle.h"
 #include "smlinestylewidget.h"
 #include "scribus.h"
-#include "mpalette.h"
+#include "propertiespalette.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"

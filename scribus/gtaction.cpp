@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "missing.h"
 #include "gtaction.h"
-#include "mpalette.h"
+#include "propertiespalette.h"
 #include "scribus.h"
 #include <QCursor>
 #include <QStringList>

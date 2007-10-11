@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "bookmwin.h"
-#include "bookpalette.h"
+#include "bookmarkpalette.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "multiprogressdialog.h"

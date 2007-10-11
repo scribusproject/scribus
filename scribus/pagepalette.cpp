@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scribus.h"
 #include "scribusview.h"
-#include "seiten.h"
+#include "pagepalette.h"
 #include "util_icon.h"
 
 /* IconItems Code */

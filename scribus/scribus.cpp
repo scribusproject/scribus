@@ -22,32 +22,33 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <QApplication>
-#include <QEventLoop>
-#include <QColorDialog>
-#include <QColor>
-#include <QIcon>
-#include <QStyleFactory>
-#include <QRegExp>
-#include <QTextCodec>
-#include <QLocale>
-#include <QCursor>
-#include <QPixmap>
-#include <QKeySequence>
-#include <QMouseEvent>
-#include <QFrame>
-#include <QDesktopWidget>
-#include <QDropEvent>
-#include <QCloseEvent>
-#include <QList>
-#include <QLabel>
-#include <QEvent>
-#include <QWheelEvent>
-#include <QTranslator>
-#include <QDragEnterEvent>
-#include <QKeyEvent>
 #include <QByteArray>
-#include <QTableWidget>
+#include <QCloseEvent>
+#include <QColor>
+#include <QColorDialog>
+#include <QCursor>
+#include <QDesktopWidget>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QEvent>
+#include <QEventLoop>
+#include <QFrame>
+#include <QIcon>
 #include <QInputDialog>
+#include <QKeyEvent>
+#include <QKeySequence>
+#include <QLabel>
+#include <QList>
+#include <QLocale>
+#include <QMouseEvent>
+#include <QPixmap>
+#include <QRegExp>
+#include <QStyleFactory>
+#include <QTableWidget>
+#include <QTextCodec>
+#include <QTranslator>
+#include <QWheelEvent>
+
 
 #include <cstdio>
 #include <cstdlib>
@@ -69,6 +70,9 @@ for which a new license (GPL+exception) is in place.
 #include <signal.h>
 #include <string>
 
+
+
+
 #include "about.h"
 #include "aboutplugins.h"
 #include "actionmanager.h"
@@ -78,7 +82,7 @@ for which a new license (GPL+exception) is in place.
 #include "applytemplatedialog.h"
 #include "arrowchooser.h"
 #include "autoform.h"
-#include "bookpalette.h"
+#include "bookmarkpalette.h"
 #include "canvasmode.h"
 #include "charselect.h"
 #include "checkDocument.h"
@@ -87,10 +91,12 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "colorm.h"
 #include "commonstrings.h"
-#include "ui/copypagetomasterpagedialog.h"
 #include "cpalette.h"
 #include "customfdialog.h"
 #include "delpages.h"
+#include "desaxe/digester.h"
+#include "desaxe/saxXML.h"
+#include "desaxe/simple_actions.h"
 #include "docinfo.h"
 #include "docitemattrprefs.h"
 #include "documentchecker.h"
@@ -103,7 +109,6 @@ for which a new license (GPL+exception) is in place.
 #include "fontprefs.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "frameedit.h"
 #include "gtgettext.h"
 #include "guidemanager.h"
 #include "helpbrowser.h"
@@ -119,29 +124,32 @@ for which a new license (GPL+exception) is in place.
 #include "loremipsum.h"
 #include "marginWidget.h"
 #include "margindialog.h"
+#include "masterpagepalette.h"
 #include "measurements.h"
 #include "menumanager.h"
 #include "mergedoc.h"
 #include "movepage.h"
-#include "mpalette.h"
 #include "multipleduplicate.h"
-#include "muster.h"
-#include "newtemp.h"
 #include "newfile.h"
+#include "newtemp.h"
+#include "nodeeditpalette.h"
+#include "outlinepalette.h"
 #include "page.h"
-#include "pageitemattributes.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_textframe.h"
+#include "pageitemattributes.h"
 #include "pagelayout.h"
+#include "pagepalette.h"
 #include "pageselector.h"
 #include "pagesize.h"
 #include "patterndialog.h"
+#include "pdflib.h"
 #include "pdfoptions.h"
 #include "pdfopts.h"
-#include "pdflib.h"
 #include "picstatus.h"
 #include "pluginmanager.h"
+#include "plugins/formatidlist.h"
 #include "polygonwidget.h"
 #include "prefs.h"
 #include "prefscontext.h"
@@ -149,40 +157,39 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "preview.h"
+#include "propertiespalette.h"
 #include "pslib.h"
 #include "query.h"
 #include "reformdoc.h"
 #include "resourcecollection.h"
-#include "scraction.h"
+#include "sccolorengine.h"
 #include "sccolorengine.h"
 #include "sccombobox.h"
-#include "scgtplugin.h"
-#include "scmessagebox.h"
-#include "scpaths.h"
-#include "scrap.h"
-#include "scribus.h"
-#include "scribusapp.h"
-#include "scribuscore.h"
-#include "scribusXml.h"
-#include "scribuswin.h"
-#include "search.h"
-#include "sccolorengine.h"
 #include "sccombobox.h"
 #include "scgtplugin.h"
+#include "scgtplugin.h"
+#include "scmessagebox.h"
 #include "scmessagebox.h"
 #include "scpaths.h"
+#include "scpaths.h"
 #include "scraction.h"
-#include "scrap.h"
+#include "scraction.h"
+#include "scrapbookpalette.h"
+#include "scrapbookpalette.h"
+#include "scribus.h"
 #include "scribus.h"
 #include "scribusXml.h"
+#include "scribusXml.h"
+#include "scribusapp.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
+#include "scribuscore.h"
+#include "scribuswin.h"
 #include "scribuswin.h"
 #include "search.h"
-#include "seiten.h"
+#include "search.h"
 #include "selection.h"
 #include "serializer.h"
-#include "seiten.h"
 #include "smlinestyle.h"
 #include "smtextstyles.h"
 #include "splash.h"
@@ -195,9 +202,10 @@ for which a new license (GPL+exception) is in place.
 #include "tabpdfoptions.h"
 #include "tabtools.h"
 #include "tabtypography.h"
+#include "text/nlsconfig.h"
 #include "tocgenerator.h"
 #include "tocindexprefs.h"
-#include "tree.h"
+#include "ui/copypagetomasterpagedialog.h"
 #include "undogui.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -210,13 +218,6 @@ for which a new license (GPL+exception) is in place.
 #include "vruler.h"
 #include "werktoolb.h"
 
-#include "desaxe/saxXML.h"
-#include "desaxe/digester.h"
-#include "desaxe/simple_actions.h"
-
-#include "text/nlsconfig.h"
-
-#include "plugins/formatidlist.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -443,11 +444,11 @@ void ScribusMainWindow::initPalettes()
 {
 	//CB TODO hide the publicly available members of some palettes
 	// these must be filtered too as they take control of the palettes events
-	outlinePalette = new Tree(this);
+	outlinePalette = new OutlinePalette(this);
 	outlinePalette->setMainWindow(this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setChecked(bool)));
-	propertiesPalette = new Mpalette(this);
+	propertiesPalette = new PropertiesPalette(this);
 	propertiesPalette->setMainWindow(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setChecked(bool)));

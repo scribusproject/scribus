@@ -7,16 +7,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <QHeaderView>
 
-#include "cwdialog.h"
-#include "prefsmanager.h"
-#include "commonstrings.h"
 #include "cmykfw.h"
-#include "prefsfile.h"
-#include "mpalette.h"
 #include "colorblind.h"
-#include "util_color.h"
 #include "colorlistbox.h"
+#include "commonstrings.h"
+#include "cwdialog.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "propertiespalette.h"
 #include "sccolorengine.h"
+#include "util_color.h"
 
 
 CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, Qt::WFlags fl)

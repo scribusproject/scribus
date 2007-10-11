@@ -4,49 +4,52 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "importai.h"
 
-#include "scconfig.h"
-#include "scpattern.h"
-#include "scribus.h"
-#include "scribuscore.h"
-#include "commonstrings.h"
-#include "customfdialog.h"
-#include "mpalette.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
-#include "prefsmanager.h"
-#include "prefstable.h"
-#include "scribusXml.h"
-#include <qfile.h>
-#include <qcursor.h>
-#include <qregexp.h>
-#include <QStack>
-#include <QDrag>
-#include <QMimeData>
-#include <QList>
-#include <QStack>
 #include <QByteArray>
+#include <QCursor>
+#include <QDrag>
+#include <QFile>
+#include <QList>
+#include <QMimeData>
+#include <QRegExp>
+#include <QStack>
+#include <QStack>
 #include <QTextStream>
+
 #include <cmath>
 #include <cstdlib>
-
-#include "multiprogressdialog.h"
-#include "scpaths.h"
-#include "selection.h"
-#include "prefsmanager.h"
-#include "undomanager.h"
-#include "loadsaveplugin.h"
-#include "util.h"
-#include "util_icon.h"
-#include "util_math.h"
-#include "util_formats.h"
-#include "sccolorengine.h"
-#include "missing.h"
-#include "rawimage.h"
-#include "scpattern.h"
 #include <tiffio.h>
 #include <zlib.h>
+
+#include "commonstrings.h"
+#include "customfdialog.h"
+#include "importai.h"
+#include "loadsaveplugin.h"
+#include "missing.h"
+#include "multiprogressdialog.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "prefsmanager.h"
+#include "prefstable.h"
+#include "propertiespalette.h"
+#include "rawimage.h"
+#include "sccolorengine.h"
+#include "scconfig.h"
+#include "scpaths.h"
+#include "scpattern.h"
+#include "scpattern.h"
+#include "scribus.h"
+#include "scribusXml.h"
+#include "scribuscore.h"
+#include "selection.h"
+#include "undomanager.h"
+#include "util.h"
+#include "util_formats.h"
+#include "util_icon.h"
+#include "util_math.h"
+
+
 #ifdef HAVE_PODOFO
 	#include <podofo/podofo.h>
 #endif

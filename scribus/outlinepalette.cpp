@@ -16,23 +16,22 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QResizeEvent>
 #include <QToolTip>
-#include <QToolTip>
 #include <QVariant>
 #include <QWidgetAction>
 
-#include "tree.h"
-
 #include "actionmanager.h"
-#include "util_color.h"
 #include "commonstrings.h"
-#include "mpalette.h"
+#include "outlinepalette.h"
 #include "page.h"
+#include "propertiespalette.h"
 #include "scribus.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_formats.h"
 #include "util_icon.h"
+
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {
@@ -48,11 +47,11 @@ OutlineTreeItem::OutlineTreeItem(QTreeWidget* parent, OutlineTreeItem* after) : 
 	type = -1;
 }
 
-TreeWidget::TreeWidget(QWidget* parent) : QTreeWidget(parent)
+OutlineWidget::OutlineWidget(QWidget* parent) : QTreeWidget(parent)
 {
 }
 
-bool TreeWidget::viewportEvent(QEvent *event)
+bool OutlineWidget::viewportEvent(QEvent *event)
 {
 	if (event->type() == QEvent::ToolTip)
 	{
@@ -125,13 +124,13 @@ bool TreeWidget::viewportEvent(QEvent *event)
 	return QTreeWidget::viewportEvent(event);
 }
 
-Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
+OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 {
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
 
-	reportDisplay = new TreeWidget( this );
+	reportDisplay = new OutlineWidget( this );
 
 	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
 	reportDisplay->setMinimumSize( QSize( 220, 240 ) );
@@ -171,14 +170,14 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 //	connect(reportDisplay, SIGNAL(rightButtonClicked(QTreeWidgetItem *, const QPoint &, int)), this, SLOT(slotRightClick(QTreeWidgetItem*, const QPoint &, int)));
 }
 
-void Tree::setMainWindow(ScribusMainWindow *mw)
+void OutlinePalette::setMainWindow(ScribusMainWindow *mw)
 {
 	m_MainWindow=mw;
 	if (m_MainWindow==NULL)
 		clearPalette();
 }
 
-void Tree::setDoc(ScribusDoc *newDoc)
+void OutlinePalette::setDoc(ScribusDoc *newDoc)
 {
 	if (m_MainWindow==NULL)
 		currDoc=NULL;
@@ -188,20 +187,20 @@ void Tree::setDoc(ScribusDoc *newDoc)
 		clearPalette();
 }
 
-void Tree::unsetDoc()
+void OutlinePalette::unsetDoc()
 {
 	currDoc=NULL;
 	clearPalette();
 }
 
-void Tree::setPaletteShown(bool visible)
+void OutlinePalette::setPaletteShown(bool visible)
 {
 	ScrPaletteBase::setPaletteShown(visible);
 	if ((visible) && (currDoc != NULL))
 		BuildTree();
 }
 
-void Tree::slotRightClick(QPoint point)
+void OutlinePalette::slotRightClick(QPoint point)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
@@ -614,12 +613,12 @@ void Tree::slotRightClick(QPoint point)
 	}
 }
 
-void Tree::slotRenameItem()
+void OutlinePalette::slotRenameItem()
 {
 //	currentObject->startRename(currentColumn);
 }
 
-void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
+void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
@@ -666,7 +665,7 @@ void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
 	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QListWidgetItem*, int))); */
 }
 
-QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
+QTreeWidgetItem* OutlinePalette::getListItem(int SNr, int Nr)
 {
 	OutlineTreeItem *item = 0;
 	QTreeWidgetItem *retVal = 0;
@@ -735,7 +734,7 @@ QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
 	return retVal;
 }
 
-void Tree::slotShowSelect(uint SNr, int Nr)
+void OutlinePalette::slotShowSelect(uint SNr, int Nr)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
@@ -753,7 +752,7 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
-void Tree::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
+void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 {
 	switch (pgItem->itemType())
 	{
@@ -806,7 +805,7 @@ void Tree::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 	}
 }
 
-void Tree::reopenTree()
+void OutlinePalette::reopenTree()
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
@@ -839,7 +838,7 @@ void Tree::reopenTree()
 	}
 }
 
-void Tree::buildReopenVals()
+void OutlinePalette::buildReopenVals()
 {
 	ScribusDoc::OpenNodesList ol;
 	if (reportDisplay->model()->rowCount() == 0)
@@ -861,7 +860,7 @@ void Tree::buildReopenVals()
 	}
 }
 
-void Tree::slotSelect(QTreeWidgetItem* ite, int col)
+void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
@@ -914,12 +913,12 @@ void Tree::slotSelect(QTreeWidgetItem* ite, int col)
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
-void Tree::resizeEvent(QResizeEvent *r)
+void OutlinePalette::resizeEvent(QResizeEvent *r)
 {
 	reportDisplay->resize(r->size());
 }
 
-void Tree::BuildTree(bool storeVals)
+void OutlinePalette::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
@@ -1104,7 +1103,7 @@ void Tree::BuildTree(bool storeVals)
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
-void Tree::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
+void OutlinePalette::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
 {
 	QList<PageItem*> *subGroup;
 	PageItem *pgItem;
@@ -1152,7 +1151,7 @@ void Tree::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *s
 	}
 }
 
-void Tree::changeEvent(QEvent *e)
+void OutlinePalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
 	{
@@ -1161,13 +1160,13 @@ void Tree::changeEvent(QEvent *e)
 }
 
 
-void Tree::languageChange()
+void OutlinePalette::languageChange()
 {
 	setWindowTitle( tr("Outline"));
 	reportDisplay->setHeaderLabel( tr("Element"));
 }
 
-void Tree::clearPalette()
+void OutlinePalette::clearPalette()
 {
 	reportDisplay->clear();
 }

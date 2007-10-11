@@ -26,13 +26,10 @@ SET(SCRIBUS_UI_SRC
   aboutplugins.ui
   aligndistribute.ui
   charselect.ui
-  ui/copypagetomasterpage.ui
-  ui/createrange.ui
   docitemattrprefs.ui
   docsections.ui
-  guidemanager.ui
   gtfiledialog.ui
-  ui/helpbrowser.ui
+  guidemanager.ui
   hysettingsBase.ui
   insertaframe.ui
   latexeditor.ui
@@ -46,22 +43,25 @@ SET(SCRIBUS_UI_SRC
   picstatus.ui
   pluginmanagerprefsgui.ui
   shortcutwidget.ui
-  smlinestylewidget.ui
-  smreplacedia.ui
-  smpstylewidget.ui
   smcstylewidget.ui
+  smlinestylewidget.ui
+  smpstylewidget.ui
+  smreplacedia.ui
   smstyleimport.ui
   stylemanager.ui
-  tabexternaltoolswidget.ui
-  tabkeyboardshortcutswidget.ui
-  tocindexprefs.ui
-  useprintermarginsdialog.ui
   tabdisplay.ui
+  tabexternaltoolswidget.ui
   tabgeneral.ui
+  tabkeyboardshortcutswidget.ui
   tabmiscellaneous.ui
   tabprinter.ui
   tabscrapbook.ui
+  tocindexprefs.ui
+  ui/copypagetomasterpage.ui
+  ui/createrange.ui
+  ui/helpbrowser.ui
   unicodesearch.ui
+  useprintermarginsdialog.ui
 )
 
 SET(SCRIBUS_MOC_CLASSES
@@ -70,14 +70,14 @@ SET(SCRIBUS_MOC_CLASSES
   actionmanager.h
   aligndistribute.h
   alignselect.h
-  annota.h
   annot.h
+  annota.h
   applytemplatedialog.h
   arrowchooser.h
   autoform.h
   autoformbuttongroup.h
+  bookmarkpalette.h
   bookmwin.h
-  bookpalette.h
   buttonicon.h
   canvas.h
   charselect.h
@@ -94,9 +94,7 @@ SET(SCRIBUS_MOC_CLASSES
   colorlistbox.h
   colorm.h
   commonstrings.h
-  ui/copypagetomasterpagedialog.h
   cpalette.h
-  ui/createrange.h
   cupsoptions.h
   curvewidget.h
   customfdialog.h
@@ -116,10 +114,9 @@ SET(SCRIBUS_MOC_CLASSES
   fontcombo.h
   fontprefs.h
   fontreplacedialog.h
-  frameedit.h
   gradienteditor.h
-  gtfiledialog.h
   gtdialogs.h
+  gtfiledialog.h
   guidemanager.h
   guidesdelegate.h
   guidesmodel.h
@@ -129,8 +126,8 @@ SET(SCRIBUS_MOC_CLASSES
   hyphenator.h
   hysettings.h
   imageinfodialog.h
-  insertaframe.h
   insertTable.h
+  insertaframe.h
   inspage.h
   javadocs.h
   latexeditor.h
@@ -139,32 +136,34 @@ SET(SCRIBUS_MOC_CLASSES
   lensdialog.h
   loadsaveplugin.h
   loremipsum.h
-  margindialog.h
   marginWidget.h
+  margindialog.h
+  masterpagepalette.h
   measurements.h
   menumanager.h
   mergedoc.h
-  movepage.h
   missing.h
-  mpalette.h
+  movepage.h
   multipleduplicate.h
   multiprogressdialog.h
-  muster.h
   navigator.h
   newfile.h
   newtemp.h
+  nodeeditpalette.h
   observable.h
   oneclick.h
+  outlinepalette.h
   pageitem.h
-  pageitemattributes.h
   pageitem_imageframe.h
+  pageitem_latexframe.h
   pageitem_line.h
   pageitem_pathtext.h
   pageitem_polygon.h
   pageitem_polyline.h
   pageitem_textframe.h
-  pageitem_latexframe.h
+  pageitemattributes.h
   pagelayout.h
+  pagepalette.h
   pageselector.h
   patterndialog.h
   pdflib.h
@@ -182,19 +181,21 @@ SET(SCRIBUS_MOC_CLASSES
   prefsmanager.h
   prefspanel.h
   preview.h
+  propertiespalette.h
   pslib.h
   query.h
   reformdoc.h
   rulermover.h
   sampleitem.h
+  scfilewidget.h
+  scgtplugin.h
+  schelptreemodel.h
   scinputdialog.h
   scmenu.h
   scmessagebox.h
-  scfilewidget.h
-  scgtplugin.h
   scplugin.h
   scraction.h
-  scrap.h
+  scrapbookpalette.h
   scribus.h
   scribusapp.h
   scribuscore.h
@@ -204,21 +205,22 @@ SET(SCRIBUS_MOC_CLASSES
   scrpalettebase.h
   scrspinbox.h
   sctablewidget.h
-  sctoolbar.h
   sctextbrowser.h
+  sctoolbar.h
   search.h
-  seiten.h
   selection.h
   selfield.h
   shadebutton.h
   shortcutwidget.h
   smalignselect.h
+  smcolorcombo.h
+  smcstylewidget.h
   smfontcomboh.h
   smlinestyle.h
   smlinestylewidget.h
+  smpstylewidget.h
   smreplacedia.h
   smsccombobox.h
-  smcolorcombo.h
   smscrspinbox.h
   smshadebutton.h
   smspinbox.h
@@ -226,8 +228,6 @@ SET(SCRIBUS_MOC_CLASSES
   smstyleselect.h
   smtabruler.h
   smtextstyles.h
-  smcstylewidget.h
-  smpstylewidget.h
   spalette.h
   story.h
   styleitem.h
@@ -235,12 +235,12 @@ SET(SCRIBUS_MOC_CLASSES
   styleselect.h
   styleview.h
   tabcheckdoc.h
-  tabexternaltoolswidget.h
-  tabkeyboardshortcutswidget.h
   tabdisplay.h
   tabdocument.h
+  tabexternaltoolswidget.h
   tabgeneral.h
   tabguides.h
+  tabkeyboardshortcutswidget.h
   tabmanager.h
   tabmiscellaneous.h
   tabpdfoptions.h
@@ -251,9 +251,9 @@ SET(SCRIBUS_MOC_CLASSES
   tabtypography.h
   tocgenerator.h
   tocindexprefs.h
-  tree.h
   tt/simpletreemodel/treemodel.h
-  schelptreemodel.h
+  ui/copypagetomasterpagedialog.h
+  ui/createrange.h
   undogui.h
   undomanager.h
   unicodesearch.h
@@ -270,15 +270,15 @@ SET(SCRIBUS_SOURCES
   actionmanager.cpp
   aligndistribute.cpp
   alignselect.cpp
-  annotation.cpp
-  annota.cpp
   annot.cpp
+  annota.cpp
+  annotation.cpp
   applytemplatedialog.cpp
   arrowchooser.cpp
-  autoformbuttongroup.cpp
   autoform.cpp
+  autoformbuttongroup.cpp
+  bookmarkpalette.cpp
   bookmwin.cpp
-  bookpalette.cpp
   buttonicon.cpp
   canvas.cpp
   canvasgesture_rectselect.cpp
@@ -291,9 +291,9 @@ SET(SCRIBUS_SOURCES
   charzoom.cpp
   checkDocument.cpp
   cmserrorhandling.cpp
-  cmykfw.cpp
-  cmsprefs.cpp
   cmsettings.cpp
+  cmsprefs.cpp
+  cmykfw.cpp
   collect4output.cpp
   colorblind.cpp
   colorchart.cpp
@@ -302,9 +302,7 @@ SET(SCRIBUS_SOURCES
   colorm.cpp
   colorsetmanager.cpp
   commonstrings.cpp
-  ui/copypagetomasterpagedialog.cpp
   cpalette.cpp
-  ui/createrange.cpp
   cupsoptions.cpp
   curvewidget.cpp
   customfdialog.cpp
@@ -329,14 +327,13 @@ SET(SCRIBUS_SOURCES
   fontprefs.cpp
   fontreplacedialog.cpp
   fparser.cpp
-  fpointarray.cpp
   fpoint.cpp
+  fpointarray.cpp
   fpoptimizer.cpp
-  frameedit.cpp
   gradienteditor.cpp
   gtaction.cpp
-  gtfiledialog.cpp
   gtdialogs.cpp
+  gtfiledialog.cpp
   gtfont.cpp
   gtframestyle.cpp
   gtgettext.cpp
@@ -345,9 +342,9 @@ SET(SCRIBUS_SOURCES
   gtstyle.cpp
   gtwriter.cpp
   guidemanager.cpp
+  guidemanagercore.cpp
   guidesdelegate.cpp
   guidesmodel.cpp
-  guidemanagercore.cpp
   helpbrowser.cpp
   hnjalloc.c
   hruler.cpp
@@ -356,8 +353,8 @@ SET(SCRIBUS_SOURCES
   hyphenator.cpp
   hysettings.cpp
   imageinfodialog.cpp
-  insertaframe.cpp
   insertTable.cpp
+  insertaframe.cpp
   inspage.cpp
   ioapi.c
   javadocs.cpp
@@ -370,34 +367,36 @@ SET(SCRIBUS_SOURCES
   linkbutton.cpp
   loadsaveplugin.cpp
   loremipsum.cpp
-  margindialog.cpp
   marginWidget.cpp
+  margindialog.cpp
+  masterpagepalette.cpp
   measurements.cpp
   menumanager.cpp
   mergedoc.cpp
-  movepage.cpp
   missing.cpp
-  mpalette.cpp
+  movepage.cpp
   multipleduplicate.cpp
   multiprogressdialog.cpp
-  muster.cpp
   navigator.cpp
   newfile.cpp
   newtemp.cpp
+  nodeeditpalette.cpp
   observable.cpp
   oneclick.cpp
+  outlinepalette.cpp
   page.cpp
   pageitem.cpp
   pageitem_desaxe.cpp
-  pageitemattributes.cpp
   pageitem_imageframe.cpp
+  pageitem_latexframe.cpp
   pageitem_line.cpp
   pageitem_pathtext.cpp
   pageitem_polygon.cpp
   pageitem_polyline.cpp
   pageitem_textframe.cpp
-  pageitem_latexframe.cpp
+  pageitemattributes.cpp
   pagelayout.cpp
+  pagepalette.cpp
   pageselector.cpp
   pagesize.cpp
   patterndialog.cpp
@@ -417,11 +416,12 @@ SET(SCRIBUS_SOURCES
   prefscontext.cpp
   prefsdialogbase.cpp
   prefsfile.cpp
+  prefsmanager.cpp
   prefspanel.cpp
   prefsreader.cpp
-  prefsmanager.cpp
   prefstable.cpp
   preview.cpp
+  propertiespalette.cpp
   pslib.cpp
   query.cpp
   rawimage.cpp
@@ -435,11 +435,11 @@ SET(SCRIBUS_SOURCES
   sccombobox.cpp
   scdocoutput.cpp
   scdocoutput_ps2.cpp
-  scinputdialog.cpp
-  scfonts.cpp
   scfilewidget.cpp
+  scfonts.cpp
   scgtplugin.cpp
   scgzfile.cpp
+  schelptreemodel.cpp
   scimage.cpp
   scimagestructs.cpp
   scimgdataloader.cpp
@@ -450,56 +450,56 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_psd.cpp
   scimgdataloader_qt.cpp
   scimgdataloader_tiff.cpp
+  scinputdialog.cpp
   sclayer.cpp
+  scmenu.cpp
+  scmessagebox.cpp
   scpageoutput.cpp
   scpageoutput_ps2.cpp
   scpainter.cpp
-  scpainterexbase.cpp
   scpainterex_ps2.cpp
+  scpainterexbase.cpp
   scpaths.cpp
   scpattern.cpp
   scplugin.cpp
   scpreview.cpp
   scraction.cpp
-  scrap.cpp
+  scrapbookpalette.cpp
   scribus.cpp
+  scribusXml.cpp
   scribusapp.cpp
   scribuscore.cpp
   scribusdoc.cpp
   scribusview.cpp
-  scribusXml.cpp
   scribuswin.cpp
   scrpalettebase.cpp
   scrspinbox.cpp
-  scmenu.cpp
-  scmessagebox.cpp
+  sctablewidget.cpp
   sctextbrowser.cpp
   sctextstruct.cpp
-  sctablewidget.cpp
   sctoolbar.cpp
   search.cpp
-  seiten.cpp
   selection.cpp
   selfield.cpp
   serializer.cpp
   shadebutton.cpp
   shortcutwidget.cpp
   smalignselect.cpp
+  smcolorcombo.cpp
+  smcstylewidget.cpp
   smfontcomboh.cpp
   smlinestyle.cpp
   smlinestylewidget.cpp
+  smpstylewidget.cpp
+  smreplacedia.cpp
   smsccombobox.cpp
-  smcolorcombo.cpp
   smscrspinbox.cpp
   smshadebutton.cpp
   smspinbox.cpp
-  smreplacedia.cpp
   smstyleimport.cpp
   smstyleselect.cpp
   smtabruler.cpp
   smtextstyles.cpp
-  smcstylewidget.cpp
-  smpstylewidget.cpp
   spalette.cpp
   splash.cpp
   stencilreader.cpp
@@ -509,12 +509,12 @@ SET(SCRIBUS_SOURCES
   styleselect.cpp
   styleview.cpp
   tabcheckdoc.cpp
-  tabexternaltoolswidget.cpp
-  tabkeyboardshortcutswidget.cpp
   tabdisplay.cpp
   tabdocument.cpp
+  tabexternaltoolswidget.cpp
   tabgeneral.cpp
   tabguides.cpp
+  tabkeyboardshortcutswidget.cpp
   tabmanager.cpp
   tabmiscellaneous.cpp
   tabpdfoptions.cpp
@@ -525,19 +525,19 @@ SET(SCRIBUS_SOURCES
   tabtypography.cpp
   tocgenerator.cpp
   tocindexprefs.cpp
-  tree.cpp
   tt/simpletreemodel/treeitem.cpp
   tt/simpletreemodel/treemodel.cpp
-  schelptreemodel.cpp
+  ui/copypagetomasterpagedialog.cpp
+  ui/createrange.cpp
   undogui.cpp
   undomanager.cpp
-  updatemanager.cpp
   undoobject.cpp
   undostack.cpp
   undostate.cpp
   unicodesearch.cpp
   units.cpp
   unzip.c
+  updatemanager.cpp
   upgradechecker.cpp
   urllauncher.cpp
   useprintermarginsdialog.cpp

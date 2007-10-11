@@ -21,17 +21,16 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QPixmap>
+
+#include "guidemanager.h"
+#include "nodeeditpalette.h"
 #include "page.h"
 #include "scribus.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "frameedit.h"
-#include "guidemanager.h"
-
-#include <QPixmap>
 #include "util_icon.h"
-
 
 Page::Page(const double x, const double y, const double b, const double h) :
 	UndoObject(QObject::tr("Page")),

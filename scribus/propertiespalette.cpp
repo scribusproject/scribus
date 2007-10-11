@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 
-#include "mpalette.h"
+#include "propertiespalette.h"
 
 #include <QButtonGroup>
 #include <QCheckBox>
@@ -123,7 +123,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
+PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
 {
 	m_ScMW=0;
 	doc=0;
@@ -1209,7 +1209,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	PM1->setEnabled(false);
 }
 
-void Mpalette::closeEvent(QCloseEvent *closeEvent)
+void PropertiesPalette::closeEvent(QCloseEvent *closeEvent)
 {
 	if (m_ScMW && !m_ScMW->ScriptRunning)
 	{
@@ -1225,7 +1225,7 @@ void Mpalette::closeEvent(QCloseEvent *closeEvent)
 	ScrPaletteBase::closeEvent(closeEvent);
 }
 
-void Mpalette::setMainWindow(ScribusMainWindow* mw)
+void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW=mw;
 	QPoint p1 = mapToGlobal(pos());
@@ -1248,7 +1248,7 @@ void Mpalette::setMainWindow(ScribusMainWindow* mw)
 	
 }
 
-void Mpalette::SelTab(int t)
+void PropertiesPalette::SelTab(int t)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -1261,7 +1261,7 @@ void Mpalette::SelTab(int t)
 	}
 }
 
-void Mpalette::setDoc(ScribusDoc *d)
+void PropertiesPalette::setDoc(ScribusDoc *d)
 {
 	if(doc == d)
 		return;
@@ -1353,7 +1353,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), doc, SLOT(ItemPatternProps(double, double, double, double, double)));
 }
 
-void Mpalette::unsetDoc()
+void PropertiesPalette::unsetDoc()
 {
 	HaveDoc = false;
 	HaveItem = false;
@@ -1370,7 +1370,7 @@ void Mpalette::unsetDoc()
 	SetLineFormats(0);
 }
 
-void Mpalette::unsetItem()
+void PropertiesPalette::unsetItem()
 {
 	HaveItem=false;
 	CurItem = NULL;
@@ -1378,7 +1378,7 @@ void Mpalette::unsetItem()
 	NewSel(-1);
 }
 
-void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
+void PropertiesPalette::setTextFlowMode(PageItem::TextFlowMode mode)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning || !HaveItem)
 		return;
@@ -1418,7 +1418,7 @@ void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 	}
 }
 
-void Mpalette::SetCurItem(PageItem *i)
+void PropertiesPalette::SetCurItem(PageItem *i)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -1692,7 +1692,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	updateSpinBoxConstants();
 }
 
-void Mpalette::NewSel(int nr)
+void PropertiesPalette::NewSel(int nr)
 {
 	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -1903,7 +1903,7 @@ void Mpalette::NewSel(int nr)
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
 
-void Mpalette::setMultipleSelection(bool isMultiple)
+void PropertiesPalette::setMultipleSelection(bool isMultiple)
 {
 	//CB Having added the selection and undo transaction to mirrorpolyh/v in doc,
 	//these can be enabled all the time
@@ -1926,7 +1926,7 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 	}
 }
 
-void Mpalette::unitChange()
+void PropertiesPalette::unitChange()
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -2027,13 +2027,13 @@ void Mpalette::unitChange()
 	HaveItem = tmp;
 }
 
-void Mpalette::setLevel(uint l)
+void PropertiesPalette::setLevel(uint l)
 {
 	QString tm;
 	LevelTxt->setText(tm.setNum(l + 1));
 }
 
-void Mpalette::setXY(double x, double y)
+void PropertiesPalette::setXY(double x, double y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2097,7 +2097,7 @@ void Mpalette::setXY(double x, double y)
 	connect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
 }
 
-void Mpalette::setBH(double x, double y)
+void PropertiesPalette::setBH(double x, double y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2124,7 +2124,7 @@ void Mpalette::setBH(double x, double y)
 	HaveItem = tmp;
 }
 
-void Mpalette::setR(double r)
+void PropertiesPalette::setR(double r)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2137,7 +2137,7 @@ void Mpalette::setR(double r)
 	HaveItem = tmp;
 }
 
-void Mpalette::setRR(double r)
+void PropertiesPalette::setRR(double r)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2147,7 +2147,7 @@ void Mpalette::setRR(double r)
 	HaveItem = tmp;
 }
 
-void Mpalette::setCols(int r, double g)
+void PropertiesPalette::setCols(int r, double g)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2180,7 +2180,7 @@ void Mpalette::setCols(int r, double g)
 }
 
 // NewLspMode?
-void Mpalette::setLspMode(QAction *id)
+void PropertiesPalette::setLspMode(QAction *id)
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2189,7 +2189,7 @@ void Mpalette::setLspMode(QAction *id)
 	}
 }
 
-void Mpalette::setLsp(double r)
+void PropertiesPalette::setLsp(double r)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2223,7 +2223,7 @@ void Mpalette::setLsp(double r)
 	HaveItem = tmp;
 }
 
-void Mpalette::setDvals(double left, double top, double bottom, double right)
+void PropertiesPalette::setDvals(double left, double top, double bottom, double right)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2236,7 +2236,7 @@ void Mpalette::setDvals(double left, double top, double bottom, double right)
 	HaveItem = tmp;
 }
 
-void Mpalette::setFontFace(const QString& newFont)
+void PropertiesPalette::setFontFace(const QString& newFont)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2249,7 +2249,7 @@ void Mpalette::setFontFace(const QString& newFont)
 }
 
 
-void Mpalette::setSize(double s)
+void PropertiesPalette::setSize(double s)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2259,7 +2259,7 @@ void Mpalette::setSize(double s)
 	HaveItem = tmp;
 }
 
-void Mpalette::setExtra(double e)
+void PropertiesPalette::setExtra(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2269,7 +2269,7 @@ void Mpalette::setExtra(double e)
 	HaveItem = tmp;
 }
 
-void Mpalette::ChangeScaling()
+void PropertiesPalette::ChangeScaling()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2306,7 +2306,7 @@ void Mpalette::ChangeScaling()
 	}
 }
 
-void Mpalette::setLvalue(double scx, double scy, double x, double y)
+void PropertiesPalette::setLvalue(double scx, double scy, double x, double y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2333,7 +2333,7 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 	HaveItem = tmp;
 }
 
-void Mpalette::setSvalue(double s)
+void PropertiesPalette::setSvalue(double s)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2343,7 +2343,7 @@ void Mpalette::setSvalue(double s)
 	HaveItem = tmp;
 }
 
-void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj)
+void PropertiesPalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2404,7 +2404,7 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 }
 
 
-void Mpalette::updateStyle(const ParagraphStyle& newCurrent)
+void PropertiesPalette::updateStyle(const ParagraphStyle& newCurrent)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2440,7 +2440,7 @@ void Mpalette::updateStyle(const ParagraphStyle& newCurrent)
 	
 }
 
-void Mpalette::setStil(int s)
+void PropertiesPalette::setStil(int s)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2456,7 +2456,7 @@ void Mpalette::setStil(int s)
 	}
 }
 
-void Mpalette::setAli(int e)
+void PropertiesPalette::setAli(int e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2468,7 +2468,7 @@ void Mpalette::setAli(int e)
 }
 
 
-void Mpalette::setParStyle(const QString& name)
+void PropertiesPalette::setParStyle(const QString& name)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2479,7 +2479,7 @@ void Mpalette::setParStyle(const QString& name)
 }
 
 
-void Mpalette::setCharStyle(const QString& name)
+void PropertiesPalette::setCharStyle(const QString& name)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2489,14 +2489,14 @@ void Mpalette::setCharStyle(const QString& name)
 	HaveItem = tmp;
 }
 
-void Mpalette::setOpticalMargins(int i)
+void PropertiesPalette::setOpticalMargins(int i)
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	doc->itemSelection_SetOpticalMargins(i==0 ? ParagraphStyle::OM_None : ParagraphStyle::OM_Default);
 }
 
-void Mpalette::setMinWordTracking()
+void PropertiesPalette::setMinWordTracking()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2506,7 +2506,7 @@ void Mpalette::setMinWordTracking()
 }
 
 
-void Mpalette::setNormWordTracking()
+void PropertiesPalette::setNormWordTracking()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2516,7 +2516,7 @@ void Mpalette::setNormWordTracking()
 	doc->itemSelection_ApplyParagraphStyle(newStyle);
 }
 
-void Mpalette::setMinGlyphExtension()
+void PropertiesPalette::setMinGlyphExtension()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2525,7 +2525,7 @@ void Mpalette::setMinGlyphExtension()
 	doc->itemSelection_ApplyParagraphStyle(newStyle);
 }
 
-void Mpalette::setMaxGlyphExtension()
+void PropertiesPalette::setMaxGlyphExtension()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2535,7 +2535,7 @@ void Mpalette::setMaxGlyphExtension()
 }
 
 
-void Mpalette::setTScaleV(double e)
+void PropertiesPalette::setTScaleV(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2545,7 +2545,7 @@ void Mpalette::setTScaleV(double e)
 	HaveItem = tmp;
 }
 
-void Mpalette::NewTScaleV()
+void PropertiesPalette::NewTScaleV()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2555,7 +2555,7 @@ void Mpalette::NewTScaleV()
 	}
 }
 
-void Mpalette::NewTBase()
+void PropertiesPalette::NewTBase()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2565,7 +2565,7 @@ void Mpalette::NewTBase()
 	}
 }
 
-void Mpalette::setTScale(double e)
+void PropertiesPalette::setTScale(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2575,7 +2575,7 @@ void Mpalette::setTScale(double e)
 	HaveItem = tmp;
 }
 
-void Mpalette::setTBase(double e)
+void PropertiesPalette::setTBase(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2585,7 +2585,7 @@ void Mpalette::setTBase(double e)
 	HaveItem = tmp;
 }
 
-void Mpalette::NewTScale()
+void PropertiesPalette::NewTScale()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2595,7 +2595,7 @@ void Mpalette::NewTScale()
 	}
 }
 
-void Mpalette::NewX()
+void PropertiesPalette::NewX()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2672,7 +2672,7 @@ void Mpalette::NewX()
 	}
 }
 
-void Mpalette::NewY()
+void PropertiesPalette::NewY()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2749,7 +2749,7 @@ void Mpalette::NewY()
 	}
 }
 
-void Mpalette::NewW()
+void PropertiesPalette::NewW()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2854,7 +2854,7 @@ void Mpalette::NewW()
 	}
 }
 
-void Mpalette::NewH()
+void PropertiesPalette::NewH()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2959,7 +2959,7 @@ void Mpalette::NewH()
 	}
 }
 
-void Mpalette::NewR()
+void PropertiesPalette::NewR()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2985,7 +2985,7 @@ void Mpalette::NewR()
 	}
 }
 
-void Mpalette::NewRR()
+void PropertiesPalette::NewRR()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2997,7 +2997,7 @@ void Mpalette::NewRR()
 	}
 }
 
-void Mpalette::NewLsp()
+void PropertiesPalette::NewLsp()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3008,7 +3008,7 @@ void Mpalette::NewLsp()
 	}
 }
 
-void Mpalette::HandleGapSwitch()
+void PropertiesPalette::HandleGapSwitch()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3022,7 +3022,7 @@ void Mpalette::HandleGapSwitch()
 	}
 }
 
-void Mpalette::NewCols()
+void PropertiesPalette::NewCols()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3035,7 +3035,7 @@ void Mpalette::NewCols()
 	}
 }
 
-void Mpalette::NewGap()
+void PropertiesPalette::NewGap()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3060,7 +3060,7 @@ void Mpalette::NewGap()
 	}
 }
 
-void Mpalette::NewSize()
+void PropertiesPalette::NewSize()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3071,7 +3071,7 @@ void Mpalette::NewSize()
 	}
 }
 
-void Mpalette::NewExtra()
+void PropertiesPalette::NewExtra()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3082,7 +3082,7 @@ void Mpalette::NewExtra()
 	}
 }
 
-void Mpalette::NewLocalXY()
+void PropertiesPalette::NewLocalXY()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3092,7 +3092,7 @@ void Mpalette::NewLocalXY()
 	}
 }
 
-void Mpalette::NewLocalSC()
+void PropertiesPalette::NewLocalSC()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3112,7 +3112,7 @@ void Mpalette::NewLocalSC()
 	}
 }
 
-void Mpalette::NewLocalDpi()
+void PropertiesPalette::NewLocalDpi()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3133,7 +3133,7 @@ void Mpalette::NewLocalDpi()
 	}
 }
 
-void Mpalette::EditEff()
+void PropertiesPalette::EditEff()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3141,7 +3141,7 @@ void Mpalette::EditEff()
 		m_ScMW->ImageEffects();
 }
 
-void Mpalette::EditPSD()
+void PropertiesPalette::EditPSD()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3152,7 +3152,7 @@ void Mpalette::EditPSD()
 	}
 }
 
-void Mpalette::NewLS()
+void PropertiesPalette::NewLS()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3163,7 +3163,7 @@ void Mpalette::NewLS()
 	}
 }
 
-void Mpalette::setStartArrow(int id)
+void PropertiesPalette::setStartArrow(int id)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3171,7 +3171,7 @@ void Mpalette::setStartArrow(int id)
 		doc->itemSelection_ApplyArrowHead(id,-1);
 }
 
-void Mpalette::setEndArrow(int id)
+void PropertiesPalette::setEndArrow(int id)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3179,7 +3179,7 @@ void Mpalette::setEndArrow(int id)
 		doc->itemSelection_ApplyArrowHead(-1, id);
 }
 
-void Mpalette::NewLSty()
+void PropertiesPalette::NewLSty()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3209,7 +3209,7 @@ void Mpalette::NewLSty()
 	}
 }
 
-void Mpalette::NewLMode()
+void PropertiesPalette::NewLMode()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3239,7 +3239,7 @@ void Mpalette::NewLMode()
 	repaint();
 }
 
-void Mpalette::NewLJoin()
+void PropertiesPalette::NewLJoin()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3263,7 +3263,7 @@ void Mpalette::NewLJoin()
 	}
 }
 
-void Mpalette::NewLEnd()
+void PropertiesPalette::NewLEnd()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3287,7 +3287,7 @@ void Mpalette::NewLEnd()
 	}
 }
 
-void Mpalette::ToggleKette()
+void PropertiesPalette::ToggleKette()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3305,7 +3305,7 @@ void Mpalette::ToggleKette()
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
-void Mpalette::HChange()
+void PropertiesPalette::HChange()
 {
 	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
@@ -3316,7 +3316,7 @@ void Mpalette::HChange()
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
-void Mpalette::VChange()
+void PropertiesPalette::VChange()
 {
 	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
@@ -3327,7 +3327,7 @@ void Mpalette::VChange()
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
-void Mpalette::ToggleKetteD()
+void PropertiesPalette::ToggleKetteD()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3345,7 +3345,7 @@ void Mpalette::ToggleKetteD()
 	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
 
-void Mpalette::HChangeD()
+void PropertiesPalette::HChangeD()
 {
 	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
@@ -3356,7 +3356,7 @@ void Mpalette::HChangeD()
 	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
 
-void Mpalette::VChangeD()
+void PropertiesPalette::VChangeD()
 {
 	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
@@ -3367,7 +3367,7 @@ void Mpalette::VChangeD()
 	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
 
-void Mpalette::NewAli(int a)
+void PropertiesPalette::NewAli(int a)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3381,14 +3381,14 @@ void Mpalette::NewAli(int a)
 	}
 }
 
-void Mpalette::setTypeStyle(int s)
+void PropertiesPalette::setTypeStyle(int s)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	emit NewEffects(s);
 }
 
-void Mpalette::newShadowOffs()
+void PropertiesPalette::newShadowOffs()
 {
 	int x = qRound(SeStyle->ShadowVal->Xoffset->value() * 10.0);
 	int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
@@ -3401,7 +3401,7 @@ void Mpalette::newShadowOffs()
 	}
 }
 
-void Mpalette::setShadowOffs(double x, double y)
+void PropertiesPalette::setShadowOffs(double x, double y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3413,7 +3413,7 @@ void Mpalette::setShadowOffs(double x, double y)
 	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
 }
 
-void Mpalette::newUnderline()
+void PropertiesPalette::newUnderline()
 {
 	int x = qRound(SeStyle->UnderlineVal->LPos->value() * 10.0);
 	int y = qRound(SeStyle->UnderlineVal->LWidth->value() * 10.0);
@@ -3426,7 +3426,7 @@ void Mpalette::newUnderline()
 	}
 }
 
-void Mpalette::setUnderline(double p, double w)
+void PropertiesPalette::setUnderline(double p, double w)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3438,7 +3438,7 @@ void Mpalette::setUnderline(double p, double w)
 	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderline()));
 }
 
-void Mpalette::newStrike()
+void PropertiesPalette::newStrike()
 {
 	int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
 	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
@@ -3451,7 +3451,7 @@ void Mpalette::newStrike()
 	}
 }
 
-void Mpalette::setStrike(double p, double w)
+void PropertiesPalette::setStrike(double p, double w)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3463,7 +3463,7 @@ void Mpalette::setStrike(double p, double w)
 	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
 }
 
-void Mpalette::setOutlineW(double x)
+void PropertiesPalette::setOutlineW(double x)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3472,7 +3472,7 @@ void Mpalette::setOutlineW(double x)
 	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineW()));
 }
 
-void Mpalette::newOutlineW()
+void PropertiesPalette::newOutlineW()
 {
 	int x = qRound(SeStyle->OutlineVal->LWidth->value() * 10.0);
 	if ((HaveDoc) && (HaveItem))
@@ -3483,7 +3483,7 @@ void Mpalette::newOutlineW()
 	}
 }
 
-void Mpalette::DoLower()
+void PropertiesPalette::DoLower()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3493,7 +3493,7 @@ void Mpalette::DoLower()
 	}
 }
 
-void Mpalette::DoRaise()
+void PropertiesPalette::DoRaise()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3503,7 +3503,7 @@ void Mpalette::DoRaise()
 	}
 }
 
-void Mpalette::DoFront()
+void PropertiesPalette::DoFront()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3513,7 +3513,7 @@ void Mpalette::DoFront()
 	}
 }
 
-void Mpalette::DoBack()
+void PropertiesPalette::DoBack()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3523,7 +3523,7 @@ void Mpalette::DoBack()
 	}
 }
 
-void Mpalette::NewRotMode(int m)
+void PropertiesPalette::NewRotMode(int m)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3615,7 +3615,7 @@ void Mpalette::NewRotMode(int m)
 	}
 }
 
-void Mpalette::DoFlow()
+void PropertiesPalette::DoFlow()
 {
 	PageItem::TextFlowMode mode = PageItem::TextFlowDisabled;
 	if (!m_ScMW || m_ScMW->ScriptRunning)
@@ -3654,7 +3654,7 @@ void Mpalette::DoFlow()
 	}
 }
 
-void Mpalette::MakeIrre(int f, int c, double *vals)
+void PropertiesPalette::MakeIrre(int f, int c, double *vals)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3699,7 +3699,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 	}
 }
 
-void Mpalette::EditSh()
+void PropertiesPalette::EditSh()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3720,7 +3720,7 @@ void Mpalette::EditSh()
 	}
 }
 
-void Mpalette::NewTDist()
+void PropertiesPalette::NewTDist()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3733,7 +3733,7 @@ void Mpalette::NewTDist()
 	}
 }
 
-void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
+void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3748,7 +3748,7 @@ void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 	}
 }
 
-void Mpalette::toggleGradientEdit()
+void PropertiesPalette::toggleGradientEdit()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3762,7 +3762,7 @@ void Mpalette::toggleGradientEdit()
 	}
 }
 
-void Mpalette::NewTFont(QString c)
+void PropertiesPalette::NewTFont(QString c)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3770,7 +3770,7 @@ void Mpalette::NewTFont(QString c)
 		emit NewFont(c);
 }
 
-void Mpalette::DoRevert()
+void PropertiesPalette::DoRevert()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3785,7 +3785,7 @@ void Mpalette::DoRevert()
 }
 
 
-void Mpalette::doClearCStyle()
+void PropertiesPalette::doClearCStyle()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3796,7 +3796,7 @@ void Mpalette::doClearCStyle()
 }
 
 
-void Mpalette::doClearPStyle()
+void PropertiesPalette::doClearPStyle()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3809,7 +3809,7 @@ void Mpalette::doClearPStyle()
 }
 
 
-void Mpalette::SetLineFormats(ScribusDoc *dd)
+void PropertiesPalette::SetLineFormats(ScribusDoc *dd)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3828,7 +3828,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 }
 
-void Mpalette::SetSTline(QListWidgetItem *c)
+void PropertiesPalette::SetSTline(QListWidgetItem *c)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3842,7 +3842,7 @@ void Mpalette::SetSTline(QListWidgetItem *c)
 	LEndStyle->setEnabled(setter);
 }
 
-void Mpalette::updateColorList()
+void PropertiesPalette::updateColorList()
 {
 	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3855,7 +3855,7 @@ void Mpalette::updateColorList()
 	TxStroke->view()->setMinimumWidth(TxStroke->view()->maximumViewportSize().width() + 24);
 }
 
-void Mpalette::updateCmsList()
+void PropertiesPalette::updateCmsList()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3922,7 +3922,7 @@ void Mpalette::updateCmsList()
 	}
 }
 
-void Mpalette::ChProf(const QString& prn)
+void PropertiesPalette::ChProf(const QString& prn)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3938,7 +3938,7 @@ void Mpalette::ChProf(const QString& prn)
 	}
 }
 
-void Mpalette::ChIntent()
+void PropertiesPalette::ChIntent()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3950,7 +3950,7 @@ void Mpalette::ChIntent()
 	}
 }
 
-void Mpalette::ShowCMS()
+void PropertiesPalette::ShowCMS()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3965,7 +3965,7 @@ void Mpalette::ShowCMS()
 	}
 }
 
-void Mpalette::newTxtFill()
+void PropertiesPalette::newTxtFill()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3975,7 +3975,7 @@ void Mpalette::newTxtFill()
 	}
 }
 
-void Mpalette::newTxtStroke()
+void PropertiesPalette::newTxtStroke()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -3985,7 +3985,7 @@ void Mpalette::newTxtStroke()
 	}
 }
 
-void Mpalette::setActShade()
+void PropertiesPalette::setActShade()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4005,7 +4005,7 @@ void Mpalette::setActShade()
 // 	emit DocChanged();
 }
 
-void Mpalette::setActFarben(QString p, QString b, double shp, double shb)
+void PropertiesPalette::setActFarben(QString p, QString b, double shp, double shb)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4038,28 +4038,28 @@ void Mpalette::setActFarben(QString p, QString b, double shp, double shb)
 	TxStroke->setCurrentIndex(c);
 }
 
-void Mpalette::handleLock()
+void PropertiesPalette::handleLock()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->scrActions["itemLock"]->toggle();
 }
 
-void Mpalette::handleLockSize()
+void PropertiesPalette::handleLockSize()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->scrActions["itemLockSize"]->toggle();
 }
 
-void Mpalette::handlePrint()
+void PropertiesPalette::handlePrint()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	m_ScMW->scrActions["itemPrintingEnabled"]->toggle();
 }
 
-void Mpalette::handleFlipH()
+void PropertiesPalette::handleFlipH()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4076,7 +4076,7 @@ void Mpalette::handleFlipH()
 	*/
 }
 
-void Mpalette::handleFlipV()
+void PropertiesPalette::handleFlipV()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4094,7 +4094,7 @@ void Mpalette::handleFlipV()
 }
 
 
-void Mpalette::handlePathType()
+void PropertiesPalette::handlePathType()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4106,7 +4106,7 @@ void Mpalette::handlePathType()
 	}
 }
 
-void Mpalette::handlePathFlip()
+void PropertiesPalette::handlePathFlip()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4119,7 +4119,7 @@ void Mpalette::handlePathFlip()
 	}
 }
 
-void Mpalette::handlePathLine()
+void PropertiesPalette::handlePathLine()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4131,7 +4131,7 @@ void Mpalette::handlePathLine()
 	}
 }
 
-void Mpalette::handlePathDist()
+void PropertiesPalette::handlePathDist()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4145,7 +4145,7 @@ void Mpalette::handlePathDist()
 	}
 }
 
-void Mpalette::handlePathOffs()
+void PropertiesPalette::handlePathOffs()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4159,7 +4159,7 @@ void Mpalette::handlePathOffs()
 	}
 }
 
-void Mpalette::handleFillRule()
+void PropertiesPalette::handleFillRule()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -4169,7 +4169,7 @@ void Mpalette::handleFillRule()
 	}
 }
 
-void Mpalette::handleOverprint()
+void PropertiesPalette::handleOverprint()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -4179,7 +4179,7 @@ void Mpalette::handleOverprint()
 	}
 }
 
-void Mpalette::NewName()
+void PropertiesPalette::NewName()
 {
 	if (m_ScMW->ScriptRunning || !HaveDoc || !HaveItem)
 		return;
@@ -4216,7 +4216,7 @@ void Mpalette::NewName()
 	}
 }
 
-void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
+void PropertiesPalette::fillLangCombo(QMap<QString,QString> langMap)
 {
 	QStringList sortList;
 	QMap<QString,QString>::Iterator it;
@@ -4232,7 +4232,7 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 		tmpView->setMinimumWidth(tmpWidth + 24);
 }
 
-void Mpalette::NewLanguage()
+void PropertiesPalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -4241,7 +4241,7 @@ void Mpalette::NewLanguage()
 	}
 }
 
-void Mpalette::ManageTabs()
+void PropertiesPalette::ManageTabs()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -4261,7 +4261,7 @@ void Mpalette::ManageTabs()
 	}
 }
 
-void Mpalette::HandleTLines()
+void PropertiesPalette::HandleTLines()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -4274,7 +4274,7 @@ void Mpalette::HandleTLines()
 	}
 }
 
-void Mpalette::installSniffer(ScrSpinBox *spinBox)
+void PropertiesPalette::installSniffer(ScrSpinBox *spinBox)
 {
 	const QList<QObject*> list = spinBox->children();
 	if (!list.isEmpty())
@@ -4289,18 +4289,18 @@ void Mpalette::installSniffer(ScrSpinBox *spinBox)
 	}
 }
 
-bool Mpalette::userActionOn()
+bool PropertiesPalette::userActionOn()
 {
 	return _userActionOn;
 }
 
-void Mpalette::spinboxStartUserAction()
+void PropertiesPalette::spinboxStartUserAction()
 {
 //	qDebug("sniffer: spinbox start action");
 	_userActionOn = true;
 }
 
-void Mpalette::spinboxFinishUserAction()
+void PropertiesPalette::spinboxFinishUserAction()
 {
 //	qDebug("sniffer: spinbox finish action");
 	_userActionOn = false;
@@ -4314,7 +4314,7 @@ void Mpalette::spinboxFinishUserAction()
 	}
 }
 
-void Mpalette::changeEvent(QEvent *e)
+void PropertiesPalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
 	{
@@ -4322,7 +4322,7 @@ void Mpalette::changeEvent(QEvent *e)
 	}
 }
 
-void Mpalette::languageChange()
+void PropertiesPalette::languageChange()
 {
 	setWindowTitle( tr("Properties"));
 
@@ -4720,17 +4720,17 @@ void Mpalette::languageChange()
 }
 
 
-const VGradient Mpalette::getFillGradient()
+const VGradient PropertiesPalette::getFillGradient()
 {
 	return Cpal->gradEdit->Preview->fill_gradient;
 }
 
-void Mpalette::setGradientEditMode(bool on)
+void PropertiesPalette::setGradientEditMode(bool on)
 {
 	Cpal->gradEditButton->setChecked(on);
 }
 
-void Mpalette::updateColorSpecialGradient()
+void PropertiesPalette::updateColorSpecialGradient()
 {
 	if (!HaveDoc)
 		return;
@@ -4743,7 +4743,7 @@ void Mpalette::updateColorSpecialGradient()
 								currItem->GrEndX * dur, currItem->GrEndY * dur);
 }
 
-void Mpalette::updateSpinBoxConstants()
+void PropertiesPalette::updateSpinBoxConstants()
 {
 	if (!HaveDoc)
 		return;
@@ -4783,7 +4783,7 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 	return false;
 }
 
-void Mpalette::setLocked(bool isLocked)
+void PropertiesPalette::setLocked(bool isLocked)
 {
 	Xpos->setReadOnly(isLocked);
 	Ypos->setReadOnly(isLocked);
@@ -4821,7 +4821,7 @@ void Mpalette::setLocked(bool isLocked)
 	}
 }
 
-void Mpalette::setSizeLocked(bool isSizeLocked)
+void PropertiesPalette::setSizeLocked(bool isSizeLocked)
 {
 	bool b=isSizeLocked;
 	if (HaveItem && CurItem->locked())
@@ -4843,22 +4843,22 @@ void Mpalette::setSizeLocked(bool isSizeLocked)
 	NoResize->setChecked(isSizeLocked);
 }
 
-void Mpalette::setPrintingEnabled(bool isPrintingEnabled)
+void PropertiesPalette::setPrintingEnabled(bool isPrintingEnabled)
 {
 	NoPrint->setChecked(!isPrintingEnabled);
 }
 
-void Mpalette::setFlippedH(bool isFlippedH)
+void PropertiesPalette::setFlippedH(bool isFlippedH)
 {
 	FlipH->setChecked(isFlippedH);
 }
 
-void Mpalette::setFlippedV(bool isFlippedV)
+void PropertiesPalette::setFlippedV(bool isFlippedV)
 {
 	FlipV->setChecked(isFlippedV);
 }
 
-void Mpalette::setGroupTransparency(int trans)
+void PropertiesPalette::setGroupTransparency(int trans)
 {
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -4868,14 +4868,14 @@ void Mpalette::setGroupTransparency(int trans)
 	}
 }
 
-void Mpalette::setGroupBlending(int blend)
+void PropertiesPalette::setGroupBlending(int blend)
 {
 		CurItem->setFillBlendmode(blend);
 		CurItem->update();
 		emit DocChanged();
 }
 
-void Mpalette::doGrouping()
+void PropertiesPalette::doGrouping()
 {
 	m_ScMW->GroupObj();
 	DoGroup->setEnabled(false);
@@ -4896,7 +4896,7 @@ void Mpalette::doGrouping()
 	TabStack->setItemEnabled(idShapeItem, false);
 }
 
-void Mpalette::EditSh2()
+void PropertiesPalette::EditSh2()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;

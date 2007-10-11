@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fileloader.h"
+#include "masterpagepalette.h"
 #include "pageselector.h"
 #include "scribus.h"
 #include "scribuswin.h"
@@ -154,4 +155,14 @@ void ScribusWin::windowActivationChange ( bool oldActive )
 	else
 		currentDir = QDir::currentPath();
 	QMainWindow::windowActivationChange( oldActive );
+}
+
+void ScribusWin::setMasterPagesPalette(MasterPagesPalette* newMPP)
+{
+	 m_masterPagesPalette=newMPP;
+}
+
+MasterPagesPalette* ScribusWin::masterPagesPalette() const
+{
+	return m_masterPagesPalette;
 }

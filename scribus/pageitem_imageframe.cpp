@@ -21,15 +21,16 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "pageitem_imageframe.h"
+#include <QDebug>
+#include <QGridLayout>
 #include <QKeyEvent>
 
 #include <cmath>
 #include <cassert>
 
-#include "mpalette.h"
 #include "page.h"
 #include "pageitem.h"
+#include "pageitem_imageframe.h"
 #include "prefsmanager.h"
 #include "scraction.h"
 #include "scpaths.h"

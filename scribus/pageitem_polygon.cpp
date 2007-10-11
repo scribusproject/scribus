@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
-#include "mpalette.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_polygon.h"

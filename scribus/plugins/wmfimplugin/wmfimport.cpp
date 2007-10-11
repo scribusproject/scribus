@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "scribus.h"
 #include "scribusXml.h"
-#include "mpalette.h"
+#include "propertiespalette.h"
 #include "prefsfile.h"
 
 #include <cmath>

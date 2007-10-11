@@ -4,8 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef TREE_H
-#define TREE_H
+#ifndef OUTLINEPALETTE_H
+#define OUTLINEPALETTE_H
 
 #include <QPixmap>
 #include <QTreeWidget>
@@ -34,21 +34,21 @@ public:
 	int type;
 };
 
-class SCRIBUS_API TreeWidget : public QTreeWidget
+class SCRIBUS_API OutlineWidget : public QTreeWidget
 {
 public:
-	TreeWidget(QWidget* parent);
-	~TreeWidget() {};
+	OutlineWidget(QWidget* parent);
+	~OutlineWidget() {};
 protected:
 	bool viewportEvent(QEvent *event);
 };
 
-class SCRIBUS_API Tree : public ScrPaletteBase
+class SCRIBUS_API OutlinePalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
-	Tree( QWidget* parent );
+	OutlinePalette( QWidget* parent );
 	
 	virtual void changeEvent(QEvent *e);
 	
@@ -81,7 +81,7 @@ protected slots:
 	void slotSelect(QTreeWidgetItem* ite, int col);
 protected:
 	void clearPalette();
-	TreeWidget* reportDisplay;
+	OutlineWidget* reportDisplay;
 	QTreeWidgetItem* freeObjects;
 	QTreeWidgetItem* rootObject;
 	QTreeWidgetItem* currentObject;

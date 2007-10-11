@@ -121,13 +121,13 @@ protected:
 	virtual void focusOutEvent(QFocusEvent *);
 };
 
-class SCRIBUS_API Mpalette : public ScrPaletteBase
+class SCRIBUS_API PropertiesPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
-	Mpalette(QWidget* parent);
-	~Mpalette() {};
+	PropertiesPalette(QWidget* parent);
+	~PropertiesPalette() {};
 
 	virtual void changeEvent(QEvent *e);
 	virtual void closeEvent(QCloseEvent *closeEvent);

@@ -42,10 +42,10 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "cpalette.h"
 #include "guidemanager.h"
-#include "mpalette.h"
 #include "page.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
+#include "propertiespalette.h"
 #include "resourcecollection.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
@@ -4252,7 +4252,7 @@ bool PageItem::connectToGUI()
 		return false;
 	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
-	Mpalette* pp=m_Doc->scMW()->propertiesPalette;
+	PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
 	connect(this, SIGNAL(myself(PageItem *)), pp, SLOT(SetCurItem(PageItem *)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel(int)));
 	connect(this, SIGNAL(frameType(int)), m_Doc->view(), SLOT(selectionChanged()));
@@ -4306,7 +4306,7 @@ bool PageItem::disconnectFromGUI()
 {
 	if (!ScCore->usingGUI())
 		return false;
-	Mpalette* pp=m_Doc->scMW()->propertiesPalette;
+	PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
 	disconnect(this, 0, pp, 0);
 	return true;
 }

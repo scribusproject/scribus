@@ -58,7 +58,7 @@ class SCRIBUS_API Cpalette : public QWidget
 {
 	Q_OBJECT
 
-	friend class Mpalette;
+	friend class PropertiesPalette;
 
 public:
 	Cpalette(QWidget* parent);

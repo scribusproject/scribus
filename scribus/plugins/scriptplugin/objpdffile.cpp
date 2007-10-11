@@ -6,14 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include "objpdffile.h"
 #include "cmdutil.h"
-#include "bookpalette.h"
+#include "bookmarkpalette.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
 
 #include <structmember.h>
 #include <QFileInfo>
-//Added by qt3to4:
 #include <QList>
 #include <QPixmap>
 #include <vector>

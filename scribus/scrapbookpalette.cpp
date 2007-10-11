@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 ** Created: Sun Oct 14 19:47:56 2001
 **
 ****************************************************************************/
-#include "scrap.h"
+#include "scrapbookpalette.h"
 
 #include <QEvent>
 #include <QDataStream>

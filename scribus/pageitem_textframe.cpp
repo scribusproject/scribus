@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "guidemanager.h"
 #include "hyphenator.h"
-#include "mpalette.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
-#include "bookpalette.h"
+#include "bookmarkpalette.h"
 
 BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {

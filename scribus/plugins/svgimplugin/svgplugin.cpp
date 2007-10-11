@@ -22,10 +22,10 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "loadsaveplugin.h"
 #include "menumanager.h"
-#include "mpalette.h"
 #include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "propertiespalette.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "scraction.h"
@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 using namespace std;
 

@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "editor.h"
-#include "mpalette.h"
+#include "propertiespalette.h"
 #include "navigator.h"
 #include "pageitem.h"
 #include "prefscontext.h"

@@ -35,7 +35,7 @@ class ScribusMainWindow;
 class ScribusView;
 
 #include "scribusapi.h"
-#include "muster.h"
+class MasterPagesPalette;
 /**
   *@author Franz Schmid
   */
@@ -53,8 +53,8 @@ public:
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
 	ScribusDoc* doc() const { return m_Doc;}
-	void setMasterPagesPalette(MasterPagesPalette* newMPP) { m_masterPagesPalette=newMPP; }
-	MasterPagesPalette* masterPagesPalette() const { return m_masterPagesPalette; }
+	void setMasterPagesPalette(MasterPagesPalette* newMPP);
+	MasterPagesPalette* masterPagesPalette() const;
 	void setMenuStatus(int index, bool value) { if (index>=0 && index <=6) MenuStat[index]=value;}
 	bool menuStatus(int index) const { if (index>=0 && index <=6) return MenuStat[index]; else return false; }
 	void setMasterPagesPaletteShown(bool isShown) const;

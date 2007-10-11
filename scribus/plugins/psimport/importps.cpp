@@ -4,42 +4,45 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "importps.h"
 
-#include "scconfig.h"
-#include "scribus.h"
-#include "scribuscore.h"
-#include "commonstrings.h"
-#include "customfdialog.h"
-#include "mpalette.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
-#include "prefsmanager.h"
-#include "prefstable.h"
-#include "scribusXml.h"
-#include <QFile>
+#include <QByteArray>
 #include <QCursor>
+#include <QDrag>
+#include <QFile>
+#include <QList>
+#include <QMimeData>
 #include <QRegExp>
 #include <QStack>
-#include <QDrag>
-#include <QMimeData>
-#include <QList>
 #include <QStack>
-#include <QByteArray>
 #include <QTextStream>
+
 #include <cmath>
 #include <cstdlib>
 
-#include "multiprogressdialog.h"
-#include "scpaths.h"
-#include "selection.h"
-#include "prefsmanager.h"
-#include "undomanager.h"
+
+#include "commonstrings.h"
+#include "customfdialog.h"
+#include "importps.h"
 #include "loadsaveplugin.h"
+#include "multiprogressdialog.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "prefsmanager.h"
+#include "prefstable.h"
+#include "propertiespalette.h"
+#include "scconfig.h"
+#include "scpaths.h"
+#include "scribus.h"
+#include "scribusXml.h"
+#include "scribuscore.h"
+#include "selection.h"
+#include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 

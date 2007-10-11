@@ -7,16 +7,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
-#include "frameedit.h"
+#include "lensdialog.h"
+#include "nodeeditpalette.h"
 #include "page.h"
 #include "pageitem.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "units.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "units.h"
 #include "util_icon.h"
-#include "lensdialog.h"
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {

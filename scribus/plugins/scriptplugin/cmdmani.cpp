@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdmani.h"
 #include "cmdutil.h"
-#include "mpalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
+#include "propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 #include "selection.h"
 #include "scribuscore.h"
 
