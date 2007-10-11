@@ -3916,18 +3916,19 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			{
 				for (int ga=0; ga<m_doc->Items->count(); ++ga)
 				{
-					if (m_doc->Items->at(ga)->Groups.count() != 0)
+					PageItem* item = m_doc->Items->at(ga);
+					if (item->Groups.count() != 0 && currItem->Groups.count() != 0)
 					{
-						if (m_doc->Items->at(ga)->Groups.top() == currItem->Groups.top())
+						if (item->Groups.top() == currItem->Groups.top())
 						{
-							if (m_doc->Items->at(ga)->ItemNr != currItem->ItemNr)
+							if (item->ItemNr != currItem->ItemNr)
 							{
-								if (m_doc->m_Selection->findItem(m_doc->Items->at(ga)) == -1)
+								if (m_doc->m_Selection->findItem(item) == -1)
 								{
-									m_doc->m_Selection->addItem(m_doc->Items->at(ga), true);
+									m_doc->m_Selection->addItem(item, true);
 								}
 							}
-							m_doc->Items->at(ga)->isSingleSel = false;
+							item->isSingleSel = false;
 						}
 					}
 				}
