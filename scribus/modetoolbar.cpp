@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QPixmap>
 
-#include "werktoolb.h"
+#include "modetoolbar.h"
 
 #include "autoformbuttongroup.h"
 #include "menumanager.h"

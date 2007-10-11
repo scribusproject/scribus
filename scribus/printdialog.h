@@ -4,8 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef DRUCK_H
-#define DRUCK_H
+#ifndef PRINTDIALOG_H
+#define PRINTDIALOG_H
 
 #include "scribusapi.h"
 
@@ -31,13 +31,13 @@ class ScribusDoc;
 class CupsOptions;
 class ScrSpinBox;
 
-class SCRIBUS_API Druck : public QDialog
+class SCRIBUS_API PrintDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
-	~Druck();
+	PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
+	~PrintDialog();
 	QString printerName();
 	QString outputFileName();
 	QCheckBox* OtherCom;
@@ -92,8 +92,8 @@ protected slots:
 	void previewButtonClicked();
 
 protected:
-	QVBoxLayout* DruckLayout;
-	QGridLayout* DruckerLayout;
+	QVBoxLayout* PrintDialogLayout;
+	QGridLayout* PrintDialogLayout2;
 	QHBoxLayout* Layout1x;
 	QHBoxLayout* Layout1;
 	QGridLayout* rangeGroupLayout;
@@ -104,7 +104,7 @@ protected:
 	QVBoxLayout* pageOptsLayout;
 	QVBoxLayout* colorOptsLayout;
 	QHBoxLayout *pageNumberSelectorLayout;
-	QGroupBox* Drucker;
+	QGroupBox* PrintDialogGroup;
 	QComboBox* PrintDest;
 	QLabel* DateiT;
 	QLineEdit* LineEdit1;
@@ -167,4 +167,4 @@ protected:
 	void storeValues();
 };
 
-#endif // DRUCK_H
+#endif // PRINTDIALOG_H

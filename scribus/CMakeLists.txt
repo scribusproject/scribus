@@ -104,7 +104,6 @@ SET(SCRIBUS_MOC_CLASSES
   docinfo.h
   docitemattrprefs.h
   docsections.h
-  druck.h
   editor.h
   effectsdialog.h
   extimageprops.h
@@ -143,6 +142,7 @@ SET(SCRIBUS_MOC_CLASSES
   menumanager.h
   mergedoc.h
   missing.h
+  modetoolbar.h
   movepage.h
   multipleduplicate.h
   multiprogressdialog.h
@@ -181,6 +181,7 @@ SET(SCRIBUS_MOC_CLASSES
   prefsmanager.h
   prefspanel.h
   preview.h
+  printdialog.h
   propertiespalette.h
   pslib.h
   query.h
@@ -261,7 +262,6 @@ SET(SCRIBUS_MOC_CLASSES
   urllauncher.h
   useprintermarginsdialog.h
   vruler.h
-  werktoolb.h
 )
 
 SET(SCRIBUS_SOURCES
@@ -314,7 +314,6 @@ SET(SCRIBUS_SOURCES
   docsections.cpp
   documentchecker.cpp
   documentinformation.cpp
-  druck.cpp
   editor.cpp
   effectsdialog.cpp
   exif.cpp
@@ -374,6 +373,7 @@ SET(SCRIBUS_SOURCES
   menumanager.cpp
   mergedoc.cpp
   missing.cpp
+  modetoolbar.cpp
   movepage.cpp
   multipleduplicate.cpp
   multiprogressdialog.cpp
@@ -421,6 +421,7 @@ SET(SCRIBUS_SOURCES
   prefsreader.cpp
   prefstable.cpp
   preview.cpp
+  printdialog.cpp
   propertiespalette.cpp
   pslib.cpp
   query.cpp
@@ -552,7 +553,6 @@ SET(SCRIBUS_SOURCES
   vgradient.cpp
   vgradientex.cpp
   vruler.cpp
-  werktoolb.cpp
 )
 
 IF(WIN32)

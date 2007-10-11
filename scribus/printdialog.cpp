@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "druck.h"
+#include "printdialog.h"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -52,7 +52,7 @@ for which a new license (GPL+exception) is in place.
 
 extern bool previewDinUse;
 
-Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
+PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
 		: QDialog( parent )
 {
 	setModal(true);
@@ -66,21 +66,21 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	PrinterOpts = "";
 	setWindowTitle( tr( "Setup Printer" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
-	DruckLayout = new QVBoxLayout( this );
-	DruckLayout->setSpacing( 5 );
-	DruckLayout->setMargin( 10 );
+	PrintDialogLayout = new QVBoxLayout( this );
+	PrintDialogLayout->setSpacing( 5 );
+	PrintDialogLayout->setMargin( 10 );
 
-	Drucker = new QGroupBox( this );
-	Drucker->setTitle( tr( "Print Destination" ) );
-	DruckerLayout = new QGridLayout( Drucker );
-	DruckerLayout->setAlignment( Qt::AlignTop );
-	DruckerLayout->setSpacing( 5 );
-	DruckerLayout->setMargin( 10 );
+	PrintDialogGroup = new QGroupBox( this );
+	PrintDialogGroup->setTitle( tr( "Print Destination" ) );
+	PrintDialogLayout2 = new QGridLayout( PrintDialogGroup );
+	PrintDialogLayout2->setAlignment( Qt::AlignTop );
+	PrintDialogLayout2->setSpacing( 5 );
+	PrintDialogLayout2->setMargin( 10 );
 
 	Layout1x = new QHBoxLayout;
 	Layout1x->setSpacing( 5 );
 	Layout1x->setMargin( 0 );
-	PrintDest = new QComboBox(Drucker);
+	PrintDest = new QComboBox(PrintDialogGroup);
 	PrintDest->setMinimumSize( QSize( 250, 22 ) );
 	PrintDest->setMaximumSize( QSize( 260, 30 ) );
 	PrintDest->setEditable(false);
@@ -112,47 +112,47 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	Layout1x->addWidget( PrintDest );
 
 #if defined(HAVE_CUPS) || defined(_WIN32)
-	OptButton = new QPushButton( tr( "&Options..." ), Drucker );
+	OptButton = new QPushButton( tr( "&Options..." ), PrintDialogGroup );
 	Layout1x->addWidget( OptButton );
 #endif
 	QSpacerItem* spacerDR = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1x->addItem( spacerDR );
-	DruckerLayout->addLayout( Layout1x, 0, 0);
+	PrintDialogLayout2->addLayout( Layout1x, 0, 0);
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
-	LineEdit1 = new QLineEdit( QDir::convertSeparators(PDatei), Drucker );
+	LineEdit1 = new QLineEdit( QDir::convertSeparators(PDatei), PrintDialogGroup );
 	LineEdit1->setMinimumSize( QSize( 240, 22 ) );
 	LineEdit1->setEnabled(false);
-	DateiT = new QLabel( tr( "&File:" ), Drucker );
+	DateiT = new QLabel( tr( "&File:" ), PrintDialogGroup );
 	DateiT->setBuddy(LineEdit1);
 	DateiT->setEnabled( false );
 	Layout1->addWidget( DateiT );
 	Layout1->addWidget( LineEdit1 );
-	ToolButton1 = new QToolButton( Drucker );
+	ToolButton1 = new QToolButton( PrintDialogGroup );
 	ToolButton1->setText( tr( "C&hange..." ) );
 	ToolButton1->setMinimumSize( QSize( 80, 22 ) );
 	ToolButton1->setEnabled(false);
 	ToolButton1->setFocusPolicy( Qt::TabFocus );
 	Layout1->addWidget( ToolButton1 );
-	DruckerLayout->addLayout( Layout1, 1, 0 );
+	PrintDialogLayout2->addLayout( Layout1, 1, 0 );
 
-	OtherCom = new QCheckBox( tr("A&lternative Printer Command"), Drucker);
+	OtherCom = new QCheckBox( tr("A&lternative Printer Command"), PrintDialogGroup);
 	OtherCom->setChecked(false);
-	DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
+	PrintDialogLayout2->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
 	LayoutCC = new QHBoxLayout;
 	LayoutCC->setSpacing( 5 );
 	LayoutCC->setMargin( 0 );
-	Command = new QLineEdit( PCom, Drucker );
+	Command = new QLineEdit( PCom, PrintDialogGroup );
 	Command->setMinimumSize( QSize( 240, 22 ) );
 	Command->setEnabled(false);
-	OthText = new QLabel( tr( "Co&mmand:" ), Drucker );
+	OthText = new QLabel( tr( "Co&mmand:" ), PrintDialogGroup );
 	OthText->setBuddy(Command);
 	OthText->setEnabled( false );
 	LayoutCC->addWidget( OthText );
 	LayoutCC->addWidget( Command );
-	DruckerLayout->addLayout( LayoutCC, 3, 0 );
-	DruckLayout->addWidget( Drucker );
+	PrintDialogLayout2->addLayout( LayoutCC, 3, 0 );
+	PrintDialogLayout->addWidget( PrintDialogGroup );
 
 	rangeGroup = new QGroupBox( tr( "Range" ), this );
 	rangeGroupLayout = new QGridLayout( rangeGroup );
@@ -186,7 +186,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	TextLabel3 = new QLabel( tr( "N&umber of Copies:" ), rangeGroup );
 	TextLabel3->setBuddy(Copies);
 	rangeGroupLayout->addWidget( TextLabel3, 0, 2 );
-	DruckLayout->addWidget( rangeGroup );
+	PrintDialogLayout->addWidget( rangeGroup );
 
 	printOptions = new QTabWidget( this );
 	tab = new QWidget( printOptions );
@@ -337,7 +337,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 		BleedTxt4->setText( tr( "Outside:" ) );
 	}
 
-	DruckLayout->addWidget( printOptions );
+	PrintDialogLayout->addWidget( printOptions );
 
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 5 );
@@ -357,7 +357,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	OKButton_2->setDefault( false );
 	Layout2->addWidget( OKButton_2 );
 
-	DruckLayout->addLayout( Layout2 );
+	PrintDialogLayout->addLayout( Layout2 );
 	if ((PDev== tr("File")) || (PrintDest->count() == 1))
 	{
 		PrintDest->setCurrentIndex(PrintDest->count()-1);
@@ -424,7 +424,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 		psLevel->setEnabled( false );
 }
 
-Druck::~Druck()
+PrintDialog::~PrintDialog()
 {
 #ifdef HAVE_CUPS
 	delete cdia;
@@ -432,7 +432,7 @@ Druck::~Druck()
 	cdia = 0;
 }
 
-void Druck::SetOptions()
+void PrintDialog::SetOptions()
 {
 #ifdef HAVE_CUPS
 	PrinterOpts = "";
@@ -462,7 +462,7 @@ void Druck::SetOptions()
 #endif
 }
 
-void Druck::getOptions()
+void PrintDialog::getOptions()
 {
 #ifdef HAVE_CUPS
 	PrinterOpts = "";
@@ -525,7 +525,7 @@ void Druck::getOptions()
 #endif
 }
 
-void Druck::SelComm()
+void PrintDialog::SelComm()
 {
 	/* PFJ - 29.02.04 - removed OthText, Command and PrintDest from switch */
 	bool test = OtherCom->isChecked() ? true : false;
@@ -553,7 +553,7 @@ void Druck::SelComm()
 	}
 }
 
-void Druck::SelPrinter(const QString& prn)
+void PrintDialog::SelPrinter(const QString& prn)
 {
 	bool setter = prn == tr("File") ? true : false;
 	DateiT->setEnabled(setter);
@@ -593,13 +593,13 @@ void Druck::SelPrinter(const QString& prn)
 	Geraet = prn;
 }
 
-void Druck::SelRange(bool e)
+void PrintDialog::SelRange(bool e)
 {
 	pageNr->setEnabled(!e);
 	pageNrButton->setEnabled(!e);
 }
 
-void Druck::SelMode(int e)
+void PrintDialog::SelMode(int e)
 {
 	if (e == 0)
 	{
@@ -613,29 +613,29 @@ void Druck::SelMode(int e)
 	}
 }
 
-void Druck::SelFile()
+void PrintDialog::SelFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString wdir = dirs->get("druck", ".");
+	QString wdir = dirs->get("printdir", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone);
 	if (!LineEdit1->text().isEmpty())
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)
 	{
 		QString selectedFile = dia.selectedFile();
-		dirs->set("druck", selectedFile.left(selectedFile.lastIndexOf("/")));
+		dirs->set("printdir", selectedFile.left(selectedFile.lastIndexOf("/")));
 		LineEdit1->setText( QDir::convertSeparators(selectedFile) );
 	}
 }
 
-void Druck::setMinMax(int min, int max, int cur)
+void PrintDialog::setMinMax(int min, int max, int cur)
 {
 	QString tmp, tmp2;
 	CurrentPage->setText( tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
 	pageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
 }
 
-void Druck::storeValues()
+void PrintDialog::storeValues()
 {
 	getOptions(); // options were not set get last options with this hack
 
@@ -713,19 +713,19 @@ void Druck::storeValues()
 	prefs->set("colorMarks", colorMarks->isChecked()); */
 }
 
-void Druck::okButtonClicked()
+void PrintDialog::okButtonClicked()
 {
 	storeValues();
 	accept();
 }
 
-void Druck::previewButtonClicked()
+void PrintDialog::previewButtonClicked()
 {
 	storeValues();
 	emit doPreview();
 }
 
-void Druck::setStoredValues(bool gcr)
+void PrintDialog::setStoredValues(bool gcr)
 {
 	if (m_doc->Print_Options.firstUse)
 	{
@@ -855,37 +855,37 @@ void Druck::setStoredValues(bool gcr)
 	}
 }
 
-QString Druck::printerName()
+QString PrintDialog::printerName()
 {
 	return Geraet;
 }
 
-QString Druck::outputFileName()
+QString PrintDialog::outputFileName()
 {
 	return ScPaths::separatorsToSlashes(LineEdit1->text());
 }
 
-bool Druck::outputToFile()
+bool PrintDialog::outputToFile()
 {
 	return ToFile;
 }
 
-int Druck::numCopies()
+int PrintDialog::numCopies()
 {
 	return Copies->value();
 }
 
-bool Druck::outputSeparations()
+bool PrintDialog::outputSeparations()
 {
 	return ToSeparation;
 }
 
-QString Druck::separationName()
+QString PrintDialog::separationName()
 {
 	return SepArt->currentText();
 }
 
-QStringList Druck::allSeparations()
+QStringList PrintDialog::allSeparations()
 {
 	QStringList ret;
 	for (int a = 1; a < SepArt->count(); ++a)
@@ -895,7 +895,7 @@ QStringList Druck::allSeparations()
 	return ret;
 }
 
-bool Druck::color()
+bool PrintDialog::color()
 {
 	if (colorType->currentIndex() == 0)
 		return true;
@@ -903,47 +903,47 @@ bool Druck::color()
 		return false;
 }
 
-bool Druck::mirrorHorizontal()
+bool PrintDialog::mirrorHorizontal()
 {
 	return MirrorHor->isChecked();
 }
 
-bool Druck::mirrorVertical()
+bool PrintDialog::mirrorVertical()
 {
 	return MirrorVert->isChecked();
 }
 
-bool Druck::doGCR()
+bool PrintDialog::doGCR()
 {
 	return GcR->isChecked();
 }
 
-bool Druck::doClip()
+bool PrintDialog::doClip()
 {
 	return ClipMarg->isChecked();
 }
 
-int Druck::PSLevel()
+int PrintDialog::PSLevel()
 {
 	return psLevel->currentIndex() + 1;
 }
 
-bool Druck::doDev()
+bool PrintDialog::doDev()
 {
 	return devPar->isChecked();
 }
 
-bool Druck::doSpot()
+bool PrintDialog::doSpot()
 {
 	return !spotColors->isChecked();
 }
 
-bool Druck::doOverprint()
+bool PrintDialog::doOverprint()
 {
 	return overprintMode->isChecked();
 }
 
-bool Druck::ICCinUse()
+bool PrintDialog::ICCinUse()
 {
 	if (m_doc->HasCMS)
 		return UseICC->isChecked();
@@ -951,7 +951,7 @@ bool Druck::ICCinUse()
 		return false;
 }
 
-void Druck::doDocBleeds()
+void PrintDialog::doDocBleeds()
 {
 	if (docBleeds->isChecked())
 	{
@@ -981,7 +981,7 @@ void Druck::doDocBleeds()
 	}
 }
 
-void Druck::createPageNumberRange( )
+void PrintDialog::createPageNumberRange( )
 {
 	if (m_doc!=0)
 	{

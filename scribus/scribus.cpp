@@ -101,7 +101,6 @@ for which a new license (GPL+exception) is in place.
 #include "docitemattrprefs.h"
 #include "documentchecker.h"
 #include "documentinformation.h"
-#include "druck.h"
 #include "effectsdialog.h"
 #include "fileloader.h"
 #include "filewatcher.h"
@@ -128,6 +127,7 @@ for which a new license (GPL+exception) is in place.
 #include "measurements.h"
 #include "menumanager.h"
 #include "mergedoc.h"
+#include "modetoolbar.h"
 #include "movepage.h"
 #include "multipleduplicate.h"
 #include "newfile.h"
@@ -157,6 +157,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "preview.h"
+#include "printdialog.h"
 #include "propertiespalette.h"
 #include "pslib.h"
 #include "query.h"
@@ -216,7 +217,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "util_icon.h"
 #include "vruler.h"
-#include "werktoolb.h"
 
 
 #if defined(_WIN32)
@@ -4417,7 +4417,7 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	Druck *printer = new Druck(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
+	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));

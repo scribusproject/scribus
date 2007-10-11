@@ -49,7 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "util.h"
 #include "util_ghostscript.h"
-#include "werktoolb.h"
+#include "modetoolbar.h"
 #include "pageitem_latexframe.h"
 
 extern bool emergencyActivated;

@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef WERKTOOLB_H
-#define WERKTOOLB_H
+#ifndef MODETOOLBAR_H
+#define MODETOOLBAR_H
 
 #include "scribusapi.h"
 #include "sctoolbar.h"
