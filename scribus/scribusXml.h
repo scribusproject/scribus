@@ -65,10 +65,10 @@ public:
 protected:
 	PrefsManager* prefsManager;
 
-	bool	attrAsBool(const QXmlStreamAttributes& attrs, const QString& attName, bool defVal = false);
-	int     attrAsInt (const QXmlStreamAttributes& attrs, const QString& attName, int  defVal = 0);
-	double  attrAsDbl (const QXmlStreamAttributes& attrs, const QString& attName, double defVal = 0.0);
-	QString attrAsString (const QXmlStreamAttributes& attrs, const QString& attName, const QString& defVal);
+	bool	attrAsBool(const QXmlStreamAttributes& attrs, const char* attName, bool defVal = false);
+	int     attrAsInt (const QXmlStreamAttributes& attrs, const char*attName, int  defVal = 0);
+	double  attrAsDbl (const QXmlStreamAttributes& attrs, const char* attName, double defVal = 0.0);
+	QString attrAsString (const QXmlStreamAttributes& attrs, const char* attName, const QString& defVal);
 
 	void GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
 	void GetItemText (const QXmlStreamAttributes& attrs, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);

@@ -56,36 +56,40 @@ ScriXmlDoc::ScriXmlDoc()
 	prefsManager=PrefsManager::instance();
 }
 
-bool ScriXmlDoc::attrAsBool(const QXmlStreamAttributes& attrs, const QString& attName, bool defVal)
+bool ScriXmlDoc::attrAsBool(const QXmlStreamAttributes& attrs, const char* attName, bool defVal)
 {
+	QLatin1String attString(attName);
 	bool value = defVal;
-	QStringRef att = attrs.value(attName);
+	QStringRef att = attrs.value(attString);
 	if (!att.isEmpty())
 		value = static_cast<bool>(att.toString().toInt());
 	return value;
 }
 
-int ScriXmlDoc::attrAsInt(const QXmlStreamAttributes& attrs, const QString& attName, int defVal)
+int ScriXmlDoc::attrAsInt(const QXmlStreamAttributes& attrs, const char* attName, int defVal)
 {
+	QLatin1String attString(attName);
 	int value = defVal;
-	QStringRef att = attrs.value(attName);
+	QStringRef att = attrs.value(attString);
 	if (!att.isEmpty())
 		value = att.toString().toInt();
 	return value;
 }
 
-double ScriXmlDoc::attrAsDbl(const QXmlStreamAttributes& attrs, const QString& attName, double defVal)
+double ScriXmlDoc::attrAsDbl(const QXmlStreamAttributes& attrs, const char* attName, double defVal)
 {
+	QLatin1String attString(attName);
 	double value = defVal;
-	QStringRef att = attrs.value(attName);
+	QStringRef att = attrs.value(attString);
 	if (!att.isEmpty())
 		value = att.toString().toDouble();
 	return value;
 }
 
-QString ScriXmlDoc::attrAsString (const QXmlStreamAttributes& attrs, const QString& attName, const QString& defVal)
+QString ScriXmlDoc::attrAsString (const QXmlStreamAttributes& attrs, const char* attName, const QString& defVal)
 {
-	QStringRef att = attrs.value(attName);
+	QLatin1String attString(attName);
+	QStringRef att = attrs.value(attString);
 	if (!att.isNull())
 		return att.toString();
 	return defVal;
@@ -957,6 +961,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	{
 		ff = fileName;
 	}
+
+	// In case ff contains some old broken scribus xml
+	ff.replace(QChar(5), SpecialChars::PARSEP);
+	ff.replace(QChar(4), SpecialChars::TAB);
 
 	bool isScribusElem = false;
 	QXmlStreamReader     sReader(ff);
@@ -1924,12 +1932,14 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 		tulw = style4.underlineWidth() / 10.0;
 		tstp = style4.strikethruOffset()/ 10.0;
 		tstw = style4.strikethruWidth() / 10.0;
-		if (ch == SpecialChars::PARSEP)
+		// QChar(5) and QChar(4) trigger QXmlStreamReader errors
+		/*if (ch == SpecialChars::PARSEP)
 			text = QChar(5);
 		else if (ch == SpecialChars::TAB)
 			text = QChar(4);
 		else
-			text = ch;
+			text = ch;*/
+		text = ch;
 		QString pstylename = "";
 		if (ch == SpecialChars::PARSEP)
 			pstylename = item->itemText.paragraphStyle(k).parent();
