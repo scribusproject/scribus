@@ -349,7 +349,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 
 	QPainter qp(this);
 	
-	if (m_viewMode.firstSpecial)// || !m_viewMode.m_bufferRect.contains(p->rect()) || m_doc->minCanvasCoordinate != m_viewMode.oldMinCanvasCoordinate)
+	if (m_viewMode.firstSpecial || !m_viewMode.m_bufferRect.contains(p->rect()) || m_doc->minCanvasCoordinate != m_viewMode.oldMinCanvasCoordinate)
 	{
 		if (m_viewMode.m_bufferRect.intersects(p->rect()))
 			m_viewMode.m_bufferRect = m_viewMode.m_bufferRect.united(p->rect());

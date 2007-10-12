@@ -282,6 +282,8 @@ SET(SCRIBUS_SOURCES
   buttonicon.cpp
   canvas.cpp
   canvasgesture_rectselect.cpp
+  canvasgesture_resize.cpp
+  canvasgesture_rulermove.cpp
   canvasmode.cpp
   canvasmode_legacy.cpp
   canvasmode_nodeedit.cpp

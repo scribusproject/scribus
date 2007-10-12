@@ -415,7 +415,7 @@ void ScribusView::changed(QRectF re)
 
 void ScribusView::startGesture(CanvasGesture* gesture)
 {
-	qDebug() << "start gesture" << typeid(m_canvasMode).name() << "---->" << typeid(gesture).name();
+	qDebug() << "start gesture" << typeid(*m_canvasMode).name() << "---->" << typeid(*gesture).name();
 	m_canvasMode->deactivate(true);
 	gesture->setDelegate(m_canvasMode);
 	m_canvasMode = gesture;
@@ -426,7 +426,7 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 
 void ScribusView::stopGesture()
 {
-	qDebug() << "stop gesture" << typeid(m_canvasMode).name() << (m_canvasMode->delegate() != 0);
+	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
 	if (m_canvasMode->delegate())
 	{
 		m_canvasMode->deactivate(false);
@@ -513,9 +513,9 @@ void ScribusView::requestMode(int appMode)
 			newCanvasMode = CanvasMode::createForAppMode(this, appMode);
 			modeInstances[appMode] = newCanvasMode;
 		}
-		qDebug() << "request canvas mode" << newCanvasMode;
 		if (newCanvasMode)
 		{
+			qDebug() << "request canvas mode" << typeid(*newCanvasMode).name();
 			m_canvasMode->deactivate(false);
 			m_canvasMode = newCanvasMode;
 			m_canvasMode->activate(false);
@@ -525,7 +525,7 @@ void ScribusView::requestMode(int appMode)
 	else
 		m_ScMW->setAppMode(appMode);
 	if (updateNecessary)
-		updateContents();
+		updateCanvas();
 }
 
 
@@ -3183,6 +3183,7 @@ void ScribusView::updatesOn(bool on)
  */
 void ScribusView::updateCanvas(QRectF box)
 {
+	m_canvas->m_viewMode.firstSpecial = true;	
 	if (box.isValid())
 	{
 		QPoint upperLeft = m_canvas->canvasToLocal(box.topLeft());

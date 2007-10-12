@@ -15,58 +15,53 @@
 
 
 
-#ifndef CANVAS_MODE_LEGACY_H
-#define CANVAS_MODE_LEGACY_H
+#ifndef CANVAS_GESTURE_RESIZE_H
+#define CANVAS_GESTURE_RESIZE_H
 
+#include <QRect>
+
+#include "scribusapi.h"
+#include "canvas.h"
+#include "canvasgesture.h"
 #include "canvasmode.h"
-#include "fpointarray.h"
 
-class PageItem;
-class ScribusMainWindow;
-class ScribusView;
+class QDragEnterEvent;
+class QDragMoveEvent;
+class QDragLeaveEvent;
+class QDropEvent;
+class QEvent;
+class QInputMethodEvent;
+class QMouseEvent;
+class QKeyEvent;
+class QPainter;
+class QRubberBand;
 
-
-// This class encapsulate the old code for mouse interaction from scribusview.cpp
-
-class LegacyMode : public CanvasMode
+/**
+  This class realizes resizing of selected items on behalf of its parent mode.
+  The user presses the mousebutton at one of the framehandles, drags it to the end point
+  and releases the mousebutton. The item or group selection is reiszed to the new dimensions.
+  During the move the selected items are highlighted.
+ */
+class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
 public:
-	LegacyMode(ScribusView* view);
-
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	ResizeGesture (CanvasMode* parent, Canvas::FrameHandle framehandle=Canvas::SOUTHEAST) : CanvasGesture(parent), m_handle(framehandle), m_rectangle(NULL) {};
 	
+
 	virtual void activate(bool);
 	virtual void deactivate(bool);
-	virtual void mouseDoubleClickEvent(QMouseEvent *m);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
 	
-protected:
-	void setModeCursor();
-	void setResizeCursor(int);
+	Canvas::FrameHandle frameHandle() const { return m_handle; }
 	
 private:
-	inline bool GetItem(PageItem** pi); 
-	void selectPage(QMouseEvent *m);
-	bool SeleItem(QMouseEvent *m);
-	void SetupDraw(int Nr);
-	void SetupDrawNoResize(int nr);
-	void createContextMenu(PageItem *);
-	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
-
-	int Cp, oldCp;
-	bool inItemCreation, shiftSelItems, FirstPoly;
-	int frameResizeHandle;
-	int RotMode;
-	int dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
-	int GxM, GyM;
-	double SeRx, SeRy;
-	bool MoveGX, MoveGY;
-	FPointArray RecordP;
-	ScribusMainWindow* m_ScMW;
+	void adjustBounds(QMouseEvent *m);
+	Canvas::FrameHandle m_handle;
+	double m_rotation;
+	QRect m_bounds;
+	QRubberBand* m_rectangle;
 };
 
 

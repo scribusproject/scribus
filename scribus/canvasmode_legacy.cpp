@@ -30,6 +30,7 @@
 
 
 #include "canvas.h"
+#include "canvasgesture_resize.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hruler.h"
@@ -100,6 +101,17 @@ void LegacyMode::leaveEvent(QEvent *e)
 }
 
 
+void LegacyMode::activate(bool flag)
+{
+	qDebug() << "LegacyMode::activate" << flag;
+	setModeCursor();
+}
+
+void LegacyMode::deactivate(bool flag)
+{
+	qDebug() << "LegacyMode::deactivate" << flag;
+	m_view->redrawMarker->hide();
+}
 
 void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 {
@@ -1209,6 +1221,14 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			if (GetItem(&currItem))
 			{
+				ResizeGesture* rsz = new ResizeGesture(this);
+				rsz->mousePressEvent(m);
+				if (rsz->frameHandle() > 0)
+				{
+					m_view->startGesture(rsz);
+					return;
+				}
+#if 1				
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
 					m_canvas->PaintSizeRect(QRect());
@@ -1330,6 +1350,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					}
 				}
 				m_canvas->setRenderModeFillBuffer();
+#endif
 			}
 			else // !GetItem()
 			{
@@ -3912,12 +3933,12 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			{
 				currItem->isSingleSel = true;
 			}
-			else
+			else if (currItem->Groups.count() > 0)
 			{
 				for (int ga=0; ga<m_doc->Items->count(); ++ga)
 				{
 					PageItem* item = m_doc->Items->at(ga);
-					if (item->Groups.count() != 0 && currItem->Groups.count() != 0)
+					if (item->Groups.count() != 0)
 					{
 						if (item->Groups.top() == currItem->Groups.top())
 						{
