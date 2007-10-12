@@ -61,7 +61,7 @@ int callGS(const QStringList& args_in, const QString device)
 	// Choose rendering device
 	if (!device.isEmpty())
 		args.append( QString("-sDEVICE=%1").arg(device) ); // user specified device
-	else if (ScCore->havePNGAlpha() != 0)
+	else if (!ScCore->havePNGAlpha())
 		args.append( "-sDEVICE=png16m" );
 	else
 		args.append( "-sDEVICE=pngalpha" );
@@ -85,7 +85,7 @@ int callGS(const QStringList& args_in, const QString device)
 	args += args_in;
 	args.append("-c");
 	args.append("showpage");
-//	qDebug(args.join(" "));
+//	qDebug(args.join(" ").toAscii());
 	return System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
 }
 
@@ -98,7 +98,7 @@ int callGS(const QString& args_in, const QString device)
 	if (!device.isEmpty())
 		// user specified device
 		cmd1 += " -sDEVICE="+device;
-	else if (ScCore->havePNGAlpha() != 0)
+	else if (!ScCore->havePNGAlpha())
 		cmd1 += " -sDEVICE=png16m";
 	else
 		cmd1 += " -sDEVICE=pngalpha";
