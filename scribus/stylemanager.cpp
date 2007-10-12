@@ -1243,6 +1243,8 @@ void StyleManager::loadType(const QString &name)
 	widget_->setParent(mainFrame);
 	layout_->addWidget(widget_, 0, 0);
 	layout()->activate();
+	widget_->resize(widget_->minimumSizeHint());
+	widget_->show();
 }
 
 void StyleManager::hideEvent(QHideEvent *e)
