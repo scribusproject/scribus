@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="sl_SI">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -289,7 +290,44 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(velikost, robovi, postavitev, številkaPrveStrani,
+                        merskaEnota, vrstaStrani, zaporedjePrveStrani,številoStrani) -&gt; bool
+
+Ustvari nov dokument in vrne true, če je uspelo. Parametri imajo naslednji pomen:
+
+velikost = Skupek mer (širina, višina), ki opisuje velikost dokumenta. Uporabite
+lahko vnaprej določene konstante, poimenovane PAPER_&lt;vrsta_papirja&gt;,
+npr. PAPER_A4 itn.
+
+robovi = Skupek mer (levo, desno, zgoraj, spodaj), ki opisuje robove dokumenta.
+
+postavitev = postavitev strani - konstanti PORTRAIT in LANDSCAPE
+
+številkaPrveStrani = je številka prve strani v dokumentu, uporabljena za
+oštevilčevanje strani. Čeprav najpogosteje hočete 1, je uporabno za višje
+številke, če ustvarjate dokument v več delih.
+
+merskaEnota: ta vrednost nastavi merske enote, ki jih uporablja dokument. Uporabite
+vnaprej določene konstante, eno izmed: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+vrstaStrani = Ena od vnaprej določenih konstant PAGE_n. PAGE_1 je posamična stran,
+PAGE_2 je za dvostranske dokumente, PAGE_3 je za tristransko zgibanko in
+PAGE_4 je za štiristransko zgibanko.
+
+zaporedjePrveStrani = Kateri položaj ima prva stran dokumenta.
+Indeksirano od 0 (0 = prva).
+
+številoStrani = Število strani, ki naj bodo ustvarjene.
+
+Vrednosti za širino, višino in robove so izražene v danih merskih enotah
+dokumenta. Konstante PAPER_* so izražene v točkah. Če vaš dokument
+ni v točkah, poskrbite, da bo tako.
+
+primer: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+Lahko vrne napako ScribusError, če je firstPageOrder večja od dovoljenega z pagesType.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/svgimport.h" line="21"/>
@@ -300,7 +338,13 @@ x and y specify the coordinate of the topleft corner of the SVG placed on the pa
 
 If loading was successful, the selection contains the imported SVG
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeSVG(&quot;ime datoteke&quot;, x, y)
+
+Postavi sliko SVG &quot;imedatoteke&quot; na trenutno stran,
+x in y določata koordinato levega zgornjega kota slike SVG, postavljene na stran
+
+Če je nalaganje uspelo, izbor vsebuje uvoženo sliko SVG
+</translation>
     </message>
 </context>
 <context>
@@ -2311,22 +2355,22 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../plugins/aiimplugin/importai.cpp" line="116"/>
         <source>Importing: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvažanje: %1</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importai.cpp" line="119"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Analiziranje datoteke:</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importai.cpp" line="273"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina%1</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importai.cpp" line="2190"/>
         <source>Generating Items</source>
-        <translation type="unfinished">Tvorba predmetov</translation>
+        <translation>Tvorba predmetov</translation>
     </message>
 </context>
 <context>
@@ -2720,52 +2764,52 @@ Manjkajoče knjižnice so prikazane s *</translation>
     <message>
         <location filename="../about.cpp" line="134"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;%3&lt;br&gt;%4 %5&lt;br&gt;%6&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="134"/>
         <source>Scribus Version</source>
-        <translation type="unfinished">Scribus različice</translation>
+        <translation>Scribus različice</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="198"/>
         <source>Splash Screen:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zagonski zaslon:</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="407"/>
         <source>&amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Posodobitve</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="411"/>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Preveri stanje &amp;posodobitev</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="432"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tukaj je izpisana različica, datum izgradnje in s Scribusom prevedena podpora knjižnicam.</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="433"/>
         <source>The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.Last Letter is the renderer C=cairo or Q=Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>C-C-T-F pomeni: C=littlecms, C=CUPS, T=TIFF-podpora, F=Fontconfig-podpora. Zadnja črka je upodobljevalnik C=cairo ali Q=Qt</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="434"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Manjkajočo podporo knjižnic nakazuje *. Ta nakazuje tudi različico Ghostscripta, ki jo je zaznal Scribus.</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="435"/>
         <source>The Windows version does not use fontconfig or CUPS libraries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta različica za okolje Windows ne uporablja fontconfig ali knjižnic CUPS.</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="436"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Preveri stanje posodobitev Scribusa. O vašem računalniku ne bodo poslani nikakršni podatki.</translation>
     </message>
 </context>
 <context>
@@ -2823,7 +2867,7 @@ Manjkajoče knjižnice so prikazane s *</translation>
     <message>
         <location filename="../aboutplugins.ui" line="13"/>
         <source>Scribus: About Plug-ins</source>
-        <translation type="unfinished">Scribus: O vtičnikih</translation>
+        <translation>Scribus: O vtičnikih</translation>
     </message>
 </context>
 <context>
@@ -4043,280 +4087,280 @@ Manjkajoče knjižnice so prikazane s *</translation>
     <message>
         <location filename="../actionmanager.cpp" line="1217"/>
         <source>Save as &amp;EPS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani kot &amp;EPS ...</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1239"/>
         <source>Edit Latex Source...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uredi kodo Latex ...</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1241"/>
         <source>Patterns...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzorci ...</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1297"/>
         <source>Send to Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Pošlji med vzorce</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1323"/>
         <source>&amp;Frame...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Okvir ...</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1326"/>
         <source>Sticky Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Orodja lepljivosti</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1340"/>
         <source>&amp;Fit to Height</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Umeri na višino</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1341"/>
         <source>Fit to Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Umeri na širino</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1346"/>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;200% {400%?}</translation>
+        <translation>&amp;400%</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1347"/>
         <source>Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Predogledni način</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1349"/>
         <source>Show Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži dodatek za porezavo</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1351"/>
         <source>Show Layer Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži indikatorje plasti</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1392"/>
         <source>Insert &amp;Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi &amp;besedilni okvir</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1393"/>
         <source>Insert &amp;Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi &amp;slikovni okvir</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1394"/>
         <source>Insert &amp;Latex Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi okvir Late&amp;x</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1395"/>
         <source>Insert T&amp;able</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi &amp;tabelo</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1396"/>
         <source>Insert &amp;Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi &amp;lik</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1397"/>
         <source>Insert &amp;Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi &amp;mnogokotnik</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1398"/>
         <source>Insert &amp;Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi &amp;črto</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1399"/>
         <source>Insert &amp;Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi krivuljo &amp;Bezier</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1400"/>
         <source>Insert &amp;Freehand Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi prostoročno &amp;črto</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1402"/>
         <source>Insert PDF Push Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi gumb PDF</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1403"/>
         <source>Insert PDF Text Field</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi besedilno polje PDF</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1404"/>
         <source>Insert PDF Check Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi potrditveno polje PDF</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1405"/>
         <source>Insert PDF Combo Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi kombinirano polje PDF</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1406"/>
         <source>Insert PDF List Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi seznamsko polje PDF</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1407"/>
         <source>Insert Text Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi besedilo opombe</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1408"/>
         <source>Insert Link Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi povezavo opombe</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1427"/>
         <source>Scribus Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Domača stran Scribusa</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1428"/>
         <source>Scribus Online Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribusova spletna dokumentacija</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1429"/>
         <source>Scribus Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiki Scribusa</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1430"/>
         <source>Getting Started with Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Prvi koraki s Scribusom</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1450"/>
         <source>&amp;Zero Width Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Presledek ničelne &amp;širine</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1451"/>
         <source>Zero Width NB Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedeljiv presledek ničelne širine</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1463"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
-        <translation type="unfinished">Opuščaj</translation>
+        <translation>Opuščaj</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1464"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
-        <translation type="unfinished">Ravni dvojni</translation>
+        <translation>Ravni dvojni</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1465"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
-        <translation type="unfinished">Levi enojni</translation>
+        <translation>Levi enojni</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1466"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
-        <translation type="unfinished">Desni enojni</translation>
+        <translation>Desni enojni</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1467"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
-        <translation type="unfinished">Dvojni levi</translation>
+        <translation>Dvojni levi</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1468"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
-        <translation type="unfinished">Dvojni desni</translation>
+        <translation>Dvojni desni</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1469"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
-        <translation type="unfinished">Obratni enojni</translation>
+        <translation>Obratni enojni</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1470"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
-        <translation type="unfinished">Obratni dvojni</translation>
+        <translation>Obratni dvojni</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1471"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
-        <translation type="unfinished">Enojen levi guillemet </translation>
+        <translation>Enojen levi guillemet </translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1472"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
-        <translation type="unfinished">Enojen desni guillemet </translation>
+        <translation>Enojen desni guillemet </translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1473"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
-        <translation type="unfinished">Dvojni levi guillemet</translation>
+        <translation>Dvojni levi guillemet</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1474"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
-        <translation type="unfinished">Dvojni desni guillemet</translation>
+        <translation>Dvojni desni guillemet</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1475"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
-        <translation type="unfinished">Nizka enojna vejica</translation>
+        <translation>Nizka enojna vejica</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1476"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
-        <translation type="unfinished">Nizka dvojna vejica</translation>
+        <translation>Nizka dvojna vejica</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1477"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
-        <translation type="unfinished">Levi enojni CJK</translation>
+        <translation>Levi enojni CJK</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1478"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
-        <translation type="unfinished">Desni enojni CJK</translation>
+        <translation>Desni enojni CJK</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1479"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
-        <translation type="unfinished">Dvojni levi CJK</translation>
+        <translation>Dvojni levi CJK</translation>
     </message>
     <message>
         <location filename="../actionmanager.cpp" line="1480"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
-        <translation type="unfinished">Dvojni desni CJK</translation>
+        <translation>Dvojni desni CJK</translation>
     </message>
 </context>
 <context>
@@ -4544,32 +4588,32 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../aligndistribute.ui" line="35"/>
         <source>Align</source>
-        <translation type="unfinished">Poravnaj</translation>
+        <translation>Poravnaj</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="79"/>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished">&amp;Izbrano vodilo:</translation>
+        <translation>&amp;Izbrano vodilo:</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="92"/>
         <source>&amp;Relative To:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Glede na:</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="431"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="270"/>
         <source>Distribute</source>
-        <translation type="unfinished">Razporedi</translation>
+        <translation>Razporedi</translation>
     </message>
     <message>
         <location filename="../aligndistribute.ui" line="490"/>
         <source>&amp;Distance:</source>
-        <translation type="unfinished">&amp;Razdalja:</translation>
+        <translation>&amp;Razdalja:</translation>
     </message>
 </context>
 <context>
@@ -4772,62 +4816,62 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../aligndistribute.cpp" line="94"/>
         <source>Align right sides of items to left side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Desne strani predmetov poravnaj na levo stran sidra</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="96"/>
         <source>Align left sides of items to right side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Leve strani predmetov poravnaj na desno stran sidra</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="102"/>
         <source>Align tops of items to bottom of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrh predmetov poravnaj na dno sidra</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="110"/>
         <source>Align bottoms of items to top of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Dno predmetov poravnaj na vrh sidra</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="117"/>
         <source>Make horizontal gaps between items equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravni razmik med elementi naj bo enako širok</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="119"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravni razmik med elementi naj bo enak navedeni vrednosti</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="128"/>
         <source>Make vertical gaps between items equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpični razmik med elementi naj bo enako širok</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="130"/>
         <source>Make vertical gaps between items equal to the value specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpični razmik med elementi naj bo enak navedeni vrednosti</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="138"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravni razmik med elementi in konci strani naj bo enak</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="140"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpični razmik med elementi, vrhom in dnom strani naj bo enak</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="142"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravni razmik med elementi in robovi strani naj bo enak</translation>
     </message>
     <message>
         <location filename="../aligndistribute.cpp" line="144"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpični razmik med elementi in robovi strani naj bo enak</translation>
     </message>
 </context>
 <context>
@@ -5148,7 +5192,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../annot.cpp" line="1074"/>
         <source>Custom calculation script:</source>
-        <translation>Posebna skripta za izračunavanje</translation>
+        <translation>Posebna skripta za izračunavanje:</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="1170"/>
@@ -5550,22 +5594,22 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../annot.cpp" line="134"/>
         <source>Tooltip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nasvet:</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="243"/>
         <source>Do Not Export Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne izvozi vrednosti</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="1282"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike (*.tif *.png *.jpg *.xpm);;%1;;Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../annot.cpp" line="1337"/>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Vse datoteke (*)</translation>
     </message>
 </context>
 <context>
@@ -5653,7 +5697,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../annota.cpp" line="355"/>
         <source>%1;;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1;;Vse datoteke (*)</translation>
     </message>
 </context>
 <context>
@@ -5756,7 +5800,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../applytemplatedialog.cpp" line="51"/>
         <source>Possible Hyphenation</source>
-        <translation type="unfinished">Možno deljenje</translation>
+        <translation>Možno deljenje</translation>
     </message>
 </context>
 <context>
@@ -6223,52 +6267,52 @@ Prosim, izberite drugo.</translation>
     <message>
         <location filename="../scrap.cpp" line="554"/>
         <source>Copied Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopirani elementi</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="719"/>
         <source>Scrapbook (*.scs *.SCS)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skicirka (*.scs *.SCS)</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="803"/>
         <source>Copy To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skopiraj v:</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="804"/>
         <source>Move To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Premakni v:</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="1010"/>
         <source>New Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Novo ime</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="1312"/>
         <source>Create a new scrapbook page</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustvari novo stran v skicirki</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="1313"/>
         <source>Load an existing scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Naloži obstoječo skicirko</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="1314"/>
         <source>Save the selected scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani izbrano skicirko</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="1315"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi datoteko skicirke iz Scribusa &lt;=1.3.2</translation>
     </message>
     <message>
         <location filename="../scrap.cpp" line="1316"/>
         <source>Close the selected scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapri izbrano skicirko</translation>
     </message>
 </context>
 <context>
@@ -6589,55 +6633,58 @@ To zahteva zelo natančno izbiro vseh profilov.</translation>
     <message>
         <location filename="../cmsprefs.cpp" line="59"/>
         <source>&amp;RGB Solid Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Čiste barve &amp;RGB:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="67"/>
         <source>&amp;CMYK Solid Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Čiste barve &amp;CMYK:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="98"/>
         <source>Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="106"/>
         <source>Sol&amp;id Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Čiste barve:</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="121"/>
         <source>Convert all colors to printer space</source>
-        <translation type="unfinished"></translation>
+        <translation>Pretvori vse barve v barvni prostor tiskalnika</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="141"/>
         <source>Default color profile for solid RGB colors on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzeti barvni profil za čiste barve RGB na strani</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="142"/>
         <source>Default color profile for solid CMYK colors on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzeti barvni profil za čiste barve CMYK na stran</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="145"/>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzet namen upodobitve čistih barv. Če niste gotovi,
+izberite Relativne barvne vrednosti ali Zaznavno.</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="146"/>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzet namen upodobitve slik. Če niste gotovi,
+izberite Relativne barvne vrednosti ali Zaznavno.</translation>
     </message>
     <message>
         <location filename="../cmsprefs.cpp" line="148"/>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
-        <translation type="unfinished"></translation>
+        <translation>Simuliraj upravljano barvno okolje z vsemi barvami :
+vse barve, rgb ali cmyk, bodo pretvorjene v barvni prostor tiskalnika.</translation>
     </message>
 </context>
 <context>
@@ -6809,13 +6856,14 @@ ker je to ime rezervirano za prosojno barvo</translation>
     <message>
         <location filename="../cmykfw.cpp" line="891"/>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Če je vključeno upravljanje barv, opozorilni trikotnik opozarja, da je barva morda zunaj barvnega obsega profila trenutno izbranega tiskalnika. To pomeni, da se barva morda ne bo natisnila natanko tako, kot je prikazana na zaslonu. Več namigov o opozorilih gamuta najdete v spletni pomoči pod Upravljanje barv.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="1082"/>
         <source>The name of the color already exists,
 please choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ime barve že obstaja,
+prosim, izberite drugo.</translation>
     </message>
 </context>
 <context>
@@ -6823,232 +6871,232 @@ please choose another one.</source>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="320"/>
         <source>Merging colors</source>
-        <translation type="unfinished">Spajanje barv</translation>
+        <translation>Spajanje barv</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Error: </source>
-        <translation type="unfinished">Napaka:</translation>
+        <translation>Napaka:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="326"/>
         <source>Color %1 exists already!</source>
-        <translation type="unfinished">Barva %1 že obstaja!</translation>
+        <translation>Barva %1 že obstaja!</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="331"/>
         <source>Color %1 appended.</source>
-        <translation type="unfinished">Barva %1 je dodana.</translation>
+        <translation>Barva %1 je dodana.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="335"/>
         <source>Now opening the color manager.</source>
-        <translation type="unfinished">Odpiranje upravljalnika barv.</translation>
+        <translation>Odpiranje upravljalnika barv.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="338"/>
         <source>Color Merging</source>
-        <translation type="unfinished">Spajanje barv</translation>
+        <translation>Spajanje barv</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.cpp" line="489"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished">Ne najdem zahtevane barve. Najbrz ste izbrali črno, sivo ali belo. Teh barv se ne da pripraviti.</translation>
+        <translation>Zahtevane barve ni mogoče najti. Najbrž ste izbrali črno, sivo ali belo. Teh barv ni mogoče pripraviti.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="15"/>
         <source>Color Wheel</source>
-        <translation type="unfinished">Barvni krog</translation>
+        <translation>Barvni krog</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="47"/>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>S klikom na krog izberite čisto barvo. Njen barvni model je odvisen od izbranega zavihka.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="54"/>
         <source>Result Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Končne barve</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="311"/>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK (CMRK)</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="532"/>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB (RZM)</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="718"/>
         <source>HSV</source>
-        <translation type="unfinished">HSV</translation>
+        <translation>HSV (ONV)</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="108"/>
         <source>Colors of your chosen color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Barve izbrane barvne sheme.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="118"/>
         <source>Color Scheme Method</source>
-        <translation type="unfinished"></translation>
+        <translation>Metoda barvne sheme</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="144"/>
         <source>Angle:</source>
-        <translation type="unfinished">Kot:</translation>
+        <translation>Kot:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="154"/>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished">Razlika med izbrano vrednostjo in preštetimi vrednostmi. Za več informacij si preberite navodila.</translation>
+        <translation>Razlika med izbrano vrednostjo in preštetimi vrednostmi. Za več informacij si preberite navodila.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="169"/>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished">Izberite metodo pripravljanja barvne sheme. Za več informacij si preberite navodila.</translation>
+        <translation>Izberite metodo pripravljanja barvne sheme. Za več informacij si preberite navodila.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="203"/>
         <source>Merge created colors into the document colors</source>
-        <translation type="unfinished">Združi pripravljene barve v barve dokumenta</translation>
+        <translation>Združi pripravljene barve v barve dokumenta</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="206"/>
         <source>&amp;Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Spoji</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="209"/>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="216"/>
         <source>Replace created colors in the document colors</source>
-        <translation type="unfinished">Zamenjaj pripravljene barve v barve dokumenta</translation>
+        <translation>Zamenjaj pripravljene barve v barve dokumenta</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="219"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;Zamenjaj</translation>
+        <translation>&amp;Zamenjaj</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="222"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="229"/>
         <source>Leave colors untouched</source>
-        <translation type="unfinished">Barve pusti nedotaknjene</translation>
+        <translation>Barve pusti nedotaknjene</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="232"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="235"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="244"/>
         <source>Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Predogled:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="268"/>
         <source>Sample color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzorčna barvna shema.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="287"/>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished">Simuliranje pogostih okvar vida. Izberite vrsto okvare.</translation>
+        <translation>Simuliranje pogostih okvar vida. Izberite vrsto okvare.</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="294"/>
         <source>Vision Defect Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrsta okvare pogleda:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="331"/>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="431"/>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="361"/>
         <source>M:</source>
-        <translation type="unfinished"></translation>
+        <translation>M:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="391"/>
         <source>Y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y (R):</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="421"/>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="827"/>
         <source>RGB:</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB (RZM):</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="674"/>
         <source>HSV:</source>
-        <translation type="unfinished"></translation>
+        <translation>HSV (ONV):</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="560"/>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="587"/>
         <source>G:</source>
-        <translation type="unfinished"></translation>
+        <translation>G (Z):</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="614"/>
         <source>B:</source>
-        <translation type="unfinished"></translation>
+        <translation>B (M):</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="863"/>
         <source>CMYK:</source>
-        <translation type="unfinished"></translation>
+        <translation>CMYK:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="746"/>
         <source>H:</source>
-        <translation type="unfinished">O (H):</translation>
+        <translation>H (O):</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="773"/>
         <source>S:</source>
-        <translation type="unfinished">N (S):</translation>
+        <translation>S (N):</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="800"/>
         <source>V:</source>
-        <translation type="unfinished">V:</translation>
+        <translation>V:</translation>
     </message>
     <message>
         <location filename="../plugins/colorwheel/cwdialog.ui" line="907"/>
         <source>Document</source>
-        <translation type="unfinished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
 </context>
 <context>
@@ -7277,72 +7325,72 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <location filename="../charselect.cpp" line="36"/>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta znakov Scribus (*.ucp);;Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="565"/>
         <source>Choose a filename to open</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite ime datoteke za odpiranje</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="625"/>
         <source>Error</source>
-        <translation type="unfinished">Napaka</translation>
+        <translation>Napaka</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="592"/>
         <source>Error reading file %1 - file is corrupted propably.</source>
-        <translation type="unfinished"></translation>
+        <translation>Napaka pri branju datoteke %1 - datoteka je najverjetneje poškodovana.</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="606"/>
         <source>Choose a filename to save under</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite ime datoteke za shranjevanje</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="626"/>
         <source>Cannot write file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke %1 ni mogoče zapisati</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="634"/>
         <source>Clean the Palette?</source>
-        <translation type="unfinished"></translation>
+        <translation>Želite počistiti paleto?</translation>
     </message>
     <message>
         <location filename="../charselect.cpp" line="635"/>
         <source>You will clean all characters from this palette. Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>Počistili boste vse znake s palete. Ste prepričani?</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="13"/>
         <source>Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta znakov</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="25"/>
         <source>Quick Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitra paleta</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="49"/>
         <source>Hide Enhanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrij napredno</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="56"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Najdi</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="104"/>
         <source>Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Napredna paleta</translation>
     </message>
     <message>
         <location filename="../charselect.ui" line="180"/>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="unfinished">Če pritisnete in držite desni miškin gumb, lahko vidite pomanjšano sličico. Tipka &apos;Insert&apos; doda znak v spodnjo izbiro, tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
+        <translation>Če pritisnete in držite pritisnjen desni miškin gumb, lahko vidite pomanjšano sličico. Tipka Vstavi doda znak v spodnjo izbiro, tipka Izbriši pa odstrani zadnjega</translation>
     </message>
 </context>
 <context>
@@ -7350,7 +7398,7 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <location filename="../spalette.cpp" line="118"/>
         <source>No Style</source>
-        <translation type="unfinished">Brez sloga</translation>
+        <translation>Brez sloga</translation>
     </message>
 </context>
 <context>
@@ -7358,7 +7406,7 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <location filename="../chartableview.cpp" line="23"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši</translation>
     </message>
 </context>
 <context>
@@ -7461,47 +7509,47 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <location filename="../checkDocument.cpp" line="253"/>
         <source>OK</source>
-        <translation type="unfinished">V redu</translation>
+        <translation>V redu</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="274"/>
         <source>Transparency used</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabljena prosojnost</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="277"/>
         <source>Blendmode used</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabljen način spajanja</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="284"/>
         <source>Layer &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Plast &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="824"/>
         <source>Check again</source>
-        <translation type="unfinished"></translation>
+        <translation>Preveri znova</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="830"/>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Ločljivost slike je pod %1 DPI, trenutno je %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="831"/>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Ločljivost slike presega %1 DPI, trenutno je %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="835"/>
         <source>Image is GIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Slika je vrste GIF</translation>
     </message>
     <message>
         <location filename="../checkDocument.cpp" line="836"/>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>Opomba uporablja pisavo, ki ni vrste TrueType</translation>
     </message>
 </context>
 <context>
@@ -7712,22 +7760,22 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <location filename="../colorm.cpp" line="185"/>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Če je upravljanje barv omogočeno, potem opozorilni trikotnik predstavlja opozorilo, da je barva morda zunaj barvnega gamuta profila trenutno izbranega tiskalnika. To pomeni, da barve morda ne bo mogoče natisniti natanko tako, kot je videti na zaslonu. Spot barve nakazuje rdeči krožec. Registracijske barve imajo poleg barve registracijsko oznako. Več namigov o opozorilih gamuta najdete v sprotni pomoči pod naslovom Upravljanje barv.</translation>
     </message>
     <message>
         <location filename="../colorm.cpp" line="435"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi</translation>
     </message>
     <message>
         <location filename="../colorm.cpp" line="435"/>
         <source>Documents (%1);;Other Files (%2);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenti (%1);;Druge datoteke (%2);;Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../colorm.cpp" line="552"/>
         <source>Information</source>
-        <translation type="unfinished">Podatki</translation>
+        <translation>Podatki</translation>
     </message>
     <message>
         <location filename="../colorm.cpp" line="552"/>
@@ -7736,7 +7784,11 @@ If the file was a PostScript-based, try to import it with File -&amp;gt; Import.
 Not all files have DSC conformant comments where the color descriptions are located.
  This prevents importing colors from some files.
 See the Edit Colors section of the documentation for more details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka %1 ne vsebuje barv, ki bi jih bilo mogoče uvoziti.
+Če datoteka temelji na PostScriptu, jo poskusite uvoziti z Datoteka -&amp;gt; Uvozi. 
+Vse datoteke nimajo komentarje v skladu z DSC, kjer se nahajajo opisi barv.
+  To preprečuje uvažanje barv iz nekaterih datotek.
+Za več podrobnosti si oglejte razdelek Urejanje barv v dokumentaciji.</translation>
     </message>
 </context>
 <context>
@@ -8123,7 +8175,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../commonstrings.cpp" line="192"/>
         <source>None</source>
-        <translation type="unfinished">Brez</translation>
+        <translation>Brez</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="196"/>
@@ -8315,228 +8367,228 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../commonstrings.cpp" line="204"/>
         <source>Yes</source>
-        <translation type="unfinished">Da</translation>
+        <translation>Da</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="205"/>
         <source>No</source>
-        <translation type="unfinished">Ne</translation>
+        <translation>Ne</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="206"/>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Da</translation>
+        <translation>&amp;Da</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="207"/>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Ne</translation>
+        <translation>&amp;Ne</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="226"/>
         <source>Left Page</source>
         <comment>Left page location</comment>
-        <translation type="unfinished">Leva stran</translation>
+        <translation>Leva stran</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="227"/>
         <source>Middle</source>
         <comment>Middle page location</comment>
-        <translation type="unfinished">Sredina</translation>
+        <translation>Sredinsko</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="228"/>
         <source>Middle Left</source>
         <comment>Middle Left page location</comment>
-        <translation type="unfinished">Srednja leva</translation>
+        <translation>Sredinsko levo</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="229"/>
         <source>Middle Right</source>
         <comment>Middle Right page location</comment>
-        <translation type="unfinished">Srednja desna</translation>
+        <translation>Sredinsko desno</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="230"/>
         <source>Right Page</source>
         <comment>Right page location</comment>
-        <translation type="unfinished">Desna stran</translation>
+        <translation>Desna stran</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="233"/>
         <source>Normal</source>
         <comment>Default single master page</comment>
-        <translation type="unfinished"></translation>
+        <translation>Navadno</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="235"/>
         <source>Normal Left</source>
         <comment>Default left master page</comment>
-        <translation type="unfinished">Navadno levo</translation>
+        <translation>Navadno levo</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="237"/>
         <source>Normal Middle</source>
         <comment>Default middle master page</comment>
-        <translation type="unfinished">Navadno sredinsko</translation>
+        <translation>Navadno sredinsko</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="239"/>
         <source>Normal Right</source>
         <comment>Default right master page</comment>
-        <translation type="unfinished">Navadno desno</translation>
+        <translation>Navadno desno</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="241"/>
         <source>Solid Line</source>
-        <translation type="unfinished">Polna črta</translation>
+        <translation>Polna črta</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="242"/>
         <source>Dashed Line</source>
-        <translation type="unfinished">Črtkana črta</translation>
+        <translation>Črtkana črta</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="243"/>
         <source>Dotted Line</source>
-        <translation type="unfinished">Pikčasta črta</translation>
+        <translation>Pikčasta črta</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="244"/>
         <source>Dash Dot Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Črta pika črta</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="245"/>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Črta pika pika črta</translation>
+        <translation>Črta pika pika črta</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="267"/>
         <source>RGB</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="268"/>
         <source>CMYK</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="269"/>
         <source>Grayscale</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished">Sivinsko</translation>
+        <translation>Sivinsko</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="270"/>
         <source>Duotone</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dvobarvno</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="271"/>
         <source>Unknown</source>
         <comment>Colorspace (Unknown)</comment>
-        <translation type="unfinished">Neznano</translation>
+        <translation>Neznano</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="273"/>
         <source>Normal Vision</source>
         <comment>Color Blindness - Normal Vision</comment>
-        <translation type="unfinished">Običajen pogled</translation>
+        <translation>Običajen pogled</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="274"/>
         <source>Protanopia (Red)</source>
         <comment>Color Blindness - Red Color Blind</comment>
-        <translation type="unfinished">Protanopija (rdeča)</translation>
+        <translation>Protanopija (rdeča)</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="275"/>
         <source>Deuteranopia (Green)</source>
         <comment>Color Blindness - Greed Color Blind</comment>
-        <translation type="unfinished">Devteranopija (zelena)</translation>
+        <translation>Devteranopija (zelena)</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="276"/>
         <source>Tritanopia (Blue)</source>
         <comment>Color Blindness - Blue Color Blind</comment>
-        <translation type="unfinished">Tritanopija (modra)</translation>
+        <translation>Tritanopija (modra)</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="277"/>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
-        <translation type="unfinished">Polna barvna slepota</translation>
+        <translation>Polna barvna slepota</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="279"/>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
-        <translation type="unfinished">Po meri: </translation>
+        <translation>Po meri: </translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="281"/>
         <source>None</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished">Brez</translation>
+        <translation>Brez</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="282"/>
         <source>Left Protruding</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Levo štrleče</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="283"/>
         <source>Right Protruding</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Desno štrleče</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="284"/>
         <source>Left Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Levo viseče ločilo</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="285"/>
         <source>Right Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Desno viseče ločilo</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="286"/>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Privzeto</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="289"/>
         <source>Min. Word Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Najm. sledenje besed</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="290"/>
         <source>Max. Word Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Najv. sledenje besed</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="293"/>
         <source>Min. Glyph Extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Najm. razširitev črke</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="294"/>
         <source>Max. Glyph Extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Najv. razširitev črke</translation>
     </message>
     <message>
         <location filename="../commonstrings.cpp" line="297"/>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -8544,17 +8596,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/copypagetomasterpage.ui" line="16"/>
         <source>Convert Page to Master Page</source>
-        <translation type="unfinished">Pretvori v glavno stran</translation>
+        <translation>Pretvori stran v glavno stran</translation>
     </message>
     <message>
         <location filename="../ui/copypagetomasterpage.ui" line="24"/>
         <source>Name:</source>
-        <translation type="unfinished">Ime:</translation>
+        <translation>Ime:</translation>
     </message>
     <message>
         <location filename="../ui/copypagetomasterpage.ui" line="39"/>
         <source>Copy Applied Master Page Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiraj uporabljene elemente glavne strani</translation>
     </message>
 </context>
 <context>
@@ -8562,7 +8614,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../ui/copypagetomasterpagedialog.cpp" line="18"/>
         <source>New Master Page %1</source>
-        <translation type="unfinished">Nova glavna stran %1</translation>
+        <translation>Nova glavna stran %1</translation>
     </message>
 </context>
 <context>
@@ -8717,132 +8769,132 @@ z desnim pa konec vektorja preliva</translation>
     <message>
         <location filename="../cpalette.cpp" line="821"/>
         <source>Offsets</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamiki</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="822"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="824"/>
         <source>Y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="826"/>
         <source>Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprememba merila</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="827"/>
         <source>X-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprememba merila X:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="829"/>
         <source>Y-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprememba merila Y:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="831"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Sukanje</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="832"/>
         <source>Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kot</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="852"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzorec</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="854"/>
         <source>Transparency Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavitve prosojnosti</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="855"/>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Način spajanja:</translation>
+        <translation>Način spajanja:</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="858"/>
         <source>Darken</source>
-        <translation type="unfinished">Potemni</translation>
+        <translation>Potemni</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="859"/>
         <source>Lighten</source>
-        <translation type="unfinished">Posvetli</translation>
+        <translation>Posvetli</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="860"/>
         <source>Multiply</source>
-        <translation type="unfinished">Pomnoži</translation>
+        <translation>Pomnoži</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="861"/>
         <source>Screen</source>
-        <translation type="unfinished">Zaslon</translation>
+        <translation>Zaslon</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="862"/>
         <source>Overlay</source>
-        <translation type="unfinished">Prekrij</translation>
+        <translation>Prekrij</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="863"/>
         <source>Hard Light</source>
-        <translation type="unfinished">Ostra luč</translation>
+        <translation>Ostra luč</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="864"/>
         <source>Soft Light</source>
-        <translation type="unfinished">Mehka luč</translation>
+        <translation>Mehka luč</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="865"/>
         <source>Difference</source>
-        <translation type="unfinished">Razlika</translation>
+        <translation>Razlika</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="866"/>
         <source>Exclusion</source>
-        <translation type="unfinished">Izključitev</translation>
+        <translation>Izključitev</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="867"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Barvno posvetli</translation>
+        <translation>Barvno posvetli</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="868"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Barvno potemni</translation>
+        <translation>Barvno potemni</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="869"/>
         <source>Hue</source>
-        <translation type="unfinished">Obarvanost</translation>
+        <translation>Obarvanost</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="870"/>
         <source>Saturation</source>
-        <translation type="unfinished">Nasičenost</translation>
+        <translation>Nasičenost</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="871"/>
         <source>Color</source>
-        <translation type="unfinished">Barva</translation>
+        <translation>Barva</translation>
     </message>
     <message>
         <location filename="../cpalette.cpp" line="872"/>
         <source>Luminosity</source>
-        <translation type="unfinished">Svetilnost</translation>
+        <translation>Svetilnost</translation>
     </message>
 </context>
 <context>
@@ -8850,142 +8902,142 @@ z desnim pa konec vektorja preliva</translation>
     <message>
         <location filename="../ui/createrange.ui" line="13"/>
         <source>Create Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustvari obseg</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="54"/>
         <source>Number of Pages in Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>Število strani v dokumentu:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="64"/>
         <source>Doc Page Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Obseg strani dokumenta</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="112"/>
         <source>Basic Range Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Osnovni izbor obsega</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="136"/>
         <source>Range of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Obseg strani</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="160"/>
         <source>De&amp;lete</source>
-        <translation type="unfinished">&amp;Izbriši</translation>
+        <translation>&amp;Izbriši</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="163"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="186"/>
         <source>Move &amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Premakni navz&amp;dol</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="189"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="196"/>
         <source>Move &amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Premakni navz&amp;gor</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="199"/>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="218"/>
         <source>Add a Range of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj obseg strani</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="242"/>
         <source>Consecutive Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaporedne strani</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="252"/>
         <source>Even Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Sode strani</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="259"/>
         <source>From:</source>
-        <translation type="unfinished"></translation>
+        <translation>Od:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="291"/>
         <source>To:</source>
-        <translation type="unfinished">Za:</translation>
+        <translation>Do:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="334"/>
         <source>&amp;Add To Range</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dodaj obsegu</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="337"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="362"/>
         <source>Odd Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Lihe strani</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="372"/>
         <source>Comma Separated List</source>
-        <translation type="unfinished"></translation>
+        <translation>Z vejicami ločen seznam</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="383"/>
         <source>Advanced Reordering</source>
-        <translation type="unfinished"></translation>
+        <translation>Napredno prerazvrščanje</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="439"/>
         <source>Page Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaporedje strani</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="449"/>
         <source>Sample Page Order:</source>
-        <translation type="unfinished"></translation>
+        <translation>Primer zaporedja strani:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="478"/>
         <source>Page Group Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost skupine strani:</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="525"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="528"/>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="535"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <location filename="../ui/createrange.ui" line="538"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -9153,48 +9205,49 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
     <message>
         <location filename="../curvewidget.cpp" line="411"/>
         <source>Open</source>
-        <translation type="unfinished">Odpri</translation>
+        <translation>Odpri</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="446"/>
         <source>Curve Files (*.scu);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke krivulj (*.scu);;Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="446"/>
         <source>Save as</source>
-        <translation type="unfinished">Shrani kot</translation>
+        <translation>Shrani kot</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="480"/>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>V datoteko ni mogoče pisati: 
+%1</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="500"/>
         <source>Inverts the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Preobrne krivuljo</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="501"/>
         <source>Resets the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponastavi krivuljo</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="502"/>
         <source>Switches between linear and cubic interpolation of the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Preklopi med linearno in kubično interpolacijo krivulje</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="503"/>
         <source>Loads a curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Naloži krivuljo</translation>
     </message>
     <message>
         <location filename="../curvewidget.cpp" line="504"/>
         <source>Saves this curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani to krivuljo</translation>
     </message>
 </context>
 <context>
@@ -9224,12 +9277,12 @@ To lahko nastavite v Nastavitvah.</translation>
     <message>
         <location filename="../customfdialog.cpp" line="274"/>
         <source>Show Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži predogled</translation>
     </message>
     <message>
         <location filename="../customfdialog.cpp" line="304"/>
         <source>&amp;Include Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vključi barvne profile</translation>
     </message>
 </context>
 <context>
@@ -9766,57 +9819,57 @@ patenti, blagovne znamke</translation>
     <message>
         <location filename="../docsections.ui" line="13"/>
         <source>Document Sections</source>
-        <translation type="unfinished">Odseki dokumenta</translation>
+        <translation>Odseki dokumenta</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="32"/>
         <source>Name</source>
-        <translation type="unfinished">Ime</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="37"/>
         <source>Shown</source>
-        <translation type="unfinished">Prikazano</translation>
+        <translation>Prikazano</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="42"/>
         <source>From</source>
-        <translation type="unfinished">Od</translation>
+        <translation>Od</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="47"/>
         <source>To</source>
-        <translation type="unfinished">Do</translation>
+        <translation>Do</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="52"/>
         <source>Style</source>
-        <translation type="unfinished">Slog</translation>
+        <translation>Slog</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="57"/>
         <source>Start</source>
-        <translation type="unfinished">Začetek</translation>
+        <translation>Začetek</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="83"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="86"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="93"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>I&amp;zbriši</translation>
     </message>
     <message>
         <location filename="../docsections.ui" line="96"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
 </context>
 <context>
@@ -9927,82 +9980,82 @@ patenti, blagovne znamke</translation>
     <message>
         <location filename="../docitemattrprefs.ui" line="19"/>
         <source>Document Item Attributes</source>
-        <translation type="unfinished">Lastnosti predmeta dokumenta</translation>
+        <translation>Atributi predmeta dokumenta</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="26"/>
         <source>Name</source>
-        <translation type="unfinished">Ime</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="31"/>
         <source>Type</source>
-        <translation type="unfinished">Vrsta</translation>
+        <translation>Vrsta</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="36"/>
         <source>Value</source>
-        <translation type="unfinished">Vrednost</translation>
+        <translation>Vrednost</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="41"/>
         <source>Parameter</source>
-        <translation type="unfinished">Parameter</translation>
+        <translation>Parameter</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="46"/>
         <source>Relationship</source>
-        <translation type="unfinished">Odnos</translation>
+        <translation>Odnos</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="51"/>
         <source>Relationship To</source>
-        <translation type="unfinished">Odnos do</translation>
+        <translation>Odnos do</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="56"/>
         <source>Auto Add To</source>
-        <translation type="unfinished">Samodejno dodaj k</translation>
+        <translation>Samodejno dodaj k</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="82"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="85"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="92"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiraj</translation>
+        <translation>&amp;Kopiraj</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="95"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="102"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Zbriši</translation>
+        <translation>I&amp;zbriši</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="105"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="112"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Počisti</translation>
+        <translation>Po&amp;čisti</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.ui" line="115"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../docitemattrprefs.cpp" line="17"/>
@@ -10429,152 +10482,152 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <location filename="../druck.cpp" line="262"/>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vsili pretisk</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="267"/>
         <source>Apply Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi barvne profile</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="278"/>
         <source>Printer Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake tiskalnika</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="283"/>
         <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake za porezavo</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="285"/>
         <source>Bleed Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake dodatka za porezavo</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="287"/>
         <source>Registration Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Registrske oznake</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="289"/>
         <source>Color Bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barvni stolpci</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="292"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamik:</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="297"/>
         <source>Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="304"/>
         <source>Bleed Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavitve dodatka za porezavo</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="310"/>
         <source>Top:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrh:</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="315"/>
         <source>Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dno:</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="320"/>
         <source>Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>Levo:</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="325"/>
         <source>Right:</source>
-        <translation type="unfinished">Desno:</translation>
+        <translation>Desno:</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="329"/>
         <source>Use Document Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi dodatek za porezavo dokumenta</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="333"/>
         <source>Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodatki za porezavo</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="336"/>
         <source>Inside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navznoter:</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="337"/>
         <source>Outside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navzven:</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="394"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega vrha strani</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="395"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega dna strani</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="396"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega levega roba strani</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="397"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega desnega roba strani</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="385"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="387"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="389"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
+        <translation>To ustvari oznake za porezavo v dokumentu PDF, te pa nakazujejo, kje naj bo po zaključenem tiskanju odrezan ali prerezan papir</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="390"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
+        <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="391"/>
         <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj registrske oznake, ki so dodane vsaki separaciji</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="392"/>
         <source>Add color calibration bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="393"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nakaži razdaljo odmika za registrske oznake</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="398"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi nastavitve dodatka za porezavo iz nastavitev dokumenta</translation>
     </message>
 </context>
 <context>
@@ -10621,12 +10674,12 @@ ni uspel!</translation>
     <message>
         <location filename="../plugins/psimport/importps.cpp" line="71"/>
         <source>Importing: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvažanje: %1</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importps.cpp" line="728"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina%1</translation>
     </message>
 </context>
 <context>
@@ -11031,27 +11084,27 @@ for blue quartz</source>
     <message>
         <location filename="../editor.cpp" line="37"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="48"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="53"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+X</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="56"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../editor.cpp" line="59"/>
         <source>Ctrl-V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl-V</translation>
     </message>
 </context>
 <context>
@@ -11174,42 +11227,42 @@ for blue quartz</source>
     <message>
         <location filename="../effectsdialog.cpp" line="351"/>
         <source>Color 1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva 1:</translation>
     </message>
     <message>
         <location filename="../effectsdialog.cpp" line="371"/>
         <source>Color 2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva 2:</translation>
     </message>
     <message>
         <location filename="../effectsdialog.cpp" line="391"/>
         <source>Color 3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva 3:</translation>
     </message>
     <message>
         <location filename="../effectsdialog.cpp" line="411"/>
         <source>Color 4:</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva 4:</translation>
     </message>
     <message>
         <location filename="../effectsdialog.cpp" line="1405"/>
         <source>Duotone</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvobarvno</translation>
     </message>
     <message>
         <location filename="../effectsdialog.cpp" line="1441"/>
         <source>Tritone</source>
-        <translation type="unfinished"></translation>
+        <translation>Tribarvno</translation>
     </message>
     <message>
         <location filename="../effectsdialog.cpp" line="1492"/>
         <source>Quadtone</source>
-        <translation type="unfinished"></translation>
+        <translation>Štiribarvno</translation>
     </message>
     <message>
         <location filename="../effectsdialog.cpp" line="1558"/>
         <source>Curves</source>
-        <translation type="unfinished"></translation>
+        <translation>Krivulje</translation>
     </message>
 </context>
 <context>
@@ -11217,12 +11270,12 @@ for blue quartz</source>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="183"/>
         <source>File exists. Overwrite?</source>
-        <translation type="unfinished">Datoteka že obstaja. Jo želite prepisati?</translation>
+        <translation>Datoteka že obstaja. Jo želite prepisati?</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="184"/>
         <source>exists already. Overwrite?</source>
-        <translation type="unfinished">že obstaja. Jo želite prepisati?</translation>
+        <translation>že obstaja. Jo želite prepisati?</translation>
     </message>
 </context>
 <context>
@@ -11378,12 +11431,12 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="37"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>BesedilnaOznaka</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/exportform.ui" line="44"/>
         <source>Image size in Pixels</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost slike v slikovnih točkah</translation>
     </message>
 </context>
 <context>
@@ -11763,12 +11816,12 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontcombo.cpp" line="137"/>
         <source>Face:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisava:</translation>
     </message>
     <message>
         <location filename="../fontcombo.cpp" line="138"/>
         <source>Style:</source>
-        <translation type="unfinished">Slog:</translation>
+        <translation>Slog:</translation>
     </message>
 </context>
 <context>
@@ -11796,7 +11849,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontprefs.cpp" line="59"/>
         <source>Subset</source>
-        <translation type="unfinished">Podnabor</translation>
+        <translation>Podnabor</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="88"/>
@@ -11816,7 +11869,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontprefs.cpp" line="57"/>
         <source>Use Font</source>
-        <translation type="unfinished">Uporabi pisavo</translation>
+        <translation>Uporabi pisavo</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="299"/>
@@ -11841,7 +11894,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontprefs.cpp" line="60"/>
         <source>Path to Font File</source>
-        <translation type="unfinished">Pot do datoteke s pisavo</translation>
+        <translation>Pot do datoteke s pisavo</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="46"/>
@@ -11941,12 +11994,12 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../fontprefs.cpp" line="58"/>
         <source>Embed in PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Vdelaj v PostScript</translation>
     </message>
     <message>
         <location filename="../fontprefs.cpp" line="151"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poti za iskanje pisav lahko nastavite samo v Datoteka &gt; Nastavitve, če ni trenutno odprt noben dokument. Zaprite vse odprte dokumente, nato izberite Datoteka &gt; Nastavitve &gt; Pisave, da spremenite pot iskanja pisav.</translation>
     </message>
 </context>
 <context>
@@ -11969,7 +12022,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="212"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -11979,7 +12032,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="13"/>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Predogled pisav</translation>
+        <translation>Predogled pisav</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -12094,7 +12147,7 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="57"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Išči</translation>
+        <translation>&amp;Išči</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -12135,72 +12188,72 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="42"/>
         <source>Font Name</source>
-        <translation type="unfinished">Ime pisave</translation>
+        <translation>Ime pisave</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="43"/>
         <source>Doc</source>
-        <translation type="unfinished">Doc</translation>
+        <translation>Doc</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="44"/>
         <source>Type</source>
-        <translation type="unfinished">Vrsta</translation>
+        <translation>Vrsta</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="45"/>
         <source>Subset</source>
-        <translation type="unfinished">Podnabor</translation>
+        <translation>Podnabor</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.cpp" line="46"/>
         <source>Access</source>
-        <translation type="unfinished">Dostop</translation>
+        <translation>Dostop</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="41"/>
         <source>&amp;Quick Search:</source>
-        <translation type="unfinished">&amp;Hitro iskanje:</translation>
+        <translation>&amp;Hitro iskanje:</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="60"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="125"/>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished">&amp;Velikost pisave:</translation>
+        <translation>&amp;Velikost pisave:</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="148"/>
         <source>Text</source>
-        <translation type="unfinished">Besedilo</translation>
+        <translation>Besedilo</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="158"/>
         <source>Sample text to display</source>
-        <translation type="unfinished">Vzorčno besedilo za predogled</translation>
+        <translation>Vzorčno besedilo za predogled</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="165"/>
         <source>Se&amp;t</source>
-        <translation type="unfinished">&amp;Nastavi</translation>
+        <translation>&amp;Nastavi</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="168"/>
         <source>Alt+T</source>
-        <translation type="unfinished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="175"/>
         <source>Reset the text</source>
-        <translation type="unfinished">Ponastavi besedilo</translation>
+        <translation>Ponastavi besedilo</translation>
     </message>
     <message>
         <location filename="../plugins/fontpreview/fontpreview.ui" line="209"/>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Zapri</translation>
+        <translation>&amp;Zapri</translation>
     </message>
 </context>
 <context>
@@ -12568,127 +12621,127 @@ Izberite primerne nadomestke zanje.</translation>
     <message>
         <location filename="../guidemanager.ui" line="40"/>
         <source>&amp;Single</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Posamično</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="149"/>
         <source>Horizontals</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravnice</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="359"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="310"/>
         <source>Alt+E</source>
-        <translation type="unfinished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="236"/>
         <source>Verticals</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpičnice</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="100"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="125"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="323"/>
         <source>Appl&amp;y to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uporabi na vseh straneh</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="326"/>
         <source>Alt+Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Y</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="143"/>
         <source>&amp;Column/Row</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Stolpec/vrstica</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="155"/>
         <source>&amp;Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Število:</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="178"/>
         <source>U&amp;se Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>U&amp;porabi razmik:</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="181"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="278"/>
         <source>Refer To</source>
-        <translation type="unfinished"></translation>
+        <translation>Nanašajoč se na</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="346"/>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="297"/>
         <source>M&amp;argins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Robovi</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="307"/>
         <source>S&amp;election</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Izbor</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="242"/>
         <source>Nu&amp;mber:</source>
-        <translation type="unfinished"></translation>
+        <translation>Števi&amp;lo:</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="265"/>
         <source>Use &amp;Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi &amp;razmik:</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="268"/>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="334"/>
         <source>&amp;Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Razno</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="340"/>
         <source>Delete all guides from the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši vsa vodila s trenutne strani</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="343"/>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši vodila s &amp;trenutne strani</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="353"/>
         <source>Delete all guides from the current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši vsa vodila iz trenutnega dokumenta</translation>
     </message>
     <message>
         <location filename="../guidemanager.ui" line="356"/>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši vodila iz &amp;vseh strani</translation>
     </message>
 </context>
 <context>
@@ -12838,48 +12891,48 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
     <message>
         <location filename="../helpbrowser.cpp" line="280"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished">&amp;Končaj</translation>
+        <translation>&amp;Končaj</translation>
     </message>
     <message>
         <location filename="../helpbrowser.cpp" line="702"/>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Žal priročnik ni nameščen!&lt;/p&gt;&lt;p&gt;Oglejte si:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net za posodobljeno dokumentacijo&lt;/li&gt;&lt;li&gt;http://www.scribus.net za prenose&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="137"/>
         <source>Scribus Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomoč za Scribusa</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="53"/>
         <source>Searching is case insensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Iskanje razlikuje male in velike črke</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="86"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="153"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished">I&amp;zhod</translation>
+        <translation>I&amp;zhod</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="163"/>
         <source>Find &amp;Next...</source>
-        <translation type="unfinished"></translation>
+        <translation>Najdi &amp;naslednjega ...</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="168"/>
         <source>Find &amp;Previous...</source>
-        <translation type="unfinished"></translation>
+        <translation>Najdi &amp;prejšnjega ...</translation>
     </message>
     <message>
         <location filename="../ui/helpbrowser.ui" line="173"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
 </context>
 <context>
@@ -12887,37 +12940,37 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
     <message>
         <location filename="../ui/hb2.ui" line="13"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="30"/>
         <source>&amp;Contents</source>
-        <translation type="unfinished">&amp;Vsebina</translation>
+        <translation>&amp;Vsebina</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="84"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="49"/>
         <source>Se&amp;arch</source>
-        <translation type="unfinished">Poi&amp;šči</translation>
+        <translation>Poi&amp;šči</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="57"/>
         <source>Searching is case insensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Iskanje ne razlikuje malih in velikih črk</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="64"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Najdi</translation>
     </message>
     <message>
         <location filename="../ui/hb2.ui" line="77"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished">&amp;Zaznamki</translation>
+        <translation>&amp;Zaznamki</translation>
     </message>
 </context>
 <context>
@@ -12946,13 +12999,15 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
         <location filename="../hyask.cpp" line="77"/>
         <source>Add to the
 Exception List</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj na
+seznam izjem</translation>
     </message>
     <message>
         <location filename="../hyask.cpp" line="97"/>
         <source>Add to the
 Ignore List</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj na
+seznam prezrtih</translation>
     </message>
 </context>
 <context>
@@ -13022,22 +13077,22 @@ Vrednost 0 pomeni neomejeno deljenje besed.</translation>
     <message>
         <location filename="../hysettings.cpp" line="84"/>
         <source>Ignore List</source>
-        <translation type="unfinished"></translation>
+        <translation>Seznam prezrtih</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="113"/>
         <source>Add a new Entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj nov vnos</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="125"/>
         <source>Edit Entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Uredi vnos</translation>
     </message>
     <message>
         <location filename="../hysettings.cpp" line="125"/>
         <source>Exception List</source>
-        <translation type="unfinished"></translation>
+        <translation>Seznam izjem</translation>
     </message>
 </context>
 <context>
@@ -13140,17 +13195,17 @@ Vrednost 0 pomeni neomejeno deljenje besed.</translation>
     <message>
         <location filename="../imageinfodialog.cpp" line="130"/>
         <source>Exposure time</source>
-        <translation type="unfinished"></translation>
+        <translation>Čas ekspozicije</translation>
     </message>
     <message>
         <location filename="../imageinfodialog.cpp" line="131"/>
         <source>Aperture:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaslonka:</translation>
     </message>
     <message>
         <location filename="../imageinfodialog.cpp" line="132"/>
         <source>ISO equiv.:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrednost ISO:</translation>
     </message>
 </context>
 <context>
@@ -13158,18 +13213,19 @@ Vrednost 0 pomeni neomejeno deljenje besed.</translation>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="58"/>
         <source>Import AI...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi AI ...</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="79"/>
         <source>Imports Illustrator Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi datoteke Illustratorja</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="80"/>
         <source>Imports most Illustrator files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi večino datotek Illustratorja v trenutni dokument in
+pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
 </context>
 <context>
@@ -13203,18 +13259,19 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="57"/>
         <source>Import PostScript...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi PostScript ...</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="78"/>
         <source>Imports PostScript Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi datoteke v PostScriptu</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="79"/>
         <source>Imports most PostScript files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi večino datotek PostScript v trenutni dokument in
+pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
 </context>
 <context>
@@ -13222,12 +13279,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/imposition/imposition.cpp" line="72"/>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokončno</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/imposition.cpp" line="73"/>
         <source>Landscape</source>
-        <translation type="unfinished">Ležeče</translation>
+        <translation>Ležeče</translation>
     </message>
 </context>
 <context>
@@ -13235,67 +13292,67 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="19"/>
         <source>Imposition</source>
-        <translation type="unfinished"></translation>
+        <translation>Impozicija</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="44"/>
         <source>Gri&amp;d</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mreža</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="102"/>
         <source>Copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopije</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="157"/>
         <source>Do&amp;uble sided</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dvostransko</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="160"/>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="186"/>
         <source>Front side</source>
-        <translation type="unfinished"></translation>
+        <translation>Naslovnica</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="218"/>
         <source>Back side</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadnja stran</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="253"/>
         <source>&amp;Booklet</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Knjižica</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="285"/>
         <source>Pages per sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Strani na list</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="296"/>
         <source>4</source>
-        <translation type="unfinished"></translation>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="301"/>
         <source>8</source>
-        <translation type="unfinished"></translation>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="306"/>
         <source>16</source>
-        <translation type="unfinished"></translation>
+        <translation>16</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="318"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>strani</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="325"/>
@@ -13303,82 +13360,85 @@ converting their vector data into Scribus objects.</source>
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ločite strani z vejico, obsege določite z vezajem, npr. 1,4,9-11, da bi izbrali stran 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="339"/>
         <source>Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Prepogni</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="349"/>
         <source>Front page from</source>
-        <translation type="unfinished"></translation>
+        <translation>Naslovnica iz</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="376"/>
         <source>Double sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvostransko</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="387"/>
         <source>Back page from</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadnja stran iz</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="415"/>
         <source>Destination page</source>
-        <translation type="unfinished"></translation>
+        <translation>Ciljna stran</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="455"/>
         <source>Size</source>
-        <translation type="unfinished">Velikost</translation>
+        <translation>Velikost</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="487"/>
         <source>Orientation</source>
-        <translation type="unfinished">Usmerjenost</translation>
+        <translation>Usmerjenost</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="519"/>
         <source>Width</source>
-        <translation type="unfinished">Širina</translation>
+        <translation>Širina</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="564"/>
         <source>Height</source>
-        <translation type="unfinished">Višina:</translation>
+        <translation>Višina</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="620"/>
         <source>Preview</source>
-        <translation type="unfinished">Predogled</translation>
+        <translation>Predogled</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="627"/>
         <source>Refresh preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Osveži predogled</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="671"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="674"/>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="681"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionbase.ui" line="684"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -13386,17 +13446,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="37"/>
         <source>&amp;Imposition...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Impozicija ...</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="66"/>
         <source>Imposition dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno impozicije - priprave za tisk</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="67"/>
         <source>Imposition on grids, booklets and folds</source>
-        <translation type="unfinished"></translation>
+        <translation>Impozicija na mreže, knjižice in zgibanke</translation>
     </message>
 </context>
 <context>
@@ -13542,177 +13602,177 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../insertaframe.cpp" line="115"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Vstavi besedilni okvir&lt;/b&gt;&lt;br/&gt;Besedilni okvir omogoča vnos katerega koli besedila na določeno mesto v izbranem oblikovanju. Izberete lahko besedilno datoteko v zavihku Možnosti, če želite nemudoma uvoziti datoteko v okvir. Scribus podpira celo paleto uvoznih vrst datotek, od navadnega besedila do OpenOffice.org.&lt;br/&gt;Vaše besedilo lahko urejate in oblikujete neposredno na strani ali v enostavnem Urejevalniku zgodb.</translation>
     </message>
     <message>
         <location filename="../insertaframe.cpp" line="119"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Vstavi slikovni okvir&lt;/b&gt;&lt;br/&gt;Slikovni okvir omogoča postavitev slike na stran. Uporabite lahko različne slikovne učinke in njihove kombinacije, vključno s prosojnostmi, svetlostjo, posterizacijo itn., kar omogoča retuširanje ali ustarjanje zanimivih slikovnih rezultatov. Sprememba merila slike in oblike izvedete s paleto lastnosti.</translation>
     </message>
     <message>
         <location filename="../insertaframe.cpp" line="205"/>
         <source>Open</source>
-        <translation type="unfinished">Odpri</translation>
+        <translation>Odpri</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="13"/>
         <source>Insert A Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi okvir</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="29"/>
         <source>T&amp;ype</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vrsta</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="61"/>
         <source>&amp;Text Frame</source>
-        <translation type="unfinished">&amp;Okvir besedila</translation>
+        <translation>&amp;Besedilni okvir</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="68"/>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished">Okv&amp;ir slike</translation>
+        <translation>&amp;Slikovni okvir</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="97"/>
         <source>&amp;Location</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mesto</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="109"/>
         <source>Page Placement</source>
-        <translation type="unfinished"></translation>
+        <translation>Postavitev strani</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="121"/>
         <source>Current Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Trenutna stran</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="128"/>
         <source>All Pages</source>
-        <translation type="unfinished">Vse strani</translation>
+        <translation>Vse strani</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="135"/>
         <source>Range of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Obseg strani</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="606"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="178"/>
         <source>Position of Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Položaj okvira</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="190"/>
         <source>Top Left of Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgoraj levo robu</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="197"/>
         <source>Top Left of Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgornje levo strani</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="204"/>
         <source>Top Left of Bleed</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgoraj levo dodatka za porezavo</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="211"/>
         <source>Custom Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Položaj po meri</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="250"/>
         <source>Y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="257"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="304"/>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Velikost</translation>
+        <translation>&amp;Velikost</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="328"/>
         <source>Same as the Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Enako kot robovi strani</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="335"/>
         <source>Same as the Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Enako kot stran</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="342"/>
         <source>Same as the Bleed</source>
-        <translation type="unfinished"></translation>
+        <translation>Enako kot dodatek za porezavo</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="349"/>
         <source>Same as the Imported Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Enako kot uvožena slika</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="356"/>
         <source>Custom Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost po meri</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="395"/>
         <source>Height:</source>
-        <translation type="unfinished">višina:</translation>
+        <translation>Višina:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="402"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Širina:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="449"/>
         <source>&amp;Options</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Možnosti</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="497"/>
         <source>Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Razmik:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="507"/>
         <source>Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stolpci:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="531"/>
         <source>Link Created Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Poveži ustvarjene okvire</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="546"/>
         <source>Source Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvorni dokument:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="596"/>
         <source>Source Image:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvorna slika:</translation>
     </message>
     <message>
         <location filename="../insertaframe.ui" line="638"/>
         <source>There are no options for this type of frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Za to vrsto okvira ni na voljo nobenih možnosti</translation>
     </message>
 </context>
 <context>
@@ -13989,27 +14049,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../latexeditor.ui" line="13"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="30"/>
         <source>Enter Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vnesite kodo:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="42"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Posodobi</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="49"/>
         <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>Povrni</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="62"/>
         <source>Program Messages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Programska sporočila:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="81"/>
@@ -14017,67 +14077,70 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="93"/>
         <source>Status: Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Stanje: neznano</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="103"/>
         <source>Kill Program</source>
-        <translation type="unfinished"></translation>
+        <translation>Ubij program</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="118"/>
         <source>Options</source>
-        <translation type="unfinished">Možnosti</translation>
+        <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="126"/>
         <source>Resolution:</source>
-        <translation type="unfinished">Ločljivost:</translation>
+        <translation>Ločljivost:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="133"/>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Samodejna</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="136"/>
         <source> DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="153"/>
         <source>Program:</source>
-        <translation type="unfinished"></translation>
+        <translation>Program:</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="161"/>
         <source>LaTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>LaTeX</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="171"/>
         <source>Use Preamble</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi uvodni del</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="178"/>
         <source>Update Application Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Posodobi nastavitve aplikacije</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="199"/>
         <source>Fonts and Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisave in barve</translation>
     </message>
     <message>
         <location filename="../latexeditor.ui" line="211"/>
         <source>Will be filled later</source>
-        <translation type="unfinished"></translation>
+        <translation>Bo zapolnjeno kasneje</translation>
     </message>
 </context>
 <context>
@@ -14150,137 +14213,137 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../layers.cpp" line="503"/>
         <source>Opacity:</source>
-        <translation type="unfinished">Prekrivnost:</translation>
+        <translation>Prekrivnost:</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="504"/>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="485"/>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Način spajanja:</translation>
+        <translation>Način spajanja:</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="487"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Navaden</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="488"/>
         <source>Darken</source>
-        <translation type="unfinished">Potemni</translation>
+        <translation>Potemni</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="489"/>
         <source>Lighten</source>
-        <translation type="unfinished">Posvetli</translation>
+        <translation>Posvetli</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="490"/>
         <source>Multiply</source>
-        <translation type="unfinished">Pomnoži</translation>
+        <translation>Pomnoži</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="491"/>
         <source>Screen</source>
-        <translation type="unfinished">Zaslon</translation>
+        <translation>Zaslon</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="492"/>
         <source>Overlay</source>
-        <translation type="unfinished">Prekrij</translation>
+        <translation>Prekrij</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="493"/>
         <source>Hard Light</source>
-        <translation type="unfinished">Ostra luč</translation>
+        <translation>Ostra luč</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="494"/>
         <source>Soft Light</source>
-        <translation type="unfinished">Mehka luč</translation>
+        <translation>Mehka luč</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="495"/>
         <source>Difference</source>
-        <translation type="unfinished">Razlika</translation>
+        <translation>Razlika</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="496"/>
         <source>Exclusion</source>
-        <translation type="unfinished">Izključitev</translation>
+        <translation>Izključitev</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="497"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Barvno posvetli</translation>
+        <translation>Barvno posvetli</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="498"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Barvno potemni</translation>
+        <translation>Barvno potemni</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="499"/>
         <source>Hue</source>
-        <translation type="unfinished">Obarvanost</translation>
+        <translation>Obarvanost</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="500"/>
         <source>Saturation</source>
-        <translation type="unfinished">Nasičenost</translation>
+        <translation>Nasičenost</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="501"/>
         <source>Color</source>
-        <translation type="unfinished">Barva</translation>
+        <translation>Barva</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="502"/>
         <source>Luminosity</source>
-        <translation type="unfinished">Svetilnost</translation>
+        <translation>Svetilnost</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="512"/>
         <source>Duplicates the current layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Podvoji trenutno plast</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="516"/>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation type="unfinished"></translation>
+        <translation>Barva indikatorja plasti - Vsaka plast ima dodeljeno barvo za prikaz na platnu, če so vključeni indikatorji plasti. Dvokliknite za urejanje barve. </translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="517"/>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation type="unfinished"></translation>
+        <translation>Naredi plast vidno - Izključite, če želite skriti plast iz prikaza </translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="518"/>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation type="unfinished"></translation>
+        <translation>Natisni plast - Izključite, če želite onemogočiti tiskanje. </translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="519"/>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation type="unfinished"></translation>
+        <translation>Zakleni ali Odkleni plast - Neizbrano je odklenjeno </translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="520"/>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilo poteka okoli predmetov na spodnjih plasteh - Z vključitvijo te nastavitve vsilite besedilnim okvirom, da potekajo okoli drugih predmetov, celo na plasteh pod njimi</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="521"/>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Orisni način - Vključi ali izključi žični prikaz predmetov, da pohitri prikaz zelo zapletenih predmetov.</translation>
     </message>
     <message>
         <location filename="../layers.cpp" line="522"/>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ime plasti - Z dvoklikom na ime plasti omogoča urejanje</translation>
     </message>
 </context>
 <context>
@@ -14288,52 +14351,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lensdialogbase.ui" line="13"/>
         <source>Optical Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektivi</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="64"/>
         <source>Add Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj objektiv</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="71"/>
         <source>Remove Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani objektiv</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="98"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="105"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation>-</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="123"/>
         <source>Lens Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametri objektiva</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="147"/>
         <source>X Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>Položaj X:</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="164"/>
         <source>Y Pos:</source>
-        <translation type="unfinished"></translation>
+        <translation>Položaj Y:</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="181"/>
         <source>Radius:</source>
-        <translation type="unfinished">Polmer:</translation>
+        <translation>Polmer:</translation>
     </message>
     <message>
         <location filename="../lensdialogbase.ui" line="198"/>
         <source>Strength:</source>
-        <translation type="unfinished"></translation>
+        <translation>Moč:</translation>
     </message>
 </context>
 <context>
@@ -14530,7 +14593,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../loadsaveplugin.cpp" line="80"/>
         <source>No File Loader Plugins Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Ni vtičnikov za nalagalnik datotek</translation>
     </message>
 </context>
 <context>
@@ -14578,7 +14641,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../loremipsum.cpp" line="217"/>
         <source>Standard Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation>Običajno vzorčno besedilo</translation>
     </message>
 </context>
 <context>
@@ -14722,12 +14785,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../margindialog.cpp" line="115"/>
         <source>Other Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Druge nastavitve</translation>
     </message>
     <message>
         <location filename="../margindialog.cpp" line="120"/>
         <source>Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Glavna stran:</translation>
     </message>
 </context>
 <context>
@@ -14824,92 +14887,92 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../marginWidget.cpp" line="77"/>
         <source>Apply settings to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi nastavitve na:</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="80"/>
         <source>All Document Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>vseh straneh dokumenta</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="84"/>
         <source>All Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>vseh glavnih straneh</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="89"/>
         <source>Apply the margin changes to all existing master pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uveljavi spremembo robov na vseh obstoječih glavnih straneh dokumenta</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="106"/>
         <source>Margin Guides</source>
-        <translation type="unfinished">Vodila robov</translation>
+        <translation>Vodila robov</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="124"/>
         <source>Top:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrh:</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="129"/>
         <source>Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dno:</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="140"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega vrha strani</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="141"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega dna strani</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="142"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega levega roba strani</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="143"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega desnega roba strani</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="149"/>
         <source>Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodatki za porezavo</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="155"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Razdalja med levim robom vodila in robom stran. Če ste izbrali nasproti postavljene strani, 3 ali 4-kratno zgibanko, bo ta prostor uporabljen za pravilne mere za zlaganje oz. vezavo</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="156"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Razdalja med desnim robom vodila in robom stran. Če ste izbrali nasproti postavljene strani, 3 ali 4-kratno zgibanko, bo ta prostor uporabljen za pravilne mere za zlaganje oz. vezavo</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="213"/>
         <source>Inside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navznoter:</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="214"/>
         <source>Outside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navzven:</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="218"/>
         <source>Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>Levo:</translation>
     </message>
     <message>
         <location filename="../marginWidget.cpp" line="219"/>
         <source>Right:</source>
-        <translation type="unfinished">Desno:</translation>
+        <translation>Desno:</translation>
     </message>
 </context>
 <context>
@@ -15042,7 +15105,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../muster.cpp" line="132"/>
         <source>Copy #%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopija št. %1/%2</translation>
     </message>
 </context>
 <context>
@@ -15173,7 +15236,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message encoding="UTF-8">
         <location filename="../measurements.cpp" line="109"/>
         <source> °</source>
-        <translation type="unfinished"></translation>
+        <translation> °</translation>
     </message>
 </context>
 <context>
@@ -15398,12 +15461,12 @@ več strani ali samo številka ene strani.</translation>
     <message>
         <location filename="../werktoolb.cpp" line="38"/>
         <source>Tools</source>
-        <translation type="unfinished">Orodja</translation>
+        <translation>Orodja</translation>
     </message>
     <message>
         <location filename="../werktoolb.cpp" line="110"/>
         <source>Properties...</source>
-        <translation type="unfinished">Lastnosti ...</translation>
+        <translation>Lastnosti ...</translation>
     </message>
 </context>
 <context>
@@ -15659,7 +15722,7 @@ več strani ali samo številka ene strani.</translation>
     <message>
         <location filename="../mpalette.cpp" line="4625"/>
         <source>Height</source>
-        <translation>Višina:</translation>
+        <translation>Višina</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4621"/>
@@ -16363,107 +16426,107 @@ robovi:</translation>
     <message>
         <location filename="../mpalette.cpp" line="4342"/>
         <source>Transparency Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavitve prosojnosti</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4327"/>
         <source>&amp;Group</source>
-        <translation type="unfinished">&amp;Združi</translation>
+        <translation>&amp;Združi</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4343"/>
         <source>Opacity:</source>
-        <translation type="unfinished">Prekrivnost:</translation>
+        <translation>Prekrivnost:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4344"/>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Način spajanja:</translation>
+        <translation>Način spajanja:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4346"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Navadno</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4347"/>
         <source>Darken</source>
-        <translation type="unfinished">Potemni</translation>
+        <translation>Potemni</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4348"/>
         <source>Lighten</source>
-        <translation type="unfinished">Posvetli</translation>
+        <translation>Posvetli</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4349"/>
         <source>Multiply</source>
-        <translation type="unfinished">Pomnoži</translation>
+        <translation>Pomnoži</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4350"/>
         <source>Screen</source>
-        <translation type="unfinished">Zaslon</translation>
+        <translation>Zaslon</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4351"/>
         <source>Overlay</source>
-        <translation type="unfinished">Prekrij</translation>
+        <translation>Prekrij</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4352"/>
         <source>Hard Light</source>
-        <translation type="unfinished">Ostra luč</translation>
+        <translation>Ostra luč</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4353"/>
         <source>Soft Light</source>
-        <translation type="unfinished">Mehka luč</translation>
+        <translation>Mehka luč</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4354"/>
         <source>Difference</source>
-        <translation type="unfinished">Razlika</translation>
+        <translation>Razlika</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4355"/>
         <source>Exclusion</source>
-        <translation type="unfinished">Izključitev</translation>
+        <translation>Izključitev</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4356"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Barvno posvetli</translation>
+        <translation>Barvno posvetli</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4357"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Barvno potemni</translation>
+        <translation>Barvno potemni</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4358"/>
         <source>Hue</source>
-        <translation type="unfinished">Obarvanost</translation>
+        <translation>Obarvanost</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4360"/>
         <source>Color</source>
-        <translation type="unfinished">Barva</translation>
+        <translation>Barva</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4366"/>
         <source>Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Razmik:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4367"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Širina:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4377"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzeto</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4378"/>
@@ -16478,87 +16541,87 @@ robovi:</translation>
     <message>
         <location filename="../mpalette.cpp" line="4380"/>
         <source>Flip Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Prezrcali besedilo</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4382"/>
         <source>Type:</source>
-        <translation type="unfinished">Vrsta:</translation>
+        <translation>Vrsta:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4394"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilo &amp;poteka okrog okvira</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4395"/>
         <source>Disabled</source>
-        <translation type="unfinished">Izključeno</translation>
+        <translation>Izključeno</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4396"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi &amp;obliko okvira</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4399"/>
         <source>Use Image Clip Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi pot obrezovanja slike</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4400"/>
         <source>Paragraph St&amp;yle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog &amp;odstavka:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4401"/>
         <source>Character St&amp;yle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog &amp;znaka:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4402"/>
         <source>Optical Margins:</source>
-        <translation type="unfinished"></translation>
+        <translation>Optične meje:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4413"/>
         <source>Word Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Sledenje besed</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4417"/>
         <source>Min:</source>
-        <translation type="unfinished"></translation>
+        <translation>Najm:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4415"/>
         <source>Norm:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navad:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4416"/>
         <source>Glyph Extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Končnica znaka</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4418"/>
         <source>Max:</source>
-        <translation type="unfinished"></translation>
+        <translation>Najv:</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4428"/>
         <source>Image Effects</source>
-        <translation type="unfinished">Učinki slike</translation>
+        <translation>Slikovni učinki</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4429"/>
         <source>Extended Image Properties</source>
-        <translation type="unfinished">Razširjene lastnosti slike</translation>
+        <translation>Razširjene lastnosti slike</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4484"/>
         <source>Overprinting</source>
-        <translation type="unfinished"></translation>
+        <translation>Pretiskanje</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4485"/>
@@ -16568,87 +16631,87 @@ robovi:</translation>
     <message>
         <location filename="../mpalette.cpp" line="4486"/>
         <source>Overprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Pretiskaj</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4633"/>
         <source>Group the selected objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Združi izbrane predmete</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4634"/>
         <source>Destroys the selected group</source>
-        <translation type="unfinished"></translation>
+        <translation>Uniči izbrano skupino</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4644"/>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči ali onemogoči izvoz predmeta</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4651"/>
         <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished"></translation>
+        <translation>Onemogoči potek besedila iz nižjih okvirov okoli predmeta</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4652"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi obliko okvira za potek besedila besedilnega okvira pod predmetom.</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4654"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation type="unfinished"></translation>
+        <translation>Če je izbrano, lahko contour line urejate z orodjem Uredi lik na paleti zgoraj. Če urejate prek palete likov, to postane druga ločilna črta, ki izvorno temelji na obliki okvira za potek besedila ali besedilnih okvirov pod predmetom. č</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4655"/>
         <source>Use the clipping path of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi pot obrezovanja slike</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4670"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog odstavka trenutno izbranega besedila ali odstavka</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4671"/>
         <source>Character style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog znakov trenutno izbranega besedila ali odstavka</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4672"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4673"/>
         <source>Remove Direct Character Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4676"/>
         <source>Minimal width of spaces between words</source>
-        <translation type="unfinished"></translation>
+        <translation>Najmanjša širina presledka med besedami</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4677"/>
         <source>Normal width of spaces between words</source>
-        <translation type="unfinished"></translation>
+        <translation>Navadna širina presledka med besedami</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4678"/>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="unfinished"></translation>
+        <translation>Najmanjša mera stisnjenosti črk za poravnavo</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4679"/>
         <source>Maximal extension of glyphs for justification</source>
-        <translation type="unfinished"></translation>
+        <translation>Največja razširitev znakov za poravnavo</translation>
     </message>
     <message>
         <location filename="../mpalette.cpp" line="4680"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporablja viseče spodsekavanje ločil in robov, da doseže lepši videz stolpcev</translation>
     </message>
 </context>
 <context>
@@ -16776,22 +16839,22 @@ Prosim izberite drugo.</translation>
     <message>
         <location filename="../multiprogressdialog.cpp" line="74"/>
         <source>%v of %m</source>
-        <translation type="unfinished"></translation>
+        <translation>%v od %m</translation>
     </message>
     <message>
         <location filename="../multiprogressdialog.ui" line="13"/>
         <source>Progress</source>
-        <translation type="unfinished">Napredek</translation>
+        <translation>Napredek</translation>
     </message>
     <message>
         <location filename="../multiprogressdialog.ui" line="24"/>
         <source>Overall Progress:</source>
-        <translation type="unfinished">Splošni napredek:</translation>
+        <translation>Splošni napredek:</translation>
     </message>
     <message>
         <location filename="../multiprogressdialog.ui" line="67"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
 </context>
 <context>
@@ -16817,97 +16880,97 @@ Prosim izberite drugo.</translation>
     <message>
         <location filename="../multipleduplicate.ui" line="112"/>
         <source>&amp;Horizontal Shift:</source>
-        <translation type="unfinished">&amp;Vodoravni zamik:</translation>
+        <translation>&amp;Vodoravni zamik:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="165"/>
         <source>&amp;Vertical Shift:</source>
-        <translation type="unfinished">&amp;Navpični zamik:</translation>
+        <translation>&amp;Navpični zamik:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.cpp" line="69"/>
         <source>&amp;Horizontal Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vodoravni razmik:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.cpp" line="70"/>
         <source>&amp;Vertical Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Navpičnni razmik:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="13"/>
         <source>Multiple Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Večkrat podvoji</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="32"/>
         <source>&amp;By Number of Copies</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Po številu kopij</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="50"/>
         <source>&amp;Number of Copies:</source>
-        <translation type="unfinished">&amp;Število kopij:</translation>
+        <translation>&amp;Število kopij:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="81"/>
         <source>Create &amp;Gap Between Items Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustvari &amp;razmik med elementi</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="84"/>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="91"/>
         <source>&amp;Shift Created Items By</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zamakni ustvarjene elemente za</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="94"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="145"/>
         <source>Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sukanje:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="217"/>
         <source>By &amp;Rows &amp;&amp; Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Po &amp;vrsticah in stolpcih</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="245"/>
         <source>Vertical Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpični razmik:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="272"/>
         <source>Horizontal Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravni razmik:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="289"/>
         <source>Number of Rows:</source>
-        <translation type="unfinished">Število vrstic:</translation>
+        <translation>Število vrstic:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="309"/>
         <source>Number of Columns:</source>
-        <translation type="unfinished">Število stolpcev:</translation>
+        <translation>Število stolpcev:</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="383"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <location filename="../multipleduplicate.ui" line="399"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
 </context>
 <context>
@@ -17456,17 +17519,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../newfile.cpp" line="174"/>
         <source>Document Layout</source>
-        <translation type="unfinished">Postavitev dokumenta</translation>
+        <translation>Postavitev dokumenta</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="249"/>
         <source>First Page is:</source>
-        <translation type="unfinished">Prva stran:</translation>
+        <translation>Prva stran:</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="323"/>
         <source>Show Document Settings After Creation</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži nastavitve dokumenta po izdelavi</translation>
     </message>
 </context>
 <context>
@@ -17712,22 +17775,22 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../frameedit.cpp" line="847"/>
         <source>Set Contour to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavi obrobo na porezavo slike</translation>
     </message>
     <message>
         <location filename="../frameedit.cpp" line="849"/>
         <source>Lens Effects...</source>
-        <translation type="unfinished"></translation>
+        <translation>Učinki leč ...</translation>
     </message>
     <message>
         <location filename="../frameedit.cpp" line="850"/>
         <source>Apply fancy Lens Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi posebne učinke leč</translation>
     </message>
     <message>
         <location filename="../frameedit.cpp" line="879"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponastavi obrobo na pot porezave slike</translation>
     </message>
 </context>
 <context>
@@ -17740,7 +17803,7 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="666"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina%1</translation>
     </message>
 </context>
 <context>
@@ -17790,7 +17853,7 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../plugins/fileloader/oodraw/oodrawimp.cpp" line="198"/>
         <source>The file could not be imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke ni mogoče uvoziti</translation>
     </message>
 </context>
 <context>
@@ -17869,37 +17932,37 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../oneclick.cpp" line="40"/>
         <source>Origin</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvor</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="146"/>
         <source>Size</source>
-        <translation type="unfinished">Velikost</translation>
+        <translation>Velikost</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="151"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Širina:</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="153"/>
         <source>Length:</source>
-        <translation type="unfinished">Dolžina:</translation>
+        <translation>Dolžina:</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="161"/>
         <source>Height:</source>
-        <translation type="unfinished">višina:</translation>
+        <translation>Višina:</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="163"/>
         <source>Angle:</source>
-        <translation type="unfinished">Kot:</translation>
+        <translation>Kot:</translation>
     </message>
     <message>
         <location filename="../oneclick.cpp" line="193"/>
         <source>Remember Values</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapomni si vrednosti</translation>
     </message>
 </context>
 <context>
@@ -17978,13 +18041,14 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../pdfopts.cpp" line="153"/>
         <source>%1 does not exists and will be created, continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ne obstaja in bo ustvarjena, želite nadaljevati?</translation>
     </message>
     <message>
         <location filename="../pdfopts.cpp" line="176"/>
         <source>Cannot create directory: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mape ni mogoče ustvariti: 
+%1</translation>
     </message>
 </context>
 <context>
@@ -17992,32 +18056,32 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../pdflib_core.cpp" line="127"/>
         <source>Saving PDF</source>
-        <translation type="unfinished">Shranjevanje PDF</translation>
+        <translation>Shranjevanje PDF</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvažanje glavne strani:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvažanje strani:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="131"/>
         <source>Exporting Items on Current Page:</source>
-        <translation type="unfinished">Izvažanje predmetov na trenutni strani:</translation>
+        <translation>Izvažanje predmetov na trenutni strani:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="2315"/>
         <source>Page:</source>
-        <translation type="unfinished">Stran:</translation>
+        <translation>Stran:</translation>
     </message>
     <message>
         <location filename="../pdflib_core.cpp" line="2328"/>
         <source>Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum:</translation>
     </message>
 </context>
 <context>
@@ -18025,7 +18089,7 @@ sicer glede na predmet.</translation>
     <message>
         <location filename="../werktoolb.cpp" line="115"/>
         <source>PDF Tools</source>
-        <translation type="unfinished">Orodja za PDF</translation>
+        <translation>Orodja za PDF</translation>
     </message>
 </context>
 <context>
@@ -19186,82 +19250,82 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../preview.cpp" line="122"/>
         <source>Display Settings</source>
-        <translation type="unfinished">Nastavitve prikazovanja</translation>
+        <translation>Nastavitve prikazovanja</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="229"/>
         <source>Print Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavitve tiskanja</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="235"/>
         <source>Mirror Page(s) Horizontal</source>
-        <translation type="unfinished">Vodoravno prezrcali stran(i)</translation>
+        <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="238"/>
         <source>Mirror Page(s) Vertical</source>
-        <translation type="unfinished">Navpično prezrcali stran(i)</translation>
+        <translation>Navpično prezrcali stran(i)</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="241"/>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished">Poreži do robov strani</translation>
+        <translation>Poreži do robov strani</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="244"/>
         <source>Print in Grayscale</source>
-        <translation type="unfinished">Natisni sivinsko</translation>
+        <translation>Natisni sivinsko</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="250"/>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vsili pretisk</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="253"/>
         <source>Convert Spot Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Pretvori čiste barve</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="256"/>
         <source>Apply Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi barvne profile</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="279"/>
         <source>Fit to Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Umeri na širino</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="280"/>
         <source>Fit to Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Umeri na višino</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="281"/>
         <source>Fit to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Umeri na stran</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="320"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponuja prijaznejši ogled pisav Type 1, TrueType, OpenType, dokumentov EPS, PDF ter vektorske grafike v predogledu, pri čemer je predogled malce počasnejši</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="325"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči, da se čiste barve pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv v tiskarni, potem je verjetno najbolje, da to nastavitev pustite vključeno.</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="326"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
         <location filename="../preview.cpp" line="327"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
     </message>
 </context>
 <context>
@@ -19279,12 +19343,12 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pslib.cpp" line="1694"/>
         <source>Processing Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Obdelovanje glavne strani:</translation>
     </message>
     <message>
         <location filename="../pslib.cpp" line="1694"/>
         <source>Exporting Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvažanje strani:</translation>
     </message>
 </context>
 <context>
@@ -19683,7 +19747,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <translation>Besedilo po poti</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="3385"/>
+        <location filename="../pageitem.cpp" line="3377"/>
         <source>Copy of</source>
         <translation>Kopija</translation>
     </message>
@@ -19713,87 +19777,87 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pageitemattributes.ui" line="13"/>
         <source>Page Item Attributes</source>
-        <translation type="unfinished">Lastnosti predmeta dokumenta</translation>
+        <translation>Lastnosti predmeta strani</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="23"/>
         <source>Name</source>
-        <translation type="unfinished">Ime</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="28"/>
         <source>Type</source>
-        <translation type="unfinished">Vrsta</translation>
+        <translation>Vrsta</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="33"/>
         <source>Value</source>
-        <translation type="unfinished">Vrednost</translation>
+        <translation>Vrednost</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="38"/>
         <source>Parameter</source>
-        <translation type="unfinished">Parameter</translation>
+        <translation>Parameter</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="43"/>
         <source>Relationship</source>
-        <translation type="unfinished">Odnos</translation>
+        <translation>Odnos</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="48"/>
         <source>Relationship To</source>
-        <translation type="unfinished">Odnos do</translation>
+        <translation>Odnos do</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="58"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Dodaj</translation>
+        <translation>&amp;Dodaj</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="61"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="68"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiraj</translation>
+        <translation>&amp;Kopiraj</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="71"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="78"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Zbriši</translation>
+        <translation>I&amp;zbriši</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="81"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="88"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Počisti</translation>
+        <translation>&amp;Počisti</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="91"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="114"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;V redu</translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.ui" line="130"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <location filename="../pageitemattributes.cpp" line="21"/>
@@ -19895,12 +19959,12 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pageitem_imageframe.cpp" line="244"/>
         <source>Picture</source>
-        <translation type="unfinished">Slika</translation>
+        <translation>Slika</translation>
     </message>
     <message>
         <location filename="../pageitem_imageframe.cpp" line="332"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Nastavitve predogleda</translation>
+        <translation>Nastavitve predogleda</translation>
     </message>
 </context>
 <context>
@@ -19908,7 +19972,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <location filename="../pageitem_latexframe.cpp" line="47"/>
         <source>Latex</source>
-        <translation type="unfinished"></translation>
+        <translation>Latex</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="66"/>
@@ -19921,97 +19985,105 @@ And replace this text with your own. Here is an example:
 becomes
 \[J = \int r^2 \mathrm{d}m\]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>\section*{Priročnik}
+Če lahko preberete to besedilo, vaša nastavitev \LaTeX-frames deluje!\\
+Vstavljanje formul je zelo preprosto:\\
+Desno kliknite $\Rightarrow$ Uredi izvorno kodo Latex\\
+in zamenjajte to besedilo s svojim. Tukaj je primer:
+\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
+se spremeni v
+\[J = \int r^2 \mathrm{d}m\]
+</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="539"/>
         <source>Error</source>
-        <translation type="unfinished">Napaka</translation>
+        <translation>Napaka</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="219"/>
         <source>Running the external application failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Poganjanje zunanje aplikacije ni uspelo!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="285"/>
         <source>Could not create a temporary file to run the application!</source>
-        <translation type="unfinished"></translation>
+        <translation>Začasne datoteke za zagon aplikacije ni mogoče ustvariti!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="362"/>
         <source>Information</source>
-        <translation type="unfinished">Podatki</translation>
+        <translation>Podatki</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="308"/>
         <source>Please specify a latex executable in the preferences!</source>
-        <translation type="unfinished"></translation>
+        <translation>Prosim, da v nastavitvah navedete program latex!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="356"/>
         <source>An editor for this frame is already running!</source>
-        <translation type="unfinished"></translation>
+        <translation>Urejevalnik za ta okvir že teče!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="364"/>
         <source>Please specify an editor in the preferences!</source>
-        <translation type="unfinished"></translation>
+        <translation>Prosim, da v nastavitvah navedete urejevalnik!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="451"/>
         <source>Could not create a temporary file to run the external editor!</source>
-        <translation type="unfinished"></translation>
+        <translation>Začasne datoteke za zagon zunanjega urejevalnika ni mogoče ustvariti!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="515"/>
         <source>Running the editor failed with exitcode %d!</source>
-        <translation type="unfinished"></translation>
+        <translation>Poganjanje urejevalnika se je nepričakovano prekinilo z izhodno kodo %d!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="531"/>
         <source>Running the editor &quot;%1&quot; failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Poganjanje urejevalnika &quot;%1&quot; ni uspelo!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="547"/>
         <source>Running the application &quot;%1&quot; failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Poganjanje aplikacije &quot;%1&quot; ni uspelo!</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="631"/>
         <source>Latex-Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Latexov okvir</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="634"/>
         <source>Command: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ukaz: </translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="639"/>
         <source>DPI: </source>
-        <translation type="unfinished"></translation>
+        <translation>DPI: </translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="644"/>
         <source>Status: </source>
-        <translation type="unfinished"></translation>
+        <translation>Stanje: </translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="647"/>
         <source>OK</source>
-        <translation type="unfinished">V redu</translation>
+        <translation>V redu</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="649"/>
         <source>Running</source>
-        <translation type="unfinished"></translation>
+        <translation>Poteka</translation>
     </message>
     <message>
         <location filename="../pageitem_latexframe.cpp" line="651"/>
         <source>Errorcode </source>
-        <translation type="unfinished"></translation>
+        <translation>Koda napake </translation>
     </message>
 </context>
 <context>
@@ -20019,55 +20091,55 @@ becomes
     <message>
         <location filename="../pageitem_pathtext.cpp" line="390"/>
         <source>Paragraphs: </source>
-        <translation type="unfinished"></translation>
+        <translation>Odstavki: </translation>
     </message>
     <message>
         <location filename="../pageitem_pathtext.cpp" line="398"/>
         <source>Lines: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstice: </translation>
     </message>
     <message>
         <location filename="../pageitem_pathtext.cpp" line="404"/>
         <source>Words: </source>
-        <translation type="unfinished"></translation>
+        <translation>Besede: </translation>
     </message>
     <message>
         <location filename="../pageitem_pathtext.cpp" line="412"/>
         <source>Chars: </source>
-        <translation type="unfinished">Znaki: </translation>
+        <translation>Znaki: </translation>
     </message>
 </context>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3317"/>
+        <location filename="../pageitem_textframe.cpp" line="3313"/>
         <source>Linked Text</source>
-        <translation type="unfinished">Povezano besedilo</translation>
+        <translation>Povezano besedilo</translation>
+    </message>
+    <message>
+        <location filename="../pageitem_textframe.cpp" line="3315"/>
+        <source>Text Frame</source>
+        <translation>Besedilni okvir</translation>
     </message>
     <message>
         <location filename="../pageitem_textframe.cpp" line="3319"/>
-        <source>Text Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pageitem_textframe.cpp" line="3323"/>
         <source>Paragraphs: </source>
-        <translation type="unfinished"></translation>
+        <translation>Odstavki: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3331"/>
+        <location filename="../pageitem_textframe.cpp" line="3327"/>
         <source>Lines: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstice: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3337"/>
+        <location filename="../pageitem_textframe.cpp" line="3333"/>
         <source>Words: </source>
-        <translation type="unfinished"></translation>
+        <translation>Besede: </translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3345"/>
+        <location filename="../pageitem_textframe.cpp" line="3341"/>
         <source>Chars: </source>
-        <translation type="unfinished">Znaki: </translation>
+        <translation>Znaki: </translation>
     </message>
 </context>
 <context>
@@ -20272,7 +20344,7 @@ becomes
     <message>
         <location filename="../spalette.cpp" line="62"/>
         <source>No Style</source>
-        <translation type="unfinished">Brez sloga</translation>
+        <translation>Brez sloga</translation>
     </message>
 </context>
 <context>
@@ -20280,57 +20352,57 @@ becomes
     <message>
         <location filename="../patterndialog.cpp" line="96"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite mapo</translation>
     </message>
     <message>
         <location filename="../patterndialog.cpp" line="124"/>
         <source>Loading Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Nalaganje vzorcev</translation>
     </message>
     <message>
         <location filename="../patterndialog.cpp" line="199"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Vse datoteke (*)</translation>
+        <translation>Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../patterndialog.cpp" line="202"/>
         <source>Open</source>
-        <translation type="unfinished">Odpri</translation>
+        <translation>Odpri</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="14"/>
         <source>Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzorci</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="50"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Naloži</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="57"/>
         <source>Load Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Naloži nabor</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="64"/>
         <source>Remove</source>
-        <translation type="unfinished">Odstrani</translation>
+        <translation>Odstrani</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="71"/>
         <source>Remove All</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani vse</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="94"/>
         <source>OK</source>
-        <translation type="unfinished">V redu</translation>
+        <translation>V redu</translation>
     </message>
     <message>
         <location filename="../patterndialog.ui" line="101"/>
         <source>Cancel</source>
-        <translation type="unfinished">Prekliči</translation>
+        <translation>Prekliči</translation>
     </message>
 </context>
 <context>
@@ -20363,47 +20435,47 @@ becomes
     <message>
         <location filename="../picsearch.cpp" line="108"/>
         <source>Size:</source>
-        <translation type="unfinished">Velikost:</translation>
+        <translation>Velikost:</translation>
     </message>
     <message>
         <location filename="../picsearch.cpp" line="109"/>
         <source>Resolution:</source>
-        <translation type="unfinished">Ločljivost:</translation>
+        <translation>Ločljivost:</translation>
     </message>
     <message>
         <location filename="../picsearch.cpp" line="109"/>
         <source>DPI</source>
-        <translation type="unfinished">DPI</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../picsearch.cpp" line="112"/>
         <source>Unknown</source>
-        <translation type="unfinished">Neznano</translation>
+        <translation>Neznano</translation>
     </message>
     <message>
         <location filename="../picsearch.cpp" line="115"/>
         <source>Colorspace:</source>
-        <translation type="unfinished">Barvni prostor:</translation>
+        <translation>Barvni prostor:</translation>
     </message>
     <message>
         <location filename="../picsearch.ui" line="86"/>
         <source>&amp;Preview</source>
-        <translation type="unfinished">&amp;Predogled</translation>
+        <translation>&amp;Predogled</translation>
     </message>
     <message>
         <location filename="../picsearch.ui" line="89"/>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location filename="../picsearch.ui" line="115"/>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Izberite</translation>
     </message>
     <message>
         <location filename="../picsearch.ui" line="118"/>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
 </context>
 <context>
@@ -20411,67 +20483,67 @@ becomes
     <message>
         <location filename="../picsearchoptions.cpp" line="49"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Če vključite to nastavitev, sledi iskanje imen datotek po datotečnem sistemu brez razločevanja malih in velikih črk. Upoštevajte, da je to privzet način iskanja le v okolju MS Windows</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.cpp" line="56"/>
         <source>Cancel Search</source>
-        <translation type="unfinished">Preliči iskanje</translation>
+        <translation>Prekliči iskanje</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="118"/>
         <source>Start Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Začni z iskanjem</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.cpp" line="83"/>
         <source>Select a base directory for search</source>
-        <translation type="unfinished">Izberi osnovno mapo za iskanje</translation>
+        <translation>Izberite osnovno mapo za iskanje</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.cpp" line="138"/>
         <source>Scribus - Image Search</source>
-        <translation type="unfinished">Scribus - Iskanje slik</translation>
+        <translation>Scribus - Iskanje slik</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.cpp" line="138"/>
         <source>The search failed: %1</source>
-        <translation type="unfinished">Neuspešno iskanje: %1</translation>
+        <translation>Iskanje ni obrodilo sadov: %1</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="13"/>
         <source>Search Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Najdi slike</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="25"/>
         <source>Search for:</source>
-        <translation type="unfinished">Išči:</translation>
+        <translation>Išči:</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="35"/>
         <source>Start at:</source>
-        <translation type="unfinished"></translation>
+        <translation>Začni z:</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="58"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation>Spremeni ...</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="73"/>
         <source>Searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Iskanje poteka</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="135"/>
         <source>Case insensitive search</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne razlikuj velike in male črke</translation>
     </message>
     <message>
         <location filename="../picsearchoptions.ui" line="142"/>
         <source>Search recursively</source>
-        <translation type="unfinished"></translation>
+        <translation>Išči rekurzivno</translation>
     </message>
 </context>
 <context>
@@ -20569,172 +20641,172 @@ becomes
     <message>
         <location filename="../picstatus.cpp" line="142"/>
         <source>Not on a Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Ni na strani</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="157"/>
         <source>JPG</source>
-        <translation type="unfinished"></translation>
+        <translation>JPG</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="160"/>
         <source>TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation>TIFF</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="163"/>
         <source>PSD</source>
-        <translation type="unfinished"></translation>
+        <translation>PSD</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="166"/>
         <source>EPS/PS</source>
-        <translation type="unfinished"></translation>
+        <translation>EPS/PS</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="169"/>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="172"/>
         <source>JPG2000</source>
-        <translation type="unfinished"></translation>
+        <translation>JPG2000</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="178"/>
         <source>emb. PSD</source>
-        <translation type="unfinished"></translation>
+        <translation>vdel. PSD</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="184"/>
         <source>Unknown</source>
-        <translation type="unfinished">Neznano</translation>
+        <translation>Neznano</translation>
     </message>
     <message>
         <location filename="../picstatus.cpp" line="201"/>
         <source>n/a</source>
-        <translation type="unfinished"></translation>
+        <translation>ni na voljo</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="81"/>
         <source>Information</source>
-        <translation type="unfinished">Podatki</translation>
+        <translation>Podatki</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="159"/>
         <source>Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pot:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="169"/>
         <source>Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>Najdi ...</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="219"/>
         <source>Name:</source>
-        <translation type="unfinished">Ime:</translation>
+        <translation>Ime:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="248"/>
         <source>Image</source>
-        <translation type="unfinished">Slika</translation>
+        <translation>Slika</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="320"/>
         <source>Colorspace:</source>
-        <translation type="unfinished">Barvni prostor:</translation>
+        <translation>Barvni prostor:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="333"/>
         <source>Format:</source>
-        <translation type="unfinished">Oblika:</translation>
+        <translation>Vrsta:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="346"/>
         <source>DPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>DPI: </translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="362"/>
         <source>Size</source>
-        <translation type="unfinished">Velikost</translation>
+        <translation>Velikost</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="418"/>
         <source>Printed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Natisnjeno:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="444"/>
         <source>Scale:</source>
-        <translation type="unfinished">Merilo:</translation>
+        <translation>Merilo:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="454"/>
         <source>Pixels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slik. točke:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="467"/>
         <source>Layout</source>
-        <translation type="unfinished">Postavitev</translation>
+        <translation>Postavitev</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="539"/>
         <source>Select</source>
-        <translation type="unfinished">Izberi</translation>
+        <translation>Izberite</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="552"/>
         <source>Object:</source>
-        <translation type="unfinished"></translation>
+        <translation>Predmet:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="562"/>
         <source>eff. DPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dej. DPI:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="588"/>
         <source>On Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Na strani:</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="604"/>
         <source>Image Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Slikovna orodja</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="628"/>
         <source>Print Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Natisni sliko</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="635"/>
         <source>Extended Image Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation>Razširjene lastnosti slike ...</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="645"/>
         <source>Edit Image...</source>
-        <translation type="unfinished">Uredi sliko ...</translation>
+        <translation>Uredi sliko ...</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="652"/>
         <source>Image Visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Slika je vidna</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="659"/>
         <source>Image Effects...</source>
-        <translation type="unfinished"></translation>
+        <translation>Slikovni učinki ...</translation>
     </message>
     <message>
         <location filename="../picstatus.ui" line="719"/>
         <source>Close</source>
-        <translation type="unfinished">Zapri</translation>
+        <translation>Zapri</translation>
     </message>
 </context>
 <context>
@@ -20757,17 +20829,17 @@ becomes
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="129"/>
         <source>Save as Image</source>
-        <translation type="unfinished">Shrani kot sliko</translation>
+        <translation>Shrani kot sliko</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="130"/>
         <source>Error writing the output file(s).</source>
-        <translation type="unfinished">Napaka pri zapisovanju izhodnih datotek.</translation>
+        <translation>Napaka pri zapisovanju izhodnih datotek.</translation>
     </message>
     <message>
         <location filename="../plugins/pixmapexport/export.cpp" line="133"/>
         <source>Export successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvoz je bil uspešen</translation>
     </message>
 </context>
 <context>
@@ -20830,7 +20902,7 @@ becomes
         <location filename="../pluginmanager.cpp" line="272"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Vtičnik: %1 ni naložen: %1</translation>
+        <translation>Vtičnik: %1 ni naložen: %2</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -20855,19 +20927,19 @@ becomes
     <message>
         <location filename="../pluginmanager.cpp" line="225"/>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pri nalaganju %1 od %2-ih vtičnikov je prišlo do težav. %3 Najverjetneje je vzrok v odvisnosti ali v starih vtičnikih v vaši namestitveni mapi. Če počistite namestitveno mapo in ponovno namestite program, ta težava pa se pojavi znova, prosim, sporočite napako na bugs.scribus.net.</translation>
     </message>
     <message>
         <location filename="../pluginmanager.cpp" line="312"/>
         <source>Plugin: %1 initialized ok </source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vtičnik: %1 je uspešno inicializiran </translation>
     </message>
     <message>
         <location filename="../pluginmanager.cpp" line="315"/>
         <source>Plugin: %1 failed post initialization</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vtičnik: %1 po inicializaciji ne more nadaljevati z delom</translation>
     </message>
 </context>
 <context>
@@ -20925,7 +20997,7 @@ becomes
     <message>
         <location filename="../pluginmanagerprefsgui.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazec</translation>
     </message>
 </context>
 <context>
@@ -21469,7 +21541,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../prefs.cpp" line="134"/>
         <source>Scrapbook</source>
-        <translation type="unfinished">Odložišče</translation>
+        <translation>Skicirka</translation>
     </message>
     <message>
         <location filename="" line="7471221"/>
@@ -22638,7 +22710,7 @@ instance of gimp.</source>
     <message>
         <location filename="../prefs.cpp" line="95"/>
         <source>Printer</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiskalnik</translation>
     </message>
 </context>
 <context>
@@ -22671,27 +22743,27 @@ instance of gimp.</source>
     <message>
         <location filename="../prefsdialogbase.cpp" line="183"/>
         <source>Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvozi ...</translation>
     </message>
     <message>
         <location filename="../prefsdialogbase.cpp" line="185"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Uveljavi</translation>
+        <translation>&amp;Uveljavi</translation>
     </message>
     <message>
         <location filename="../prefsdialogbase.cpp" line="186"/>
         <source>All preferences can be reset here</source>
-        <translation type="unfinished"></translation>
+        <translation>Tukaj lahko ponastavite vse nastavitve</translation>
     </message>
     <message>
         <location filename="../prefsdialogbase.cpp" line="187"/>
         <source>Apply all changes without closing the dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Uveljavi vse spremembe brez zapiranja pogovornega okna</translation>
     </message>
     <message>
         <location filename="../prefsdialogbase.cpp" line="188"/>
         <source>Export current preferences into file</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvozi trenutne nastavitve v datoteko</translation>
     </message>
 </context>
 <context>
@@ -22876,7 +22948,7 @@ Ali jih želite uporabiti z novo različico?</translation>
     <message>
         <location filename="../marginWidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu lahko izberete vnaprej določeno postavitev strani. &apos;Brez&apos; pusti robove pri miru, Gutenberg jih določi klasično. &apos;Revija&apos; določi vse robove na isto vrednost, prednost ima leva ali notranja vrednost.</translation>
     </message>
 </context>
 <context>
@@ -22989,17 +23061,17 @@ Ali jih želite uporabiti z novo različico?</translation>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.cpp" line="33"/>
         <source>Col: %1 Row: %2/%3</source>
-        <translation type="unfinished"></translation>
+        <translation>Stolpec: %1 Vrstica: %2/%3</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.cpp" line="44"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.cpp" line="45"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.cpp" line="66"/>
@@ -23007,17 +23079,20 @@ Ali jih želite uporabiti z novo različico?</translation>
 so it contains some limitations esp. in the
 case of whitespaces. Please consult Scribus
 manual for more informations.</source>
-        <translation type="unfinished"></translation>
+        <translation>To je izvedeno iz standardne konzole Pythona,
+tako da vsebuje nekaj omejitev, še posebej
+glede presledkov. Za več podatkov
+si oglejte priročnik.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.cpp" line="194"/>
         <source>Python Scripts (*.py *.PY)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skripte Python (*.py *.PY)</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.ui" line="108"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished">&amp;Končaj</translation>
+        <translation>&amp;Končaj</translation>
     </message>
 </context>
 <context>
@@ -25692,246 +25767,247 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
     <message>
         <location filename="../fonts/ftface.cpp" line="80"/>
         <source>Font %1(%2) is broken</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisava %1(%2) je okvarjena</translation>
     </message>
     <message>
         <location filename="../fonts/ftface.cpp" line="177"/>
         <source>Font %1 has broken glyph %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisava %1 ima pokvarjen znak %2</translation>
     </message>
     <message>
         <location filename="../fonts/scface_ps.h" line="76"/>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisava %1 ima okvarjeno metriko v datoteki %2, zato bo metrika prezrta</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="52"/>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>kitajski (trad.)</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="58"/>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>džonkški</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="75"/>
         <source>Hebrew</source>
-        <translation type="unfinished">Hebrejska pisava</translation>
+        <translation>Hebrejska pisava</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="85"/>
         <source>Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>latinščina</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="82"/>
         <source>Khmer</source>
-        <translation type="unfinished"></translation>
+        <translation>kmerski</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="84"/>
         <source>Lao</source>
-        <translation type="unfinished"></translation>
+        <translation>laoški</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
-        <translation type="unfinished"></translation>
+        <source>Norwegian (Bokm�l)</source>
+        <translation>norveški (Bokm�l)</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="100"/>
         <source>Romanian</source>
-        <translation type="unfinished"></translation>
+        <translation>romunski</translation>
     </message>
     <message>
         <location filename="../langmgr.cpp" line="115"/>
         <source>Vietnamese</source>
-        <translation type="unfinished"></translation>
+        <translation>vietnamski</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="199"/>
         <source>Quarto</source>
-        <translation type="unfinished">Quarto</translation>
+        <translation>Quarto</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="199"/>
         <source>Foolscap</source>
-        <translation type="unfinished">Foolscap</translation>
+        <translation>Foolscap</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="199"/>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="200"/>
         <source>Govt. Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Vladno pismo</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="200"/>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="200"/>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="200"/>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="201"/>
         <source>Post</source>
-        <translation type="unfinished">Post</translation>
+        <translation>Post</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="201"/>
         <source>Crown</source>
-        <translation type="unfinished">Crown</translation>
+        <translation>Crown</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="201"/>
         <source>Large Post</source>
-        <translation type="unfinished">Veliki Post</translation>
+        <translation>Veliki Post</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="201"/>
         <source>Demy</source>
-        <translation type="unfinished">Demy</translation>
+        <translation>Demy</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="202"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Srednja</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="202"/>
         <source>Royal</source>
-        <translation type="unfinished">Kraljevska</translation>
+        <translation>Royal</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="202"/>
         <source>Elephant</source>
-        <translation type="unfinished">Slonovska</translation>
+        <translation>Elephant</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="202"/>
         <source>Double Demy</source>
-        <translation type="unfinished">Dvojna Demy</translation>
+        <translation>Dvojna Demy</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="203"/>
         <source>Quad Demy</source>
-        <translation type="unfinished">Četvorna Demy</translation>
+        <translation>Četvorna Demy</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="203"/>
         <source>STMT</source>
-        <translation type="unfinished">STMT</translation>
+        <translation>STMT</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="203"/>
         <source>A</source>
-        <translation type="unfinished">A</translation>
+        <translation>A</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="203"/>
         <source>B</source>
-        <translation type="unfinished">B</translation>
+        <translation>B</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="203"/>
         <source>C</source>
-        <translation type="unfinished">C</translation>
+        <translation>C</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="204"/>
         <source>D</source>
-        <translation type="unfinished">D</translation>
+        <translation>D</translation>
     </message>
     <message>
         <location filename="../pagesize.cpp" line="204"/>
         <source>E</source>
-        <translation type="unfinished">E</translation>
+        <translation>E</translation>
     </message>
     <message>
         <location filename="../plugins/aiimplugin/importaiplugin.cpp" line="71"/>
         <source>Adobe Illustrator Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvoznik Adobe Illustrator</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="57"/>
         <source>Scribus 1.2.x Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpora za Scribus 1.2.x</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="63"/>
         <source>Scribus 1.3.4 Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpora za Scribus 1.3.4</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="61"/>
         <source>Scribus 1.3.0-&gt;1.3.3.x Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpora za Scribus 1.3.0-&gt;1.3.3.x</translation>
     </message>
     <message>
         <location filename="../plugins/imposition/impositionplugin.cpp" line="58"/>
         <source>Imposition</source>
-        <translation type="unfinished"></translation>
+        <translation>Impozicija</translation>
     </message>
     <message>
         <location filename="../plugins/psimport/importpsplugin.cpp" line="70"/>
         <source>PostScript Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvoznik PostScript</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.cpp" line="173"/>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Prosojnost je zunaj meja, moralo bi veljati: 0 &lt;= prosojnost &lt;= 1.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.cpp" line="195"/>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Način spajanja je zunaj meja, biti mora: 0 &lt;= način spajanja &lt;= 15.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.cpp" line="97"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nebesedilnemu okviru ni mogoče nastaviti števila vrstic.</translation>
     </message>
     <message>
         <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="122"/>
         <source>%1;;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1;;Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="141"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ste prepričani, da želite prepisati datoteko:
+%1 ?</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="90"/>
         <source>WMF Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvoz WMF</translation>
     </message>
     <message>
         <location filename="../scdocoutput_ps2.cpp" line="107"/>
         <source>An error occurred while initializing icc transforms</source>
-        <translation type="unfinished"></translation>
+        <translation>Pri incializaciji transformacij ICC je prišlo do napake</translation>
     </message>
     <message>
         <location filename="../scdocoutput_ps2.cpp" line="134"/>
         <source>Output profile is not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Izhodni profil ni podprt</translation>
     </message>
     <message>
         <location filename="../scimgdataloader_ps.cpp" line="474"/>
@@ -25939,248 +26015,251 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
 %1 are not available.
 They have been replaced by &quot;Courier&quot;
 Therefore the image may be not correct</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisava(-e):
+%1 niso na voljo.
+Zamenjala jih bo pisava &quot;Courier&quot;
+Zato videz slike najverjetneje ne bo pravilen</translation>
     </message>
     <message>
         <location filename="../sclayer.cpp" line="386"/>
         <source>New Layer</source>
-        <translation type="unfinished">Nova plast</translation>
+        <translation>Nova plast</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="571"/>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabljate razvojno različico Scribusa 1.3.x. Dokument, s katerim delate, je bil ustvarjen z različico Scribusa 1.2.x.  Če trenutno datoteko shranite z 1.3.x, je v različicah Scribusa 1.2.x ne boste mogli urejati. Da bi ohranili možnost urejanja z različicami 1.2.x, to datoteko shranite pod drugim imenom in še naprej urejajte novoimenovano datoteko, da bo ostal izvirnik nedotaknjen. Ste prepričani, da želite nadaljevati s to operacijo?</translation>
     </message>
     <message>
         <location filename="../serializer.cpp" line="347"/>
         <source>Copy of %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopija %1 (%2)</translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="160"/>
         <source>font %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>pisava %1 </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="162"/>
         <source>size %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>velikost %1 </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="164"/>
         <source>+style </source>
-        <translation type="unfinished"></translation>
+        <translation>+slog </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="166"/>
         <source>+color </source>
-        <translation type="unfinished"></translation>
+        <translation>+barva </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="168"/>
         <source>+underline </source>
-        <translation type="unfinished"></translation>
+        <translation>+podčrtano </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="168"/>
         <source>-underline </source>
-        <translation type="unfinished"></translation>
+        <translation>-podčrtano </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="170"/>
         <source>+strikeout </source>
-        <translation type="unfinished"></translation>
+        <translation>+prečrtano </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="170"/>
         <source>-strikeout </source>
-        <translation type="unfinished"></translation>
+        <translation>-prečrtano </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="172"/>
         <source>+shadow </source>
-        <translation type="unfinished"></translation>
+        <translation>+senčeno </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="172"/>
         <source>-shadow </source>
-        <translation type="unfinished"></translation>
+        <translation>-senčeno </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="174"/>
         <source>+outline </source>
-        <translation type="unfinished"></translation>
+        <translation>+orisano </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="174"/>
         <source>-outline </source>
-        <translation type="unfinished"></translation>
+        <translation>-orisano </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="176"/>
         <source>+tracking %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+sledenje %1 </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="176"/>
         <source>-tracking </source>
-        <translation type="unfinished"></translation>
+        <translation>-sledenje</translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="178"/>
         <source>+baseline %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+osnovnica %1 </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="180"/>
         <source>+stretch </source>
-        <translation type="unfinished"></translation>
+        <translation>+raztegnjeno </translation>
     </message>
     <message>
         <location filename="../styles/charstyle.cpp" line="182"/>
         <source>parent= %1</source>
-        <translation type="unfinished"></translation>
+        <translation>starš= %1</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="72"/>
         <source>Image</source>
-        <translation type="unfinished">Slika</translation>
+        <translation>Slika</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="78"/>
         <source>PDF Push Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Gumb PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="81"/>
         <source>PDF Text Field</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilno polje PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="84"/>
         <source>PDF Check Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Potrditveno polje PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="87"/>
         <source>PDF Combo Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Kombinirano polje PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="90"/>
         <source>PDF List Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Seznamsko polje PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="93"/>
         <source>PDF Text Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilo opombe PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="96"/>
         <source>PDF Link Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Povezava opombe PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="99"/>
         <source>Text</source>
-        <translation type="unfinished">Besedilo</translation>
+        <translation>Besedilo</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="104"/>
         <source>Line</source>
-        <translation type="unfinished">Črta</translation>
+        <translation>Črta</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="107"/>
         <source>Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnogokotnik</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="110"/>
         <source>Polyline</source>
-        <translation type="unfinished">Lomljena črta</translation>
+        <translation>Lomljena črta</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="113"/>
         <source>PathText</source>
-        <translation type="unfinished">Besedilo po poti</translation>
+        <translation>Besedilo po poti</translation>
     </message>
     <message>
         <location filename="../units.cpp" line="161"/>
         <source>&#xb0;</source>
         <comment>degrees, unicode 0xB0</comment>
-        <translation type="unfinished"></translation>
+        <translation>°</translation>
     </message>
     <message>
         <location filename="../units.cpp" line="163"/>
         <source>%</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="33"/>
         <source>Encapsulated PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Vkapsulirani PostScript</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="34"/>
         <source>GIF</source>
-        <translation type="unfinished"></translation>
+        <translation>GIF</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="35"/>
         <source>JPEG</source>
-        <translation type="unfinished">JPEG</translation>
+        <translation>JPEG</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="36"/>
         <source>Pattern Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke vzorcev</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="37"/>
         <source>PDF Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument PDF</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="38"/>
         <source>PNG</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="39"/>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="40"/>
         <source>Adobe Photoshop</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Photoshop</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="41"/>
         <source>TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation>TIFF</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="42"/>
         <source>XPM</source>
-        <translation type="unfinished"></translation>
+        <translation>XPM</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="43"/>
         <source>Windows Meta File</source>
-        <translation type="unfinished"></translation>
+        <translation>Metadatoteka Windows (WMF)</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="44"/>
         <source>Scalable Vector Graphics</source>
-        <translation type="unfinished">SVG (Scalable Vector Graphics)</translation>
+        <translation>SVG (Scalable Vector Graphics)</translation>
     </message>
     <message>
         <location filename="../util_formats.cpp" line="45"/>
         <source>Adobe Illustrator</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Illustrator</translation>
     </message>
 </context>
 <context>
@@ -26793,17 +26872,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../plugins/scriptplugin/runscriptdialog.cpp" line="18"/>
         <source>Python Scripts (*.py *.PY);; All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skripte Python (*.py *.PY);; Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/runscriptdialog.ui" line="13"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/runscriptdialog.ui" line="22"/>
         <source>Run as Extension Script</source>
-        <translation type="unfinished">Poženi kot razširitveno skripto</translation>
+        <translation>Poženi kot razširitveno skripto</translation>
     </message>
 </context>
 <context>
@@ -26812,12 +26891,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <location filename="../smalignselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
-        <translation type="unfinished"></translation>
+        <translation>S</translation>
     </message>
     <message>
         <location filename="../smalignselect.cpp" line="21"/>
         <source>Use parent style&apos;s alignment instead of overriding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi poravnavo sloga starša namesto njegovega preglasovanja</translation>
     </message>
 </context>
 <context>
@@ -26903,102 +26982,102 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smcstylewidget.cpp" line="67"/>
         <source>Parent style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog starša</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="68"/>
         <source>Font face</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrsta pisave</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="69"/>
         <source>Font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost pisave</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="70"/>
         <source>Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Sledenje</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="71"/>
         <source>Baseline offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamik osnovnice</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="72"/>
         <source>Horizontal scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravno spr. merila</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="73"/>
         <source>Vertical scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpično spr. merila</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="74"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Jezik</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="75"/>
         <source>Fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva polnila</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="76"/>
         <source>Fill shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Senca polnila</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="77"/>
         <source>Stroke color</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva poteze</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="78"/>
         <source>Stroke shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Senca poteze</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="33"/>
         <source>Based On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Temelji na:</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="298"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jezik:</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.cpp" line="426"/>
         <source>Shade</source>
-        <translation type="unfinished">Senči</translation>
+        <translation>Senči</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="55"/>
         <source>Basic Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Osnovno oblikovanje</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="268"/>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="195"/>
         <source>Advanced Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Napredno oblikovanje</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="416"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>BesedilnaOznaka</translation>
     </message>
     <message>
         <location filename="../smcstylewidget.ui" line="339"/>
         <source>Colors</source>
-        <translation type="unfinished">Barve</translation>
+        <translation>Barve</translation>
     </message>
 </context>
 <context>
@@ -27006,33 +27085,33 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smtextstyles.cpp" line="1494"/>
         <source>Properties</source>
-        <translation type="unfinished">Lastnosti</translation>
+        <translation>Lastnosti</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="1195"/>
         <source>Character Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Slogi znakov</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="1200"/>
         <source>Character Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog znakov</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="1323"/>
         <source>New Style</source>
-        <translation type="unfinished">Nov slog</translation>
+        <translation>Nov slog</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="1336"/>
         <source>Clone of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Klon %1</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="1362"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -27040,7 +27119,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smcolorcombo.cpp" line="121"/>
         <source>Use Parent Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi vrednost starša</translation>
     </message>
 </context>
 <context>
@@ -27048,7 +27127,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smfontcomboh.cpp" line="15"/>
         <source>Use Parent Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi pisavo starša</translation>
     </message>
 </context>
 <context>
@@ -27066,63 +27145,63 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smlinestyle.cpp" line="39"/>
         <source>Line Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Slogi črt</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="44"/>
         <source>Line Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog črte</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="187"/>
         <source>New Style</source>
-        <translation type="unfinished">Nov slog</translation>
+        <translation>Nov slog</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="197"/>
         <source>Clone of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Klon %1</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="213"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="581"/>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> točk</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="676"/>
         <source>Solid Line</source>
-        <translation type="unfinished">Polna črta</translation>
+        <translation>Polna črta</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="664"/>
         <source>Dashed Line</source>
-        <translation type="unfinished">Črtkana črta</translation>
+        <translation>Črtkana črta</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="667"/>
         <source>Dotted Line</source>
-        <translation type="unfinished">Pikčasta črta</translation>
+        <translation>Pikčasta črta</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="670"/>
         <source>Dash Dot Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Črta pika črta</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="673"/>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Črta pika pika črta</translation>
+        <translation>Črta pika pika črta</translation>
     </message>
     <message>
         <location filename="../smlinestyle.cpp" line="657"/>
         <source> pt </source>
-        <translation type="unfinished">točk</translation>
+        <translation>točk</translation>
     </message>
 </context>
 <context>
@@ -27130,87 +27209,87 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smlinestylewidget.cpp" line="34"/>
         <source>Flat Cap</source>
-        <translation type="unfinished">Raven konec</translation>
+        <translation>Raven konec</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="35"/>
         <source>Square Cap</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravokoten konec</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="36"/>
         <source>Round Cap</source>
-        <translation type="unfinished">Zaobljen konec</translation>
+        <translation>Zaobljen konec</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="38"/>
         <source>Miter Join</source>
-        <translation type="unfinished">Spoj pod kotom</translation>
+        <translation>Spoj pod kotom</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="39"/>
         <source>Bevel Join</source>
-        <translation type="unfinished">Nagnjen spoj</translation>
+        <translation>Nagnjen spoj</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="40"/>
         <source>Round Join</source>
-        <translation type="unfinished">Zaobljen spoj</translation>
+        <translation>Zaobljen spoj</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="52"/>
         <source>Add a new line</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj novo črto</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="53"/>
         <source>Remove a line</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani črto</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="54"/>
         <source>Line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog črte</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="55"/>
         <source>Line width</source>
-        <translation type="unfinished"></translation>
+        <translation>Širina črte</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="56"/>
         <source>End style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog konca</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="57"/>
         <source>Join style</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrsta spoja</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="58"/>
         <source>Line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva črte</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="59"/>
         <source>Line shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Senca črte</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.cpp" line="162"/>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> točk</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.ui" line="234"/>
         <source>%</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../smlinestylewidget.ui" line="256"/>
         <source>Line Width:</source>
-        <translation type="unfinished">Širina črte:</translation>
+        <translation>Širina črte:</translation>
     </message>
 </context>
 <context>
@@ -27218,127 +27297,127 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smpstylewidget.cpp" line="238"/>
         <source>Fixed Linespacing</source>
-        <translation type="unfinished">Nespremenljiv razmik vrstic</translation>
+        <translation>Nespremenljiv razmik vrstic</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="239"/>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished">Samodejno razmikanje vrstic</translation>
+        <translation>Samodejen razmik vrstic</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="240"/>
         <source>Align to Baseline Grid</source>
-        <translation type="unfinished">Poravnaj na mrežo osnovnice </translation>
+        <translation>Poravnaj na mrežo osnovnice </translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="55"/>
         <source>Parent Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog starša</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="56"/>
         <source>Line Spacing Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Način razmikanja vrstic</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="57"/>
         <source>Line Spacing</source>
-        <translation type="unfinished">Razmik vrstic</translation>
+        <translation>Razmik vrstic</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="58"/>
         <source>Space Above</source>
-        <translation type="unfinished"></translation>
+        <translation>Prostor zgoraj</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="59"/>
         <source>Space Below</source>
-        <translation type="unfinished"></translation>
+        <translation>Prostor spodaj</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="62"/>
         <source>Drop Cap Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstice ozaljšane začetnice</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="63"/>
         <source>Drop Cap Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Odmik ozaljšane začetnice</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="64"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Poravnava</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="65"/>
         <source>First Line Indent</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamik prve vrstice</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="66"/>
         <source>Left Indent</source>
-        <translation type="unfinished"></translation>
+        <translation>Levi zamik</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="67"/>
         <source>Right Indent</source>
-        <translation type="unfinished"></translation>
+        <translation>Desni zamik</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="61"/>
         <source>Based On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Temelji na:</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="89"/>
         <source>Distances and Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Razdalje in poravnava</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="201"/>
         <source>Drop Caps</source>
-        <translation type="unfinished">Ozaljšane začetnice</translation>
+        <translation>Ozaljšana začetnica</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="294"/>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">Tabulatorji in zamikanje</translation>
+        <translation>Tabulatorji in zamikanje</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="38"/>
         <source>Properties</source>
-        <translation type="unfinished">Lastnosti</translation>
+        <translation>Lastnosti</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.cpp" line="87"/>
         <source>Character Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog znakov</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="160"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>BesedilnaOznaka</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="213"/>
         <source>&amp;Lines:</source>
-        <translation type="unfinished">&amp;Črte:</translation>
+        <translation>&amp;Črte:</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="246"/>
         <source>Distance from Text:</source>
-        <translation type="unfinished">Razdalja do besedila:</translation>
+        <translation>Razdalja do besedila:</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="279"/>
         <source>Parent&apos;s Drop Cap Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Stanje ozaljšane začetnice starša</translation>
     </message>
     <message>
         <location filename="../smpstylewidget.ui" line="340"/>
         <source>Ch&amp;aracter Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog &amp;znakov</translation>
     </message>
 </context>
 <context>
@@ -27346,28 +27425,28 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smtextstyles.cpp" line="53"/>
         <source>Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Slogi odstavka</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="58"/>
         <source>Paragraph Style</source>
-        <translation type="unfinished">Slog odstavka</translation>
+        <translation>Slog odstavka</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="206"/>
         <source>New Style</source>
-        <translation type="unfinished">Nov slog</translation>
+        <translation>Nov slog</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="219"/>
         <source>Clone of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Klon %1</translation>
     </message>
     <message>
         <location filename="../smtextstyles.cpp" line="246"/>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -27375,32 +27454,32 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smreplacedia.cpp" line="65"/>
         <source>Remove</source>
-        <translation type="unfinished">Odstrani</translation>
+        <translation>Odstrani</translation>
     </message>
     <message>
         <location filename="../smreplacedia.cpp" line="66"/>
         <source>Replace with</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamenjaj z</translation>
     </message>
     <message>
         <location filename="../smreplacedia.ui" line="13"/>
         <source>Delete Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši sloge</translation>
     </message>
     <message>
         <location filename="../smreplacedia.ui" line="65"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <location filename="../smreplacedia.ui" line="81"/>
         <source>Ca&amp;ncel</source>
-        <translation type="unfinished">&amp;Prekliči</translation>
+        <translation>&amp;Prekliči</translation>
     </message>
     <message>
         <location filename="../smreplacedia.ui" line="84"/>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
 </context>
 <context>
@@ -27408,7 +27487,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smreplacedia.cpp" line="23"/>
         <source>No Style</source>
-        <translation type="unfinished">Brez sloga</translation>
+        <translation>Brez sloga</translation>
     </message>
 </context>
 <context>
@@ -27416,7 +27495,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smsccombobox.cpp" line="82"/>
         <source>Use Parent Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi vrednost starša</translation>
     </message>
 </context>
 <context>
@@ -27424,7 +27503,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smshadebutton.cpp" line="74"/>
         <source>Use Parent Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi vrednost starša</translation>
     </message>
 </context>
 <context>
@@ -27432,42 +27511,42 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smstyleimport.cpp" line="22"/>
         <source>Character Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Slogi znakov</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="34"/>
         <source>Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Slogi odstavka</translation>
     </message>
     <message>
         <location filename="../smstyleimport.cpp" line="46"/>
         <source>Line Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Slogi črt</translation>
     </message>
     <message>
         <location filename="../smstyleimport.ui" line="13"/>
         <source>Choose Styles</source>
-        <translation type="unfinished">Izberi sloge</translation>
+        <translation>Izberite sloge</translation>
     </message>
     <message>
         <location filename="../smstyleimport.ui" line="20"/>
         <source>Available Styles</source>
-        <translation type="unfinished">Dostopni slogi</translation>
+        <translation>Slogi na voljo</translation>
     </message>
     <message>
         <location filename="../smstyleimport.ui" line="28"/>
         <source>In case of the name clash</source>
-        <translation type="unfinished"></translation>
+        <translation>V primeru istega imena</translation>
     </message>
     <message>
         <location filename="../smstyleimport.ui" line="34"/>
         <source>&amp;Rename Imported Style</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Preimenuj uvoženi slog</translation>
     </message>
     <message>
         <location filename="../smstyleimport.ui" line="44"/>
         <source>R&amp;eplace Existing Style</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zamenjaj obstoječi slog</translation>
     </message>
 </context>
 <context>
@@ -27476,12 +27555,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <location filename="../smstyleselect.cpp" line="20"/>
         <source>P</source>
         <comment>P as in Parent</comment>
-        <translation type="unfinished"></translation>
+        <translation>S</translation>
     </message>
     <message>
         <location filename="../smstyleselect.cpp" line="21"/>
         <source>Use parent style&apos;s effects instead of overriding them</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi učinke sloga starša namesto njihovega preglasovanja</translation>
     </message>
 </context>
 <context>
@@ -27489,7 +27568,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../smtabruler.cpp" line="20"/>
         <source> Parent Tabs </source>
-        <translation type="unfinished"></translation>
+        <translation> Zavihki staršev </translation>
     </message>
 </context>
 <context>
@@ -27642,7 +27721,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../plugins/svgexplugin/svgexplugin.cpp" line="86"/>
         <source>Save as &amp;SVG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani kot &amp;SVG ...</translation>
     </message>
 </context>
 <context>
@@ -27677,7 +27756,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
         <source>The file could not be imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke ni mogoče uvoziti</translation>
     </message>
 </context>
 <context>
@@ -27685,7 +27764,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="902"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina%1</translation>
     </message>
 </context>
 <context>
@@ -27809,7 +27888,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/short-words/swprefsgui.cpp" line="112"/>
         <source>User configuration exists already. Do you really want to overwrite it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabniške nastavitve že obstajajo. Jih resnično želite prepisati?</translation>
     </message>
 </context>
 <context>
@@ -27850,17 +27929,17 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../scgtplugin.cpp" line="108"/>
         <source>Select a file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite datoteko za uvažanje</translation>
     </message>
     <message>
         <location filename="../scgtplugin.cpp" line="128"/>
         <source>Append</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj</translation>
     </message>
     <message>
         <location filename="../scgtplugin.cpp" line="130"/>
         <source>Show options</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži možnosti</translation>
     </message>
 </context>
 <context>
@@ -27868,22 +27947,22 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../scinputdialog.cpp" line="67"/>
         <source>Input Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Vnosno pogovorno okno</translation>
     </message>
     <message>
         <location filename="../scinputdialog.cpp" line="68"/>
         <source>InputDialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Vnosno pogovorno okno</translation>
     </message>
     <message>
         <location filename="../scinputdialog.cpp" line="69"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <location filename="../scinputdialog.cpp" line="71"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
 </context>
 <context>
@@ -27928,7 +28007,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../scprogressbar.cpp" line="56"/>
         <source>%1 of %2</source>
-        <translation type="unfinished">%1 od %2</translation>
+        <translation>%1 od %2</translation>
     </message>
 </context>
 <context>
@@ -28005,12 +28084,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="98"/>
         <source>Scribus 1.2.x Document</source>
-        <translation type="unfinished">Dokument Scribusa 1.2.x</translation>
+        <translation>Dokument Scribusa 1.2.x</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/scribus12format/scribus12format.cpp" line="1716"/>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation>Kopija št. %1 </translation>
     </message>
 </context>
 <context>
@@ -28018,12 +28097,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="82"/>
         <source>Scribus 1.3.4 Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument Scribusa 1.3.4</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/scribus134format/scribus134format.cpp" line="3326"/>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation>Kopija št. %1 </translation>
     </message>
 </context>
 <context>
@@ -28031,12 +28110,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="80"/>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument Scribusa 1.3.0-&gt;1.3.3.7</translation>
     </message>
     <message>
         <location filename="../plugins/fileloader/scribus13format/scribus13format.cpp" line="3039"/>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation>Kopija št. %1 </translation>
     </message>
 </context>
 <context>
@@ -30096,47 +30175,47 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     <message>
         <location filename="../scribuscore.cpp" line="167"/>
         <source>Initializing Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializacija vtičnikov</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="179"/>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializacija tipk za bližnjice</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="181"/>
         <source>Reading Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Branje nastavitev</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="191"/>
         <source>Reading Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Branje barvnih profilov</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="326"/>
         <source>Searching for Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Iskanje pisav</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="331"/>
         <source>There are no fonts found on your system.</source>
-        <translation type="unfinished"></translation>
+        <translation>V sistemu ni mogoče najti pisav.</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="332"/>
         <source>Exiting now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sledi izhod.</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="333"/>
         <source>Fatal Error</source>
-        <translation type="unfinished">Usodna napaka</translation>
+        <translation>Usodna napaka</translation>
     </message>
     <message>
         <location filename="../scribuscore.cpp" line="336"/>
         <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem pisav je vključen</translation>
     </message>
 </context>
 <context>
@@ -30162,17 +30241,17 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <translation>Ozadje</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6835"/>
+        <location filename="../scribusdoc.cpp" line="6836"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Resnično želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6878"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ne morete izbrisati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="6878"/>
+        <location filename="../scribusdoc.cpp" line="6879"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
     </message>
@@ -30189,62 +30268,67 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     <message>
         <location filename="../scribusdoc.cpp" line="404"/>
         <source>Default Paragraph Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzeti slog odstavka</translation>
     </message>
     <message>
         <location filename="../scribusdoc.cpp" line="419"/>
         <source>Default Character Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzeti slog znakov</translation>
     </message>
     <message>
         <location filename="../scribusdoc.cpp" line="836"/>
         <source>Adjusting Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Prilagajanje barv</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5670"/>
+        <location filename="../scribusdoc.cpp" line="5671"/>
         <source>remove direct paragraph formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="5905"/>
+        <location filename="../scribusdoc.cpp" line="5906"/>
         <source>remove direct char formatting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../scribusdoc.cpp" line="7349"/>
-        <source>&amp;Unlock All</source>
-        <translation type="unfinished">&amp;Odkleni vse</translation>
+        <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
         <location filename="../scribusdoc.cpp" line="7350"/>
+        <source>&amp;Unlock All</source>
+        <translation>&amp;Odkleni vse</translation>
+    </message>
+    <message>
+        <location filename="../scribusdoc.cpp" line="7351"/>
         <source>&amp;Skip locked objects</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Preskoči zaklenjene predmete</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="7353"/>
+        <location filename="../scribusdoc.cpp" line="7354"/>
         <source>Some objects are locked.</source>
-        <translation type="unfinished">Nekateri predmeti so zaklenjeni.</translation>
+        <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8438"/>
+        <location filename="../scribusdoc.cpp" line="8439"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
 Rotation: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Število kopij: %1
+Vodoravni zamik: %2
+Navpični zamik: %3
+Sukanje: %4</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="8466"/>
+        <location filename="../scribusdoc.cpp" line="8467"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Število kopij: %1
+Vodoravni razmik: %2
+Navpični razmik: %3</translation>
     </message>
     <message>
-        <location filename="../scribusdoc.cpp" line="9464"/>
+        <location filename="../scribusdoc.cpp" line="9465"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina%1</translation>
     </message>
 </context>
 <context>
@@ -30837,57 +30921,57 @@ Navpični zamik: %3</translation>
     <message>
         <location filename="../scribus.cpp" line="270"/>
         <source>Scribus </source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus </translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="8976"/>
         <source>Paste Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Prilepi nedavne</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="772"/>
         <source>&amp;Character</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Znak</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="789"/>
         <source>&amp;Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Narekovaj</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="814"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Pres&amp;ledki in prelomi</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="9006"/>
         <source>Online &amp;Tutorials</source>
-        <translation type="unfinished"></translation>
+        <translation>Spletni &amp;vodniki</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="2405"/>
         <source>Updating Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Posodabljanje slik</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="3745"/>
         <source>Some color profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekateri barvni profili, ki jih uporablja ta dokument, niso nameščeni:</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="3960"/>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
+        <translation>Resnično želite izbrisati vse besedilo?</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="4099"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenti (*.sla *.sla.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="7576"/>
         <source>%1;;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1;;Vse datoteke (*)</translation>
     </message>
 </context>
 <context>
@@ -31010,22 +31094,22 @@ Navpični zamik: %3</translation>
     <message>
         <location filename="../scribusapp.cpp" line="218"/>
         <source>Invalid argument: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neveljaven argument: %1</translation>
     </message>
     <message>
         <location filename="../scribusapp.cpp" line="408"/>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Onemogoči prikazovanje zagonskega zaslona. Zapiše prazno datoteko .neversplash v mapo ~/.scribus.</translation>
     </message>
     <message>
         <location filename="../scribusapp.cpp" line="410"/>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži mesto podatkov o profilu ICC v konzoli ob zagonu</translation>
     </message>
     <message>
         <location filename="../scribusapp.cpp" line="412"/>
         <source>Download a file from the Scribus website and show the latest available version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prenesi datoteko s spletne strani Scribusa in pokaži najnovejšo različico, ki je na voljo.</translation>
     </message>
 </context>
 <context>
@@ -31136,22 +31220,22 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Znaki: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4523"/>
+        <location filename="../canvasmode_legacy.cpp" line="4368"/>
         <source>Print: </source>
         <translation>Natisni: </translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4526"/>
+        <location filename="../canvasmode_legacy.cpp" line="4371"/>
         <source>Enabled</source>
         <translation>Vključeno</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4528"/>
+        <location filename="../canvasmode_legacy.cpp" line="4373"/>
         <source>Disabled</source>
         <translation>Izključeno</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4538"/>
+        <location filename="../canvasmode_legacy.cpp" line="4383"/>
         <source>In&amp;fo</source>
         <translation>&amp;Podatki</translation>
     </message>
@@ -31201,7 +31285,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Lastnosti &amp;polja</translation>
     </message>
     <message>
-        <location filename="../pageitem_textframe.cpp" line="3388"/>
+        <location filename="../pageitem_textframe.cpp" line="3384"/>
         <source>&amp;PDF Options</source>
         <translation>Možnosti &amp;PDF</translation>
     </message>
@@ -31236,7 +31320,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Pošlji na &amp;odložišče</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4575"/>
+        <location filename="../canvasmode_legacy.cpp" line="4420"/>
         <source>Send to La&amp;yer</source>
         <translation>Pošlji na p&amp;last</translation>
     </message>
@@ -31256,7 +31340,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">&amp;Razdruži</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4604"/>
+        <location filename="../canvasmode_legacy.cpp" line="4449"/>
         <source>Le&amp;vel</source>
         <translation>&amp;Raven</translation>
     </message>
@@ -31306,12 +31390,12 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">&amp;Bezier krivulja</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4624"/>
+        <location filename="../canvasmode_legacy.cpp" line="4469"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Pretvori v</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4635"/>
+        <location filename="../canvasmode_legacy.cpp" line="4480"/>
         <source>&amp;Delete</source>
         <translation>I&amp;zbriši</translation>
     </message>
@@ -31346,7 +31430,7 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Nastavitve predogleda</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1749"/>
+        <location filename="../canvasmode_legacy.cpp" line="1687"/>
         <source>Linking Text Frames</source>
         <translation>Povezovanje besedilnih okvirov</translation>
     </message>
@@ -31371,12 +31455,12 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Ali zares želite izbirasti vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4567"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ne morete pretvoriti predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4567"/>
+        <location filename="../scribusview.cpp" line="4560"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Predmet %1 uporablja urejevalnik zgodb. Pretvarjanje v črte je bilo preklicano</translation>
     </message>
@@ -31411,65 +31495,66 @@ Navpični zamik: %3</translation>
         <translation type="obsolete">Sivinsko</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="4640"/>
+        <location filename="../canvasmode_legacy.cpp" line="4485"/>
         <source>Contents</source>
         <translation>Vsebina</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1743"/>
+        <location filename="../canvasmode_legacy.cpp" line="1681"/>
         <source>You are trying to link a frame to itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poskušate povezati z okvirom, ki je že povezan sam s seboj.</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="1750"/>
+        <location filename="../canvasmode_legacy.cpp" line="1688"/>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poskušate povezati z okvirom, ki je že povezan.</translation>
     </message>
     <message>
         <location filename="../canvasmode_nodeedit.cpp" line="515"/>
         <source>Paste Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Prilepi nedavne</translation>
     </message>
     <message>
-        <location filename="../canvasmode_legacy.cpp" line="2388"/>
+        <location filename="../canvasmode_legacy.cpp" line="2326"/>
         <source>Enter Object Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Vnesite velikost predmeta</translation>
     </message>
     <message>
         <location filename="../pageitem_imageframe.cpp" line="283"/>
         <source>No Image Loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Naložena ni nobena slika</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="325"/>
         <source>Switches Color Management on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Vključi ali izključi upravljanje z barvami</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="326"/>
         <source>Enables the Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči predogledni način</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="327"/>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
-        <translation type="unfinished"></translation>
+        <translation>Tukaj lahko izberete videz prikazanega
+Izberete lahko med navadno in več oblikami barvne slepote</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="365"/>
         <source>Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Predogledni način</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="366"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
-        <translation type="unfinished"></translation>
+        <translation>CMS je aktiven. Zato se prikaz barv morda ne bo ujemal z zaznavo vidno omejenih</translation>
     </message>
     <message>
-        <location filename="../scribusview.cpp" line="4267"/>
+        <location filename="../scribusview.cpp" line="4260"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina%1</translation>
     </message>
 </context>
 <context>
@@ -31633,7 +31718,7 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <location filename="../plugins/scriptplugin/scriptercore.cpp" line="493"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skripte Python (*.py *.PY);; Vse datoteke (*)</translation>
     </message>
 </context>
 <context>
@@ -31756,42 +31841,42 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazec</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="148"/>
         <source>Comments:</source>
-        <translation type="unfinished">Komentarji:</translation>
+        <translation>Komentarji:</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="155"/>
         <source>Keywords:</source>
-        <translation type="unfinished">Ključne besede:</translation>
+        <translation>Ključne besede:</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="162"/>
         <source>Signs:</source>
-        <translation type="unfinished">Znaki:</translation>
+        <translation>Znaki:</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="169"/>
         <source>Strings:</source>
-        <translation type="unfinished">Nizi znakov:</translation>
+        <translation>Nizi znakov:</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="176"/>
         <source>Numbers:</source>
-        <translation type="unfinished">Številke:</translation>
+        <translation>Številke:</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="183"/>
         <source>Errors:</source>
-        <translation type="unfinished">Napake:</translation>
+        <translation>Napake:</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/scripterprefsgui.ui" line="190"/>
         <source>Base Texts:</source>
-        <translation type="unfinished">Izhodiščno besedilo:</translation>
+        <translation>Izhodiščna besedila:</translation>
     </message>
 </context>
 <context>
@@ -32141,72 +32226,72 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <location filename="../shortcutwidget.cpp" line="33"/>
         <source>No shortcut for the style</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog nima določenih tipk za bližnjico</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="34"/>
         <source>Style has user defined shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Slog ima uporabniško določeno tipko za bližnjico</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="35"/>
         <source>Assign a shortcut for the style</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodelite tipke za bližnjico slogu</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="104"/>
         <source>Meta</source>
-        <translation type="unfinished">Meta</translation>
+        <translation>Meta</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="65"/>
         <source>Meta+</source>
-        <translation type="unfinished">Meta+</translation>
+        <translation>Meta+</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="69"/>
         <source>Shift+</source>
-        <translation type="unfinished">Shift+</translation>
+        <translation>Shift+</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="73"/>
         <source>Alt+</source>
-        <translation type="unfinished">Alt+</translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.cpp" line="77"/>
         <source>Ctrl+</source>
-        <translation type="unfinished">Ctrl+</translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.ui" line="16"/>
         <source>&amp;No Key</source>
-        <translation type="unfinished">&amp;Tipka &quot;ne&quot;</translation>
+        <translation>&amp;Brez tipke</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.ui" line="23"/>
         <source>&amp;User Defined Key</source>
-        <translation type="unfinished">&amp;Uporabniško določena tipka</translation>
+        <translation>&amp;Uporabniško določena tipka</translation>
     </message>
     <message>
         <location filename="../shortcutwidget.ui" line="30"/>
         <source>Set &amp;Key</source>
-        <translation type="unfinished">Nastavi &amp;tipko</translation>
+        <translation>Nastavi &amp;tipko</translation>
     </message>
 </context>
 <context>
@@ -32659,202 +32744,202 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <location filename="../stylemanager.cpp" line="89"/>
         <source>Apply all changes and exit edit mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Uveljavi vse spremembe in zapusti urejevalni način</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="91"/>
         <source>Edit styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Uredi sloge</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="93"/>
         <source>Name of the selected style</source>
-        <translation type="unfinished"></translation>
+        <translation>Ime izbranega sloga</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="94"/>
         <source>Reset all changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponastavi vse spremembe</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="95"/>
         <source>Apply all changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi vse spremembe</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="96"/>
         <source>Create a new style</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustvari nov slog</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="97"/>
         <source>Import styles from another document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi sloge iz drugega dokumenta</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="98"/>
         <source>Clone selected style</source>
-        <translation type="unfinished"></translation>
+        <translation>Kloniraj izbrani slog</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="99"/>
         <source>Delete selected styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši izbrane sloge</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="340"/>
         <source>Name:</source>
-        <translation type="unfinished">Ime:</translation>
+        <translation>Ime:</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="489"/>
         <source>&amp;Reset</source>
-        <translation type="unfinished">&amp;Ponastavi</translation>
+        <translation>&amp;Ponastavi</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="467"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Uveljavi</translation>
+        <translation>&amp;Uporabi</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="108"/>
         <source>&amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Opravljeno</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="689"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">Ur&amp;edi</translation>
+        <translation>&amp;Uredi</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="158"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nov</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="224"/>
         <source>&amp;Import</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uvozi</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="189"/>
         <source>&amp;Clone</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kloniraj</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="240"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>I&amp;zbriši</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="601"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Nov</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="145"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="147"/>
         <source>Edit</source>
-        <translation type="unfinished">Uredi</translation>
+        <translation>Uredi</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="148"/>
         <source>Clone</source>
-        <translation type="unfinished"></translation>
+        <translation>Kloniraj</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="149"/>
         <source>Send to Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Pošlji v skicirko</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="151"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="283"/>
         <source>Open</source>
-        <translation type="unfinished">Odpri</translation>
+        <translation>Odpri</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="283"/>
         <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenti (*.sla *.sla.gz *.scd *.scd.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="588"/>
         <source>New %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nov -  %1</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="67"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipke za bližnjico</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="978"/>
         <source>This key sequence is already in use</source>
-        <translation type="unfinished">To zaporedje tipk je že v uporabi</translation>
+        <translation>To zaporedje tipk je že v uporabi</translation>
     </message>
     <message>
         <location filename="../stylemanager.cpp" line="1066"/>
         <source>More than one style selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbran je več kot en slog</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="62"/>
         <source>Name</source>
-        <translation type="unfinished">Ime</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="161"/>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="186"/>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kloniraj kopira slog, kar poenostavlja poenotenje slogov.</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="192"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="227"/>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt +I</translation>
+        <translation>Alt +I</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="448"/>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="371"/>
         <source>Please select a unique name for the style</source>
-        <translation type="unfinished"></translation>
+        <translation>Prosim, izberite enkratno ime za slog</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="445"/>
         <source>&lt;&lt; &amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt; &amp;Opravljeno</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="470"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location filename="../stylemanager.ui" line="492"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
 </context>
 <context>
@@ -32944,7 +33029,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <location filename="../styleselect.cpp" line="261"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished">Orisano. Za kratek čas pritisnite gumb, da spremenite širino poteze orisa.</translation>
+        <translation>Orisano. Za kratek čas pritisnite gumb, da spremenite širino poteze orisa.</translation>
     </message>
 </context>
 <context>
@@ -33344,27 +33429,27 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabcheckdoc.cpp" line="44"/>
         <source>Check for items not on a page</source>
-        <translation type="unfinished"></translation>
+        <translation>Preveri predmete, ki niso na strani</translation>
     </message>
     <message>
         <location filename="../tabcheckdoc.cpp" line="50"/>
         <source>Check for used transparencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Preveri uporabljene prosojnosti</translation>
     </message>
     <message>
         <location filename="../tabcheckdoc.cpp" line="71"/>
         <source>Highest allowed resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Najvišja dovoljena ločljivost</translation>
     </message>
     <message>
         <location filename="../tabcheckdoc.cpp" line="83"/>
         <source>Check for GIF images</source>
-        <translation type="unfinished"></translation>
+        <translation>Preveri slike GIF</translation>
     </message>
     <message>
         <location filename="../tabcheckdoc.cpp" line="89"/>
         <source>Ignore non-printable Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Prezri nenatisljive plasti</translation>
     </message>
 </context>
 <context>
@@ -33372,67 +33457,67 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabdisplay.cpp" line="30"/>
         <source>Color for paper</source>
-        <translation type="unfinished">Barva papirja</translation>
+        <translation>Barva papirja</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="31"/>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished"></translation>
+        <translation>Označi področje zunaj robov z barvo robu</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="32"/>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation type="unfinished">Vključi ali izključi  prikaz povezanih okvirov.</translation>
+        <translation>Vključi ali izključi  prikaz povezanih okvirov.</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="33"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Prikaži nenatisljive znake, kot je konec odstavka, v besedilnih okvirih</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="34"/>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished">Vključi ali izključi prikazovanje okvirov</translation>
+        <translation>Vključi ali izključi prikazovanje okvirov</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="35"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Vključi ali izključi prikazovanje indikatorjev plasti</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="36"/>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">Vključi ali izključi prikazovanje slik</translation>
+        <translation>Vključi ali izključi prikazovanje slik</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="37"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Določi količino prostora levo od platna, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
+        <translation>Določi količino prostora levo od platna, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="38"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Določi količino prostora desno od platna, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
+        <translation>Določi količino prostora desno od platna, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="39"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Določi količino prostora nad platnom, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
+        <translation>Določi količino prostora nad platnom, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="40"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Določi količino prostora pod platnom, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
+        <translation>Določi količino prostora pod platnom, ki bo deloval kot odložišče za ustvarjanje in popravljanje elementov ter za njihovo vleko na aktivno stran</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="41"/>
         <source>Set the default zoom level</source>
-        <translation type="unfinished">Privzeta stopnja povečave</translation>
+        <translation>Nastavite privzeto stopnjo povečave</translation>
     </message>
     <message>
         <location filename="../tabdisplay.cpp" line="42"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="unfinished">Položite ravnilo ob svoj zaslon in povlecite drsnik tako, da nastavite pravilno povečavo, pri kateri bo Scribus strani in predmete prikazal v pravi velikosti</translation>
+        <translation>Položite ravnilo ob svoj zaslon in povlecite drsnik tako, da nastavite pravilno povečavo, pri kateri bo Scribus strani in predmete prikazal v pravi velikosti</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="15"/>
@@ -33442,177 +33527,177 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabdisplay.ui" line="31"/>
         <source>General</source>
-        <translation type="unfinished">Splošno</translation>
+        <translation>Splošno</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="43"/>
         <source>Adjust Display Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Prilagodi velikost prikaza</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="79"/>
         <source>Scale%</source>
-        <translation type="unfinished"></translation>
+        <translation>Merilo%</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="110"/>
         <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation type="unfinished">Za prilagoditev pogleda povlecite spodnje ravnilo z drsnikom.</translation>
+        <translation>Za prilagoditev pogleda povlecite spodnje ravnilo z drsnikom.</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="123"/>
         <source>Gaps Between Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Presledki med stranmi</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="138"/>
         <source>Vertical:</source>
-        <translation type="unfinished">Navpično:</translation>
+        <translation>Navpično:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="151"/>
         <source>Horizontal:</source>
-        <translation type="unfinished">Vodoravno:</translation>
+        <translation>Vodoravno:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="164"/>
         <source>Scratch Space</source>
-        <translation type="unfinished">Prazen prostor</translation>
+        <translation>Prazen prostor</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="179"/>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Dno:</translation>
+        <translation>&amp;Dno:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="195"/>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Vrh:</translation>
+        <translation>&amp;Vrh:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="211"/>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Desno:</translation>
+        <translation>&amp;Desno:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="234"/>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Levo:</translation>
+        <translation>&amp;Levo:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="250"/>
         <source>Page Display</source>
-        <translation type="unfinished">Prikaz strani</translation>
+        <translation>Prikaz strani</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="262"/>
         <source>Show Bleed Area</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži dodatek za porezavo</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="269"/>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Prikaži &amp;nenatisljivo območje v barvi robov</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="272"/>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="279"/>
         <source>Show Layer Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži indikatorje plasti</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="289"/>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži okvire</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="299"/>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži verige besedil</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="309"/>
         <source>Rulers Relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodila glede na stran</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="316"/>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished">Pokaži ukazne znake v besedilu</translation>
+        <translation>Pokaži ukazne znake v besedilu</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="323"/>
         <source>Show Pictures</source>
-        <translation type="unfinished">Pokaži slike</translation>
+        <translation>Pokaži slike</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="350"/>
         <source>Colors</source>
-        <translation type="unfinished">Barve</translation>
+        <translation>Barve</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="378"/>
         <source>Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Strani:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="398"/>
         <source>Selected Page Border:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbrani rob strani:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="453"/>
         <source>Fill Color:</source>
-        <translation type="unfinished">Barva polnila:</translation>
+        <translation>Barva polnila:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="487"/>
         <source>Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Okviri</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="507"/>
         <source>Grouped:</source>
-        <translation type="unfinished"></translation>
+        <translation>Združeno:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="536"/>
         <source>Annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opomba:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="629"/>
         <source>Selected:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbrano:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="639"/>
         <source>Linked:</source>
-        <translation type="unfinished"></translation>
+        <translation>Povezano:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="675"/>
         <source>Locked:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaklenjeno:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="723"/>
         <source>Normal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navadno:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="738"/>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilo:</translation>
     </message>
     <message>
         <location filename="../tabdisplay.ui" line="785"/>
         <source>Control Characters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukazni znaki:</translation>
     </message>
 </context>
 <context>
@@ -33620,137 +33705,137 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabdocument.cpp" line="56"/>
         <source>Page Size</source>
-        <translation type="unfinished">Velikost strani</translation>
+        <translation>Velikost strani</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="79"/>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Velikost:</translation>
+        <translation>&amp;Velikost:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="85"/>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokončno</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="86"/>
         <source>Landscape</source>
-        <translation type="unfinished">Ležeče</translation>
+        <translation>Ležeče</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="88"/>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">&amp;Usmerjenost:</translation>
+        <translation>&amp;Usmerjenost:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="95"/>
         <source>Units:</source>
-        <translation type="unfinished">Enote:</translation>
+        <translation>Enote:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="107"/>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Širina:</translation>
+        <translation>&amp;Širina:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="114"/>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Višina:</translation>
+        <translation>&amp;Višina:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="123"/>
         <source>Apply settings to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi nastavitve na:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="126"/>
         <source>All Document Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>vseh straneh dokumenta</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="130"/>
         <source>All Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>vseh glavnih straneh</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="140"/>
         <source>Margin Guides</source>
-        <translation type="unfinished">Vodila robov</translation>
+        <translation>Vodila robov</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="150"/>
         <source>Autosave</source>
-        <translation type="unfinished">Samodejno shranjevanje</translation>
+        <translation>Samodejno shranjevanje</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="159"/>
         <source>min</source>
-        <translation type="unfinished">min</translation>
+        <translation>min</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="160"/>
         <source>&amp;Interval:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Interval:</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="166"/>
         <source>Undo/Redo</source>
-        <translation type="unfinished">Razveljavi/ponovi</translation>
+        <translation>Razveljavi/ponovi</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="180"/>
         <source>Action history length</source>
-        <translation type="unfinished">Obseg zgodovine dejanj</translation>
+        <translation>Obseg zgodovine dejanj</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="190"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Širina strani dokumenta; to lahko nastavite, če ste označili velikost strani po meri</translation>
+        <translation>Širina strani dokumenta; to lahko nastavite, če ste označili velikost strani po meri</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="191"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Višina strani dokumenta; to lahko nastavite, če ste izbrali velikost strani po meri</translation>
+        <translation>Višina strani dokumenta; to lahko nastavite, če ste izbrali velikost strani po meri</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="192"/>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation type="unfinished">Privzeta velikost strani; lahko je običajna ali po meri</translation>
+        <translation>Privzeta velikost strani; lahko je navadna ali po meri</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="193"/>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished">Privzeta usmeritev strani dokumenta</translation>
+        <translation>Privzeta usmerjenost strani dokumenta</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="194"/>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzeta merska enota za urejanje dokumentov</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="195"/>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="unfinished">Če je vključeno, Scribus shrani varnostno kopijo vašega dokumenta s končnico .bak vsakič, ko preteče določeni čas</translation>
+        <translation>Če je vključeno, Scribus shrani varnostno kopijo vašega dokumenta s končnico .bak vsakič, ko preteče določen čas</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="196"/>
         <source>Time period between saving automatically</source>
-        <translation type="unfinished">Interval samodejnega shranjevanja</translation>
+        <translation>Interval samodejnega shranjevanja</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="197"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished">Nastavi, za koliko nazaj se ukazi shranjujejo po korakih. Nastavitev 0 pomeni, da se bo shranilo neskončno ukazov.</translation>
+        <translation>Nastavi, za koliko nazaj se ukazi shranjujejo po korakih. Nastavitev 0 pomeni, da se bo shranilo neskončno ukazov.</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="198"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="unfinished">Uveljavi spremembo velikosti strani na vseh obstoječih straneh v dokumentu</translation>
+        <translation>Uveljavi spremembo velikosti strani na vseh obstoječih straneh dokumenta</translation>
     </message>
     <message>
         <location filename="../tabdocument.cpp" line="199"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uveljavi spremembo velikosti strani na vseh obstoječih glavnih straneh dokumenta</translation>
     </message>
 </context>
 <context>
@@ -33758,197 +33843,197 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="125"/>
         <source>Locate Ghostscript</source>
-        <translation type="unfinished">Določite Ghostscript</translation>
+        <translation>Določite Ghostscript</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="133"/>
         <source>Locate your image editor</source>
-        <translation type="unfinished">Določite urejevalnik slik</translation>
+        <translation>Določite urejevalnik slik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="141"/>
         <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Določite spletni brskalnik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="149"/>
         <source>Locate your LaTeX executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Določite program LaTeX</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.cpp" line="157"/>
         <source>Locate your LaTeX editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Določite urejevalnik LaTeX</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="13"/>
         <source>External Tools</source>
-        <translation type="unfinished">Zunanja orodja</translation>
+        <translation>Zunanja orodja</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="19"/>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished">Tolmač PostScripta</translation>
+        <translation>Tolmač PostScripta</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="60"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Uporabi glajenje pisav pri zaslonski upodobitvi EPS in PDF</translation>
+        <translation>Uporabi glajenje pisav pri zaslonski upodobitvi EPS in PDF</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="63"/>
         <source>Antialias &amp;Text</source>
-        <translation type="unfinished">Gladi robove &amp;besedila</translation>
+        <translation>Gladi robove &amp;besedila</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="66"/>
         <source>Alt+T</source>
-        <translation type="unfinished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="89"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Uporabi glajenje robov slik pri zaslonskem upodabljanju EPS in PDF</translation>
+        <translation>Uporabi glajenje robov slik pri zaslonskem upodabljanju EPS in PDF</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="92"/>
         <source>Antialias &amp;Graphics</source>
-        <translation type="unfinished">Gladi robove &amp;slik</translation>
+        <translation>Gladi robove &amp;slik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="95"/>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="433"/>
         <source>Resolution:</source>
-        <translation type="unfinished">Ločljivost:</translation>
+        <translation>Ločljivost:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="446"/>
         <source> dpi</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="338"/>
         <source>&amp;Name of Executable:</source>
-        <translation type="unfinished">&amp;Ime zagonske datoteke:</translation>
+        <translation>&amp;Ime izvajalne datoteke:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="176"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dodajte pot za prevajalnik Ghostscript. V okolju Windows potrebujete povezavo do programa z imenom gswin32c.exe - IN NE gswin32.exe. Sicer se bo ob zagonu Scribusa slednji morda obesil.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="498"/>
         <source>&amp;Change...</source>
-        <translation type="unfinished">&amp;Spremeni ...</translation>
+        <translation>&amp;Spremeni ...</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="501"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="198"/>
         <source>Image Processing Tool</source>
-        <translation type="unfinished">Orodje za obdelavo slik</translation>
+        <translation>Orodje za obdelavo slik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="232"/>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Pot do mape, kjer hranite svoj urejevalnik slik. Če uporabljate gimp in ga vaša distribucija vključuje, predlagamo, da nastavite &apos;gimp-remote&apos;, s tem lahko urejate slike v gimpu, ki je že zagnan.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="299"/>
         <source>Name of &amp;Executable:</source>
-        <translation type="unfinished">Ime &amp;zagonske datoteke:</translation>
+        <translation>Ime i&amp;zvajalne datoteke:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="255"/>
         <source>Web Browser to launch with links from the Help system</source>
-        <translation type="unfinished"></translation>
+        <translation>Spletni brskalnik za ogledovanje povezav sistema pomoči</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="258"/>
         <source>Web Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Spletni brskalnik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="292"/>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Mesto v datotečnem sistemu, kjer se nahaja vaš spletni brskalnik. Uporabljen bo za zunanje povezave iz sistema pomoči.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="315"/>
         <source>LaTeX</source>
-        <translation type="unfinished"></translation>
+        <translation>LaTeX</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="351"/>
         <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Pot do zagonske datoteke LaTeX. Mora biti program, ki izdeluje vsaj eno od vrst datotek, ki jih podpirajo slikovni okviri!&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="387"/>
         <source>Output file extension:</source>
-        <translation type="unfinished"></translation>
+        <translation>Končnica izhodne datoteke:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="416"/>
         <source>Start with empty frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Odpri s praznim okvirom</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="423"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vedno uporabi nastavljeno vrednost DPI za izračun velikosti, čeprav datoteka slike nakazuje drugačno vrednost.</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="426"/>
         <source>Force DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Vsili DPI</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="478"/>
         <source>Latex Editor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Urejevalnik Latex:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="491"/>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Pot do zagonske datoteke urejevalnika.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="511"/>
         <source>Use Embedded Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi vdelani urejevalnik</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="527"/>
         <source>Preamble:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvodni del:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="548"/>
         <source>End:</source>
-        <translation type="unfinished">Konec:</translation>
+        <translation>Konec:</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="617"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponovno iskanje zunanjih orodij, če ne obstajajo na že določenem mestu</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="620"/>
         <source>&amp;Rescan</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ponovno preišči</translation>
     </message>
     <message>
         <location filename="../tabexternaltoolswidget.ui" line="623"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
 </context>
 <context>
@@ -33956,197 +34041,197 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabgeneral.cpp" line="66"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">Izberite privzeti jezik, v katerem naj se požene Scribus. Če pustite polje prazno, bo jezik zaznan iz sistemskega okolja. To lahko vedno nadomestite z zastavico v ukazni vrstici</translation>
+        <translation>Izberite privzeti jezik, v katerem naj deluje Scribus. Če pustite polje prazno, bo jezik zaznan iz sistemskega okolja. To lahko vedno nadomestite z zastavico v ukazni vrstici</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="67"/>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished">Število nedavno uporabljenih dokumentov, ki naj bodo prikazani v meniju Datoteka</translation>
+        <translation>Število nedavno uporabljenih dokumentov, ki naj bodo prikazani v meniju Datoteka</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="68"/>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="unfinished">Število vrstic, ki jih preskoči premik kolešča na miški</translation>
+        <translation>Število vrstic, ki jih Scribus preskoči ob premiku kolešča na miški</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="69"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="unfinished">Izberite privzeti videz okna. Scribus podeduje vse razpoložljive teme KDE ali Qt, če je Qt nastavljen, da išče po vtičnikih KDE.</translation>
+        <translation>Izberite privzeti videz okna. Scribus podeduje vse razpoložljive teme KDE ali Qt, če je Qt nastavljen, da išče po vtičnikih KDE.</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="70"/>
         <source>Default font size for the menus and windows</source>
-        <translation type="unfinished">Privzeta velikost pisave menijev in oken</translation>
+        <translation>Privzeta velikost pisave menijev in oken</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="71"/>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished">Priveta velikost pisave za orodna okna</translation>
+        <translation>Priveta velikost pisave za orodna okna</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="72"/>
         <source>Default documents directory</source>
-        <translation type="unfinished">Privzeta mapa z dokumenti</translation>
+        <translation>Privzeta mapa z dokumenti</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="73"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="unfinished"></translation>
+        <translation>Okna palet bodo uporabljala manjše (manj potratne) gradnike. Zahteva ponoven zagon aplikacije</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="74"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished">Privzet imenik s profili ICC. To ni mogoče spremeniti z odprtim dokumentom. Privzeta nastavitev je, da Scribus preišče sistemske mape v sistemih Mac OSX in Windows. V okoljih Linux ali Unix Scribus preišče mape $home/.color/icc,/usr/share/color/icc in /usr/local/share/color/icc </translation>
+        <translation>Privzeta mapa s profili ICC. Te ni mogoče spremeniti ob odprtem dokumentu. Privzeta nastavitev je, da Scribus preišče sistemske mape v sistemih Mac OSX in Windows. V okoljih Linux ali Unix Scribus preišče mapi $home/.color/icc,/usr/share/color/icc in /usr/local/share/color/icc </translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="75"/>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished">Privzeta mapa s Scripterjevimi skriptami</translation>
+        <translation>Privzeta mapa s skriptami Skripterke</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="76"/>
         <source>Additional directory for document templates</source>
-        <translation type="unfinished">Dodatna mapa s predlogami dokumentov</translation>
+        <translation>Dodatna mapa s predlogami dokumentov</translation>
     </message>
     <message>
         <location filename="../tabgeneral.cpp" line="132"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite mapo</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="15"/>
         <source>TabGeneralBase</source>
-        <translation type="unfinished"></translation>
+        <translation>Splošno</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="21"/>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabniški vmesnik</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="27"/>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Jezik:</translation>
+        <translation>&amp;Jezik:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="43"/>
         <source>&amp;Wheel Jump:</source>
-        <translation type="unfinished">&amp;Preskok koleščka:</translation>
+        <translation>&amp;Preskok koleščka:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="59"/>
         <source>&amp;Theme:</source>
-        <translation type="unfinished">&amp;Tema:</translation>
+        <translation>&amp;Tema:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="75"/>
         <source>&amp;Recent Documents:</source>
-        <translation type="unfinished">&amp;Nedavni dokumenti:</translation>
+        <translation>&amp;Nedavni dokumenti:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="91"/>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="unfinished">&amp;Velikost pisave (meniji):</translation>
+        <translation>&amp;Velikost pisave (meniji):</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="147"/>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> točk</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="127"/>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished">Pokaži začetno pogovorno okno</translation>
+        <translation>Pokaži začetno pogovorno okno</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="134"/>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="unfinished">Velikost pisave (&amp;palete):</translation>
+        <translation>Velikost pisave (&amp;palete):</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="154"/>
         <source>Show Splashscreen on Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži pojavno sliko ob zagonu</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="164"/>
         <source>Time before a Move or Resize starts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Čas pred začetkom premika ali spremembo velikosti:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="177"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation> ms</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="196"/>
         <source>Use Small Widgets in Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi majhne gradnike v paletah</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="238"/>
         <source>Paths</source>
-        <translation type="unfinished">Poti</translation>
+        <translation>Poti</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="298"/>
         <source>&amp;Change...</source>
-        <translation type="unfinished">&amp;Spremeni ...</translation>
+        <translation>&amp;Spremeni ...</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="301"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="308"/>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">&amp;Spremeni ...</translation>
+        <translation>Sp&amp;remeni ...</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="311"/>
         <source>Alt+H</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="318"/>
         <source>&amp;Scripts:</source>
-        <translation type="unfinished">&amp;Skripte:</translation>
+        <translation>&amp;Skripte:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="341"/>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;premeni ...</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="344"/>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="351"/>
         <source>&amp;ICC Profiles:</source>
-        <translation type="unfinished">Profili &amp;ICC:</translation>
+        <translation>Profili &amp;ICC:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="364"/>
         <source>&amp;Documents:</source>
-        <translation type="unfinished">&amp;Dokumenti:</translation>
+        <translation>&amp;Dokumenti:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="377"/>
         <source>Document &amp;Templates:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pr&amp;edloge dokumeta:</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="390"/>
         <source>Ch&amp;ange...</source>
-        <translation type="unfinished">&amp;Spremeni ...</translation>
+        <translation>&amp;Spremeni ...</translation>
     </message>
     <message>
         <location filename="../tabgeneral.ui" line="393"/>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
 </context>
 <context>
@@ -34369,7 +34454,7 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabguides.cpp" line="271"/>
         <source>px</source>
-        <translation type="unfinished"></translation>
+        <translation>točk</translation>
     </message>
 </context>
 <context>
@@ -34377,202 +34462,202 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="131"/>
         <source>Choose a file to read</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite datoteko za branje</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished">Datoteke XML naborov tipk za bližnjice (*.ksxml)</translation>
+        <translation>Datoteke XML tipk za bližnjice (*.ksxml)</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="139"/>
         <source>Choose a file to save</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite datoteko za shranjevanje</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
         <source>Export Keyboard Shortcuts to File</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvozi tipke za bližnjice v datoteko</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="210"/>
         <source>Enter the name of the shortcut set:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vnesite ime za nabor tipk za bližnjice:</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="528"/>
         <source>Meta</source>
-        <translation type="unfinished">Meta</translation>
+        <translation>Meta</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="478"/>
         <source>Meta+</source>
-        <translation type="unfinished">Meta+</translation>
+        <translation>Meta+</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="482"/>
         <source>Shift+</source>
-        <translation type="unfinished">Shift+</translation>
+        <translation>Shift+</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="486"/>
         <source>Alt+</source>
-        <translation type="unfinished">Alt+</translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="490"/>
         <source>Ctrl+</source>
-        <translation type="unfinished">Ctrl+</translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.cpp" line="500"/>
         <source>This key sequence is already in use</source>
-        <translation type="unfinished">To zaporedje tipk je že v uporabi</translation>
+        <translation>To zaporedje tipk je že v uporabi</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="13"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished">Tipke za bližnjice</translation>
+        <translation>Tipke za bližnjice</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="26"/>
         <source>Action</source>
-        <translation type="unfinished">Dejanje</translation>
+        <translation>Dejanje</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="31"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipke za bližnjico</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="54"/>
         <source>Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Poišči:</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="69"/>
         <source>Shortcut for Selected Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipke za bližnjico do izbranega dejanja</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="87"/>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="100"/>
         <source>Set &amp;Key</source>
-        <translation type="unfinished">Nastavi &amp;tipko</translation>
+        <translation>Določi &amp;tipko</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="103"/>
         <source>Alt+K</source>
-        <translation type="unfinished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="129"/>
         <source>&amp;User Defined Key</source>
-        <translation type="unfinished">&amp;Uporabniško določena tipka</translation>
+        <translation>&amp;Uporabniško določena tipka</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="132"/>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="139"/>
         <source>&amp;No Key</source>
-        <translation type="unfinished">&amp;Tipka &quot;ne&quot;</translation>
+        <translation>&amp;Brez tipke</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="142"/>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="152"/>
         <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished">Nabori tipk za bližnjice</translation>
+        <translation>Nabori tipk za bližnjice</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="164"/>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="unfinished">Ponovno naloži privzete tipke za bližnjice</translation>
+        <translation>Ponovno naloži privzete tipke za bližnjice Scribusa</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="167"/>
         <source>&amp;Reset</source>
-        <translation type="unfinished">&amp;Ponastavi</translation>
+        <translation>&amp;Ponastavi</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="170"/>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="193"/>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="unfinished">Izvozi trenutni nabor tipk za bližnjice v datoteko</translation>
+        <translation>Izvozi trenutni nabor tipk za bližnjice v datoteko</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="196"/>
         <source>&amp;Export...</source>
-        <translation type="unfinished">&amp;Izvozi ...</translation>
+        <translation>&amp;Izvozi ...</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="199"/>
         <source>Alt+E</source>
-        <translation type="unfinished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="206"/>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="unfinished">V trenutno nastavitev uvozi nabor tipk za bližnjice</translation>
+        <translation>V trenutno nastavitev uvozi nabor tipk za bližnjice</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="209"/>
         <source>&amp;Import...</source>
-        <translation type="unfinished">&amp;Uvozi ...</translation>
+        <translation>&amp;Uvozi ...</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="212"/>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt +I</translation>
+        <translation>Alt +I</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="235"/>
         <source>Load the selected shortcut set</source>
-        <translation type="unfinished">Naloži izbran nabor tipk za bližnjice</translation>
+        <translation>Naloži izbran nabor tipk za bližnjice</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="238"/>
         <source>&amp;Load</source>
-        <translation type="unfinished">&amp;Naloži</translation>
+        <translation>&amp;Naloži</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="241"/>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <location filename="../tabkeyboardshortcutswidget.ui" line="248"/>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="unfinished">Nabori tipk za bližnjice, ki so na voljo</translation>
+        <translation>Nabori tipk za bližnjice, ki so na voljo</translation>
     </message>
 </context>
 <context>
@@ -34598,27 +34683,27 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     <message>
         <location filename="../tabmiscellaneous.ui" line="40"/>
         <source>Lorem Ipsum</source>
-        <translation type="unfinished">Vzorčno besedilo</translation>
+        <translation>Vzorčno besedilo</translation>
     </message>
     <message>
         <location filename="../tabmiscellaneous.ui" line="60"/>
         <source>Count of the Paragraphs:</source>
-        <translation type="unfinished">Števec odstavkov:</translation>
+        <translation>Števec odstavkov:</translation>
     </message>
     <message>
         <location filename="../tabmiscellaneous.ui" line="91"/>
         <source>Always use standard Lorem Ipsum</source>
-        <translation type="unfinished">Vedno uporabljaj običajno vzorčno besedilo</translation>
+        <translation>Vedno uporabljaj običajno vzorčno besedilo</translation>
     </message>
     <message>
         <location filename="../tabmiscellaneous.ui" line="101"/>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished">Ob urejanju slogov je viden predogled trenutne sloga odstavka</translation>
+        <translation>Ob urejanju slogov je viden predogled trenutnega sloga odstavka</translation>
     </message>
     <message>
         <location filename="../tabmiscellaneous.ui" line="108"/>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="unfinished">Vedno vprašaj, preden se pri nalaganju dokumenta zamenjajo pisave</translation>
+        <translation>Vedno vprašaj, preden se pri nalaganju dokumenta zamenjajo pisave</translation>
     </message>
 </context>
 <context>
@@ -35572,7 +35657,7 @@ Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebu
     <message>
         <location filename="../tabpdfoptions.cpp" line="897"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished">Vključi pisave v PDF. To bo omogočilo, da se pri prenosu izgled in postavitev dokumenta ne spremenita.</translation>
+        <translation>Vdelaj pisave v PDF. To bo omogočilo, da se pri prenosu izgled in postavitev dokumenta ne spremenita.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="901"/>
@@ -35831,232 +35916,232 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabpdfoptions.cpp" line="385"/>
         <source>Maximum Image Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Največja ločljivost slik:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="440"/>
         <source>&amp;Embed all</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vdelaj vse</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="458"/>
         <source>&amp;Outline all</source>
-        <translation type="unfinished"></translation>
+        <translation>Oriši &amp;vse</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="681"/>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vsili pretisk</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="752"/>
         <source>Use Color Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi barvni profil</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="755"/>
         <source>Do not use embedded color profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne uporabi vdelanih barvnih profilov</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="783"/>
         <source>Printer Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake tiskalnika</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="788"/>
         <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake za porezavo</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="790"/>
         <source>Bleed Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake dodatka za porezavo</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="792"/>
         <source>Registration Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="794"/>
         <source>Color Bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barvni stolpci</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="796"/>
         <source>Page Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Podatki o strani</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="799"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamik:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="809"/>
         <source>Bleed Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavitve dodatka za porezavo</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="815"/>
         <source>Top:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrh:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="820"/>
         <source>Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dno:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="825"/>
         <source>Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>Levo:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="830"/>
         <source>Right:</source>
-        <translation type="unfinished">Desno:</translation>
+        <translation>Desno:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="834"/>
         <source>Use Document Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi rob za porezavo dokumenta</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="860"/>
         <source>Pre-Press</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pred tiskanjem</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="907"/>
         <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pretvori vse črke v dokumentu v orise.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="909"/>
         <source>Show the document in single page mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži dokument v enostranskem načinu</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="910"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži dokument v enostranskem načinu s stranmi, neprekinjeno prikazanimi od konca do konca (kot na zvitku)</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="911"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži dokument z nasprotima stranema, prva stran naj bo prikazana na začetku na levi strani</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="912"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži dokument z nasprotima stranema, prva stran naj bo prikazana na začetku na desni strani</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="913"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi privzete nastavitve ogledovalnika ali uporabnikove nastavitve, če so drugačne od nastavitev ogledovalnika</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="914"/>
         <source>Enables viewing the document in full screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči celozaslonski ogled dokumenta</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="915"/>
         <source>Display the bookmarks upon opening</source>
-        <translation type="unfinished"></translation>
+        <translation>Ob odprtju pokaži zaznamke</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="916"/>
         <source>Display the page thumbnails upon opening</source>
-        <translation type="unfinished"></translation>
+        <translation>Ob odprtju prikaži sličice strani za predogled</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="917"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vsili prikaz plasti. Uporabno le za PDF 1.5+.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="918"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrije orodno vrstico, ki vsebuje Izbor in druge urejevalne funkcije</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="919"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished"></translation>
+        <translation>Skrije menijsko vrstico ogledovalnika, PDF bo prikazan v enostavnem oknu. </translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="920"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Umeri stran ali strani dokumenta na prostor v oknu ogledovalnika.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="945"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Določi združljivost PDF.&lt;br/&gt;Privzeta je &lt;b&gt;PDF 1.3&lt;/b&gt;, ki ponuja najširšo združljivost.&lt;br/&gt;Izberite &lt;b&gt;PDF 1.4&lt;/b&gt;, če vaš dokument uporablja prosojnosti ali potrebuje 128-bitno šifriranje.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; je obvezen, če želite ohraniti predmete  v ločenih plasteh znotraj dokumenta PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; je namenjen izvozu, kjer potrebujete dokument z upravljanjem barv za komercialni tisk in ga lahko izberete le, če imate vključeno upravljanje barv. Uporabite ga le, če vam tako naroči tiskarna ali v nekaterih primerih tiskanja s štiribarvnimi digitalnimi barvnimi laserskimi tiskalniki.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="954"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ravni kakovosti stiskanja za metode stiskanja z izgubami: najmanjše (25%), nizko (50%), srednje (75%), visoko (85%), največje (95%). Upoštevajte, da raven kakovosti ne določa neposredno velikost izhodne slike - tako velikost kot izguba kakovosti sta različna od slike do slike pri vsaki dani ravni kakovosti. Celo pri najmanjši izgubi - največje - pride pri jpeg vedno do določene izgube kakovosti.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="955"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Omeji ločljivost bitnih slik na izbrani DPI. Slike z manjšo ločljivostjo ostanejo nespremenjene. Če ne potrdite izbire, bodo upodobljene v svoji naravni ločljivosti. Če izbiro potrdite, boste povečali uporbo pomnilnika in upočasnili izvoz.</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="975"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="979"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustvari oznake za obrezavo v PDF, ki nakazujejo, kje naj bo papir odrezan ali ostrižen po zaključenem tiskanju</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="980"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
+        <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add registration marks to each separation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vsaki separaciji dodaj registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add color calibration bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="983"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj podatke o dokumentu, ki vključujejo naslov dokumenta in številke stran</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nakaži odmik razdalje za registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="989"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi nastavitve dodatka za porezavo iz nastavitev dokumenta</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="1344"/>
         <source>Inside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navznoter:</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="1345"/>
         <source>Outside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navzven:</translation>
     </message>
 </context>
 <context>
@@ -36064,74 +36149,74 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabprinter.cpp" line="28"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega vrha strani</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="29"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega dna strani</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="30"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega levega roba strani</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="31"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega desnega roba strani</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="32"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="unfinished">Ne pokaži predmetov, ki so zunaj robov tiskanja strani</translation>
+        <translation>Ne pokaži predmetov, ki so zunaj robov tiskanja strani</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="33"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="unfinished">Za dodatne možnosti tiskanja uporabite drug upravljalnik tiskanja, na primer kprinter ali gtklp</translation>
+        <translation>Za dodatne možnosti tiskanja uporabite drug upravljalnik tiskanja, na primer kprinter ali gtklp</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="34"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished">Nastavi raven PostScripta.
-Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
+        <translation>Nastavi raven PostScripta.
+ Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="35"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">To je način za zamenjavo sivin sestavljenih iz cijanske, rumene in magentne barve s črnino. POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej narediti nekaj poskusov. POD tudi zmanjša možnost prekomerne nasičenosti črnil CMY.</translation>
+        <translation>Metoda nadomeščanja odtenkov sivine, ki nastanejo kot mešanica cijanske, magente in rumene, s črno. To najbolj vpliva na nevtralne in/ali temne dele slike, ki so blizu sivi. S tem lahko izboljšate rezultat tiskanja nekaterih slik, priporočamo pa preverjanje za vsake primer posebej. To tudi zmanjša možnost prevelike nasičenosti črnil CMY.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="36"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vključi čiste barve, da se pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv v tiskarni, potem je verjetno najbolje, da to pustite vključeno.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="37"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="38"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="39"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished">To omogoča natančno določitev velikosti datoteke PostScript. Ni priporočeno, razen če to zahteva vaš tiskalnik.</translation>
+        <translation>To omogoča natančno določitev velikosti datoteke PostScript. Ni priporočeno, razen če to zahteva vaš tiskalnik.</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="83"/>
         <source>File</source>
-        <translation type="unfinished">Datoteka</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <location filename="../tabprinter.cpp" line="144"/>
         <source>All</source>
-        <translation type="unfinished">Vse</translation>
+        <translation>Vse</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="13"/>
@@ -36141,197 +36226,197 @@ Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
     <message>
         <location filename="../tabprinter.ui" line="45"/>
         <source>Options</source>
-        <translation type="unfinished">Možnosti</translation>
+        <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="57"/>
         <source>Page</source>
-        <translation type="unfinished">Stran</translation>
+        <translation>Stran</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="69"/>
         <source>Mirror Page(s) Horizontal</source>
-        <translation type="unfinished">Vodoravno prezrcali stran(i)</translation>
+        <translation>Stran(i) prezrcali vodoravno</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="76"/>
         <source>Mirror Page(s) Vertical</source>
-        <translation type="unfinished">Navpično prezrcali stran(i)</translation>
+        <translation>Stran(i) prezrcali navpično</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="83"/>
         <source>Set Media Size</source>
-        <translation type="unfinished">Nastavi velikost papirja</translation>
+        <translation>Nastavi velikost medija</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="90"/>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished">Poreži do robov strani</translation>
+        <translation>Poreži do robov strani</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="100"/>
         <source>Postscript Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Možnosti za PostScript</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="112"/>
         <source>Print in Grayscale</source>
-        <translation type="unfinished">Natisni sivinsko</translation>
+        <translation>Natisni sivinsko</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="119"/>
         <source>Print in Color if Available</source>
-        <translation type="unfinished">Če je mogoče, natisni v barvah</translation>
+        <translation>Če je mogoče, natisni v barvah</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="130"/>
         <source>Level 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Raven 1</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="135"/>
         <source>Level 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Raven 2</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="140"/>
         <source>Level 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Raven 3</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="151"/>
         <source>General</source>
-        <translation type="unfinished">Splošno</translation>
+        <translation>Splošno</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="163"/>
         <source>Print Separations</source>
-        <translation type="unfinished">Tiskaj ločeno (separacije)</translation>
+        <translation>Tiskaj ločeno (separacije)</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="170"/>
         <source>Print Normal</source>
-        <translation type="unfinished">Tiskaj navadno</translation>
+        <translation>Tiskaj navadno</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="183"/>
         <source>Color</source>
-        <translation type="unfinished">Barva</translation>
+        <translation>Barva</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="195"/>
         <source>Apply Under Color Removal</source>
-        <translation type="unfinished">Uveljavi odstranjevanje pod barvo</translation>
+        <translation>Uveljavi odstranjevanje pod barvo</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="202"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished">Pretvori čiste barve v procesne barve</translation>
+        <translation>Pretvori čiste barve v procesne barve</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="209"/>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vsili pretisk</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="216"/>
         <source>Apply ICC Profiles</source>
-        <translation type="unfinished">Uporabi profile ICC</translation>
+        <translation>Uporabi profile ICC</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="227"/>
         <source>Marks &amp;&amp; Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oznake in dodatek za porezavo</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="239"/>
         <source>Bleed Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavitve dodatka za porezavo</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="254"/>
         <source>Top:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrh:</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="264"/>
         <source>Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dno:</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="277"/>
         <source>Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>Levo:</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="290"/>
         <source>Right:</source>
-        <translation type="unfinished">Desno:</translation>
+        <translation>Desno:</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="306"/>
         <source>Printer Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake tiskalnika</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="318"/>
         <source>Add color calibration bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="321"/>
         <source>Color Bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barvni stolpci</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="331"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamik:</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="341"/>
         <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj registrske označbe, ki so dodane vsaki separaciji posebej</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="344"/>
         <source>Registration Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="351"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
+        <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="354"/>
         <source>Bleed Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake dodatka za porezavo</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="361"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
+        <translation>To ustvari oznake za porezavo v dokumentu PDF, te pa nakazujejo, kje naj bo po zaključenem tiskanju odrezan ali prerezan papir</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="364"/>
         <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznake za porezavo</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="378"/>
         <source>Print Destination</source>
-        <translation type="unfinished">Cilj tiskanja</translation>
+        <translation>Cilj tiskanja</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="390"/>
         <source>Alternative Printer Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Nadomesten ukaz za tiskanje</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="408"/>
         <source>Command:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukaz:</translation>
     </message>
 </context>
 <context>
@@ -36339,32 +36424,32 @@ Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
     <message>
         <location filename="../tabscrapbook.ui" line="24"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>To omogoči uporabo skicirke kot razširitve medpomnilnika kopiranja/lepljenja. Enostavno skopirajte predmet ali skupino predmetov, ta pa bo samodejno poslana v skicirko</translation>
     </message>
     <message>
         <location filename="../tabscrapbook.ui" line="27"/>
         <source>Send Copied Items Automatically to Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopirane predmete pošlji samodejno v skicirko</translation>
     </message>
     <message>
         <location filename="../tabscrapbook.ui" line="34"/>
         <source>This enables copied items to be kept permanently in the scrapbook.</source>
-        <translation type="unfinished"></translation>
+        <translation>S tem omogočite, da se kopirani predmeti za vedno obdržijo v skicirki.</translation>
     </message>
     <message>
         <location filename="../tabscrapbook.ui" line="37"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Obdrži kopirane predmete stalno, v različnih sejah</translation>
     </message>
     <message>
         <location filename="../tabscrapbook.ui" line="52"/>
         <source>The minimum number is 1; the maximum us 100.</source>
-        <translation type="unfinished"></translation>
+        <translation>Najmanjše število je 1; največje je 100.</translation>
     </message>
     <message>
         <location filename="../tabscrapbook.ui" line="55"/>
         <source>Number of Copied Items to Keep in Scrapbook:</source>
-        <translation type="unfinished"></translation>
+        <translation>Število kopiranih predmetov, ki jih hrani skicirka:</translation>
     </message>
 </context>
 <context>
@@ -36757,98 +36842,98 @@ Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
     <message>
         <location filename="../tabtools.cpp" line="113"/>
         <source>Text</source>
-        <translation type="unfinished">Besedilo</translation>
+        <translation>Besedilo</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="230"/>
         <source>Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Liki</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="285"/>
         <source>Lines</source>
-        <translation type="unfinished">Črte</translation>
+        <translation>Črte</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="337"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="425"/>
         <source>Regular Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravilni mnogokotniki</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="437"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Povečava</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="473"/>
         <source>Miscellaneous Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Razne nastavitve</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="478"/>
         <source>Item Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvojnik elementa</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="486"/>
         <source>X Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Razpostavitev X</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="493"/>
         <source>Y Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Razpostavitev Y</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="499"/>
         <source>Rotation Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Orodje za sukanje</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="508"/>
         <source>Constrain to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Omeji na:</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="511"/>
         <source>Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>stopinj</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="529"/>
         <source>Other Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Druge lastnosti</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="557"/>
         <source>Horizontal displacement of page items</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodoravna razpostavitev elementov strani</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="558"/>
         <source>Vertical displacement of page items</source>
-        <translation type="unfinished"></translation>
+        <translation>Navpična razpostavitev elementov strani</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="559"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Omejitvena vrednost za orodje sukanja, ko je pritisnjena tipka Control</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="560"/>
         <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi vdelane poti obrezovanja v slikah, ko jih uvoziš. JPEG, PSD in TIFF so vrste slik, ki imajo lahko vdelane tovrstne poti.</translation>
     </message>
     <message>
         <location filename="../tabtools.cpp" line="700"/>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Brez</translation>
+        <translation>Brez</translation>
     </message>
 </context>
 <context>
@@ -37034,7 +37119,7 @@ Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
     <message>
         <location filename="../tabruler.cpp" line="598"/>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation>Zamik celotnega odstavka v levo</translation>
+        <translation>Zamik celotnega odstavka od levega roba</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="601"/>
@@ -37110,27 +37195,27 @@ Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
         <location filename="../tabruler.cpp" line="502"/>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Brez</translation>
+        <translation>Brez</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="584"/>
         <source>Fill Character of Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Znak za polnjenje tabulatorja</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="585"/>
         <source>Type/Orientation of Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrsta/orientacija tabulatorja</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="586"/>
         <source>Position of Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Položaj tabulatorja</translation>
     </message>
     <message>
         <location filename="../tabruler.cpp" line="599"/>
         <source>Indentation from the right for the whole paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamik celotnega odstavka od desnega robu</translation>
     </message>
 </context>
 <context>
@@ -37240,132 +37325,132 @@ Prosim, izberite drugo.</translation>
     <message>
         <location filename="../tree.cpp" line="319"/>
         <source>Picture</source>
-        <translation type="unfinished">Slika</translation>
+        <translation>Slika</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="294"/>
         <source>File: </source>
-        <translation type="unfinished">Datoteka: </translation>
+        <translation>Datoteka: </translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="298"/>
         <source>Original PPI: </source>
-        <translation type="unfinished">Izvorna PPI:</translation>
+        <translation>Izvorna PPI:</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="302"/>
         <source>Actual PPI: </source>
-        <translation type="unfinished">Dejanska PPI:</translation>
+        <translation>Dejanska PPI:</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="306"/>
         <source>Colorspace: </source>
-        <translation type="unfinished">Barvni prostor:</translation>
+        <translation>Barvni prostor:</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="311"/>
         <source>Unknown</source>
-        <translation type="unfinished">Neznano</translation>
+        <translation>Neznano</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="321"/>
         <source>No Image Loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Naložena ni nobena slika</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="345"/>
         <source>Linked Text</source>
-        <translation type="unfinished">Povezano besedilo</translation>
+        <translation>Povezano besedilo</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="347"/>
         <source>Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilni okvir</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="350"/>
         <source>Text on a Path</source>
-        <translation type="unfinished">Besedilo po poti</translation>
+        <translation>Besedilo po poti</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="353"/>
         <source>Paragraphs: </source>
-        <translation type="unfinished"></translation>
+        <translation>Odstavki: </translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="360"/>
         <source>Lines: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstice: </translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="364"/>
         <source>Words: </source>
-        <translation type="unfinished"></translation>
+        <translation>Besede: </translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="371"/>
         <source>Chars: </source>
-        <translation type="unfinished">Znaki: </translation>
+        <translation>Znaki: </translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="380"/>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Izvoz: </translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="383"/>
         <source>Enabled</source>
-        <translation type="unfinished">Vključeno</translation>
+        <translation>Vključeno</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="385"/>
         <source>Disabled</source>
-        <translation type="unfinished">Izključeno</translation>
+        <translation>Izključeno</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="393"/>
         <source>In&amp;fo</source>
-        <translation type="unfinished">&amp;Podatki</translation>
+        <translation>&amp;Podatki</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="420"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Nastavitve predogleda</translation>
+        <translation>Nastavitve predogleda</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="461"/>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">Možnosti &amp;PDF</translation>
+        <translation>Možnosti &amp;PDF</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished"></translation>
+        <translation>Pošlji na p&amp;last</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="494"/>
         <source>Le&amp;vel</source>
-        <translation type="unfinished">&amp;Raven</translation>
+        <translation>&amp;Raven</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
-        <translation type="unfinished">&amp;Pretvori v</translation>
+        <translation>&amp;Pretvori v</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="548"/>
         <source>Rename</source>
-        <translation type="unfinished">Preimenuj</translation>
+        <translation>Preimenuj</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="556"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>I&amp;zbriši</translation>
     </message>
     <message>
         <location filename="../tree.cpp" line="578"/>
         <source>Contents</source>
-        <translation type="unfinished">Vsebina</translation>
+        <translation>Vsebina</translation>
     </message>
 </context>
 <context>
@@ -37998,104 +38083,104 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../undomanager.cpp" line="684"/>
         <source>Remove vertical auto guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani samodejno navpično vodilo</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="685"/>
         <source>Remove horizontal auto guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani samodejno vodoravno vodilo</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="738"/>
         <source>Set start and end arrows</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavi začetno in končno puščico</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="757"/>
         <source>Latex frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Latexov okvir</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="771"/>
         <source>Text flows around image clipping path</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilo poteka okrog poti obrezovanja</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="773"/>
         <source>No object frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Ni okvira predmeta</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="799"/>
         <source>Change formula</source>
-        <translation type="unfinished"></translation>
+        <translation>Spremeni formulo</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="801"/>
         <source>Apply text style</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi besedilni slog</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="802"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Razveljavi: %1</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="803"/>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Razveljavi</translation>
+        <translation>&amp;Razveljavi</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="804"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ponovi: %1</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="805"/>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ponovi</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="809"/>
         <source>Apply image effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi slikovne učinke</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="810"/>
         <source>Insert frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstavi okvir</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="811"/>
         <source>Adjust frame to the image size</source>
-        <translation type="unfinished"></translation>
+        <translation>Okvir prilagodi velikosti slike</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="812"/>
         <source>Remove all guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani vsa vodila</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="813"/>
         <source>Remove page guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrani vodila strani</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="814"/>
         <source>Copy</source>
-        <translation type="unfinished">Kopiraj</translation>
+        <translation>Kopiraj</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="815"/>
         <source>Copy page</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiraj stran</translation>
     </message>
     <message>
         <location filename="../undomanager.cpp" line="816"/>
         <source>Convert to outlines</source>
-        <translation type="unfinished"></translation>
+        <translation>Pretvori v oris</translation>
     </message>
 </context>
 <context>
@@ -38140,7 +38225,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../unicodesearch.cpp" line="47"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Najdi</translation>
     </message>
 </context>
 <context>
@@ -38148,12 +38233,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../unicodesearch.ui" line="14"/>
         <source>Unicode Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Iskanje Unicode</translation>
     </message>
     <message>
         <location filename="../unicodesearch.ui" line="38"/>
         <source>&amp;Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Išči:</translation>
     </message>
 </context>
 <context>
@@ -38221,18 +38306,19 @@ Napaka: %2 v vrstici: %3, stolpcu: %4</translation>
     <message>
         <location filename="../urllauncher.cpp" line="64"/>
         <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Določite spletni brskalnik</translation>
     </message>
     <message>
         <location filename="../urllauncher.cpp" line="77"/>
         <source>External Web Browser Failed to Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Zunanji spletni brskalnik se ni zagnal uspešno</translation>
     </message>
     <message>
         <location filename="../urllauncher.cpp" line="77"/>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.
 Would you like to start the system&apos;s default browser instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Zunanjega spletnega brskalnika %1 ni mogoče zagnati. Prosim, preverite nastavitve.
+Želite namesto tega zagnati privzeti sistemski brskalnik?</translation>
     </message>
 </context>
 <context>
@@ -38245,57 +38331,57 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="13"/>
         <source>Use Printer Margins</source>
-        <translation type="unfinished">Uporabi robove tiskalnika</translation>
+        <translation>Uporabi robove tiskalnika</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="21"/>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished">Izberite &amp;tiskalnik:</translation>
+        <translation>Izberite &amp;tiskalnik:</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="46"/>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Robovi</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="61"/>
         <source>Right:</source>
-        <translation type="unfinished">Desno:</translation>
+        <translation>Desno:</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="104"/>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Vrh:</translation>
+        <translation>&amp;Vrh:</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="117"/>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Dno:</translation>
+        <translation>&amp;Dno:</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="130"/>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Levo:</translation>
+        <translation>&amp;Levo:</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="189"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="192"/>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="199"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <location filename="../useprintermarginsdialog.ui" line="202"/>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -38564,7 +38650,7 @@ svojimi, če ga obkljukate.</translation>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimport.cpp" line="515"/>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina%1</translation>
     </message>
 </context>
 <context>
@@ -38572,28 +38658,29 @@ svojimi, če ga obkljukate.</translation>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="82"/>
         <source>Import &amp;WMF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi &amp;WMF ...</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="97"/>
         <source>Imports WMF Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi datoteke WMF</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="98"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi večino datotek WMF v trenutni dokument in
+pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="173"/>
         <source>The file could not be imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke ni mogoče uvoziti</translation>
     </message>
     <message>
         <location filename="../plugins/wmfimplugin/wmfimportplugin.cpp" line="175"/>
         <source>WMF file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka WMF vsebuje nepodprte možnosti</translation>
     </message>
 </context>
 <context>
@@ -38825,17 +38912,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../gtfiledialog.ui" line="22"/>
         <source>&amp;Importer:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uvoznik:</translation>
     </message>
     <message>
         <location filename="../gtfiledialog.ui" line="35"/>
         <source>Import &amp;Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi le &amp;besedilo</translation>
     </message>
     <message>
         <location filename="../gtfiledialog.ui" line="42"/>
         <source>&amp;Encoding:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kodiranje znakov:</translation>
     </message>
 </context>
 <context>
@@ -38874,84 +38961,84 @@ in ne vprašuj več po njem ob odpiranju takih datotek.</translation>
     <message>
         <location filename="../hysettingsBase.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazec</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="37"/>
         <source>General Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Splošne možnosti</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="58"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="unfinished">Če vključite možnost Dodatno-&gt;Deli besede, se bo za vsako besedo pojavilo pogovorno okno z vsemi možnimi deljenji te besede.</translation>
+        <translation>Če vključite možnost Dodatno, Deli besede, se bo za vsako besedo pojavilo pogovorno okno z vsemi možnimi deljenji te besede.</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="61"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished">Predlogi za &amp;deljenje</translation>
+        <translation>Predlogi za &amp;deljenje</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="68"/>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished">Omogoči samodejno deljenje besed med pisanjem.</translation>
+        <translation>Omogoči samodejno deljenje besed med pisanjem.</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="71"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="unfinished">&amp;Samodejno deli besede med pisanjem</translation>
+        <translation>&amp;Samodejno deli besede med pisanjem</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="81"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Vedenje</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="105"/>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Jezik:</translation>
+        <translation>&amp;Jezik:</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="118"/>
         <source>&amp;Smallest Word:</source>
-        <translation type="unfinished">&amp;Najmanjša beseda:</translation>
+        <translation>&amp;Najmanjša beseda:</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="128"/>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation type="unfinished">Dolžina najkrajše besede, ki bo še deljena.</translation>
+        <translation>Dolžina najkrajše besede, ki bo še deljena.</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="138"/>
         <source>Chars</source>
-        <translation type="unfinished"></translation>
+        <translation>Znaki</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="145"/>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished">Dovoljena &amp;zaporedna deljenja: </translation>
+        <translation>Dovoljena &amp;zaporedna deljenja: </translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="158"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation type="unfinished">Največ zaporednih deljenj besed.
+        <translation>Največ zaporednih deljenj besed.
 Vrednost 0 pomeni neomejeno deljenje besed.</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="169"/>
         <source>Exceptions</source>
-        <translation type="unfinished"></translation>
+        <translation>Izjeme</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="274"/>
         <source>Edit</source>
-        <translation type="unfinished">Uredi</translation>
+        <translation>Uredi</translation>
     </message>
     <message>
         <location filename="../hysettingsBase.ui" line="233"/>
         <source>Ignore List</source>
-        <translation type="unfinished"></translation>
+        <translation>Seznam prezrtih</translation>
     </message>
 </context>
 <context>
@@ -39085,17 +39172,17 @@ PREDPONA/share/scribus/templates.</translation>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="62"/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;O programu</translation>
+        <translation>&amp;O programu</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="86"/>
         <source>&amp;Image</source>
-        <translation type="unfinished">&amp;Slika</translation>
+        <translation>&amp;Slika</translation>
     </message>
     <message>
         <location filename="../plugins/newfromtemplateplugin/nftdialog.ui" line="114"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pomoč</translation>
     </message>
 </context>
 <context>
@@ -39193,7 +39280,7 @@ PREDPONA/share/scribus/templates.</translation>
     <message>
         <location filename="../plugins/saveastemplateplugin/satdialog.ui" line="89"/>
         <source>&amp;More Details</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bolj podrobno</translation>
     </message>
 </context>
 <context>
