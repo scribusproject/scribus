@@ -89,6 +89,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 //	m_view->HaveSelRect = false;
 //	m_view->redrawMarker->hide();
 		currItem->update();
+		m_view->updateContents();
 		m_doc->nodeEdit.finishTransaction(currItem);
 		delete m_rectangleSelect;
 		m_rectangleSelect = NULL;
@@ -478,9 +479,9 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->AdjustItemSize(currItem);
 		if (!m_doc->nodeEdit.isContourLine)
 			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
-		currItem->update();
+//		currItem->update();
 //		emit DocChanged();
-//		m_view->updateContents();
+		m_view->updateContents();
 		if (state)
 		{
 			m_doc->nodeEdit.finishTransaction2(currItem, state);
@@ -1111,7 +1112,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 				return true;
 			}
 		}
-		qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if ((m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
@@ -1128,26 +1129,46 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 			QPainterPath Bez;
 			Bez.moveTo(a1);
 			Bez.cubicTo(a2, a3, a4);
-			// as polygon
-			QPolygonF cli = Bez.toSubpathPolygons().first();
-			for (int clp = 0; clp < cli.size()-1; ++clp)
+			double len = Bez.length();
+			if (len > 0.0)
 			{
-				// project mousepoint on line
-				FPoint pointOnLine = projectPointOnLine(mousePoint, cli.at(clp), cli.at(clp+1));
-				//if (m_view->PointOnLine(cli.point(clp), cli.point(clp+1), p.inverted().mapRect(mpo)))
-				if (m_canvas->hitsCanvasPoint(m->globalPos(), pointOnLine))
+				double delta = 2.0 / len;
+				for (double d = 0.0; d <= 1.0; d += delta)
 				{
-					if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
-						qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-					if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
-						qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
-					if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
-						qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
-					m_doc->nodeEdit.ClRe2 = poi;
-					return true;
+					QPointF pl = Bez.pointAtPercent(d);
+					if (m_canvas->hitsCanvasPoint(m->globalPos(), FPoint(pl.x(), pl.y())))
+					{
+						if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
+							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+						if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
+							qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
+						if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
+							qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
+						m_doc->nodeEdit.ClRe2 = poi;
+						return true;
+					}
 				}
 			}
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			// as polygon
+//			QPolygonF cli = Bez.toSubpathPolygons().first();
+//			for (int clp = 0; clp < cli.size()-1; ++clp)
+//			{
+				// project mousepoint on line
+//				FPoint pointOnLine = projectPointOnLine(mousePoint, cli.at(clp), cli.at(clp+1));
+				//if (m_view->PointOnLine(cli.point(clp), cli.point(clp+1), p.inverted().mapRect(mpo)))
+//				if (m_canvas->hitsCanvasPoint(m->globalPos(), pointOnLine))
+//				{
+//					if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
+//						qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+//					if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
+//						qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
+//					if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
+//						qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
+//					m_doc->nodeEdit.ClRe2 = poi;
+//					return true;
+//				}
+//			}
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
 	return false;

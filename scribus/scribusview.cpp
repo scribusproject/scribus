@@ -347,7 +347,8 @@ void ScribusView::languageChange()
 void ScribusView::toggleCMS()
 {
 	Doc->enableCMS(!Doc->HasCMS);
-	repaintContents(QRect());
+//	repaintContents(QRect());
+	DrawNew();
 }
 
 void ScribusView::switchPreviewVisual(int vis)
@@ -355,7 +356,8 @@ void ScribusView::switchPreviewVisual(int vis)
 	m_canvas->setPreviewVisual(vis);
 	Doc->recalculateColors();
 	Doc->recalcPicturesRes();
-	repaintContents(QRect());
+//	repaintContents(QRect());
+	DrawNew();
 }
 
 void ScribusView::togglePreview()
@@ -395,7 +397,8 @@ void ScribusView::togglePreview()
 	visualMenu->setEnabled(m_canvas->m_viewMode.viewAsPreview);
 	Doc->recalculateColors();
 	Doc->recalcPicturesRes();
-	repaintContents(QRect());
+//	repaintContents(QRect());
+	DrawNew();
 }
 
 void ScribusView::changed(QRectF re)
@@ -5158,7 +5161,7 @@ void ScribusView::updateContents(QRect box)
 {
 	if (forceRedraw)
 		m_canvas->m_viewMode.firstSpecial = true;
-	
+	forceRedraw = false;
 	if (box.isValid())
 		m_canvas->update(box);
 	else
