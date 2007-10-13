@@ -6200,114 +6200,114 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrap.cpp" line="1311"/>
+        <location filename="../scrapbookpalette.cpp" line="1311"/>
         <source>Scrapbook</source>
         <translation>Bibliothek</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="798"/>
+        <location filename="../scrapbookpalette.cpp" line="798"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1214"/>
+        <location filename="../scrapbookpalette.cpp" line="1214"/>
         <source>Object</source>
         <translation>Objekt</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1123"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="796"/>
+        <location filename="../scrapbookpalette.cpp" line="796"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1123"/>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1017"/>
+        <location filename="../scrapbookpalette.cpp" line="1017"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation>Die Bezeichnung &quot;%1&quot; ist nicht eindeutig.
 Bitte wählen Sie eine andere.</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="684"/>
+        <location filename="../scrapbookpalette.cpp" line="684"/>
         <source>Choose a Scrapbook Directory</source>
         <translation>Wählen Sie ein Verzeichnis für die Bibliothek</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="740"/>
+        <location filename="../scrapbookpalette.cpp" line="740"/>
         <source>Choose a Directory</source>
         <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="747"/>
+        <location filename="../scrapbookpalette.cpp" line="747"/>
         <source>Scrapbook (*.scs)</source>
         <translation type="obsolete">Bibliothek (*.scs)</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="720"/>
+        <location filename="../scrapbookpalette.cpp" line="720"/>
         <source>Choose a scrapbook file to import</source>
         <translation>Wählen Sie eine Bibliothek aus, die Sie importieren möchten</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1312"/>
+        <location filename="../scrapbookpalette.cpp" line="1312"/>
         <source>Create a new scrapbook page</source>
         <translation>Neue Seite in der Bibliothek erstellen</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1313"/>
+        <location filename="../scrapbookpalette.cpp" line="1313"/>
         <source>Load an existing scrapbook</source>
         <translation>Vorhandene Bibliothek laden</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1314"/>
+        <location filename="../scrapbookpalette.cpp" line="1314"/>
         <source>Save the selected scrapbook</source>
         <translation>Markierte Bibliothek speichern</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1315"/>
+        <location filename="../scrapbookpalette.cpp" line="1315"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation>Bibliothek aus Scribus &lt;=1.3.2 importieren</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1316"/>
+        <location filename="../scrapbookpalette.cpp" line="1316"/>
         <source>Close the selected scrapbook</source>
         <translation>Markierte Bibliothek schliessen</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="803"/>
+        <location filename="../scrapbookpalette.cpp" line="803"/>
         <source>Copy To:</source>
         <translation>Kopieren nach:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="804"/>
+        <location filename="../scrapbookpalette.cpp" line="804"/>
         <source>Move To:</source>
         <translation>Verschieben nach:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="552"/>
+        <location filename="../scrapbookpalette.cpp" line="552"/>
         <source>Main</source>
         <translation>Hauptfenster</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="554"/>
+        <location filename="../scrapbookpalette.cpp" line="554"/>
         <source>Copied Items</source>
         <translation>Kopierte Objekte</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1010"/>
+        <location filename="../scrapbookpalette.cpp" line="1010"/>
         <source>New Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="719"/>
+        <location filename="../scrapbookpalette.cpp" line="719"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6338,7 +6338,7 @@ Bitte wählen Sie eine andere.</translation>
 <context>
     <name>BookPalette</name>
     <message>
-        <location filename="../bookpalette.cpp" line="39"/>
+        <location filename="../bookmarkpalette.cpp" line="39"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
@@ -9819,54 +9819,54 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     </message>
 </context>
 <context>
-    <name>Druck</name>
+    <name>PrintDialog</name>
     <message>
-        <location filename="../druck.cpp" line="67"/>
+        <location filename="../printdialog.cpp" line="67"/>
         <source>Setup Printer</source>
         <translation>Drucker einrichten</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="797"/>
+        <location filename="../printdialog.cpp" line="797"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="226"/>
+        <location filename="../printdialog.cpp" line="226"/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="822"/>
+        <location filename="../printdialog.cpp" line="822"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="620"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="821"/>
+        <location filename="../printdialog.cpp" line="821"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="820"/>
+        <location filename="../printdialog.cpp" line="820"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="819"/>
+        <location filename="../printdialog.cpp" line="819"/>
         <source>Yellow</source>
         <translation>Gelb</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="818"/>
+        <location filename="../printdialog.cpp" line="818"/>
         <source>Black</source>
         <translation>Schwarz</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="380"/>
+        <location filename="../printdialog.cpp" line="380"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -9875,310 +9875,310 @@ Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="74"/>
+        <location filename="../printdialog.cpp" line="74"/>
         <source>Print Destination</source>
         <translation>Druckerwahl</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="115"/>
+        <location filename="../printdialog.cpp" line="115"/>
         <source>&amp;Options...</source>
         <translation>&amp;Optionen...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="127"/>
+        <location filename="../printdialog.cpp" line="127"/>
         <source>&amp;File:</source>
         <translation>&amp;Datei:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="133"/>
+        <location filename="../printdialog.cpp" line="133"/>
         <source>C&amp;hange...</source>
         <translation>Ä&amp;ndern...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="140"/>
+        <location filename="../printdialog.cpp" line="140"/>
         <source>A&amp;lternative Printer Command</source>
         <translation>Al&amp;ternativer Druckbefehl</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="149"/>
+        <location filename="../printdialog.cpp" line="149"/>
         <source>Co&amp;mmand:</source>
         <translation>&amp;Befehl:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="157"/>
+        <location filename="../printdialog.cpp" line="157"/>
         <source>Range</source>
         <translation>Bereich</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="162"/>
+        <location filename="../printdialog.cpp" line="162"/>
         <source>Print &amp;All</source>
         <translation>&amp;Alles drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="634"/>
+        <location filename="../printdialog.cpp" line="634"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Aktue&amp;lle Seite drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="166"/>
+        <location filename="../printdialog.cpp" line="166"/>
         <source>Print &amp;Range</source>
         <translation>Be&amp;reich drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="186"/>
+        <location filename="../printdialog.cpp" line="186"/>
         <source>N&amp;umber of Copies:</source>
         <translation>Anzahl der &amp;Kopien:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="353"/>
+        <location filename="../printdialog.cpp" line="353"/>
         <source>&amp;Print</source>
         <translation>&amp;Drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="582"/>
+        <location filename="../printdialog.cpp" line="582"/>
         <source>Print Normal</source>
         <translation>Normal drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="199"/>
+        <location filename="../printdialog.cpp" line="199"/>
         <source>Print Separations</source>
         <translation>Farbseparationen drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="203"/>
+        <location filename="../printdialog.cpp" line="203"/>
         <source>Print in Color if Available</source>
         <translation>In Farbe drucken, falls möglich</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="204"/>
+        <location filename="../printdialog.cpp" line="204"/>
         <source>Print in Grayscale</source>
         <translation>In Graustufen drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="221"/>
+        <location filename="../printdialog.cpp" line="221"/>
         <source>PostScript Level 1</source>
         <translation>Postscript Level 1</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="222"/>
+        <location filename="../printdialog.cpp" line="222"/>
         <source>PostScript Level 2</source>
         <translation>Postscript Level 2</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="223"/>
+        <location filename="../printdialog.cpp" line="223"/>
         <source>PostScript Level 3</source>
         <translation>Postscript Level 3</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="232"/>
+        <location filename="../printdialog.cpp" line="232"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="238"/>
+        <location filename="../printdialog.cpp" line="238"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Seite(n) horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="241"/>
+        <location filename="../printdialog.cpp" line="241"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Seite(n) vertikal spiegeln</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="244"/>
+        <location filename="../printdialog.cpp" line="244"/>
         <source>Set Media Size</source>
         <translation>Mediengrösse festlegen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="250"/>
+        <location filename="../printdialog.cpp" line="250"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="256"/>
+        <location filename="../printdialog.cpp" line="256"/>
         <source>Apply Under Color Removal</source>
         <translation>Unterfarbenreduktion anwenden</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="259"/>
+        <location filename="../printdialog.cpp" line="259"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Schmuckfarben in Prozessfarben umwandeln</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="263"/>
+        <location filename="../printdialog.cpp" line="263"/>
         <source>Apply ICC Profiles</source>
         <translation type="obsolete">ICC-Profile anwenden</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="271"/>
+        <location filename="../printdialog.cpp" line="271"/>
         <source>Advanced Options</source>
         <translation>Weitere Optionen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="348"/>
+        <location filename="../printdialog.cpp" line="348"/>
         <source>Preview...</source>
         <translation>Vorschau...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="382"/>
+        <location filename="../printdialog.cpp" line="382"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation>Legt die Postscript-Version fest. 
 Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="620"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Postscript-Dateien (*.ps);;All Files (*)</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="381"/>
+        <location filename="../printdialog.cpp" line="381"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation>Einen alternativen Druckmanager, etwa kprinter oder gtklp, für weitere Druckoptionen verwenden</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="383"/>
+        <location filename="../printdialog.cpp" line="383"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Verwendet echtes Schwarz anstelle von Farbmischungen aus Magenta, Gelb und Cyan. UFR hat den grössten Effekt auf Bilder, die neutrale oder dunkle Farbtöne haben, die Grau ähneln. Diese Option kann die Druckqualität verbessern. Testen Sie bitte von Fall zu Fall, wie Sie bessere Ergebnisse erhalten. UFR verringert ausserdem die Gefahr einer Übersättigung der CMYK-Farben.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="384"/>
+        <location filename="../printdialog.cpp" line="384"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Konvertiert Schmuckfarben in Prozessfarben. Sie sollten diese Option nur deaktivieren, wenn Sie Schmuckfarben wirklich benötigen.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="383"/>
+        <location filename="../printdialog.cpp" line="383"/>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
         <translation type="obsolete">Wenn das Farbmanagement aktiviert ist, werden die ICC-Profile mit in den Druckstream eingebettet</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="388"/>
+        <location filename="../printdialog.cpp" line="388"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>Legen Sie die Druckgrösse der Postscript-Datei explizit fest. Nur aktivieren, wenn ihre Druckerei das verlangt.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="246"/>
+        <location filename="../printdialog.cpp" line="246"/>
         <source>Clip to Page Margins</source>
         <translation>Auf Seitenränder beschneiden</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="570"/>
+        <location filename="../printdialog.cpp" line="570"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Abfragen der Druckereinstellungen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="377"/>
+        <location filename="../printdialog.cpp" line="377"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation>Objekte ausserhalb des Satzspiegels nicht drucken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="262"/>
+        <location filename="../printdialog.cpp" line="262"/>
         <source>Force Overprint Mode</source>
         <translation>Überdrucken erzwingen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="385"/>
+        <location filename="../printdialog.cpp" line="385"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Aktiviert den Überdrucken-Modus für das ganze Dokument. Einstellungen für einzelne Objekte
 werden ignoriert</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="278"/>
+        <location filename="../printdialog.cpp" line="278"/>
         <source>Printer Marks</source>
         <translation>Druckermarken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="283"/>
+        <location filename="../printdialog.cpp" line="283"/>
         <source>Crop Marks</source>
         <translation>Schneidemarken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="285"/>
+        <location filename="../printdialog.cpp" line="285"/>
         <source>Bleed Marks</source>
         <translation>Anschnittmarken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="287"/>
+        <location filename="../printdialog.cpp" line="287"/>
         <source>Registration Marks</source>
         <translation>Registrierungsmarken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="289"/>
+        <location filename="../printdialog.cpp" line="289"/>
         <source>Color Bars</source>
         <translation>Farbbalken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="292"/>
+        <location filename="../printdialog.cpp" line="292"/>
         <source>Offset:</source>
         <translation>Versatz:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="297"/>
+        <location filename="../printdialog.cpp" line="297"/>
         <source>Marks</source>
         <translation>Marken</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="304"/>
+        <location filename="../printdialog.cpp" line="304"/>
         <source>Bleed Settings</source>
         <translation>Anschnitteinstellungen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="310"/>
+        <location filename="../printdialog.cpp" line="310"/>
         <source>Top:</source>
         <translation>Oben:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="315"/>
+        <location filename="../printdialog.cpp" line="315"/>
         <source>Bottom:</source>
         <translation>Unten:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="320"/>
+        <location filename="../printdialog.cpp" line="320"/>
         <source>Left:</source>
         <translation>Links:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="325"/>
+        <location filename="../printdialog.cpp" line="325"/>
         <source>Right:</source>
         <translation>Rechts:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="329"/>
+        <location filename="../printdialog.cpp" line="329"/>
         <source>Use Document Bleeds</source>
         <translation>Dokumenteinstellungen für Anschnitt verwenden</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="333"/>
+        <location filename="../printdialog.cpp" line="333"/>
         <source>Bleeds</source>
         <translation>Anschnitt</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="336"/>
+        <location filename="../printdialog.cpp" line="336"/>
         <source>Inside:</source>
         <translation>Innen:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="337"/>
+        <location filename="../printdialog.cpp" line="337"/>
         <source>Outside:</source>
         <translation>Aussen:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="394"/>
+        <location filename="../printdialog.cpp" line="394"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Zugabe für Anschnitt oben</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="395"/>
+        <location filename="../printdialog.cpp" line="395"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Zugabe für Anschnitt unten</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="396"/>
+        <location filename="../printdialog.cpp" line="396"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Zugabe für Anschnitt links</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="397"/>
+        <location filename="../printdialog.cpp" line="397"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Zugabe für Anschnitt rechts</translation>
     </message>
@@ -10188,42 +10188,42 @@ werden ignoriert</translation>
         <translation type="obsolete">Hiermit werden Schneidemarken in der ausgegebenen PDF-Datei eingefügt.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="390"/>
+        <location filename="../printdialog.cpp" line="390"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation>Hiermit werden Anschnittmarken in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="391"/>
+        <location filename="../printdialog.cpp" line="391"/>
         <source>Add registration marks which are added to each separation</source>
         <translation>Hiermit werden Registrierungsmarken erzeugt, die auf jeder Farbseparation zu sehen sind</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="392"/>
+        <location filename="../printdialog.cpp" line="392"/>
         <source>Add color calibration bars</source>
         <translation>Hiermit werden Farbbalken hinzugefügt</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="393"/>
+        <location filename="../printdialog.cpp" line="393"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation>Gibt den Versatz der Registrierungsmarken an</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="398"/>
+        <location filename="../printdialog.cpp" line="398"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation>Verwendet die Anschnittvorgabe aus den Dokumenteinstellungen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="389"/>
+        <location filename="../printdialog.cpp" line="389"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished">Hiermit werden Schneidemarken in der ausgegebenen PDF-Datei eingefügt</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="267"/>
+        <location filename="../printdialog.cpp" line="267"/>
         <source>Apply Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="387"/>
+        <location filename="../printdialog.cpp" line="387"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14034,87 +14034,87 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <location filename="../muster.cpp" line="38"/>
+        <location filename="../masterpagepalette.cpp" line="38"/>
         <source>Edit Master Pages</source>
         <translation>Musterseiten bearbeiten</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="109"/>
+        <location filename="../masterpagepalette.cpp" line="109"/>
         <source>Do you really want to delete this master page?</source>
         <translation>Wollen Sie diese Musterseite wirklich löschen?</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="134"/>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="134"/>
         <source>New Master Page</source>
         <translation>Neue Musterseite</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>New MasterPage</source>
         <translation>Neue Musterseite</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="280"/>
+        <location filename="../masterpagepalette.cpp" line="280"/>
         <source>Copy #%1 of </source>
         <translation>Kopie #%1 von</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="78"/>
+        <location filename="../masterpagepalette.cpp" line="78"/>
         <source>Duplicate the selected master page</source>
         <translation>Markierte Musterseite duplizieren</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="79"/>
+        <location filename="../masterpagepalette.cpp" line="79"/>
         <source>Delete the selected master page</source>
         <translation>Markierte Musterseite löschen</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="80"/>
+        <location filename="../masterpagepalette.cpp" line="80"/>
         <source>Add a new master page</source>
         <translation>Neue Musterseite hinzufügen</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="81"/>
+        <location filename="../masterpagepalette.cpp" line="81"/>
         <source>Import master pages from another document</source>
         <translation>Musterseite aus einem anderen Dokument importieren</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>New Master Page %1</source>
         <translation>Neue Musterseite %1</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="366"/>
         <source>Unable to Rename Master Page</source>
         <translation>Kann Musterseite nicht umbenennen</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="366"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation>Die Standardseite kann nicht umbenannt werden.</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="370"/>
         <source>Rename Master Page</source>
         <translation>Musterseite umbenennen</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="370"/>
         <source>New Name:</source>
         <translation>Neuer Name:</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="132"/>
+        <location filename="../masterpagepalette.cpp" line="132"/>
         <source>Copy #%1 of %2</source>
         <translation>Kopie Nr. %1 von %2</translation>
     </message>
@@ -14316,12 +14316,12 @@ Seiten importiert werden sollen, zum Beispiel
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="38"/>
+        <location filename="../modetoolbar.cpp" line="38"/>
         <source>Tools</source>
         <translation>Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../werktoolb.cpp" line="110"/>
+        <location filename="../modetoolbar.cpp" line="110"/>
         <source>Properties...</source>
         <translation>Eigenschaften...</translation>
     </message>
@@ -14375,274 +14375,274 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
 </context>
 <context>
-    <name>Mpalette</name>
+    <name>PropertiesPalette</name>
     <message>
-        <location filename="../mpalette.cpp" line="4319"/>
+        <location filename="../propertiespalette.cpp" line="4319"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4329"/>
+        <location filename="../propertiespalette.cpp" line="4329"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4330"/>
+        <location filename="../propertiespalette.cpp" line="4330"/>
         <source>Geometry</source>
         <translation>Geometrie</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4500"/>
+        <location filename="../propertiespalette.cpp" line="4500"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4336"/>
+        <location filename="../propertiespalette.cpp" line="4336"/>
         <source>Basepoint:</source>
         <translation>Ursprung:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4337"/>
+        <location filename="../propertiespalette.cpp" line="4337"/>
         <source>Level</source>
         <translation>Anordnung</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4340"/>
+        <location filename="../propertiespalette.cpp" line="4340"/>
         <source>Shape:</source>
         <translation>Form:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4362"/>
+        <location filename="../propertiespalette.cpp" line="4362"/>
         <source>Distance of Text</source>
         <translation>Abstand des Textes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4381"/>
+        <location filename="../propertiespalette.cpp" line="4381"/>
         <source>Show Curve</source>
         <translation>Kurve zeigen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4383"/>
+        <location filename="../propertiespalette.cpp" line="4383"/>
         <source>Start Offset:</source>
         <translation>Anfangsposition:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4384"/>
+        <location filename="../propertiespalette.cpp" line="4384"/>
         <source>Distance from Curve:</source>
         <translation>Abstand zur Kurve:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4488"/>
+        <location filename="../propertiespalette.cpp" line="4488"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4430"/>
+        <location filename="../propertiespalette.cpp" line="4430"/>
         <source>Input Profile:</source>
         <translation>Farbprofil:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4431"/>
+        <location filename="../propertiespalette.cpp" line="4431"/>
         <source>Rendering Intent:</source>
         <translation>Renderpriorität:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4438"/>
+        <location filename="../propertiespalette.cpp" line="4438"/>
         <source>Perceptual</source>
         <translation>Wahrnehmung</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4439"/>
+        <location filename="../propertiespalette.cpp" line="4439"/>
         <source>Relative Colorimetric</source>
         <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4440"/>
+        <location filename="../propertiespalette.cpp" line="4440"/>
         <source>Saturation</source>
         <translation>Farbsättigung</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4441"/>
+        <location filename="../propertiespalette.cpp" line="4441"/>
         <source>Absolute Colorimetric</source>
         <translation>Absolut farbmetrisch</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4445"/>
+        <location filename="../propertiespalette.cpp" line="4445"/>
         <source>Left Point</source>
         <translation>Linker Punkt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4446"/>
+        <location filename="../propertiespalette.cpp" line="4446"/>
         <source>End Points</source>
         <translation>Endpunkte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4465"/>
+        <location filename="../propertiespalette.cpp" line="4465"/>
         <source>Miter Join</source>
         <translation>Spitz</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4466"/>
+        <location filename="../propertiespalette.cpp" line="4466"/>
         <source>Bevel Join</source>
         <translation>Gefasst</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4467"/>
+        <location filename="../propertiespalette.cpp" line="4467"/>
         <source>Round Join</source>
         <translation>Rund</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4472"/>
+        <location filename="../propertiespalette.cpp" line="4472"/>
         <source>Flat Cap</source>
         <translation>Flach</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4473"/>
+        <location filename="../propertiespalette.cpp" line="4473"/>
         <source>Square Cap</source>
         <translation>Quadratisch</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4474"/>
+        <location filename="../propertiespalette.cpp" line="4474"/>
         <source>Round Cap</source>
         <translation>Abgerundet</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4526"/>
+        <location filename="../propertiespalette.cpp" line="4526"/>
         <source>No Style</source>
         <translation>Kein Stil</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4658"/>
+        <location filename="../propertiespalette.cpp" line="4658"/>
         <source>Font Size</source>
         <translation>Schriftgrösse</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4668"/>
+        <location filename="../propertiespalette.cpp" line="4668"/>
         <source>Line Spacing</source>
         <translation>Zeilenabstand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4621"/>
+        <location filename="../propertiespalette.cpp" line="4621"/>
         <source>Name of selected object</source>
         <translation>Name des markierten Objekts</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4622"/>
+        <location filename="../propertiespalette.cpp" line="4622"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Horizontale Position des aktuellen Ursprungs</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4623"/>
+        <location filename="../propertiespalette.cpp" line="4623"/>
         <source>Vertical position of current basepoint</source>
         <translation>Vertikale Position des aktuellen Ursprungs</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4624"/>
+        <location filename="../propertiespalette.cpp" line="4624"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4625"/>
+        <location filename="../propertiespalette.cpp" line="4625"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4626"/>
+        <location filename="../propertiespalette.cpp" line="4626"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Drehung des Objekts um den aktuellen Ursprung</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4627"/>
+        <location filename="../propertiespalette.cpp" line="4627"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Ursprungspunkt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4628"/>
+        <location filename="../propertiespalette.cpp" line="4628"/>
         <source>Select top left for basepoint</source>
         <translation>Links oben als Ursprung setzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4629"/>
+        <location filename="../propertiespalette.cpp" line="4629"/>
         <source>Select top right for basepoint</source>
         <translation>Rechts oben als Ursprung setzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4630"/>
+        <location filename="../propertiespalette.cpp" line="4630"/>
         <source>Select bottom left for basepoint</source>
         <translation>Links unten als Ursprung setzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4631"/>
+        <location filename="../propertiespalette.cpp" line="4631"/>
         <source>Select bottom right for basepoint</source>
         <translation>Rechts unten als Ursprung setzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4632"/>
+        <location filename="../propertiespalette.cpp" line="4632"/>
         <source>Select center for basepoint</source>
         <translation>Mittelpunkt als Ursprung setzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4635"/>
+        <location filename="../propertiespalette.cpp" line="4635"/>
         <source>Flip Horizontal</source>
         <translation>Horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4636"/>
+        <location filename="../propertiespalette.cpp" line="4636"/>
         <source>Flip Vertical</source>
         <translation>Vertikal spiegeln</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4637"/>
+        <location filename="../propertiespalette.cpp" line="4637"/>
         <source>Move one level up</source>
         <translation>Weiter nach vorn verschieben</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4638"/>
+        <location filename="../propertiespalette.cpp" line="4638"/>
         <source>Move one level down</source>
         <translation>Weiter nach hinten verschieben</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4639"/>
+        <location filename="../propertiespalette.cpp" line="4639"/>
         <source>Move to front</source>
         <translation>In den Vordergrund bringen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4640"/>
+        <location filename="../propertiespalette.cpp" line="4640"/>
         <source>Move to back</source>
         <translation>In den Hintergrund bringen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4642"/>
+        <location filename="../propertiespalette.cpp" line="4642"/>
         <source>Lock or unlock the object</source>
         <translation>Objekt sperren oder entsperren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4643"/>
+        <location filename="../propertiespalette.cpp" line="4643"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Grössenänderung sperren oder entsperren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4619"/>
+        <location filename="../propertiespalette.cpp" line="4619"/>
         <source>Enable or disable printing of the object</source>
         <translation type="obsolete">Drucken aktivieren oder deaktivieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4657"/>
+        <location filename="../propertiespalette.cpp" line="4657"/>
         <source>Font of selected text or object</source>
         <translation>Schrift des Objekts</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4660"/>
+        <location filename="../propertiespalette.cpp" line="4660"/>
         <source>Scaling width of characters</source>
         <translation>Zeichenbreiten skalieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4664"/>
+        <location filename="../propertiespalette.cpp" line="4664"/>
         <source>Saturation of color of text stroke</source>
         <translation>Tonwert der Textumrissfarbe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4665"/>
+        <location filename="../propertiespalette.cpp" line="4665"/>
         <source>Saturation of color of text fill</source>
         <translation>Tonwert der Textfarbe</translation>
     </message>
@@ -14652,289 +14652,289 @@ Seiten importiert werden sollen, zum Beispiel
         <translation type="obsolete">Stilvorlage für aktuellen Absatz</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4682"/>
+        <location filename="../propertiespalette.cpp" line="4682"/>
         <source>Change settings for left or end points</source>
         <translation>Ändert die Einstellungen für die linken und die Endpunkte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4683"/>
+        <location filename="../propertiespalette.cpp" line="4683"/>
         <source>Pattern of line</source>
         <translation>Muster der Line</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4684"/>
+        <location filename="../propertiespalette.cpp" line="4684"/>
         <source>Thickness of line</source>
         <translation>Linienbreite</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4685"/>
+        <location filename="../propertiespalette.cpp" line="4685"/>
         <source>Type of line joins</source>
         <translation>Art der Ecken</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4686"/>
+        <location filename="../propertiespalette.cpp" line="4686"/>
         <source>Type of line end</source>
         <translation>Art der Enden</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4687"/>
+        <location filename="../propertiespalette.cpp" line="4687"/>
         <source>Line style of current object</source>
         <translation>Linienstil des Objekts</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4689"/>
+        <location filename="../propertiespalette.cpp" line="4689"/>
         <source>Choose the shape of frame...</source>
         <translation>Rahmenform auswählen...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4690"/>
+        <location filename="../propertiespalette.cpp" line="4690"/>
         <source>Edit shape of the frame...</source>
         <translation>Rahmenform bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4691"/>
+        <location filename="../propertiespalette.cpp" line="4691"/>
         <source>Set radius of corner rounding</source>
         <translation>Radius der Eckenrundung setzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4692"/>
+        <location filename="../propertiespalette.cpp" line="4692"/>
         <source>Number of columns in text frame</source>
         <translation>Anzahl der Spalten im Textrahmen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4694"/>
+        <location filename="../propertiespalette.cpp" line="4694"/>
         <source>Distance between columns</source>
         <translation>Spaltenabstand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4695"/>
+        <location filename="../propertiespalette.cpp" line="4695"/>
         <source>Distance of text from top of frame</source>
         <translation>Abstand des Textes vom oberen Rahmenrand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4696"/>
+        <location filename="../propertiespalette.cpp" line="4696"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Abstand des Textes vom unteren Rahmenrand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4697"/>
+        <location filename="../propertiespalette.cpp" line="4697"/>
         <source>Distance of text from left of frame</source>
         <translation>Abstand des Textes vom linken Rahmenrand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4698"/>
+        <location filename="../propertiespalette.cpp" line="4698"/>
         <source>Distance of text from right of frame</source>
         <translation>Abstand des Textes vom rechten Rahmenrand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4699"/>
+        <location filename="../propertiespalette.cpp" line="4699"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Tabulatoren setzen/bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4701"/>
+        <location filename="../propertiespalette.cpp" line="4701"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Erlaube verschiedene Grössen für Bild und Rahmen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4702"/>
+        <location filename="../propertiespalette.cpp" line="4702"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Horizontaler Versatz des Bildes innerhalb des Rahmens</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4703"/>
+        <location filename="../propertiespalette.cpp" line="4703"/>
         <source>Vertical offset of image within frame</source>
         <translation>Vertikaler Versatz des Bildes innerhalb des Rahmens</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4704"/>
+        <location filename="../propertiespalette.cpp" line="4704"/>
         <source>Resize the image horizontally</source>
         <translation>Bild horizontal skalieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4705"/>
+        <location filename="../propertiespalette.cpp" line="4705"/>
         <source>Resize the image vertically</source>
         <translation>Bild vertikal skalieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4706"/>
+        <location filename="../propertiespalette.cpp" line="4706"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Seitenverhältnis beibehalten</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4708"/>
+        <location filename="../propertiespalette.cpp" line="4708"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Bild füllt den Rahmen aus</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4709"/>
+        <location filename="../propertiespalette.cpp" line="4709"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Benutzt die Bildproportionen anstelle der Rahmenproportionen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4478"/>
+        <location filename="../propertiespalette.cpp" line="4478"/>
         <source>Cell Lines</source>
         <translation>Zellumrandungen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4479"/>
+        <location filename="../propertiespalette.cpp" line="4479"/>
         <source>Line at Top</source>
         <translation>Oben</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4480"/>
+        <location filename="../propertiespalette.cpp" line="4480"/>
         <source>Line at the Left</source>
         <translation>Links</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4481"/>
+        <location filename="../propertiespalette.cpp" line="4481"/>
         <source>Line at the Right </source>
         <translation>Rechts</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4482"/>
+        <location filename="../propertiespalette.cpp" line="4482"/>
         <source>Line at Bottom</source>
         <translation>Unten</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4707"/>
+        <location filename="../propertiespalette.cpp" line="4707"/>
         <source>Keep the aspect ratio</source>
         <translation>Seitenverhältnisse beibehalten</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4710"/>
+        <location filename="../propertiespalette.cpp" line="4710"/>
         <source>Source profile of the image</source>
         <translation>Farbprofil des Bildes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4711"/>
+        <location filename="../propertiespalette.cpp" line="4711"/>
         <source>Rendering intent for the image</source>
         <translation>Render-Methode für das Bild</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4693"/>
+        <location filename="../propertiespalette.cpp" line="4693"/>
         <source>Switches between Gap or Column width</source>
         <translation>Wechsel zwischen der Breite des Zwischenraums und der Spalten</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3021"/>
+        <location filename="../propertiespalette.cpp" line="3021"/>
         <source>Column width</source>
         <translation>Spaltenbreite</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4375"/>
+        <location filename="../propertiespalette.cpp" line="4375"/>
         <source>Path Text Properties</source>
         <translation>Eigenschaften des Pfadtextes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4641"/>
+        <location filename="../propertiespalette.cpp" line="4641"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Zeigt an, auf welcher Ebene sich das Objekt befindet. 0 bedeutet im Vordergrund</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4321"/>
+        <location filename="../propertiespalette.cpp" line="4321"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4324"/>
+        <location filename="../propertiespalette.cpp" line="4324"/>
         <source>&amp;Shape</source>
         <translation>&amp;Form</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4322"/>
+        <location filename="../propertiespalette.cpp" line="4322"/>
         <source>&amp;Text</source>
         <translation>&amp;Text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4323"/>
+        <location filename="../propertiespalette.cpp" line="4323"/>
         <source>&amp;Image</source>
         <translation>&amp;Bild</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4325"/>
+        <location filename="../propertiespalette.cpp" line="4325"/>
         <source>&amp;Line</source>
         <translation>&amp;Linien</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4326"/>
+        <location filename="../propertiespalette.cpp" line="4326"/>
         <source>&amp;Colors</source>
         <translation>Fa&amp;rben</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4422"/>
+        <location filename="../propertiespalette.cpp" line="4422"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Position:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4423"/>
+        <location filename="../propertiespalette.cpp" line="4423"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Position:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4333"/>
+        <location filename="../propertiespalette.cpp" line="4333"/>
         <source>&amp;Width:</source>
         <translation>&amp;Breite:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4334"/>
+        <location filename="../propertiespalette.cpp" line="4334"/>
         <source>&amp;Height:</source>
         <translation>&amp;Höhe:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4335"/>
+        <location filename="../propertiespalette.cpp" line="4335"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Drehung:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4397"/>
+        <location filename="../propertiespalette.cpp" line="4397"/>
         <source>Use &amp;Bounding Box</source>
         <translation>&amp;Bounding Box benutzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4398"/>
+        <location filename="../propertiespalette.cpp" line="4398"/>
         <source>&amp;Use Contour Line</source>
         <translation>&amp;Konturlinie benutzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4341"/>
+        <location filename="../propertiespalette.cpp" line="4341"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Form bearbeiten...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4361"/>
+        <location filename="../propertiespalette.cpp" line="4361"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>Ecken
 ab&amp;runden:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4363"/>
+        <location filename="../propertiespalette.cpp" line="4363"/>
         <source>Colu&amp;mns:</source>
         <translation>&amp;Spalten:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4370"/>
+        <location filename="../propertiespalette.cpp" line="4370"/>
         <source>To&amp;p:</source>
         <translation>&amp;Oben:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4371"/>
+        <location filename="../propertiespalette.cpp" line="4371"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Unten:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4372"/>
+        <location filename="../propertiespalette.cpp" line="4372"/>
         <source>&amp;Left:</source>
         <translation>&amp;Links:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4373"/>
+        <location filename="../propertiespalette.cpp" line="4373"/>
         <source>&amp;Right:</source>
         <translation>&amp;Rechts:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4374"/>
+        <location filename="../propertiespalette.cpp" line="4374"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabulatoren...</translation>
     </message>
@@ -14944,462 +14944,462 @@ ab&amp;runden:</translation>
         <translation type="obsolete">S&amp;til:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4419"/>
+        <location filename="../propertiespalette.cpp" line="4419"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Freie Skalierung</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4424"/>
+        <location filename="../propertiespalette.cpp" line="4424"/>
         <source>X-Sc&amp;ale:</source>
         <translation>&amp;X-Grösse:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4425"/>
+        <location filename="../propertiespalette.cpp" line="4425"/>
         <source>Y-Scal&amp;e:</source>
         <translation>&amp;Y-Grösse:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4426"/>
+        <location filename="../propertiespalette.cpp" line="4426"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>An Rahmen an&amp;passen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4427"/>
+        <location filename="../propertiespalette.cpp" line="4427"/>
         <source>P&amp;roportional</source>
         <translation>&amp;Proportional</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4448"/>
+        <location filename="../propertiespalette.cpp" line="4448"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Ursprung:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4449"/>
+        <location filename="../propertiespalette.cpp" line="4449"/>
         <source>T&amp;ype of Line:</source>
         <translation>Linien&amp;art:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4461"/>
+        <location filename="../propertiespalette.cpp" line="4461"/>
         <source>Line &amp;Width:</source>
         <translation>Linien&amp;breite:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4462"/>
+        <location filename="../propertiespalette.cpp" line="4462"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Ecken:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4476"/>
+        <location filename="../propertiespalette.cpp" line="4476"/>
         <source>&amp;Endings:</source>
         <translation>En&amp;den:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3228"/>
+        <location filename="../propertiespalette.cpp" line="3228"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3229"/>
+        <location filename="../propertiespalette.cpp" line="3229"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3230"/>
+        <location filename="../propertiespalette.cpp" line="3230"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3231"/>
+        <location filename="../propertiespalette.cpp" line="3231"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4666"/>
+        <location filename="../propertiespalette.cpp" line="4666"/>
         <source>Right to Left Writing</source>
         <translation>Rechtsläufiger Text</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4667"/>
+        <location filename="../propertiespalette.cpp" line="4667"/>
         <source>Manual Tracking</source>
         <translation>Zeichenabstand anpassen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4433"/>
+        <location filename="../propertiespalette.cpp" line="4433"/>
         <source>Fixed Linespacing</source>
         <translation>Fester Zeilenabstand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4434"/>
+        <location filename="../propertiespalette.cpp" line="4434"/>
         <source>Automatic Linespacing</source>
         <translation>Automatischer Zeilenabstand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4435"/>
+        <location filename="../propertiespalette.cpp" line="4435"/>
         <source>Align to Baseline Grid</source>
         <translation>Am Grundlinienraster ausrichten</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4420"/>
+        <location filename="../propertiespalette.cpp" line="4420"/>
         <source>Actual X-DPI:</source>
         <translation>X-dpi aktuell:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4421"/>
+        <location filename="../propertiespalette.cpp" line="4421"/>
         <source>Actual Y-DPI:</source>
         <translation>Y-dpi aktuell:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4450"/>
+        <location filename="../propertiespalette.cpp" line="4450"/>
         <source>Start Arrow:</source>
         <translation>Anfangspfeil:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4451"/>
+        <location filename="../propertiespalette.cpp" line="4451"/>
         <source>End Arrow:</source>
         <translation>Endpfeil:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4659"/>
+        <location filename="../propertiespalette.cpp" line="4659"/>
         <source>Offset to baseline of characters</source>
         <translation>Abstand der Zeichen von der Grundlinie</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4661"/>
+        <location filename="../propertiespalette.cpp" line="4661"/>
         <source>Scaling height of characters</source>
         <translation>Zeichenhöhe ändern</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4204"/>
+        <location filename="../propertiespalette.cpp" line="4204"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Der Name &quot;%1&quot; ist nicht eindeutig.&lt;br/&gt; Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4385"/>
+        <location filename="../propertiespalette.cpp" line="4385"/>
         <source>Fill Rule</source>
         <translation>Fülloption</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4386"/>
+        <location filename="../propertiespalette.cpp" line="4386"/>
         <source>Even-Odd</source>
         <translation>Gerade-Ungerade</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4387"/>
+        <location filename="../propertiespalette.cpp" line="4387"/>
         <source>Non Zero</source>
         <translation>Nicht Null</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4484"/>
+        <location filename="../propertiespalette.cpp" line="4484"/>
         <source>Overprinting</source>
         <translation>Überdrucken</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4485"/>
+        <location filename="../propertiespalette.cpp" line="4485"/>
         <source>Knockout</source>
         <translation>Knockout</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4486"/>
+        <location filename="../propertiespalette.cpp" line="4486"/>
         <source>Overprint</source>
         <translation>Überdrucken</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4662"/>
+        <location filename="../propertiespalette.cpp" line="4662"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>Farbe des Textumrisses und/oder des Schattens, je nachdem, was ausgewählt ist. Wenn beide Optionen aktiviert sind, gilt diese Farbe auch für beide.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4663"/>
+        <location filename="../propertiespalette.cpp" line="4663"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Farbe des markierten Textes. Wenn die Option Umrandung aktiviert ist, ist diese Farbe gleichzeitig die Füllfarbe. Wenn die Option Schatten aktiviert ist, ist diese Farbe die oberste Farbe.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4366"/>
+        <location filename="../propertiespalette.cpp" line="4366"/>
         <source>Gap:</source>
         <translation>Abstand:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4367"/>
+        <location filename="../propertiespalette.cpp" line="4367"/>
         <source>Width:</source>
         <translation>Breite:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4394"/>
+        <location filename="../propertiespalette.cpp" line="4394"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation>Text &amp;umfliesst Rahmen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4395"/>
+        <location filename="../propertiespalette.cpp" line="4395"/>
         <source>Disabled</source>
         <translation>Deaktiviert</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4396"/>
+        <location filename="../propertiespalette.cpp" line="4396"/>
         <source>Use Frame &amp;Shape</source>
         <translation>Rahmenum&amp;riss benutzen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4428"/>
+        <location filename="../propertiespalette.cpp" line="4428"/>
         <source>Image Effects</source>
         <translation>Bildeffekte</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4429"/>
+        <location filename="../propertiespalette.cpp" line="4429"/>
         <source>Extended Image Properties</source>
         <translation>Erweiterte Bildeigenschaften</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4651"/>
+        <location filename="../propertiespalette.cpp" line="4651"/>
         <source>Disable text flow from lower frames around object</source>
         <translation>Umfluss von Text in tieferliegenden Rahmen deaktivieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4652"/>
+        <location filename="../propertiespalette.cpp" line="4652"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation>Rahmenumriss für den Umfluss von Text in tieferliegenden Rahmen verwenden.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4653"/>
+        <location filename="../propertiespalette.cpp" line="4653"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Das umgebende Rechteck (Zeichenbox) anstatt des Rahmenumrisses für den Umfluss tieferliegender Textrahmen verwenden.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4342"/>
+        <location filename="../propertiespalette.cpp" line="4342"/>
         <source>Transparency Settings</source>
         <translation>Transparenzeinstellungen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4327"/>
+        <location filename="../propertiespalette.cpp" line="4327"/>
         <source>&amp;Group</source>
         <translation>&amp;Gruppe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4343"/>
+        <location filename="../propertiespalette.cpp" line="4343"/>
         <source>Opacity:</source>
         <translation>Deckkraft:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4344"/>
+        <location filename="../propertiespalette.cpp" line="4344"/>
         <source>Blend Mode:</source>
         <translation>Modus:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4346"/>
+        <location filename="../propertiespalette.cpp" line="4346"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4347"/>
+        <location filename="../propertiespalette.cpp" line="4347"/>
         <source>Darken</source>
         <translation>Abdunkeln</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4348"/>
+        <location filename="../propertiespalette.cpp" line="4348"/>
         <source>Lighten</source>
         <translation>Aufhellen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4349"/>
+        <location filename="../propertiespalette.cpp" line="4349"/>
         <source>Multiply</source>
         <translation>Multiplizieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4350"/>
+        <location filename="../propertiespalette.cpp" line="4350"/>
         <source>Screen</source>
         <translation>Bildschirm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4351"/>
+        <location filename="../propertiespalette.cpp" line="4351"/>
         <source>Overlay</source>
         <translation>Ineinander kopieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4352"/>
+        <location filename="../propertiespalette.cpp" line="4352"/>
         <source>Hard Light</source>
         <translation>Hartes Licht</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4353"/>
+        <location filename="../propertiespalette.cpp" line="4353"/>
         <source>Soft Light</source>
         <translation>Weiches Licht</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4354"/>
+        <location filename="../propertiespalette.cpp" line="4354"/>
         <source>Difference</source>
         <translation>Differenz</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4355"/>
+        <location filename="../propertiespalette.cpp" line="4355"/>
         <source>Exclusion</source>
         <translation>Ausschluss</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4356"/>
+        <location filename="../propertiespalette.cpp" line="4356"/>
         <source>Color Dodge</source>
         <translation>Farbig abwedeln</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4357"/>
+        <location filename="../propertiespalette.cpp" line="4357"/>
         <source>Color Burn</source>
         <translation>Farbig nachbelichten</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4358"/>
+        <location filename="../propertiespalette.cpp" line="4358"/>
         <source>Hue</source>
         <translation>Farbton</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4360"/>
+        <location filename="../propertiespalette.cpp" line="4360"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4633"/>
+        <location filename="../propertiespalette.cpp" line="4633"/>
         <source>Group the selected objects</source>
         <translation>Ausgewählte Objekte gruppieren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4634"/>
+        <location filename="../propertiespalette.cpp" line="4634"/>
         <source>Destroys the selected group</source>
         <translation>Löst die ausgewählte Gruppe auf</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2415"/>
+        <location filename="../propertiespalette.cpp" line="2415"/>
         <source>Auto</source>
         <translation>Auto</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4654"/>
+        <location filename="../propertiespalette.cpp" line="4654"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation>Wenn Sie diese Option wählen, können Sie die Konturlinie mit dem Werkzeug &quot;Form bearbeiten&quot; weiter oben bearbeiten. Es entsteht eine zweite Linie, die ursprünglich auf der Rahmenform für Textumfluss beruht</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4669"/>
+        <location filename="../propertiespalette.cpp" line="4669"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Halten Sie die Maustaste gedrückt, um die Art des Zeilenabstandes auszuwählen.</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4377"/>
+        <location filename="../propertiespalette.cpp" line="4377"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4378"/>
+        <location filename="../propertiespalette.cpp" line="4378"/>
         <source>Stair Step</source>
         <translation>Stufen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4379"/>
+        <location filename="../propertiespalette.cpp" line="4379"/>
         <source>Skew</source>
         <translation>Versatz</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4380"/>
+        <location filename="../propertiespalette.cpp" line="4380"/>
         <source>Flip Text</source>
         <translation>Text umkehren</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4382"/>
+        <location filename="../propertiespalette.cpp" line="4382"/>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4399"/>
+        <location filename="../propertiespalette.cpp" line="4399"/>
         <source>Use Image Clip Path</source>
         <translation>Beschneidungspfad verwenden</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4400"/>
+        <location filename="../propertiespalette.cpp" line="4400"/>
         <source>Paragraph St&amp;yle:</source>
         <translation>Absatzst&amp;il:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4401"/>
+        <location filename="../propertiespalette.cpp" line="4401"/>
         <source>Character St&amp;yle:</source>
         <translation>&amp;Zeichenstil:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4402"/>
+        <location filename="../propertiespalette.cpp" line="4402"/>
         <source>Optical Margins:</source>
         <translation>Optischer Randausgleich:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4413"/>
+        <location filename="../propertiespalette.cpp" line="4413"/>
         <source>Word Tracking</source>
         <translation>Laufweite</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4417"/>
+        <location filename="../propertiespalette.cpp" line="4417"/>
         <source>Min:</source>
         <translation>Minimal:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4415"/>
+        <location filename="../propertiespalette.cpp" line="4415"/>
         <source>Norm:</source>
         <translation>Normal:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4416"/>
+        <location filename="../propertiespalette.cpp" line="4416"/>
         <source>Glyph Extension</source>
         <translation>Glyphenstauchung</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4418"/>
+        <location filename="../propertiespalette.cpp" line="4418"/>
         <source>Max:</source>
         <translation>Maximal:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4655"/>
+        <location filename="../propertiespalette.cpp" line="4655"/>
         <source>Use the clipping path of the image</source>
         <translation>Verwendet den Beschneidungspfad des Bildes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4670"/>
+        <location filename="../propertiespalette.cpp" line="4670"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Absatzstil des markierten Textes oder Absatzes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4671"/>
+        <location filename="../propertiespalette.cpp" line="4671"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Zeichenstil des markierten Textes oder Absatzes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4676"/>
+        <location filename="../propertiespalette.cpp" line="4676"/>
         <source>Minimal width of spaces between words</source>
         <translation>Minimaler Wortabstand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4677"/>
+        <location filename="../propertiespalette.cpp" line="4677"/>
         <source>Normal width of spaces between words</source>
         <translation>Normaler Wortabstand</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4678"/>
+        <location filename="../propertiespalette.cpp" line="4678"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Minimale Schrumpfung der Glyphe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4679"/>
+        <location filename="../propertiespalette.cpp" line="4679"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Maximale Ausdehnung der Glyphe</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4680"/>
+        <location filename="../propertiespalette.cpp" line="4680"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation>Wendet Zeicheneinzug und Randunterschneidung an, um optisch anprechendere Spaltenränder zu erhalten</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4672"/>
+        <location filename="../propertiespalette.cpp" line="4672"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Direkte Absatzformatierung entfernen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4673"/>
+        <location filename="../propertiespalette.cpp" line="4673"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Direkte Zeichenformatierung entfernen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4644"/>
+        <location filename="../propertiespalette.cpp" line="4644"/>
         <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15899,202 +15899,202 @@ ab&amp;runden:</translation>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../frameedit.cpp" line="839"/>
+        <location filename="../nodeeditpalette.cpp" line="839"/>
         <source>Nodes</source>
         <translation>Pfade</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="852"/>
+        <location filename="../nodeeditpalette.cpp" line="852"/>
         <source>Move Nodes</source>
         <translation>Punkte verschieben</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="853"/>
+        <location filename="../nodeeditpalette.cpp" line="853"/>
         <source>Move Control Points</source>
         <translation>Kontrollpunkte verschieben</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="854"/>
+        <location filename="../nodeeditpalette.cpp" line="854"/>
         <source>Add Nodes</source>
         <translation>Punkte hinzufügen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="855"/>
+        <location filename="../nodeeditpalette.cpp" line="855"/>
         <source>Delete Nodes</source>
         <translation>Punkte löschen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="858"/>
+        <location filename="../nodeeditpalette.cpp" line="858"/>
         <source>Reset Control Points</source>
         <translation>Kontrollpunkte zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="859"/>
+        <location filename="../nodeeditpalette.cpp" line="859"/>
         <source>Reset this Control Point</source>
         <translation>Diesen Kontrollpunkt zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="842"/>
+        <location filename="../nodeeditpalette.cpp" line="842"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Absolute Koordinaten</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="843"/>
+        <location filename="../nodeeditpalette.cpp" line="843"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Position:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="844"/>
+        <location filename="../nodeeditpalette.cpp" line="844"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Position:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="845"/>
+        <location filename="../nodeeditpalette.cpp" line="845"/>
         <source>Edit &amp;Contour Line</source>
         <translation>&amp;Konturlinie bearbeiten</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="846"/>
+        <location filename="../nodeeditpalette.cpp" line="846"/>
         <source>&amp;Reset Contour Line</source>
         <translation>Konturlinie &amp;zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="851"/>
+        <location filename="../nodeeditpalette.cpp" line="851"/>
         <source>&amp;End Editing</source>
         <translation>Bearbeitung &amp;beenden</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="856"/>
+        <location filename="../nodeeditpalette.cpp" line="856"/>
         <source>Move Control Points Independently</source>
         <translation>Kontrollpunkte unabhängig verschieben</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="857"/>
+        <location filename="../nodeeditpalette.cpp" line="857"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Kontrollpunkte symmetrisch verschieben</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="860"/>
+        <location filename="../nodeeditpalette.cpp" line="860"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Bézierkurve oder Polygon öffnen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="861"/>
+        <location filename="../nodeeditpalette.cpp" line="861"/>
         <source>Close this Bezier Curve</source>
         <translation>Bézierkurve schliessen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="862"/>
+        <location filename="../nodeeditpalette.cpp" line="862"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Pfad horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="863"/>
+        <location filename="../nodeeditpalette.cpp" line="863"/>
         <source>Mirror the Path Vertically</source>
         <translation>Pfad vertikal spiegeln</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="865"/>
+        <location filename="../nodeeditpalette.cpp" line="865"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Pfad horizontal nach links verschieben</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="866"/>
+        <location filename="../nodeeditpalette.cpp" line="866"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Pfad nach oben scheren</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="867"/>
+        <location filename="../nodeeditpalette.cpp" line="867"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Pfad nach unten scheren</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="868"/>
+        <location filename="../nodeeditpalette.cpp" line="868"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Pfad gegen den Uhrzeigersinn drehen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="869"/>
+        <location filename="../nodeeditpalette.cpp" line="869"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Pfad mit dem Uhrzeigersinn drehen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="871"/>
+        <location filename="../nodeeditpalette.cpp" line="871"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Pfad vergrössern um x %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="874"/>
+        <location filename="../nodeeditpalette.cpp" line="874"/>
         <source>Angle of Rotation</source>
         <translation>Grad der Drehung</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="877"/>
+        <location filename="../nodeeditpalette.cpp" line="877"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Konturmodus aktivieren</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="878"/>
+        <location filename="../nodeeditpalette.cpp" line="878"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Kontur auf die originale Form zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="864"/>
+        <location filename="../nodeeditpalette.cpp" line="864"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Pfad horizontal nach rechts verschieben</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="840"/>
+        <location filename="../nodeeditpalette.cpp" line="840"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="880"/>
+        <location filename="../nodeeditpalette.cpp" line="880"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Wenn aktiviert, werden die Koordinaten relativ zur Seite verwendet, andernfalls die Koordinaten absolut zum Objekt.</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="870"/>
+        <location filename="../nodeeditpalette.cpp" line="870"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Grösse des Pfads verringern um x %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="872"/>
+        <location filename="../nodeeditpalette.cpp" line="872"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Grösse des Pfads um den angezeigten Wert verringern</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="873"/>
+        <location filename="../nodeeditpalette.cpp" line="873"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Grösse des Pfads um den angezeigten Wert vergrössern</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="875"/>
+        <location filename="../nodeeditpalette.cpp" line="875"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>Prozent vergrössern/verkleinern</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="876"/>
+        <location filename="../nodeeditpalette.cpp" line="876"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Um den Wert vergrössern/verkleinern</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="847"/>
+        <location filename="../nodeeditpalette.cpp" line="847"/>
         <source>Set Contour to Image Clip</source>
         <translation>Konturlinie auf Beschneidungspfad</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="879"/>
+        <location filename="../nodeeditpalette.cpp" line="879"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Setzt die Konturlinie auf den Beschneidungspfad des Bildes zurück</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="849"/>
+        <location filename="../nodeeditpalette.cpp" line="849"/>
         <source>Lens Effects...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="850"/>
+        <location filename="../nodeeditpalette.cpp" line="850"/>
         <source>Apply fancy Lens Effects</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16370,7 +16370,7 @@ ab&amp;runden:</translation>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="115"/>
+        <location filename="../modetoolbar.cpp" line="115"/>
         <source>PDF Tools</source>
         <translation>PDF-Werkzeuge</translation>
     </message>
@@ -17176,37 +17176,37 @@ becomes
 <context>
     <name>PagePalette</name>
     <message>
-        <location filename="../seiten.cpp" line="533"/>
+        <location filename="../pagepalette.cpp" line="533"/>
         <source>Double sided</source>
         <translation type="obsolete">Doppelseiten</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="541"/>
+        <location filename="../pagepalette.cpp" line="541"/>
         <source>Middle Right</source>
         <translation type="obsolete">Mitte rechts</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="557"/>
+        <location filename="../pagepalette.cpp" line="557"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation>Ziehen Sie einzelne Seiten oder Musterseiten auf den Papierkorb, um sie zu löschen</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="558"/>
+        <location filename="../pagepalette.cpp" line="558"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation>Dies sind alle vorhandenen Musterseiten. Ziehen Sie eine Musterseite in das Fenster mit den Seitensymbolen, um eine neue Seite zu erstellen</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="853"/>
+        <location filename="../pagepalette.cpp" line="853"/>
         <source>Arrange Pages</source>
         <translation>Seiten anordnen</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="854"/>
+        <location filename="../pagepalette.cpp" line="854"/>
         <source>Available Master Pages:</source>
         <translation>Verfügbare Musterseiten:</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="855"/>
+        <location filename="../pagepalette.cpp" line="855"/>
         <source>Document Pages:</source>
         <translation>Seiten des Dokuments:</translation>
     </message>
@@ -21089,67 +21089,67 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
         <translation>Die Schrift %1 enthält fehlerhafte Metrikdaten in der Datei %2. Metrikdaten weren ignoriert</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="72"/>
+        <location filename="../outlinepalette.cpp" line="72"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="78"/>
+        <location filename="../outlinepalette.cpp" line="78"/>
         <source>PDF Push Button</source>
         <translation>PDF-Schaltfläche</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="81"/>
+        <location filename="../outlinepalette.cpp" line="81"/>
         <source>PDF Text Field</source>
         <translation>PDF-Textfeld</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="84"/>
+        <location filename="../outlinepalette.cpp" line="84"/>
         <source>PDF Check Box</source>
         <translation>PDF-Checkbox</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="87"/>
+        <location filename="../outlinepalette.cpp" line="87"/>
         <source>PDF Combo Box</source>
         <translation>PDF-Combobox</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="90"/>
+        <location filename="../outlinepalette.cpp" line="90"/>
         <source>PDF List Box</source>
         <translation>PDF-Listbox</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="93"/>
+        <location filename="../outlinepalette.cpp" line="93"/>
         <source>PDF Text Annotation</source>
         <translation>PDF-Anmerkung</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="96"/>
+        <location filename="../outlinepalette.cpp" line="96"/>
         <source>PDF Link Annotation</source>
         <translation>PDF-Link</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="99"/>
+        <location filename="../outlinepalette.cpp" line="99"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="104"/>
+        <location filename="../outlinepalette.cpp" line="104"/>
         <source>Line</source>
         <translation>Linie</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="107"/>
+        <location filename="../outlinepalette.cpp" line="107"/>
         <source>Polygon</source>
         <translation>Polygon</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="110"/>
+        <location filename="../outlinepalette.cpp" line="110"/>
         <source>Polyline</source>
         <translation>Polyline</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="113"/>
+        <location filename="../outlinepalette.cpp" line="113"/>
         <source>PathText</source>
         <translation>Pfadtext</translation>
     </message>
@@ -24261,7 +24261,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../seiten.cpp" line="55"/>
+        <location filename="../pagepalette.cpp" line="55"/>
         <source>Show Page Previews</source>
         <translation>Seitenvorschau anzeigen</translation>
     </message>
@@ -29710,27 +29710,27 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
 <context>
     <name>Tree</name>
     <message>
-        <location filename="../tree.cpp" line="1156"/>
+        <location filename="../outlinepalette.cpp" line="1156"/>
         <source>Outline</source>
         <translation>Übersicht</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1157"/>
+        <location filename="../outlinepalette.cpp" line="1157"/>
         <source>Element</source>
         <translation>Objekt</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1134"/>
+        <location filename="../outlinepalette.cpp" line="1134"/>
         <source>Group </source>
         <translation>Gruppe</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1097"/>
+        <location filename="../outlinepalette.cpp" line="1097"/>
         <source>Free Objects</source>
         <translation>Freie Objekte</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1042"/>
+        <location filename="../outlinepalette.cpp" line="1042"/>
         <source>Page </source>
         <translation>Seite </translation>
     </message>
@@ -29740,152 +29740,152 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
         <translation type="obsolete">Freie Objekte</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="319"/>
+        <location filename="../outlinepalette.cpp" line="319"/>
         <source>Picture</source>
         <translation>Bild</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="294"/>
+        <location filename="../outlinepalette.cpp" line="294"/>
         <source>File: </source>
         <translation>Datei:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="298"/>
+        <location filename="../outlinepalette.cpp" line="298"/>
         <source>Original PPI: </source>
         <translation>Ursprüngliche PPI:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="302"/>
+        <location filename="../outlinepalette.cpp" line="302"/>
         <source>Actual PPI: </source>
         <translation>Aktuelle PPI:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="306"/>
+        <location filename="../outlinepalette.cpp" line="306"/>
         <source>Colorspace: </source>
         <translation>Farbraum:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="311"/>
+        <location filename="../outlinepalette.cpp" line="311"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="321"/>
+        <location filename="../outlinepalette.cpp" line="321"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="324"/>
+        <location filename="../outlinepalette.cpp" line="324"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="327"/>
+        <location filename="../outlinepalette.cpp" line="327"/>
         <source>Grayscale</source>
         <translation type="obsolete">Graustufen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="330"/>
+        <location filename="../outlinepalette.cpp" line="330"/>
         <source>Duotone</source>
         <translation type="obsolete">Duplex</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="321"/>
+        <location filename="../outlinepalette.cpp" line="321"/>
         <source>No Image Loaded</source>
         <translation>Kein Bild geladen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="345"/>
+        <location filename="../outlinepalette.cpp" line="345"/>
         <source>Linked Text</source>
         <translation>Verketteter Text</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="347"/>
+        <location filename="../outlinepalette.cpp" line="347"/>
         <source>Text Frame</source>
         <translation>Textrahmen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="350"/>
+        <location filename="../outlinepalette.cpp" line="350"/>
         <source>Text on a Path</source>
         <translation>Text auf einem Pfad</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="353"/>
+        <location filename="../outlinepalette.cpp" line="353"/>
         <source>Paragraphs: </source>
         <translation>Absätze:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="360"/>
+        <location filename="../outlinepalette.cpp" line="360"/>
         <source>Lines: </source>
         <translation>Zeilen:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="364"/>
+        <location filename="../outlinepalette.cpp" line="364"/>
         <source>Words: </source>
         <translation>Wörter:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="371"/>
+        <location filename="../outlinepalette.cpp" line="371"/>
         <source>Chars: </source>
         <translation>Zeichen:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="377"/>
+        <location filename="../outlinepalette.cpp" line="377"/>
         <source>Print: </source>
         <translation type="obsolete">Drucken:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="383"/>
+        <location filename="../outlinepalette.cpp" line="383"/>
         <source>Enabled</source>
         <translation>Aktiviert</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="385"/>
+        <location filename="../outlinepalette.cpp" line="385"/>
         <source>Disabled</source>
         <translation>Deaktiviert</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="393"/>
+        <location filename="../outlinepalette.cpp" line="393"/>
         <source>In&amp;fo</source>
         <translation>&amp;Information</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="420"/>
+        <location filename="../outlinepalette.cpp" line="420"/>
         <source>Preview Settings</source>
         <translation>Vorschaumodus</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="461"/>
+        <location filename="../outlinepalette.cpp" line="461"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-Optionen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="485"/>
+        <location filename="../outlinepalette.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
         <translation>Auf andere &amp;Ebene verschieben</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="494"/>
+        <location filename="../outlinepalette.cpp" line="494"/>
         <source>Le&amp;vel</source>
         <translation>An&amp;ordnung</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="545"/>
+        <location filename="../outlinepalette.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Umwandeln in</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="548"/>
+        <location filename="../outlinepalette.cpp" line="548"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="556"/>
+        <location filename="../outlinepalette.cpp" line="556"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="578"/>
+        <location filename="../outlinepalette.cpp" line="578"/>
         <source>Contents</source>
         <translation>Inhalt</translation>
     </message>
@@ -29895,7 +29895,7 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
         <translation type="obsolete">Der Name &quot;%1&quot; ist nicht eindeutig.&lt;br/&gt; Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="380"/>
+        <location filename="../outlinepalette.cpp" line="380"/>
         <source>Export: </source>
         <translation type="unfinished"></translation>
     </message>

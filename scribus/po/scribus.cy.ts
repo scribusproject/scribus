@@ -5428,7 +5428,7 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrap.cpp" line="1311"/>
+        <location filename="../scrapbookpalette.cpp" line="1311"/>
         <source>Scrapbook</source>
         <translation>Llyfr Lloffion</translation>
     </message>
@@ -5438,22 +5438,22 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
         <translation type="obsolete">Llyfrau Lloffion (*.scs);;Pob Ffeil (*)</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="798"/>
+        <location filename="../scrapbookpalette.cpp" line="798"/>
         <source>Delete</source>
         <translation>Dileu</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1214"/>
+        <location filename="../scrapbookpalette.cpp" line="1214"/>
         <source>Object</source>
         <translation>Gwrthrych</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1123"/>
         <source>New Entry</source>
         <translation>Cofnod Newydd</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="796"/>
+        <location filename="../scrapbookpalette.cpp" line="796"/>
         <source>Rename</source>
         <translation>Ail-enwi</translation>
     </message>
@@ -5525,83 +5525,83 @@ Dewiswch un arall.</translation>
         <translation type="obsolete">&amp;Rhagolwg</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1123"/>
         <source>&amp;Name:</source>
         <translation>&amp;Enw:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1017"/>
+        <location filename="../scrapbookpalette.cpp" line="1017"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="684"/>
+        <location filename="../scrapbookpalette.cpp" line="684"/>
         <source>Choose a Scrapbook Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="740"/>
+        <location filename="../scrapbookpalette.cpp" line="740"/>
         <source>Choose a Directory</source>
         <translation type="unfinished">Dewis Cyfeiriadur</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="720"/>
+        <location filename="../scrapbookpalette.cpp" line="720"/>
         <source>Choose a scrapbook file to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1312"/>
+        <location filename="../scrapbookpalette.cpp" line="1312"/>
         <source>Create a new scrapbook page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1313"/>
+        <location filename="../scrapbookpalette.cpp" line="1313"/>
         <source>Load an existing scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1314"/>
+        <location filename="../scrapbookpalette.cpp" line="1314"/>
         <source>Save the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1315"/>
+        <location filename="../scrapbookpalette.cpp" line="1315"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1316"/>
+        <location filename="../scrapbookpalette.cpp" line="1316"/>
         <source>Close the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="803"/>
+        <location filename="../scrapbookpalette.cpp" line="803"/>
         <source>Copy To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="804"/>
+        <location filename="../scrapbookpalette.cpp" line="804"/>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="552"/>
+        <location filename="../scrapbookpalette.cpp" line="552"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="554"/>
+        <location filename="../scrapbookpalette.cpp" line="554"/>
         <source>Copied Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1010"/>
+        <location filename="../scrapbookpalette.cpp" line="1010"/>
         <source>New Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="719"/>
+        <location filename="../scrapbookpalette.cpp" line="719"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5632,7 +5632,7 @@ Please choose another.</source>
 <context>
     <name>BookPalette</name>
     <message>
-        <location filename="../bookpalette.cpp" line="39"/>
+        <location filename="../bookmarkpalette.cpp" line="39"/>
         <source>Bookmarks</source>
         <translation>Tudnodau</translation>
     </message>
@@ -9110,29 +9110,29 @@ efo ôl-ddodiad dewisol o gysylltnod a côd gwlad ISO-3166, e.e. en-GB, fr-CH</t
     </message>
 </context>
 <context>
-    <name>Druck</name>
+    <name>PrintDialog</name>
     <message>
-        <location filename="../druck.cpp" line="67"/>
+        <location filename="../printdialog.cpp" line="67"/>
         <source>Setup Printer</source>
         <translation>Gosod Argraffydd</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="797"/>
+        <location filename="../printdialog.cpp" line="797"/>
         <source>File</source>
         <translation>Ffeil</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="226"/>
+        <location filename="../printdialog.cpp" line="226"/>
         <source>Options</source>
         <translation>Dewisiadau</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="822"/>
+        <location filename="../printdialog.cpp" line="822"/>
         <source>All</source>
         <translation>Popeth</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="620"/>
         <source>Save as</source>
         <translation>Cadw fel</translation>
     </message>
@@ -9142,27 +9142,27 @@ efo ôl-ddodiad dewisol o gysylltnod a côd gwlad ISO-3166, e.e. en-GB, fr-CH</t
         <translation type="obsolete">Ffeiliau Postscript (*.ps);;Pob Ffeil (*)</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="821"/>
+        <location filename="../printdialog.cpp" line="821"/>
         <source>Cyan</source>
         <translation>Gwyrddlas</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="820"/>
+        <location filename="../printdialog.cpp" line="820"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="819"/>
+        <location filename="../printdialog.cpp" line="819"/>
         <source>Yellow</source>
         <translation>Melyn</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="818"/>
+        <location filename="../printdialog.cpp" line="818"/>
         <source>Black</source>
         <translation>Du</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="380"/>
+        <location filename="../printdialog.cpp" line="380"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -9171,57 +9171,57 @@ gall tocyn fod yn * ar gyfer pob tudalen, 1-5 ar gyfer
 amrediad tudalennau, neu rhif tudalen unigol.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="74"/>
+        <location filename="../printdialog.cpp" line="74"/>
         <source>Print Destination</source>
         <translation>Cyrchfan Argraffu </translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="115"/>
+        <location filename="../printdialog.cpp" line="115"/>
         <source>&amp;Options...</source>
         <translation>&amp;Dewisiadau...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="127"/>
+        <location filename="../printdialog.cpp" line="127"/>
         <source>&amp;File:</source>
         <translation>&amp;Ffeil:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="133"/>
+        <location filename="../printdialog.cpp" line="133"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Newid...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="140"/>
+        <location filename="../printdialog.cpp" line="140"/>
         <source>A&amp;lternative Printer Command</source>
         <translation>Gorchymyn Argraffydd &amp;Eiledol</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="149"/>
+        <location filename="../printdialog.cpp" line="149"/>
         <source>Co&amp;mmand:</source>
         <translation>Go&amp;rchymyn:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="157"/>
+        <location filename="../printdialog.cpp" line="157"/>
         <source>Range</source>
         <translation>Amrediad</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="162"/>
+        <location filename="../printdialog.cpp" line="162"/>
         <source>Print &amp;All</source>
         <translation>Argraffu &amp;Popeth</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="634"/>
+        <location filename="../printdialog.cpp" line="634"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Argraffu &amp;Tudalen Gyfredol</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="166"/>
+        <location filename="../printdialog.cpp" line="166"/>
         <source>Print &amp;Range</source>
         <translation>Argraffu Am&amp;rediad</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="186"/>
+        <location filename="../printdialog.cpp" line="186"/>
         <source>N&amp;umber of Copies:</source>
         <translation>Nifer o &amp;gopïau:</translation>
     </message>
@@ -9251,7 +9251,7 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
         <translation type="obsolete">Dewisiadau &amp;Uwch...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="353"/>
+        <location filename="../printdialog.cpp" line="353"/>
         <source>&amp;Print</source>
         <translation>&amp;Argraffu</translation>
     </message>
@@ -9268,87 +9268,87 @@ to utilize additional printing options</source>
 i gael dewisiadau argraffu ychwanegol</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="582"/>
+        <location filename="../printdialog.cpp" line="582"/>
         <source>Print Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="199"/>
+        <location filename="../printdialog.cpp" line="199"/>
         <source>Print Separations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="203"/>
+        <location filename="../printdialog.cpp" line="203"/>
         <source>Print in Color if Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="204"/>
+        <location filename="../printdialog.cpp" line="204"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="221"/>
+        <location filename="../printdialog.cpp" line="221"/>
         <source>PostScript Level 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="222"/>
+        <location filename="../printdialog.cpp" line="222"/>
         <source>PostScript Level 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="223"/>
+        <location filename="../printdialog.cpp" line="223"/>
         <source>PostScript Level 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="232"/>
+        <location filename="../printdialog.cpp" line="232"/>
         <source>Page</source>
         <translation type="unfinished">Tudalen</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="238"/>
+        <location filename="../printdialog.cpp" line="238"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="241"/>
+        <location filename="../printdialog.cpp" line="241"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="244"/>
+        <location filename="../printdialog.cpp" line="244"/>
         <source>Set Media Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="250"/>
+        <location filename="../printdialog.cpp" line="250"/>
         <source>Color</source>
         <translation type="unfinished">Lliw</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="256"/>
+        <location filename="../printdialog.cpp" line="256"/>
         <source>Apply Under Color Removal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="259"/>
+        <location filename="../printdialog.cpp" line="259"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="271"/>
+        <location filename="../printdialog.cpp" line="271"/>
         <source>Advanced Options</source>
         <translation type="unfinished">Dewisiadau Uwch</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="348"/>
+        <location filename="../printdialog.cpp" line="348"/>
         <source>Preview...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="382"/>
+        <location filename="../printdialog.cpp" line="382"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation type="unfinished"></translation>
@@ -9369,32 +9369,32 @@ ond mae angen tipyn o brofi ac arbrofi yn ôl y galw.  Mae UCR yn lleihau&apos;r
 bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="620"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="381"/>
+        <location filename="../printdialog.cpp" line="381"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="383"/>
+        <location filename="../printdialog.cpp" line="383"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="384"/>
+        <location filename="../printdialog.cpp" line="384"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="388"/>
+        <location filename="../printdialog.cpp" line="388"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="246"/>
+        <location filename="../printdialog.cpp" line="246"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9404,162 +9404,162 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
         <translation type="obsolete">Peidio â dangos gwrthrychau tu allan yr ymylon ar y dudalen argraffedig neu yn y ffeil a allforir</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="570"/>
+        <location filename="../printdialog.cpp" line="570"/>
         <source>Failed to retrieve printer settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="377"/>
+        <location filename="../printdialog.cpp" line="377"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="262"/>
+        <location filename="../printdialog.cpp" line="262"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="385"/>
+        <location filename="../printdialog.cpp" line="385"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="278"/>
+        <location filename="../printdialog.cpp" line="278"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="283"/>
+        <location filename="../printdialog.cpp" line="283"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="285"/>
+        <location filename="../printdialog.cpp" line="285"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="287"/>
+        <location filename="../printdialog.cpp" line="287"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="289"/>
+        <location filename="../printdialog.cpp" line="289"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="292"/>
+        <location filename="../printdialog.cpp" line="292"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="297"/>
+        <location filename="../printdialog.cpp" line="297"/>
         <source>Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="304"/>
+        <location filename="../printdialog.cpp" line="304"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="310"/>
+        <location filename="../printdialog.cpp" line="310"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="315"/>
+        <location filename="../printdialog.cpp" line="315"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="320"/>
+        <location filename="../printdialog.cpp" line="320"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="325"/>
+        <location filename="../printdialog.cpp" line="325"/>
         <source>Right:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="329"/>
+        <location filename="../printdialog.cpp" line="329"/>
         <source>Use Document Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="333"/>
+        <location filename="../printdialog.cpp" line="333"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="336"/>
+        <location filename="../printdialog.cpp" line="336"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="337"/>
+        <location filename="../printdialog.cpp" line="337"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="394"/>
+        <location filename="../printdialog.cpp" line="394"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished">Pellter ar gyfer ymdoddi o ben y dudalen gorfforol</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="395"/>
+        <location filename="../printdialog.cpp" line="395"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished">Pellter ar gyfer ymdoddi o waelod y dudalen gorfforol</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="396"/>
+        <location filename="../printdialog.cpp" line="396"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished">Pellter ar gyfer ymdoddi o chwith y dudalen gorfforol</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="397"/>
+        <location filename="../printdialog.cpp" line="397"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Pellter ar gyfer ymdoddi o dde y dudalen gorfforol</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="389"/>
+        <location filename="../printdialog.cpp" line="389"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="390"/>
+        <location filename="../printdialog.cpp" line="390"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="391"/>
+        <location filename="../printdialog.cpp" line="391"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="392"/>
+        <location filename="../printdialog.cpp" line="392"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="393"/>
+        <location filename="../printdialog.cpp" line="393"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="398"/>
+        <location filename="../printdialog.cpp" line="398"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="267"/>
+        <location filename="../printdialog.cpp" line="267"/>
         <source>Apply Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="387"/>
+        <location filename="../printdialog.cpp" line="387"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13520,7 +13520,7 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <location filename="../muster.cpp" line="38"/>
+        <location filename="../masterpagepalette.cpp" line="38"/>
         <source>Edit Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13530,7 +13530,7 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="109"/>
+        <location filename="../masterpagepalette.cpp" line="109"/>
         <source>Do you really want to delete this master page?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13545,12 +13545,12 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="obsolete">&amp;Ydw</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="134"/>
         <source>&amp;Name:</source>
         <translation type="unfinished">&amp;Enw:</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="134"/>
         <source>New Master Page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13560,17 +13560,17 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="obsolete">Copi o %1</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>Name:</source>
         <translation type="unfinished">Enw:</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>New MasterPage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="280"/>
+        <location filename="../masterpagepalette.cpp" line="280"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Copi #%1 o</translation>
     </message>
@@ -13580,52 +13580,52 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="obsolete">Arferol</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="78"/>
+        <location filename="../masterpagepalette.cpp" line="78"/>
         <source>Duplicate the selected master page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="79"/>
+        <location filename="../masterpagepalette.cpp" line="79"/>
         <source>Delete the selected master page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="80"/>
+        <location filename="../masterpagepalette.cpp" line="80"/>
         <source>Add a new master page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="81"/>
+        <location filename="../masterpagepalette.cpp" line="81"/>
         <source>Import master pages from another document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="366"/>
         <source>Unable to Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="366"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="370"/>
         <source>Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="370"/>
         <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="132"/>
+        <location filename="../masterpagepalette.cpp" line="132"/>
         <source>Copy #%1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13967,12 +13967,12 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="38"/>
+        <location filename="../modetoolbar.cpp" line="38"/>
         <source>Tools</source>
         <translation type="unfinished">Offer</translation>
     </message>
     <message>
-        <location filename="../werktoolb.cpp" line="110"/>
+        <location filename="../modetoolbar.cpp" line="110"/>
         <source>Properties...</source>
         <translation type="unfinished">Priodweddau...</translation>
     </message>
@@ -14056,64 +14056,64 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
     </message>
 </context>
 <context>
-    <name>Mpalette</name>
+    <name>PropertiesPalette</name>
     <message>
-        <location filename="../mpalette.cpp" line="4319"/>
+        <location filename="../propertiespalette.cpp" line="4319"/>
         <source>Properties</source>
         <translation>Priodweddau</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4329"/>
+        <location filename="../propertiespalette.cpp" line="4329"/>
         <source>Name</source>
         <translation>Enw</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4330"/>
+        <location filename="../propertiespalette.cpp" line="4330"/>
         <source>Geometry</source>
         <translation>Geometreg</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4500"/>
+        <location filename="../propertiespalette.cpp" line="4500"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4336"/>
+        <location filename="../propertiespalette.cpp" line="4336"/>
         <source>Basepoint:</source>
         <translation>Sailbwynt:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4337"/>
+        <location filename="../propertiespalette.cpp" line="4337"/>
         <source>Level</source>
         <translation>Lefel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4340"/>
+        <location filename="../propertiespalette.cpp" line="4340"/>
         <source>Shape:</source>
         <translation>Siâp:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4362"/>
+        <location filename="../propertiespalette.cpp" line="4362"/>
         <source>Distance of Text</source>
         <translation>Pellter y Testun</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4381"/>
+        <location filename="../propertiespalette.cpp" line="4381"/>
         <source>Show Curve</source>
         <translation>Dangos Cromlin</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4383"/>
+        <location filename="../propertiespalette.cpp" line="4383"/>
         <source>Start Offset:</source>
         <translation>Dechrau Atred:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4384"/>
+        <location filename="../propertiespalette.cpp" line="4384"/>
         <source>Distance from Curve:</source>
         <translation>Pellter o&apos;r Cromlin:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4488"/>
+        <location filename="../propertiespalette.cpp" line="4488"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -14123,87 +14123,87 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
         <translation type="obsolete">Bylchu Addasiedig</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4430"/>
+        <location filename="../propertiespalette.cpp" line="4430"/>
         <source>Input Profile:</source>
         <translation>Mewnosod Proffil:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4431"/>
+        <location filename="../propertiespalette.cpp" line="4431"/>
         <source>Rendering Intent:</source>
         <translation>Bwriad Llunio:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4438"/>
+        <location filename="../propertiespalette.cpp" line="4438"/>
         <source>Perceptual</source>
         <translation>Canfyddiadol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4439"/>
+        <location filename="../propertiespalette.cpp" line="4439"/>
         <source>Relative Colorimetric</source>
         <translation>Lliwfesurol Perthnasol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4440"/>
+        <location filename="../propertiespalette.cpp" line="4440"/>
         <source>Saturation</source>
         <translation>Dirlawnder</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4441"/>
+        <location filename="../propertiespalette.cpp" line="4441"/>
         <source>Absolute Colorimetric</source>
         <translation>Lliwfesurol Absoliwt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4445"/>
+        <location filename="../propertiespalette.cpp" line="4445"/>
         <source>Left Point</source>
         <translation>Pwynt Chwith</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4446"/>
+        <location filename="../propertiespalette.cpp" line="4446"/>
         <source>End Points</source>
         <translation>Pwyntiau Diwedd</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4465"/>
+        <location filename="../propertiespalette.cpp" line="4465"/>
         <source>Miter Join</source>
         <translation>Uniad Meitrog</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4466"/>
+        <location filename="../propertiespalette.cpp" line="4466"/>
         <source>Bevel Join</source>
         <translation>Uniad Befel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4467"/>
+        <location filename="../propertiespalette.cpp" line="4467"/>
         <source>Round Join</source>
         <translation>Uniad Crwn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4472"/>
+        <location filename="../propertiespalette.cpp" line="4472"/>
         <source>Flat Cap</source>
         <translation>Pen Gwastad</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4473"/>
+        <location filename="../propertiespalette.cpp" line="4473"/>
         <source>Square Cap</source>
         <translation>Pen Sgwâr</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4474"/>
+        <location filename="../propertiespalette.cpp" line="4474"/>
         <source>Round Cap</source>
         <translation>Pen Crwn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4526"/>
+        <location filename="../propertiespalette.cpp" line="4526"/>
         <source>No Style</source>
         <translation>Dim Arddull</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4658"/>
+        <location filename="../propertiespalette.cpp" line="4658"/>
         <source>Font Size</source>
         <translation>Maint yr Wynebfath</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4668"/>
+        <location filename="../propertiespalette.cpp" line="4668"/>
         <source>Line Spacing</source>
         <translation>Bylchu Llinellau</translation>
     </message>
@@ -14235,7 +14235,7 @@ Please choose another.</source>
         <translation type="obsolete">Iawn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4375"/>
+        <location filename="../propertiespalette.cpp" line="4375"/>
         <source>Path Text Properties</source>
         <translation>Priodweddau Testun Llwybr</translation>
     </message>
@@ -14245,137 +14245,137 @@ Please choose another.</source>
         <translation type="obsolete">Arlliw:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4478"/>
+        <location filename="../propertiespalette.cpp" line="4478"/>
         <source>Cell Lines</source>
         <translation>Llinellau Cell</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4479"/>
+        <location filename="../propertiespalette.cpp" line="4479"/>
         <source>Line at Top</source>
         <translation>Llinell wrth y Pen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4480"/>
+        <location filename="../propertiespalette.cpp" line="4480"/>
         <source>Line at the Left</source>
         <translation>Llinell wrth y Chwith</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4481"/>
+        <location filename="../propertiespalette.cpp" line="4481"/>
         <source>Line at the Right </source>
         <translation>Llinell wrth y De</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4482"/>
+        <location filename="../propertiespalette.cpp" line="4482"/>
         <source>Line at Bottom</source>
         <translation>Llinell wrth y Gwaelod</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4621"/>
+        <location filename="../propertiespalette.cpp" line="4621"/>
         <source>Name of selected object</source>
         <translation>Enw&apos;r gwrthrych penodol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4622"/>
+        <location filename="../propertiespalette.cpp" line="4622"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Lleoliad llorweddol y gwaelodbwynt cyfredol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4623"/>
+        <location filename="../propertiespalette.cpp" line="4623"/>
         <source>Vertical position of current basepoint</source>
         <translation>Lleoliad fertigol y gwaelodbwynt cyfredol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4624"/>
+        <location filename="../propertiespalette.cpp" line="4624"/>
         <source>Width</source>
         <translation>Lled</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4625"/>
+        <location filename="../propertiespalette.cpp" line="4625"/>
         <source>Height</source>
         <translation>Taldra</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4626"/>
+        <location filename="../propertiespalette.cpp" line="4626"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Cylchdroi y gwrthrych wrth y gwaelodbwynt cyfredol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4627"/>
+        <location filename="../propertiespalette.cpp" line="4627"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Pwynt y cyfeirir mesuriadau neu onglau cylchdroi ohono</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4628"/>
+        <location filename="../propertiespalette.cpp" line="4628"/>
         <source>Select top left for basepoint</source>
         <translation>Dewis pen chwith y gwaelodbwynt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4629"/>
+        <location filename="../propertiespalette.cpp" line="4629"/>
         <source>Select top right for basepoint</source>
         <translation>Dewis pen de y gwaelodbwynt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4630"/>
+        <location filename="../propertiespalette.cpp" line="4630"/>
         <source>Select bottom left for basepoint</source>
         <translation>Dewis gwaelod chwith y gwaelodbwynt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4631"/>
+        <location filename="../propertiespalette.cpp" line="4631"/>
         <source>Select bottom right for basepoint</source>
         <translation>Dewis gwaelod de y gwaelodbwynt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4632"/>
+        <location filename="../propertiespalette.cpp" line="4632"/>
         <source>Select center for basepoint</source>
         <translation>Dewis canolbwynt y gwaelodbwynt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4635"/>
+        <location filename="../propertiespalette.cpp" line="4635"/>
         <source>Flip Horizontal</source>
         <translation>Troi drosodd yn Llorweddol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4636"/>
+        <location filename="../propertiespalette.cpp" line="4636"/>
         <source>Flip Vertical</source>
         <translation>Troi drosodd yn Fertigol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4637"/>
+        <location filename="../propertiespalette.cpp" line="4637"/>
         <source>Move one level up</source>
         <translation>Symud un lefel i fyny</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4638"/>
+        <location filename="../propertiespalette.cpp" line="4638"/>
         <source>Move one level down</source>
         <translation>Symud un lefel i lawr</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4639"/>
+        <location filename="../propertiespalette.cpp" line="4639"/>
         <source>Move to front</source>
         <translation>Symud i&apos;r blaen</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4640"/>
+        <location filename="../propertiespalette.cpp" line="4640"/>
         <source>Move to back</source>
         <translation>Symud i&apos;r cefn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4641"/>
+        <location filename="../propertiespalette.cpp" line="4641"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Dynodi&apos;r lefel y mae&apos;r gwrthrych arno, efo 0 yn golygu bod y gwrthrych wrth y gwaelod</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4642"/>
+        <location filename="../propertiespalette.cpp" line="4642"/>
         <source>Lock or unlock the object</source>
         <translation>(Dad)gloi&apos;r gwrthrych</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4643"/>
+        <location filename="../propertiespalette.cpp" line="4643"/>
         <source>Lock or unlock the size of the object</source>
         <translation>(Dad)gloi maint y gwrthrych</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4619"/>
+        <location filename="../propertiespalette.cpp" line="4619"/>
         <source>Enable or disable printing of the object</source>
         <translation type="obsolete">(An)alluogi argraffu&apos;r gwrthrych</translation>
     </message>
@@ -14385,12 +14385,12 @@ Please choose another.</source>
         <translation type="obsolete">Gwneud i&apos;r testun mewn fframau is lifo o gwmpas siâp y gwrthrych</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4657"/>
+        <location filename="../propertiespalette.cpp" line="4657"/>
         <source>Font of selected text or object</source>
         <translation>Wynebfath y testun neu wrthrych penodol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4660"/>
+        <location filename="../propertiespalette.cpp" line="4660"/>
         <source>Scaling width of characters</source>
         <translation>Lled graddio nodau</translation>
     </message>
@@ -14405,12 +14405,12 @@ Please choose another.</source>
         <translation type="obsolete">Lliw llenwad y testun</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4664"/>
+        <location filename="../propertiespalette.cpp" line="4664"/>
         <source>Saturation of color of text stroke</source>
         <translation>Dirlawnder lliw trawiad y testun</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4665"/>
+        <location filename="../propertiespalette.cpp" line="4665"/>
         <source>Saturation of color of text fill</source>
         <translation>Dirlawnder lliw llenwad y testun</translation>
     </message>
@@ -14420,142 +14420,142 @@ Please choose another.</source>
         <translation type="obsolete">Arddull y paragraff cyfredol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4682"/>
+        <location filename="../propertiespalette.cpp" line="4682"/>
         <source>Change settings for left or end points</source>
         <translation>Newid gosodiadau ar gyfer pwyntiau chith neu derfyn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4683"/>
+        <location filename="../propertiespalette.cpp" line="4683"/>
         <source>Pattern of line</source>
         <translation>Patrwm y llinell</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4684"/>
+        <location filename="../propertiespalette.cpp" line="4684"/>
         <source>Thickness of line</source>
         <translation>Trwch y llinell</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4685"/>
+        <location filename="../propertiespalette.cpp" line="4685"/>
         <source>Type of line joins</source>
         <translation>Math uniadau&apos;r llinellau</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4686"/>
+        <location filename="../propertiespalette.cpp" line="4686"/>
         <source>Type of line end</source>
         <translation>Math terfyn y llinellau</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4687"/>
+        <location filename="../propertiespalette.cpp" line="4687"/>
         <source>Line style of current object</source>
         <translation>Arddull llinell y gwrthrych cyfredol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4689"/>
+        <location filename="../propertiespalette.cpp" line="4689"/>
         <source>Choose the shape of frame...</source>
         <translation>Dewis siâp y ffrâm...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4690"/>
+        <location filename="../propertiespalette.cpp" line="4690"/>
         <source>Edit shape of the frame...</source>
         <translation>Golygu siâp y ffrâm...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4691"/>
+        <location filename="../propertiespalette.cpp" line="4691"/>
         <source>Set radius of corner rounding</source>
         <translation>Gosod radiws y crynder corneli</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4692"/>
+        <location filename="../propertiespalette.cpp" line="4692"/>
         <source>Number of columns in text frame</source>
         <translation>Nifer o golofnau yn y ffrâm testun</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4693"/>
+        <location filename="../propertiespalette.cpp" line="4693"/>
         <source>Switches between Gap or Column width</source>
         <translation>Newid rhwng Bwlch neu led Colofn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4694"/>
+        <location filename="../propertiespalette.cpp" line="4694"/>
         <source>Distance between columns</source>
         <translation>Pellter rhwng colofnau</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4695"/>
+        <location filename="../propertiespalette.cpp" line="4695"/>
         <source>Distance of text from top of frame</source>
         <translation>Pellter y testun o ben y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4696"/>
+        <location filename="../propertiespalette.cpp" line="4696"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Pellter y testun o waelod y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4697"/>
+        <location filename="../propertiespalette.cpp" line="4697"/>
         <source>Distance of text from left of frame</source>
         <translation>Pellter y testun o chwith y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4698"/>
+        <location filename="../propertiespalette.cpp" line="4698"/>
         <source>Distance of text from right of frame</source>
         <translation>Pellter y testun o dde y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4699"/>
+        <location filename="../propertiespalette.cpp" line="4699"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Golygu gosodiadau tab y ffrâm testun...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4701"/>
+        <location filename="../propertiespalette.cpp" line="4701"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Caniatáu i&apos;r ddelwedd fod yn faint gwahanol i&apos;r ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4702"/>
+        <location filename="../propertiespalette.cpp" line="4702"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Atred llorweddol y ddelwedd tu mewn y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4703"/>
+        <location filename="../propertiespalette.cpp" line="4703"/>
         <source>Vertical offset of image within frame</source>
         <translation>Atred fertigol y ddelwedd tu mewn y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4704"/>
+        <location filename="../propertiespalette.cpp" line="4704"/>
         <source>Resize the image horizontally</source>
         <translation>Newid maint y ddelwedd yn llorweddol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4705"/>
+        <location filename="../propertiespalette.cpp" line="4705"/>
         <source>Resize the image vertically</source>
         <translation>Newid maint y ddelwedd yn fertigol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4706"/>
+        <location filename="../propertiespalette.cpp" line="4706"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Cadw&apos;r graddio X a Y yn hafal</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4707"/>
+        <location filename="../propertiespalette.cpp" line="4707"/>
         <source>Keep the aspect ratio</source>
         <translation>Cadw&apos;r gymhareb agwedd</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4708"/>
+        <location filename="../propertiespalette.cpp" line="4708"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Gwneud i&apos;r ddelwedd ffitio tu mewn maint y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4709"/>
+        <location filename="../propertiespalette.cpp" line="4709"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Defnyddio cyfraneddau&apos;r ddelwedd yn lle rhai y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4710"/>
+        <location filename="../propertiespalette.cpp" line="4710"/>
         <source>Source profile of the image</source>
         <translation>Proffil tarddiad y ddelwedd</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4711"/>
+        <location filename="../propertiespalette.cpp" line="4711"/>
         <source>Rendering intent for the image</source>
         <translation>Bwriad llunio ar gyfer y ddelwedd</translation>
     </message>
@@ -14575,79 +14575,79 @@ Please choose another.</source>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3021"/>
+        <location filename="../propertiespalette.cpp" line="3021"/>
         <source>Column width</source>
         <translation>Lled y colofn</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4321"/>
+        <location filename="../propertiespalette.cpp" line="4321"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4324"/>
+        <location filename="../propertiespalette.cpp" line="4324"/>
         <source>&amp;Shape</source>
         <translation>&amp;Siâp</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4322"/>
+        <location filename="../propertiespalette.cpp" line="4322"/>
         <source>&amp;Text</source>
         <translation>T&amp;estun</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4323"/>
+        <location filename="../propertiespalette.cpp" line="4323"/>
         <source>&amp;Image</source>
         <translation>&amp;Delwedd</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4325"/>
+        <location filename="../propertiespalette.cpp" line="4325"/>
         <source>&amp;Line</source>
         <translation>Lli&amp;nell</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4326"/>
+        <location filename="../propertiespalette.cpp" line="4326"/>
         <source>&amp;Colors</source>
         <translation>&amp;Lliwiau</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4422"/>
+        <location filename="../propertiespalette.cpp" line="4422"/>
         <source>&amp;X-Pos:</source>
         <translation>Lleoliad &amp;X:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4423"/>
+        <location filename="../propertiespalette.cpp" line="4423"/>
         <source>&amp;Y-Pos:</source>
         <translation>Lleoliad &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4333"/>
+        <location filename="../propertiespalette.cpp" line="4333"/>
         <source>&amp;Width:</source>
         <translation>Lle&amp;d:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4334"/>
+        <location filename="../propertiespalette.cpp" line="4334"/>
         <source>&amp;Height:</source>
         <translation>&amp;Taldra:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4335"/>
+        <location filename="../propertiespalette.cpp" line="4335"/>
         <source>&amp;Rotation:</source>
         <translation>C&amp;ylchdro:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4341"/>
+        <location filename="../propertiespalette.cpp" line="4341"/>
         <source>&amp;Edit Shape...</source>
         <translation>Golygu &amp;Siâp...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4361"/>
+        <location filename="../propertiespalette.cpp" line="4361"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>Talgrynnu
 Co&amp;rneli:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4363"/>
+        <location filename="../propertiespalette.cpp" line="4363"/>
         <source>Colu&amp;mns:</source>
         <translation>Colo&amp;fnau:</translation>
     </message>
@@ -14657,27 +14657,27 @@ Co&amp;rneli:</translation>
         <translation type="obsolete">&amp;Bwlch:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4370"/>
+        <location filename="../propertiespalette.cpp" line="4370"/>
         <source>To&amp;p:</source>
         <translation>&amp;Pen:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4371"/>
+        <location filename="../propertiespalette.cpp" line="4371"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Gwaelod:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4372"/>
+        <location filename="../propertiespalette.cpp" line="4372"/>
         <source>&amp;Left:</source>
         <translation>&amp;Chwith:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4373"/>
+        <location filename="../propertiespalette.cpp" line="4373"/>
         <source>&amp;Right:</source>
         <translation>&amp;De:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4374"/>
+        <location filename="../propertiespalette.cpp" line="4374"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tablyddion...</translation>
     </message>
@@ -14687,12 +14687,12 @@ Co&amp;rneli:</translation>
         <translation type="obsolete">Testun yn Llifo o Gwmpas y &amp;Ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4397"/>
+        <location filename="../propertiespalette.cpp" line="4397"/>
         <source>Use &amp;Bounding Box</source>
         <translation>Defnyddio &amp;Blwch Ffinio</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4398"/>
+        <location filename="../propertiespalette.cpp" line="4398"/>
         <source>&amp;Use Contour Line</source>
         <translation>Defnyddio Llinell &amp;Amlin</translation>
     </message>
@@ -14722,72 +14722,72 @@ Co&amp;rneli:</translation>
         <translation type="obsolete">&amp;Iaith:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4419"/>
+        <location filename="../propertiespalette.cpp" line="4419"/>
         <source>&amp;Free Scaling</source>
         <translation>Graddfa &amp;Rydd</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4424"/>
+        <location filename="../propertiespalette.cpp" line="4424"/>
         <source>X-Sc&amp;ale:</source>
         <translation>&amp;Graddfa X:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4425"/>
+        <location filename="../propertiespalette.cpp" line="4425"/>
         <source>Y-Scal&amp;e:</source>
         <translation>&amp;Graddfa Y:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4426"/>
+        <location filename="../propertiespalette.cpp" line="4426"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Graddio i &amp;Faint y Ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4427"/>
+        <location filename="../propertiespalette.cpp" line="4427"/>
         <source>P&amp;roportional</source>
         <translation>Cy&amp;frannol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4448"/>
+        <location filename="../propertiespalette.cpp" line="4448"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Sailbwynt:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4449"/>
+        <location filename="../propertiespalette.cpp" line="4449"/>
         <source>T&amp;ype of Line:</source>
         <translation>Mat&amp;h o Linell:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4461"/>
+        <location filename="../propertiespalette.cpp" line="4461"/>
         <source>Line &amp;Width:</source>
         <translation>Ll&amp;ed y Llinell:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4462"/>
+        <location filename="../propertiespalette.cpp" line="4462"/>
         <source>Ed&amp;ges:</source>
         <translation>Och&amp;rau:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4476"/>
+        <location filename="../propertiespalette.cpp" line="4476"/>
         <source>&amp;Endings:</source>
         <translation>D&amp;iweddiadau:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3228"/>
+        <location filename="../propertiespalette.cpp" line="3228"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3229"/>
+        <location filename="../propertiespalette.cpp" line="3229"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3230"/>
+        <location filename="../propertiespalette.cpp" line="3230"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3231"/>
+        <location filename="../propertiespalette.cpp" line="3231"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
@@ -14807,392 +14807,392 @@ Co&amp;rneli:</translation>
         <translation type="obsolete">Iaith cyplysnodi y ffrâm</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4666"/>
+        <location filename="../propertiespalette.cpp" line="4666"/>
         <source>Right to Left Writing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4450"/>
+        <location filename="../propertiespalette.cpp" line="4450"/>
         <source>Start Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4451"/>
+        <location filename="../propertiespalette.cpp" line="4451"/>
         <source>End Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4433"/>
+        <location filename="../propertiespalette.cpp" line="4433"/>
         <source>Fixed Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4434"/>
+        <location filename="../propertiespalette.cpp" line="4434"/>
         <source>Automatic Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4435"/>
+        <location filename="../propertiespalette.cpp" line="4435"/>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4420"/>
+        <location filename="../propertiespalette.cpp" line="4420"/>
         <source>Actual X-DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4421"/>
+        <location filename="../propertiespalette.cpp" line="4421"/>
         <source>Actual Y-DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4659"/>
+        <location filename="../propertiespalette.cpp" line="4659"/>
         <source>Offset to baseline of characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4661"/>
+        <location filename="../propertiespalette.cpp" line="4661"/>
         <source>Scaling height of characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4667"/>
+        <location filename="../propertiespalette.cpp" line="4667"/>
         <source>Manual Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4204"/>
+        <location filename="../propertiespalette.cpp" line="4204"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4385"/>
+        <location filename="../propertiespalette.cpp" line="4385"/>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4386"/>
+        <location filename="../propertiespalette.cpp" line="4386"/>
         <source>Even-Odd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4387"/>
+        <location filename="../propertiespalette.cpp" line="4387"/>
         <source>Non Zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4484"/>
+        <location filename="../propertiespalette.cpp" line="4484"/>
         <source>Overprinting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4485"/>
+        <location filename="../propertiespalette.cpp" line="4485"/>
         <source>Knockout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4486"/>
+        <location filename="../propertiespalette.cpp" line="4486"/>
         <source>Overprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4662"/>
+        <location filename="../propertiespalette.cpp" line="4662"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4663"/>
+        <location filename="../propertiespalette.cpp" line="4663"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4366"/>
+        <location filename="../propertiespalette.cpp" line="4366"/>
         <source>Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4367"/>
+        <location filename="../propertiespalette.cpp" line="4367"/>
         <source>Width:</source>
         <translation type="unfinished">Lled:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4394"/>
+        <location filename="../propertiespalette.cpp" line="4394"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4395"/>
+        <location filename="../propertiespalette.cpp" line="4395"/>
         <source>Disabled</source>
         <translation type="unfinished">Analluogir</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4396"/>
+        <location filename="../propertiespalette.cpp" line="4396"/>
         <source>Use Frame &amp;Shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4428"/>
+        <location filename="../propertiespalette.cpp" line="4428"/>
         <source>Image Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4429"/>
+        <location filename="../propertiespalette.cpp" line="4429"/>
         <source>Extended Image Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4651"/>
+        <location filename="../propertiespalette.cpp" line="4651"/>
         <source>Disable text flow from lower frames around object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4652"/>
+        <location filename="../propertiespalette.cpp" line="4652"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4653"/>
+        <location filename="../propertiespalette.cpp" line="4653"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4342"/>
+        <location filename="../propertiespalette.cpp" line="4342"/>
         <source>Transparency Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4327"/>
+        <location filename="../propertiespalette.cpp" line="4327"/>
         <source>&amp;Group</source>
         <translation type="unfinished">Cas&amp;glu</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4343"/>
+        <location filename="../propertiespalette.cpp" line="4343"/>
         <source>Opacity:</source>
         <translation type="unfinished">Didreiddiad:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4344"/>
+        <location filename="../propertiespalette.cpp" line="4344"/>
         <source>Blend Mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4346"/>
+        <location filename="../propertiespalette.cpp" line="4346"/>
         <source>Normal</source>
         <translation type="unfinished">Arferol</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4347"/>
+        <location filename="../propertiespalette.cpp" line="4347"/>
         <source>Darken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4348"/>
+        <location filename="../propertiespalette.cpp" line="4348"/>
         <source>Lighten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4349"/>
+        <location filename="../propertiespalette.cpp" line="4349"/>
         <source>Multiply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4350"/>
+        <location filename="../propertiespalette.cpp" line="4350"/>
         <source>Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4351"/>
+        <location filename="../propertiespalette.cpp" line="4351"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4352"/>
+        <location filename="../propertiespalette.cpp" line="4352"/>
         <source>Hard Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4353"/>
+        <location filename="../propertiespalette.cpp" line="4353"/>
         <source>Soft Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4354"/>
+        <location filename="../propertiespalette.cpp" line="4354"/>
         <source>Difference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4355"/>
+        <location filename="../propertiespalette.cpp" line="4355"/>
         <source>Exclusion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4356"/>
+        <location filename="../propertiespalette.cpp" line="4356"/>
         <source>Color Dodge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4357"/>
+        <location filename="../propertiespalette.cpp" line="4357"/>
         <source>Color Burn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4358"/>
+        <location filename="../propertiespalette.cpp" line="4358"/>
         <source>Hue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4360"/>
+        <location filename="../propertiespalette.cpp" line="4360"/>
         <source>Color</source>
         <translation type="unfinished">Lliw</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4633"/>
+        <location filename="../propertiespalette.cpp" line="4633"/>
         <source>Group the selected objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4634"/>
+        <location filename="../propertiespalette.cpp" line="4634"/>
         <source>Destroys the selected group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2415"/>
+        <location filename="../propertiespalette.cpp" line="2415"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4654"/>
+        <location filename="../propertiespalette.cpp" line="4654"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4669"/>
+        <location filename="../propertiespalette.cpp" line="4669"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4377"/>
+        <location filename="../propertiespalette.cpp" line="4377"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4378"/>
+        <location filename="../propertiespalette.cpp" line="4378"/>
         <source>Stair Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4379"/>
+        <location filename="../propertiespalette.cpp" line="4379"/>
         <source>Skew</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4380"/>
+        <location filename="../propertiespalette.cpp" line="4380"/>
         <source>Flip Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4382"/>
+        <location filename="../propertiespalette.cpp" line="4382"/>
         <source>Type:</source>
         <translation type="unfinished">Math:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4399"/>
+        <location filename="../propertiespalette.cpp" line="4399"/>
         <source>Use Image Clip Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4400"/>
+        <location filename="../propertiespalette.cpp" line="4400"/>
         <source>Paragraph St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4401"/>
+        <location filename="../propertiespalette.cpp" line="4401"/>
         <source>Character St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4402"/>
+        <location filename="../propertiespalette.cpp" line="4402"/>
         <source>Optical Margins:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4413"/>
+        <location filename="../propertiespalette.cpp" line="4413"/>
         <source>Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4417"/>
+        <location filename="../propertiespalette.cpp" line="4417"/>
         <source>Min:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4415"/>
+        <location filename="../propertiespalette.cpp" line="4415"/>
         <source>Norm:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4416"/>
+        <location filename="../propertiespalette.cpp" line="4416"/>
         <source>Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4418"/>
+        <location filename="../propertiespalette.cpp" line="4418"/>
         <source>Max:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4655"/>
+        <location filename="../propertiespalette.cpp" line="4655"/>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4670"/>
+        <location filename="../propertiespalette.cpp" line="4670"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4671"/>
+        <location filename="../propertiespalette.cpp" line="4671"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4672"/>
+        <location filename="../propertiespalette.cpp" line="4672"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4673"/>
+        <location filename="../propertiespalette.cpp" line="4673"/>
         <source>Remove Direct Character Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4676"/>
+        <location filename="../propertiespalette.cpp" line="4676"/>
         <source>Minimal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4677"/>
+        <location filename="../propertiespalette.cpp" line="4677"/>
         <source>Normal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4678"/>
+        <location filename="../propertiespalette.cpp" line="4678"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4679"/>
+        <location filename="../propertiespalette.cpp" line="4679"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4680"/>
+        <location filename="../propertiespalette.cpp" line="4680"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4644"/>
+        <location filename="../propertiespalette.cpp" line="4644"/>
         <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16007,37 +16007,37 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../frameedit.cpp" line="839"/>
+        <location filename="../nodeeditpalette.cpp" line="839"/>
         <source>Nodes</source>
         <translation>Nodau</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="852"/>
+        <location filename="../nodeeditpalette.cpp" line="852"/>
         <source>Move Nodes</source>
         <translation>Symud Nodau</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="853"/>
+        <location filename="../nodeeditpalette.cpp" line="853"/>
         <source>Move Control Points</source>
         <translation>Symud Pwyntiau Rheoli</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="854"/>
+        <location filename="../nodeeditpalette.cpp" line="854"/>
         <source>Add Nodes</source>
         <translation>Ychwanegu Nodau</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="855"/>
+        <location filename="../nodeeditpalette.cpp" line="855"/>
         <source>Delete Nodes</source>
         <translation>Dileu Nodau</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="858"/>
+        <location filename="../nodeeditpalette.cpp" line="858"/>
         <source>Reset Control Points</source>
         <translation>Ailosod Pwyntiau Rheoli</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="859"/>
+        <location filename="../nodeeditpalette.cpp" line="859"/>
         <source>Reset this Control Point</source>
         <translation>Ailosod y Pwynt Rheoli yma</translation>
     </message>
@@ -16049,87 +16049,87 @@ otherwise Coordinates are relative to the Object.</source>
 os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="842"/>
+        <location filename="../nodeeditpalette.cpp" line="842"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>Cyfesurynnau &amp;Absoliwt</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="843"/>
+        <location filename="../nodeeditpalette.cpp" line="843"/>
         <source>&amp;X-Pos:</source>
         <translation>Lleoliad &amp;X:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="844"/>
+        <location filename="../nodeeditpalette.cpp" line="844"/>
         <source>&amp;Y-Pos:</source>
         <translation>Lleoliad &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="845"/>
+        <location filename="../nodeeditpalette.cpp" line="845"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Golygu Llinell A&amp;mlin</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="846"/>
+        <location filename="../nodeeditpalette.cpp" line="846"/>
         <source>&amp;Reset Contour Line</source>
         <translation>Ail&amp;osod Llinell Amlin</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="851"/>
+        <location filename="../nodeeditpalette.cpp" line="851"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Gorffen Golygu</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="856"/>
+        <location filename="../nodeeditpalette.cpp" line="856"/>
         <source>Move Control Points Independently</source>
         <translation>Symud Pwyntiau Rheoli yn Annibynnol</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="857"/>
+        <location filename="../nodeeditpalette.cpp" line="857"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Symud Pwyntiau Rheoli yn Gymesurol</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="860"/>
+        <location filename="../nodeeditpalette.cpp" line="860"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Agor Polygon neu Dorri Cromlin Bezier</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="861"/>
+        <location filename="../nodeeditpalette.cpp" line="861"/>
         <source>Close this Bezier Curve</source>
         <translation>Cau&apos;r Cromlin Bezier yma</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="862"/>
+        <location filename="../nodeeditpalette.cpp" line="862"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Adlewyrchu&apos;r Llwybr yn Llorweddol</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="863"/>
+        <location filename="../nodeeditpalette.cpp" line="863"/>
         <source>Mirror the Path Vertically</source>
         <translation>Adlewyrchu&apos;r Llwybr yn Fertigol</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="865"/>
+        <location filename="../nodeeditpalette.cpp" line="865"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Croesrwygo&apos;r Llybr yn Llorweddol i&apos;r Chwith</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="866"/>
+        <location filename="../nodeeditpalette.cpp" line="866"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Croesrwygo&apos;r Llybr yn Fertigol i Fyny</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="867"/>
+        <location filename="../nodeeditpalette.cpp" line="867"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Croesrwygo&apos;r Llybr yn Fertigol i Lawr</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="868"/>
+        <location filename="../nodeeditpalette.cpp" line="868"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Cylchdroi&apos;r Llwybr yn Wrth-glocwedd</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="869"/>
+        <location filename="../nodeeditpalette.cpp" line="869"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Cylchdroi&apos;r Llwybr yn Glocwedd</translation>
     </message>
@@ -16139,12 +16139,12 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <translation type="obsolete">Lleihau Maint y Llwybr gan y % a ddangosir</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="871"/>
+        <location filename="../nodeeditpalette.cpp" line="871"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Cynyddu Maint y Llwybr gan y % a ddangosir</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="874"/>
+        <location filename="../nodeeditpalette.cpp" line="874"/>
         <source>Angle of Rotation</source>
         <translation>Ongl Cylchdroi</translation>
     </message>
@@ -16154,72 +16154,72 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <translation type="obsolete">% i Gynyddu neu Leihau</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="877"/>
+        <location filename="../nodeeditpalette.cpp" line="877"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Gweithredoli Modd Golygu Llinellau Amlin</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="878"/>
+        <location filename="../nodeeditpalette.cpp" line="878"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Ailosod y Llinell Amlin i Siâp Gwreiddiol y Ffrâm</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="864"/>
+        <location filename="../nodeeditpalette.cpp" line="864"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Croesrwygo&apos;r Llybr yn Llorweddol i&apos;r Dde</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="840"/>
+        <location filename="../nodeeditpalette.cpp" line="840"/>
         <source> %</source>
         <translation type="unfinished">%</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="880"/>
+        <location filename="../nodeeditpalette.cpp" line="880"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="870"/>
+        <location filename="../nodeeditpalette.cpp" line="870"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="872"/>
+        <location filename="../nodeeditpalette.cpp" line="872"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="873"/>
+        <location filename="../nodeeditpalette.cpp" line="873"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="875"/>
+        <location filename="../nodeeditpalette.cpp" line="875"/>
         <source>% to Enlarge or Shrink By</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="876"/>
+        <location filename="../nodeeditpalette.cpp" line="876"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="847"/>
+        <location filename="../nodeeditpalette.cpp" line="847"/>
         <source>Set Contour to Image Clip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="879"/>
+        <location filename="../nodeeditpalette.cpp" line="879"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="849"/>
+        <location filename="../nodeeditpalette.cpp" line="849"/>
         <source>Lens Effects...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="850"/>
+        <location filename="../nodeeditpalette.cpp" line="850"/>
         <source>Apply fancy Lens Effects</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16502,7 +16502,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="115"/>
+        <location filename="../modetoolbar.cpp" line="115"/>
         <source>PDF Tools</source>
         <translation type="unfinished">Offer PDF</translation>
     </message>
@@ -18444,12 +18444,12 @@ becomes
 <context>
     <name>PagePalette</name>
     <message>
-        <location filename="../seiten.cpp" line="557"/>
+        <location filename="../pagepalette.cpp" line="557"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="558"/>
+        <location filename="../pagepalette.cpp" line="558"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18459,17 +18459,17 @@ becomes
         <translation type="obsolete">Arferol</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="853"/>
+        <location filename="../pagepalette.cpp" line="853"/>
         <source>Arrange Pages</source>
         <translation type="unfinished">Trefnu Tudalennau</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="854"/>
+        <location filename="../pagepalette.cpp" line="854"/>
         <source>Available Master Pages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="855"/>
+        <location filename="../pagepalette.cpp" line="855"/>
         <source>Document Pages:</source>
         <translation type="unfinished">Tudalennau&apos;r Ddogfen:</translation>
     </message>
@@ -23436,67 +23436,67 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="72"/>
+        <location filename="../outlinepalette.cpp" line="72"/>
         <source>Image</source>
         <translation type="unfinished">Delwedd</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="78"/>
+        <location filename="../outlinepalette.cpp" line="78"/>
         <source>PDF Push Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="81"/>
+        <location filename="../outlinepalette.cpp" line="81"/>
         <source>PDF Text Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="84"/>
+        <location filename="../outlinepalette.cpp" line="84"/>
         <source>PDF Check Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="87"/>
+        <location filename="../outlinepalette.cpp" line="87"/>
         <source>PDF Combo Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="90"/>
+        <location filename="../outlinepalette.cpp" line="90"/>
         <source>PDF List Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="93"/>
+        <location filename="../outlinepalette.cpp" line="93"/>
         <source>PDF Text Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="96"/>
+        <location filename="../outlinepalette.cpp" line="96"/>
         <source>PDF Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="99"/>
+        <location filename="../outlinepalette.cpp" line="99"/>
         <source>Text</source>
         <translation type="unfinished">Testun</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="104"/>
+        <location filename="../outlinepalette.cpp" line="104"/>
         <source>Line</source>
         <translation type="unfinished">Llinell</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="107"/>
+        <location filename="../outlinepalette.cpp" line="107"/>
         <source>Polygon</source>
         <translation type="unfinished">Polygon</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="110"/>
+        <location filename="../outlinepalette.cpp" line="110"/>
         <source>Polyline</source>
         <translation type="unfinished">Polylinell</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="113"/>
+        <location filename="../outlinepalette.cpp" line="113"/>
         <source>PathText</source>
         <translation type="unfinished">Testun Llwybr</translation>
     </message>
@@ -28380,7 +28380,7 @@ You can choose between normal and several color blindness forms</source>
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../seiten.cpp" line="55"/>
+        <location filename="../pagepalette.cpp" line="55"/>
         <source>Show Page Previews</source>
         <translation>Dangos Rhagolygon Tudalen</translation>
     </message>
@@ -33552,12 +33552,12 @@ when PDF document is opened:</source>
 <context>
     <name>Tree</name>
     <message>
-        <location filename="../tree.cpp" line="1156"/>
+        <location filename="../outlinepalette.cpp" line="1156"/>
         <source>Outline</source>
         <translation>Amlinell</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1157"/>
+        <location filename="../outlinepalette.cpp" line="1157"/>
         <source>Element</source>
         <translation>Elfen</translation>
     </message>
@@ -33639,162 +33639,162 @@ Please choose another.</source>
         <translation type="obsolete">Iawn</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1134"/>
+        <location filename="../outlinepalette.cpp" line="1134"/>
         <source>Group </source>
         <translation>Grŵp</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1097"/>
+        <location filename="../outlinepalette.cpp" line="1097"/>
         <source>Free Objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1042"/>
+        <location filename="../outlinepalette.cpp" line="1042"/>
         <source>Page </source>
         <translation type="unfinished">Tudalen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="319"/>
+        <location filename="../outlinepalette.cpp" line="319"/>
         <source>Picture</source>
         <translation type="unfinished">Llun</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="294"/>
+        <location filename="../outlinepalette.cpp" line="294"/>
         <source>File: </source>
         <translation type="unfinished">Feil:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="298"/>
+        <location filename="../outlinepalette.cpp" line="298"/>
         <source>Original PPI: </source>
         <translation type="unfinished">PPI gwreiddiol:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="302"/>
+        <location filename="../outlinepalette.cpp" line="302"/>
         <source>Actual PPI: </source>
         <translation type="unfinished">PPI gwir:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="306"/>
+        <location filename="../outlinepalette.cpp" line="306"/>
         <source>Colorspace: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="311"/>
+        <location filename="../outlinepalette.cpp" line="311"/>
         <source>Unknown</source>
         <translation type="unfinished">Anhysbys</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="321"/>
+        <location filename="../outlinepalette.cpp" line="321"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="324"/>
+        <location filename="../outlinepalette.cpp" line="324"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="321"/>
+        <location filename="../outlinepalette.cpp" line="321"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="345"/>
+        <location filename="../outlinepalette.cpp" line="345"/>
         <source>Linked Text</source>
         <translation type="unfinished">Testun Cysylltiedig</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="347"/>
+        <location filename="../outlinepalette.cpp" line="347"/>
         <source>Text Frame</source>
         <translation type="unfinished">Ffrâm Testun</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="350"/>
+        <location filename="../outlinepalette.cpp" line="350"/>
         <source>Text on a Path</source>
         <translation type="unfinished">Testun ar Lwybr</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="353"/>
+        <location filename="../outlinepalette.cpp" line="353"/>
         <source>Paragraphs: </source>
         <translation type="unfinished">Paragraffau:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="360"/>
+        <location filename="../outlinepalette.cpp" line="360"/>
         <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="364"/>
+        <location filename="../outlinepalette.cpp" line="364"/>
         <source>Words: </source>
         <translation type="unfinished">Geiriau:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="371"/>
+        <location filename="../outlinepalette.cpp" line="371"/>
         <source>Chars: </source>
         <translation type="unfinished">Nodau:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="377"/>
+        <location filename="../outlinepalette.cpp" line="377"/>
         <source>Print: </source>
         <translation type="obsolete">Argraffu:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="383"/>
+        <location filename="../outlinepalette.cpp" line="383"/>
         <source>Enabled</source>
         <translation type="unfinished">Alluogir</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="385"/>
+        <location filename="../outlinepalette.cpp" line="385"/>
         <source>Disabled</source>
         <translation type="unfinished">Analluogir</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="393"/>
+        <location filename="../outlinepalette.cpp" line="393"/>
         <source>In&amp;fo</source>
         <translation type="unfinished">Gwy&amp;bodaeth</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="420"/>
+        <location filename="../outlinepalette.cpp" line="420"/>
         <source>Preview Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="461"/>
+        <location filename="../outlinepalette.cpp" line="461"/>
         <source>&amp;PDF Options</source>
         <translation type="unfinished">&amp;Dewisiadau PDF</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="485"/>
+        <location filename="../outlinepalette.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
         <translation type="unfinished">Anfon i &amp;Haen</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="494"/>
+        <location filename="../outlinepalette.cpp" line="494"/>
         <source>Le&amp;vel</source>
         <translation type="unfinished">Le&amp;fel</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="545"/>
+        <location filename="../outlinepalette.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
         <translation type="unfinished">&amp;Trosi i</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="548"/>
+        <location filename="../outlinepalette.cpp" line="548"/>
         <source>Rename</source>
         <translation type="unfinished">Ail-enwi</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="556"/>
+        <location filename="../outlinepalette.cpp" line="556"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Dileu</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="578"/>
+        <location filename="../outlinepalette.cpp" line="578"/>
         <source>Contents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="380"/>
+        <location filename="../outlinepalette.cpp" line="380"/>
         <source>Export: </source>
         <translation type="unfinished"></translation>
     </message>

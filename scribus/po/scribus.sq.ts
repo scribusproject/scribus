@@ -14817,7 +14817,7 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
 <context>
     <name>Biblio</name>
     <message>
-        <location filename="../scrap.cpp" line="1311"/>
+        <location filename="../scrapbookpalette.cpp" line="1311"/>
         <source>Scrapbook</source>
         <translation>E papastër</translation>
     </message>
@@ -14877,12 +14877,12 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
         <translation type="obsolete">Scrapbooks (*.scs);;Tërë Kartelat (*)</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="796"/>
+        <location filename="../scrapbookpalette.cpp" line="796"/>
         <source>Rename</source>
         <translation>Riemërto</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="798"/>
+        <location filename="../scrapbookpalette.cpp" line="798"/>
         <source>Delete</source>
         <translation>Fshij</translation>
     </message>
@@ -14904,93 +14904,93 @@ Ju lutem zgjidhni një tjetër.</translation>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1214"/>
+        <location filename="../scrapbookpalette.cpp" line="1214"/>
         <source>Object</source>
         <translation>Objekt</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1123"/>
         <source>&amp;Name:</source>
         <translation>&amp;Emër:</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1123"/>
+        <location filename="../scrapbookpalette.cpp" line="1123"/>
         <source>New Entry</source>
         <translation>Zë i Ri</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1017"/>
+        <location filename="../scrapbookpalette.cpp" line="1017"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="684"/>
+        <location filename="../scrapbookpalette.cpp" line="684"/>
         <source>Choose a Scrapbook Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="740"/>
+        <location filename="../scrapbookpalette.cpp" line="740"/>
         <source>Choose a Directory</source>
         <translation type="unfinished">Zgjidhni një Drejtori</translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="720"/>
+        <location filename="../scrapbookpalette.cpp" line="720"/>
         <source>Choose a scrapbook file to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1312"/>
+        <location filename="../scrapbookpalette.cpp" line="1312"/>
         <source>Create a new scrapbook page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1313"/>
+        <location filename="../scrapbookpalette.cpp" line="1313"/>
         <source>Load an existing scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1314"/>
+        <location filename="../scrapbookpalette.cpp" line="1314"/>
         <source>Save the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1315"/>
+        <location filename="../scrapbookpalette.cpp" line="1315"/>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1316"/>
+        <location filename="../scrapbookpalette.cpp" line="1316"/>
         <source>Close the selected scrapbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="803"/>
+        <location filename="../scrapbookpalette.cpp" line="803"/>
         <source>Copy To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="804"/>
+        <location filename="../scrapbookpalette.cpp" line="804"/>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="552"/>
+        <location filename="../scrapbookpalette.cpp" line="552"/>
         <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="554"/>
+        <location filename="../scrapbookpalette.cpp" line="554"/>
         <source>Copied Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="1010"/>
+        <location filename="../scrapbookpalette.cpp" line="1010"/>
         <source>New Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../scrap.cpp" line="719"/>
+        <location filename="../scrapbookpalette.cpp" line="719"/>
         <source>Scrapbook (*.scs *.SCS)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15021,7 +15021,7 @@ Please choose another.</source>
 <context>
     <name>BookPalette</name>
     <message>
-        <location filename="../bookpalette.cpp" line="39"/>
+        <location filename="../bookmarkpalette.cpp" line="39"/>
         <source>Bookmarks</source>
         <translation>Faqerojtësa</translation>
     </message>
@@ -18508,39 +18508,39 @@ mundet edhe ndarë me vizë nga prapashtesë kodi ISO-3166 vendi, p.sh. en-GB, f
     </message>
 </context>
 <context>
-    <name>Druck</name>
+    <name>PrintDialog</name>
     <message>
-        <location filename="../druck.cpp" line="67"/>
+        <location filename="../printdialog.cpp" line="67"/>
         <source>Setup Printer</source>
         <translation>Rregulloni Shtypës</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="74"/>
+        <location filename="../printdialog.cpp" line="74"/>
         <source>Print Destination</source>
         <translation>Destinacion Shtypësi</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="797"/>
+        <location filename="../printdialog.cpp" line="797"/>
         <source>File</source>
         <translation>Kartelë</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="115"/>
+        <location filename="../printdialog.cpp" line="115"/>
         <source>&amp;Options...</source>
         <translation>&amp;Mundësi...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="127"/>
+        <location filename="../printdialog.cpp" line="127"/>
         <source>&amp;File:</source>
         <translation>&amp;Kartelë:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="133"/>
+        <location filename="../printdialog.cpp" line="133"/>
         <source>C&amp;hange...</source>
         <translation>Kë&amp;mbe...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="140"/>
+        <location filename="../printdialog.cpp" line="140"/>
         <source>A&amp;lternative Printer Command</source>
         <translation>Urdhër &amp;Alternativ Shtypësi</translation>
     </message>
@@ -18552,32 +18552,32 @@ to utilize additional printing options</source>
 për të bërë të përdorshme mundësi shtypjesh shtesë</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="149"/>
+        <location filename="../printdialog.cpp" line="149"/>
         <source>Co&amp;mmand:</source>
         <translation>&amp;Urdhër:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="157"/>
+        <location filename="../printdialog.cpp" line="157"/>
         <source>Range</source>
         <translation>Interval</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="162"/>
+        <location filename="../printdialog.cpp" line="162"/>
         <source>Print &amp;All</source>
         <translation>Shtyp &amp;Tërë</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="634"/>
+        <location filename="../printdialog.cpp" line="634"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Shtyp Fa&amp;qen e Çastit</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="166"/>
+        <location filename="../printdialog.cpp" line="166"/>
         <source>Print &amp;Range</source>
         <translation>&amp;Interval Shtypjeje</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="380"/>
+        <location filename="../printdialog.cpp" line="380"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -18586,12 +18586,12 @@ objekti mund të jetë * për tërë faqet, 1-5 për(new line)
 një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="186"/>
+        <location filename="../printdialog.cpp" line="186"/>
         <source>N&amp;umber of Copies:</source>
         <translation>&amp;Numër Kopjesh:</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="226"/>
+        <location filename="../printdialog.cpp" line="226"/>
         <source>Options</source>
         <translation>Mundësi</translation>
     </message>
@@ -18606,27 +18606,27 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
         <translation type="obsolete">&amp;Veçime Shtypjeje</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="822"/>
+        <location filename="../printdialog.cpp" line="822"/>
         <source>All</source>
         <translation>Tërë</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="821"/>
+        <location filename="../printdialog.cpp" line="821"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="820"/>
+        <location filename="../printdialog.cpp" line="820"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="819"/>
+        <location filename="../printdialog.cpp" line="819"/>
         <source>Yellow</source>
         <translation>Yellow</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="818"/>
+        <location filename="../printdialog.cpp" line="818"/>
         <source>Black</source>
         <translation>Të zezë</translation>
     </message>
@@ -18646,7 +18646,7 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
         <translation type="obsolete">Mundësi të Mët&amp;ejshme...</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="353"/>
+        <location filename="../printdialog.cpp" line="353"/>
         <source>&amp;Print</source>
         <translation>&amp;Shtyp</translation>
     </message>
@@ -18656,7 +18656,7 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
         <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="620"/>
         <source>Save as</source>
         <translation>Ruaj  si</translation>
     </message>
@@ -18666,118 +18666,118 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
         <translation type="obsolete">Kartela Postscript (*.ps);;Tërë Kartelat (*)</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="582"/>
+        <location filename="../printdialog.cpp" line="582"/>
         <source>Print Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="199"/>
+        <location filename="../printdialog.cpp" line="199"/>
         <source>Print Separations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="203"/>
+        <location filename="../printdialog.cpp" line="203"/>
         <source>Print in Color if Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="204"/>
+        <location filename="../printdialog.cpp" line="204"/>
         <source>Print in Grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="221"/>
+        <location filename="../printdialog.cpp" line="221"/>
         <source>PostScript Level 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="222"/>
+        <location filename="../printdialog.cpp" line="222"/>
         <source>PostScript Level 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="223"/>
+        <location filename="../printdialog.cpp" line="223"/>
         <source>PostScript Level 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="232"/>
+        <location filename="../printdialog.cpp" line="232"/>
         <source>Page</source>
         <translation type="unfinished">Faqe</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="238"/>
+        <location filename="../printdialog.cpp" line="238"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="241"/>
+        <location filename="../printdialog.cpp" line="241"/>
         <source>Mirror Page(s) Vertical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="244"/>
+        <location filename="../printdialog.cpp" line="244"/>
         <source>Set Media Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="250"/>
+        <location filename="../printdialog.cpp" line="250"/>
         <source>Color</source>
         <translation type="unfinished">Ngjyrë</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="256"/>
+        <location filename="../printdialog.cpp" line="256"/>
         <source>Apply Under Color Removal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="259"/>
+        <location filename="../printdialog.cpp" line="259"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="271"/>
+        <location filename="../printdialog.cpp" line="271"/>
         <source>Advanced Options</source>
         <translation type="unfinished">Mundësi të Mëtejshme</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="348"/>
+        <location filename="../printdialog.cpp" line="348"/>
         <source>Preview...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="382"/>
+        <location filename="../printdialog.cpp" line="382"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="620"/>
+        <location filename="../printdialog.cpp" line="620"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="381"/>
+        <location filename="../printdialog.cpp" line="381"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="383"/>
+        <location filename="../printdialog.cpp" line="383"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="384"/>
+        <location filename="../printdialog.cpp" line="384"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="388"/>
+        <location filename="../printdialog.cpp" line="388"/>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="246"/>
+        <location filename="../printdialog.cpp" line="246"/>
         <source>Clip to Page Margins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18787,162 +18787,162 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
         <translation type="obsolete">Mos shfaq objekte jashtë mënjanave te faqe të shtypura ose kartela të eksportuara</translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="570"/>
+        <location filename="../printdialog.cpp" line="570"/>
         <source>Failed to retrieve printer settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="377"/>
+        <location filename="../printdialog.cpp" line="377"/>
         <source>Do not show objects outside the margins on the printed page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="262"/>
+        <location filename="../printdialog.cpp" line="262"/>
         <source>Force Overprint Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="385"/>
+        <location filename="../printdialog.cpp" line="385"/>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="278"/>
+        <location filename="../printdialog.cpp" line="278"/>
         <source>Printer Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="283"/>
+        <location filename="../printdialog.cpp" line="283"/>
         <source>Crop Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="285"/>
+        <location filename="../printdialog.cpp" line="285"/>
         <source>Bleed Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="287"/>
+        <location filename="../printdialog.cpp" line="287"/>
         <source>Registration Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="289"/>
+        <location filename="../printdialog.cpp" line="289"/>
         <source>Color Bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="292"/>
+        <location filename="../printdialog.cpp" line="292"/>
         <source>Offset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="297"/>
+        <location filename="../printdialog.cpp" line="297"/>
         <source>Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="304"/>
+        <location filename="../printdialog.cpp" line="304"/>
         <source>Bleed Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="310"/>
+        <location filename="../printdialog.cpp" line="310"/>
         <source>Top:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="315"/>
+        <location filename="../printdialog.cpp" line="315"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="320"/>
+        <location filename="../printdialog.cpp" line="320"/>
         <source>Left:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="325"/>
+        <location filename="../printdialog.cpp" line="325"/>
         <source>Right:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="329"/>
+        <location filename="../printdialog.cpp" line="329"/>
         <source>Use Document Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="333"/>
+        <location filename="../printdialog.cpp" line="333"/>
         <source>Bleeds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="336"/>
+        <location filename="../printdialog.cpp" line="336"/>
         <source>Inside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="337"/>
+        <location filename="../printdialog.cpp" line="337"/>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="394"/>
+        <location filename="../printdialog.cpp" line="394"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="395"/>
+        <location filename="../printdialog.cpp" line="395"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="396"/>
+        <location filename="../printdialog.cpp" line="396"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="397"/>
+        <location filename="../printdialog.cpp" line="397"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="389"/>
+        <location filename="../printdialog.cpp" line="389"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="390"/>
+        <location filename="../printdialog.cpp" line="390"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="391"/>
+        <location filename="../printdialog.cpp" line="391"/>
         <source>Add registration marks which are added to each separation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="392"/>
+        <location filename="../printdialog.cpp" line="392"/>
         <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="393"/>
+        <location filename="../printdialog.cpp" line="393"/>
         <source>Indicate the distance offset for the registration marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="398"/>
+        <location filename="../printdialog.cpp" line="398"/>
         <source>Use the existing bleed settings from the document preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="267"/>
+        <location filename="../printdialog.cpp" line="267"/>
         <source>Apply Color Profiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../druck.cpp" line="387"/>
+        <location filename="../printdialog.cpp" line="387"/>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23448,7 +23448,7 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <location filename="../muster.cpp" line="38"/>
+        <location filename="../masterpagepalette.cpp" line="38"/>
         <source>Edit Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23458,7 +23458,7 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
         <translation type="obsolete">Kujdes</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="109"/>
+        <location filename="../masterpagepalette.cpp" line="109"/>
         <source>Do you really want to delete this master page?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23473,12 +23473,12 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
         <translation type="obsolete">&amp;Po</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="134"/>
         <source>&amp;Name:</source>
         <translation type="unfinished">&amp;Emër:</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="134"/>
+        <location filename="../masterpagepalette.cpp" line="134"/>
         <source>New Master Page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23488,17 +23488,17 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
         <translation type="obsolete">Kopje e %1</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>Name:</source>
         <translation type="unfinished">Emër:</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>New MasterPage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="280"/>
+        <location filename="../masterpagepalette.cpp" line="280"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
@@ -23508,52 +23508,52 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
         <translation type="obsolete">Normale</translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="78"/>
+        <location filename="../masterpagepalette.cpp" line="78"/>
         <source>Duplicate the selected master page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="79"/>
+        <location filename="../masterpagepalette.cpp" line="79"/>
         <source>Delete the selected master page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="80"/>
+        <location filename="../masterpagepalette.cpp" line="80"/>
         <source>Add a new master page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="81"/>
+        <location filename="../masterpagepalette.cpp" line="81"/>
         <source>Import master pages from another document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="231"/>
+        <location filename="../masterpagepalette.cpp" line="231"/>
         <source>New Master Page %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="366"/>
         <source>Unable to Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="366"/>
+        <location filename="../masterpagepalette.cpp" line="366"/>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="370"/>
         <source>Rename Master Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="370"/>
+        <location filename="../masterpagepalette.cpp" line="370"/>
         <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../muster.cpp" line="132"/>
+        <location filename="../masterpagepalette.cpp" line="132"/>
         <source>Copy #%1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23913,12 +23913,12 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
 <context>
     <name>ModeToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="38"/>
+        <location filename="../modetoolbar.cpp" line="38"/>
         <source>Tools</source>
         <translation type="unfinished">Mjete</translation>
     </message>
     <message>
-        <location filename="../werktoolb.cpp" line="110"/>
+        <location filename="../modetoolbar.cpp" line="110"/>
         <source>Properties...</source>
         <translation type="unfinished">Veti...</translation>
     </message>
@@ -24002,116 +24002,116 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
 </context>
 <context>
-    <name>Mpalette</name>
+    <name>PropertiesPalette</name>
     <message>
-        <location filename="../mpalette.cpp" line="4319"/>
+        <location filename="../propertiespalette.cpp" line="4319"/>
         <source>Properties</source>
         <translation>Veti</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4321"/>
+        <location filename="../propertiespalette.cpp" line="4321"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4324"/>
+        <location filename="../propertiespalette.cpp" line="4324"/>
         <source>&amp;Shape</source>
         <translation>&amp;Formë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4322"/>
+        <location filename="../propertiespalette.cpp" line="4322"/>
         <source>&amp;Text</source>
         <translation>&amp;Tekst</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4323"/>
+        <location filename="../propertiespalette.cpp" line="4323"/>
         <source>&amp;Image</source>
         <translation>&amp;Pamje</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4325"/>
+        <location filename="../propertiespalette.cpp" line="4325"/>
         <source>&amp;Line</source>
         <translation>&amp;Vijë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4326"/>
+        <location filename="../propertiespalette.cpp" line="4326"/>
         <source>&amp;Colors</source>
         <translation>&amp;Ngjyra</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4329"/>
+        <location filename="../propertiespalette.cpp" line="4329"/>
         <source>Name</source>
         <translation>Emër</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4330"/>
+        <location filename="../propertiespalette.cpp" line="4330"/>
         <source>Geometry</source>
         <translation>Gjeometri</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4500"/>
+        <location filename="../propertiespalette.cpp" line="4500"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4422"/>
+        <location filename="../propertiespalette.cpp" line="4422"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Poz:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4423"/>
+        <location filename="../propertiespalette.cpp" line="4423"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Poz:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4333"/>
+        <location filename="../propertiespalette.cpp" line="4333"/>
         <source>&amp;Width:</source>
         <translation>&amp;Gjerësi:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4334"/>
+        <location filename="../propertiespalette.cpp" line="4334"/>
         <source>&amp;Height:</source>
         <translation>&amp;Lartësi:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4335"/>
+        <location filename="../propertiespalette.cpp" line="4335"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Rrotullim:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4336"/>
+        <location filename="../propertiespalette.cpp" line="4336"/>
         <source>Basepoint:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4337"/>
+        <location filename="../propertiespalette.cpp" line="4337"/>
         <source>Level</source>
         <translation>Nivel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4340"/>
+        <location filename="../propertiespalette.cpp" line="4340"/>
         <source>Shape:</source>
         <translation>Formë:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4341"/>
+        <location filename="../propertiespalette.cpp" line="4341"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Përpunoni Formë...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4361"/>
+        <location filename="../propertiespalette.cpp" line="4361"/>
         <source>R&amp;ound
 Corners:</source>
         <translation>K&amp;ulme(new line)
 të Rrumbullakët:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4362"/>
+        <location filename="../propertiespalette.cpp" line="4362"/>
         <source>Distance of Text</source>
         <translation>Largësi e Tekstit</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4363"/>
+        <location filename="../propertiespalette.cpp" line="4363"/>
         <source>Colu&amp;mns:</source>
         <translation>Sht&amp;ylla:</translation>
     </message>
@@ -24121,47 +24121,47 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">&amp;Boshllëk:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4370"/>
+        <location filename="../propertiespalette.cpp" line="4370"/>
         <source>To&amp;p:</source>
         <translation>&amp;Sipër:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4371"/>
+        <location filename="../propertiespalette.cpp" line="4371"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Poshtë:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4372"/>
+        <location filename="../propertiespalette.cpp" line="4372"/>
         <source>&amp;Left:</source>
         <translation>&amp;Majtas:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4373"/>
+        <location filename="../propertiespalette.cpp" line="4373"/>
         <source>&amp;Right:</source>
         <translation>&amp;Djathtas:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4374"/>
+        <location filename="../propertiespalette.cpp" line="4374"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabelëzues...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4375"/>
+        <location filename="../propertiespalette.cpp" line="4375"/>
         <source>Path Text Properties</source>
         <translation>Veti Teksti Shtegu</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4381"/>
+        <location filename="../propertiespalette.cpp" line="4381"/>
         <source>Show Curve</source>
         <translation>Shfaq Kurbë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4383"/>
+        <location filename="../propertiespalette.cpp" line="4383"/>
         <source>Start Offset:</source>
         <translation type="unfinished">Degëzim Vertical</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4384"/>
+        <location filename="../propertiespalette.cpp" line="4384"/>
         <source>Distance from Curve:</source>
         <translation>Largësi prej Kurbe:</translation>
     </message>
@@ -24171,12 +24171,12 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Teksti &amp;Rrjedh Rreth Kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4397"/>
+        <location filename="../propertiespalette.cpp" line="4397"/>
         <source>Use &amp;Bounding Box</source>
         <translation type="unfinished">Kopjo Kuti Teksti</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4398"/>
+        <location filename="../propertiespalette.cpp" line="4398"/>
         <source>&amp;Use Contour Line</source>
         <translation>&amp;Përdorni Rrethina Vije</translation>
     </message>
@@ -24186,7 +24186,7 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">&amp;Madhësi Gërmash:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4488"/>
+        <location filename="../propertiespalette.cpp" line="4488"/>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -24216,262 +24216,262 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Gj&amp;uhë:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4419"/>
+        <location filename="../propertiespalette.cpp" line="4419"/>
         <source>&amp;Free Scaling</source>
         <translation>Ripërmasim i &amp;Lirë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4424"/>
+        <location filename="../propertiespalette.cpp" line="4424"/>
         <source>X-Sc&amp;ale:</source>
         <translation>X-Shk&amp;allë:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4425"/>
+        <location filename="../propertiespalette.cpp" line="4425"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Y-Shk&amp;allë:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4426"/>
+        <location filename="../propertiespalette.cpp" line="4426"/>
         <source>Scale &amp;To Frame Size</source>
         <translation>Ripërmaso &amp;Sa Madhësi Kornize</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4427"/>
+        <location filename="../propertiespalette.cpp" line="4427"/>
         <source>P&amp;roportional</source>
         <translation>P&amp;ërpjestimor</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4430"/>
+        <location filename="../propertiespalette.cpp" line="4430"/>
         <source>Input Profile:</source>
         <translation>Profil Futjesh:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4431"/>
+        <location filename="../propertiespalette.cpp" line="4431"/>
         <source>Rendering Intent:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4438"/>
+        <location filename="../propertiespalette.cpp" line="4438"/>
         <source>Perceptual</source>
         <translation>Perceptual</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4439"/>
+        <location filename="../propertiespalette.cpp" line="4439"/>
         <source>Relative Colorimetric</source>
         <translation>Kolorimetrik Relativ</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4440"/>
+        <location filename="../propertiespalette.cpp" line="4440"/>
         <source>Saturation</source>
         <translation>Ngopje</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4441"/>
+        <location filename="../propertiespalette.cpp" line="4441"/>
         <source>Absolute Colorimetric</source>
         <translation>Kolorimetrik Absolut</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4445"/>
+        <location filename="../propertiespalette.cpp" line="4445"/>
         <source>Left Point</source>
         <translation>Pikë Majtas</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4446"/>
+        <location filename="../propertiespalette.cpp" line="4446"/>
         <source>End Points</source>
         <translation>Pika Skajore</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4448"/>
+        <location filename="../propertiespalette.cpp" line="4448"/>
         <source>&amp;Basepoint:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4449"/>
+        <location filename="../propertiespalette.cpp" line="4449"/>
         <source>T&amp;ype of Line:</source>
         <translation>T&amp;ip Vije:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4461"/>
+        <location filename="../propertiespalette.cpp" line="4461"/>
         <source>Line &amp;Width:</source>
         <translation>&amp;Gjerësi Vije:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4465"/>
+        <location filename="../propertiespalette.cpp" line="4465"/>
         <source>Miter Join</source>
         <translation type="unfinished">Hyni në Kanal...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4466"/>
+        <location filename="../propertiespalette.cpp" line="4466"/>
         <source>Bevel Join</source>
         <translation type="unfinished">Hyni në Kanal...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4467"/>
+        <location filename="../propertiespalette.cpp" line="4467"/>
         <source>Round Join</source>
         <translation type="unfinished">Hyni në Kanal...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4462"/>
+        <location filename="../propertiespalette.cpp" line="4462"/>
         <source>Ed&amp;ges:</source>
         <translation>S&amp;kaje:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4472"/>
+        <location filename="../propertiespalette.cpp" line="4472"/>
         <source>Flat Cap</source>
         <translation>Majë e Sheshtë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4473"/>
+        <location filename="../propertiespalette.cpp" line="4473"/>
         <source>Square Cap</source>
         <translation>Majë Katrore</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4474"/>
+        <location filename="../propertiespalette.cpp" line="4474"/>
         <source>Round Cap</source>
         <translation>Majë e Rrumbullakët</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4476"/>
+        <location filename="../propertiespalette.cpp" line="4476"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Funde:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4526"/>
+        <location filename="../propertiespalette.cpp" line="4526"/>
         <source>No Style</source>
         <translation>Pa Stil</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4478"/>
+        <location filename="../propertiespalette.cpp" line="4478"/>
         <source>Cell Lines</source>
         <translation>Vija Kutie</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4479"/>
+        <location filename="../propertiespalette.cpp" line="4479"/>
         <source>Line at Top</source>
         <translation>Vijë Sipër</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4480"/>
+        <location filename="../propertiespalette.cpp" line="4480"/>
         <source>Line at the Left</source>
         <translation>Vijë Majtas</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4481"/>
+        <location filename="../propertiespalette.cpp" line="4481"/>
         <source>Line at the Right </source>
         <translation>Vijë Djathtas</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4482"/>
+        <location filename="../propertiespalette.cpp" line="4482"/>
         <source>Line at Bottom</source>
         <translation>Vijë Poshtë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4621"/>
+        <location filename="../propertiespalette.cpp" line="4621"/>
         <source>Name of selected object</source>
         <translation>Emër i objekti të përzgjedhur</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4622"/>
+        <location filename="../propertiespalette.cpp" line="4622"/>
         <source>Horizontal position of current basepoint</source>
         <translation type="unfinished">GtkRregullimi për vendndodhjen horizontale</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4623"/>
+        <location filename="../propertiespalette.cpp" line="4623"/>
         <source>Vertical position of current basepoint</source>
         <translation type="unfinished">GtkRregullimi për vendndodhjen vertikale</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4624"/>
+        <location filename="../propertiespalette.cpp" line="4624"/>
         <source>Width</source>
         <translation>Gjerësi</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4625"/>
+        <location filename="../propertiespalette.cpp" line="4625"/>
         <source>Height</source>
         <translation>Lartësi</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4626"/>
+        <location filename="../propertiespalette.cpp" line="4626"/>
         <source>Rotation of object at current basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4627"/>
+        <location filename="../propertiespalette.cpp" line="4627"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Pikë së cilës i referohen matjet ose këndet e rrotullimeve</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4628"/>
+        <location filename="../propertiespalette.cpp" line="4628"/>
         <source>Select top left for basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4629"/>
+        <location filename="../propertiespalette.cpp" line="4629"/>
         <source>Select top right for basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4630"/>
+        <location filename="../propertiespalette.cpp" line="4630"/>
         <source>Select bottom left for basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4631"/>
+        <location filename="../propertiespalette.cpp" line="4631"/>
         <source>Select bottom right for basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4632"/>
+        <location filename="../propertiespalette.cpp" line="4632"/>
         <source>Select center for basepoint</source>
         <translation type="unfinished">Përzgjidhni një Kyç për këtë Veprim</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4635"/>
+        <location filename="../propertiespalette.cpp" line="4635"/>
         <source>Flip Horizontal</source>
         <translation>Kthe Horizontalisht</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4636"/>
+        <location filename="../propertiespalette.cpp" line="4636"/>
         <source>Flip Vertical</source>
         <translation>Kthe Vertikalisht</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4637"/>
+        <location filename="../propertiespalette.cpp" line="4637"/>
         <source>Move one level up</source>
         <translation>Ngrije një nivel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4638"/>
+        <location filename="../propertiespalette.cpp" line="4638"/>
         <source>Move one level down</source>
         <translation>Zbrite një nivel</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4639"/>
+        <location filename="../propertiespalette.cpp" line="4639"/>
         <source>Move to front</source>
         <translation>Zhvendos përpara</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4640"/>
+        <location filename="../propertiespalette.cpp" line="4640"/>
         <source>Move to back</source>
         <translation>Zhvendos prapa</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4641"/>
+        <location filename="../propertiespalette.cpp" line="4641"/>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Tregon nivelin në të cilin gjendet objekti, 0 do të thotë që objekti është në fund fare</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4642"/>
+        <location filename="../propertiespalette.cpp" line="4642"/>
         <source>Lock or unlock the object</source>
         <translation>Kyç ose çkyç objektin</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4643"/>
+        <location filename="../propertiespalette.cpp" line="4643"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Kyç ose çkyç madhësinë e objektit</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4619"/>
+        <location filename="../propertiespalette.cpp" line="4619"/>
         <source>Enable or disable printing of the object</source>
         <translation type="obsolete">Aktivizo ose çaktivizo shtypjen e objektit</translation>
     </message>
@@ -24491,17 +24491,17 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Përdor një vijë të dytë bazuar fillimisht në formën e kornizës për rrjedhë teksti</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4657"/>
+        <location filename="../propertiespalette.cpp" line="4657"/>
         <source>Font of selected text or object</source>
         <translation>Gërma për tekstin apo objektin e përzgjedhur</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4658"/>
+        <location filename="../propertiespalette.cpp" line="4658"/>
         <source>Font Size</source>
         <translation>Madhësi Gërmash</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4660"/>
+        <location filename="../propertiespalette.cpp" line="4660"/>
         <source>Scaling width of characters</source>
         <translation>Ndryshim gjerësie shenjash</translation>
     </message>
@@ -24516,12 +24516,12 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Ngjyrë mbushjeje teksti</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4664"/>
+        <location filename="../propertiespalette.cpp" line="4664"/>
         <source>Saturation of color of text stroke</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4665"/>
+        <location filename="../propertiespalette.cpp" line="4665"/>
         <source>Saturation of color of text fill</source>
         <translation>Ngopje ngjyre teksti mbushjeje</translation>
     </message>
@@ -24531,7 +24531,7 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Shkrim Së Prapthi</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4668"/>
+        <location filename="../propertiespalette.cpp" line="4668"/>
         <source>Line Spacing</source>
         <translation>Ndërvijë</translation>
     </message>
@@ -24546,162 +24546,162 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Gjuhë ndarjeje me vijë e kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4682"/>
+        <location filename="../propertiespalette.cpp" line="4682"/>
         <source>Change settings for left or end points</source>
         <translation>Ndrysho rregullime për pika majtas ose në fund </translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4683"/>
+        <location filename="../propertiespalette.cpp" line="4683"/>
         <source>Pattern of line</source>
         <translation>Skemë vije</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4684"/>
+        <location filename="../propertiespalette.cpp" line="4684"/>
         <source>Thickness of line</source>
         <translation>Trashësi vije</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4685"/>
+        <location filename="../propertiespalette.cpp" line="4685"/>
         <source>Type of line joins</source>
         <translation>Tip bashkimi vije</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4686"/>
+        <location filename="../propertiespalette.cpp" line="4686"/>
         <source>Type of line end</source>
         <translation>Tip fundi vije</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4687"/>
+        <location filename="../propertiespalette.cpp" line="4687"/>
         <source>Line style of current object</source>
         <translation>Stil vije e objektit të çastit</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4689"/>
+        <location filename="../propertiespalette.cpp" line="4689"/>
         <source>Choose the shape of frame...</source>
         <translation>Zgjidhni formën e kornizës...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4690"/>
+        <location filename="../propertiespalette.cpp" line="4690"/>
         <source>Edit shape of the frame...</source>
         <translation>Përpunoni formën e kornizës...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4691"/>
+        <location filename="../propertiespalette.cpp" line="4691"/>
         <source>Set radius of corner rounding</source>
         <translation>Caktoni rrezen e lakimit të kulmit</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4692"/>
+        <location filename="../propertiespalette.cpp" line="4692"/>
         <source>Number of columns in text frame</source>
         <translation>Numër shtyllash në kornizë teksti</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4693"/>
+        <location filename="../propertiespalette.cpp" line="4693"/>
         <source>Switches between Gap or Column width</source>
         <translation>Kalon midis gjerësie Shtylle apo Boshllëku</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4694"/>
+        <location filename="../propertiespalette.cpp" line="4694"/>
         <source>Distance between columns</source>
         <translation>Largësi ndërmjet shtyllash</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4695"/>
+        <location filename="../propertiespalette.cpp" line="4695"/>
         <source>Distance of text from top of frame</source>
         <translation>Largësi teksti nga kreu i kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4696"/>
+        <location filename="../propertiespalette.cpp" line="4696"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Largësi teksti nga fundi i kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4697"/>
+        <location filename="../propertiespalette.cpp" line="4697"/>
         <source>Distance of text from left of frame</source>
         <translation>Largësi teksti nga e majta e kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4698"/>
+        <location filename="../propertiespalette.cpp" line="4698"/>
         <source>Distance of text from right of frame</source>
         <translation>Largësi teksti nga e djathta e kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4699"/>
+        <location filename="../propertiespalette.cpp" line="4699"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Përpunoni rregullimet tab për kornizë tekstesh...</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4701"/>
+        <location filename="../propertiespalette.cpp" line="4701"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Lejoje pamjen të ketë tjetër madhësi në kornizë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4702"/>
+        <location filename="../propertiespalette.cpp" line="4702"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Shmangje horizontale e pamjes brenda kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4703"/>
+        <location filename="../propertiespalette.cpp" line="4703"/>
         <source>Vertical offset of image within frame</source>
         <translation>Shmangje vertikale e pamjes brenda kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4704"/>
+        <location filename="../propertiespalette.cpp" line="4704"/>
         <source>Resize the image horizontally</source>
         <translation>Ripërmaso pamjen jorizontalisht</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4705"/>
+        <location filename="../propertiespalette.cpp" line="4705"/>
         <source>Resize the image vertically</source>
         <translation>Ripërmaso pamjen vertikalisht</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4706"/>
+        <location filename="../propertiespalette.cpp" line="4706"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Mbaj ndryshim të X dhe Y njësoj</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4707"/>
+        <location filename="../propertiespalette.cpp" line="4707"/>
         <source>Keep the aspect ratio</source>
         <translation>Ruaj përpjestim</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4708"/>
+        <location filename="../propertiespalette.cpp" line="4708"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Bëje pamjen të hyjë brenda madhësisë së kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4709"/>
+        <location filename="../propertiespalette.cpp" line="4709"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Përdor përpjestimet e pamjes, më mirë se ata të kornizës</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4710"/>
+        <location filename="../propertiespalette.cpp" line="4710"/>
         <source>Source profile of the image</source>
         <translation>Profil burim i pamjes</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4711"/>
+        <location filename="../propertiespalette.cpp" line="4711"/>
         <source>Rendering intent for the image</source>
         <translation type="unfinished">Të dhëna titujsh për pamje ISO9660 </translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3228"/>
+        <location filename="../propertiespalette.cpp" line="3228"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3229"/>
+        <location filename="../propertiespalette.cpp" line="3229"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3230"/>
+        <location filename="../propertiespalette.cpp" line="3230"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3231"/>
+        <location filename="../propertiespalette.cpp" line="3231"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
@@ -24721,7 +24721,7 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">p</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="3021"/>
+        <location filename="../propertiespalette.cpp" line="3021"/>
         <source>Column width</source>
         <translation>Gjerësi shtylle</translation>
     </message>
@@ -24748,392 +24748,392 @@ Ju lutem zgjidhni një tjetër.</translation>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4666"/>
+        <location filename="../propertiespalette.cpp" line="4666"/>
         <source>Right to Left Writing</source>
         <translation>Shkrim nga e Majt në të Djathtë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4433"/>
+        <location filename="../propertiespalette.cpp" line="4433"/>
         <source>Fixed Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4434"/>
+        <location filename="../propertiespalette.cpp" line="4434"/>
         <source>Automatic Linespacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4435"/>
+        <location filename="../propertiespalette.cpp" line="4435"/>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4420"/>
+        <location filename="../propertiespalette.cpp" line="4420"/>
         <source>Actual X-DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4421"/>
+        <location filename="../propertiespalette.cpp" line="4421"/>
         <source>Actual Y-DPI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4450"/>
+        <location filename="../propertiespalette.cpp" line="4450"/>
         <source>Start Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4451"/>
+        <location filename="../propertiespalette.cpp" line="4451"/>
         <source>End Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4659"/>
+        <location filename="../propertiespalette.cpp" line="4659"/>
         <source>Offset to baseline of characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4661"/>
+        <location filename="../propertiespalette.cpp" line="4661"/>
         <source>Scaling height of characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4667"/>
+        <location filename="../propertiespalette.cpp" line="4667"/>
         <source>Manual Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4204"/>
+        <location filename="../propertiespalette.cpp" line="4204"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4385"/>
+        <location filename="../propertiespalette.cpp" line="4385"/>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4386"/>
+        <location filename="../propertiespalette.cpp" line="4386"/>
         <source>Even-Odd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4387"/>
+        <location filename="../propertiespalette.cpp" line="4387"/>
         <source>Non Zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4484"/>
+        <location filename="../propertiespalette.cpp" line="4484"/>
         <source>Overprinting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4485"/>
+        <location filename="../propertiespalette.cpp" line="4485"/>
         <source>Knockout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4486"/>
+        <location filename="../propertiespalette.cpp" line="4486"/>
         <source>Overprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4662"/>
+        <location filename="../propertiespalette.cpp" line="4662"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4663"/>
+        <location filename="../propertiespalette.cpp" line="4663"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4366"/>
+        <location filename="../propertiespalette.cpp" line="4366"/>
         <source>Gap:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4367"/>
+        <location filename="../propertiespalette.cpp" line="4367"/>
         <source>Width:</source>
         <translation type="unfinished">Gjerësi:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4394"/>
+        <location filename="../propertiespalette.cpp" line="4394"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4395"/>
+        <location filename="../propertiespalette.cpp" line="4395"/>
         <source>Disabled</source>
         <translation type="unfinished">Çaktivizuar</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4396"/>
+        <location filename="../propertiespalette.cpp" line="4396"/>
         <source>Use Frame &amp;Shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4428"/>
+        <location filename="../propertiespalette.cpp" line="4428"/>
         <source>Image Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4429"/>
+        <location filename="../propertiespalette.cpp" line="4429"/>
         <source>Extended Image Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4651"/>
+        <location filename="../propertiespalette.cpp" line="4651"/>
         <source>Disable text flow from lower frames around object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4652"/>
+        <location filename="../propertiespalette.cpp" line="4652"/>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4653"/>
+        <location filename="../propertiespalette.cpp" line="4653"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4342"/>
+        <location filename="../propertiespalette.cpp" line="4342"/>
         <source>Transparency Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4327"/>
+        <location filename="../propertiespalette.cpp" line="4327"/>
         <source>&amp;Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4343"/>
+        <location filename="../propertiespalette.cpp" line="4343"/>
         <source>Opacity:</source>
         <translation type="unfinished">Patejdukshmëri:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4344"/>
+        <location filename="../propertiespalette.cpp" line="4344"/>
         <source>Blend Mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4346"/>
+        <location filename="../propertiespalette.cpp" line="4346"/>
         <source>Normal</source>
         <translation type="unfinished">Normale</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4347"/>
+        <location filename="../propertiespalette.cpp" line="4347"/>
         <source>Darken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4348"/>
+        <location filename="../propertiespalette.cpp" line="4348"/>
         <source>Lighten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4349"/>
+        <location filename="../propertiespalette.cpp" line="4349"/>
         <source>Multiply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4350"/>
+        <location filename="../propertiespalette.cpp" line="4350"/>
         <source>Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4351"/>
+        <location filename="../propertiespalette.cpp" line="4351"/>
         <source>Overlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4352"/>
+        <location filename="../propertiespalette.cpp" line="4352"/>
         <source>Hard Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4353"/>
+        <location filename="../propertiespalette.cpp" line="4353"/>
         <source>Soft Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4354"/>
+        <location filename="../propertiespalette.cpp" line="4354"/>
         <source>Difference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4355"/>
+        <location filename="../propertiespalette.cpp" line="4355"/>
         <source>Exclusion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4356"/>
+        <location filename="../propertiespalette.cpp" line="4356"/>
         <source>Color Dodge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4357"/>
+        <location filename="../propertiespalette.cpp" line="4357"/>
         <source>Color Burn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4358"/>
+        <location filename="../propertiespalette.cpp" line="4358"/>
         <source>Hue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4360"/>
+        <location filename="../propertiespalette.cpp" line="4360"/>
         <source>Color</source>
         <translation type="unfinished">Ngjyrë</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4633"/>
+        <location filename="../propertiespalette.cpp" line="4633"/>
         <source>Group the selected objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4634"/>
+        <location filename="../propertiespalette.cpp" line="4634"/>
         <source>Destroys the selected group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="2415"/>
+        <location filename="../propertiespalette.cpp" line="2415"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4654"/>
+        <location filename="../propertiespalette.cpp" line="4654"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4669"/>
+        <location filename="../propertiespalette.cpp" line="4669"/>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4377"/>
+        <location filename="../propertiespalette.cpp" line="4377"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4378"/>
+        <location filename="../propertiespalette.cpp" line="4378"/>
         <source>Stair Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4379"/>
+        <location filename="../propertiespalette.cpp" line="4379"/>
         <source>Skew</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4380"/>
+        <location filename="../propertiespalette.cpp" line="4380"/>
         <source>Flip Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4382"/>
+        <location filename="../propertiespalette.cpp" line="4382"/>
         <source>Type:</source>
         <translation type="unfinished">Tip:</translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4399"/>
+        <location filename="../propertiespalette.cpp" line="4399"/>
         <source>Use Image Clip Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4400"/>
+        <location filename="../propertiespalette.cpp" line="4400"/>
         <source>Paragraph St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4401"/>
+        <location filename="../propertiespalette.cpp" line="4401"/>
         <source>Character St&amp;yle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4402"/>
+        <location filename="../propertiespalette.cpp" line="4402"/>
         <source>Optical Margins:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4413"/>
+        <location filename="../propertiespalette.cpp" line="4413"/>
         <source>Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4417"/>
+        <location filename="../propertiespalette.cpp" line="4417"/>
         <source>Min:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4415"/>
+        <location filename="../propertiespalette.cpp" line="4415"/>
         <source>Norm:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4416"/>
+        <location filename="../propertiespalette.cpp" line="4416"/>
         <source>Glyph Extension</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4418"/>
+        <location filename="../propertiespalette.cpp" line="4418"/>
         <source>Max:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4655"/>
+        <location filename="../propertiespalette.cpp" line="4655"/>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4670"/>
+        <location filename="../propertiespalette.cpp" line="4670"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4671"/>
+        <location filename="../propertiespalette.cpp" line="4671"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4672"/>
+        <location filename="../propertiespalette.cpp" line="4672"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4673"/>
+        <location filename="../propertiespalette.cpp" line="4673"/>
         <source>Remove Direct Character Formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4676"/>
+        <location filename="../propertiespalette.cpp" line="4676"/>
         <source>Minimal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4677"/>
+        <location filename="../propertiespalette.cpp" line="4677"/>
         <source>Normal width of spaces between words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4678"/>
+        <location filename="../propertiespalette.cpp" line="4678"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4679"/>
+        <location filename="../propertiespalette.cpp" line="4679"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4680"/>
+        <location filename="../propertiespalette.cpp" line="4680"/>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mpalette.cpp" line="4644"/>
+        <location filename="../propertiespalette.cpp" line="4644"/>
         <source>Enable or disable exporting of the object</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25915,127 +25915,127 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../frameedit.cpp" line="839"/>
+        <location filename="../nodeeditpalette.cpp" line="839"/>
         <source>Nodes</source>
         <translation>Nyje</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="842"/>
+        <location filename="../nodeeditpalette.cpp" line="842"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>Koordinata &amp;Absolute</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="843"/>
+        <location filename="../nodeeditpalette.cpp" line="843"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Poz:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="844"/>
+        <location filename="../nodeeditpalette.cpp" line="844"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Poz:</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="845"/>
+        <location filename="../nodeeditpalette.cpp" line="845"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Përpunoni  Vijë &amp;Rrethine</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="846"/>
+        <location filename="../nodeeditpalette.cpp" line="846"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Rirregulloni Vijë Rrethine</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="851"/>
+        <location filename="../nodeeditpalette.cpp" line="851"/>
         <source>&amp;End Editing</source>
         <translation>&amp;Përfundo Përpunim</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="852"/>
+        <location filename="../nodeeditpalette.cpp" line="852"/>
         <source>Move Nodes</source>
         <translation>Zhvendos Nyje</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="853"/>
+        <location filename="../nodeeditpalette.cpp" line="853"/>
         <source>Move Control Points</source>
         <translation>Zhvendos Pika Kontrolli</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="854"/>
+        <location filename="../nodeeditpalette.cpp" line="854"/>
         <source>Add Nodes</source>
         <translation>Shto Nyje</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="855"/>
+        <location filename="../nodeeditpalette.cpp" line="855"/>
         <source>Delete Nodes</source>
         <translation>Fshi Nyje</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="856"/>
+        <location filename="../nodeeditpalette.cpp" line="856"/>
         <source>Move Control Points Independently</source>
         <translation>Lëviz Pika Kontrolli në Mënyrë të Pavarur</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="857"/>
+        <location filename="../nodeeditpalette.cpp" line="857"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Lëviz Pika Kontrolli Simetrikisht</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="858"/>
+        <location filename="../nodeeditpalette.cpp" line="858"/>
         <source>Reset Control Points</source>
         <translation>Rirregulloni Pika Kontrolli</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="859"/>
+        <location filename="../nodeeditpalette.cpp" line="859"/>
         <source>Reset this Control Point</source>
         <translation>Rirregulloni këtë Pikë Kontrolli</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="860"/>
+        <location filename="../nodeeditpalette.cpp" line="860"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Hap një Shumëkëndësh ose Pret një Kurbë Bezier</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="861"/>
+        <location filename="../nodeeditpalette.cpp" line="861"/>
         <source>Close this Bezier Curve</source>
         <translation>Mbyll këtë Kurbë Bezier</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="862"/>
+        <location filename="../nodeeditpalette.cpp" line="862"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Pasqyro Shtegun Horizontalisht</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="863"/>
+        <location filename="../nodeeditpalette.cpp" line="863"/>
         <source>Mirror the Path Vertically</source>
         <translation>Pasqyro Shtegun Vertikalisht</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="864"/>
+        <location filename="../nodeeditpalette.cpp" line="864"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Qeth Shtegun Horizontalisht Djathtas</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="865"/>
+        <location filename="../nodeeditpalette.cpp" line="865"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Qeth Shtegun Horizontalisht Majtas</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="866"/>
+        <location filename="../nodeeditpalette.cpp" line="866"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Qeth Shtegun Vertikalisht Sipër</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="867"/>
+        <location filename="../nodeeditpalette.cpp" line="867"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Qeth Shtegun Vertikalisht Poshtë</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="868"/>
+        <location filename="../nodeeditpalette.cpp" line="868"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Rrotullo Shtegun në Kah Antiorar</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="869"/>
+        <location filename="../nodeeditpalette.cpp" line="869"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Rrotullo Shtegun në Kah Orar </translation>
     </message>
@@ -26045,22 +26045,22 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
         <translation type="obsolete">Zvogëloni Madhësinë e Shtegut me % e treguar</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="871"/>
+        <location filename="../nodeeditpalette.cpp" line="871"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Zmadhoni Madhësinë e Shtegut me % e treguar</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="874"/>
+        <location filename="../nodeeditpalette.cpp" line="874"/>
         <source>Angle of Rotation</source>
         <translation>Kënd Rrotullimi</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="877"/>
+        <location filename="../nodeeditpalette.cpp" line="877"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Aktivizo Mënyrë Përpunimi Vije Rrethine</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="878"/>
+        <location filename="../nodeeditpalette.cpp" line="878"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Rikthe Vijë Rrethine te Forma Origjinale e Kornizës</translation>
     </message>
@@ -26072,57 +26072,57 @@ otherwise Coordinates are relative to the Object.</source>
 përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="840"/>
+        <location filename="../nodeeditpalette.cpp" line="840"/>
         <source> %</source>
         <translation type="unfinished"> %</translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="880"/>
+        <location filename="../nodeeditpalette.cpp" line="880"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="870"/>
+        <location filename="../nodeeditpalette.cpp" line="870"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="872"/>
+        <location filename="../nodeeditpalette.cpp" line="872"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="873"/>
+        <location filename="../nodeeditpalette.cpp" line="873"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="875"/>
+        <location filename="../nodeeditpalette.cpp" line="875"/>
         <source>% to Enlarge or Shrink By</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="876"/>
+        <location filename="../nodeeditpalette.cpp" line="876"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="847"/>
+        <location filename="../nodeeditpalette.cpp" line="847"/>
         <source>Set Contour to Image Clip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="879"/>
+        <location filename="../nodeeditpalette.cpp" line="879"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="849"/>
+        <location filename="../nodeeditpalette.cpp" line="849"/>
         <source>Lens Effects...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../frameedit.cpp" line="850"/>
+        <location filename="../nodeeditpalette.cpp" line="850"/>
         <source>Apply fancy Lens Effects</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26405,7 +26405,7 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
 <context>
     <name>PDFToolBar</name>
     <message>
-        <location filename="../werktoolb.cpp" line="115"/>
+        <location filename="../modetoolbar.cpp" line="115"/>
         <source>PDF Tools</source>
         <translation type="unfinished">Mjete PDF</translation>
     </message>
@@ -28302,12 +28302,12 @@ becomes
 <context>
     <name>PagePalette</name>
     <message>
-        <location filename="../seiten.cpp" line="557"/>
+        <location filename="../pagepalette.cpp" line="557"/>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="558"/>
+        <location filename="../pagepalette.cpp" line="558"/>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28317,17 +28317,17 @@ becomes
         <translation type="obsolete">Normale</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="853"/>
+        <location filename="../pagepalette.cpp" line="853"/>
         <source>Arrange Pages</source>
         <translation type="unfinished">Sistemo Faqe</translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="854"/>
+        <location filename="../pagepalette.cpp" line="854"/>
         <source>Available Master Pages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../seiten.cpp" line="855"/>
+        <location filename="../pagepalette.cpp" line="855"/>
         <source>Document Pages:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33799,67 +33799,67 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="72"/>
+        <location filename="../outlinepalette.cpp" line="72"/>
         <source>Image</source>
         <translation type="unfinished">Pamje</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="78"/>
+        <location filename="../outlinepalette.cpp" line="78"/>
         <source>PDF Push Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="81"/>
+        <location filename="../outlinepalette.cpp" line="81"/>
         <source>PDF Text Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="84"/>
+        <location filename="../outlinepalette.cpp" line="84"/>
         <source>PDF Check Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="87"/>
+        <location filename="../outlinepalette.cpp" line="87"/>
         <source>PDF Combo Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="90"/>
+        <location filename="../outlinepalette.cpp" line="90"/>
         <source>PDF List Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="93"/>
+        <location filename="../outlinepalette.cpp" line="93"/>
         <source>PDF Text Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="96"/>
+        <location filename="../outlinepalette.cpp" line="96"/>
         <source>PDF Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="99"/>
+        <location filename="../outlinepalette.cpp" line="99"/>
         <source>Text</source>
         <translation type="unfinished">Tekst</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="104"/>
+        <location filename="../outlinepalette.cpp" line="104"/>
         <source>Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="107"/>
+        <location filename="../outlinepalette.cpp" line="107"/>
         <source>Polygon</source>
         <translation type="unfinished">Shumëkëndësh</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="110"/>
+        <location filename="../outlinepalette.cpp" line="110"/>
         <source>Polyline</source>
         <translation type="unfinished">Shumëvijë</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="113"/>
+        <location filename="../outlinepalette.cpp" line="113"/>
         <source>PathText</source>
         <translation type="unfinished">Tekst Shtegu</translation>
     </message>
@@ -38628,7 +38628,7 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
 <context>
     <name>SeList</name>
     <message>
-        <location filename="../seiten.cpp" line="55"/>
+        <location filename="../pagepalette.cpp" line="55"/>
         <source>Show Page Previews</source>
         <translation>Shfaq Paraparje Faqeje</translation>
     </message>
@@ -43720,12 +43720,12 @@ when PDF document is opened:</source>
 <context>
     <name>Tree</name>
     <message>
-        <location filename="../tree.cpp" line="1156"/>
+        <location filename="../outlinepalette.cpp" line="1156"/>
         <source>Outline</source>
         <translation>Jashtëvijëzo</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1157"/>
+        <location filename="../outlinepalette.cpp" line="1157"/>
         <source>Element</source>
         <translation>Element</translation>
     </message>
@@ -43772,7 +43772,7 @@ Ju lutem zgjidhni një tjetër.</translation>
         <translation type="obsolete">Gërma:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1134"/>
+        <location filename="../outlinepalette.cpp" line="1134"/>
         <source>Group </source>
         <translation>Grup</translation>
     </message>
@@ -43812,157 +43812,157 @@ Ju lutem zgjidhni një tjetër.</translation>
         <translation type="obsolete">Faqe</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1097"/>
+        <location filename="../outlinepalette.cpp" line="1097"/>
         <source>Free Objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="1042"/>
+        <location filename="../outlinepalette.cpp" line="1042"/>
         <source>Page </source>
         <translation type="unfinished">Faqe</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="319"/>
+        <location filename="../outlinepalette.cpp" line="319"/>
         <source>Picture</source>
         <translation type="unfinished">Pamje</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="294"/>
+        <location filename="../outlinepalette.cpp" line="294"/>
         <source>File: </source>
         <translation type="unfinished">Kartelë:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="298"/>
+        <location filename="../outlinepalette.cpp" line="298"/>
         <source>Original PPI: </source>
         <translation type="unfinished">PPI Fillestar: </translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="302"/>
+        <location filename="../outlinepalette.cpp" line="302"/>
         <source>Actual PPI: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="306"/>
+        <location filename="../outlinepalette.cpp" line="306"/>
         <source>Colorspace: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="311"/>
+        <location filename="../outlinepalette.cpp" line="311"/>
         <source>Unknown</source>
         <translation type="unfinished">E panjohur</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="321"/>
+        <location filename="../outlinepalette.cpp" line="321"/>
         <source>RGB</source>
         <translation type="obsolete">RGB</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="324"/>
+        <location filename="../outlinepalette.cpp" line="324"/>
         <source>CMYK</source>
         <translation type="obsolete">CMYK</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="321"/>
+        <location filename="../outlinepalette.cpp" line="321"/>
         <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="345"/>
+        <location filename="../outlinepalette.cpp" line="345"/>
         <source>Linked Text</source>
         <translation type="unfinished">Tekst i Lidhur</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="347"/>
+        <location filename="../outlinepalette.cpp" line="347"/>
         <source>Text Frame</source>
         <translation type="unfinished">Kornizë Teksti</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="350"/>
+        <location filename="../outlinepalette.cpp" line="350"/>
         <source>Text on a Path</source>
         <translation type="unfinished">Tekst sipas një Shtegu</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="353"/>
+        <location filename="../outlinepalette.cpp" line="353"/>
         <source>Paragraphs: </source>
         <translation type="unfinished">Paragrafë:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="360"/>
+        <location filename="../outlinepalette.cpp" line="360"/>
         <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="364"/>
+        <location filename="../outlinepalette.cpp" line="364"/>
         <source>Words: </source>
         <translation type="unfinished">Fjalë:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="371"/>
+        <location filename="../outlinepalette.cpp" line="371"/>
         <source>Chars: </source>
         <translation type="unfinished">Gërma:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="377"/>
+        <location filename="../outlinepalette.cpp" line="377"/>
         <source>Print: </source>
         <translation type="obsolete">Shtyp:</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="383"/>
+        <location filename="../outlinepalette.cpp" line="383"/>
         <source>Enabled</source>
         <translation type="unfinished">Veprues</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="385"/>
+        <location filename="../outlinepalette.cpp" line="385"/>
         <source>Disabled</source>
         <translation type="unfinished">Çaktivizuar</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="393"/>
+        <location filename="../outlinepalette.cpp" line="393"/>
         <source>In&amp;fo</source>
         <translation type="unfinished">Të dhë&amp;na</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="420"/>
+        <location filename="../outlinepalette.cpp" line="420"/>
         <source>Preview Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="461"/>
+        <location filename="../outlinepalette.cpp" line="461"/>
         <source>&amp;PDF Options</source>
         <translation type="unfinished">Mundësi &amp;PDF</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="485"/>
+        <location filename="../outlinepalette.cpp" line="485"/>
         <source>Send to La&amp;yer</source>
         <translation type="unfinished">Dërgo te Sh&amp;tresë</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="494"/>
+        <location filename="../outlinepalette.cpp" line="494"/>
         <source>Le&amp;vel</source>
         <translation type="unfinished">Ni&amp;vel</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="545"/>
+        <location filename="../outlinepalette.cpp" line="545"/>
         <source>Conve&amp;rt to</source>
         <translation type="unfinished">Shn&amp;dërro si </translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="548"/>
+        <location filename="../outlinepalette.cpp" line="548"/>
         <source>Rename</source>
         <translation type="unfinished">Riemërto</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="556"/>
+        <location filename="../outlinepalette.cpp" line="556"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="578"/>
+        <location filename="../outlinepalette.cpp" line="578"/>
         <source>Contents</source>
         <translation type="unfinished">Përmbajtje</translation>
     </message>
     <message>
-        <location filename="../tree.cpp" line="380"/>
+        <location filename="../outlinepalette.cpp" line="380"/>
         <source>Export: </source>
         <translation type="unfinished"></translation>
     </message>
