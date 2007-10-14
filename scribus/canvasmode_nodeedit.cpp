@@ -89,7 +89,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 //	m_view->HaveSelRect = false;
 //	m_view->redrawMarker->hide();
 		currItem->update();
-		m_view->updateContents();
+//		m_view->updateContents();
 		m_doc->nodeEdit.finishTransaction(currItem);
 		delete m_rectangleSelect;
 		m_rectangleSelect = NULL;
@@ -479,9 +479,9 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->AdjustItemSize(currItem);
 		if (!m_doc->nodeEdit.isContourLine)
 			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
-//		currItem->update();
+		currItem->update();
 //		emit DocChanged();
-		m_view->updateContents();
+//		m_view->updateContents();
 		if (state)
 		{
 			m_doc->nodeEdit.finishTransaction2(currItem, state);
