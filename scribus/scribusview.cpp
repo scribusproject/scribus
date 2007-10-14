@@ -404,10 +404,9 @@ void ScribusView::togglePreview()
 void ScribusView::changed(QRectF re)
 {
 //	qDebug() << "ScribusView-changed(): changed region:" << re;
-	if (re.isValid())
+//	if (re.isValid())
 		updateCanvas(re);
-	else
-		DrawNew();
+//	else
 //		m_canvas->repaint();
 }
 
