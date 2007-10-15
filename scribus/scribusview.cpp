@@ -117,6 +117,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 #include "vruler.h"
+#include "loadsaveplugin.h"
+#include "fileloader.h"
+#include "plugins/formatidlist.h"
 #include <tiffio.h>
 #include CMS_INC
 
@@ -931,8 +934,30 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						delete pre;
 						emit LoadElem(data, ex, ey, false, false, Doc, this);
 					}
-					else
+					else if (fi.suffix().toLower() == "sce")
+					{
 						emit LoadElem(ur.path(), ex, ey, true, false, Doc, this);
+					}
+					else
+					{
+						FileLoader *fileLoader = new FileLoader(ur.path());
+						int testResult = fileLoader->TestFile();
+						delete fileLoader;
+						if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+						{
+							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+							if( fmt )
+							{
+								fmt->loadFile(ur.path(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+								if (Doc->m_Selection->count() > 1)
+								{
+									double x2, y2, w, h;
+									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+									moveGroup(ex - x2, ey - y2);
+								}
+							}
+						}
+					}
 				}
 				else
 					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
