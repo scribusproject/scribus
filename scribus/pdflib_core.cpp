@@ -5427,7 +5427,7 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		case 0:
 		case 10:
 			PutDoc("/Subtype /Text\n");
-			PutDoc("/Contents "+EncString("("+bm+")",ObjCounter-1)+"\n");
+			PutDoc("/Contents "+EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
 			break;
 		case 1:
 		case 11:
@@ -5459,7 +5459,7 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			PutDoc("/Subtype /Widget\n");
 			PutDoc("/T "+EncString("("+anTitle+")",ObjCounter-1)+"\n");
 			if (!ite->annotation().ToolTip().isEmpty())
-				PutDoc("/TU "+EncString("("+PDFEncode(ite->annotation().ToolTip())+")",ObjCounter-1)+"\n");
+				PutDoc("/TU "+EncStringUTF16("("+PDFEncode(ite->annotation().ToolTip())+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");
 			QString mm[] = {"4", "2", "0", "32"};
 			PutDoc(mm[ite->annotation().Vis()]);
@@ -5504,8 +5504,8 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 3:
 					PutDoc("/FT /Tx\n");
-					PutDoc("/V "+EncString("("+bm+")",ObjCounter-1)+"\n");
-					PutDoc("/DV "+EncString("("+bm+")",ObjCounter-1)+"\n");
+					PutDoc("/V " + EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
+					PutDoc("/DV "+ EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
 					PutDoc("/Q "+QString::number(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned))+"\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
@@ -5527,10 +5527,10 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 					if (bmst.count() > 0)
 						cnx += bmst[0];
 					cnx += ")";
-					PutDoc(EncString(cnx,ObjCounter-1)+"\n");
+					PutDoc(EncStringUTF16(cnx,ObjCounter-1)+"\n");
 					PutDoc("/Opt [ ");
 					for (int bmc = 0; bmc < bmst.count(); ++bmc)
-						PutDoc(EncString("("+bmst[bmc]+")",ObjCounter-1)+"\n");
+						PutDoc(EncStringUTF16("("+bmst[bmc]+")",ObjCounter-1)+"\n");
 					PutDoc("]\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					break;
@@ -5764,13 +5764,13 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 			for (int mz = 0; mz < bmst.count(); ++mz)
 			{
-				cc += EncString("("+bmst[mz]+")",ObjCounter-1);
+				cc += EncStringUTF16("("+bmst[mz]+")",ObjCounter-1);
 				cc += " Tj\nT*\n";
 			}
 			cc += "ET\nEMC";
 		}
 		else
-			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
+			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncStringUTF16("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if (ite->annotation().Type() == 4)
@@ -5803,7 +5803,7 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
-			cc += EncString("("+bmst[0]+")",ObjCounter-1);
+			cc += EncStringUTF16("("+bmst[0]+")",ObjCounter-1);
 		cc += " Tj\nET\nQ\nEMC";
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
