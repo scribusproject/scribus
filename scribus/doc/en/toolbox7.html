@@ -8,14 +8,14 @@
 <p>One of the frustrations for users of RPM-based or commercially created distributions, is the lack of availability of the latest versions of Ghostscript(GS). Because of the differences in licensing between the GPL Ghostscript and AFPL Ghostscript, GPL Ghostscript releases usually follow by about a year, the release of the most up to date AFPL GS. Because, there are certain restrictions in AFPL, most Linux distributions ship an older and heavily patched version of GPL Ghostscript.</p>
 <p>As the current GS 8.x resource configuration (where it looks for fonts and fontmaps) is new, simply dropping in the latest GS tarball and rebuilding the RPM does not quite work. Lord knows I've tried on Red Hat and I consider myself to be pretty well versed in RPM building. If you have ever seen the Red Hat or Suse rpm spec file for GS, you will know what I mean. ;)</p>
 <p>So, why do I want to go to the trouble of worrying about having the absolute latest version of GS? Not so difficult.</p>
-<ol><li>There are real substantial improvements in the ability of GS 8.x to handle EPS and PDF files which have the kinds of advanced features Scribus and other DTP applications can create. This can in some cases directly affect the quality of EPS and PS imports into Scribus. </li>
+<ol><li>There are real substantial improvements in the ability of GS 8.5+ to handle EPS and PDF files which have the kinds of advanced features Scribus and other DTP applications can create. This can in some cases directly affect the quality of EPS and PS imports into Scribus. </li>
 <li>You can build it with full on compiler optimization, which speeds up print and separation previews in Scribus. Many distributions only compile it with i386 instructions. This is probably more beneficial to older workstations compared to newer ones. Image processing programs are one area where compiler optimizations do make a difference. </li>
 <li>Having the latest GS, makes GSview (and Scribus) more capable and more robust at handling both EPS files and a special kind of EPS called DCS 2.0. </li>
 <li>Both Scribus and GSview have the ability in their preferences settings to use alternative locations for GS and GS libraries.</li> </ol>
 <p>So, how does one get the latest GS for Scribus and GSview - without breaking your existing distribution printing setup? The secret: a parallel build of GS.</p>
 <p><strong>Disclaimer:</strong> This works for me. It could wreck your system, catch your hair on fire and other nastiness. </p>
 <p>First Steps:</p>
-<ul><li>Get the latest GS from here: http://ghostscript.com/doc/AFPL/ </li>
+<ul><li>Get the latest GS from here: <a href="http://sourceforge.net/project/showfiles.php?group_id=1897&package_id=108733">Ghostscript Downloads</a>  </li>
 <li>You can manually tweak the make files the old way or </li>
 <li>Use the new configure script with the following options (and optionally <code>-with-jasper</code> and <code>-with-rinkj</code> with very latest versions): </li></ul>
 <blockquote>
