@@ -78,6 +78,8 @@ public:
 	/*! \brief Set text to the browser
 	\param str a QString with text (html) */
 	void setText(const QString& str);
+	
+	static bool firstRun;
 
 protected:
 	void closeEvent(QCloseEvent * event);
@@ -123,7 +125,7 @@ protected:
 	ScHelpTreeModel* menuModel;
 	QMap<QString, QString> quickHelpIndex;
 	QMap<QString, QPair<QString, QString> > bookmarkIndex;
-
+	
 protected slots:
 	virtual void languageChange();
 	void histChosen(QAction* i);

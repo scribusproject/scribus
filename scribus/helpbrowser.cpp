@@ -129,6 +129,8 @@ class BookmarkParser2 : public QXmlDefaultHandler
 		}
 };
 
+bool HelpBrowser::firstRun=true;
+
 HelpBrowser::HelpBrowser(QWidget* parent)
 	: QMainWindow( parent )
 {
@@ -138,6 +140,7 @@ HelpBrowser::HelpBrowser(QWidget* parent)
 HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QString& guiLanguage, const QString& jumpToSection, const QString& jumpToFile)
 	: QMainWindow( parent )
 {
+	firstRun=true;
 	setupUi(this);
 	setupLocalUI();
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
@@ -159,7 +162,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 
 HelpBrowser::~HelpBrowser()
 {
-
+	firstRun=true;
 }
 
 void HelpBrowser::closeEvent(QCloseEvent * event)
@@ -294,8 +297,7 @@ void HelpBrowser::languageChange()
 	bookDel->setText(tr("&Delete"));
 	bookDelAll->setText(tr("D&elete All"));
 	Ui::HelpBrowser::retranslateUi(this);
-	static bool first=true;
-	if (!first)
+	if (!firstRun)
 	{
 		QString fname(QDir::cleanPath(textBrowser->source().toString()));
 		QFileInfo fi(fname);
@@ -309,7 +311,7 @@ void HelpBrowser::languageChange()
 			loadHelp(finalBaseDir + "/" + filename);
 	}
 	else
-		first=false;
+		firstRun=false;
 }
 
 void HelpBrowser::print()
