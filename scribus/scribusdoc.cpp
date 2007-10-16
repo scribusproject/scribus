@@ -5014,6 +5014,7 @@ void ScribusDoc::ChLineWidth(double w)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
@@ -5032,14 +5033,11 @@ void ScribusDoc::ChLineWidth(double w)
 				                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
 				                  -ph,static_cast<int>(currItem->height()+ph));
 			}
-			if (selectedItemCount == 1)
-				currItem->update();
+			currItem->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 	}
 	changed();
 }
@@ -5051,20 +5049,18 @@ void ScribusDoc::ChLineArt(Qt::PenStyle w)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 						  Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->setLineStyle(w);
-			if (selectedItemCount == 1)
-				m_Selection->itemAt(a)->update();
+			m_Selection->itemAt(a)->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 	}
 	changed();
 }
@@ -5076,20 +5072,18 @@ void ScribusDoc::ChLineJoin(Qt::PenJoinStyle w)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->setLineJoin(w);
-			if (selectedItemCount == 1)
-				m_Selection->itemAt(a)->update();
+			m_Selection->itemAt(a)->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 	}
 	changed();
 }
@@ -5101,20 +5095,18 @@ void ScribusDoc::ChLineEnd(Qt::PenCapStyle w)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->setLineEnd(w);
-			if (selectedItemCount == 1)
 			m_Selection->itemAt(a)->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 	}
 	changed();
 }
@@ -5184,6 +5176,7 @@ void ScribusDoc::ItemPen(QString farbe)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (farbe == CommonStrings::tr_NoneColor)
 			farbe = CommonStrings::None;
 		if (selectedItemCount > 1)
@@ -5197,14 +5190,11 @@ void ScribusDoc::ItemPen(QString farbe)
 				continue;
 
 			i->setLineColor(farbe);
-			if (selectedItemCount == 1)
-				i->update();
+			i->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 	}
 	changed();
 }
@@ -5323,6 +5313,7 @@ void ScribusDoc::ItemBrush(QString farbe)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetFill, farbe, Um::IFill);
@@ -5331,14 +5322,11 @@ void ScribusDoc::ItemBrush(QString farbe)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setFillColor(farbe);
-			if (selectedItemCount == 1)
-				currItem->update();
+			currItem->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -5350,6 +5338,7 @@ void ScribusDoc::ItemBrushShade(int sha)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetShade, QString("%1").arg(sha),
@@ -5359,14 +5348,11 @@ void ScribusDoc::ItemBrushShade(int sha)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setFillShade(sha);
-			if (selectedItemCount == 1)
-				currItem->update();
+			currItem->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -5376,22 +5362,20 @@ void ScribusDoc::ItemPenShade(int sha)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
-		PageItem *currItem;
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 							Um::IGroup, Um::SetLineShade, QString("%1").arg(sha), Um::IShade);
+		PageItem *currItem;
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setLineShade(sha);
-			if (selectedItemCount == 1)
-				currItem->update();
+			currItem->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -5403,6 +5387,7 @@ void ScribusDoc::ItemGradFill(int typ)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		PageItem *currItem;
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
@@ -5456,6 +5441,7 @@ void ScribusDoc::ItemGradFill(int typ)
 				currItem->updateGradientVectors();
 			currItem->update();
 		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -5467,6 +5453,7 @@ void ScribusDoc::ItemPatternFill(QString pattern)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		PageItem *currItem;
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
@@ -5474,6 +5461,7 @@ void ScribusDoc::ItemPatternFill(QString pattern)
 			currItem->setPattern(pattern);
 			currItem->update();
 		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -5485,6 +5473,7 @@ void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, 
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		PageItem *currItem;
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
@@ -5492,6 +5481,7 @@ void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, 
 			currItem->setPatternTransform(scaleX, scaleY, offsetX, offsetY, rotation);
 			currItem->update();
 		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -5508,6 +5498,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0 && s != ScStyle_None)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontEffect, "", Um::IFont);
 		for (uint aa = 0; aa < selectedItemCount; ++aa)
@@ -5547,6 +5538,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -6542,6 +6534,7 @@ void ScribusDoc::itemSelection_ToggleLock( )
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (docSelectionCount > 1)
 		{
 			if (m_Selection->itemAt(0)->locked())
@@ -6552,14 +6545,11 @@ void ScribusDoc::itemSelection_ToggleLock( )
 		for ( uint a = 0; a < docSelectionCount; ++a)
 		{
 			m_Selection->itemAt(a)->toggleLock();
-			if (docSelectionCount == 1)
-				m_Selection->itemAt(a)->update();
+			m_Selection->itemAt(a)->update();
 		}
 		if (docSelectionCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
  		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -6571,6 +6561,7 @@ void ScribusDoc::itemSelection_ToggleSizeLock( )
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (selectedItemCount > 1)
 		{
 			if (m_Selection->itemAt(0)->sizeLocked())
@@ -6581,14 +6572,11 @@ void ScribusDoc::itemSelection_ToggleSizeLock( )
 		for ( uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->toggleSizeLock();
-			if (selectedItemCount == 1)
-				m_Selection->itemAt(a)->update();
+			m_Selection->itemAt(a)->update();
 		}
 		if (selectedItemCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
  		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -6599,6 +6587,7 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 {
 	if (m_Selection->count() != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		for (int a = 0; a < m_Selection->count(); ++a)
 		{
 			PageItem_ImageFrame* imageItem=m_Selection->itemAt(a)->asImageFrame();
@@ -6607,6 +6596,7 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 			imageItem->setImageShown(!imageItem->imageShown());
 			imageItem->update();
 		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 		//Return to normal mode if in edit mode. We should not allow dragging of
 		//an image in a frame if its not shown.
@@ -6621,6 +6611,7 @@ void ScribusDoc::itemSelection_TogglePrintEnabled( )
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (docSelectionCount > 1)
 		{
 			if (m_Selection->itemAt(0)->printEnabled())
@@ -6631,14 +6622,11 @@ void ScribusDoc::itemSelection_TogglePrintEnabled( )
 		for ( uint a = 0; a < docSelectionCount; ++a)
 		{
 			m_Selection->itemAt(a)->togglePrintEnabled();
-			if (docSelectionCount == 1)
-				m_Selection->itemAt(a)->update();
+			m_Selection->itemAt(a)->update();
 		}
 		if (docSelectionCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -7044,16 +7032,17 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+	m_updateManager.setUpdatesDisabled();
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem;
 		currItem = itemSelection->itemAt(i);
 		currItem->fill_gradient = newGradient;
-		if (selectedItemCount==1)
-			currItem->update();
+		currItem->update();
 	}
-	if (selectedItemCount>1)
-		regionsChanged()->update(QRectF());
+	/*if (selectedItemCount>1)
+		regionsChanged()->update(QRectF());*/
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
@@ -7158,6 +7147,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (UndoManager::undoEnabled() && selectedItemCount > 1)
 			undoManager->beginTransaction();
 		QString tooltip = Um::ItemsInvolved + "\n";
@@ -7182,6 +7172,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 								Um::ImageOffset,
 								tooltip,
 								Um::IImageScaling);
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -7194,6 +7185,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (UndoManager::undoEnabled() && selectedItemCount > 1)
 			undoManager->beginTransaction();
 		QString tooltip = Um::ItemsInvolved + "\n";
@@ -7218,6 +7210,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 								Um::ImageScale,
 								tooltip,
 								Um::IImageScaling);
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -7230,7 +7223,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	
+	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		undoManager->beginTransaction();
 	QString tooltip = Um::ItemsInvolved + "\n";
@@ -7264,6 +7257,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 							Um::ImageScale,
 							tooltip,
 							Um::IImageScaling);
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
@@ -8510,7 +8504,8 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	
+
+	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		undoManager->beginTransaction();
 	QString tooltip = Um::ItemsInvolved + "\n";
@@ -8541,6 +8536,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 							t,
 							tooltip,
 							Um::IArrow);
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
