@@ -738,6 +738,8 @@ QColor SMLineStyle::calcFarbe(const QString &name, int shade)
 
 void SMLineStyle::slotCurrentLineChanged(int i)
 {
+	if (i < 0)
+		return;
 	currentLine_ = i;
 }
 
