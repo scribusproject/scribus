@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QByteArray>
 #include <QDataStream>
+#include <QDebug>
 #include <QDomDocument>
 #include <QGroupBox>
 #include <QHBoxLayout>
@@ -20,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QPixmap>
 #include <QPushButton>
-#include <QSignalMapper>
 #include <QTextStream>
 #include <QToolButton>
 #include <QToolTip>
@@ -108,23 +108,15 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 		textLabel1 = new QLabel( ColsSetGroup );
 		textLabel1->setText( tr( "Current Color Set:" ) );
 		ColsSetGroupLayout->addWidget( textLabel1 );
-		QSignalMapper *signalMapper = new QSignalMapper(this);
-		CSets = new QMenu();
-		QAction *action = CSets->addAction("Scribus Small");
-		connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
-		signalMapper->setMapping(action, action->text());
+		LoadColSet = new QComboBox(this);
+		LoadColSet->addItem("Scribus Small");
+		connect(LoadColSet, SIGNAL(activated(const QString &)), this, SLOT(loadDefaults(const QString&)));
 		int setCount = 1;
 		csm.findPaletteLocations();
 		csm.findPalettes();
 		QStringList allSets(csm.paletteNames());
-		for ( QStringList::Iterator it = allSets.begin(); it != allSets.end(); ++it )
-		{
-			action = CSets->addAction((*it));
-			connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
-			signalMapper->setMapping(action, action->text());
-			setCount++;
-		}
-		customSetStartIndex = setCount;
+		LoadColSet->addItems(allSets);
+		customSetStartIndex = setCount+allSets.count();
 		if (custColSet.count() != 0)
 		{
 			QStringList realEx;
@@ -135,19 +127,13 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 				QFileInfo cfi(Cpfad);
 				if (cfi.exists())
 				{
-					action = CSets->addAction(custColSet[m]);
-					signalMapper->setMapping(action, action->text());
+					LoadColSet->addItem(custColSet[m]);
 					realEx.append(custColSet[m]);
 				}
 			}
 			customColSet = realEx;
 		}
-		connect(signalMapper, SIGNAL(mapped(const QString &)), this, SLOT(loadDefaults(const QString &)));
-		LoadColSet = new QToolButton( ColsSetGroup );
-		LoadColSet->setMenu(CSets);
-		LoadColSet->setPopupMode(QToolButton::MenuButtonPopup);
-		LoadColSet->setText(docColSet);
-		LoadColSet->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+		setCurrentComboItem(LoadColSet, docColSet);
 		ColsSetGroupLayout->addWidget( LoadColSet );
 		SaveColSet = new QPushButton( tr( "&Save Color Set" ), ColsSetGroup );
 		SaveColSet->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
@@ -198,7 +184,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 void ColorManager::saveDefaults()
 {
 	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
-	QString Name = LoadColSet->text();
+	QString Name = LoadColSet->currentText();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
 	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
@@ -208,7 +194,7 @@ void ColorManager::saveDefaults()
 	if (dia->exec())
 	{
 		QString Fname = Cpfad+dia->getEditText();
-		LoadColSet->setText(dia->getEditText());
+		setCurrentComboItem(LoadColSet, dia->getEditText());
 		QFile fx(Fname);
 		if (fx.open(QIODevice::WriteOnly))
 		{
@@ -255,9 +241,7 @@ void ColorManager::saveDefaults()
 			if (dia->getEditText() != Name)
 			{
 				customColSet.append(dia->getEditText());
-				QAction* action = CSets->addAction(dia->getEditText());
-				connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
-				signalMapper->setMapping(action, action->text());
+				LoadColSet->addItem(dia->getEditText());
 			}
 		}
 	}
@@ -267,8 +251,9 @@ void ColorManager::saveDefaults()
 void ColorManager::loadDefaults(const QString &txt)
 {
 	int c = 0;
-	QList<QAction*> cAct = CSets->actions();
-	for (int a = 0; a < cAct.count(); a++)
+	QList<QAction*> cAct = LoadColSet->actions();
+	int a = 0;
+	for (a = 0; a < cAct.count(); a++)
 	{
 		if (txt == cAct.at(a)->text())
 		{
@@ -276,15 +261,16 @@ void ColorManager::loadDefaults(const QString &txt)
 			break;
 		}
 	}
+	qDebug() << "Trying to set" << txt << c << a;	
 	bool cus = false;
-	LoadColSet->setText(txt);
+	setCurrentComboItem(LoadColSet, txt);
 	EditColors.clear();
 	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+txt);
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
 	QString pfadC2 = pfadC + "Scribus_Basic.txt";
 	if (txt == "Scribus Small")
 	{
-		LoadColSet->setText("Scribus Small");
+		setCurrentComboItem(LoadColSet, "Scribus Small");
 		EditColors.insert("White", ScColor(0, 0, 0, 0));
 		EditColors.insert("Black", ScColor(0, 0, 0, 255));
 		EditColors.insert("Blue", ScColor(255, 255, 0, 0));
@@ -410,7 +396,7 @@ void ColorManager::loadDefaults(const QString &txt)
 		}
 		else
 		{
-			LoadColSet->setText("Scribus Small");
+			setCurrentComboItem(LoadColSet, "Scribus Small");
 			EditColors.insert("White", ScColor(0, 0, 0, 0));
 			EditColors.insert("Black", ScColor(0, 0, 0, 255));
 			EditColors.insert("Blue", ScColor(255, 255, 0, 0));
@@ -721,5 +707,5 @@ void ColorManager::updateCList()
 
 QString ColorManager::getColorSetName()
 {
-	return LoadColSet->text();
+	return LoadColSet->currentText();
 }

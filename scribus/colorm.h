@@ -15,8 +15,7 @@ class QPushButton;
 class QGroupBox;
 class QToolButton;
 class QColor;
-class QMenu;
-class QSignalMapper;
+class QComboBox;
 class QListWidgetItem;
 
 #include "colorsetmanager.h"
@@ -53,7 +52,6 @@ public:
 
 private:
 	void updateButtons();
-	QToolButton* LoadColSet;
 	ColorListBox* colorListBox;
 	QGroupBox* ColorsGroup;
 	QGroupBox* ColsSetGroup;
@@ -67,12 +65,11 @@ private:
 	QPushButton* cancelButton;
 	QLabel* textLabel1;
 	QPushButton* SaveColSet;
-	QMenu* CSets;
+	QComboBox* LoadColSet;
 	QString sColor;
 	QColor tmpColor;
 	QStringList DontChange;
 	ScribusDoc* m_Doc;
-	QSignalMapper *signalMapper;
 
 private slots:
 	void saveDefaults();
