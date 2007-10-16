@@ -1152,6 +1152,13 @@ currentpagedevice /HWResolution get aload pop
 	end
 } i_shortcutOverload
 
+/stringwidth
+{
+	/i_shortcut true store
+	stringwidth
+	/i_shortcut false store
+} i_shortcutOverload
+
 % a bind def of the show operator doesn't work,
 % so this is our way to get a charpath entry for flattening text
 /root_charpath
@@ -1313,7 +1320,7 @@ currentpagedevice /HWResolution get aload pop
 			{ dup completeString exch 1 getinterval stringwidth } 
 			{ dup completeString i_kerning } ifelse 
 			/curwidthy exch def /curwidthx exch def
-			completeString exch 1 getinterval dup /curstr exch def 
+			completeString exch 1 getinterval dup /curstr exch def
 			false root_charpath
 			{i_move} {i_line} {i_curve} {i_close} pathforall
 			(f\n)print			% close polygon
@@ -1363,7 +1370,7 @@ currentpagedevice /HWResolution get aload pop
 			{ dup completeString exch 1 getinterval stringwidth } 
 			{ dup completeString i_kerning } ifelse 
 			/curwidthy exch def /curwidthx exch def
-			completeString exch 1 getinterval dup /curstr exch def 
+			completeString exch 1 getinterval dup /curstr exch def
 			false root_charpath
 			{i_move} {i_line} {i_curve} {i_close} pathforall
 			(f\n)print			% close polygon
