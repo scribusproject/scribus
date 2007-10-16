@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QByteArray>
 #include <QDataStream>
-#include <QDebug>
 #include <QDomDocument>
 #include <QGroupBox>
 #include <QHBoxLayout>
@@ -261,7 +260,6 @@ void ColorManager::loadDefaults(const QString &txt)
 			break;
 		}
 	}
-	qDebug() << "Trying to set" << txt << c << a;	
 	bool cus = false;
 	setCurrentComboItem(LoadColSet, txt);
 	EditColors.clear();
