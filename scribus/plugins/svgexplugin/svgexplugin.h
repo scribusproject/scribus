@@ -67,6 +67,21 @@ private:
 		\param elem QDomElement *
 		*/
 		void ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem);
+		void ProcessItem_ImageFrame(PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem);
+		void ProcessItem_Line      (PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem);
+		void ProcessItem_PathText  (PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem);
+		void ProcessItem_Polygon   (PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem);
+		void ProcessItem_PolyLine  (PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem);
+		void ProcessItem_TextFrame (PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem);
+
+		QString ProcessFill(PageItem* item, QDomDocument *docu, QDomElement *elem);
+		QString ProcessStroke(PageItem* item);
+		QString ProcessStrokeLineCap(PageItem* item);
+		QString ProcessStrokeLineJoin(PageItem* item);
+		QString ProcessStrokeDashArray(PageItem* item);
+		QString ProcessStrokeWidth(PageItem* item);
+		QString ProcessTransform(PageItem* item, Page* page);
+
 		QString SetClipPathImage(PageItem *ite);
 		/*!
 		\author Franz Schmid

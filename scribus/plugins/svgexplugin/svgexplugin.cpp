@@ -211,18 +211,11 @@ SVGExPlug::SVGExPlug( QString fName )
 
 void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
-	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
-	uint d;
-	ScText *hl;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
-	QDomElement ob, gr, tp, tp2, defi, grad;
-	QDomText tp1;
 	PageItem *Item;
-	gradi = "Grad";
-	Clipi = "Clip";
 	QPtrList<PageItem> Items;
 	Page* SavedAct = ScMW->doc->currentPage;
 	ScMW->doc->currentPage = Seite;
@@ -231,10 +224,10 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	else
 		Items = ScMW->doc->MasterItems;
 	for (uint la = 0; la < ScMW->doc->Layers.count(); la++)
-		{
+	{
 		Level2Layer(ScMW->doc, &ll, Lnr);
 		if (ll.isPrintable)
-			{
+		{
 			for(uint j = 0; j < Items.count(); ++j)
 			{
 				Item = Items.at(j);
@@ -250,414 +243,539 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				double h2 = Item->BoundingH;
 				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h, y2+h2 )))
 					continue;
-				if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
-				{
-					fill = "fill:"+SetFarbe(Item->fillColor(), Item->fillShade())+";";
-					if (Item->GrType != 0)
-					{
-						defi = docu->createElement("defs");
-						if ((Item->GrType == 5) || (Item->GrType == 7))
-							grad = docu->createElement("radialGradient");
-						else
-							grad = docu->createElement("linearGradient");
-						grad.setAttribute("id", gradi+IToStr(GradCount));
-						grad.setAttribute("gradientUnits", "userSpaceOnUse");
-						switch (Item->GrType)
-						{
-							case 1:
-								grad.setAttribute("x1", "0");
-								grad.setAttribute("y1", FToStr(Item->height() / 2));
-								grad.setAttribute("x2", FToStr(Item->width()));
-								grad.setAttribute("y2", FToStr(Item->height() / 2));
-								break;
-							case 2:
-								grad.setAttribute("x1", FToStr(Item->width()/ 2));
-								grad.setAttribute("y1", "0");
-								grad.setAttribute("x2", FToStr(Item->width()/ 2));
-								grad.setAttribute("y2", FToStr(Item->height()));
-								break;
-							case 3:
-								grad.setAttribute("x1", "0");
-								grad.setAttribute("y1", "0");
-								grad.setAttribute("x2", FToStr(Item->width()));
-								grad.setAttribute("y2", FToStr(Item->height()));
-								break;
-							case 4:
-								grad.setAttribute("x1", "0");
-								grad.setAttribute("y1", FToStr(Item->height()));
-								grad.setAttribute("x2", FToStr(Item->width()));
-								grad.setAttribute("y2", "0");
-								break;
-							case 5:
-								grad.setAttribute("r", FToStr(QMAX(Item->width() / 2, Item->height() / 2)));
-								grad.setAttribute("cx", FToStr(Item->width() / 2));
-								grad.setAttribute("cy", FToStr(Item->height() / 2));
-								break;
-							case 6:
-								grad.setAttribute("x1", FToStr(Item->GrStartX));
-								grad.setAttribute("y1", FToStr(Item->GrStartY));
-								grad.setAttribute("x2", FToStr(Item->GrEndX));
-								grad.setAttribute("y2", FToStr(Item->GrEndY));
-								break;
-							case 7:
-								grad.setAttribute("r", FToStr(QMAX(Item->width() / 2, Item->height() / 2)));
-								grad.setAttribute("cx", FToStr(Item->GrStartX));
-								grad.setAttribute("cy", FToStr(Item->GrStartY));
-								break;
-						}
-						QPtrVector<VColorStop> cstops = Item->fill_gradient.colorStops();
-						for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
-						{
-							QDomElement itcl = docu->createElement("stop");
-							itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
-							itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
-							itcl.setAttribute("stop-color", SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
-							grad.appendChild(itcl);
-						}
-						defi.appendChild(grad);
-						fill = "fill:url(#"+gradi+IToStr(GradCount)+");";
-						GradCount++;
-					}
-					if (Item->fillRule)
-						fill += " fill-rule:evenodd;";
-					else
-						fill += " fill-rule:nonzero;";
-					if (Item->fillTransparency() != 0)
-						fill += " fill-opacity:"+FToStr(1.0 - Item->fillTransparency())+";";
-				}
-				else
-					fill = "fill:none;";
-				if (Item->lineColor() != CommonStrings::None)
-				{
-					stroke = "stroke:"+SetFarbe(Item->lineColor(), Item->lineShade())+";";
-					if (Item->lineTransparency() != 0)
-						stroke += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
-				}
-				else
-					stroke = "stroke:none;";
-				trans = "translate("+FToStr(Item->xPos()-Seite->xOffset())+", "+FToStr(Item->yPos()-Seite->yOffset())+")";
-				if (Item->rotation() != 0)
-					trans += " rotate("+FToStr(Item->rotation())+")";
-				strokeW = "stroke-width:"+FToStr(Item->lineWidth())+"pt;";
-				strokeLC = "stroke-linecap:";
-				switch (Item->PLineEnd)
-				{
-					case Qt::FlatCap:
-						strokeLC += "butt;";
-						break;
-					case Qt::SquareCap:
-						strokeLC += "square;";
-						break;
-					case Qt::RoundCap:
-						strokeLC += "round;";
-						break;
-					default:
-						strokeLC += "butt;";
-						break;
-				}
-				strokeLJ = "stroke-linejoin:";
-				switch (Item->PLineJoin)
-				{
-					case Qt::MiterJoin:
-						strokeLJ += "miter;";
-						break;
-					case Qt::BevelJoin:
-						strokeLJ += "bevel;";
-						break;
-					case Qt::RoundJoin:
-						strokeLJ += "round;";
-						break;
-					default:
-						strokeLJ += "miter;";
-						break;
-				}
-				strokeDA = "stroke-dasharray:";
-				if (Item->DashValues.count() != 0)
-				{
-					QValueList<double>::iterator it;
-					for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
-					{
-						strokeDA += IToStr(static_cast<int>(*it))+" ";
-					}
-					strokeDA += "; stroke-dashoffset:"+IToStr(static_cast<int>(Item->DashOffset))+";";
-				}
-				else
-				{
-					QString Dt = FToStr(QMAX(2*Item->lineWidth(), 1));
-					QString Da = FToStr(QMAX(6*Item->lineWidth(), 1));
-					switch (Item->PLineArt)
-					{
-						case Qt::SolidLine:
-							strokeDA += "none;";
-							break;
-						case Qt::DashLine:
-							strokeDA += Da+","+Dt+";";
-							break;
-						case Qt::DotLine:
-							strokeDA += Dt+";";
-							break;
-						case Qt::DashDotLine:
-							strokeDA += Da+","+Dt+","+Dt+","+Dt+";";
-							break;
-						case Qt::DashDotDotLine:
-							strokeDA += Da+","+Dt+","+Dt+","+Dt+","+Dt+","+Dt+";";
-							break;
-						default:
-							strokeDA += "none;";
-							break;
-						}
-				}
-				gr = docu->createElement("g");
-				gr.setAttribute("transform", trans);
-				if (!Item->asTextFrame())
-				{
-					if (Item->NamedLStyle.isEmpty())
-					{
-						if (Item->asPathText())
-							gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
-						else
-							gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
-					}
-				}
-				switch (Item->itemType())
-				{
-				/* Item types 3 and 1 are OBSOLETE: CR 2005-02-06
-				case 1:
-				case 3:
-				*/
-				case PageItem::Polygon:
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-						}
-						else
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", fill);
-							gr.appendChild(ob);
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item)+"Z");
-									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
-							}
-						}
-					break;
-				case PageItem::ImageFrame:
-						if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", fill);
-							gr.appendChild(ob);
-						}
-						if ((Item->PicAvail) && (!Item->Pfile.isEmpty()))
-						{
-							ob = docu->createElement("clipPath");
-							ob.setAttribute("id", Clipi+IToStr(ClipCount));
-							ob.setAttribute("clipPathUnits", "userSpaceOnUse");
-							ob.setAttribute("clip-rule", "evenodd");
-							QDomElement cl = docu->createElement("path");
-							if (Item->imageClip.size() != 0)
-								cl.setAttribute("d", SetClipPathImage(Item)+"Z");
-							else
-								cl.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.appendChild(cl);
-							gr.appendChild(ob);
-							ScImage img;
-							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, ScImage::RGBProof, 72);
-							img.applyEffect(Item->effectsInUse, Item->document()->PageColors, true);
-							QFileInfo fi = QFileInfo(Item->Pfile);
-							img.save(fi.baseName()+".png", "PNG");
-							ob = docu->createElement("image");
-							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
-							ob.setAttribute("xlink:href", fi.baseName()+".png");
-							ob.setAttribute("x", "0pt");
-							ob.setAttribute("y", "0pt");
-							ob.setAttribute("width", FToStr(Item->width())+"pt");
-							ob.setAttribute("height", FToStr(Item->height())+"pt");
-							ClipCount++;
-							gr.appendChild(ob);
-						}
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
-						}
-						else
-						{
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item)+"Z");
-									ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
-							}
-						}
-					break;
-				case PageItem::PolyLine:
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item));
-						}
-						else
-						{
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item));
-									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
-							}
-						}
-					break;
-				case PageItem::TextFrame:
-						if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", fill);
-							gr.appendChild(ob);
-						}
-						ob = docu->createElement("text");
-						for (d = 0; d < Item->MaxChars; d++)
-						{
-							hl = Item->itemText.at(d);
-							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
-								continue;
-							if (hl->yp == 0)
-								break;
-							if (hl->ch == QChar(29))
-								chx = " ";
-							else
-								chx = hl->ch;
-							tp = docu->createElement("tspan");
-							tp.setAttribute("x", FToStr(hl->xp)+"pt");
-							tp.setAttribute("y", FToStr(hl->yp)+"pt");
-							SetTextProps(&tp, hl);
-							tp1 = docu->createTextNode(chx);
-							tp.appendChild(tp1);
-							ob.appendChild(tp);
-						}
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
-						}
-						else
-						{
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item)+"Z");
-									ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
-							}
-						}
-					break;
-				case PageItem::Line:
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
-						}
-						else
-						{
-							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
-									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
-							}
-						}
-					break;
-				case PageItem::PathText:
-						if (Item->PoShow)
-						{
-							if (Item->NamedLStyle.isEmpty())
-							{
-								ob = docu->createElement("path");
-								ob.setAttribute("d", SetClipPath(Item));
-								gr.appendChild(ob);
-							}
-							else
-							{
-								multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-									{
-										ob = docu->createElement("path");
-										ob.setAttribute("d", SetClipPath(Item));
-										ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-										gr.appendChild(ob);
-									}
-								}
-							}
-						}
-						ob = docu->createElement("text");
-						for (d = 0; d < Item->MaxChars; d++)
-						{
-							hl = Item->itemText.at(d);
-							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(25)) || (hl->ch == QChar(28)))
-								continue;
-							if (hl->ch == QChar(29))
-								chx = " ";
-							else
-								chx = hl->ch;
-							tp = docu->createElement("tspan");
-							tp.setAttribute("x", FToStr(hl->PtransX)+"pt");
-							tp.setAttribute("y", FToStr(hl->PtransY)+"pt");
-							tp.setAttribute("rotate", hl->PRot);
-							tp2 = docu->createElement("tspan");
-							tp2.setAttribute("dx", FToStr(hl->xp)+"pt");
-							tp2.setAttribute("dy", FToStr(hl->yp)+"pt");
-							SetTextProps(&tp2, hl);
-							tp1 = docu->createTextNode(chx);
-							tp2.appendChild(tp1);
-							tp.appendChild(tp2);
-							ob.appendChild(tp);
-						}
-					break;
-				default:
-					break;
-				}
-				if (Item->GrType != 0)
-					elem->appendChild(defi);
-				gr.appendChild(ob);
-				elem->appendChild(gr);
+				if (Item->asImageFrame())
+					ProcessItem_ImageFrame(Item, Seite, docu, elem);
+				else if (Item->asLine())
+					ProcessItem_Line(Item, Seite, docu, elem);
+				else if (Item->asPathText())
+					ProcessItem_PathText(Item, Seite, docu, elem);
+				else if (Item->asPolygon())
+					ProcessItem_Polygon(Item, Seite, docu, elem);
+				else if (Item->asPolyLine())
+					ProcessItem_PolyLine(Item, Seite, docu, elem);
+				else if (Item->asTextFrame())
+					ProcessItem_TextFrame(Item, Seite, docu, elem);
 			}
 		}
 		Lnr++;
 	}
 	ScMW->doc->currentPage = SavedAct;
+}
+
+void SVGExPlug::ProcessItem_ImageFrame(PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem)
+{
+	QString clipId   = "Clip";
+	QString fill     = ProcessFill(item, docu, elem);
+	QString stroke   = ProcessStroke(item);
+	QString strokeLC = ProcessStrokeLineCap(item);
+	QString strokeLJ = ProcessStrokeLineJoin(item);
+	QString strokeDA = ProcessStrokeDashArray(item);
+	QString strokeW  = ProcessStrokeWidth(item);
+	QString trans    = ProcessTransform(item, page);
+	QDomElement ob;
+	QDomElement gr = docu->createElement("g");
+	gr.setAttribute("transform", trans);
+	if (item->NamedLStyle.isEmpty())
+		gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+	{
+		ob = docu->createElement("path");
+		ob.setAttribute("d", SetClipPath(item)+"Z");
+		ob.setAttribute("style", fill);
+		gr.appendChild(ob);
+	}
+	if ((item->PicAvail) && (!item->Pfile.isEmpty()))
+	{
+		ob = docu->createElement("clipPath");
+		ob.setAttribute("id", clipId+IToStr(ClipCount));
+		ob.setAttribute("clipPathUnits", "userSpaceOnUse");
+		ob.setAttribute("clip-rule", "evenodd");
+		QDomElement cl = docu->createElement("path");
+		if (item->imageClip.size() != 0)
+			cl.setAttribute("d", SetClipPathImage(item)+"Z");
+		else
+			cl.setAttribute("d", SetClipPath(item)+"Z");
+		ob.appendChild(cl);
+		gr.appendChild(ob);
+		ScImage img;
+		img.LoadPicture(item->Pfile, item->IProfile, item->IRender, item->UseEmbedded, true, ScImage::RGBProof, 72);
+		img.applyEffect(item->effectsInUse, item->document()->PageColors, true);
+		QFileInfo fi = QFileInfo(item->Pfile);
+		img.save(fi.baseName()+".png", "PNG");
+		ob = docu->createElement("image");
+		ob.setAttribute("clip-path", "url(#"+clipId+IToStr(ClipCount)+")");
+		ob.setAttribute("xlink:href", fi.baseName()+".png");
+		ob.setAttribute("x", "0pt");
+		ob.setAttribute("y", "0pt");
+		ob.setAttribute("width", FToStr(item->width())+"pt");
+		ob.setAttribute("height", FToStr(item->height())+"pt");
+		ClipCount++;
+		gr.appendChild(ob);
+	}
+	if (item->NamedLStyle.isEmpty())
+	{
+		ob = docu->createElement("path");
+		ob.setAttribute("d", SetClipPath(item)+"Z");
+		ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+		gr.appendChild(ob);
+	}
+	else
+	{
+		multiLine ml = ScMW->doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+			{
+				ob = docu->createElement("path");
+				ob.setAttribute("d", SetClipPath(item)+"Z");
+				ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], item));
+				gr.appendChild(ob);
+			}
+		}
+	}
+	elem->appendChild(gr);
+}
+
+void SVGExPlug::ProcessItem_Line(PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem)
+{
+	QString fill     = ProcessFill(item, docu, elem);
+	QString stroke   = ProcessStroke(item);
+	QString strokeLC = ProcessStrokeLineCap(item);
+	QString strokeLJ = ProcessStrokeLineJoin(item);
+	QString strokeDA = ProcessStrokeDashArray(item);
+	QString strokeW  = ProcessStrokeWidth(item);
+	QString trans    = ProcessTransform(item, page);
+	QDomElement ob;
+	QDomElement gr = docu->createElement("g");
+	gr.setAttribute("transform", trans);
+	if (item->NamedLStyle.isEmpty())
+	{
+		gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+		ob = docu->createElement("path");
+		ob.setAttribute("d", "M 0 0 L "+FToStr(item->width())+" 0");
+		gr.appendChild(ob);
+	}
+	else
+	{
+		multiLine ml = ScMW->doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+			{
+				ob = docu->createElement("path");
+				ob.setAttribute("d", "M 0 0 L "+FToStr(item->width())+" 0");
+				ob.setAttribute("style", GetMultiStroke(&ml[it], item));
+				gr.appendChild(ob);
+			}
+		}
+	}
+	elem->appendChild(gr);
+}
+
+void SVGExPlug::ProcessItem_PathText(PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem)
+{
+	QString chx;
+	ScText *hl;
+	QString stroke   = ProcessStroke(item);
+	QString strokeLC = ProcessStrokeLineCap(item);
+	QString strokeLJ = ProcessStrokeLineJoin(item);
+	QString strokeDA = ProcessStrokeDashArray(item);
+	QString strokeW  = ProcessStrokeWidth(item);
+	QString trans    = ProcessTransform(item, page);
+	QDomElement ob, tp, tp2;
+	QDomText tp1;
+	QDomElement gr = docu->createElement("g");
+	gr.setAttribute("transform", trans);
+	if (item->NamedLStyle.isEmpty())
+		gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+	if (item->PoShow)
+	{
+		if (item->NamedLStyle.isEmpty())
+		{
+			ob = docu->createElement("path");
+			ob.setAttribute("d", SetClipPath(item));
+			gr.appendChild(ob);
+		}
+		else
+		{
+			multiLine ml = ScMW->doc->MLineStyles[item->NamedLStyle];
+			for (int it = ml.size()-1; it > -1; it--)
+			{
+				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+				{
+					ob = docu->createElement("path");
+					ob.setAttribute("d", SetClipPath(item));
+					ob.setAttribute("style", GetMultiStroke(&ml[it], item));
+					gr.appendChild(ob);
+				}
+			}
+		}
+	}
+	ob = docu->createElement("text");
+	for (uint d = 0; d < item->MaxChars; d++)
+	{
+		hl = item->itemText.at(d);
+		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(25)) || (hl->ch == QChar(28)))
+			continue;
+		if (hl->ch == QChar(29))
+			chx = " ";
+		else
+			chx = hl->ch;
+		tp = docu->createElement("tspan");
+		tp.setAttribute("x", FToStr(hl->PtransX)+"pt");
+		tp.setAttribute("y", FToStr(hl->PtransY)+"pt");
+		tp.setAttribute("rotate", hl->PRot);
+		tp2 = docu->createElement("tspan");
+		tp2.setAttribute("dx", FToStr(hl->xp)+"pt");
+		tp2.setAttribute("dy", FToStr(hl->yp)+"pt");
+		SetTextProps(&tp2, hl);
+		tp1 = docu->createTextNode(chx);
+		tp2.appendChild(tp1);
+		tp.appendChild(tp2);
+		ob.appendChild(tp);
+	}
+	gr.appendChild(ob);
+	elem->appendChild(gr);
+}
+
+void SVGExPlug::ProcessItem_Polygon(PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem)
+{
+	QString fill     = ProcessFill(item, docu, elem);
+	QString stroke   = ProcessStroke(item);
+	QString strokeLC = ProcessStrokeLineCap(item);
+	QString strokeLJ = ProcessStrokeLineJoin(item);
+	QString strokeDA = ProcessStrokeDashArray(item);
+	QString strokeW  = ProcessStrokeWidth(item);
+	QString trans    = ProcessTransform(item, page);
+	QDomElement ob;
+	QDomElement gr = docu->createElement("g");
+	gr.setAttribute("transform", trans);
+	if (item->NamedLStyle.isEmpty())
+	{
+		gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+		ob = docu->createElement("path");
+		ob.setAttribute("d", SetClipPath(item)+"Z");
+		gr.appendChild(ob);
+	}
+	else
+	{
+		ob = docu->createElement("path");
+		ob.setAttribute("d", SetClipPath(item)+"Z");
+		ob.setAttribute("style", fill);
+		gr.appendChild(ob);
+		multiLine ml = ScMW->doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+			{
+				ob = docu->createElement("path");
+				ob.setAttribute("d", SetClipPath(item)+"Z");
+				ob.setAttribute("style", GetMultiStroke(&ml[it], item));
+				gr.appendChild(ob);
+			}
+		}
+	}
+	elem->appendChild(gr);
+}
+
+void SVGExPlug::ProcessItem_PolyLine(PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem)
+{
+	QString fill     = ProcessFill(item, docu, elem);
+	QString stroke   = ProcessStroke(item);
+	QString strokeLC = ProcessStrokeLineCap(item);
+	QString strokeLJ = ProcessStrokeLineJoin(item);
+	QString strokeDA = ProcessStrokeDashArray(item);
+	QString strokeW  = ProcessStrokeWidth(item);
+	QString trans    = ProcessTransform(item, page);
+	QDomElement ob;
+	QDomElement gr = docu->createElement("g");
+	gr.setAttribute("transform", trans);
+	if (item->NamedLStyle.isEmpty())
+	{
+		gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+		ob = docu->createElement("path");
+		ob.setAttribute("d", SetClipPath(item));
+		gr.appendChild(ob);
+	}
+	else
+	{
+		multiLine ml = ScMW->doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+			{
+				ob = docu->createElement("path");
+				ob.setAttribute("d", SetClipPath(item));
+				ob.setAttribute("style", GetMultiStroke(&ml[it], item));
+				gr.appendChild(ob);
+			}
+		}
+	}
+	elem->appendChild(gr);
+}
+
+void SVGExPlug::ProcessItem_TextFrame(PageItem* item, Page* page, QDomDocument *docu, QDomElement *elem)
+{
+	QString chx;
+	ScText *hl;
+	QDomText tp1;
+	QString fill     = ProcessFill(item, docu, elem);
+	QString stroke   = ProcessStroke(item);
+	QString strokeLC = ProcessStrokeLineCap(item);
+	QString strokeLJ = ProcessStrokeLineJoin(item);
+	QString strokeDA = ProcessStrokeDashArray(item);
+	QString strokeW  = ProcessStrokeWidth(item);
+	QString trans    = ProcessTransform(item, page);
+	QDomElement ob, tp;
+	QDomElement gr = docu->createElement("g");
+	gr.setAttribute("transform", trans);
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+	{
+		ob = docu->createElement("path");
+		ob.setAttribute("d", SetClipPath(item)+"Z");
+		ob.setAttribute("style", fill);
+		gr.appendChild(ob);
+	}
+	ob = docu->createElement("text");
+	for (uint d = 0; d < item->MaxChars; d++)
+	{
+		hl = item->itemText.at(d);
+		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+			continue;
+		if (hl->yp == 0)
+			break;
+		if (hl->ch == QChar(29))
+			chx = " ";
+		else
+			chx = hl->ch;
+		tp = docu->createElement("tspan");
+		tp.setAttribute("x", FToStr(hl->xp)+"pt");
+		tp.setAttribute("y", FToStr(hl->yp)+"pt");
+		SetTextProps(&tp, hl);
+		tp1 = docu->createTextNode(chx);
+		tp.appendChild(tp1);
+		ob.appendChild(tp);
+	}
+	gr.appendChild(ob);
+	if (item->NamedLStyle.isEmpty())
+	{
+		ob = docu->createElement("path");
+		ob.setAttribute("d", SetClipPath(item)+"Z");
+		ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+		gr.appendChild(ob);
+	}
+	else
+	{
+		multiLine ml = ScMW->doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+			{
+				ob = docu->createElement("path");
+				ob.setAttribute("d", SetClipPath(item)+"Z");
+				ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], item));
+				gr.appendChild(ob);
+			}
+		}
+	}
+	elem->appendChild(gr);
+}
+
+QString SVGExPlug::ProcessFill(PageItem* item, QDomDocument *docu, QDomElement *elem)
+{
+	QString fill;
+	QString gradientID = QString("Grad%1").arg(GradCount);
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+	{
+		fill = "fill:"+SetFarbe(item->fillColor(), item->fillShade())+";";
+		if (item->GrType != 0)
+		{
+			QDomElement grad;
+			QDomElement defi = docu->createElement("defs");
+			if ((item->GrType == 5) || (item->GrType == 7))
+				grad = docu->createElement("radialGradient");
+			else
+				grad = docu->createElement("linearGradient");
+			grad.setAttribute("id", gradientID);
+			grad.setAttribute("gradientUnits", "userSpaceOnUse");
+			switch (item->GrType)
+			{
+				case 1:
+					grad.setAttribute("x1", "0");
+					grad.setAttribute("y1", FToStr(item->height() / 2));
+					grad.setAttribute("x2", FToStr(item->width()));
+					grad.setAttribute("y2", FToStr(item->height() / 2));
+					break;
+				case 2:
+					grad.setAttribute("x1", FToStr(item->width()/ 2));
+					grad.setAttribute("y1", "0");
+					grad.setAttribute("x2", FToStr(item->width()/ 2));
+					grad.setAttribute("y2", FToStr(item->height()));
+					break;
+				case 3:
+					grad.setAttribute("x1", "0");
+					grad.setAttribute("y1", "0");
+					grad.setAttribute("x2", FToStr(item->width()));
+					grad.setAttribute("y2", FToStr(item->height()));
+					break;
+				case 4:
+					grad.setAttribute("x1", "0");
+					grad.setAttribute("y1", FToStr(item->height()));
+					grad.setAttribute("x2", FToStr(item->width()));
+					grad.setAttribute("y2", "0");
+					break;
+				case 5:
+					grad.setAttribute("r", FToStr(QMAX(item->width() / 2, item->height() / 2)));
+					grad.setAttribute("cx", FToStr(item->width() / 2));
+					grad.setAttribute("cy", FToStr(item->height() / 2));
+					break;
+				case 6:
+					grad.setAttribute("x1", FToStr(item->GrStartX));
+					grad.setAttribute("y1", FToStr(item->GrStartY));
+					grad.setAttribute("x2", FToStr(item->GrEndX));
+					grad.setAttribute("y2", FToStr(item->GrEndY));
+					break;
+				case 7:
+					grad.setAttribute("r", FToStr(QMAX(item->width() / 2, item->height() / 2)));
+					grad.setAttribute("cx", FToStr(item->GrStartX));
+					grad.setAttribute("cy", FToStr(item->GrStartY));
+					break;
+			}
+			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+			{
+				QDomElement itcl = docu->createElement("stop");
+				itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+				itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+				itcl.setAttribute("stop-color", SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+				grad.appendChild(itcl);
+			}
+			defi.appendChild(grad);
+			elem->appendChild(defi);
+			fill = "fill:url(#"+gradientID+");";
+			GradCount++;
+		}
+		if (item->fillRule)
+			fill += " fill-rule:evenodd;";
+		else
+			fill += " fill-rule:nonzero;";
+		if (item->fillTransparency() != 0)
+			fill += " fill-opacity:"+FToStr(1.0 - item->fillTransparency())+";";
+	}
+	else
+		fill = "fill:none;";
+	return fill;
+}
+
+QString SVGExPlug::ProcessStroke(PageItem* item)
+{
+	QString stroke;
+	if (item->lineColor() != CommonStrings::None)
+	{
+		stroke = "stroke:"+SetFarbe(item->lineColor(), item->lineShade())+";";
+		if (item->lineTransparency() != 0)
+			stroke += " stroke-opacity:"+FToStr(1.0 - item->lineTransparency())+";";
+	}
+	else
+		stroke = "stroke:none;";
+	return stroke;
+}
+
+QString SVGExPlug::ProcessStrokeLineCap(PageItem* item)
+{
+	QString strokeLC = "stroke-linecap:";
+	switch (item->PLineEnd)
+	{
+		case Qt::FlatCap:
+			strokeLC += "butt;";
+			break;
+		case Qt::SquareCap:
+			strokeLC += "square;";
+			break;
+		case Qt::RoundCap:
+			strokeLC += "round;";
+			break;
+		default:
+			strokeLC += "butt;";
+			break;
+	}
+	return strokeLC;
+}
+
+QString SVGExPlug::ProcessStrokeLineJoin(PageItem* item)
+{
+	QString strokeLJ = "stroke-linejoin:";
+	switch (item->PLineJoin)
+	{
+		case Qt::MiterJoin:
+			strokeLJ += "miter;";
+			break;
+		case Qt::BevelJoin:
+			strokeLJ += "bevel;";
+			break;
+		case Qt::RoundJoin:
+			strokeLJ += "round;";
+			break;
+		default:
+			strokeLJ += "miter;";
+			break;
+	}
+	return strokeLJ;
+}
+
+QString SVGExPlug::ProcessStrokeDashArray(PageItem* item)
+{
+	QString strokeDA = "stroke-dasharray:";
+	if (item->DashValues.count() != 0)
+	{
+		QValueList<double>::iterator it;
+		for ( it = item->DashValues.begin(); it != item->DashValues.end(); ++it )
+		{
+			strokeDA += IToStr(static_cast<int>(*it))+" ";
+		}
+		strokeDA += "; stroke-dashoffset:"+IToStr(static_cast<int>(item->DashOffset))+";";
+	}
+	else
+	{
+		QString Dt = FToStr(QMAX(2*item->lineWidth(), 1));
+		QString Da = FToStr(QMAX(6*item->lineWidth(), 1));
+		switch (item->PLineArt)
+		{
+			case Qt::SolidLine:
+				strokeDA += "none;";
+				break;
+			case Qt::DashLine:
+				strokeDA += Da+","+Dt+";";
+				break;
+			case Qt::DotLine:
+				strokeDA += Dt+";";
+				break;
+			case Qt::DashDotLine:
+				strokeDA += Da+","+Dt+","+Dt+","+Dt+";";
+				break;
+			case Qt::DashDotDotLine:
+				strokeDA += Da+","+Dt+","+Dt+","+Dt+","+Dt+","+Dt+";";
+				break;
+			default:
+				strokeDA += "none;";
+				break;
+		}
+	}
+	return strokeDA;
+}
+
+QString SVGExPlug::ProcessStrokeWidth(PageItem* item)
+{
+	QString strokeW = "stroke-width:"+FToStr(item->lineWidth())+"pt;";
+	return strokeW;
+}
+
+QString SVGExPlug::ProcessTransform(PageItem* item, Page* page)
+{
+	QString trans = "translate("+FToStr(item->xPos()-page->xOffset())+", "+FToStr(item->yPos()-page->yOffset())+")";
+	if (item->rotation() != 0)
+		trans += " rotate("+FToStr(item->rotation())+")";
+	return trans;
 }
 
 QString SVGExPlug::SetClipPath(PageItem *ite)
@@ -666,29 +784,29 @@ QString SVGExPlug::SetClipPath(PageItem *ite)
 	FPoint np, np1, np2;
 	bool nPath = true;
 	if (ite->PoLine.size() > 3)
-		{
+	{
 		for (uint poi=0; poi<ite->PoLine.size()-3; poi += 4)
-			{
+		{
 			if (ite->PoLine.point(poi).x() > 900000)
-				{
+			{
 				tmp += "Z ";
 				nPath = true;
 				continue;
-				}
+			}
 			if (nPath)
-				{
+			{
 				np = ite->PoLine.point(poi);
 				tmp += "M"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 				nPath = false;
-				}
+			}
 			np = ite->PoLine.point(poi+1);
 			tmp += "C"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 			np1 = ite->PoLine.point(poi+3);
 			tmp += FToStr(np1.x())+" "+FToStr(np1.y())+" ";
 			np2 = ite->PoLine.point(poi+2);
 			tmp += FToStr(np2.x())+" "+FToStr(np2.y())+" ";
-			}
 		}
+	}
 	return tmp;
 }
 
@@ -698,29 +816,29 @@ QString SVGExPlug::SetClipPathImage(PageItem *ite)
 	FPoint np, np1, np2;
 	bool nPath = true;
 	if (ite->imageClip.size() > 3)
-		{
+	{
 		for (uint poi=0; poi<ite->imageClip.size()-3; poi += 4)
-			{
+		{
 			if (ite->imageClip.point(poi).x() > 900000)
-				{
+			{
 				tmp += "Z ";
 				nPath = true;
 				continue;
-				}
+			}
 			if (nPath)
-				{
+			{
 				np = ite->imageClip.point(poi);
 				tmp += "M"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 				nPath = false;
-				}
+			}
 			np = ite->imageClip.point(poi+1);
 			tmp += "C"+FToStr(np.x())+" "+FToStr(np.y())+" ";
 			np1 = ite->imageClip.point(poi+3);
 			tmp += FToStr(np1.x())+" "+FToStr(np1.y())+" ";
 			np2 = ite->imageClip.point(poi+2);
 			tmp += FToStr(np2.x())+" "+FToStr(np2.y())+" ";
-			}
 		}
+	}
 	return tmp;
 }
 
