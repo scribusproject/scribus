@@ -5152,20 +5152,18 @@ void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection*
 	uint docSelectionCount   = itemSelection->count();
 	if (docSelectionCount != 0)
 	{
+		m_updateManager.setUpdatesDisabled();
 		if (docSelectionCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineStyle, name, Um::ILineStyle);
 		for (uint aa = 0; aa < docSelectionCount; ++aa)
 		{
 			PageItem *currItem = itemSelection->itemAt(aa);
 			currItem->setCustomLineStyle(name);
-			if (docSelectionCount == 1)
-				emit refreshItem(currItem);
+			currItem->update();
 		}
 		if (docSelectionCount > 1)
-		{
 			undoManager->commit();
-			emit updateContents();
-		}
+		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
 }
@@ -7054,15 +7052,14 @@ void ScribusDoc::itemSelection_SetOverprint(bool overprint, Selection* customSel
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
+	m_updateManager.setUpdatesDisabled();
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem* currItem = itemSelection->itemAt(i);
 		currItem->setOverprint(overprint);
-		if (selectedItemCount==1)
-			emit refreshItem(currItem);
+		currItem->update();
 	}
-	if (selectedItemCount>1)
-		emit updateContents();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
