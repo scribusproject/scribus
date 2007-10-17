@@ -196,9 +196,12 @@ bool SVGExPlug::doExport( QString fName )
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
 	docu.setContent(st);
+	double pageWidth  = m_Doc->pageWidth;
+	double pageHeight = m_Doc->pageHeight;
 	QDomElement elem = docu.documentElement();
 	elem.setAttribute("width", FToStr(m_Doc->pageWidth)+"pt");
 	elem.setAttribute("height", FToStr(m_Doc->pageHeight)+"pt");
+	elem.setAttribute("viewBox", QString("0 0 %1 %2").arg(pageWidth).arg(pageHeight));
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	Page *Seite;
@@ -254,11 +257,11 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	else
 		Items = m_Doc->MasterItems;
 	for (int la = 0; la < m_Doc->Layers.count(); la++)
-		{
+	{
 		m_Doc->Layers.levelToLayer(ll, Lnr);
 		if (ll.isPrintable)
-			{
-			for(uint j = 0; j < Items.count(); ++j)
+		{
+			for(int j = 0; j < Items.count(); ++j)
 			{
 				Item = Items.at(j);
 				if (Item->LayerNr != ll.LNr)
@@ -361,7 +364,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				trans = "translate("+FToStr(Item->xPos()-Seite->xOffset())+", "+FToStr(Item->yPos()-Seite->yOffset())+")";
 				if (Item->rotation() != 0)
 					trans += " rotate("+FToStr(Item->rotation())+")";
-				strokeW = "stroke-width:"+FToStr(Item->lineWidth())+"pt;";
+				strokeW = "stroke-width:"+FToStr(Item->lineWidth())+";";
 				strokeLC = "stroke-linecap:";
 				switch (Item->PLineEnd)
 				{
@@ -444,98 +447,190 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				switch (Item->itemType())
 				{
-				/* Item types 3 and 1 are OBSOLETE: CR 2005-02-06
-				case 1:
-				case 3:
-				*/
 				case PageItem::Polygon:
-						if (Item->NamedLStyle.isEmpty())
+					if (Item->NamedLStyle.isEmpty())
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", SetClipPath(Item)+"Z");
+					}
+					else
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", SetClipPath(Item)+"Z");
+						ob.setAttribute("style", fill);
+						gr.appendChild(ob);
+						multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
 						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-						}
-						else
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", fill);
-							gr.appendChild(ob);
-							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
+							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item)+"Z");
-									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item)+"Z");
+								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
+								gr.appendChild(ob);
 							}
 						}
+					}
 					break;
 				case PageItem::ImageFrame:
-						if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", fill);
-							gr.appendChild(ob);
-						}
-						if ((Item->PicAvail) && (!Item->Pfile.isEmpty()))
-						{
-							ob = docu->createElement("clipPath");
-							ob.setAttribute("id", Clipi+IToStr(ClipCount));
-							ob.setAttribute("clipPathUnits", "userSpaceOnUse");
-							ob.setAttribute("clip-rule", "evenodd");
-							QDomElement cl = docu->createElement("path");
-							if (Item->imageClip.size() != 0)
-								cl.setAttribute("d", SetClipPathImage(Item)+"Z");
-							else
-								cl.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.appendChild(cl);
-							gr.appendChild(ob);
-							ScImage img;
-							CMSettings cms(m_Doc, Item->IProfile, Item->IRender);
-							img.LoadPicture(Item->Pfile, cms, Item->UseEmbedded, true, ScImage::RGBProof, 72);
-							img.applyEffect(Item->effectsInUse, m_Doc->PageColors, true);
-							QFileInfo fi = QFileInfo(Item->Pfile);
-							img.qImage().save(fi.baseName()+".png", "PNG");
-							ob = docu->createElement("image");
-							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
-							ob.setAttribute("xlink:href", fi.baseName()+".png");
-							ob.setAttribute("x", "0pt");
-							ob.setAttribute("y", "0pt");
-							ob.setAttribute("width", FToStr(Item->width())+"pt");
-							ob.setAttribute("height", FToStr(Item->height())+"pt");
-							ClipCount++;
-							gr.appendChild(ob);
-						}
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
-						}
+					if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", SetClipPath(Item)+"Z");
+						ob.setAttribute("style", fill);
+						gr.appendChild(ob);
+					}
+					if ((Item->PicAvail) && (!Item->Pfile.isEmpty()))
+					{
+						ob = docu->createElement("clipPath");
+						ob.setAttribute("id", Clipi+IToStr(ClipCount));
+						ob.setAttribute("clipPathUnits", "userSpaceOnUse");
+						ob.setAttribute("clip-rule", "evenodd");
+						QDomElement cl = docu->createElement("path");
+						if (Item->imageClip.size() != 0)
+							cl.setAttribute("d", SetClipPathImage(Item)+"Z");
 						else
+							cl.setAttribute("d", SetClipPath(Item)+"Z");
+						ob.appendChild(cl);
+						gr.appendChild(ob);
+						ScImage img;
+						CMSettings cms(m_Doc, Item->IProfile, Item->IRender);
+						img.LoadPicture(Item->Pfile, cms, Item->UseEmbedded, true, ScImage::RGBProof, 72);
+						img.applyEffect(Item->effectsInUse, m_Doc->PageColors, true);
+						QFileInfo fi = QFileInfo(Item->Pfile);
+						img.qImage().save(fi.baseName()+".png", "PNG");
+						ob = docu->createElement("image");
+						ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
+						ob.setAttribute("xlink:href", fi.baseName()+".png");
+						ob.setAttribute("x", "0pt");
+						ob.setAttribute("y", "0pt");
+						ob.setAttribute("width", FToStr(Item->width()));
+						ob.setAttribute("height", FToStr(Item->height()));
+						ClipCount++;
+						gr.appendChild(ob);
+					}
+					if (Item->NamedLStyle.isEmpty())
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", SetClipPath(Item)+"Z");
+						ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+					}
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
 						{
-							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
+							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item)+"Z");
-									ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item)+"Z");
+								ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
+								gr.appendChild(ob);
 							}
 						}
+					}
 					break;
 				case PageItem::PolyLine:
+					if (Item->NamedLStyle.isEmpty())
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", SetClipPath(Item));
+					}
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
+						{
+							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+							{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item));
+								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
+								gr.appendChild(ob);
+							}
+						}
+					}
+					break;
+				case PageItem::TextFrame:
+					if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", SetClipPath(Item)+"Z");
+						ob.setAttribute("style", fill);
+						gr.appendChild(ob);
+					}
+					ob = docu->createElement("text");
+					for (d = 0; d < Item->itemText.length() && ! Item->frameDisplays(d); ++d)
+						;
+					for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
+					{
+						hl = Item->itemText.item(d);
+						if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+							continue;
+						if (hl->glyph.yoffset == 0)
+							break;
+						if (hl->ch == QChar(29))
+							chx = " ";
+						else
+							chx = hl->ch;
+						tp = docu->createElement("tspan");
+						tp.setAttribute("x", FToStr(hl->glyph.xoffset));
+						tp.setAttribute("y", FToStr(hl->glyph.yoffset));
+						SetTextProps(&tp, hl);
+						tp1 = docu->createTextNode(chx);
+						tp.appendChild(tp1);
+						ob.appendChild(tp);
+					}
+					if (Item->NamedLStyle.isEmpty())
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", SetClipPath(Item)+"Z");
+						ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+					}
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
+						{
+							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+							{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item)+"Z");
+								ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
+								gr.appendChild(ob);
+							}
+						}
+					}
+					break;
+				case PageItem::Line:
+					if (Item->NamedLStyle.isEmpty())
+					{
+						ob = docu->createElement("path");
+						ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
+					}
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
+						{
+							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+							{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
+								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
+								gr.appendChild(ob);
+							}
+						}
+					}
+					break;
+				case PageItem::PathText:
+					if (Item->PoShow)
+					{
 						if (Item->NamedLStyle.isEmpty())
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item));
+							gr.appendChild(ob);
 						}
 						else
 						{
@@ -551,128 +646,32 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								}
 							}
 						}
-					break;
-				case PageItem::TextFrame:
-						if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", fill);
-							gr.appendChild(ob);
-						}
-						ob = docu->createElement("text");
-						for (d = 0; d < Item->itemText.length() && ! Item->frameDisplays(d); ++d)
-							;
-						for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
-						{
-							hl = Item->itemText.item(d);
-							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
-								continue;
-							if (hl->glyph.yoffset == 0)
-								break;
-							if (hl->ch == QChar(29))
-								chx = " ";
-							else
-								chx = hl->ch;
-							tp = docu->createElement("tspan");
-							tp.setAttribute("x", FToStr(hl->glyph.xoffset)+"pt");
-							tp.setAttribute("y", FToStr(hl->glyph.yoffset)+"pt");
-							SetTextProps(&tp, hl);
-							tp1 = docu->createTextNode(chx);
-							tp.appendChild(tp1);
-							ob.appendChild(tp);
-						}
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item)+"Z");
-							ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
-						}
+					}
+					ob = docu->createElement("text");
+					for (d = 0; d < Item->itemText.length() && !Item->frameDisplays(d); ++d)
+						;
+					for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
+					{
+						hl = Item->itemText.item(d);
+						if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(25)) || (hl->ch == QChar(28)))
+							continue;
+						if (hl->ch == QChar(29))
+							chx = " ";
 						else
-						{
-							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item)+"Z");
-									ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
-							}
-						}
-					break;
-				case PageItem::Line:
-						if (Item->NamedLStyle.isEmpty())
-						{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
-						}
-						else
-						{
-							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
-									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
-								}
-							}
-						}
-					break;
-				case PageItem::PathText:
-						if (Item->PoShow)
-						{
-							if (Item->NamedLStyle.isEmpty())
-							{
-								ob = docu->createElement("path");
-								ob.setAttribute("d", SetClipPath(Item));
-								gr.appendChild(ob);
-							}
-							else
-							{
-								multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-									{
-										ob = docu->createElement("path");
-										ob.setAttribute("d", SetClipPath(Item));
-										ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-										gr.appendChild(ob);
-									}
-								}
-							}
-						}
-						ob = docu->createElement("text");
-						for (d = 0; d < Item->itemText.length() && !Item->frameDisplays(d); ++d)
-							;
-						for (; d < Item->itemText.length() && Item->frameDisplays(d); ++d)
-						{
-							hl = Item->itemText.item(d);
-							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(25)) || (hl->ch == QChar(28)))
-								continue;
-							if (hl->ch == QChar(29))
-								chx = " ";
-							else
-								chx = hl->ch;
-							tp = docu->createElement("tspan");
-							tp.setAttribute("x", FToStr(hl->PtransX)+"pt");
-							tp.setAttribute("y", FToStr(hl->PtransY)+"pt");
-							tp.setAttribute("rotate", hl->PRot);
-							tp2 = docu->createElement("tspan");
-							tp2.setAttribute("dx", FToStr(hl->glyph.xoffset)+"pt");
-							tp2.setAttribute("dy", FToStr(hl->glyph.yoffset)+"pt");
-							SetTextProps(&tp2, hl);
-							tp1 = docu->createTextNode(chx);
-							tp2.appendChild(tp1);
-							tp.appendChild(tp2);
-							ob.appendChild(tp);
-						}
+							chx = hl->ch;
+						tp = docu->createElement("tspan");
+						tp.setAttribute("x", FToStr(hl->PtransX));
+						tp.setAttribute("y", FToStr(hl->PtransY));
+						tp.setAttribute("rotate", hl->PRot);
+						tp2 = docu->createElement("tspan");
+						tp2.setAttribute("dx", FToStr(hl->glyph.xoffset));
+						tp2.setAttribute("dy", FToStr(hl->glyph.yoffset));
+						SetTextProps(&tp2, hl);
+						tp1 = docu->createTextNode(chx);
+						tp2.appendChild(tp1);
+						tp.appendChild(tp2);
+						ob.appendChild(tp);
+					}
 					break;
 				default:
 					break;
@@ -772,16 +771,16 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 	else
 		tp->setAttribute("fill", "none");
 	if ((hl->strokeColor() != CommonStrings::None) && (chst & 4))
-		{
+	{
 		tp->setAttribute("stroke", SetFarbe(hl->strokeColor(), hl->strokeShade()));
-		tp->setAttribute("stroke-width", FToStr(hl->font().strokeWidth(hl->fontSize() / 10.0))+"pt");
-		}
+		tp->setAttribute("stroke-width", FToStr(hl->font().strokeWidth(hl->fontSize() / 10.0)));
+	}
 	else
 		tp->setAttribute("stroke", "none");
 	tp->setAttribute("font-size", (hl->fontSize() / 10.0));
 	tp->setAttribute("font-family", hl->font().family());
 	if (chst != 0)
-		{
+	{
 		if (chst & 64)
 			tp->setAttribute("font-variant", "small-caps");
 		if (chst & 32)
@@ -790,7 +789,7 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 			tp->setAttribute("text-decoration", "line-through");
 		if (chst & 8)
 			tp->setAttribute("text-decoration", "underline");
-		}
+	}
 }
 
 QString SVGExPlug::SetFarbe(QString farbe, int shad)
@@ -805,7 +804,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade)+"; ";
 	if (Item->fillTransparency() != 0)
 		tmp += " stroke-opacity:"+FToStr(1.0 - Item->fillTransparency())+"; ";
-	tmp += "stroke-width:"+FToStr(sl->Width)+"pt; ";
+	tmp += "stroke-width:"+FToStr(sl->Width)+"; ";
 	tmp += "stroke-linecap:";
 	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 		{
