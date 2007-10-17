@@ -46,10 +46,6 @@ class CharTableView : public QTableView
 		void mouseReleaseEvent(QMouseEvent *m);
 		void mousePressEvent(QMouseEvent* e);
 		void mouseMoveEvent(QMouseEvent* e);
-		// d'n'd
-		void dropEvent(QDropEvent *e);
-		void dragEnterEvent(QDragEnterEvent * e);
-		void dragMoveEvent(QDragMoveEvent *e);
 
 		int currentValue();
 		void hideZoomedChar();

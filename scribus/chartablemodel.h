@@ -37,7 +37,10 @@ class SCRIBUS_API CharTableModel : public QAbstractTableModel
 		QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
 		void setFontInUse(QString font);
+
+		//! \brief Font in use. It's used in model's view.
 		ScFace fontFace();
+
 		void setCharacters(CharClassDef ch);
 		CharClassDef characters() { return m_characters; };
 
@@ -62,7 +65,14 @@ class SCRIBUS_API CharTableModel : public QAbstractTableModel
 		QString m_fontInUse;
 		CharClassDef m_characters;
 
+		/*! \brief All drag'n'drop actions are handled in this model only
+		See Qt4 docs "Using Drag and Drop with Item Views" for more info.
+		*/
 		Qt::ItemFlags flags(const QModelIndex &index) const;
+		Qt::DropActions supportedDropActions() const;
+		QStringList mimeTypes() const;
+		QMimeData * mimeData(const QModelIndexList &indexes) const;
+		bool dropMimeData(const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
 };
 
 #endif

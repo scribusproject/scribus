@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "chartableview.h"
 #include "pageitem_textframe.h"
+#include "prefsmanager.h"
 
 #include "charselect.h"
 
@@ -31,11 +32,11 @@ CharSelect::CharSelect(QWidget* parent)
 	m_Item(0)
 {
 	setupUi(this);
-// 	layout()->setSizeConstraint(QLayout::SetFixedSize |QLayout::SetDefaultConstraint);
 
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	m_charTableModel = new CharTableModel(m_bigPalette, 16, m_doc, m_fontInUse);
+	m_charTableModel = new CharTableModel(m_bigPalette, 26, m_doc,
+										  PrefsManager::instance()->appPrefs.toolSettings.defFont);
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->resizeColumnsToContents();
 	m_charTable->resizeRowsToContents();
@@ -45,10 +46,10 @@ CharSelect::CharSelect(QWidget* parent)
 	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
 	uniClearButton->setIcon(loadIcon("22/document-new.png"));
 	
-	m_userTableModel = new CharTableModel(m_quickPalette, 4, m_doc, m_fontInUse);
+	m_userTableModel = new CharTableModel(m_quickPalette, 8, m_doc,
+										  PrefsManager::instance()->appPrefs.toolSettings.defFont);
 	m_userTable->setModel(m_userTableModel);
 	m_userTable->setAcceptDrops(true);
-// 	m_userTable->setDragEnabled(true);
 	m_userTable->resizeColumnsToContents();
 	m_userTable->resizeRowsToContents();
 
@@ -70,6 +71,8 @@ CharSelect::CharSelect(QWidget* parent)
 	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
 
 	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
+	setupRangeCombo();
+	newCharClass(0);
 }
 
 CharSelect::~CharSelect()

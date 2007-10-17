@@ -60,10 +60,8 @@ void CharTableView::keyPressEvent(QKeyEvent *k)
 
 void CharTableView::mousePressEvent(QMouseEvent* e)
 {
-	if (!currentIndex().isValid())
-		return;
-
 	QTableView::mousePressEvent(e);
+
 	mPressed = true;
 	mousePos = e->pos();
 	int index = currentValue();
@@ -93,29 +91,12 @@ void CharTableView::mouseMoveEvent(QMouseEvent* e)
 {
 	if (mPressed)
 		hideZoomedChar();
-	if (!currentIndex().isValid())
-		return;
-	int index = currentValue();
-	int currentChar = -1;
-	if (index < model()->characters().count())
-		currentChar = model()->characters()[index];
-	if ((e->buttons() & Qt::LeftButton) && (mPressed) && (currentChar > -1) && ((abs(mousePos.x() - e->pos().x()) > 10) || (abs(mousePos.x() - e->pos().y()) > 10)))
-	{
-		QDrag *drag = new QDrag(this);
-		QMimeData *mimeData = new QMimeData();
-		QString s("%1");
-		mimeData->setText(s.arg(model()->characters()[currentValue()]));
-		drag->setMimeData(mimeData);
-		drag->exec(Qt::CopyAction);
-		mPressed = false;
-	}
+
 	QTableView::mouseMoveEvent(e);
 }
 
 void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 {
-	if (!currentIndex().isValid())
-		return;
 	if ((e->button() == Qt::RightButton) && mPressed)
 		hideZoomedChar();
 
@@ -128,34 +109,6 @@ void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 	mPressed = false;
 
 	QTableView::mouseReleaseEvent(e);
-}
-
-void CharTableView::dropEvent(QDropEvent *e)
-{
-	e->accept();
-	if (e->mimeData()->hasText())
-	{
-		e->acceptProposedAction();
-		model()->appendUnicode(e->mimeData()->text(), 10);
-	}
-}
-
-void CharTableView::dragMoveEvent(QDragMoveEvent *e)
-{
-	e->accept();
-	if (e->mimeData()->hasText())
-	{
-		e->acceptProposedAction();
-	}
-}
-
-void CharTableView::dragEnterEvent(QDragEnterEvent *e)
-{
-	e->accept();
-	if (e->mimeData()->hasText())
-	{
-		e->acceptProposedAction();
-	}
 }
 
 int CharTableView::currentValue()

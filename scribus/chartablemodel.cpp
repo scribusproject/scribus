@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QApplication>
 
 #include "fonts/scface.h"
 #include "scribusdoc.h"
@@ -20,14 +21,14 @@ CharTableModel::CharTableModel(QObject *parent, int cols, ScribusDoc * doc, cons
 	m_characters.clear();
 }
 
-int CharTableModel::rowCount(const QModelIndex & /* parent */) const
+int CharTableModel::rowCount(const QModelIndex & parent) const
 {
-    return m_characters.count() / m_cols;
+	return m_doc || !parent.isValid() ? m_characters.count() / m_cols + 1: 0;
 }
 
 int CharTableModel::columnCount(const QModelIndex & /* parent */) const
 {
-    return m_cols;
+	return m_cols;
 }
 
 QVariant CharTableModel::data(const QModelIndex &index, int role) const
@@ -42,7 +43,11 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 	if (currentChar == -1)
 		return QVariant();
 
-	// pixmap
+	// for mimeData()
+	if (role == Qt::AccessibleTextRole)
+		return m_characters[ix];
+
+	// 	pixmap
 	if (role == Qt::DecorationRole)
 	{
 		QMatrix chma;
@@ -135,4 +140,36 @@ Qt::ItemFlags CharTableModel::flags(const QModelIndex &index) const
 	if (index.isValid())
 		return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | defaultFlags;
 	return Qt::ItemIsDropEnabled | defaultFlags;
+}
+
+Qt::DropActions CharTableModel::supportedDropActions() const
+{
+	return Qt::CopyAction | Qt::MoveAction;
+}
+
+QStringList CharTableModel::mimeTypes() const
+{
+	return QStringList() << "text/plain";
+}
+
+QMimeData *CharTableModel::mimeData(const QModelIndexList &indexes) const
+{
+	QMimeData *mimeData = new QMimeData();
+	mimeData->setText(data(indexes.at(0), Qt::AccessibleTextRole).toString());
+	return mimeData;
+}
+
+bool CharTableModel::dropMimeData(const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent)
+{
+	if (action == Qt::IgnoreAction)
+		return true;
+
+	if (!data->hasText())
+		return false;
+
+	appendUnicode(QString(data->text()), 10);
+	// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
+	// It's the one and only reason why to include QApplication here.
+	QApplication::restoreOverrideCursor();
+	return true;
 }
