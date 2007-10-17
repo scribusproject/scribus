@@ -110,6 +110,11 @@ void LineFormatItemDelegate::redraw(const QVariant& data) const
 	p.end();
 }
 
+QString LineFormatItemDelegate::text(const QVariant& data) const
+{
+	return data.toString();
+}
+
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 {
 	QRegExp rx( "\\w+" );
@@ -1029,6 +1034,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	pageLayout_5a->setSpacing( 5 );
 	pageLayout_5a->setMargin( 0 );
 	StyledLine = new QListWidget(page_5a);
+	StyledLine->setItemDelegate(new LineFormatItemDelegate);
 	StyledLine->addItem( "No Style" );
 	pageLayout_5a->addWidget(StyledLine);
 	TabStack3->addWidget( page_5a );
