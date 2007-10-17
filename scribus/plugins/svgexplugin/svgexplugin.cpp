@@ -163,8 +163,11 @@ SVGExPlug::SVGExPlug( QString fName )
 	QString st = "<svg></svg>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("width", FToStr(ScMW->doc->pageWidth)+"pt");
-	elem.setAttribute("height", FToStr(ScMW->doc->pageHeight)+"pt");
+	double pageWidth  = ScMW->doc->pageWidth;
+	double pageHeight = ScMW->doc->pageHeight;
+	elem.setAttribute("width"  , FToStr(ScMW->doc->pageWidth)+"pt");
+	elem.setAttribute("height" , FToStr(ScMW->doc->pageHeight)+"pt");
+	elem.setAttribute("viewBox", QString("0 0 %1 %2").arg(pageWidth).arg(pageHeight));
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	Page *Seite;
@@ -307,8 +310,8 @@ void SVGExPlug::ProcessItem_ImageFrame(PageItem* item, Page* page, QDomDocument 
 		ob.setAttribute("xlink:href", fi.baseName()+".png");
 		ob.setAttribute("x", "0pt");
 		ob.setAttribute("y", "0pt");
-		ob.setAttribute("width", FToStr(item->width())+"pt");
-		ob.setAttribute("height", FToStr(item->height())+"pt");
+		ob.setAttribute("width", FToStr(item->width()));
+		ob.setAttribute("height", FToStr(item->height()));
 		ClipCount++;
 		gr.appendChild(ob);
 	}
@@ -422,12 +425,12 @@ void SVGExPlug::ProcessItem_PathText(PageItem* item, Page* page, QDomDocument *d
 		else
 			chx = hl->ch;
 		tp = docu->createElement("tspan");
-		tp.setAttribute("x", FToStr(hl->PtransX)+"pt");
-		tp.setAttribute("y", FToStr(hl->PtransY)+"pt");
+		tp.setAttribute("x", FToStr(hl->PtransX));
+		tp.setAttribute("y", FToStr(hl->PtransY));
 		tp.setAttribute("rotate", hl->PRot);
 		tp2 = docu->createElement("tspan");
-		tp2.setAttribute("dx", FToStr(hl->xp)+"pt");
-		tp2.setAttribute("dy", FToStr(hl->yp)+"pt");
+		tp2.setAttribute("dx", FToStr(hl->xp));
+		tp2.setAttribute("dy", FToStr(hl->yp));
 		SetTextProps(&tp2, hl);
 		tp1 = docu->createTextNode(chx);
 		tp2.appendChild(tp1);
@@ -549,8 +552,8 @@ void SVGExPlug::ProcessItem_TextFrame(PageItem* item, Page* page, QDomDocument *
 		else
 			chx = hl->ch;
 		tp = docu->createElement("tspan");
-		tp.setAttribute("x", FToStr(hl->xp)+"pt");
-		tp.setAttribute("y", FToStr(hl->yp)+"pt");
+		tp.setAttribute("x", FToStr(hl->xp));
+		tp.setAttribute("y", FToStr(hl->yp));
 		SetTextProps(&tp, hl);
 		tp1 = docu->createTextNode(chx);
 		tp.appendChild(tp1);
@@ -766,7 +769,7 @@ QString SVGExPlug::ProcessStrokeDashArray(PageItem* item)
 
 QString SVGExPlug::ProcessStrokeWidth(PageItem* item)
 {
-	QString strokeW = "stroke-width:"+FToStr(item->lineWidth())+"pt;";
+	QString strokeW = "stroke-width:"+FToStr(item->lineWidth())+";";
 	return strokeW;
 }
 
@@ -862,10 +865,10 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 	else
 		tp->setAttribute("fill", "none");
 	if ((hl->cstroke != CommonStrings::None) && (chst & 4))
-		{
+	{
 		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2));
-		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->cfont->scName()]->strokeWidth * (hl->csize / 10.0))+"pt");
-		}
+		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->cfont->scName()]->strokeWidth * (hl->csize / 10.0)));
+	}
 	else
 		tp->setAttribute("stroke", "none");
 	tp->setAttribute("font-size", (hl->csize / 10.0));
@@ -894,7 +897,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade)+"; ";
 	if (Item->fillTransparency() != 0)
 		tmp += " stroke-opacity:"+FToStr(1.0 - Item->fillTransparency())+"; ";
-	tmp += "stroke-width:"+FToStr(sl->Width)+"pt; ";
+	tmp += "stroke-width:"+FToStr(sl->Width)+"; ";
 	tmp += "stroke-linecap:";
 	switch (static_cast<PenCapStyle>(sl->LineEnd))
 		{
