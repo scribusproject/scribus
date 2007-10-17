@@ -58,10 +58,6 @@ public:
 
 	void updatePreferences();
 
-signals:
-	/// \brief Panels listen to this and save their changes when they get it.
-	void accepted();
-
 public slots:
 	/// \brief Overridden to emit accepted(), which plugin panels use
 	void accept();

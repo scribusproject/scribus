@@ -105,7 +105,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	//restoreDefaults(&prefsData, prefProfile);
 
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
-	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	connect(curCheckProfile, SIGNAL(editTextChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	
 	connect(ignoreErrors, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(automaticCheck, SIGNAL(clicked()), this, SLOT(putProfile()));
