@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QDrag>
 #include <QHeaderView>
+#include <QApplication>
 
 #include "commonstrings.h"
 #include "page.h"
@@ -191,6 +192,9 @@ void SeView::dropEvent(QDropEvent * e)
 	{
         e->setDropAction(Qt::MoveAction);
 		e->accept();
+		// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
+		// It's the one and only reason why to include QApplication here.
+		QApplication::restoreOverrideCursor();
 		str = e->mimeData()->text();
 		ClearPix();
 		if (str.startsWith("1"))
