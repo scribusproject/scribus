@@ -118,6 +118,8 @@ void Measurements::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void Measurements::languageChange()

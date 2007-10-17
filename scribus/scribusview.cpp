@@ -325,6 +325,8 @@ void ScribusView::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void ScribusView::languageChange()

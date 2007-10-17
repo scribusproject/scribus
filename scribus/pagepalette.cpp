@@ -859,6 +859,8 @@ void PagePalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void PagePalette::languageChange()

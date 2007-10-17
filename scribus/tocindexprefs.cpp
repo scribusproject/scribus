@@ -83,6 +83,8 @@ void TOCIndexPrefs::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void TOCIndexPrefs::languageChange()

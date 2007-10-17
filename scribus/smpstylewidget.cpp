@@ -53,6 +53,8 @@ void SMPStyleWidget::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void SMPStyleWidget::languageChange()

@@ -214,6 +214,8 @@ void LoremManager::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void LoremManager::languageChange()

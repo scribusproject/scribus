@@ -112,6 +112,8 @@ void ModeToolBar::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void ModeToolBar::languageChange()

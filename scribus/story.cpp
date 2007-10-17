@@ -913,6 +913,8 @@ void SToolBColorF::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 
@@ -985,6 +987,8 @@ void SToolBColorS::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void SToolBColorS::languageChange()
@@ -1059,6 +1063,8 @@ void SToolBStyle::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void SToolBStyle::languageChange()
@@ -1172,6 +1178,8 @@ void SToolBAlign::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void SToolBAlign::languageChange()
@@ -1241,6 +1249,8 @@ void SToolBFont::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void SToolBFont::languageChange()
@@ -1734,6 +1744,8 @@ void StoryEditor::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void StoryEditor::languageChange()

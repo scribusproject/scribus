@@ -180,6 +180,8 @@ void PrefsDialogBase::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void PrefsDialogBase::languageChange()

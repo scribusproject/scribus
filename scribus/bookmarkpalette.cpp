@@ -42,6 +42,8 @@ void BookPalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void BookPalette::languageChange()

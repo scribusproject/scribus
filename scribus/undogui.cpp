@@ -298,6 +298,8 @@ void UndoPalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void UndoPalette::languageChange()

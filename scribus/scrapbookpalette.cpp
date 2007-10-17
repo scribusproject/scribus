@@ -1314,6 +1314,8 @@ void Biblio::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void Biblio::languageChange()

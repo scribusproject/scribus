@@ -486,6 +486,8 @@ void LayerPalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void LayerPalette::languageChange()

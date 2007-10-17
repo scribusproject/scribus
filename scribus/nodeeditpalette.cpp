@@ -843,6 +843,8 @@ void NodePalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void NodePalette::languageChange()

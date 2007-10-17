@@ -4326,6 +4326,8 @@ void PropertiesPalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void PropertiesPalette::languageChange()

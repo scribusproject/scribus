@@ -137,6 +137,8 @@ void FontComboH::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void FontComboH::languageChange()

@@ -816,6 +816,8 @@ void Cpalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void Cpalette::languageChange()

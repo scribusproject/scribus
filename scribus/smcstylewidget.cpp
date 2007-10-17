@@ -65,6 +65,8 @@ void SMCStyleWidget::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void SMCStyleWidget::languageChange()

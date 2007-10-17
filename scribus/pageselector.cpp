@@ -248,6 +248,8 @@ void PageSelector::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void PageSelector::languageChange()

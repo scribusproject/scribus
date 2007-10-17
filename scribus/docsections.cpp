@@ -63,6 +63,8 @@ void DocSections::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void DocSections::languageChange()

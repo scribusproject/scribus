@@ -315,6 +315,8 @@ void GradientEditor::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void GradientEditor::languageChange()

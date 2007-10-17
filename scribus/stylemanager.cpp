@@ -86,6 +86,8 @@ void StyleManager::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void StyleManager::languageChange()

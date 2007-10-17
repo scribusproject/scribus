@@ -36,6 +36,8 @@ void ShortcutWidget::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void ShortcutWidget::languageChange()

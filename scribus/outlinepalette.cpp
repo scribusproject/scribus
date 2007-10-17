@@ -1157,6 +1157,8 @@ void OutlinePalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 

@@ -1878,6 +1878,8 @@ void ScribusMainWindow::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void ScribusMainWindow::closeEvent(QCloseEvent *ce)

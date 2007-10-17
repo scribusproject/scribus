@@ -491,6 +491,8 @@ void CurveWidget::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void CurveWidget::languageChange()

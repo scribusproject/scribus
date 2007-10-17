@@ -50,6 +50,8 @@ void UnicodeChooseButton::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void UnicodeChooseButton::languageChange()

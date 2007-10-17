@@ -278,6 +278,8 @@ void HelpBrowser::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void HelpBrowser::languageChange()

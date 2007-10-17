@@ -71,6 +71,8 @@ void ScInputDialog::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void ScInputDialog::languageChange()

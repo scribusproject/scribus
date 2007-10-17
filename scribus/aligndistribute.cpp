@@ -81,6 +81,8 @@ void AlignDistributePalette::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void AlignDistributePalette::languageChange()

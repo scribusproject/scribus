@@ -815,6 +815,8 @@ void CheckDocument::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void CheckDocument::languageChange()

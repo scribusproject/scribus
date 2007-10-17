@@ -245,6 +245,8 @@ void StyleSelect::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void StyleSelect::languageChange()

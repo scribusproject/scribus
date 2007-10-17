@@ -65,6 +65,8 @@ public:
 	int pageNr() const { return ((currentPage) ? currentPage->pageNr() : -1); }
 
 	int currentIndex() { return tabWidget->currentIndex(); };
+	
+	virtual void changeEvent(QEvent *e);
 
 private:
 	//! \brief Store the guide values in the Qt4 model
@@ -126,6 +128,7 @@ private:
 	int horizontalRefer();
 	void setVerticalRefer(int button);
 	int verticalRefer();
+	void languageChange();
 
 protected slots:
 	void verticalModel_valueChanged();

@@ -195,6 +195,49 @@ void GuideManager::storePageValues(Page *page)
 	page->guides.addVerticals(getAutoVerticals(), GuideManagerCore::Auto);
 }
 
+void GuideManager::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+	else
+		QWidget::changeEvent(e);
+}
+
+void GuideManager::languageChange()
+{
+	setWindowTitle( tr("Guide Manager") );
+	tabWidget->setTabText(0, tr( "&Single") );
+	tabWidget->setTabText(1, tr( "&Column/Row") );
+	tabWidget->setTabText(2, tr( "&Misc") );
+	horizontalGroupBox->setTitle( tr("Horizontals") );
+	verticalGroupBox->setTitle( tr("Verticals") );
+	addHorButton->setText( tr("&Add") );
+	delHorButton->setText( tr("D&elete") );
+	addVerButton->setText( tr("A&dd") );
+	delVerButton->setText( tr("De&lete") );
+	lockCheck->setText( tr("&Lock Guides") );
+	applyToAllStdButton->setText( tr("Appl&y to All Pages") );
+	horizontalAutoGroup->setTitle( tr("Horizontals") );
+	verticalAutoGroup->setTitle( tr("Verticals") );
+	textLabel1->setText( tr("&Number:") );
+	textLabel1_2->setText( tr("Nu&mber:") );
+	horizontalAutoGapCheck->setText( tr("U&se Gap:") );
+	verticalAutoGapCheck->setText( tr("Use &Gap:") );
+	groupBox->setTitle( tr("Refer To") );
+	groupBox_2->setTitle( tr("Refer To") );
+	horizontalPageAutoButton->setText( tr("&Page") );
+	horizontalMarginsAutoButton->setText( tr("M&argins") );
+	horizontalSelectionAutoButton->setText( tr("S&election") );
+	verticalPageAutoButton->setText( tr("&Page") );
+	verticalMarginsAutoButton->setText( tr("M&argins") );
+	verticalSelectionAutoButton->setText( tr("S&election") );
+	applyToAllAutoButton->setText( tr("Appl&y to All Pages") );
+	deletePageButton->setText( tr("Delete Guides from Current &Page") );
+	deleteAllGuides->setText( tr("Delete Guides from &All Pages") );
+}
+
 void GuideManager::unitChange()
 {
 	if (!m_Doc)
