@@ -344,6 +344,7 @@ protected: // Protected methods
 	virtual void contentsDropEvent(QDropEvent *e);
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
+	void scrollContentsBy(int dx, int dy);
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;

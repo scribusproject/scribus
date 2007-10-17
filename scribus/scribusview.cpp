@@ -311,7 +311,6 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(previewToolbarButton, SIGNAL(clicked()), this, SLOT(togglePreview()));
 	connect(cmsToolbarButton, SIGNAL(clicked()), this, SLOT(toggleCMS()));
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
-	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	languageChange();
 	dragTimer = new QTimer(this);
@@ -3334,7 +3333,6 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 	{
 		bool updback = updateOn;
 		updatesOn(false);
-		disconnect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 		int oldDX = contentsX();
 		int oldDY = contentsY();
 		int nw = qMax(qRound(width * scale), contentsWidth() + qRound(dX * scale) * 2);
@@ -3342,7 +3340,6 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 		resizeContents(qMax(nw, visibleWidth() + qRound(dX * scale) * 2), qMax(nh, visibleHeight() + qRound(dY * scale) * 2));
 		setContentsPos(oldDX + qRound(dX * scale), oldDY + qRound(dY * scale));
 //		setRulerPos(contentsX(), contentsY());
-		connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 		updatesOn(updback);
 	}
 //	evSpon = false;
@@ -5253,6 +5250,13 @@ void ScribusView::setContentsPos(int x, int y)
 	int originY = qRound(Doc->minCanvasCoordinate.y() * scale());
 	horizontalScrollBar()->setValue(x - originX);
 	verticalScrollBar()->setValue(y - originY);
+	setRulerPos(contentsX(), contentsY());
+}
+
+
+void ScribusView::scrollContentsBy(int dx, int dy)
+{
+	QScrollArea::scrollContentsBy (dx, dy);
 	setRulerPos(contentsX(), contentsY());
 }
 
