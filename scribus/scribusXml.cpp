@@ -1119,7 +1119,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			double  patScaleY = attrAsDbl(attrs, "scaleY", 0.0);
 			double  patWidth  = attrAsDbl(attrs, "width", 0.0);
 			double  patHeight = attrAsDbl(attrs, "height", 0.0);
-			int     patOwnLink, groupsLastItem;
+			int     patOwnLink = 0;
+			int groupsLastItem = 0;
 			QString patText   = sReader.readElementText();
 			QXmlStreamReader sReader1(patText);
 			while(!sReader1.atEnd() && !sReader1.hasError())
