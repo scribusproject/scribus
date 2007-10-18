@@ -17,11 +17,12 @@ for which a new license (GPL+exception) is in place.
 
 CharTableView::CharTableView(QWidget * parent)
 	: QTableView(parent),
-	zoom(0),
-	mPressed(false)
+	zoom(0)
 {
 	deleteAct = new QAction( tr("Delete"), this);
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(removeCharacter()));
+	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
+			this, SLOT(viewDoubleClicked(const QModelIndex &)));
 	actionMenu = new QMenu(this);
 	actionMenu->addAction(deleteAct);
 
@@ -66,8 +67,6 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 {
 	QTableView::mousePressEvent(e);
 
-	mPressed = true;
-	mousePos = e->pos();
 	int index = currentValue();
 	int currentChar = -1;
 
@@ -79,6 +78,7 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 		// Only non-dropable tables show "magnifier glass"
 		if (!acceptDrops())
 		{
+			hideZoomedChar();
 			zoom = new CharZoom(this, currentChar, model()->fontFace());
 			zoom->move(e->globalPos().x()-2, e->globalPos().y()-2);
 			zoom->show();
@@ -93,26 +93,19 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 
 void CharTableView::mouseMoveEvent(QMouseEvent* e)
 {
-	if (mPressed)
-		hideZoomedChar();
-
+	hideZoomedChar();
 	QTableView::mouseMoveEvent(e);
 }
 
 void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 {
-	if ((e->button() == Qt::RightButton) && mPressed)
-		hideZoomedChar();
-
-	if (e->button() == Qt::LeftButton)
-	{
-		int index = rowAt(e->pos().y()) * model()->columnCount() + columnAt(e->pos().x());
-		if (index >= 0 && index < model()->characters().size())
-			emit selectChar(model()->characters()[index]);
-	}
-	mPressed = false;
-
+	hideZoomedChar();
 	QTableView::mouseReleaseEvent(e);
+}
+
+void CharTableView::viewDoubleClicked(const QModelIndex & index)
+{
+	emit selectChar(model()->characters()[currentValue()]);
 }
 
 int CharTableView::currentValue()
@@ -128,4 +121,10 @@ void CharTableView::hideZoomedChar()
 		delete zoom;
 		zoom = 0;
 	}
+}
+
+void CharTableView::hideEvent(QHideEvent * e)
+{
+	hideZoomedChar();
+	QTableView::hideEvent(e);
 }

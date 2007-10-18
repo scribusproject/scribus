@@ -40,13 +40,12 @@ class CharTableView : public QTableView
 	protected:
 		//! \brief Magnify dialog reference
 		CharZoom* zoom;
-		bool mPressed;
-		QPoint mousePos;
 
 		QAction * deleteAct;
 		QMenu * actionMenu;
 
 		CharTableModel * model();
+		void hideEvent(QHideEvent *);
 		void keyPressEvent(QKeyEvent *k);
 		void mouseReleaseEvent(QMouseEvent *m);
 		void mousePressEvent(QMouseEvent* e);
@@ -58,6 +57,7 @@ class CharTableView : public QTableView
 
 	private slots:
 		void removeCharacter();
+		void viewDoubleClicked(const QModelIndex & index);
 };
 
 #endif
