@@ -217,6 +217,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;
 	FPoint maxSize = m_Doc->maxCanvasCoordinate;
+	FPoint cOrigin = m_Doc->view()->canvasOrigin();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
@@ -353,7 +354,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				m_Doc->minCanvasCoordinate = minSize;
 				m_Doc->maxCanvasCoordinate = maxSize;
 				m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
-				m_Doc->view()->setCanvasOrigin(minSize.x(), minSize.y());
+				m_Doc->view()->setCanvasOrigin(cOrigin.x(), cOrigin.y());
 				m_Doc->view()->updatesOn(true);
 				m_Doc->view()->updateCanvas();
 				const QPixmap& dragCursor = loadIcon("DragPix.xpm");
