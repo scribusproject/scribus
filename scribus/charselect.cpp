@@ -60,6 +60,8 @@ CharSelect::CharSelect(QWidget* parent)
 	connect(m_charTable, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(m_userTable, SIGNAL(selectChar(uint)), this, SLOT(userNewChar(uint)));
 	connect(m_userTable, SIGNAL(delChar()), this, SLOT(delChar()));
+	connect(m_userTableModel, SIGNAL(selectionChanged(QItemSelectionModel*)),
+			m_userTable, SLOT(modelSelectionChanged(QItemSelectionModel*)));
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), m_userTableModel, SLOT(appendUnicode(QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));

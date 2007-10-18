@@ -93,6 +93,9 @@
         <property name="dragDropMode" >
          <enum>QAbstractItemView::DropOnly</enum>
         </property>
+        <property name="selectionMode" >
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
        </widget>
       </item>
      </layout>
@@ -184,6 +187,9 @@
         </property>
         <property name="dragDropMode" >
          <enum>QAbstractItemView::DragOnly</enum>
+        </property>
+        <property name="selectionMode" >
+         <enum>QAbstractItemView::SingleSelection</enum>
         </property>
        </widget>
       </item>

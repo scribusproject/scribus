@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QApplication>
+#include <QItemSelectionModel>
 
 #include "fonts/scface.h"
 #include "scribusdoc.h"
@@ -18,6 +19,7 @@ CharTableModel::CharTableModel(QObject *parent, int cols, ScribusDoc * doc, cons
 	m_cols(cols),
 	m_fontInUse(font)
 {
+	m_selectionModel = new QItemSelectionModel(this);
 	m_characters.clear();
 }
 
@@ -115,10 +117,25 @@ void CharTableModel::appendUnicode(QString s, uint base)
 {
 	bool ok;
 	int val = s.toInt(&ok, base);
+	if (!ok)
+	{
+		qDebug("void CharTableModel::appendUnicode(QString s, uint base) 'base' conversion error");
+		qDebug((QString("s: %1 base: %2").arg(s).arg(base).toAscii()));
+		return;
+	}
 	if (ok && !m_characters.contains(val))
 	{
 		m_characters.append(val);
 		reset();
+	}
+	// select already contained glyph
+	if (ok && m_characters.contains(val))
+	{
+		int ix = m_characters.indexOf(val);
+		int ixrow = ix / m_cols;
+		int ixcol = ix % m_cols;
+		m_selectionModel->select(index(ixrow, ixcol, QModelIndex()), QItemSelectionModel::ClearAndSelect);
+		emit selectionChanged(m_selectionModel);
 	}
 }
 

@@ -32,6 +32,11 @@ class CharTableView : public QTableView
 		//! \brief When user press the DELETE/BACKSPACE key
 		void delChar();
 
+	public slots:
+		/*! \brief Handling selection changes from model's internals.
+		There can arrive selection changes unrelated to GUI integration. */
+		void modelSelectionChanged(QItemSelectionModel * model);
+
 	protected:
 		//! \brief Magnify dialog reference
 		CharZoom* zoom;

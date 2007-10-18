@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 class ScFace;
+class QItemSelectionModel;
 
 
 //! \brief A special type for character classes
@@ -54,8 +55,16 @@ class SCRIBUS_API CharTableModel : public QAbstractTableModel
 		\param s a QString with numerical representation of the character.
 		\param base an optional parameter containing base of the numerical converion. See QString::toInt() documentation.
 		The base parameter is used mainly in normal code - not in slot calls.
+		If user adds an already existing glyph it's rejected and the original
+		one is selected (see selectionChanged()).
 		*/
 		void appendUnicode(QString s, uint base = 16);
+
+	signals:
+		/*! \brief Inform its view about internal selection changes.
+		It's emitted everytime user adds an existing glyph to the
+		CharClassDef list. */
+		void selectionChanged(QItemSelectionModel * model);
 
 	private:
 		ScribusDoc *m_doc;
@@ -64,6 +73,9 @@ class SCRIBUS_API CharTableModel : public QAbstractTableModel
 
 		QString m_fontInUse;
 		CharClassDef m_characters;
+
+		//! \brief Internal selection handling. See selectionChanged().
+		QItemSelectionModel * m_selectionModel;
 
 		/*! \brief All drag'n'drop actions are handled in this model only
 		See Qt4 docs "Using Drag and Drop with Item Views" for more info.

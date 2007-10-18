@@ -30,7 +30,6 @@ CharTableView::CharTableView(QWidget * parent)
 
 	verticalHeader()->setVisible(false);
 	horizontalHeader()->setVisible(false);
-	setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
 CharTableModel * CharTableView::model()
@@ -41,6 +40,11 @@ CharTableModel * CharTableView::model()
 void CharTableView::removeCharacter()
 {
 	model()->removeCharacter(deleteAct->data().toInt());
+}
+
+void CharTableView::modelSelectionChanged(QItemSelectionModel * model)
+{
+	setSelectionModel(model);
 }
 
 void CharTableView::keyPressEvent(QKeyEvent *k)
