@@ -392,6 +392,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	connect(showPreview, SIGNAL(clicked()), this, SLOT(togglePreview()));
 	connect(fileDialog, SIGNAL(currentChanged(const QString &)), this, SLOT(fileClicked(const QString &)));
 	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(accept()));
+	connect(fileDialog, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(fileDialog, SIGNAL(rejected()), this, SLOT(reject()));
 	resize(minimumSizeHint());
 }
