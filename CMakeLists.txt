@@ -80,6 +80,12 @@ ADD_DEFINITIONS("-DSCRIPTSDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SCRIPTSDIR}\\\"")
 SET(TEMPLATEDIR "share/${MAIN_DIR_NAME}${TAG_VERSION}/templates/")
 ADD_DEFINITIONS("-DTEMPLATEDIR=\\\"${CMAKE_INSTALL_PREFIX}/${TEMPLATEDIR}\\\"")
 
+
+#DESKTOP backport from 1.3.5
+SET(DESKTOPDIR "share/applications/")
+ADD_DEFINITIONS("-DDESKTOPDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}\\\"")
+
+
 #backport from 1.3.5
 #LIB LOCATION - lib or lib64 normally
 #LIB
@@ -396,6 +402,11 @@ INSTALL(FILES
 scribus.xml
 DESTINATION ${MIMEDIR}
 )
+#Install the desktop file
+INSTALL(FILES
+  scribus.desktop
+  DESTINATION ${DESKTOPDIR}
+
 
 # If the cmake version includes cpack, use it
 IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
