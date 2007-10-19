@@ -300,7 +300,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	setValues();
 	Anz = new QLabel(this);
 	Anz->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-	Anz->setPixmap(CreatePreview(0, 72));
+	APage = doc->currentPage()->pageNr();
+	Anz->setPixmap(CreatePreview(APage, 72));
 	Anzeige->setWidget(Anz);
 	int w = Anz->width() + tbWidth + 50;
 	resize(qMin(QApplication::desktop()->width()-30,w), 500);
@@ -316,6 +317,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		else
 			Table->setEnabled(false);
 	}
+	PGSel->GotoPg(APage);
 	// tooltips
 	AntiAlias->setToolTip( "<qt>" + tr( "Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
 	AliasTr->setToolTip( "<qt>" + tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later" ) + "</qt>");
