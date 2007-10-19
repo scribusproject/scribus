@@ -18,6 +18,7 @@ class QLabel;
 class QWidget;
 class QTabWidget;
 class QPushButton;
+class QShowEvent;
 
 
 class SCRIBUS_API About : public QDialog
@@ -25,7 +26,14 @@ class SCRIBUS_API About : public QDialog
     	Q_OBJECT
 
 public:
-	About( QWidget* parent );
+
+	typedef enum
+	{
+		Default = 0,
+		CheckUpdates = 1
+	} AboutMode;
+
+	About( QWidget* parent, AboutMode mode = About::Default );
 	~About() {};
 	
 protected:
@@ -51,8 +59,15 @@ protected:
 	QHBoxLayout* tabLayout_4;
 	QHBoxLayout* layout2;
 
+	bool         m_firstShow;
+	AboutMode    m_mode;
+	virtual void showEvent ( QShowEvent * event ); 
+
 protected slots:
 	void runUpdateCheck();
+
+public slots:
+	virtual void setVisible (bool visible); 
 };
 
 #endif // ABOUT_H

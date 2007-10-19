@@ -934,6 +934,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("HelpOnlineTutorials", tr("Online &Tutorials"), "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpOnlineTutorial1"], "HelpOnlineTutorials");
 	scrMenuMgr->addMenuSeparator("Help");
+	scrMenuMgr->addMenuItem(scrActions["helpCheckUpdates"], "Help");
+	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutPlugins"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutQt"], "Help");
@@ -5224,6 +5226,13 @@ void ScribusMainWindow::slotHelpAboutPlugins()
 void ScribusMainWindow::slotHelpAboutQt()
 {
 	QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void ScribusMainWindow::slotHelpCheckUpdates()
+{
+	About* dia = new About(this, About::CheckUpdates);
+	dia->exec();
+	delete dia;
 }
 
 void ScribusMainWindow::slotOnlineHelp()

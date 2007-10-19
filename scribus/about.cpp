@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTabWidget>
 #include <QWidget>
 #include <QPushButton>
+#include <QShowEvent>
 
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -41,8 +42,10 @@ for which a new license (GPL+exception) is in place.
  \param parent QWidget pointer to parent window
  \retval About dialog
  */
-About::About( QWidget* parent ) : QDialog( parent )
+About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 {
+	m_mode = diaMode;
+	m_firstShow = true;
 	setWindowTitle( tr("About Scribus %1").arg(VERSION) );
 	setWindowIcon(loadIcon("AppIcon.png", true));
 	setModal(true);
@@ -437,6 +440,23 @@ About::About( QWidget* parent ) : QDialog( parent )
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
+}
+
+void About::showEvent (QShowEvent * event)
+{
+	if (m_mode == About::CheckUpdates && m_firstShow)
+		tabWidget2->setCurrentIndex(4);
+	QDialog::showEvent(event);
+}
+
+void About::setVisible (bool visible)
+{
+	QDialog::setVisible(visible);
+	if (m_firstShow  && (m_mode == About::CheckUpdates) && visible)
+	{
+		m_firstShow = false;
+		runUpdateCheck();
+	}
 }
 
 void About::runUpdateCheck()

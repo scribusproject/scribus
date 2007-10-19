@@ -350,6 +350,7 @@ public slots:
 	void slotHelpAbout();
 	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
+	void slotHelpCheckUpdates();
 	void slotOnlineHelp();
 	void slotOnlineHelpClosed();
 	void ToggleTips();

@@ -825,6 +825,8 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://wiki.scribus.net"));
 	name="helpOnlineTutorial1";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, ""));
+	name="helpCheckUpdates";
+	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setChecked(true);
@@ -834,6 +836,7 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpAboutQt"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpAboutQt()) );
 	connect( (*scrActions)["helpTooltips"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(triggered()), mainWindow, SLOT(slotOnlineHelp()) );
+	connect( (*scrActions)["helpCheckUpdates"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpCheckUpdates()) );
 	UrlLauncher* ul=UrlLauncher::instance();
 	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
@@ -1436,6 +1439,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
 	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
 	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Getting Started with Scribus"));
+	(*scrActions)["helpCheckUpdates"]->setTexts( tr("Check updates"));
 
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
@@ -1741,6 +1745,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpOnlineDocs", QKeySequence());
 	defKeys.insert("helpOnlineWiki", QKeySequence());
 	defKeys.insert("helpOnlineTutorial1", QKeySequence());
+	defKeys.insert("helpCheckUpdates", QKeySequence());
 
 	//GUI
 	defKeys.insert("specialToggleAllPalettes", Qt::Key_F10);
@@ -1949,7 +1954,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second  << "windowsCascade" << "windowsTile" << "toolsProperties" << "toolsOutline" << "toolsScrapbook" << "toolsLayers" << "toolsPages" << "toolsBookmarks" << "toolsMeasurements" << "toolsActionHistory" << "toolsPreflightVerifier" << "toolsAlignDistribute" << "toolsToolbarTools" << "toolsToolbarPDF";
 	//Help
 	++itmenu;
-	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual" << "helpOnlineWWW" << "helpOnlineDocs" << "helpOnlineWiki" << "helpOnlineTutorial1";
+	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual" << "helpOnlineWWW" << "helpOnlineDocs" << "helpOnlineWiki" << "helpOnlineTutorial1" << "helpCheckUpdates";
 	//Other
 // 	++itmenu;
 // 	itmenu->second << "";
