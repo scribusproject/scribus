@@ -382,8 +382,8 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 				process_SOFn ( Data, marker ); //FIXME: This call requires Data to
 				// be array of at least 8 bytes. Code above only checks for
 				// itemlen < 2.
-			default:
 				break;
+			default:
 				break;
 		}
 	}
@@ -540,7 +540,8 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 			return;
 //            throw FatalError("Illegal format code in EXIF dir");
 		}
-
+		if ((unsigned)Components > 0x10000)
+			continue;
 		ByteCount = Components * BytesPerFormat[Format];
 
 		if ( ByteCount > 4 )
@@ -903,17 +904,17 @@ void ExifData::process_EXIF ( unsigned char * CharBuf, unsigned int length )
 	}
 
 	// Check the next two values for correctness.
-	if ( Get16u ( CharBuf+10 ) != 0x2a
-	        || Get32u ( CharBuf+12 ) != 0x08 )
+	if ( Get16u ( CharBuf+10 ) != 0x2a || Get32u ( CharBuf+12 ) != 0x08 )
 	{
 		return ;
 //        throw FatalError("Invalid Exif start (1)");
 	}
-
+	long IFDoffset = Get32u(CharBuf+12);
 	LastExifRefd = CharBuf;
 
 	// First directory starts 16 bytes in.  Offsets start at 8 bytes in.
-	ProcessExifDir ( CharBuf+16, CharBuf+8, length-6 );
+//	ProcessExifDir ( CharBuf+16, CharBuf+8, length-6 );
+	ProcessExifDir(&CharBuf[8+IFDoffset], CharBuf+8, length-6);
 	recurseLevel--;
 	// This is how far the interesting (non thumbnail) part of the exif went.
 	ExifSettingsLength = LastExifRefd - CharBuf;
