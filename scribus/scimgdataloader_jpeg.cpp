@@ -141,7 +141,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			m_imageInfoRecord.colorspace = 0;
 		else if (cinfo.output_components == 1)
 			m_imageInfoRecord.colorspace = 2;
-		if ((!ExifInf.isNullThumbnail()) && thumbnail)
+		if ((!ExifInf.Thumbnail.isNull()) && thumbnail)
 		{
 			m_image = ExifInf.getThumbnail();
 			m_imageInfoRecord.exifInfo.thumbnail = ExifInf.getThumbnail();
@@ -202,7 +202,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		m_imageInfoRecord.xres = qRound(xres);
 		m_imageInfoRecord.yres = qRound(yres);
 		m_imageInfoRecord.progressive = jpeg_has_multiple_scans(&cinfo);
-		if ((!ExifInf.isNullThumbnail()) && thumbnail)
+		if ((!ExifInf.Thumbnail.isNull()) && thumbnail)
 		{
 			jpeg_destroy_decompress(&cinfo);
 			fclose(infile);

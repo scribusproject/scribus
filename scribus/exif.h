@@ -28,108 +28,113 @@ typedef enum {
 
 //--------------------------------------------------------------------------
 // This structure is used to store jpeg file sections in memory.
-typedef struct {
-    uchar *  Data;
-    int      Type;
-    unsigned Size;
-}Section_t;
+typedef struct
+{
+	uchar *  Data;
+	int      Type;
+	unsigned Size;
+}
+Section_t;
 
 typedef unsigned char uchar;
 
-class TagTable 
+class TagTable
 {
-public:
-	TagTable(unsigned short t, const char* d) : Tag(t), Desc(d) {}
-    unsigned short Tag;
-    const char*const Desc;   
+	public:
+		TagTable ( unsigned short t, const char* d ) : Tag ( t ), Desc ( d ) {}
+		unsigned short Tag;
+		const char*const Desc;
 };
 
 #define MAX_SECTIONS 60
 #define PSEUDO_IMAGE_MARKER 0x123; // Extra value.
 
-class ExifData {
-    Section_t Sections[MAX_SECTIONS];
-    QString CameraMake;
-    QString CameraModel;
-    QString DateTime;
-    int   Orientation;
-    int   Height, Width;
-    int   ExifImageLength, ExifImageWidth;
-    int   IsColor;
-    int   Process;
-    int   FlashUsed;
-    float FocalLength;
-    float ExposureTime;
-    float ApertureFNumber;
-    float Distance;
-    int    Whitebalance;
-    int    MeteringMode;
-    float CCDWidth;
-    float ExposureBias;
-    int   ExposureProgram;
-    int   ISOequivalent;
-    int   CompressionLevel;
-    QString UserComment;
-    QString Comment;
-    QImage Thumbnail;
+class ExifData
+{
+		Section_t Sections[MAX_SECTIONS];
+		QString CameraMake;
+		QString CameraModel;
+		QString DateTime;
+		int   Orientation;
+		int   Height, Width;
+		int   ExifImageLength, ExifImageWidth;
+		int   IsColor;
+		int   Process;
+		int   FlashUsed;
+		float FocalLength;
+		float ExposureTime;
+		float ApertureFNumber;
+		float Distance;
+		int    Whitebalance;
+		int    MeteringMode;
+		float CCDWidth;
+		float ExposureBias;
+		int   ExposureProgram;
+		int   ISOequivalent;
+		int   CompressionLevel;
+		QString UserComment;
+		QString Comment;
+		int recurseLevel;
 
-	int getch(QFile &infile);
-    int ReadJpegSections (QFile & infile, ReadMode_t ReadMode);
-    void DiscardData(void);
-    int Get16u(void * Short);
-    int Get32s(void * Long);
-    unsigned Get32u(void * Long);
-    double ConvertAnyFormat(void * ValuePtr, int Format);
-    void ProcessExifDir(unsigned char * DirStart, unsigned char * OffsetBase, unsigned ExifLength);
-    void process_COM (const uchar * Data, int length);
-    void process_SOFn (const uchar * Data, int marker);
-    int Get16m(const void * Short);
-    void process_EXIF(unsigned char * CharBuf, unsigned int length);
-    int Exif2tm(struct tm * timeptr, char * ExifTime);
+		int getch ( QFile &infile );
+		int ReadJpegSections ( QFile & infile, ReadMode_t ReadMode );
+		void DiscardData ( void );
+		int Get16u ( void * Short );
+		int Get32s ( void * Long );
+		unsigned Get32u ( void * Long );
+		double ConvertAnyFormat ( void * ValuePtr, int Format );
+		void ProcessExifDir ( unsigned char * DirStart, unsigned char * OffsetBase, unsigned ExifLength );
+		void process_COM ( const uchar * Data, int length );
+		void process_SOFn ( const uchar * Data, int marker );
+		int Get16m ( const void * Short );
+		void process_EXIF ( unsigned char * CharBuf, unsigned int length );
+		int Exif2tm ( struct tm * timeptr, char * ExifTime );
 
-public:
-    ExifData();
-    bool scan(const QString &);
-    QString getCameraMake() { return CameraMake; }
-    QString getCameraModel() { return CameraModel; }
-    QString getDateTime() { return DateTime; }
-    int getOrientation() { return Orientation; }
-    int getHeight() { return Height; }
-    int getWidth() { return Width; }
-    int getIsColor() { return IsColor; }
-    int getProcess() { return Process; }
-    int getFlashUsed() { return FlashUsed; }
-    float getFocalLength() { return FocalLength; }
-    float getExposureTime() { return ExposureTime; }
-    float getApertureFNumber() { return ApertureFNumber; }
-    float getDistance() { return Distance; }
-    int getWhitebalance() { return Whitebalance; }
-    int getMeteringMode() { return MeteringMode; }
-    float getCCDWidth() { return CCDWidth; }
-    float getExposureBias() { return ExposureBias; }
-    int getExposureProgram() { return ExposureProgram; }
-    int getISOequivalent() { return ISOequivalent; }
-    int getCompressionLevel() { return CompressionLevel; }
-    QString getUserComment() { return UserComment; }
-    QString getComment() { return Comment; }
-    QImage getThumbnail();
-    bool isThumbnailSane();
-    bool isNullThumbnail() { return !isThumbnailSane(); }
-	bool exifDataValid;
+	public:
+		ExifData();
+		bool scan ( const QString & );
+		QString getCameraMake() { return CameraMake; }
+		QString getCameraModel() { return CameraModel; }
+		QString getDateTime() { return DateTime; }
+		int getOrientation() { return Orientation; }
+		int getHeight() { return Height; }
+		int getWidth() { return Width; }
+		int getIsColor() { return IsColor; }
+		int getProcess() { return Process; }
+		int getFlashUsed() { return FlashUsed; }
+		float getFocalLength() { return FocalLength; }
+		float getExposureTime() { return ExposureTime; }
+		float getApertureFNumber() { return ApertureFNumber; }
+		float getDistance() { return Distance; }
+		int getWhitebalance() { return Whitebalance; }
+		int getMeteringMode() { return MeteringMode; }
+		float getCCDWidth() { return CCDWidth; }
+		float getExposureBias() { return ExposureBias; }
+		int getExposureProgram() { return ExposureProgram; }
+		int getISOequivalent() { return ISOequivalent; }
+		int getCompressionLevel() { return CompressionLevel; }
+		QString getUserComment() { return UserComment; }
+		QString getComment() { return Comment; }
+		QImage getThumbnail();
+		bool isThumbnailSane();
+		bool isNullThumbnail() { return !isThumbnailSane(); }
+		bool exifDataValid;
+		QImage Thumbnail;
 };
 
-class FatalError {
-    const char* ex;
-public:
-    FatalError(const char* s) { ex = s; }
-    void debug_print() const { qDebug("exception: "); }
+class FatalError
+{
+		const char* ex;
+	public:
+		FatalError ( const char* s ) { ex = s; }
+		void debug_print() const { qDebug ( "exception: " ); }
 };
 
 extern TagTable ProcessTable[];
 
 //--------------------------------------------------------------------------
 // Define comment writing code, impelemented in setcomment.c
-extern int safe_copy_and_modify( const char * original_filename, const char * comment );
+extern int safe_copy_and_modify ( const char * original_filename, const char * comment );
 
 #endif
 
