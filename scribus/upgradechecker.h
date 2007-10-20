@@ -8,10 +8,11 @@ for which a new license (GPL+exception) is in place.
 #define UPGRADECHECKER_H
 
 #include <QFile>
-#include <QHttp>
 #include <QObject>
 #include <QString>
 #include <QStringList>
+class QHttp;
+class QHttpResponseHeader;
 
 class ScTextBrowser;
 
@@ -26,20 +27,23 @@ public:
 	UpgradeChecker();
 	~UpgradeChecker();
 	
-	bool fetch();
-	bool process(QFile& dataFile);
+	void fetch();
+	bool process();
 	void show(bool error);
 	QStringList upgradeData();
 	
 public slots:
-	void fileStarted(bool error);
-	void fileFinished(bool error);
-	void reqStarted(int id);
-	void reqFinished(int id, bool error);
+	void abort();
+	
+private slots:
+	void requestFinished(int requestId, bool error);
+	void responseHeaderReceived(const QHttpResponseHeader &responseHeader);
+	void done(bool);
 	
 protected:
 	void init();
-	virtual void outputText(QString text);
+	virtual void outputText(QString text, bool noLineFeed=false);
+	void reportError(const QString& s);
 	bool writeToConsole;
 	QString version;
 	QString stability;
@@ -51,8 +55,12 @@ protected:
 	bool fin;
 	QHttp* getter;
 	int getterID;
-	bool retrieveError;
 	QString message;
+	int httpGetId;
+	bool httpRequestAborted;
+	QFile *rcvdFile;
+	bool errorReported;
+	bool userAbort;
 };
 
 class UpgradeCheckerGUI : public UpgradeChecker
@@ -64,7 +72,7 @@ public:
 	~UpgradeCheckerGUI();
 	
 protected:
-	virtual void outputText(QString text);
+	virtual void outputText(QString text, bool noLineFeed=false);
 	ScTextBrowser *outputWidget;
 };
 

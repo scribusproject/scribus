@@ -411,7 +411,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	updateLayout = new QVBoxLayout( tab_5 );
 	updateLayout->setSpacing( 6 );
 	updateLayout->setMargin( 10 );
-	checkForUpdateButton = new QPushButton( tr( "Check for &Updates" ), tab_5 );
+	checkForUpdateButton = new QPushButton( tr( "Check for Updates" ), tab_5 );
 	textView5 = new ScTextBrowser( tab_5);
 	updateLayout->addWidget( checkForUpdateButton );
 	updateLayout->addWidget( textView5 );
@@ -461,7 +461,12 @@ void About::setVisible (bool visible)
 
 void About::runUpdateCheck()
 {
+	textView5->clear();
 	UpgradeCheckerGUI uc(textView5);
-	bool error=uc.fetch();
-	uc.show(error);
+	disconnect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
+	connect(checkForUpdateButton, SIGNAL( clicked() ), &uc, SLOT( abort() ));
+	checkForUpdateButton->setText( tr("Abort Update Check") );
+	uc.fetch();
+	checkForUpdateButton->setText( tr("Check for Updates") );
+	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
 }

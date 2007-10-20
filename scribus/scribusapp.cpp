@@ -158,8 +158,7 @@ void ScribusQApp::parseCommandLine()
 	if (runUpgradeCheck)
 	{
 		UpgradeChecker uc;
-		bool error=uc.fetch();
-		uc.show(error);
+		uc.fetch();
 	}
 	//Dont run the GUI init process called from main.cpp, and return
 	if (!header)
