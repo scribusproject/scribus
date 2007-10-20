@@ -241,9 +241,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 
 	QString uc = k->text();
 	if ((k->modifiers() == Qt::ControlModifier) ||
-		(k->modifiers() && (Qt::ControlModifier | Qt::ShiftModifier)) ||
-		(k->modifiers() && (Qt::ControlModifier | Qt::KeypadModifier)) ||
-		(k->modifiers() && (Qt::ControlModifier | Qt::ShiftModifier | Qt::KeypadModifier))
+		(k->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier)) ||
+		(k->modifiers() == (Qt::ControlModifier | Qt::KeypadModifier)) ||
+		(k->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier | Qt::KeypadModifier))
 	   )
 	{
 		switch (k->key())
@@ -291,8 +291,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	if ((k->modifiers() == Qt::NoModifier) ||
 		(k->modifiers() == Qt::KeypadModifier) ||
 		(k->modifiers() == Qt::ShiftModifier) ||
-		(k->modifiers() && (Qt::ControlModifier | Qt::AltModifier)) ||
-		(k->modifiers() && (Qt::ControlModifier | Qt::AltModifier | Qt::ShiftModifier)) // Shift + AltGr on Windows for polish characters
+		(k->modifiers() == (Qt::ControlModifier | Qt::AltModifier)) ||
+		(k->modifiers() == (Qt::ControlModifier | Qt::AltModifier | Qt::ShiftModifier)) // Shift + AltGr on Windows for polish characters
 	   )
 	{
 		if (unicodeTextEditMode)
