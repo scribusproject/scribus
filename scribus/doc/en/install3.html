@@ -44,38 +44,7 @@ export WANT_AUTOMAKE=&#034;1.7&#034;
 </pre>
 
 <p>Having run those two commands, recheck the versions. If they still do not comply to those required, you will need to upgrade those programs, however most distributions contain a high enough version.</p>
-<p>You can launch Scribus from the command line with the following options:</p>
 
-<pre>
-scribus --help
-</pre>
-
-<p>Output:</p>
-
-<pre>scribus -h
-
-Scribus, Open Source Desktop Publishing
----------------------------------------
-Homepage:       http://www.scribus.net
-Documentation:  http://docs.scribus.net
-Wiki:           http://wiki.scribus.net
-Issues:         http://bugs.scribus.net
-
-Usage: scribus [option ... ] [file]
-Options:
-   -h, --help             Print help (this message) and exit
-   -l, --lang             Uses xx as shortcut for a language, eg `en' or `de'
-  -la, --langs-available  List the currently installed interface languages
-  -fi, --font-info        Show information on the console when fonts are being loaded
-  -ns, --no-splash        Do not show the splashscreen on startup
-  -v, --version          Output version information and exit
-  -sb, --swap-buttons     Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)
-  -pr, --prefs filename   Use filename as path for user given preferences
-  --profile-info          Lists the installed profiles Scribus can access and diagnostics on loading them.
-</pre>
-
-<p>The default location for the Scribus executable is located in <code>/usr/local/bin</code>. Documentation is located in <code>/usr/local/lib/scribus/doc</code></p>
-<p>In addition, there is a <code>desktop.config</code> file named <code>scribus.desktop</code> which can be used for a menu shortcut or desktop shortcut. Simply copy this from the base directory of the installation source directory to your KDE desktop and this will launch Scribus. After dragging this to the desktop, right click and make sure the execute check box is checked. This file conforms to the latest <a href="http://www.freedesktop.org">www.freedesktop.org</a> specifications.</p>
 <p>Since Scribus uses <code>autoconf</code>, as long as you have the correct developement versions of the libraries, you should have little difficulty compiling it. Should you run into problems please report them to the Scribus mailing list or IRC channel. See <a href="/index.php&#063;lang=en&#038;page=resources">Community Resources</a> section of this manual.</p>
 
 <p>Lastly:</p>

@@ -19,7 +19,7 @@ The dependencies for compilation, and also to run Scribus are:
 <li>libxml2 2.6+.</li>
 <li>Ghostscript 8.15+ or GPL Ghostscript 8.60+ is highly recommended. Ubuntu users in particular are urged to update to a newer version if possible.</li>
 <li>PostScript-Fonts. TrueType Fonts. Scribus also can support OpenType fonts, both TrueType and Type 1 Outline OpenType Fonts.</li>
-<li>Littlecms - also known as lcms in some distributions. Minimum 1.12, 1.17+ recommended. lcms 1.12+ has support for black point generation. 1.3.4svn+ requires this.</li>
+<li>Littlecms - also known as lcms in some distributions. Minimum 1.12, 1.17+ recommended. lcms 1.12+ has support for black point compensation. 1.3.4+ requires littlecms.</li>
 <li>libtiff 3.6.0+</li>
 <li>libjpeg</li>
 </ol>
@@ -28,13 +28,13 @@ The dependencies for compilation, and also to run Scribus are:
 <li>CUPS development libraries - Scribus directly supports printing with CUPS.(Linux/Unix only).</li>
 <li>tkinter - for the font sampler script</li>
 <li>python-imaging libaries for font sampler script preview</li>
-<li>openssl-devel (Some linux distributions enable ssl support for CUPS, notably Suse Linux)</li>
+<li>openssl-devel (Some linux distributions enable ssl support for CUPS, notably SUSE Linux)</li>
 <li>fontconfig-devel - for auto discovery of fonts on Linux, MacOSX and Unix. Not needed on Windows.</li>
 <li>antiword - this is not needed at compile time for MS Word import. Scribus will detect this at run time however.</li>
 <li>Podofo 0.5 (svn does not currently work) - used to enhance the Adobe Illustrator importer.</li>
 </ul>
 <p>Scribus will run under most any window manager and does not require KDE itself. However, drag and drop functionality will be lost without KDE. One of the Scribus developers runs Gnome. The author of this documentation has made a point of testing each release of Scribus under Blackbox as well. This has shown no incompatibilities or problems for Scribus, except for the loss of drag and drop functionality.</p>
-<p>If color management does not work, you also need at least one RGB profile and one CMYK profile installed or the color preferences and options will not appear in the menus. </p>
+<p>If color management does not work, you also need at least one RGB profile and one CMYK profile installed or the color preferences and options will not appear in the menus. Scribus installs one RGB and one CMYK profile simply to enable color management, but some distributions, notably Debian, because of licensing issues provides icc profiles in separate packages.</p>
 <p>Testing suggests setting the correct &#034;-march=&#034; CXXFLAGS has a very beneficial effect on Scribus performance. For example, if you have a Duron or Athlon processor, using <code>export CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see: 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>man gcc</pre>
