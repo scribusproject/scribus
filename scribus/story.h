@@ -152,10 +152,15 @@ protected:
 	QPopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
 
+	void styledTextApplyActionBackspace();
+	void styledTextApplyActionDelete();
+
 public slots:
-	void cut();
-	void copy();
-	void paste();
+	virtual void cut();
+	virtual void copy();
+	virtual void paste();
+	virtual void doKeyboardAction(KeyboardAction action);
+	virtual void removeSelectedText(int selNum = 0);
 	void ClipChange();
 	void SelClipChange();
 

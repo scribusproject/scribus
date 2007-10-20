@@ -234,31 +234,31 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			{
 				case Key_Delete:
 					moveCursor(QTextEdit::MoveWordForward, true);
-					deleteSel();
+					//deleteSel(); //called via removeSelectedText() by QTextEdit::keyPressEvent()
 					break;
 				case Key_Backspace:
 					moveCursor(QTextEdit::MoveWordBackward, true);
-					deleteSel();
+					//deleteSel(); //called via removeSelectedText() by QTextEdit::keyPressEvent()
 					break;
 				case Key_K:
 					moveCursor(QTextEdit::MoveLineEnd, true);
-					deleteSel();
+					//deleteSel(); //called via removeSelectedText() by QTextEdit::keyPressEvent()
 					break;
 				case Key_D:
 					moveCursor(QTextEdit::MoveForward, true);
-					deleteSel();
+					//deleteSel(); //called via removeSelectedText() by QTextEdit::keyPressEvent()
 					break;
 				case Key_H:
 					moveCursor(QTextEdit::MoveBackward, true);
-					deleteSel();
+					//deleteSel();  //called via removeSelectedText() by QTextEdit::keyPressEvent()
 					break;
 				case Key_X:
-					cut();
-					return;
+					//cut(); //called by QTextEdit::keyPressEvent()
+					//return;
 					break;
 				case Key_V:
-					paste();
-					return;
+					//paste(); //called by QTextEdit::keyPressEvent()
+					//return;
 					break;
 				case Key_Y:
 				case Key_Z:
@@ -266,7 +266,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					return;
 					break;
 				case Key_C:
-					copyStyledText();
+					//copyStyledText(); //called via copy() by QTextEdit::keyPressEvent()
 					break;
 			}
 			break;
@@ -330,76 +330,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					return;
 					break;
 				case Key_Delete:
-					if (!hasSelectedText())
-					{
-						ChList *chars = StyledText.at(p);
-						if (i < static_cast<int>(chars->count()))
-							chars->remove(i);
-						else
-						{
-							if (p < static_cast<int>(StyledText.count()-1))
-							{
-								struct PtiSmall *hg;
-								ChList *chars2 = StyledText.at(p+1);
-								int a = static_cast<int>(chars2->count());
-								if (a > 0)
-								{
-									int ca;
-									if (chars->count() > 0)
-										ca = chars->at(0)->cab;
-									else
-										ca = currentParaStyle;
-									for (int s = 0; s < a; ++s)
-									{
-										hg = chars2->take(0);
-										hg->cab = ca;
-										chars->append(hg);
-									}
-								}
-								StyledText.remove(p+1);
-								ParagStyles.remove(ParagStyles.at(p+1));
-							}
-						}
-					}
-					else
-						deleteSel();
-					break;
 				case Key_Backspace:
-					if (!hasSelectedText())
-					{
-						if (p >= static_cast<int>(StyledText.count()))
-							break;
-						ChList *chars = StyledText.at(p);
-						if (i > 0)
-							chars->remove(i-1);
-						else
-						{
-							if (p > 0)
-							{
-								struct PtiSmall *hg;
-								ChList *chars2 = StyledText.at(p-1);
-								int a = static_cast<int>(chars->count());
-								if (a > 0)
-								{
-									int ca;
-									if (chars2->count() > 0)
-										ca = chars2->at(0)->cab;
-									else
-										ca = chars->at(0)->cab;
-									for (int s = 0; s < a; ++s)
-									{
-										hg = chars->take(0);
-										hg->cab = ca;
-										chars2->append(hg);
-									}
-								}
-								StyledText.remove(p);
-								ParagStyles.remove(ParagStyles.at(p));
-							}
-						}
-					}
-					else
-						deleteSel();
 					break;
 				case Key_Return:
 				case Key_Enter:
@@ -419,14 +350,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 							}
 							else
 							{
-							ChList *chars2 = StyledText.at(p);
-							int a = static_cast<int>(chars2->count());
-							for (int s = i; s < a; ++s)
-							{
-								chars->append(chars2->take(i));
-							}
-							StyledText.insert(p+1, chars);
-							ParagStyles.insert(ParagStyles.at(p+1), currentParaStyle);
+								ChList *chars2 = StyledText.at(p);
+								int a = static_cast<int>(chars2->count());
+								for (int s = i; s < a; ++s)
+								{
+									chars->append(chars2->take(i));
+								}
+								StyledText.insert(p+1, chars);
+								ParagStyles.insert(ParagStyles.at(p+1), currentParaStyle);
 							}
 						}
 						else
@@ -1542,7 +1473,7 @@ void SEditor::cut()
 	emit SideBarUp(false);
 	if (hasSelectedText())
 	{
-		deleteSel();
+		//deleteSel();
 		removeSelectedText();
 	}
 	emit SideBarUp(true);
@@ -1593,6 +1524,102 @@ void SEditor::paste()
 	repaintContents();
 	emit SideBarUp(true);
 	emit SideBarUpdate();
+}
+
+void SEditor::doKeyboardAction(KeyboardAction action)
+{
+	if (action == ActionBackspace)
+		styledTextApplyActionBackspace();
+	else if (action == ActionDelete)
+		styledTextApplyActionDelete();
+	else if (action == ActionWordBackspace || action == ActionWordDelete)
+		return;
+	QTextEdit::doKeyboardAction(action);
+}
+
+void SEditor::styledTextApplyActionBackspace()
+{
+	int parIndex, charIndex;
+	getCursorPosition(&parIndex, &charIndex);
+	if (!hasSelectedText())
+	{
+		if (parIndex >= static_cast<int>(StyledText.count()))
+			return;
+		ChList *chars = StyledText.at(parIndex);
+		if (charIndex > 0)
+			chars->remove(charIndex-1);
+		else
+		{
+			if (parIndex > 0)
+			{
+				struct PtiSmall *hg;
+				ChList *chars2 = StyledText.at(parIndex-1);
+				int a = static_cast<int>(chars->count());
+				if (a > 0)
+				{
+					int ca;
+					if (chars2->count() > 0)
+						ca = chars2->at(0)->cab;
+					else
+						ca = chars->at(0)->cab;
+					for (int s = 0; s < a; ++s)
+					{
+						hg = chars->take(0);
+						hg->cab = ca;
+						chars2->append(hg);
+					}
+				}
+				StyledText.remove(parIndex);
+				ParagStyles.remove(ParagStyles.at(parIndex));
+			}
+		}
+	}
+}
+
+void SEditor::styledTextApplyActionDelete()
+{
+	int parIndex, charIndex;
+	getCursorPosition(&parIndex, &charIndex);
+	if (!hasSelectedText())
+	{
+		ChList *chars = StyledText.at(parIndex);
+		if (charIndex < static_cast<int>(chars->count()))
+			chars->remove(charIndex);
+		else
+		{
+			if (parIndex < static_cast<int>(StyledText.count()-1))
+			{
+				struct PtiSmall *hg;
+				ChList *chars2 = StyledText.at(parIndex+1);
+				int a = static_cast<int>(chars2->count());
+				if (a > 0)
+				{
+					int ca;
+					if (chars->count() > 0)
+						ca = chars->at(0)->cab;
+					else
+						ca = currentParaStyle;
+					for (int s = 0; s < a; ++s)
+					{
+						hg = chars2->take(0);
+						hg->cab = ca;
+						chars->append(hg);
+					}
+				}
+				StyledText.remove(parIndex+1);
+				ParagStyles.remove(ParagStyles.at(parIndex+1));
+			}
+		}
+	}
+}
+
+void SEditor::removeSelectedText (int selNum)
+{
+	if (selNum == 0 && hasSelectedText())
+	{
+		deleteSel();
+		QTextEdit::removeSelectedText(selNum);
+	}
 }
 
 QPopupMenu* SEditor::createPopupMenu(const QPoint & pos)
@@ -3174,7 +3201,7 @@ void StoryEditor::Do_del()
 	EditorBar->setRepaint(false);
 	if (Editor->hasSelectedText())
 	{
-		Editor->deleteSel();
+		//Editor->deleteSel();
 		Editor->removeSelectedText();
 	}
 	EditorBar->setRepaint(true);
