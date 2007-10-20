@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include <QPointer>
 class QComboBox;
+class QCheckBox;
 class QEvent;
 class QFrame;
 class QGridLayout;
@@ -101,6 +102,7 @@ public slots:
 	void slotTrans(int val);
 	void unitChange(double old, double neww, int ein);
 	void languageChange();
+	void ToggleColorDisplay();
 
 signals:
 	void NewPen(QString);
@@ -188,6 +190,7 @@ protected:
 	bool GradientMode;
 	int currentGradient;
 	QSpacerItem *selectorQSpacer;
+	QCheckBox* displayAllColors;
 };
 
 #endif

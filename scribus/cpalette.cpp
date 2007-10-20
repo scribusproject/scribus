@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QToolTip>
 #include <QVBoxLayout>
+#include <QCheckBox>
 
 
 #include "colorlistbox.h"
@@ -135,6 +136,10 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
+	displayAllColors = new QCheckBox( this );
+	displayAllColors->setText( tr( "Display only used Colors" ) );
+	displayAllColors->setChecked(false);
+	Form1Layout->addWidget(displayAllColors);
 
 	patternFrame = new QFrame( this );
 	patternFrame->setFrameShape( QFrame::NoFrame );
@@ -231,6 +236,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
 	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
+	connect(displayAllColors, SIGNAL(clicked()), this, SLOT(ToggleColorDisplay()));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
@@ -311,6 +317,7 @@ void Cpalette::InhaltButton()
 		patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		colorListQLBox->show();
 		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+		displayAllColors->show();
 		GradientMode = false;
 		layout()->activate();
 //		updateCList();
@@ -455,10 +462,25 @@ void Cpalette::updateCList()
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->addItem(CommonStrings::tr_NoneColor);
+	if (displayAllColors->isChecked())
+	{
+		if (currentDoc != NULL)
+			currentDoc->getUsedColors(colorList);
+	}
 	colorListQLBox->insertItems(colorList, ColorListBox::fancyPixmap);
 	if (colorListQLBox->currentItem())
 		colorListQLBox->currentItem()->setSelected(false);
 	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
+}
+
+void Cpalette::ToggleColorDisplay()
+{
+	if (currentDoc != NULL)
+	{
+		colorListQLBox->cList = &currentDoc->PageColors;
+		colorList = currentDoc->PageColors;
+		updateFromItem();
+	}
 }
 
 void Cpalette::selectColor(QListWidgetItem *item)
@@ -501,20 +523,14 @@ QColor Cpalette::setColor(QString colorName, int shad)
 void Cpalette::updateBoxS(QString colorName)
 {
 	disconnect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
-	int c = 0;
 	if ((colorName != CommonStrings::None) && (!colorName.isEmpty()))
 	{
-		if (!GradientMode)
-			++c;
-		ColorList::Iterator itend=colorList.end();
-		for (ColorList::Iterator it = colorList.begin(); it != itend; ++it)
-		{
-			if (it.key() == colorName)
-				break;
-			++c;
-		}
+		QList<QListWidgetItem *> cCol = colorListQLBox->findItems(colorName, Qt::MatchExactly);
+		if (cCol.count() != 0)
+			colorListQLBox->setCurrentItem(cCol[0]);
 	}
-	colorListQLBox->setCurrentRow(c);
+	else
+		colorListQLBox->setCurrentRow(0);
 	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 }
 
@@ -589,6 +605,7 @@ void Cpalette::ChooseGrad(int number)
 			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			colorListQLBox->hide();
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			displayAllColors->hide();
 			patternFrame->show();
 			patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		}
@@ -599,6 +616,7 @@ void Cpalette::ChooseGrad(int number)
 			patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			colorListQLBox->show();
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+			displayAllColors->show();
 			gradEdit->show();
 			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 			if (gradientQCombo->currentIndex() > 5)
@@ -624,6 +642,7 @@ void Cpalette::ChooseGrad(int number)
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		colorListQLBox->show();
 		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+		displayAllColors->show();
 	}
 	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
@@ -882,6 +901,7 @@ void Cpalette::languageChange()
 	blendMode->addItem( tr("Saturation"));
 	blendMode->addItem( tr("Color"));
 	blendMode->addItem( tr("Luminosity"));
+	displayAllColors->setText( tr( "Display only used Colors" ));
 
 	Inhalt->setToolTip( tr( "Edit Line Color Properties" ) );
 	Innen->setToolTip( tr( "Edit Fill Color Properties" ) );
