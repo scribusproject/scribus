@@ -1,92 +1,132 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Advanced Ghostscript and GSview Hints</title>
+	<title>Weiterf&#252;hrende Ghostscript- und GSview-Hinweise</title>
 </head>
 <body>
-<h2>Advanced Ghostscript and GSview Hints</h2>
-<p>One of the frustrations for users of RPM-based or commercially created distributions, is the lack of availability of the latest versions of Ghostscript(GS). Because of the differences in licensing between the GPL Ghostscript and AFPL Ghostscript, GPL Ghostscript releases usually follow by about a year, the release of the most up to date AFPL GS. Because, there are certain restrictions in AFPL, most Linux distributions ship an older and heavily patched version of GPL Ghostscript.</p>
-<p>As the current GS 8.x resource configuration (where it looks for fonts and fontmaps) is new, simply dropping in the latest GS tarball and rebuilding the RPM does not quite work. Lord knows I've tried on Red Hat and I consider myself to be pretty well versed in RPM building. If you have ever seen the Red Hat or Suse rpm spec file for GS, you will know what I mean. ;)</p>
-<p>So, why do I want to go to the trouble of worrying about having the absolute latest version of GS? Not so difficult.</p>
-<ol><li>There are real substantial improvements in the ability of GS 8.x to handle EPS and PDF files which have the kinds of advanced features Scribus and other DTP applications can create. This can in some cases directly affect the quality of EPS and PS imports into Scribus. </li>
-<li>You can build it with full on compiler optimization, which speeds up print and separation previews in Scribus. Many distributions only compile it with i386 instructions. This is probably more beneficial to older workstations compared to newer ones. Image processing programs are one area where compiler optimizations do make a difference. </li>
-<li>Having the latest GS, makes GSview (and Scribus) more capable and more robust at handling both EPS files and a special kind of EPS called DCS 2.0. </li>
-<li>Both Scribus and GSview have the ability in their preferences settings to use alternative locations for GS and GS libraries.</li> </ol>
-<p>So, how does one get the latest GS for Scribus and GSview - without breaking your existing distribution printing setup? The secret: a parallel build of GS.</p>
-<p><strong>Disclaimer:</strong> This works for me. It could wreck your system, catch your hair on fire and other nastiness. </p>
-<p>First Steps:</p>
-<ul><li>Get the latest GS from here: http://ghostscript.com/doc/AFPL/ </li>
-<li>You can manually tweak the make files the old way or </li>
-<li>Use the new configure script with the following options (and optionally <code>-with-jasper</code> and <code>-with-rinkj</code> with very latest versions): </li></ul>
+<h2>Weiterf&#252;hrende Ghostscript- und GSview-Hinweis</h2>
+<p>Zu den Frustrationen von Anwendern RPM-basierter und kommerzieller Distributionen geh&#246;rt es, da&#223; diese nicht mit den neuesten Ghostscript-Versionen ausgeliefert werden.</p>
+<p>Da die Ressourcenkonfiguration (also die Einstellungen f&#252;r die Speicherorte von Fonts und Fontmaps) sich ge&#228;ndert hat, funktioniert es nicht recht, einfach ein RPM-Paket aus dem Quelltext zu bauen. Ich habe es unter RedHat wei&#223; Gott versucht, und ich halte mich f&#252;r einen ziemlich erfahrenen RPM-Paket-Bauer. Wenn Sie sich die Spec-Datei f&#252;r RedHat oder SUSE geschaut haben, werden Sie sehen, was ich meine. ;)</p>
+<p>Warum sollten Sie sich &#252;berhaupt den &#196;rger antun und immer die allerneueste GS-version installieren? Die Anwort f&#228;llt leicht.</p>
+<ol><li>GS 8.x enth&#228;lt erhebliche Verbesserungen im Umgang mit EPS- und PDF-Dateien, die von Scribus und anderen DTP-Programmen genutzt werden k&#246;nnen. In manchen F&#228;llen hat dies einen direkten Einflu&#223; auf die Importqualit&#228;t von EPS- und PS-Dateien in Scribus. </li>
+<li>Sie k&ouml;nnen Ghostscript mit voller Compileroptimierung kompilieren und damit die Druck- und Separationsvorschau in Scribus beschleunigen. Viele Distributoren kompilieren es nur mit i386-Optionen, was f&uuml;r &auml;ltere Computer wahrscheinlich sinnvoller ist als f&uuml;r neue. Bei bildverarbeitenden Programmen k&ouml;nnen Compileroptimierungen wirklich etwas ausmachen.</li>
+<li>Wenn Sie das jeweils aktuelle GS installiert haben, sind GSview (und Scribus) besser und verl&auml;&szlig;licher beim Umgang mit EPS-Dateien und einer speziellen EPS-Variante namens DCS 2.0.</li>
+<li>Sowohl Scribus als auch GSview bieten die M&ouml;glichkeit, in den Voreinstellungen einen anderen Speicherort f&uuml;r GS und die GS-Bibliotheken einzutragen.</li> </ol>
+<p>Wie bekommt man also die neueste Ghostscript-Version, ohne die bestehenden Druckfunktionen einer Distribution zu besch&auml;digen? Das Geheimnis ist eine Parallelinstallation.</p>
+<p><strong>Haftungsausschlu&szlig;:</strong> Es funktioniert bei mir. Es k&ouml;nnte Ihr System besch&auml;digen, Ihre Haare in Brand setzen oder andere unsch&ouml;ne Dinge tun.</p>
+<p>Erste Schritte:</p>
+<ul><li>Laden Sie sich die neueste Ghostscript-Version <a href="http://sourceforge.net/project/showfiles.php?group_id=1897&package_id=108733">hier</a> herunter.</li>
+<li>Sie k&ouml;nnen die make-Dateien auf die altmodische Weise anpassen oder:</li>
+<li>Verwenden Sie das configure-Script mit den folgenden Optionen (und optional auch mit <code>-with-jasper</code> and <code>-with-rinkj</code> in den aktuellen Versionen): </li></ul>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>./configure --enable-compile-inits -with-x</pre></td></tr></table>
 </blockquote>
 
-<p>By default, '<code>make install</code>' will install all the files in '<code>/usr/local/bin</code>', '<code>/usr/local/lib</code>' etc. You can specify an installation prefix other than '<code>/usr/local</code>' using '<code>--prefix</code>', for instance  '</p>
+<p>Standardm&auml;&szlig;ig werden die Dateien mit '<code>make install</code>' in '<code>/usr/local/bin</code>', '<code>/usr/local/lib</code>' usw. installiert. etc. Sie k&ouml;nnen einen anderen Ort im Dateisystem mit Hilfe von <code>--prefix</code>' angeben, zum Beispiel:</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>--prefix=$HOME</pre></td></tr></table>
 </blockquote>
-<p>This default usually works fine and keeps the two sets of GS libs separated.</p>
-<p>Second Steps:</p>
-<p>There is a second step to compile Ghostscript as a shared library, which GSview needs:</p>
+<p>Mit dieser Einstellung bleiben die beiden Versionen s&auml;uberlich getrennt.</p>
+<p>N&auml;chste Schritte:</p>
+<p>In einem zweiten Schritt mu&szlig; Ghostscript als dynamische Bibliothek kompiliert werden, die von GSview ben&ouml;tigt wird:</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>make so</pre></td></tr></table>
 </blockquote>
-<p>and as root:</p> 
+<p>und als root:</p> 
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>make soinstall</pre></td></tr></table>
 </blockquote>
-<p>Now, let&#039;s check briefly:</p>
+<p>Lassen Sie uns die Sache kurz &uuml;berpr&uuml;fen:</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>/usr/local/bin/gs -h</pre></td></tr></table>
 </blockquote>
-<p>You should have an output something like this:</p>
+<p>Sie sollten nun etwas angezeigt bekommen, was in etwa wie folgt aussieht:</p>
 <blockquote>
 <table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
-AFPL Ghostscript 8.51 (2005-04-18)
-Copyright (C) 2005 artofcode LLC, Benicia, CA.  All rights reserved.
+GPL Ghostscript 8.60 (2007-08-01)
+Copyright (C) 2007 Artifex Software, Inc.  All rights reserved.
+christoph@dhcppc2:~> ge -h
+bash: ge: command not found
+christoph@dhcppc2:~> gs -h
+GPL Ghostscript 8.60 (2007-08-01)
+Copyright (C) 2007 Artifex Software, Inc.  All rights reserved.
 Usage: gs [switches] [file1.ps file2.ps ...]
 Most frequently used switches: (you can use # in place of =)
- -dNOPAUSE           no pause after page   | -q        'quiet', fewer messages
- -g&#060;width&#062;x&#060;height&#062;  page size in pixels   | -r&#060;res&#062;  pixels/inch resolution
- -sDEVICE=&#060;devname&#062;  select device         | -dBATCH  exit after last file
- -sOutputFile=&#060;file&#062; select output file: - for stdout, |command for pipe,
+ -dNOPAUSE           no pause after page   | -q       `quiet', fewer messages
+ -g<width>x<height>  page size in pixels   | -r<res>  pixels/inch resolution
+ -sDEVICE=<devname>  select device         | -dBATCH  exit after last file
+ -sOutputFile=<file> select output file: - for stdout, |command for pipe,
                                          embed %d or %ld for page #
 Input formats: PostScript PostScriptLevel1 PostScriptLevel2 PostScriptLevel3 PDF
-Default output device: x11
+Default output device: bbox
 Available devices:
-   bbox bit bitcmyk bitrgb bj10e bj200 bjc600 bjc800 bmp16 bmp16m bmp256
-   bmp32b bmpgray bmpmono bmpsep1 bmpsep8 cdeskjet cdj550 cdjcolor cdjmono
-   cljet5 cljet5c deskjet devicen djet500 epswrite faxg3 faxg32d faxg4 ijs
-   jpeg jpeggray laserjet lj5gray lj5mono ljet2p ljet3 ljet3d ljet4 ljet4d
-   ljetplus nullpage pbm pbmraw pcx16 pcx24b pcx256 pcxcmyk pcxgray pcxmono
-   pdfwrite pgm pgmraw pgnm pgnmraw pj pjxl pjxl300 pkm pkmraw pksm pksmraw
-   png16 png16m png256 pngalpha pnggray pngmono pnm pnmraw ppm ppmraw
-   psdcmyk psdrgb psgray psmono psrgb pswrite pxlcolor pxlmono spotcmyk
-   tiff12nc tiff24nc tiffcrle tiffg3 tiffg32d tiffg4 tifflzw tiffpack
-   uniprint x11 x11alpha x11cmyk x11gray2 x11gray4 x11mono xcf
+   alc1900 alc2000 alc4000 alc4100 alc8500 alc8600 alc9100 ap3250 appledmp
+   atx23 atx24 atx38 bbox bit bitcmyk bitrgb bitrgbtags bj10e bj10v bj10vh
+   bj200 bjc600 bjc800 bjc880j bjccmyk bjccolor bjcgray bjcmono bmp16 bmp16m
+   bmp256 bmp32b bmpgray bmpmono bmpsep1 bmpsep8 ccr cdeskjet cdj1600 cdj500
+   cdj550 cdj670 cdj850 cdj880 cdj890 cdj970 cdjcolor cdjmono cfax cgm24
+   cgm8 cgmmono chp2200 cif cljet5 cljet5c cljet5pr coslw2p coslwxl cp50
+   cups declj250 deskjet devicen dfaxhigh dfaxlow dj505j djet500 djet500c
+   dl2100 dnj650c epl2050 epl2050p epl2120 epl2500 epl2750 epl5800 epl5900
+   epl6100 epl6200 eps9high eps9mid epson epsonc epswrite escp escpage faxg3
+   faxg32d faxg4 fmlbp fmpr fs600 gdi hl1240 hl1250 hl7x0 hpdj1120c hpdj310
+   hpdj320 hpdj340 hpdj400 hpdj500 hpdj500c hpdj510 hpdj520 hpdj540 hpdj550c
+   hpdj560c hpdj600 hpdj660c hpdj670c hpdj680c hpdj690c hpdj850c hpdj855c
+   hpdj870c hpdj890c hpdjplus hpdjportable ibmpro ijs imagen imdi inferno
+   iwhi iwlo iwlq jetp3852 jj100 jpeg jpegcmyk jpeggray la50 la70 la75
+   la75plus laserjet lbp310 lbp320 lbp8 lex2050 lex3200 lex5700 lex7000
+   lips2p lips3 lips4 lips4v lj250 lj3100sw lj4dith lj4dithp lj5gray lj5mono
+   ljet2p ljet3 ljet3d ljet4 ljet4d ljet4pjl ljetplus ln03 lp1800 lp1900
+   lp2000 lp2200 lp2400 lp2500 lp2563 lp3000c lp7500 lp7700 lp7900 lp8000
+   lp8000c lp8100 lp8200c lp8300c lp8300f lp8400f lp8500c lp8600 lp8600f
+   lp8700 lp8800c lp8900 lp9000b lp9000c lp9100 lp9200b lp9200c lp9300
+   lp9400 lp9500c lp9600 lp9600s lp9800c lps4500 lps6500 lq850 lx5000
+   lxm3200 lxm5700m m8510 mag16 mag256 md1xMono md2k md50Eco md50Mono md5k
+   mgr4 mgr8 mgrgray2 mgrgray4 mgrgray8 mgrmono miff24 mj500c mj6000c
+   mj700v2c mj8000c ml600 necp6 npdl nullpage oce9050 oki182 oki4w okiibm
+   omni oprp opvp paintjet pam pbm pbmraw pcl3 pcx16 pcx24b pcx256 pcx2up
+   pcxcmyk pcxgray pcxmono pdfwrite pgm pgmraw pgnm pgnmraw photoex picty180
+   pj pjetxl pjxl pjxl300 pkm pkmraw pksm pksmraw plan9bm png16 png16m
+   png256 png48 pngalpha pnggray pngmono pnm pnmraw ppm ppmraw pr1000
+   pr1000_4 pr150 pr201 ps2write psdcmyk psdrgb psgray psmono psrgb pswrite
+   pxlcolor pxlmono r4081 rpdl samsunggdi sgirgb sj48 spotcmyk st800 stcolor
+   sunhmono t4693d2 t4693d4 t4693d8 tek4696 tiff12nc tiff24nc tiff32nc
+   tiffcrle tiffg3 tiffg32d tiffg4 tiffgray tifflzw tiffpack tiffsep
+   uniprint wtscmyk wtsimdi x11 x11alpha x11cmyk x11cmyk2 x11cmyk4 x11cmyk8
+   x11gray2 x11gray4 x11mono x11rg16x x11rg32x xcf xes
 Search path:
-   . : /home/peter/.fonts : /usr/local/share/ghostscript/8.51/lib :
-   /usr/local/share/ghostscript/8.51/Resource :
-   /usr/share/ghostscript/fonts</pre></td></tr></table>
+   . : /home/$IhrBenutzername/.fonts : %rom%lib/ :
+   /usr/local/share/ghostscript/8.60/lib :
+   /usr/local/share/ghostscript/8.60/Resource :
+   /usr/local/share/ghostscript/fonts :
+   /usr/local/share/fonts/default/ghostscript :
+   /usr/local/share/fonts/default/Type1 :
+   /usr/local/share/fonts/default/TrueType : /usr/lib/DPS/outline/base :
+   /usr/openwin/lib/X11/fonts/Type1 : /usr/openwin/lib/X11/fonts/TrueType
+Initialization files are compiled into the executable.
+For more information, see /usr/local/share/ghostscript/8.60/doc/Use.htm.
+Please report bugs to bugs.ghostscript.com.</pre></td></tr></table>
 </blockquote>
-<p>The key thing here is:</p>
-<ol><li>You see the correct version of GS. Otherwise, you might need to adjust your <code>$PATH</code> settings</li>
-<li>You have <code>pngalpha</code> and the <code>x11</code> devices listed, along with  <code>bitcmyk</code> for cmyk preview, and <code>png16m</code>.</li> 
-<li>There is a reasonable search path for fonts, so GS can find your fonts. You will get errors in Scribus, when attempting to import EPS files or using the print preview, if this path is not set correctly and GS cannot find fonts. GS determines where to find fonts in a file called Fontmap. Setting this option is explained in the GS documentation.</li> </ol>
-<p>If you are concerned about messing about with your existing packaging setup, you could use: <code>checkinstall</code> or <code>Xstow</code>. These programs will keep track of applications which are outside of your normal packaging system. I have used checkinstall with good luck in these kinds of situations on Red Hat systems.</p>
-<p>Next,if installed, open up GSview and go to <strong>Options.. &#062; Advanced Configure</strong>. Then, make sure the &#034;Ghostscript Shared Object&#034; is pointing at the correct libgs.so. Below is how I have setup GSview on my system.: </p>
-<table width="100%"><tr><td align="center"><img src="../en/images/gsadv1.png" alt="GSview - Advanced Options Panel" align="middle" title="GSview - Advanced Options Panel" /></td></tr></table>
-<p>Next, we need to tell Scribus where to find the newer GS. Go <strong>Edit..&#062; Preferences.. &#062;General</strong>. Then in External Tools, add the path of the new GS.</p>
-<table width="100%"><tr><td align="center"><img src="../en/images/gsadv2.png" alt="Scribus External Tools Preferences" align="middle" title="Scribus External Tools Preferences" /></td></tr></table>
-<p>Another tool which is available with GSview is <code>epstool</code>. An older version is shipped with the current GSview 4.6, but a newer one is available on the GSview home page. This is a great command line tool, which can perform advanced EPS/DCS 2.0 conversion. This is very useful when someone sends you an EPS file from other DTP applications - even those created on Macs. Upgrading this to work with GSview gives you excellent support on Linux to handle EPS files from all platforms. Recommended.</p>
-<p>Lastly, one other tool which works as a plug-in with GSview is <code>pstoedit</code> This is a command line tool for converting bitmap images into vectors and PostScript, which then, depending on the nature of the image, can be edited in a vector drawing tool like Inkscape or Skencil. See the section Import Hints for hints on how I used this to convert the Scribus logo into SVG and then a native Scribus file. GSview uses this as a plug-in to convert files into vector format. </p>
-<p>GSview has been, in my experience, the most reliable and versatile EPS/PS viewer on Linux. How good is it ? Well, the best example is letting you know this usually installed on every Windows DTP workstation I support for clients. For DTP with Scribus, I consider it essential.</p>
+
+<p>Das Entscheidende ist hier:</p>
+<ol><li>Sie sehen die richtige Ghostscript-Version. Andernfalls m&uuml;ssen Sie die <code>$PATH</code>-Einstellungen anpassen.</li>
+<li>Sie sehen <code>pngalpha</code>-0 und <code>x11</code>-Ger&auml;te zusammen mit <code>bitcmyk</code> f&uuml;r die CMYK-Vorschau und <code>png16m</code> aufgelistet.</li> 
+<li>Es gibt einen sinnvollen Suchpfad f&uuml;r Fonts, so da&szlig; GS Ihre Schriften finden kann. Sie werden Fehlermeldungen erhalten, wenn Sie EPS-Dateien importieren m&ouml;chten oder die Druckvorschau verwenden wollen und dieser Pfad nicht korrekt eingestellt ist, was zur Folge hat, da&szlig; GS keine Schriften finden kann. GS ermittelt den Pfad mittels einer Fontmap genannten Datei. Wie er eingestellt wird, ist in der GS-Dokumentation erkl&auml;rt.</li> </ol>
+<p>Falls Sie f&uuml;rchten, Ihr bestehendes System zu besch&auml;digen, k&ouml;nnen Sie <code>checkinstall</code> oder <code>Xstow</code> verwenden. Diese Programme protokollieren Programminstallationen au&szlig;erhalb des normalen Paketsystems. Ich habe checkinstall unter Red Hat erfolgreich in solchen Situationen verwendet.</p>
+<p>Als n&auml;chstes &ouml;ffnen Sie GSview, und &ouml;ffnen Sie den Dialog <strong>Optionen &#062; Konfiguriere Ghostscript</strong>. Stellen Sie sicher, da&szlig; &#034;Ghostscript Shared Object&#034; den Pfad zur korrekten libgs.so anzeigt. In der Abbildung sehen Sie, wie GSview auf meinem System konfiguriert ist: </p>
+<table width="100%"><tr><td align="center"><img src="images/gsadv1.png" alt="GSview: Der Konfigurationsdialog" align="middle" title="GSview: Der Konfigurationsdialog"/></td></tr></table>
+
+<p>Als n&auml;chstes m&uuml;ssen wir Scribus mitteilen, wo es das neue GS findet. Öffnen Sie <strong>Datei &#062; Allgemeine Einstellungen &#062;Externe Tools</strong>. Unter "Postscript Interpreter" tragen Sie dann den Pfad zum neuen GS ein.</p>
+<table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="Scribus External Tools Preferences" align="middle" title="Scribus External Tools Preferences" /></td></tr></table>
+<p>Ein anderes Werkzeug, das zusammen mit GSview erh&auml;ltlich ist, ist <code>epstool</code>. Eine &auml;ltere Version wird zusammen mit dem aktuellen GSview 4.6 ausgeliefert, aber eine neuere Version ist auf der GSview Homepage erh&auml;ltlich. Es handelt sich dabei um ein gro&szlig;artiges Werkzeug f&uuml;r die Kommandozeile, mit dem sich erweiterte EPS- bzw. DCS-2.0-Konvertierungen durchf&uuml;hren lassen. Es erweist sich als n&uuml;tzlich, wenn Ihnen jemand eine EPS-Datei zusendet, die von einer anderen DTP-Anwendung, selbst wenn diese unter Mac&nbsp;OS lief, erzeugt wurde. Wenn Sie dieses Programm f&uuml;r GSview aktualisieren, k&ouml;nnen Sie unter Linux hervorragend mit EPS-Dateien umgehen, die auf anderen Plattformen erzeugt wurden. Empfehlenswert.</p>
+<p>Zum Schlu&szlig; ein anderes Werkzeug, das als Plug-in in GSview verwendet wird, n&auml;mlich <code>pstoedit</code>. Es handelt sich dabei um ein Kommandozeilenwerkzeug, mit dem Bitmap-Dateien in Vektorgrafiken und Postscript-Dateien umgewandelt werden k&ouml;nnen, die sich wiederum, je nach der Art des Bildes, in einem Vektorgrafikprogramm wie Inkscape oder Skencil bearbeiten lassen. In den Importhinweisen finden Sie eine Anleitung, in der ich beschreibe, wie ich es verwendet habe, um das Scribus-Logo erst nach SVG und dann in eine native Scribus-Datei umzuwandeln. GSview verwendet es als Plug-in, um Dateien in Vektorgrafiken umzuwandeln.</p>
+<p>GSview ist meiner Erfahrung nach der beste EPS-Betrachter unter Linux. Wie gut ist es? Nun, das beste Beispiel ist Ihnen zu sagen, da&szlig; ich es auf jedem Windows-DTP-Arbeitsplatz installiert habe, den ich f&uuml;r Kunden betreue. F&uuml;r DTP mit Scribus halte ich es f&uuml;r unverzichtbar.</p>
+
 </body>
 </html>
