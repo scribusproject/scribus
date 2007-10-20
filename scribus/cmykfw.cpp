@@ -427,22 +427,12 @@ void CMYKChoose::slotRightClick()
 {
 	QMenu *pmen = new QMenu();
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	QAction* dynAct = pmen->addAction( tr("Dynamic Color Bars"));
-	dynAct->setCheckable(true);
-	connect(dynAct, SIGNAL(triggered()), this, SLOT(ToggleSL()));
-	QAction* statAct = pmen->addAction( tr("Static Color Bars"));
-	statAct->setCheckable(true);
-	connect(statAct, SIGNAL(triggered()), this, SLOT(ToggleSL()));
+	QAction* dynAct;
 	if (dynamic)
-	{
-		dynAct->setChecked(true);
-		statAct->setChecked(false);
-	}
+		dynAct = pmen->addAction( tr("Static Color Bars"));
 	else
-	{
-		dynAct->setChecked(false);
-		statAct->setChecked(true);
-	}
+		dynAct = pmen->addAction( tr("Dynamic Color Bars"));
+	connect(dynAct, SIGNAL(triggered()), this, SLOT(ToggleSL()));
 	pmen->exec(QCursor::pos());
 	delete pmen;
 }
