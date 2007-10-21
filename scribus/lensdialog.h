@@ -58,14 +58,13 @@ class SCRIBUS_API LensDialog : public QDialog, Ui::LensDialogBase
 	Q_OBJECT
 
 public:
-	LensDialog(QWidget* parent, FPointArray &path);
+	LensDialog(QWidget* parent, ScribusDoc *doc);
 	~LensDialog() {};
 	void lensSelected(LensItem *item);
 	void setLensPositionValues(QPointF p);
 	QGraphicsScene scene;
-	QPainterPath origPath;
-	QPainterPath modifiedPath;
-	QGraphicsPathItem *origPathItem;
+	QList<QPainterPath> origPath;
+	QList<QGraphicsPathItem*> origPathItem;
 	QList<LensItem*> lensList;
 	int currentLens;
 

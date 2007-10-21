@@ -27,6 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include "lensdialog.h"
 #include <QRadialGradient>
 #include "util_icon.h"
+#include "selection.h"
+#include "sccolorengine.h"
+#include "commonstrings.h"
 
 LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsEllipseItem(geom)
 {
@@ -51,7 +54,6 @@ void LensItem::setStrength(double s)
 
 QVariant LensItem::itemChange(GraphicsItemChange change, const QVariant &value)
 {
-	QPainterPath path;
 	switch (change)
 	{
 		case ItemSelectedChange:
@@ -70,14 +72,23 @@ QVariant LensItem::itemChange(GraphicsItemChange change, const QVariant &value)
 void LensItem::updateEffect()
 {
 	LensItem *item;
-	QPainterPath path = dialog->origPath;
-	for (int a = 0; a < dialog->lensList.count(); a++)
+	for (int a = 0; a < dialog->origPathItem.count(); a++)
 	{
-		item = dialog->lensList[a];
-		path = lensDeform(path, item->mapToScene(item->rect().center()), item->rect().width() / 2.0, item->strength / 100.0);
+		QGraphicsPathItem* pItem = dialog->origPathItem[a];
+		QPainterPath path = dialog->origPath[a];
+		QMatrix mm;
+		mm.translate(pItem->x(), pItem->y());
+		path = mm.map(path);
+		for (int b = 0; b < dialog->lensList.count(); b++)
+		{
+			item = dialog->lensList[b];
+			path = lensDeform(path, item->mapToScene(item->rect().center()), item->rect().width() / 2.0, item->strength / 100.0);
+		}
+		QMatrix mm2;
+		mm2.translate(-pItem->x(), -pItem->y());
+		path = mm2.map(path);
+		pItem->setPath(path);
 	}
-	dialog->modifiedPath = path;
-	dialog->origPathItem->setPath(path);
 }
 
 QPainterPath LensItem::lensDeform(const QPainterPath &source, const QPointF &offset, double m_radius, double s)
@@ -96,19 +107,51 @@ QPainterPath LensItem::lensDeform(const QPainterPath &source, const QPointF &off
 	return path;
 }
 
-LensDialog::LensDialog(QWidget* parent, FPointArray &path) : QDialog(parent)
+LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 {
 	setupUi(this);
 	buttonRemove->setEnabled(false);
 	setModal(true);
-	origPath = path.toQPainterPath(true);
 	buttonZoomOut->setIcon(QIcon(loadIcon("16/zoom-out.png")));
 	buttonZoomI->setIcon(QIcon(loadIcon("16/zoom-in.png")));
-	modifiedPath = origPath;
-	origPathItem = scene.addPath(origPath);
+
+	PageItem *currItem;
+	double gx, gy, gh, gw;
+	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	uint selectedItemCount = doc->m_Selection->count();
+	if (selectedItemCount == 1)
+	{
+		currItem = doc->m_Selection->itemAt(0);
+		gx = currItem->xPos();
+		gy = currItem->yPos();
+	}
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		currItem = doc->m_Selection->itemAt(i);
+		FPointArray path = currItem->PoLine;
+		QPainterPath pp = path.toQPainterPath(true);
+		origPath.append(pp);
+		QGraphicsPathItem* pItem = scene.addPath(pp);
+		origPathItem.append(pItem);
+		pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);
+		pItem->setZValue(i);
+		if ((currItem->fillColor() == CommonStrings::None) || (currItem->controlsGroup()))
+			pItem->setBrush(Qt::NoBrush);
+		else
+			pItem->setBrush(ScColorEngine::getShadeColorProof(doc->PageColors[currItem->fillColor()], doc, currItem->fillShade()));
+		if ((currItem->lineColor() == CommonStrings::None) || (currItem->controlsGroup()))
+			pItem->setPen(Qt::NoPen);
+		else
+			pItem->setPen(QPen(ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade()), currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+	}
+
 	previewWidget->setRenderHint(QPainter::Antialiasing);
 	previewWidget->setScene(&scene);
-	previewWidget->show();
+/*	QRectF bBox = scene.itemsBoundingRect();
+	double sx = bBox.width() / static_cast<double>(previewWidget->width());
+	double sy = bBox.height() / static_cast<double>(previewWidget->height());
+	previewWidget->scale(qMax(sx, sy), qMax(sx, sy)); */
+//	previewWidget->show();
 	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
 	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
 	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
@@ -138,7 +181,7 @@ void LensDialog::addLens()
 	disconnect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
 	disconnect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
 	disconnect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
-	QRectF bBox = origPath.boundingRect();
+	QRectF bBox = scene.itemsBoundingRect();
 	double r = qMin(bBox.width(), bBox.height());
 	double x = (bBox.width() - r) / 2.0;
 	double y = (bBox.height() - r) / 2.0;
@@ -146,6 +189,7 @@ void LensDialog::addLens()
 	scene.addItem(item);
 	lensList.append(item);
 	currentLens = lensList.count() - 1;
+	item->setZValue(currentLens+99999);
 	spinXPos->setValue(x + r / 2.0);
 	spinYPos->setValue(y + r / 2.0);
 	spinRadius->setValue(r / 2.0);
