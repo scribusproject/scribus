@@ -34,12 +34,12 @@ for which a new license (GPL+exception) is in place.
 #include <QGraphicsEllipseItem>
 #include <QGraphicsPathItem>
 #include "ui_lensdialogbase.h"
-#include "scribusapi.h"
+#include "pluginapi.h"
 #include "scribusdoc.h"
 #include "scribus.h"
 class LensDialog;
 
-class SCRIBUS_API LensItem : public QGraphicsEllipseItem
+class PLUGIN_API LensItem : public QGraphicsEllipseItem
 {
 public:
 	LensItem(QRectF geom, LensDialog *parent);
@@ -53,7 +53,7 @@ protected:
 	LensDialog *dialog;
 };
 
-class SCRIBUS_API LensDialog : public QDialog, Ui::LensDialogBase
+class PLUGIN_API LensDialog : public QDialog, Ui::LensDialogBase
 {
 	Q_OBJECT
 
