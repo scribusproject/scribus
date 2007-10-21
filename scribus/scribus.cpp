@@ -9083,8 +9083,20 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 			fileUrl = fileUrls[i].toLocalFile().toLower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
 			{
-				accepted = true;;
+				accepted = true;
 				break;
+			}
+			else
+			{
+				QUrl url( fileUrls[i] );
+				FileLoader *fileLoader = new FileLoader(url.path());
+				int testResult = fileLoader->TestFile();
+				delete fileLoader;
+				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+				{
+					accepted = true;
+					break;
+				}
 			}
 		}
 	}
@@ -9110,6 +9122,22 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 				{
 					accepted = true;
 					loadDoc( fi.absoluteFilePath() );
+				}
+			}
+			else
+			{
+				QUrl url( fileUrls[i] );
+				FileLoader *fileLoader = new FileLoader(url.path());
+				int testResult = fileLoader->TestFile();
+				delete fileLoader;
+				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+				{
+					QFileInfo fi(url.path());
+					if ( fi.exists() )
+					{
+						accepted = true;
+						loadDoc( fi.absoluteFilePath() );
+					}
 				}
 			}
 		}
