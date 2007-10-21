@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "langmgr.h"
 #include "pageitem.h"
+#include "pageitem_textframe.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -305,6 +306,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
 		if (m_Doc->docHyphenator->AutoCheck)
 			m_Doc->docHyphenator->slotHyphenate(currItem);
+		currItem->asTextFrame()->invalidateLayout(true);
 	}
 // 	if (done)
 // 	{
