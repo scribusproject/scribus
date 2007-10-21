@@ -67,6 +67,10 @@ public:
 	QList<QGraphicsPathItem*> origPathItem;
 	QList<LensItem*> lensList;
 	int currentLens;
+	bool isFirst;
+
+protected:
+	void showEvent(QShowEvent *e);
 
 private slots:
 	void doZoomIn();

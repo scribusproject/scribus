@@ -182,11 +182,8 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 
 	previewWidget->setRenderHint(QPainter::Antialiasing);
 	previewWidget->setScene(&scene);
-/*	QRectF bBox = scene.itemsBoundingRect();
-	double sx = bBox.width() / static_cast<double>(previewWidget->width());
-	double sy = bBox.height() / static_cast<double>(previewWidget->height());
-	previewWidget->scale(qMax(sx, sy), qMax(sx, sy)); */
-//	previewWidget->show();
+	isFirst = true;
+	addLens();
 	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
 	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
 	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
@@ -197,7 +194,14 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-	addLens();
+}
+
+void LensDialog::showEvent(QShowEvent *e)
+{
+	QDialog::showEvent(e);
+	if (isFirst)
+		previewWidget->fitInView(scene.itemsBoundingRect(), Qt::KeepAspectRatio);
+	isFirst = false;
 }
 
 void LensDialog::doZoomIn()
