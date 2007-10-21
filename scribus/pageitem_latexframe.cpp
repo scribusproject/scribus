@@ -689,3 +689,7 @@ const QString PageItem_LatexFrame::defaultPre =
 		"\\setlength{\\textwidth}{$scribus_realwidth$ pt}\n"
 		"\\begin{document}\n";
 const QString PageItem_LatexFrame::defaultPost = "\\end{document}";
+
+void PageItem_LatexFrame::applicableActions(QStringList & actionList)
+{
+}

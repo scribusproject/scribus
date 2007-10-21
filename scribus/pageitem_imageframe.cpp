@@ -359,3 +359,7 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+
+void PageItem_ImageFrame::applicableActions(QStringList & actionList)
+{
+}

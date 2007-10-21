@@ -93,6 +93,7 @@ SET(SCRIBUS_MOC_CLASSES
   colorlistbox.h
   colorm.h
   commonstrings.h
+  contextmenu.h
   cpalette.h
   cupsoptions.h
   curvewidget.h
@@ -302,6 +303,7 @@ SET(SCRIBUS_SOURCES
   colorm.cpp
   colorsetmanager.cpp
   commonstrings.cpp
+  contextmenu.cpp
   cpalette.cpp
   cupsoptions.cpp
   curvewidget.cpp

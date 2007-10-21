@@ -41,6 +41,8 @@ public:
 	
 	virtual PageItem_Line * asLine() { return this; }
 	
+	virtual void applicableActions(QStringList& actionList);
+	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 

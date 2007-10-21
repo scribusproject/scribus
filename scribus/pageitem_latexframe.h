@@ -81,6 +81,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		
 		virtual bool createInfoGroup(QFrame *, QGridLayout *);
 		virtual bool createContextMenu(QMenu *, int);
+		virtual void applicableActions(QStringList& actionList);
 		
 	protected:
 		/* DrawObj_Item is defined in ImageFrame and should be usable for

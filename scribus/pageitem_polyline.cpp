@@ -172,3 +172,7 @@ void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 	}
 }
 
+void PageItem_PolyLine::applicableActions(QStringList & actionList)
+{
+}
+

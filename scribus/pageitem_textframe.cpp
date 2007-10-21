@@ -3412,3 +3412,7 @@ bool PageItem_TextFrame::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+
+void PageItem_TextFrame::applicableActions(QStringList & actionList)
+{
+}

@@ -74,3 +74,7 @@ bool PageItem_Polygon::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+
+void PageItem_Polygon::applicableActions(QStringList & actionList)
+{
+}

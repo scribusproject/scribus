@@ -94,6 +94,7 @@ protected:
 	
 	virtual bool createInfoGroup(QFrame *, QGridLayout *);
 	virtual bool createContextMenu(QMenu *, int);
+	virtual void applicableActions(QStringList& actionList);
 	
 private:
 	bool cursorBiasBackward;

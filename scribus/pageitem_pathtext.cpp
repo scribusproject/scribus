@@ -438,3 +438,7 @@ bool PageItem_PathText::createContextMenu(QMenu *menu, int step)
 	}
 	return true;
 }
+
+void PageItem_PathText::applicableActions(QStringList & actionList)
+{
+}
