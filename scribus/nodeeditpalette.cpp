@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
-#include "lensdialog.h"
 #include "nodeeditpalette.h"
 #include "page.h"
 #include "pageitem.h"
@@ -232,9 +231,6 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout2->setSpacing(5);
 	gridLayout2->setMargin(0);
 
-	lensEffect = new QPushButton(this);
-	gridLayout2->addWidget(lensEffect, 0, 0, 1, 2);
-
 	AbsMode = new QCheckBox( "&Absolute Coordinates", this );
 	AbsMode->setChecked(false);
 	gridLayout2->addWidget(AbsMode, 1, 0, 1, 2);
@@ -307,7 +303,6 @@ void NodePalette::connectSignals()
 	connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	connect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	connect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));
-	connect(lensEffect, SIGNAL(clicked()), this, SLOT(doLensEffect()));
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
@@ -342,7 +337,6 @@ void NodePalette::disconnectSignals()
 	disconnect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	disconnect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	disconnect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));
-	disconnect(lensEffect, SIGNAL(clicked()), this, SLOT(doLensEffect()));
 	//	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	//	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
@@ -421,29 +415,6 @@ void NodePalette::CloseBezier()
 	BezierClose->setEnabled(false);
 	PolySplit->setEnabled(true);
 	EditCont->setEnabled(true);
-}
-
-void NodePalette::doLensEffect()
-{
-	if (doc==0)
-		return;
-	FPointArray points;
-	PageItem *currItem = doc->m_Selection->itemAt(0);
-	if (doc->nodeEdit.isContourLine)
-		points = currItem->ContourLine;
-	else
-		points = currItem->PoLine;
-	LensDialog *dia = new LensDialog(0, points);
-	if (dia->exec())
-	{
-		points.fromQPainterPath(dia->modifiedPath);
-		if (doc->nodeEdit.isContourLine)
-			currItem->ContourLine = points;
-		else
-			currItem->PoLine = points;
-		doc->AdjustItemSize(doc->m_Selection->itemAt(0));
-	}
-	delete dia;
 }
 
 void NodePalette::doRotCCW()
@@ -858,9 +829,6 @@ void NodePalette::languageChange()
 	EditCont->setText( tr("Edit &Contour Line"));
 	ResetCont->setText( tr("&Reset Contour Line"));
 	ResetContClip->setText( tr("Set Contour to Image Clip"));
-//	ResetContClip->setText( tr("Image Clip = Contour"));
-	lensEffect->setText( tr("Lens Effects..."));
-	lensEffect->setToolTip( tr("Apply fancy Lens Effects"));
 	editEditButton->setText( tr("&End Editing"));
 	MoveNode->setToolTip( tr("Move Nodes"));
 	MoveControl->setToolTip( tr("Move Control Points"));

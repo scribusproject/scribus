@@ -33,7 +33,6 @@ SET(SCRIBUS_UI_SRC
   hysettingsBase.ui
   insertaframe.ui
   latexeditor.ui
-  lensdialogbase.ui
   multipleduplicate.ui
   multiprogressdialog.ui
   pageitemattributes.ui
@@ -132,7 +131,6 @@ SET(SCRIBUS_MOC_CLASSES
   latexeditor.h
   latexhighlighter.h
   layers.h
-  lensdialog.h
   loadsaveplugin.h
   loremipsum.h
   marginWidget.h
@@ -363,7 +361,6 @@ SET(SCRIBUS_SOURCES
   latexeditor.cpp
   latexhighlighter.cpp
   layers.cpp
-  lensdialog.cpp
   linecombo.cpp
   linkbutton.cpp
   loadsaveplugin.cpp
