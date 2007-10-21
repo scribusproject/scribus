@@ -125,16 +125,33 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		gx = currItem->xPos();
 		gy = currItem->yPos();
 	}
+	QStack<PageItem*> groupStack;
+	QStack<QGraphicsPathItem*> groupStack2;
+	QStack<PageItem*> groupStack3;
+	groupStack2.push(0);
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = doc->m_Selection->itemAt(i);
 		FPointArray path = currItem->PoLine;
-		QPainterPath pp = path.toQPainterPath(true);
+		QPainterPath pp;
+		if (currItem->itemType() == PageItem::PolyLine)
+			pp = path.toQPainterPath(false);
+		else
+			pp = path.toQPainterPath(true);
 		origPath.append(pp);
-		QGraphicsPathItem* pItem = scene.addPath(pp);
-		origPathItem.append(pItem);
-		pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);
+		QGraphicsPathItem* pItem = new QGraphicsPathItem(pp, groupStack2.top());
+		if (groupStack2.top() == 0)
+		{
+			scene.addItem(pItem);
+			pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);
+		}
+		else
+		{
+			PageItem* parent = groupStack3.top();
+			pItem->setPos(currItem->xPos() - parent->xPos(), currItem->yPos() - parent->yPos());
+		}
 		pItem->setZValue(i);
+		origPathItem.append(pItem);
 		if ((currItem->fillColor() == CommonStrings::None) || (currItem->controlsGroup()))
 			pItem->setBrush(Qt::NoBrush);
 		else
@@ -143,6 +160,24 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 			pItem->setPen(Qt::NoPen);
 		else
 			pItem->setPen(QPen(ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade()), currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+		if (currItem->controlsGroup())
+		{
+			groupStack.push(currItem->groupsLastItem);
+			groupStack2.push(pItem);
+			groupStack3.push(currItem);
+			pItem->setFlags(QGraphicsItem::ItemClipsChildrenToShape);
+		}
+		if (groupStack.count() != 0)
+		{
+			while (currItem == groupStack.top())
+			{
+				groupStack3.pop();
+				groupStack2.pop();
+				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
+			}
+		}
 	}
 
 	previewWidget->setRenderHint(QPainter::Antialiasing);
@@ -189,7 +224,7 @@ void LensDialog::addLens()
 	scene.addItem(item);
 	lensList.append(item);
 	currentLens = lensList.count() - 1;
-	item->setZValue(currentLens+99999);
+	item->setZValue(currentLens+999999);
 	spinXPos->setValue(x + r / 2.0);
 	spinYPos->setValue(y + r / 2.0);
 	spinRadius->setValue(r / 2.0);
