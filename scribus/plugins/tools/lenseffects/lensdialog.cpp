@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "selection.h"
 #include "sccolorengine.h"
+#include "scpattern.h"
 #include "commonstrings.h"
 
 LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsEllipseItem(geom)
@@ -76,17 +77,13 @@ void LensItem::updateEffect()
 	{
 		QGraphicsPathItem* pItem = dialog->origPathItem[a];
 		QPainterPath path = dialog->origPath[a];
-		QMatrix mm;
-		mm.translate(pItem->x(), pItem->y());
-		path = mm.map(path);
+		path = pItem->mapToScene(path);
 		for (int b = 0; b < dialog->lensList.count(); b++)
 		{
 			item = dialog->lensList[b];
 			path = lensDeform(path, item->mapToScene(item->rect().center()), item->rect().width() / 2.0, item->strength / 100.0);
 		}
-		QMatrix mm2;
-		mm2.translate(-pItem->x(), -pItem->y());
-		path = mm2.map(path);
+		path = pItem->mapFromScene(path);
 		pItem->setPath(path);
 	}
 }
@@ -144,22 +141,90 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 		{
 			scene.addItem(pItem);
 			pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);
+			pItem->rotate(currItem->rotation());
 		}
 		else
 		{
 			PageItem* parent = groupStack3.top();
-			pItem->setPos(currItem->xPos() - parent->xPos(), currItem->yPos() - parent->yPos());
+			QMatrix mm;
+			mm.rotate(-parent->rotation());
+			mm.translate(-parent->xPos(), -parent->yPos());
+			pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
 		}
 		pItem->setZValue(i);
 		origPathItem.append(pItem);
-		if ((currItem->fillColor() == CommonStrings::None) || (currItem->controlsGroup()))
+		if (((currItem->fillColor() == CommonStrings::None) && (currItem->GrType == 0)) || (currItem->controlsGroup()))
 			pItem->setBrush(Qt::NoBrush);
 		else
-			pItem->setBrush(ScColorEngine::getShadeColorProof(doc->PageColors[currItem->fillColor()], doc, currItem->fillShade()));
+		{
+			if (currItem->GrType != 0)
+			{
+				if (currItem->GrType != 8)
+				{
+					QGradient pat;
+					double x1 = currItem->GrStartX;
+					double y1 = currItem->GrStartY;
+					double x2 = currItem->GrEndX;
+					double y2 = currItem->GrEndY;
+					switch (currItem->GrType)
+					{
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 6:
+							pat = QLinearGradient(x1, y1,  x2, y2);
+							break;
+						case 5:
+						case 7:
+							pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+							break;
+					}
+					QList<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
+					QColor qStopColor;
+					for( int offset = 0 ; offset < colorStops.count() ; offset++ )
+					{
+						qStopColor = colorStops[ offset ]->color;
+						int h, s, v, sneu, vneu;
+						int shad = colorStops[offset]->shade;
+						qStopColor.getHsv(&h, &s, &v);
+						sneu = s * shad / 100;
+						vneu = 255 - ((255 - v) * shad / 100);
+						qStopColor.setHsv(h, sneu, vneu);
+						qStopColor.setAlphaF(colorStops[offset]->opacity);
+						pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+					}
+					pItem->setBrush(pat);
+				}
+				else if ((currItem->GrType == 8) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
+				{
+					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+					QMatrix qmatrix;
+					qmatrix.translate(patternOffsetX, patternOffsetY);
+					qmatrix.rotate(patternRotation);
+					qmatrix.scale(patternScaleX / 100.0, patternScaleY / 100.0);
+					QImage pat = *doc->docPatterns[currItem->pattern()].getPattern();
+					QBrush brush = QBrush(pat);
+					brush.setMatrix(qmatrix);
+					pItem->setBrush(brush);
+				}
+			}
+			else
+			{
+				QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->fillColor()], doc, currItem->fillShade());
+				paint.setAlphaF(1.0 - currItem->fillTransparency());
+				pItem->setBrush(paint);
+			}
+		}
 		if ((currItem->lineColor() == CommonStrings::None) || (currItem->controlsGroup()))
 			pItem->setPen(Qt::NoPen);
 		else
-			pItem->setPen(QPen(ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade()), currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+		{
+			QColor paint = ScColorEngine::getShadeColorProof(doc->PageColors[currItem->lineColor()], doc, currItem->lineShade());
+			paint.setAlphaF(1.0 - currItem->lineTransparency());
+			pItem->setPen(QPen(paint, currItem->lineWidth(), currItem->lineStyle(), currItem->lineEnd(), currItem->lineJoin()));
+		}
 		if (currItem->controlsGroup())
 		{
 			groupStack.push(currItem->groupsLastItem);

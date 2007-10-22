@@ -113,6 +113,7 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 				currItem->PoLine = points;
 				currDoc->AdjustItemSize(currItem);
 			}
+			currDoc->changed();
 		}
 		delete dia;
 	}
