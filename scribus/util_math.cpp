@@ -223,7 +223,7 @@ FPoint projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd)
 }
 
 
-QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
+QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
 {
 	QPolygon cli, outa;
 	Segs.clear();

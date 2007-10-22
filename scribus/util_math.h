@@ -28,7 +28,7 @@ FPoint SCRIBUS_API getMaxClipF(FPointArray* Clip);
 FPoint SCRIBUS_API getMinClipF(FPointArray* Clip);
 double SCRIBUS_API xy2Deg(double x, double y);
 FPoint SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd);
-QPolygon SCRIBUS_API FlattenPath(FPointArray ina, QList<uint> &Segs);
+QPolygon SCRIBUS_API FlattenPath(const FPointArray& ina, QList<uint> &Segs);
 QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
 QPolygon SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
