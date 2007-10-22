@@ -501,10 +501,13 @@ void CharSelect::slot_insertSpecialChar()
 
 	if (m_Item->HasSel)
 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
+	if (m_Item->asTextFrame())
+		m_Item->asTextFrame()->invalidateLayout();
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
+	QChar ch;
 	for (int a=0; a<chToIns.length(); ++a)
 	{
-		QChar ch = chToIns.at(a);
+		ch = chToIns.at(a);
 		if (ch == QChar(10))
 			ch = QChar(13);
 		if (ch == QChar(9))
@@ -512,6 +515,7 @@ void CharSelect::slot_insertSpecialChar()
 		m_Item->itemText.insertChars(m_Item->CPos, ch, true);
 		m_Item->CPos += 1;
 	}
+	m_doc->updateFrameItems();
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 	delEdit();
@@ -523,12 +527,15 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 		return;
 	if (m_Item->HasSel)
 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
-	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
+	if (m_Item->asTextFrame())
+		m_Item->asTextFrame()->invalidateLayout();
+// 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	if (ch == QChar(10))
 		ch = QChar(13);
 	if (ch == QChar(9))
 		ch = QChar(32);
 	m_Item->itemText.insertChars(m_Item->CPos, ch, true);
+	m_doc->updateFrameItems();
 	m_Item->CPos += 1;
 	m_doc->view()->DrawNew();
 	m_doc->changed();
