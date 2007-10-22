@@ -670,6 +670,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			}
 			else
 			{
+				QWMatrix mat;
 				x = parseUnit(b.attribute("svg:x"));
 				y = parseUnit(b.attribute("svg:y")) ;
 				w = parseUnit(b.attribute("svg:width"));
@@ -679,9 +680,10 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				double vw = 1;
 				double vh = 1;
 				parseViewBox(b, &vx, &vy, &vw, &vh);
-				QWMatrix mat;
+				double sx = (vw != 0.0) ? (w / vw) : w;
+				double sy = (vh != 0.0) ? (h / vh) : h;
 				mat.translate(x, y);
-				mat.scale(w / vw, h / vh);
+				mat.scale(sx, sy);
 				ite->PoLine.map(mat);
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(), wh.y());
@@ -1110,6 +1112,8 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	double vw = 1;
 	double vh = 1;
 	parseViewBox(object, &vx, &vy, &vw, &vh);
+	double sx = (vw != 0.0) ? (w / vw) : w;
+	double sy = (vh != 0.0) ? (h / vh) : h;
 	QStringList ptList = QStringList::split( ' ', object.attribute( "draw:points" ) );
 	FPoint point, firstP;
 	bool bFirst = true;
@@ -1138,7 +1142,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	}
 	QWMatrix mat;
 	mat.translate(x, y);
-	mat.scale(w / vw, h / vh);
+	mat.scale(sx, sy);
 	composite->map(mat);
 }
 
