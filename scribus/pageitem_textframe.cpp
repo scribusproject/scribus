@@ -3415,4 +3415,33 @@ bool PageItem_TextFrame::createContextMenu(QMenu *menu, int step)
 
 void PageItem_TextFrame::applicableActions(QStringList & actionList)
 {
+	actionList << "fileImportText";
+	actionList << "fileImportAppendText";
+	actionList << "toolsEditWithStoryEditor";
+	actionList << "insertSampleText";
+	if (doc()->currentPage()->pageName().isEmpty())
+	{
+		actionList << "itemPDFIsAnnotation";
+		actionList << "itemPDFIsBookmark";
+		if (isAnnotation())
+		{
+			if ((annotation().Type() == 0) || (annotation().Type() == 1) || (annotation().Type() > 9))
+				actionList << "itemPDFAnnotationProps";
+			else
+				actionList << "itemPDFFieldProps";
+		}
+	}
+	if (isTableItem)
+		actionList << "itemConvertToImageFrame";
+	else 
+	{
+		if ((prevInChain() == 0) && (nextInChain() == 0))
+		{
+			actionList << "itemConvertToImageFrame";
+			actionList << "itemConvertToPolygon";
+		}
+		actionList << "itemConvertToOutlines";
+	}
+	if (itemText.lines() != 0)
+		actionList << "editClearContents";
 }

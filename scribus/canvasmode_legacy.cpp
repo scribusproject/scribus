@@ -31,6 +31,7 @@
 
 #include "canvas.h"
 #include "canvasgesture_resize.h"
+#include "contextmenu.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hruler.h"
@@ -4522,6 +4523,7 @@ void LegacyMode::setResizeCursor(int how)
 
 void LegacyMode::createContextMenu(PageItem* currItem)
 {
+#if 1
 	QMenu *pmen = new QMenu();
 	QMenu *menuConvertTo = new QMenu();
 	QMenu *menuLayer = new QMenu();
@@ -4674,4 +4676,12 @@ void LegacyMode::createContextMenu(PageItem* currItem)
 	delete menuEditContents;
 	delete menuLevel;
 	currItem->createContextMenu(0, 0); //Free memory
+#else
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	m_view->setObjectUndoMode();
+	ContextMenu* cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW);
+	cmen->exec(QCursor::pos());
+	m_view->setGlobalUndoMode();
+	delete cmen;
+#endif
 }

@@ -77,4 +77,7 @@ bool PageItem_Polygon::createContextMenu(QMenu *menu, int step)
 
 void PageItem_Polygon::applicableActions(QStringList & actionList)
 {
+	actionList << "itemConvertToBezierCurve";
+	actionList << "itemConvertToImageFrame";
+	actionList << "itemConvertToTextFrame";
 }

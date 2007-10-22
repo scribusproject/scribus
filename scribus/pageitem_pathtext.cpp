@@ -441,4 +441,6 @@ bool PageItem_PathText::createContextMenu(QMenu *menu, int step)
 
 void PageItem_PathText::applicableActions(QStringList & actionList)
 {
+	actionList << "toolsEditWithStoryEditor";
+	actionList << "itemConvertToOutlines";
 }

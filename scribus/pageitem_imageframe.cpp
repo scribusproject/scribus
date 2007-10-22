@@ -362,4 +362,35 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 
 void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 {
+	actionList << "fileImportImage";
+	actionList << "itemConvertToTextFrame";
+	actionList << "itemImageIsVisible";
+	actionList << "itemPreviewFull";
+	actionList << "itemPreviewLow";
+	actionList << "itemPreviewNormal";
+
+	if (PicAvail)
+	{
+		if (!isTableItem)
+			actionList << "itemAdjustFrameToImage";
+		if (pixm.imgInfo.valid)
+			actionList << "itemExtendedImageProperties";
+		if (pixm.imgInfo.exifDataValid)
+			actionList << "itemImageInfo";
+		actionList << "itemUpdateImage";
+		actionList << "editClearContents";
+		actionList << "editCopyContents";
+		if (isRaster)
+		{
+			actionList << "styleImageEffects";
+			actionList << "editEditWithImageEditor";
+		}
+	}
+	if (!isTableItem)
+		actionList << "itemConvertToPolygon";
+	if (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame)
+	{
+		actionList << "editPasteContents";
+		actionList << "editPasteContentsAbs";
+	}
 }

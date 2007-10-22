@@ -13,15 +13,25 @@
 *                                                                         *
 ***************************************************************************/
 
+#include <QFrame>
+#include <QGridLayout>
+#include <QLabel>
 #include <QWidget>
+#include <QWidgetAction>
 
 #include "contextmenu.h"
+#include "scraction.h"
+#include "scribus.h"
+#include "scribusdoc.h"
+#include "undomanager.h"
 
-ContextMenu::ContextMenu(Selection & sel, QWidget * parent) :
+ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, QWidget * parent) :
 	QMenu(parent),
-	m_Sel(sel)
+	m_Sel(sel),
+	m_AP(actionsParent)
 {
 	processSelection();
+	
 	createMenuItems();
 }
 
@@ -31,7 +41,7 @@ void ContextMenu::processSelection()
 	if (selectedItemCount == 0)
 		return;
 	
-	PageItem* currItem;
+	PageItem* currItem=NULL;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = m_Sel.itemAt(i);
@@ -44,8 +54,407 @@ void ContextMenu::processSelection()
 
 void ContextMenu::createMenuItems()
 {
-	//TODO
-	//- Add items that do not depend on a selection
-	//- Add items that depend on just one item
-	//- Add items that depend on multi selection
+	//CB TODO clean
+	int selectedItemCount=m_Sel.count();
+	//Handle 0 items in selection
+	if (selectedItemCount==0)
+		return;
+	bool itemsAreSameType=m_Sel.itemsAreSameType();
+	//Find our doc from first item in selection if we have an item
+	PageItem *currItem = m_Sel.itemAt(0);
+	ScribusDoc* m_doc = 0;
+	if (currItem)
+		m_doc=currItem->doc();
+	assert(m_doc!=0 && currItem!=0);
+	
+	QMenu *menuConvertTo = new QMenu(this);
+	QMenu *menuLayer = new QMenu(this);
+	QMenu *menuInfo = new QMenu(this);
+	QMenu *menuEditContents = new QMenu(this);
+	QMenu *menuLevel = new QMenu(this);
+	QMenu *menuResolution = new QMenu(this);
+	
+	//<-- Add Info
+	QFrame *infoGroup = new QFrame( m_doc->view() );
+	infoGroup->setFrameShape( QFrame::NoFrame );
+	QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
+	infoGroupLayout->setAlignment( Qt::AlignTop );
+	infoGroupLayout->setSpacing( 2 );
+	infoGroupLayout->setMargin( 0 );
+	if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) 
+	{
+		int row = infoGroupLayout->rowCount(); // <a.l.e>
+
+		QLabel *printCT = new QLabel(infoGroup);
+		QLabel *printT = new QLabel(infoGroup);
+		printCT->setText( ScribusView::tr("Print: "));
+		infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
+		if (currItem->printEnabled())
+			printT->setText( ScribusView::tr("Enabled"));
+		else
+			printT->setText( ScribusView::tr("Disabled"));
+		infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
+				
+		QWidgetAction* MenAct = new QWidgetAction(m_doc->view());
+		MenAct->setDefaultWidget(infoGroup);
+		menuInfo->addAction(MenAct);
+
+// Qt4				menuInfo->insertItem(infoGroup);
+		currItem->createContextMenu(menuInfo, 5);
+		QAction *act = addMenu(menuInfo);
+		act->setText( ScribusView::tr("In&fo"));
+	} else	{
+		delete infoGroupLayout;
+		delete infoGroup;
+	}
+	//-->
+	
+	//<-- Add undo
+	UndoManager * const undoManager(UndoManager::instance());
+	if (undoManager->hasUndoActions())
+		addAction(m_AP->scrActions["editUndoAction"]);
+	if (undoManager->hasRedoActions())
+		addAction(m_AP->scrActions["editRedoAction"]);
+	//-->
+	
+	//<-- Item specific actions
+	if (itemsAreSameType)
+	{
+		if (m_actionList.contains("editEditWithLatexEditor"))
+		{
+			addSeparator();
+			addAction(m_AP->scrActions["editEditWithLatexEditor"]);
+		}
+		if (m_actionList.contains("fileImportText"))
+		{
+			addSeparator();
+			addAction(m_AP->scrActions["fileImportText"]);
+			addAction(m_AP->scrActions["fileImportAppendText"]);
+			addAction(m_AP->scrActions["toolsEditWithStoryEditor"]);
+			addAction(m_AP->scrActions["insertSampleText"]);
+		}
+		addSeparator();
+		if (m_actionList.contains("fileImportImage"))
+			addAction(m_AP->scrActions["fileImportImage"]);
+		if (m_actionList.contains("itemAdjustFrameToImage"))
+			addAction(m_AP->scrActions["itemAdjustFrameToImage"]);
+		if (m_actionList.contains("itemExtendedImageProperties"))
+			addAction(m_AP->scrActions["itemExtendedImageProperties"]);
+		if (m_actionList.contains("itemUpdateImage"))
+			addAction(m_AP->scrActions["itemUpdateImage"]);
+		
+		if (m_actionList.contains("itemPreviewLow"))
+		{
+			if (m_actionList.contains("itemImageIsVisible"))
+				menuResolution->addAction(m_AP->scrActions["itemImageIsVisible"]);
+			menuResolution->addSeparator();
+			if (m_actionList.contains("itemPreviewLow"))
+				menuResolution->addAction(m_AP->scrActions["itemPreviewLow"]);
+			if (m_actionList.contains("itemPreviewNormal"))
+				menuResolution->addAction(m_AP->scrActions["itemPreviewNormal"]);
+			if (m_actionList.contains("itemPreviewFull"))
+				menuResolution->addAction(m_AP->scrActions["itemPreviewFull"]);
+			if (menuResolution->actions().count()>0)
+			{
+				QAction *act = addMenu(menuResolution);
+				act->setText( tr("Preview Settings"));
+			}
+		}
+		
+		if (m_actionList.contains("styleImageEffects"))
+			addAction(m_AP->scrActions["styleImageEffects"]);
+		if (m_actionList.contains("editEditWithImageEditor"))
+			addAction(m_AP->scrActions["editEditWithImageEditor"]);
+		
+	}
+	//-->
+	
+	//<-- Item Attributes
+	if (selectedItemCount == 1)
+	{
+		addSeparator();
+		addAction(m_AP->scrActions["itemAttributes"]);
+	}
+	//-->
+	
+	//<-- Item Locking
+	addSeparator();
+	addAction(m_AP->scrActions["itemLock"]);
+	addAction(m_AP->scrActions["itemLockSize"]);
+	//-->
+	
+	if (selectedItemCount>0)
+	{
+		addAction(m_AP->scrActions["itemSendToScrapbook"]);
+		addAction(m_AP->scrActions["itemSendToPattern"]);
+		//<-- Add Layer Items
+		if (m_doc->layerCount() > 1)
+		{
+			QMap<int,int> layerMap;
+			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+				layerMap.insert((*it).Level, (*it).LNr);
+			int i=layerMap.count()-1;
+			while (i>=0)
+			{
+				if (m_doc->layerLocked(layerMap[i]))
+					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
+				else
+					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
+				menuLayer->addAction(m_AP->scrLayersActions[QString::number(layerMap[i--])]);
+			}
+			QAction *act = addMenu(menuLayer);
+			act->setText( ScribusView::tr("Send to La&yer"));
+		}
+		//-->
+	}
+	//<-- Add Groups Items
+	if (selectedItemCount>1)
+	{
+		bool isGroup = true;
+		int firstElem = -1;
+		if (currItem->Groups.count() != 0)
+			firstElem = currItem->Groups.top();
+		for (int bx = 0; bx < selectedItemCount; ++bx)
+		{
+			if (m_Sel.itemAt(bx)->Groups.count() != 0)
+			{
+				if (m_Sel.itemAt(bx)->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
+		}
+		if (!isGroup)
+			addAction(m_AP->scrActions["itemGroup"]);
+	}
+	if (currItem->Groups.count() != 0)
+		addAction(m_AP->scrActions["itemUngroup"]);
+	//-->
+
+	//<-- Add Level Item
+	if (!currItem->locked())
+	{
+		if ((!currItem->isTableItem) && (!currItem->isSingleSel))
+		{
+			QAction *act = addMenu(menuLevel);
+			act->setText( ScribusView::tr("Le&vel"));
+			menuLevel->addAction(m_AP->scrActions["itemRaiseToTop"]);
+			menuLevel->addAction(m_AP->scrActions["itemRaise"]);
+			menuLevel->addAction(m_AP->scrActions["itemLower"]);
+			menuLevel->addAction(m_AP->scrActions["itemLowerToBottom"]);
+		}
+	}
+	//-->
+	
+	//<-- Add Convert To Items
+	if (m_doc->appMode != modeEdit && (itemsAreSameType || currItem->isSingleSel)) //Create convertTo Menu
+	{
+		if (m_AP->scrActions["itemConvertToBezierCurve"]->isEnabled() && m_actionList.contains("itemConvertToBezierCurve"))
+			menuConvertTo->addAction(m_AP->scrActions["itemConvertToBezierCurve"]);
+		if (m_AP->scrActions["itemConvertToImageFrame"]->isEnabled() && m_actionList.contains("itemConvertToImageFrame"))
+			menuConvertTo->addAction(m_AP->scrActions["itemConvertToImageFrame"]);
+		if (m_AP->scrActions["itemConvertToOutlines"]->isEnabled() && m_actionList.contains("itemConvertToOutlines"))
+			menuConvertTo->addAction(m_AP->scrActions["itemConvertToOutlines"]);
+		if (m_AP->scrActions["itemConvertToPolygon"]->isEnabled() && m_actionList.contains("itemConvertToPolygon"))
+			menuConvertTo->addAction(m_AP->scrActions["itemConvertToPolygon"]);
+		if (m_AP->scrActions["itemConvertToTextFrame"]->isEnabled() && m_actionList.contains("itemConvertToTextFrame"))
+			menuConvertTo->addAction(m_AP->scrActions["itemConvertToTextFrame"]);
+		if (menuConvertTo->actions().count()>0)
+		{
+			QAction *act = addMenu(menuConvertTo);
+			act->setText( ScribusView::tr("Conve&rt to"));
+		}
+	}
+	//-->
+	
+	//<-- Add Copy/Paste Actions
+	addSeparator();
+	if (!currItem->locked() && !(currItem->isSingleSel))
+		addAction(m_AP->scrActions["editCut"]);
+	if (!(currItem->isSingleSel))
+		addAction(m_AP->scrActions["editCopy"]);
+	if ((m_doc->appMode == modeEdit) && (m_AP->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+		addAction(m_AP->scrActions["editPaste"]);
+	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
+		addAction(m_AP->scrActions["itemDelete"]);
+	//-->
+	
+	//<-- Add Contents Actions
+	if (itemsAreSameType)
+	{
+		if (m_actionList.contains("editCopyContents"))
+			menuEditContents->addAction(m_AP->scrActions["editCopyContents"]);
+		if (m_actionList.contains("editPasteContents"))
+			menuEditContents->addAction(m_AP->scrActions["editPasteContents"]);
+		if (m_actionList.contains("editPasteContentsAbs"))
+			menuEditContents->addAction(m_AP->scrActions["editPasteContentsAbs"]);
+	}
+	if (m_actionList.contains("editClearContents"))
+		menuEditContents->addAction(m_AP->scrActions["editClearContents"]);
+	if (menuEditContents->actions().count()>0)
+	{
+		QAction *act = addMenu(menuEditContents);
+		act->setText( ScribusView::tr("Contents"));
+	}
+	//-->
+	
+	//<-- Add Properties
+	addSeparator();
+	addAction(m_AP->scrActions["toolsProperties"]);
+	//-->
 }
+
+#if 0
+	QMenu *pmen = new QMenu();
+	QMenu *menuConvertTo = new QMenu();
+	QMenu *menuLayer = new QMenu();
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QMenu *menuInfo = new QMenu();
+	QMenu *menuEditContents = new QMenu();
+	QMenu *menuLevel = new QMenu();
+	m_view->setObjectUndoMode();
+			
+	QFrame *infoGroup = new QFrame( m_view );
+	infoGroup->setFrameShape( QFrame::NoFrame );
+	QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
+	infoGroupLayout->setAlignment( Qt::AlignTop );
+	infoGroupLayout->setSpacing( 2 );
+	infoGroupLayout->setMargin( 0 );
+	if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) {
+		int row = infoGroupLayout->rowCount(); // <a.l.e>
+
+		QLabel *printCT = new QLabel(infoGroup);
+		QLabel *printT = new QLabel(infoGroup);
+		printCT->setText( ScribusView::tr("Print: "));
+		infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
+		if (currItem->printEnabled())
+			printT->setText( ScribusView::tr("Enabled"));
+		else
+			printT->setText( ScribusView::tr("Disabled"));
+		infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
+				
+		QWidgetAction* MenAct = new QWidgetAction(m_view);
+		MenAct->setDefaultWidget(infoGroup);
+		menuInfo->addAction(MenAct);
+
+// Qt4				menuInfo->insertItem(infoGroup);
+		currItem->createContextMenu(menuInfo, 5);
+		QAction *act = pmen->addMenu(menuInfo);
+		act->setText( ScribusView::tr("In&fo"));
+	} else	{
+		delete infoGroupLayout;
+		delete infoGroup;
+	}
+	pmen->addSeparator();
+	pmen->addAction(m_AP->scrActions["editUndoAction"]);
+	pmen->addAction(m_AP->scrActions["editRedoAction"]);
+	currItem->createContextMenu(pmen, 10);
+	if (m_doc->m_Selection->count() == 1)
+	{
+		pmen->addSeparator();
+		pmen->addAction(m_AP->scrActions["itemAttributes"]);
+	}
+	currItem->createContextMenu(pmen, 20);
+	pmen->addSeparator();
+	pmen->addAction(m_AP->scrActions["itemLock"]);
+	pmen->addAction(m_AP->scrActions["itemLockSize"]);
+	if (!currItem->isSingleSel)
+	{
+		pmen->addAction(m_AP->scrActions["itemSendToScrapbook"]);
+		pmen->addAction(m_AP->scrActions["itemSendToPattern"]);
+		if (m_doc->layerCount() > 1)
+		{
+			QMap<int,int> layerMap;
+			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+				layerMap.insert((*it).Level, (*it).LNr);
+			int i=layerMap.count()-1;
+			while (i>=0)
+			{
+				if (m_doc->layerLocked(layerMap[i]))
+					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
+				else
+					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
+				menuLayer->addAction(m_AP->scrLayersActions[QString::number(layerMap[i--])]);
+			}
+			QAction *act = pmen->addMenu(menuLayer);
+			act->setText( ScribusView::tr("Send to La&yer"));
+		}
+	}
+	if (m_doc->m_Selection->count() > 1)
+	{
+		bool isGroup = true;
+		int firstElem = -1;
+		if (currItem->Groups.count() != 0)
+			firstElem = currItem->Groups.top();
+		for (int bx = 0; bx < m_doc->m_Selection->count(); ++bx)
+		{
+			if (m_doc->m_Selection->itemAt(bx)->Groups.count() != 0)
+			{
+				if (m_doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
+		}
+		if (!isGroup)
+			pmen->addAction(m_AP->scrActions["itemGroup"]);
+	}
+	if (currItem->Groups.count() != 0)
+		pmen->addAction(m_AP->scrActions["itemUngroup"]);
+	if (!currItem->locked())
+	{
+		if ((!currItem->isTableItem) && (!currItem->isSingleSel))
+		{
+			QAction *act = pmen->addMenu(menuLevel);
+			act->setText( ScribusView::tr("Le&vel"));
+			menuLevel->addAction(m_AP->scrActions["itemRaiseToTop"]);
+			menuLevel->addAction(m_AP->scrActions["itemRaise"]);
+			menuLevel->addAction(m_AP->scrActions["itemLower"]);
+			menuLevel->addAction(m_AP->scrActions["itemLowerToBottom"]);
+		}
+	}
+	if (m_doc->appMode != modeEdit && (m_doc->m_Selection->itemsAreSameType() || currItem->isSingleSel)) //Create convertTo Menu
+	{
+		bool insertConvertToMenu = currItem->createContextMenu(menuConvertTo, 30);
+		bool insertedMenusEnabled = false;
+		QList<QAction*> actList = menuConvertTo->actions();
+		for (int pc = 0; pc < actList.count(); pc++)
+		{
+			if (actList[pc]->isEnabled())
+				insertedMenusEnabled = true;
+		}
+		if ((insertConvertToMenu) && (insertedMenusEnabled))
+		{
+			QAction *act = pmen->addMenu(menuConvertTo);
+			act->setText( ScribusView::tr("Conve&rt to"));
+		}
+	}
+	pmen->addSeparator();
+	if (!currItem->locked() && !(currItem->isSingleSel))
+		pmen->addAction(m_AP->scrActions["editCut"]);
+	if (!(currItem->isSingleSel))
+		pmen->addAction(m_AP->scrActions["editCopy"]);
+	if ((m_doc->appMode == modeEdit) && (m_AP->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+		pmen->addAction(m_AP->scrActions["editPaste"]);
+	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
+		pmen->addAction( ScribusView::tr("&Delete"), m_doc, SLOT(itemSelection_DeleteItem()));
+	
+	if (currItem->createContextMenu(menuEditContents, 40))
+	{
+		QAction *act = pmen->addMenu(menuEditContents);
+		act->setText( ScribusView::tr("Contents"));
+	}
+	
+	pmen->addSeparator();
+	pmen->addAction(m_AP->scrActions["toolsProperties"]);
+
+	pmen->exec(QCursor::pos());
+	m_view->setGlobalUndoMode();
+	delete pmen;
+	delete menuConvertTo;
+	delete menuLayer;
+	delete menuInfo;
+	delete menuEditContents;
+	delete menuLevel;
+	currItem->createContextMenu(0, 0); //Free memory
+#endif

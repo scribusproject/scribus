@@ -22,11 +22,13 @@ class QWidget;
 
 #include "selection.h"
 
+class ScribusMainWindow;
+
 class ContextMenu : public QMenu
 {
 	Q_OBJECT
 public:
-	ContextMenu(Selection &sel, QWidget* parent=0);
+	ContextMenu(Selection &sel, ScribusMainWindow *actionsParent, QWidget* parent=0);
 	
 protected:
 	void processSelection();
@@ -34,4 +36,5 @@ protected:
 	
 	Selection m_Sel;
 	QStringList m_actionList;
+	ScribusMainWindow *m_AP;
 };

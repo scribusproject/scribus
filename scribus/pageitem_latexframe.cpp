@@ -692,4 +692,9 @@ const QString PageItem_LatexFrame::defaultPost = "\\end{document}";
 
 void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 {
+	//As its basically an image frame for now
+	PageItem_ImageFrame::applicableActions(actionList);
+	
+	actionList << "itemUpdateImage";
+	actionList << "editEditWithLatexEditor";
 }
