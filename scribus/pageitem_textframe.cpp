@@ -3445,3 +3445,8 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 	if (itemText.lines() != 0)
 		actionList << "editClearContents";
 }
+
+QString PageItem_TextFrame::infoDescription()
+{
+	return QString();
+}

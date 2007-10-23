@@ -42,6 +42,7 @@ public:
 	virtual PageItem_PolyLine * asPolyLine() { return this; }
 	
 	virtual void applicableActions(QStringList& actionList);
+	virtual QString infoDescription();
 
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);

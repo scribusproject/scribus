@@ -16,6 +16,7 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QLabel>
+#include <QTextEdit>
 #include <QWidget>
 #include <QWidgetAction>
 
@@ -75,37 +76,54 @@ void ContextMenu::createMenuItems()
 	QMenu *menuResolution = new QMenu(this);
 	
 	//<-- Add Info
-	QFrame *infoGroup = new QFrame( m_doc->view() );
-	infoGroup->setFrameShape( QFrame::NoFrame );
-	QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
-	infoGroupLayout->setAlignment( Qt::AlignTop );
-	infoGroupLayout->setSpacing( 2 );
-	infoGroupLayout->setMargin( 0 );
-	if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) 
+	//Test new method with image frames first
+	if (selectedItemCount==1 && currItem->asImageFrame())
 	{
-		int row = infoGroupLayout->rowCount(); // <a.l.e>
-
-		QLabel *printCT = new QLabel(infoGroup);
-		QLabel *printT = new QLabel(infoGroup);
-		printCT->setText( ScribusView::tr("Print: "));
-		infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
-		if (currItem->printEnabled())
-			printT->setText( ScribusView::tr("Enabled"));
-		else
-			printT->setText( ScribusView::tr("Disabled"));
-		infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
-				
-		QWidgetAction* MenAct = new QWidgetAction(m_doc->view());
-		MenAct->setDefaultWidget(infoGroup);
-		menuInfo->addAction(MenAct);
-
-// Qt4				menuInfo->insertItem(infoGroup);
-		currItem->createContextMenu(menuInfo, 5);
 		QAction *act = addMenu(menuInfo);
 		act->setText( ScribusView::tr("In&fo"));
-	} else	{
-		delete infoGroupLayout;
-		delete infoGroup;
+		if (currItem->asImageFrame())
+		{
+			QTextEdit* menuTextEdit= new QTextEdit("<html>" + currItem->infoDescription() + "</html>", this);
+			menuTextEdit->setReadOnly(true);
+			QWidgetAction* menuTextWidget = new QWidgetAction(this);
+			menuTextWidget->setDefaultWidget(menuTextEdit);
+			menuInfo->addAction(menuTextWidget);
+		}
+	}
+	else
+	{
+		QFrame *infoGroup = new QFrame( m_doc->view() );
+		infoGroup->setFrameShape( QFrame::NoFrame );
+		QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
+		infoGroupLayout->setAlignment( Qt::AlignTop );
+		infoGroupLayout->setSpacing( 2 );
+		infoGroupLayout->setMargin( 0 );
+		if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) 
+		{
+			int row = infoGroupLayout->rowCount(); // <a.l.e>
+	
+			QLabel *printCT = new QLabel(infoGroup);
+			QLabel *printT = new QLabel(infoGroup);
+			printCT->setText( ScribusView::tr("Print: "));
+			infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
+			if (currItem->printEnabled())
+				printT->setText( ScribusView::tr("Enabled"));
+			else
+				printT->setText( ScribusView::tr("Disabled"));
+			infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
+					
+			QWidgetAction* MenAct = new QWidgetAction(this);
+			MenAct->setDefaultWidget(infoGroup);
+			menuInfo->addAction(MenAct);
+	
+	// Qt4				menuInfo->insertItem(infoGroup);
+			currItem->createContextMenu(menuInfo, 5);
+			QAction *act = addMenu(menuInfo);
+			act->setText( ScribusView::tr("In&fo"));
+		} else	{
+			delete infoGroupLayout;
+			delete infoGroup;
+		}
 	}
 	//-->
 	
@@ -304,157 +322,3 @@ void ContextMenu::createMenuItems()
 	//-->
 }
 
-#if 0
-	QMenu *pmen = new QMenu();
-	QMenu *menuConvertTo = new QMenu();
-	QMenu *menuLayer = new QMenu();
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	QMenu *menuInfo = new QMenu();
-	QMenu *menuEditContents = new QMenu();
-	QMenu *menuLevel = new QMenu();
-	m_view->setObjectUndoMode();
-			
-	QFrame *infoGroup = new QFrame( m_view );
-	infoGroup->setFrameShape( QFrame::NoFrame );
-	QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
-	infoGroupLayout->setAlignment( Qt::AlignTop );
-	infoGroupLayout->setSpacing( 2 );
-	infoGroupLayout->setMargin( 0 );
-	if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) {
-		int row = infoGroupLayout->rowCount(); // <a.l.e>
-
-		QLabel *printCT = new QLabel(infoGroup);
-		QLabel *printT = new QLabel(infoGroup);
-		printCT->setText( ScribusView::tr("Print: "));
-		infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
-		if (currItem->printEnabled())
-			printT->setText( ScribusView::tr("Enabled"));
-		else
-			printT->setText( ScribusView::tr("Disabled"));
-		infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
-				
-		QWidgetAction* MenAct = new QWidgetAction(m_view);
-		MenAct->setDefaultWidget(infoGroup);
-		menuInfo->addAction(MenAct);
-
-// Qt4				menuInfo->insertItem(infoGroup);
-		currItem->createContextMenu(menuInfo, 5);
-		QAction *act = pmen->addMenu(menuInfo);
-		act->setText( ScribusView::tr("In&fo"));
-	} else	{
-		delete infoGroupLayout;
-		delete infoGroup;
-	}
-	pmen->addSeparator();
-	pmen->addAction(m_AP->scrActions["editUndoAction"]);
-	pmen->addAction(m_AP->scrActions["editRedoAction"]);
-	currItem->createContextMenu(pmen, 10);
-	if (m_doc->m_Selection->count() == 1)
-	{
-		pmen->addSeparator();
-		pmen->addAction(m_AP->scrActions["itemAttributes"]);
-	}
-	currItem->createContextMenu(pmen, 20);
-	pmen->addSeparator();
-	pmen->addAction(m_AP->scrActions["itemLock"]);
-	pmen->addAction(m_AP->scrActions["itemLockSize"]);
-	if (!currItem->isSingleSel)
-	{
-		pmen->addAction(m_AP->scrActions["itemSendToScrapbook"]);
-		pmen->addAction(m_AP->scrActions["itemSendToPattern"]);
-		if (m_doc->layerCount() > 1)
-		{
-			QMap<int,int> layerMap;
-			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
-				layerMap.insert((*it).Level, (*it).LNr);
-			int i=layerMap.count()-1;
-			while (i>=0)
-			{
-				if (m_doc->layerLocked(layerMap[i]))
-					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
-				else
-					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
-				menuLayer->addAction(m_AP->scrLayersActions[QString::number(layerMap[i--])]);
-			}
-			QAction *act = pmen->addMenu(menuLayer);
-			act->setText( ScribusView::tr("Send to La&yer"));
-		}
-	}
-	if (m_doc->m_Selection->count() > 1)
-	{
-		bool isGroup = true;
-		int firstElem = -1;
-		if (currItem->Groups.count() != 0)
-			firstElem = currItem->Groups.top();
-		for (int bx = 0; bx < m_doc->m_Selection->count(); ++bx)
-		{
-			if (m_doc->m_Selection->itemAt(bx)->Groups.count() != 0)
-			{
-				if (m_doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
-					isGroup = false;
-			}
-			else
-				isGroup = false;
-		}
-		if (!isGroup)
-			pmen->addAction(m_AP->scrActions["itemGroup"]);
-	}
-	if (currItem->Groups.count() != 0)
-		pmen->addAction(m_AP->scrActions["itemUngroup"]);
-	if (!currItem->locked())
-	{
-		if ((!currItem->isTableItem) && (!currItem->isSingleSel))
-		{
-			QAction *act = pmen->addMenu(menuLevel);
-			act->setText( ScribusView::tr("Le&vel"));
-			menuLevel->addAction(m_AP->scrActions["itemRaiseToTop"]);
-			menuLevel->addAction(m_AP->scrActions["itemRaise"]);
-			menuLevel->addAction(m_AP->scrActions["itemLower"]);
-			menuLevel->addAction(m_AP->scrActions["itemLowerToBottom"]);
-		}
-	}
-	if (m_doc->appMode != modeEdit && (m_doc->m_Selection->itemsAreSameType() || currItem->isSingleSel)) //Create convertTo Menu
-	{
-		bool insertConvertToMenu = currItem->createContextMenu(menuConvertTo, 30);
-		bool insertedMenusEnabled = false;
-		QList<QAction*> actList = menuConvertTo->actions();
-		for (int pc = 0; pc < actList.count(); pc++)
-		{
-			if (actList[pc]->isEnabled())
-				insertedMenusEnabled = true;
-		}
-		if ((insertConvertToMenu) && (insertedMenusEnabled))
-		{
-			QAction *act = pmen->addMenu(menuConvertTo);
-			act->setText( ScribusView::tr("Conve&rt to"));
-		}
-	}
-	pmen->addSeparator();
-	if (!currItem->locked() && !(currItem->isSingleSel))
-		pmen->addAction(m_AP->scrActions["editCut"]);
-	if (!(currItem->isSingleSel))
-		pmen->addAction(m_AP->scrActions["editCopy"]);
-	if ((m_doc->appMode == modeEdit) && (m_AP->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
-		pmen->addAction(m_AP->scrActions["editPaste"]);
-	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
-		pmen->addAction( ScribusView::tr("&Delete"), m_doc, SLOT(itemSelection_DeleteItem()));
-	
-	if (currItem->createContextMenu(menuEditContents, 40))
-	{
-		QAction *act = pmen->addMenu(menuEditContents);
-		act->setText( ScribusView::tr("Contents"));
-	}
-	
-	pmen->addSeparator();
-	pmen->addAction(m_AP->scrActions["toolsProperties"]);
-
-	pmen->exec(QCursor::pos());
-	m_view->setGlobalUndoMode();
-	delete pmen;
-	delete menuConvertTo;
-	delete menuLayer;
-	delete menuInfo;
-	delete menuEditContents;
-	delete menuLevel;
-	currItem->createContextMenu(0, 0); //Free memory
-#endif

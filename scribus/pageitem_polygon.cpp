@@ -81,3 +81,8 @@ void PageItem_Polygon::applicableActions(QStringList & actionList)
 	actionList << "itemConvertToImageFrame";
 	actionList << "itemConvertToTextFrame";
 }
+
+QString PageItem_Polygon::infoDescription()
+{
+	return QString();
+}

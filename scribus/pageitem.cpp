@@ -4551,3 +4551,15 @@ void PageItem::updateClip()
 	}
 	updateGradientVectors();
 }
+
+QString PageItem::infoDescription()
+{
+	QString htmlText;
+	htmlText.append(ScribusView::tr("Print: "));
+	if (printEnabled())
+		htmlText.append(ScribusView::tr("Enabled"));
+	else
+		htmlText.append(ScribusView::tr("Disabled"));
+	htmlText.append("<br/>");
+	return htmlText;
+}

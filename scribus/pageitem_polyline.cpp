@@ -176,3 +176,8 @@ void PageItem_PolyLine::applicableActions(QStringList & actionList)
 {
 }
 
+QString PageItem_PolyLine::infoDescription()
+{
+	return QString();
+}
+

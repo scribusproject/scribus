@@ -118,3 +118,8 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 void PageItem_Line::applicableActions(QStringList & actionList)
 {
 }
+
+QString PageItem_Line::infoDescription()
+{
+	return QString();
+}

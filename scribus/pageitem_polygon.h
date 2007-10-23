@@ -43,6 +43,7 @@ public:
 	virtual PageItem_Polygon * asPolygon() { return this; }
 	virtual bool createContextMenu(QMenu *, int);
 	virtual void applicableActions(QStringList& actionList);
+	virtual QString infoDescription();
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);

@@ -698,3 +698,8 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	actionList << "itemUpdateImage";
 	actionList << "editEditWithLatexEditor";
 }
+
+QString PageItem_LatexFrame::infoDescription()
+{
+	return QString();
+}

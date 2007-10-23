@@ -247,6 +247,7 @@ public:
 	QImage DrawObj_toImage(QList<PageItem*> &emG);
 	
 	virtual void applicableActions(QStringList& actionList) = 0;
+	virtual QString infoDescription();
 			
 protected:
 	void DrawObj_ImageFrame(ScPainter *p, double sc);

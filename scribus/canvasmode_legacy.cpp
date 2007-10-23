@@ -4523,7 +4523,7 @@ void LegacyMode::setResizeCursor(int how)
 
 void LegacyMode::createContextMenu(PageItem* currItem)
 {
-#if 1
+#if 0
 	QMenu *pmen = new QMenu();
 	QMenu *menuConvertTo = new QMenu();
 	QMenu *menuLayer = new QMenu();

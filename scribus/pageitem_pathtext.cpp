@@ -444,3 +444,8 @@ void PageItem_PathText::applicableActions(QStringList & actionList)
 	actionList << "toolsEditWithStoryEditor";
 	actionList << "itemConvertToOutlines";
 }
+
+QString PageItem_PathText::infoDescription()
+{
+	return QString();
+}

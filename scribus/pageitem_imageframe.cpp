@@ -394,3 +394,31 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 		actionList << "editPasteContentsAbs";
 	}
 }
+
+QString PageItem_ImageFrame::infoDescription()
+{
+	QString htmlText;
+	htmlText.append(tr("Picture") + "<br/>");
+	
+	if (PicAvail)
+	{
+		QFileInfo fi = QFileInfo(Pfile);
+		htmlText.append(ScribusView::tr("File: ") + fi.fileName() + "<br/>");
+		htmlText.append(ScribusView::tr("Original PPI: ") + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "<br/>");
+		htmlText.append(ScribusView::tr("Actual PPI: ") + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "<br/>");
+		htmlText.append(ScribusView::tr("Colorspace: "));
+		QString cSpace;
+		QString ext = fi.suffix().toLower();
+		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != 7))
+			htmlText.append(ScribusView::tr("Unknown"));
+		else
+			htmlText.append(colorSpaceText(pixm.imgInfo.colorspace));
+		htmlText.append("<br/>");
+	}
+	else
+	{
+		htmlText.append(ScribusView::tr("No Image Loaded") + "<br/>");
+	}
+	htmlText.append(PageItem::infoDescription());
+	return htmlText;
+}
