@@ -85,6 +85,7 @@ void ContextMenu::createMenuItems()
 		{
 			QTextEdit* menuTextEdit= new QTextEdit("<html>" + currItem->infoDescription() + "</html>", this);
 			menuTextEdit->setReadOnly(true);
+			menuTextEdit->setFrameShape(QFrame::NoFrame);
 			QWidgetAction* menuTextWidget = new QWidgetAction(this);
 			menuTextWidget->setDefaultWidget(menuTextEdit);
 			menuInfo->addAction(menuTextWidget);
@@ -291,7 +292,7 @@ void ContextMenu::createMenuItems()
 		addAction(m_AP->scrActions["editCut"]);
 	if (!(currItem->isSingleSel))
 		addAction(m_AP->scrActions["editCopy"]);
-	if ((m_doc->appMode == modeEdit) && (m_AP->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+	if ((m_doc->appMode == modeEdit) && (m_AP->Buffer2.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?><SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
 		addAction(m_AP->scrActions["editPaste"]);
 	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
 		addAction(m_AP->scrActions["itemDelete"]);
