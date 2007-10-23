@@ -617,13 +617,11 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
         cerr << "Bounding box : " << m_BBox.left() << " " << m_BBox.top() << " " << m_BBox.right() << " " << m_BBox.bottom() << endl;
     }
 
-	//double scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
 	double scale  = (m_Dpi > 0) ? 72.0 / m_Dpi : 0.05;
 	m_context.setViewportOrg( 0, 0 );
 	m_context.setViewportExt( m_BBox.width() * scale, m_BBox.height() * scale );
-	/*if ( mAbsoluteCoord ) {
-        mPainter.setWindow( mBBox.top(), mBBox.left(), mBBox.width(), mBBox.height() );
-    }*/
+	m_context.setWindowOrg( m_BBox.left(), m_BBox.bottom() );
+	m_context.setWindowExt( m_BBox.width(), m_BBox.height() );
 
     for (int index = 0; index < m_commands.count(); ++index)
     {
