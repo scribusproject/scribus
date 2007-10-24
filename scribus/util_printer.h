@@ -9,8 +9,10 @@ for which a new license (GPL+exception) is in place.
 
 
 #include <QString>
+#include <QMap>
 
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
 class QStringList;
 
@@ -59,6 +61,25 @@ class SCRIBUS_API PrinterUtil
 		\retval bool true on success
 		 */
 		static bool getPrinterMarginValues( const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& m_ptsBottomMargin, double& m_ptsLeftMargin, double& m_ptsRightMargin);
+		/**
+		 * @brief Get default print engine for a specific printer
+		 * @param printerName the printer name
+		 * @param toFile if file printing is planned
+		 */
+		static PrintEngine getDefaultPrintEngine(const QString& printerName, bool toFile);
+		/**
+		 * @brief Get print engines supported by a specific printer
+		 * @param printerName the printer name
+		 * @param toFile if file printing is planned
+		 */
+		static PrintEngineMap getPrintEngineSupport(const QString& printerName, bool toFile);
+		/**
+		 * @brief Check if a print engine is supported by a specific printer
+		 * @param printerName the printer name
+		 * @param engine the print engine for which support is to be checked
+		 * @param toFile if file printing is planned
+		 */
+		static bool checkPrintEngineSupport(const QString& printerName, PrintEngine engine, bool toFile);
 		/**
 		 * @brief Check if a specified printer supports postscript input
 		 *

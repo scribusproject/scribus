@@ -399,7 +399,6 @@ static PyObject *Printer_print(Printer *self)
 // copied from void ScribusMainWindow::slotFilePrint() in file scribus.cpp
 	QString fna, prn, cmd, scmd, cc, data, SepName;
 	QString printcomm;
-	int Nr, PSLevel;
 	bool fil, PSfile;
 	PSfile = false;
 
@@ -412,30 +411,29 @@ static PyObject *Printer_print(Printer *self)
 	for (int i = 0; i < PyList_Size(self->pages); ++i) {
 		options.pageNumbers.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
 	}
-	Nr = (self->copies < 1) ? 1 : self->copies;
+	int Nr = (self->copies < 1) ? 1 : self->copies;
 	SepName = QString(PyString_AsString(self->separation));
+	options.printer   = prn;
+	options.prnEngine = (PrintEngine) self->pslevel;
+	options.toFile    = fil;
 	options.separationName = SepName;
-	options.outputSeparations =(SepName == QString("No")) ?  false : true;
+	options.outputSeparations = (SepName == QString("No")) ?  false : true;
 	options.useColor = self->color;
-	options.mirrorH = self->mph;
-	options.mirrorV = self->mpv;
-	options.useICC = self->useICC;
-	options.doGCR = self->ucr;
-	options.cropMarks = false;
+	options.mirrorH  = self->mph;
+	options.mirrorV  = self->mpv;
+	options.useICC   = self->useICC;
+	options.doGCR    = self->ucr;
+	options.cropMarks  = false;
 	options.bleedMarks = false;
 	options.registrationMarks = false;
 	options.colorMarks = false;
 	options.markOffset = 0.0;
-	options.bleeds.Top = 0.0;
-	options.bleeds.Left = 0.0;
-	options.bleeds.Right = 0.0;
+	options.bleeds.Top    = 0.0;
+	options.bleeds.Left   = 0.0;
+	options.bleeds.Right  = 0.0;
 	options.bleeds.Bottom = 0.0;
-	int psl = self->pslevel;
-	if (psl < 1)
-		psl = 1;
-	else if (psl > 3)
-		psl = 3;
-	PSLevel = psl;
+	if (!PrinterUtil::checkPrintEngineSupport(options.printer, options.prnEngine, options.toFile))
+		options.prnEngine = PrinterUtil::getDefaultPrintEngine(options.printer, options.toFile);
 	printcomm = QString(PyString_AsString(self->cmd));
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
@@ -443,7 +441,7 @@ static PyObject *Printer_print(Printer *self)
 	PrefsManager *prefsManager=PrefsManager::instance();
 
 #if defined(_WIN32)
-	if (!fil)
+	if (!options.toFile)
 	{
 		QByteArray devMode;
 		bool printDone = false;
@@ -471,14 +469,22 @@ static PyObject *Printer_print(Printer *self)
 			options.doClip = false;
 			options.doOverprint = false;
 			dd->CreatePS(ScCore->primaryMainWindow()->doc, options);
-			if (PSLevel != 3)
+			if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
 			{
-				QString tmp;
-				QStringList opts;
-				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageWidth)) );
-				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageHeight)) );
-				convertPS2PS(fna, fna+".tmp", opts, PSLevel);
-				moveFile( fna + ".tmp", fna );
+				if (ScCore->haveGS())
+				{
+					QString tmp;
+					QStringList opts;
+					opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageWidth)) );
+					opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageHeight)) );
+					convertPS2PS(fna, fna+".tmp", opts, options.prnEngine);
+					moveFile( fna + ".tmp", fna );
+				}
+				else
+				{
+					PyErr_SetString(PyExc_SystemError, "Printing failed : GhostScript is needed to print to PostScript Level 1 or Level 2");
+					Py_RETURN_NONE;
+				}
 			}
 
 			if (!fil)

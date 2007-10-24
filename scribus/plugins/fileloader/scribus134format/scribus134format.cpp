@@ -602,7 +602,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->Print_Options.bleedMarks = static_cast<bool>(pg.attribute("bleedMarks").toInt());
 				m_Doc->Print_Options.registrationMarks = static_cast<bool>(pg.attribute("registrationMarks").toInt());
 				m_Doc->Print_Options.colorMarks = static_cast<bool>(pg.attribute("colorMarks").toInt());
-				m_Doc->Print_Options.PSLevel = pg.attribute("PSLevel").toInt();
+				if (pg.hasAttribute("PrintEngine"))
+					m_Doc->Print_Options.prnEngine = (PrintEngine) pg.attribute("PrintEngine", "3").toInt();
+				else
+					m_Doc->Print_Options.prnEngine = (PrintEngine) pg.attribute("PSLevel", "3").toInt();
 				m_Doc->Print_Options.markOffset = pg.attribute("markOffset").toDouble();
 				m_Doc->Print_Options.bleeds.Top = pg.attribute("BleedTop").toDouble();
 				m_Doc->Print_Options.bleeds.Left = pg.attribute("BleedLeft").toDouble();

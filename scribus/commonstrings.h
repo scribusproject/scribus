@@ -209,6 +209,15 @@ public:
 	static QString PDF_1_4;
 	static QString PDF_1_5;
 	static QString PDF_X3;
+
+	static QString PostScript1;
+	static QString trPostScript1;
+	static QString PostScript2;
+	static QString trPostScript2;
+	static QString PostScript3;
+	static QString trPostScript3;
+	static QString WindowsGDI;
+	static QString trWindowsGDI;
 };
 
 #endif

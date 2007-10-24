@@ -4442,7 +4442,7 @@ void ScribusMainWindow::slotReallyPrint()
 		PrinterUsed = true;
 #ifdef _WIN32
 		SHORT shiftState = GetKeyState( VK_SHIFT );
-		bool forceGDI = ( shiftState & 0x8000 ) ? true : false;
+		bool  forceGDI = ( shiftState & 0x8000 ) ? true : false;
 		if (doc->Print_Options.toFile == false)
 		{
 			ScWinPrint winPrint;
@@ -4509,14 +4509,14 @@ bool ScribusMainWindow::doPrint(PrintOptions &options)
 				else
 					return false;
 			}
-			if (options.PSLevel != 3)
+			if (options.prnEngine != PostScript3)
 			{
 				// use gs to convert our PS to a lower version
 				QString tmp;
 				QStringList opts;
 				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth)) );
 				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight)) );
-				convertPS2PS(filename, filename + ".tmp", opts, options.PSLevel);
+				convertPS2PS(filename, filename + ".tmp", opts, options.prnEngine);
 				moveFile( filename + ".tmp", filename );
 			}
 			if (!options.toFile)
@@ -7403,14 +7403,15 @@ void ScribusMainWindow::doPrintPreview()
 	if (HaveDoc)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
-		QString currentPrinter = prefs->get("CurrentPrn");
-		if ( PPreview::usePostscriptPreview(currentPrinter) && ( !ScCore->haveGS() ) )
+		QString currentPrinter    = prefs->get("CurrentPrn");
+		PrintEngine currentEngine = (PrintEngine) prefs->get("CurrentPrnEngine", "3").toInt();
+		if ( PPreview::usePostscriptPreview(currentPrinter, currentEngine) && ( !ScCore->haveGS() ) )
 		{
 			QString mess = tr("Ghostscript is missing : Postscript Print Preview is not available")+"\n\n";
 			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			return;
 		}
-		PPreview *dia = new PPreview(this, view, doc, !ScCore->havePNGAlpha(), !ScCore->haveTIFFSep(), currentPrinter);
+		PPreview *dia = new PPreview(this, view, doc, currentPrinter, currentEngine);
 		previewDinUse = true;
 		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();

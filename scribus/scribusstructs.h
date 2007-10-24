@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QAction>
 #include <QKeySequence>
+#include <QMap>
 #include <QPolygon>
 #include <vector>
 
@@ -308,6 +309,15 @@ struct Keys
 	int menuPos;
 };
 
+enum PrintEngine
+{
+	PostScript1 = 1,
+	PostScript2 = 2,
+	PostScript3 = 3,
+	WindowsGDI  = 4
+};
+typedef QMap<QString, PrintEngine> PrintEngineMap;
+
 struct PrintOptions
 {
 	bool firstUse;
@@ -327,8 +337,8 @@ struct PrintOptions
 	bool bleedMarks;
 	bool registrationMarks;
 	bool colorMarks;
-	int copies;
-	int PSLevel;
+	int  copies;
+	PrintEngine prnEngine;
 	double markOffset;
 	MarginStruct bleeds;
 	std::vector<int> pageNumbers;

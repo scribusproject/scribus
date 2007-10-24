@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define PRINTDIALOG_H
 
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
 #include <QDialog>
 
@@ -66,7 +67,7 @@ public:
 	bool mirrorVertical();
 	bool doGCR();
 	bool doClip();
-	int PSLevel();
+	PrintEngine printEngine();
 	bool doDev();
 	bool doSpot();
 	bool doOverprint();
@@ -83,6 +84,7 @@ protected slots:
 	void doDocBleeds();
 	void createPageNumberRange();
 	void SetOptions();
+	void SelEngine(const QString& eng);
 	void SelPrinter(const QString& prn);
 	void SelRange(bool e);
 	void SelMode(int e);
@@ -118,7 +120,7 @@ protected:
 	QComboBox* PrintSep;
 	QComboBox* colorType;
 	QComboBox* SepArt;
-	QComboBox* psLevel;
+	QComboBox* printEngines;
 	QWidget* tab_2;
 	QGroupBox* pageOpts;
 	QCheckBox* MirrorHor;
@@ -149,22 +151,20 @@ protected:
 	QPushButton* previewButton;
 	QPushButton* OptButton;
 	QPushButton* pageNrButton;
-	ScribusDoc* m_doc;
-	QString Geraet;
+	ScribusDoc*  m_doc;
+	QString      selectedPrn;
+	PrintEngineMap printEngineMap;
 	bool ToFile;
 	bool ToSeparation;
 	PrefsContext* prefs;
 	void setStoredValues(bool gcr);
-	/* CB Moved to printerutil.cpp
-	QStringList getPrinterNames(void);
-	bool getDefaultSettings( QString printerName );
-	bool initDeviceSettings( QString printerName );
-	*/
 	CupsOptions *cdia;
 	int unit;
 	double unitRatio;
-	void getOptions();
-	void storeValues();
+	void   getOptions();
+	void   storeValues();
+	void   refreshPrintEngineBox();
+	void   setPrintEngine(PrintEngine engine);
 };
 
 #endif // PRINTDIALOG_H

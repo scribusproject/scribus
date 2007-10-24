@@ -27,6 +27,7 @@ class ScribusView;
 class ScImage;
 class ScColor;
 class PrefsManager;
+enum  PrintEngine;
 
 
 //! \brief Print Preview dialog
@@ -45,7 +46,7 @@ public:
 	\param printer printer name
 	\param pngAlpha int
 	*/
-	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer = "" );
+	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString printer, PrintEngine engine );
 	~PPreview() {};
 	/*!
 	\author Franz Schmid
@@ -57,7 +58,7 @@ public:
 	int RenderPreview(int Seite, int Res);
 	int RenderPreviewSep(int Seite, int Res);
 	void blendImages(QImage &target, ScImage &source, ScColor col);
-	static bool usePostscriptPreview(QString printerName);
+	static bool usePostscriptPreview(QString printerName, PrintEngine engine);
 	/*!
 	\author Franz Schmid
 	\brief Creates the Preview of the Actual Page
@@ -94,7 +95,7 @@ public:
 	ScribusView *view;
 	ScribusDoc *doc;
 	bool HavePngAlpha;
-	int HaveTiffSep;
+	bool HaveTiffSep;
 	int APage;
 	int MPage;
 	int SMode;

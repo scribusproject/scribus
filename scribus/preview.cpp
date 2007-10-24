@@ -62,6 +62,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_printer.h"
 #include "util_ghostscript.h"
 #include "sccolorengine.h"
+#include "scribuscore.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -69,14 +70,14 @@ for which a new license (GPL+exception) is in place.
 
 extern bool printDinUse;
 
-PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer ) : QDialog( parent )
+PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString printer, PrintEngine engine ) : QDialog( parent )
 {
 	setModal(true);
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	Q_ASSERT(!docu->masterPageMode());
 	prefsManager=PrefsManager::instance();
 	QString tmp;
-	postscriptPreview = usePostscriptPreview(printer);
+	postscriptPreview = usePostscriptPreview(printer, engine);
 	QString caption = tr("Print Preview");
 #ifdef _WIN32
 	if (postscriptPreview)
@@ -87,8 +88,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	setWindowTitle( caption );
 	doc = docu;
 	view = vin;
-	HavePngAlpha = pngAlpha;
-	HaveTiffSep = postscriptPreview ? tiffSep : 1;
+	HavePngAlpha = ScCore->havePNGAlpha();
+	HaveTiffSep  = postscriptPreview ? ScCore->haveTIFFSep() : false;
 	APage = -1;
 	CMode = false;
 	GsAl = false;
@@ -139,30 +140,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_Mode : false);
 	EnableCMYK->setEnabled( postscriptPreview );
 	Layout2->addWidget(EnableCMYK);
-	if (HaveTiffSep != 0)
-	{
-		EnableCMYK_C = new QCheckBox(devTitle);
-		EnableCMYK_C->setText( tr("&C"));
-		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_C : true);
-		EnableCMYK_C->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_C);
-		EnableCMYK_M = new QCheckBox(devTitle);
-		EnableCMYK_M->setText( tr("&M"));
-		EnableCMYK_M->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_M : true);
-		EnableCMYK_M->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_M);
-		EnableCMYK_Y = new QCheckBox(devTitle);
-		EnableCMYK_Y->setText( tr("&Y"));
-		EnableCMYK_Y->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_Y : true);
-		EnableCMYK_Y->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_Y);
-		EnableCMYK_K = new QCheckBox(devTitle);
-		EnableCMYK_K->setText( tr("&K"));
-		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_K : true);
-		EnableCMYK_K->setEnabled(postscriptPreview);
-		Layout2->addWidget(EnableCMYK_K);
-	}
-	else
+	if (HaveTiffSep)
 	{
 		ColorList usedSpots;
 		doc->getUsedColors(usedSpots, true);
@@ -223,6 +201,30 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		Layout2->addWidget(Table);
 		tbWidth = Table->columnWidth(1);
 	}
+	else
+	{
+		EnableCMYK_C = new QCheckBox(devTitle);
+		EnableCMYK_C->setText( tr("&C"));
+		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_C : true);
+		EnableCMYK_C->setEnabled(postscriptPreview);
+		Layout2->addWidget(EnableCMYK_C);
+		EnableCMYK_M = new QCheckBox(devTitle);
+		EnableCMYK_M->setText( tr("&M"));
+		EnableCMYK_M->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_M : true);
+		EnableCMYK_M->setEnabled(postscriptPreview);
+		Layout2->addWidget(EnableCMYK_M);
+		EnableCMYK_Y = new QCheckBox(devTitle);
+		EnableCMYK_Y->setText( tr("&Y"));
+		EnableCMYK_Y->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_Y : true);
+		EnableCMYK_Y->setEnabled(postscriptPreview);
+		Layout2->addWidget(EnableCMYK_Y);
+		EnableCMYK_K = new QCheckBox(devTitle);
+		EnableCMYK_K->setText( tr("&K"));
+		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_K : true);
+		EnableCMYK_K->setEnabled(postscriptPreview);
+		Layout2->addWidget(EnableCMYK_K);
+	}
+	
 	settingsBarLayout->addWidget(devTitle);
 	jobTitle = new QGroupBox( this );
 	jobTitle->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
@@ -307,15 +309,15 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	resize(qMin(QApplication::desktop()->width()-30,w), 500);
 	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
 	{
-		if (HaveTiffSep != 0)
+		if (HaveTiffSep)
+			Table->setEnabled(false);
+		else
 		{
 			EnableCMYK_C->setEnabled(false);
 			EnableCMYK_M->setEnabled(false);
 			EnableCMYK_Y->setEnabled(false);
 			EnableCMYK_K->setEnabled(false);
 		}
-		else
-			Table->setEnabled(false);
 	}
 	PGSel->GotoPg(APage);
 	// tooltips
@@ -340,7 +342,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	connect(spotColors, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(useGray, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(UseICC, SIGNAL(clicked()), this, SLOT(redisplay()));
-	if (HaveTiffSep != 0)
+	if (!HaveTiffSep)
 	{
 		connect(EnableCMYK_C, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		connect(EnableCMYK_M, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
@@ -415,15 +417,16 @@ void PPreview::redisplay()
 void PPreview::ToggleCMYK()
 {
 	bool c = EnableCMYK->isChecked() ? true : false;
-	if (HaveTiffSep != 0)
+	if (HaveTiffSep)
+		Table->setEnabled(c);
+	else
 	{
 		EnableCMYK_C->setEnabled(c);
 		EnableCMYK_M->setEnabled(c);
 		EnableCMYK_Y->setEnabled(c);
 		EnableCMYK_K->setEnabled(c);
 	}
-	else
-		Table->setEnabled(c);
+		
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
@@ -480,13 +483,15 @@ int PPreview::RenderPreview(int Seite, int Res)
 		page = doc->Pages->at( Seite );
 		options.copies = 1;
 		options.doGCR = false;
-		options.mirrorH = options.mirrorV = false;
+		//options.mirrorH = options.mirrorV = false;
+		options.mirrorH = MirrorHor->isChecked();
+		options.mirrorV = MirrorVert->isChecked();
 		options.outputSeparations = false;
 		options.pageNumbers.push_back( Seite );
-		options.PSLevel = 0;
+		options.prnEngine = WindowsGDI;
 		options.separationName = "All";
 		options.toFile = false;
-		options.useColor = true;
+		options.useColor = !useGray->isChecked();
 		options.useICC = false;
 		options.useSpotColors = false;
 		options.doOverprint = false;
@@ -549,7 +554,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) );
 	if (EnableCMYK->isChecked())
 	{
-		if (HaveTiffSep == 0)
+		if (HaveTiffSep)
 			args.append( "-sDEVICE=tiffsep" );
 		else
 		{
@@ -580,7 +585,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if( !cmd1.isEmpty() )
 		args.append( cmd1 );
 	// then add any final args and call gs
-	if ((EnableCMYK->isChecked()) && (HaveTiffSep == 0))
+	if ((EnableCMYK->isChecked()) && HaveTiffSep)
 		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
 	else
 		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.png")) );
@@ -787,7 +792,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
 			 || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
 	{
-		if (!EnableCMYK->isChecked() || (HaveTiffSep != 0))
+		if (!EnableCMYK->isChecked() || (!HaveTiffSep))
 		{
 			ret = RenderPreview(Seite, Res);
 			if (ret != 0)
@@ -803,7 +808,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		int cyan, magenta, yellow, black, alpha;
 		uint *p;
 		bool loaderror;
-		if (HaveTiffSep == 0)
+		if (HaveTiffSep)
 		{
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	       	 || (AntiAlias->isChecked() != GsAl) || (AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
@@ -1096,15 +1101,16 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 
 //-------------------------------------------------------------------------------------------------
 
-bool PPreview::usePostscriptPreview(QString printerName)
+bool PPreview::usePostscriptPreview(QString printerName, PrintEngine engine)
 {
 #ifdef _WIN32
 	if ( printerName == tr("File") )
 		return true;
 	else if( printerName.isEmpty() )
 		return PrinterUtil::isPostscriptPrinter( ScWinPrint::getDefaultPrinter() );
-	else
+	else if( engine >= PostScript1 && engine <= PostScript3 )
 		return PrinterUtil::isPostscriptPrinter( printerName );
+	return false;
 #else
 	return true;
 #endif

@@ -120,6 +120,15 @@ QString CommonStrings::PDF_1_4      = "";
 QString CommonStrings::PDF_1_5      = "";
 QString CommonStrings::PDF_X3       = "";
 
+QString CommonStrings::PostScript1   = "";
+QString CommonStrings::trPostScript1 = "";
+QString CommonStrings::PostScript2   = "";
+QString CommonStrings::trPostScript2 = "";
+QString CommonStrings::PostScript3    = "";
+QString CommonStrings::trPostScript3 = "";
+QString CommonStrings::WindowsGDI    = "";
+QString CommonStrings::trWindowsGDI  = "";
+
 CommonStrings::CommonStrings()
 {
 	languageChange();
@@ -308,6 +317,15 @@ void CommonStrings::languageChange()
 	CommonStrings::PDF_1_4      = "PDF 1.4";
 	CommonStrings::PDF_1_5      = "PDF 1.5";
 	CommonStrings::PDF_X3       = "PDF/X-3";
+
+	CommonStrings::PostScript1   = "PostScript Level 1";
+	CommonStrings::trPostScript1 = tr( "PostScript Level 1" );
+	CommonStrings::PostScript2   = "PostScript Level 2";
+	CommonStrings::trPostScript2 = tr( "PostScript Level 2" );
+	CommonStrings::PostScript3   = "PostScript Level 3";
+	CommonStrings::trPostScript3 = tr( "PostScript Level 3" );
+	CommonStrings::WindowsGDI    = "Windows GDI";
+	CommonStrings::trWindowsGDI  = tr( "Windows GDI" );
 }
 
 const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )

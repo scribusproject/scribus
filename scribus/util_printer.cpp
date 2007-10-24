@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QByteArray>
 #include "util.h"
+#include "commonstrings.h"
 #include "scribus.h"
 #include "scribuscore.h"
 
@@ -211,6 +212,56 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 	}
 #endif
 	return retVal;
+}
+
+PrintEngine PrinterUtil::getDefaultPrintEngine(const QString& printerName, bool toFile)
+{
+	if(!toFile)
+	{
+#if defined(_WIN32)
+		return WindowsGDI;
+#else
+		return PostScript3;
+#endif
+	}
+	return PostScript3;
+}
+
+PrintEngineMap PrinterUtil::getPrintEngineSupport(const QString& printerName, bool toFile)
+{
+	PrintEngineMap prnMap;
+	if (toFile || PrinterUtil::isPostscriptPrinter(printerName))
+	{
+		if (ScCore->haveGS())
+		{
+			prnMap.insert(CommonStrings::trPostScript1, PostScript1);
+			prnMap.insert(CommonStrings::trPostScript2, PostScript2);
+		}
+		prnMap.insert(CommonStrings::trPostScript3, PostScript3);
+	}
+#if defined(_WIN32)
+	if (!toFile)
+		prnMap.insert(CommonStrings::trWindowsGDI, WindowsGDI);
+#endif
+	return prnMap;
+}
+
+bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngine engine, bool toFile)
+{
+	bool psSupported = toFile || PrinterUtil::isPostscriptPrinter(printerName);
+	if (psSupported && (engine >= PostScript1 && engine <= PostScript3))
+		return true;
+	else if (!psSupported && (engine >= PostScript1 && engine <= PostScript3))
+		return false;
+	else if (engine == WindowsGDI)
+	{
+#if defined(_WIN32)
+		return true; //WindowsGDI
+#else
+		return false;
+#endif
+	}
+	return false;
 }
 
 //Parameter needed on win32..

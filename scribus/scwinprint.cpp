@@ -287,7 +287,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
  int  jobId;
  bool psPrint;
  auto_ptr<MultiProgressDialog> progress;
- PrintPageFunc doPrintPage = NULL;
+ PrintPageFunc printPageFunc = NULL;
  bool  success = true;
  WCHAR docName[512];
  DOCINFOW docInfo;
@@ -295,11 +295,9 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 
 	// Test printer for PostScript support and
 	// choose appropriate page printing function
-	psPrint = isPostscriptPrinter( printerDC );
-	if ( psPrint && !forceGDI )
-		doPrintPage = &ScWinPrint::printPage_PS;
-	else
-		doPrintPage = &ScWinPrint::printPage_GDI;
+	psPrint       = isPostscriptPrinter( printerDC );
+	bool useGDI   = (!psPrint || forceGDI || (options.prnEngine == WindowsGDI));
+	printPageFunc = (useGDI) ? &ScWinPrint::printPage_GDI : &ScWinPrint::printPage_PS; 
 
 	// Setup document infos structure
 	wcsncpy  (docName, (const WCHAR*) doc->DocName.utf16(), 511);
@@ -332,7 +330,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 		if( usingGui )
 			progress->setOverallProgress(index);
 		docPage = doc->Pages->at( options.pageNumbers[index] - 1 );
-		success = (this->*doPrintPage)( doc, docPage, options, printerDC, devMode );
+		success = (this->*printPageFunc)( doc, docPage, options, printerDC, devMode );
 		ScQApp->processEvents();
 		if (!success || m_abort )
 			break;
@@ -516,7 +514,7 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 	dd->CreatePS( doc, options2);
 	delete dd;
 
-	if ( options.PSLevel == 1 || options.PSLevel == 2 )
+	if ( options.prnEngine == PostScript1 || options.prnEngine == PostScript2 )
 	{
 		QString tmp;
 		QStringList opts;
@@ -525,7 +523,7 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight)) );
 		if ( QFile::exists( tempFilePath2 ) )
 			QFile::remove( tempFilePath2 );
-		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, options.PSLevel);
+		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, options.prnEngine);
 		if ( ret == 0 )
 		{
 			QFile::remove( tempFilePath );
