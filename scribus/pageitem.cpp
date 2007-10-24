@@ -903,7 +903,7 @@ void PageItem::DrawObj(ScPainter *p, QRect cullingArea)
 //		Tinput = false;
 		return;
 	}
-	if (!cullingArea.isNull())
+	if (cullingArea.isNull())
 	{
 		cullingArea = QRectF(QPointF(m_Doc->minCanvasCoordinate.x(), m_Doc->minCanvasCoordinate.y()), 
 							 QPointF(m_Doc->maxCanvasCoordinate.x(), m_Doc->maxCanvasCoordinate.y())).toAlignedRect();
