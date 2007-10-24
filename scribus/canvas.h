@@ -180,6 +180,7 @@ private:
 	void drawControlsSelectionSpecial(QPainter* pp, PageItem *currItem);
 	virtual void drawContentsOld(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	void getClipPathForPages(FPointArray* PoLine);
+	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
 		
 private:
 	ScribusDoc* m_doc;

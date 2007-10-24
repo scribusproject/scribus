@@ -1884,75 +1884,13 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 				nextItem = m_viewMode.linkedFramesToShow.at(lks);
 				while (nextItem != 0)
 				{
-					//Calculate the link points of the frames
-					double x11 = nextItem->xPos();
-					double y11 = nextItem->yPos();
-					double x12 = x11+nextItem->width();
-					double y12 = y11+nextItem->height();
-					double x1mid = x11+(x12-x11)/2;
-					double y1mid = y11+(y12-y11)/2;
-					
-					if (nextItem->rotation()!=0.000)
-					{
-						FPoint tempPoint(0,0, x11, y11, nextItem->rotation(), 1, 1);
-						x11=tempPoint.x();
-						y11=tempPoint.y();
-						FPoint tempPoint2(0,0, x12, y12, nextItem->rotation(), 1, 1);
-						x12=tempPoint2.x();
-						y12=tempPoint2.y();
-						FPoint tempPoint3(0,0, x1mid, y1mid, nextItem->rotation(), 1, 1);
-						x1mid=tempPoint3.x();
-						y1mid=tempPoint3.y();
-					}
-					
-					
-					double a1, b1, a2, b2;
-					a1 = a2 = b1 = b2 = 0;
 					if (nextItem->nextInChain() != NULL)
 					{
-						double x21 = nextItem->nextInChain()->xPos();
-						double y21 = nextItem->nextInChain()->yPos();
-						double x22 = x21+nextItem->nextInChain()->width();
-						double y22 = y21+nextItem->nextInChain()->height();
-						double x2mid = x21 + nextItem->nextInChain()->width()/2;
-						double y2mid = y21 + nextItem->nextInChain()->height()/2;
-						//x2mid = x21+(x22-x21)/2;
-						//y2mid = y21+(y22-y21)/2;
-						
-						if (nextItem->nextInChain()->rotation()!=0.000)
-						{
-							FPoint tempPoint(0,0, x21, y21, nextItem->nextInChain()->rotation(), 1, 1);
-							x21=tempPoint.x();
-							y21=tempPoint.y();
-							FPoint tempPoint2(0,0, x22, y22, nextItem->nextInChain()->rotation(), 1, 1);
-							x22=tempPoint2.x();
-							y22=tempPoint2.y();
-							FPoint tempPoint3(0,0, x2mid, y2mid, nextItem->nextInChain()->rotation(), 1, 1);
-							x2mid=tempPoint3.x();
-							y2mid=tempPoint3.y();
-						}
-						
-						if (x22<x11) { a1 = x11; a2 = x22; }
-						if (x21>x12) { a1 = x12; a2 = x21; }
-						if (y22<y11) { b1 = y11; b2 = y22; }
-						if (y21>y12) { b1 = y12; b2 = y21; }
-						
-						if (x21<x12 && x21>x11) { a1 = x1mid; a2 = x2mid; }
-						if (x21<x11 && x22>x11) { a1 = x1mid; a2 = x2mid; }
-						
-						if (y21<y12 && y21>y11) { b1 = y1mid; b2 = y2mid; }
-						if (y21<y11 && y22>y11) { b1 = y1mid; b2 = y2mid; }
-						
+						FPoint start, end;
+						calculateFrameLinkPoints(nextItem, nextItem->nextInChain(), start, end);
+						drawLinkFrameLine(painter, start, end);
 					}
-					//Draw the link frame lines
-					FPoint Start(a1-nextItem->xPos(), b1-nextItem->yPos(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
-					//FPoint Start = transformPoint(FPoint(nextItem->Width/2, nextItem->Height), nextItem->xPos(), nextItem->yPos(), nextItem->Rot, 1, 1);
 					nextItem = nextItem->nextInChain();
-					if (nextItem != NULL)
-					{
-						FPoint End(a2-nextItem->xPos(), b2-nextItem->yPos(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
-						drawLinkFrameLine(painter, Start, End);
-					}
 				}
 			}
 		}
@@ -1967,15 +1905,13 @@ void Canvas::drawFrameLinks(ScPainter* painter)
 			}
 			while (nextItem != 0)
 			{
-				FPoint Start(nextItem->width()/2, nextItem->height(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
-				nextItem = nextItem->nextInChain();
-				//Draw the link frame indicator for a new link
-				//CB unsure if we need to do this
-				if (nextItem != 0)
+				if (nextItem->nextInChain() != NULL)
 				{
-					FPoint End(nextItem->width()/2, 0, nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
-					drawLinkFrameLine(painter, Start, End);
+					FPoint start, end;
+					calculateFrameLinkPoints(nextItem, nextItem->nextInChain(), start, end);
+					drawLinkFrameLine(painter, start, end);
 				}
+				nextItem = nextItem->nextInChain();
 			}
 		}
 	}
@@ -2119,6 +2055,71 @@ void Canvas::TransformM(PageItem *currItem, QPainter *p)
 		p->translate(0, currItem->height());
 		p->scale(1, -1);
 	}
+}
+
+void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & start, FPoint & end)
+{
+	if (pi1==0 || pi2==0)
+		return;
+	//Calculate the link points of the frames
+	double x11 = pi1->xPos();
+	double y11 = pi1->yPos();
+	double x12 = x11+pi1->width();
+	double y12 = y11+pi1->height();
+	double x1mid = x11+(x12-x11)/2;
+	double y1mid = y11+(y12-y11)/2;
+					
+	if (pi1->rotation()!=0.000)
+	{
+		FPoint tempPoint(0,0, x11, y11, pi1->rotation(), 1, 1);
+		x11=tempPoint.x();
+		y11=tempPoint.y();
+		FPoint tempPoint2(0,0, x12, y12, pi1->rotation(), 1, 1);
+		x12=tempPoint2.x();
+		y12=tempPoint2.y();
+		FPoint tempPoint3(0,0, x1mid, y1mid, pi1->rotation(), 1, 1);
+		x1mid=tempPoint3.x();
+		y1mid=tempPoint3.y();
+	}
+					
+					
+	double a1, b1, a2, b2;
+	a1 = a2 = b1 = b2 = 0;
+	double x21 = pi2->xPos();
+	double y21 = pi2->yPos();
+	double x22 = x21+pi2->width();
+	double y22 = y21+pi2->height();
+	double x2mid = x21 + pi2->width()/2;
+	double y2mid = y21 + pi2->height()/2;
+					
+	if (pi2->rotation()!=0.000)
+	{
+		FPoint tempPoint(0,0, x21, y21, pi2->rotation(), 1, 1);
+		x21=tempPoint.x();
+		y21=tempPoint.y();
+		FPoint tempPoint2(0,0, x22, y22, pi2->rotation(), 1, 1);
+		x22=tempPoint2.x();
+		y22=tempPoint2.y();
+		FPoint tempPoint3(0,0, x2mid, y2mid, pi2->rotation(), 1, 1);
+		x2mid=tempPoint3.x();
+		y2mid=tempPoint3.y();
+	}
+					
+	if (x22<x11) { a1 = x11; a2 = x22; }
+	if (x21>x12) { a1 = x12; a2 = x21; }
+	if (y22<y11) { b1 = y11; b2 = y22; }
+	if (y21>y12) { b1 = y12; b2 = y21; }
+					
+	if (x21<x12 && x21>x11) { a1 = x1mid; a2 = x2mid; }
+	if (x21<x11 && x22>x11) { a1 = x1mid; a2 = x2mid; }
+					
+	if (y21<y12 && y21>y11) { b1 = y1mid; b2 = y2mid; }
+	if (y21<y11 && y22>y11) { b1 = y1mid; b2 = y2mid; }
+	//Set the link frame lines' endpoints
+	start.setXY(a1-pi1->xPos(), b1-pi1->yPos());
+	start.transform(pi1->xPos(), pi1->yPos(), pi1->rotation(), 1, 1, false);
+	end.setXY(a2-pi2->xPos(), b2-pi2->yPos());
+	end.transform(pi2->xPos(), pi2->yPos(), pi2->rotation(), 1, 1, false);
 }
 
 
