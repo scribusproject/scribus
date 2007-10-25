@@ -20,6 +20,7 @@ class QLabel;
 class QPushButton;
 class QComboBox;
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
 class PageSelector;
 class ScribusDoc;
@@ -27,7 +28,8 @@ class ScribusView;
 class ScImage;
 class ScColor;
 class PrefsManager;
-enum  PrintEngine;
+// enum  PrintEngine;
+
 
 
 //! \brief Print Preview dialog
