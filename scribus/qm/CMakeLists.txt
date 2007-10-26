@@ -4,6 +4,7 @@ INCLUDE_DIRECTORIES(
 
 INSTALL(FILES
 scribus.af.qm
+scribus.ar.qm
 scribus.bg.qm
 scribus.br.qm
 scribus.ca.qm
