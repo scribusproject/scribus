@@ -1552,7 +1552,7 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	LayerGroup->setEnabled(!setter);
 	disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
-	if (CurItem->isGroupControl)
+	if ((CurItem->isGroupControl) || ((CurItem->Groups.count() != 0) && (!CurItem->isSingleSel)))
 	{
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShapeItem, false);
