@@ -397,7 +397,7 @@ class ImageEffectsAndLayers_body : public Action_body
 		if (tagName=="ImageEffect")
 		{
 			PageItem* obj = this->dig->top<PageItem>();
-			struct ScImage::imageEffect ef;
+			struct ImageEffect ef;
 			ef.effectParameters = attr["Param"];
 			ef.effectCode = parseInt(attr["Code"]);
 			obj->effectsInUse.append(ef);

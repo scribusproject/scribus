@@ -23,6 +23,13 @@ struct ImageLoadRequest
 	QString blend;
 };
 
+struct ImageEffect
+{
+	int effectCode;
+	QString effectParameters;
+};
+typedef QList<ImageEffect> ScImageEffectList;
+
 struct PSDHeader
 {
 	uint signature;

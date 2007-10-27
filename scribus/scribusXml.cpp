@@ -1186,7 +1186,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				}
 				if (tagName1 == "ImageEffect" && sReader1.isStartElement())
 				{
-					struct ScImage::imageEffect ef;
+					struct ImageEffect ef;
 					ef.effectParameters = attrAsString(attrs1, "Param", "");
 					ef.effectCode       = attrAsInt(attrs1, "Code");
 					imageEffects.append(ef);
@@ -1380,7 +1380,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		}
 		if (inItem && sReader.isStartElement() && tagName == "ImageEffect")
 		{
-			struct ScImage::imageEffect ef;
+			struct ImageEffect ef;
 			ef.effectParameters = attrAsString(attrs, "Param", "");
 			ef.effectCode       = attrAsInt(attrs, "Code");
 			imageEffects.append(ef);

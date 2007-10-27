@@ -136,7 +136,7 @@ ScImage::~ScImage()
 	curveTable.resize(0);
 }
 
-void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, bool cmyk)
+void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk)
 {
 	ScribusDoc* doc = colors.document();
 	if (effectsList.count() != 0)

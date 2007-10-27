@@ -3885,7 +3885,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += pixm.imgInfo.duotoneColors[cc].Name+"\n";
 			}
 			m_Doc->scMW()->propertiesPalette->updateColorList();
-			struct ScImage::imageEffect ef;
+			struct ImageEffect ef;
 			if (pixm.imgInfo.duotoneColors.count() == 1)
 			{
 				efVal += "100";

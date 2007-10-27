@@ -1989,7 +1989,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			QDomElement it = IT.toElement();
 			if (it.tagName()=="ImageEffect")
 			{
-				struct ScImage::imageEffect ef;
+				struct ImageEffect ef;
 				ef.effectParameters = it.attribute("Param");
 				ef.effectCode = it.attribute("Code").toInt();
 				currItem->effectsInUse.append(ef);

@@ -64,11 +64,6 @@ public:
 		EF_GRADUATE = 11
 	};
 
-	struct imageEffect
-	{
-		int effectCode;
-		QString effectParameters;
-	};
 	void initialize();
 
 	const QImage& qImage();
@@ -88,7 +83,7 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
-	void applyEffect(QList<imageEffect> effectsList, ColorList& colors, bool cmyk);
+	void applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk);
 
 	// Generate a low res image for user preview
 	void createLowRes(double scale);
@@ -131,7 +126,5 @@ private:
 	int random_table[4096];
 	
 };
-
-typedef QList<ScImage::imageEffect> ScImageEffectList;
 
 #endif

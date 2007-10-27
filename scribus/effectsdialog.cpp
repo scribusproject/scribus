@@ -737,7 +737,7 @@ void EffectsDialog::saveValues(bool final)
 {
 	selectEffectHelper(final);
 	effectsList.clear();
-	struct ScImage::imageEffect ef;
+	struct ImageEffect ef;
 	for (int e = 0; e < usedEffects->count(); ++e)
 	{
 		if (usedEffects->item(e)->text() == tr("Invert"))

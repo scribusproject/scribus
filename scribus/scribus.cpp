@@ -9158,17 +9158,18 @@ void ScribusMainWindow::slotEditCopyContents()
 			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
 			if (imageItem->PicAvail)
 			{
-				contentsBuffer.sourceType=PageItem::ImageFrame;
-				contentsBuffer.contentsFileName=imageItem->Pfile;
-				contentsBuffer.LocalScX=imageItem->imageXScale();
-				contentsBuffer.LocalScY=imageItem->imageYScale();
-				contentsBuffer.LocalX=imageItem->imageXOffset();
-				contentsBuffer.LocalY=imageItem->imageYOffset();
-				contentsBuffer.ItemX=imageItem->xPos();
-				contentsBuffer.ItemY=imageItem->yPos();
-				contentsBuffer.inputProfile=imageItem->IProfile;
-				contentsBuffer.useEmbedded=imageItem->UseEmbedded;
-				contentsBuffer.renderingIntent=imageItem->IRender;
+				contentsBuffer.sourceType = PageItem::ImageFrame;
+				contentsBuffer.contentsFileName = imageItem->Pfile;
+				contentsBuffer.LocalScX = imageItem->imageXScale();
+				contentsBuffer.LocalScY = imageItem->imageYScale();
+				contentsBuffer.LocalX   = imageItem->imageXOffset();
+				contentsBuffer.LocalY   = imageItem->imageYOffset();
+				contentsBuffer.ItemX   = imageItem->xPos();
+				contentsBuffer.ItemY   = imageItem->yPos();
+				contentsBuffer.effects = imageItem->effectsInUse;
+				contentsBuffer.inputProfile = imageItem->IProfile;
+				contentsBuffer.useEmbedded  = imageItem->UseEmbedded;
+				contentsBuffer.renderingIntent = imageItem->IRender;
 			}
 		}
 	}
@@ -9192,7 +9193,8 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				imageItem->EmProfile = "";
 				imageItem->pixm.imgInfo.isRequest = false;
 				imageItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
-				imageItem->IRender = doc->CMSSettings.DefaultIntentImages;
+				imageItem->IRender  = doc->CMSSettings.DefaultIntentImages;
+				imageItem->effectsInUse = contentsBuffer.effects;
 				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				doc->loadPict(contentsBuffer.contentsFileName, imageItem);

@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 #include "scribusapi.h"
+#include "scimagestructs.h"
 #include "sctextstruct.h"
 #include "scfonts.h"
 #include "fpointarray.h"
@@ -179,9 +180,10 @@ struct CopyContentsBuffer
 	double LocalY;
 	double ItemX;
 	double ItemY;
+	ScImageEffectList effects;
 	QString inputProfile;
-	bool useEmbedded;
-	int renderingIntent;
+	bool   useEmbedded;
+	int    renderingIntent;
 };
 
 /** \brief Pagemargins and bleeds*/
