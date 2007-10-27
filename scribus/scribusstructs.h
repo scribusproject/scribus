@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sctextstruct.h"
 #include "scfonts.h"
+#include "scimage.h"
 #include "fpointarray.h"
 #include "vgradient.h"
 #include "annotation.h"
@@ -153,8 +154,9 @@ struct CopyContentsBuffer
 	double ItemX;
 	double ItemY;
 	QString inputProfile;
-	bool useEmbedded;
-	int renderingIntent;
+	bool   useEmbedded;
+	int    renderingIntent;
+	QValueList<ScImage::imageEffect> effects;
 };
 
 /** Pagemargins */

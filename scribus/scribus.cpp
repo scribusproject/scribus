@@ -9093,6 +9093,7 @@ void ScribusMainWindow::slotEditCopyContents()
 				contentsBuffer.inputProfile=imageItem->IProfile;
 				contentsBuffer.useEmbedded=imageItem->UseEmbedded;
 				contentsBuffer.renderingIntent=imageItem->IRender;
+				contentsBuffer.effects=imageItem->effectsInUse;
 			}
 		}
 	}
@@ -9117,6 +9118,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				imageItem->pixm.imgInfo.isRequest = false;
 				imageItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
 				imageItem->IRender = doc->CMSSettings.DefaultIntentImages;
+				imageItem->effectsInUse = contentsBuffer.effects;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
