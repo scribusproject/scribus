@@ -168,7 +168,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	_groupTransactionStarted(false),
 	_isGlobalMode(true),
 //	evSpon(false),
-	forceRedraw(false),
+//	forceRedraw(false),
 //	Scale(Prefs->DisScale),
 //	oldClip(0),
 	m_vhRulerHW(17),
@@ -2749,7 +2749,7 @@ void ScribusView::ToBack()
 //		m_ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(0);
 		emit DocChanged();
-		forceRedraw = true;
+		m_canvas->m_viewMode.forceRedraw = true;
 		updateContents();
 	}
 }
@@ -2762,7 +2762,7 @@ void ScribusView::ToFront()
 //		m_ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
-		forceRedraw = true;
+		m_canvas->m_viewMode.forceRedraw = true;
 		updateContents();
 	}
 }
@@ -2820,7 +2820,7 @@ void ScribusView::LowerItem()
 		*Doc->m_Selection=tempSelection;
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
-		forceRedraw = true;
+		m_canvas->m_viewMode.forceRedraw = true;
 		updateContents();
 	}
 }
@@ -2880,7 +2880,7 @@ void ScribusView::RaiseItem()
 		*Doc->m_Selection=tempSelection;
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
-		forceRedraw = true;
+		m_canvas->m_viewMode.forceRedraw = true;
 		updateContents();
 	}
 }
@@ -3486,8 +3486,7 @@ void ScribusView::DrawNew()
 {
 	if (m_ScMW->ScriptRunning)
 		return;
-//	evSpon = false;
-	forceRedraw = true;
+	m_canvas->m_viewMode.forceRedraw = true;
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage()->pageNr());
@@ -3628,7 +3627,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		Doc->guidesSettings.framesShown = false;
 		setScale(1.0);
 		m_canvas->m_viewMode.previewMode = true;
-		forceRedraw = true;
+		m_canvas->m_viewMode.forceRedraw = true;
 		pm = QImage(clipw, cliph, QImage::Format_ARGB32);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height(), 1.0, 0);
 		painter->clear(Doc->papColor);
@@ -3653,7 +3652,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		delete painter;
 		painter=NULL;
 		m_canvas->m_viewMode.previewMode = false;
-		forceRedraw = false;
+		m_canvas->m_viewMode.forceRedraw = false;
 		Doc->guidesSettings.framesShown = frs;
 		Doc->guidesSettings.showControls = ctrls;
 		setScale(sca);
@@ -3686,7 +3685,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		Doc->guidesSettings.showControls = false;
 		m_canvas->setScale(sc);
 		m_canvas->m_viewMode.previewMode = true;
-		forceRedraw = true;
+		m_canvas->m_viewMode.forceRedraw = true;
 		Page* act = Doc->currentPage();
 		Doc->setLoading(true);
 		Doc->setCurrentPage(Doc->Pages->at(Nr));
@@ -3715,7 +3714,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		delete painter;
 		painter=NULL;
 		m_canvas->m_viewMode.previewMode = false;
-		forceRedraw = false;
+		m_canvas->m_viewMode.forceRedraw = false;
 		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
@@ -5184,9 +5183,8 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 
 void ScribusView::updateContents(QRect box)
 {
-	if (forceRedraw)
+	if (m_canvas->m_viewMode.forceRedraw)
 		m_canvas->m_viewMode.firstSpecial = true;
-	forceRedraw = false;
 	if (box.isValid())
 		m_canvas->update(box);
 	else

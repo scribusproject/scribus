@@ -20,6 +20,7 @@
 #include "canvas.h"
 
 #include "page.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "scpainter.h"
@@ -54,6 +55,7 @@ void CanvasViewMode::init()
 	
 	specialRendering = false;
 	firstSpecial = false;
+	forceRedraw = false;
 	m_buffer = QPixmap();
 	m_bufferRect = QRect();
 	oldMinCanvasCoordinate = FPoint();
@@ -427,6 +429,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			drawControlsSelection(&qp, m_doc->m_Selection->itemAt(0));
 		}		
 	}
+	m_viewMode.forceRedraw = false;
 }
 
 
@@ -1044,7 +1047,11 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if (clip.intersects(oldR))
 						{
 							if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
+							{
+								if ((m_viewMode.forceRedraw) && (currItem->asTextFrame()))
+									currItem->asTextFrame()->invalidateLayout();
 								currItem->DrawObj(painter, cullingArea);
+							}
 							else 
 								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
 						}
@@ -1238,6 +1245,8 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 						else
 						{
+							if ((m_viewMode.forceRedraw) && (currItem->asTextFrame()))
+								currItem->asTextFrame()->invalidateLayout();
 							currItem->DrawObj(painter, cullingArea);
 						}
 //						currItem->Redrawn = true;

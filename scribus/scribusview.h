@@ -308,7 +308,7 @@ private: // Private attributes
 	int  oldY;
 	bool _groupTransactionStarted;
 	bool _isGlobalMode;
-	bool forceRedraw;
+//	bool forceRedraw;
 
 	double oldItemX;
 	double oldItemY;

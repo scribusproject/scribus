@@ -67,6 +67,7 @@ struct CanvasViewMode
 	// used for buffering:
 	bool specialRendering;
 	bool firstSpecial;
+	bool forceRedraw;
 	QPixmap m_buffer;
 	QRect m_bufferRect;
 	FPoint oldMinCanvasCoordinate;
