@@ -58,6 +58,7 @@ void SaveAsTemplatePlugin::languageChange()
 	m_actionInfo.menu = "File";
 	m_actionInfo.menuAfterName = "SaveAs";
 	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.needsNumObjects = -1;
 }
 
 const QString SaveAsTemplatePlugin::fullTrName() const

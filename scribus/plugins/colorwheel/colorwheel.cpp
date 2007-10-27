@@ -48,6 +48,7 @@ void ColorWheelPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "Extras";
 	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.needsNumObjects = -1;
 }
 
 const QString ColorWheelPlugin::fullTrName() const

@@ -63,6 +63,7 @@ void PixmapExportPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "FileExport";
 	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.needsNumObjects = -1;
 }
 
 const QString PixmapExportPlugin::fullTrName() const

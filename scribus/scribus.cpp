@@ -3132,6 +3132,50 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	}
 	else
 		propertiesPalette->NewSel(SelectedType);
+
+	PluginManager& pluginManager(PluginManager::instance());
+	QStringList pluginNames(pluginManager.pluginNames(false));
+	ScPlugin* plugin;
+	ScActionPlugin* ixplug;
+	ScrAction* pluginAction = 0;
+	QString pName;
+	for (int i = 0; i < pluginNames.count(); ++i)
+	{
+		pName = pluginNames.at(i);
+		plugin = pluginManager.getPlugin(pName, true);
+		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		if (plugin->inherits("ScActionPlugin"))
+		{
+			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+			Q_ASSERT(ixplug);
+			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
+			pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
+			if (pluginAction != 0)
+			{
+				if (SelectedType != -1)
+				{
+					if (ai.notSuitableFor.contains(SelectedType))
+						pluginAction->setEnabled(false);
+					else
+					{
+						if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
+							pluginAction->setEnabled(true);
+						else if (docSelectionCount == static_cast<uint>(ai.needsNumObjects))
+							pluginAction->setEnabled(true);
+						else
+							pluginAction->setEnabled(false);
+					}
+				}
+				else
+				{
+					if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
+						pluginAction->setEnabled(true);
+					else
+						pluginAction->setEnabled(false);
+				}
+			}
+		}
+	}
 }
 
 void ScribusMainWindow::rebuildStyleMenu(int itemType)

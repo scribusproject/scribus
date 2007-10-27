@@ -67,6 +67,8 @@ void LensEffectsPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "Item";
 	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.notSuitableFor.append(PageItem::Line);
+	m_actionInfo.needsNumObjects = 3;
 }
 
 const QString LensEffectsPlugin::fullTrName() const
@@ -106,10 +108,12 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 		{
 			for (int a = 0; a < dia->origPathItem.count(); a++)
 			{
+				PageItem *currItem = currDoc->m_Selection->itemAt(a);
+				if (currItem->itemType() == PageItem::Line)
+					continue;
 				QPainterPath path = dia->origPathItem[a]->path();
 				FPointArray points;
 				points.fromQPainterPath(path);
-				PageItem *currItem = currDoc->m_Selection->itemAt(a);
 				currItem->PoLine = points;
 				currDoc->AdjustItemSize(currItem);
 			}

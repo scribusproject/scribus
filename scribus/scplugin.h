@@ -256,6 +256,8 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QString menuAfterName;
 			QPixmap icon1;
 			QPixmap icon2;
+			QList<int> notSuitableFor;	// a list of PageItem type values which the plugin can *not* handle
+			int needsNumObjects;		// plugin needs this number of selected Objects. -1 = needs no Object, num > 2 any number of Objects is allowed
 			bool enabledOnStartup;
 		};
 

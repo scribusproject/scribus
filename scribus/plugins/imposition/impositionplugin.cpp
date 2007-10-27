@@ -37,6 +37,7 @@ void ImpositionPlugin::languageChange()
   m_actionInfo.text = tr("&Imposition...");
   m_actionInfo.menu = "Extras";
   m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.needsNumObjects = -1;
 }
 
 bool ImpositionPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)

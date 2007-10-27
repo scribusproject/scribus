@@ -63,6 +63,7 @@ void NewFromTemplatePlugin::languageChange()
 	m_actionInfo.menu = "File";
 	m_actionInfo.menuAfterName = "New";
 	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.needsNumObjects = -1;
 }
 
 const QString NewFromTemplatePlugin::fullTrName() const
