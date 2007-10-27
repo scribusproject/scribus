@@ -453,10 +453,10 @@ public slots:
 	void MakeFrame(int f, int c, double *vals);
 	//** Loescht ein Element */
 	//void DeleteObjekt();
-	/** Dupliziert das Element */
-	void ObjektDup();
-	/** Dupliziert das Element mehrfach*/
-	void ObjektDupM();
+	/** Duplicate current item */
+	void duplicateItem();
+	/** Multiple duplicate current item*/
+	void duplicateItemMulti();
 	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
 	See docSetup() for more info. */
 	bool slotDocSetup();

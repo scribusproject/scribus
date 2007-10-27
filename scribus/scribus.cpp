@@ -263,7 +263,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
-	
+
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
@@ -391,7 +391,7 @@ void ScribusMainWindow::initToolBars()
 
 	mainToolBar = new ModeToolBar(this);
 	pdfToolBar = new PDFToolBar(this);
-	
+
 	addToolBar(fileToolBar);
 	addToolBar(editToolBar);
 	addToolBar(mainToolBar);
@@ -939,7 +939,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutPlugins"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutQt"], "Help");
-	
+
 	scrMenuMgr->addMenuToMenuBar("File");
 	scrMenuMgr->addMenuToMenuBar("Edit");
 	scrMenuMgr->addMenuToMenuBar("Style");
@@ -2726,9 +2726,9 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	{
 		currItem = doc->m_Selection->itemAt(0);
 	}
-	
+
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
-	
+
 	actionManager->disconnectNewSelectionActions();
 	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
@@ -3933,7 +3933,7 @@ void ScribusMainWindow::slotGetContent()
 		if (currItem->itemType() == PageItem::ImageFrame)
 		{
 			QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME));
-			
+
 			QString docDir = ".";
 			QString prefsDocDir=prefsManager->documentDir();
 			if (!prefsDocDir.isEmpty())
@@ -4608,9 +4608,9 @@ void ScribusMainWindow::slotEditCut()
 			StoryText itemText(doc);
 			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
 			itemText.insert(0, currItem->itemText, true);
-			
+
 			BufferI = itemText.text(0, itemText.length());
-			
+
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
 			xmlStream.beginDoc();
@@ -4618,7 +4618,7 @@ void ScribusMainWindow::slotEditCut()
 			xmlStream.endDoc();
 			std::string xml(xmlString.str());
 			Buffer2 = QString::fromUtf8(xml.c_str(), xml.length());
-			
+
 			/*			PageItem *nextItem = currItem;
 			while (nextItem != 0)
 			{
@@ -4681,11 +4681,11 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-			
+
 			// old version:
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			Buffer2 = ss->WriteElem(doc, view, doc->m_Selection);
-			
+
 			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
@@ -4693,7 +4693,7 @@ void ScribusMainWindow::slotEditCut()
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
 			std::string xml(xmlString.str());
 			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
-			
+
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
 				scrapbookPalette->ObjFromCopyAction(Buffer2);
@@ -4734,9 +4734,9 @@ void ScribusMainWindow::slotEditCopy()
 			StoryText itemText(doc);
 			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
 			itemText.insert(0, currItem->itemText, true);
-			
+
 			BufferI = itemText.text(0, itemText.length());
-			
+
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
 			xmlStream.beginDoc();
@@ -4745,7 +4745,7 @@ void ScribusMainWindow::slotEditCopy()
 			std::string xml(xmlString.str());
 			Buffer2 = QString::fromUtf8(xml.c_str(), xml.length());
 //			qDebug(Buffer2);
-			
+
 /*			PageItem *nextItem = currItem;
 			while (nextItem != 0)
 			{
@@ -4805,18 +4805,18 @@ void ScribusMainWindow::slotEditCopy()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-			
+
 			// old version:
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			Buffer2 = ss->WriteElem(doc, view, doc->m_Selection);
-			
+
 			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
 			std::string xml(xmlString.str());
 			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
-			
+
 #ifdef DESAXE_DEBUG
 			// debug:
 			SaxXML tmpfile1("tmp-scribus1.xml", true);
@@ -4828,7 +4828,7 @@ void ScribusMainWindow::slotEditCopy()
 			Serializer::serializeObjects(objects, tmpfile2);
 			doc->itemSelection_DeleteItem(&objects);
 #endif
-			
+
 			if ((prefsManager->appPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
 				scrapbookPalette->ObjFromCopyAction(Buffer2);
@@ -4865,7 +4865,7 @@ void ScribusMainWindow::slotEditPaste()
 				currItem->CPos = 0;
 			if (currItem->CPos > currItem->itemText.length())
 				currItem->CPos = currItem->itemText.length();
-			
+
 			if (hasXMLRootElem(Buffer2, "<SCRIBUSTEXT"))
 			{
 				Serializer dig(*doc);
@@ -4875,14 +4875,14 @@ void ScribusMainWindow::slotEditPaste()
 
 				QByteArray xml( Buffer2.toUtf8() );
 				dig.parseMemory(xml, xml.length());
-				
+
 				StoryText* story = dig.result<StoryText>();
-				
+
 				currItem->itemText.insert(currItem->CPos, *story);
 				currItem->CPos += story->length();
-				
+
 				delete story;
-				
+
 /*				QString Buf = Buffer2.mid(13);
 				QTextStream t(&Buf, IO_ReadOnly);
 				QString cc;
@@ -4979,14 +4979,14 @@ void ScribusMainWindow::slotEditPaste()
 				doc->SnapGuides = false;
 				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 					slotElemRead(Buffer2, 0, 0, false, true, doc, view);
-				else 
+				else
 					Serializer(*doc).deserializeObjects(Buffer2.toUtf8());
 
 				// update style lists:
 				styleManager->setDoc(doc);
 				propertiesPalette->unsetDoc();
 				propertiesPalette->setDoc(doc);
-				
+
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				//int tempList=doc->m_Selection->backupToTempList(0);
@@ -5055,16 +5055,16 @@ void ScribusMainWindow::slotEditPaste()
 //				qDebug(Buffer2);
 				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 					slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-				else 
+				else
 				{
 					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.toUtf8());
 					for (int i=0; i < pastedObjects.count(); ++i)
 						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
-					
+
 					/*double x = doc->currentPage()->xOffset();
 					double y = doc->currentPage()->yOffset();
 					for (uint i=0; i < pastedObjects.count(); ++i)
-						if (! pastedObjects.itemAt(i)->isEmbedded) 
+						if (! pastedObjects.itemAt(i)->isEmbedded)
 						{
 						//	const Page* pg = doc->Pages->at(doc->OnPage(pastedObjects.itemAt(i)));
 						//	if (!pg)
@@ -5081,7 +5081,7 @@ void ScribusMainWindow::slotEditPaste()
 				styleManager->setDoc(doc);
 				propertiesPalette->unsetDoc();
 				propertiesPalette->setDoc(doc);
-								
+
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				for (int as = ac; as < doc->Items->count(); ++as)
@@ -5189,9 +5189,9 @@ void ScribusMainWindow::ClipChange()
 			Buffer2 = cc;
 		BuFromApp = false;
 	}
-	scrActions["editPaste"]->setEnabled(HaveDoc && 
-										(hasXMLRootElem(Buffer2, "<SCRIBUSELEM") 
-										 || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT") 
+	scrActions["editPaste"]->setEnabled(HaveDoc &&
+										(hasXMLRootElem(Buffer2, "<SCRIBUSELEM")
+										 || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT")
 										 || doc->appMode == modeEdit));
 }
 
@@ -5267,7 +5267,7 @@ void ScribusMainWindow::SaveText()
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
 		const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
-		Serializer::writeWithEncoding(fn, LoadEnc, story.text(0, story.length()));		
+		Serializer::writeWithEncoding(fn, LoadEnc, story.text(0, story.length()));
 	}
 }
 
@@ -5448,7 +5448,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 			pageLocationIndex=doc->currentPage()->LeftPg-1;
 		pageLocationCount=locationEntries.count();
 	}
-	
+
 	CopyPageToMasterPageDialog copyDialog(doc->MasterNames.count(), doc->pageSets[doc->currentPageLayout].pageNames, pageLocationIndex, this);
 	if (copyDialog.exec())
 	{
@@ -5868,7 +5868,7 @@ void ScribusMainWindow::toggleNodeEdit()
 {
 	if (!doc)
 		return;
-	
+
 	if (doc->appMode == modeEditClip)
 	{
 		view->requestMode(submodeEndNodeEdit);
@@ -5876,7 +5876,7 @@ void ScribusMainWindow::toggleNodeEdit()
 	else
 	{
 		view->requestMode(modeEditClip);
-	}	
+	}
 }
 
 void ScribusMainWindow::ToggleFrameEdit()
@@ -6055,7 +6055,7 @@ void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 void ScribusMainWindow::setAppMode(int mode)
 {
 	assert(mode < submodeFirstSubmode);
-	
+
 	//disconnect the tools actions so we dont fire them off
 	actionManager->disconnectModeActions();
 	//set the actions state based on incoming mode
@@ -6273,7 +6273,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			doc->ElemToLink = doc->m_Selection->itemAt(0);
 		if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames) || (oldMode == modeLinkFrames) || (oldMode == modeUnlinkFrames))
 			doc->regionsChanged()->update(QRect());
-		
+
 		if (mode == modeStoryEditor)
 		{
 			slotStoryEditor();
@@ -7066,7 +7066,7 @@ void ScribusMainWindow::setNewParStyle(const QString& name)
 			doc->itemSelection_SetNamedParagraphStyle(name);
 			doc->itemSelection_EraseParagraphStyle();
 		}
-		else */		
+		else */
 			doc->itemSelection_SetNamedParagraphStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
@@ -7079,7 +7079,7 @@ void ScribusMainWindow::setNewCharStyle(const QString& name)
 	{
 /*		if (name.isEmpty())
 		{
-			doc->itemSelection_SetNamedCharStyle(name);			
+			doc->itemSelection_SetNamedCharStyle(name);
 			doc->itemSelection_EraseCharStyle();
 		}
 		else */
@@ -7201,7 +7201,7 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 	slotDocCh();
 }
 
-void ScribusMainWindow::ObjektDup()
+void ScribusMainWindow::duplicateItem()
 {
 	slotSelect();
 	bool savedAlignGrid = doc->useRaster;
@@ -7223,7 +7223,7 @@ void ScribusMainWindow::ObjektDup()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ObjektDupM()
+void ScribusMainWindow::duplicateItemMulti()
 {
 	if (!HaveDoc)
 		return;
@@ -7343,7 +7343,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 void ScribusMainWindow::slotPrefsOrg()
 {
 	slotSelect();
-	
+
 	Preferences *dia = new Preferences(this);
 	if (dia->exec())
 	{
@@ -7698,7 +7698,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
 		if (doc->PDF_Options.useDocBleeds)
 			doc->PDF_Options.bleeds = doc->bleeds;
-		
+
 		if (doc->PDF_Options.doMultiFile)
 		{
 			QFileInfo fi(fileName);
@@ -7864,7 +7864,7 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 {
 	if (doc == docc && docc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	
+
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	if(ss->ReadElem(xml, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
 	{
@@ -7889,7 +7889,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
-	
+
 	doc->setUnitIndex(unitIndex);
 	setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
 	propertiesPalette->unitChange();
@@ -8749,10 +8749,10 @@ void ScribusMainWindow::callImageEditor()
 {
 	if (doc->m_Selection->count() != 0)
 	{
-		//NOTE to reviewers: I added my code to this function, 
+		//NOTE to reviewers: I added my code to this function,
 		// - as it performs a similar function,
 		// - when the frame is a latex frame it makes only sense
-		//   to run a latex editor 
+		//   to run a latex editor
 		// - IMHO ScribusMainWindow has way to many slots already
 		// - my code here is short and without sideeffects
 		PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -8760,7 +8760,7 @@ void ScribusMainWindow::callImageEditor()
 			currItem->asLatexFrame()->runEditor();
 			return; //Don't process the functions for imageframes!
 		}
-		
+
 		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
 		{

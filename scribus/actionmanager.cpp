@@ -445,8 +445,8 @@ void ActionManager::initItemMenuActions()
 	name="itemConvertToTextFrame";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 
-	connect( (*scrActions)["itemDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(ObjektDup()) );
-	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(ObjektDupM()) );
+	connect( (*scrActions)["itemDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(duplicateItem()) );
+	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(duplicateItemMulti()) );
 	connect( (*scrActions)["itemGroup"], SIGNAL(triggered()), mainWindow, SLOT(GroupObj()) );
 	connect( (*scrActions)["itemUngroup"], SIGNAL(triggered()), mainWindow, SLOT(UnGroupObj()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
@@ -714,8 +714,8 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsActionHistory"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsPreflightVerifier"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsAlignDistribute"]->setShortcutContext(Qt::ApplicationShortcut);
-	
-	
+
+
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);
 	(*scrActions)["toolsScrapbook"]->setToggleAction(true);
