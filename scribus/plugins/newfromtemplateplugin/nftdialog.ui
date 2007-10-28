@@ -13,10 +13,22 @@
    <string>New From Template</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
+   <property name="leftMargin" >
     <number>9</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin" >
+    <number>9</number>
+   </property>
+   <property name="rightMargin" >
+    <number>9</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>9</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>6</number>
+   </property>
+   <property name="verticalSpacing" >
     <number>6</number>
    </property>
    <item row="0" column="1" >
@@ -47,25 +59,37 @@
       </size>
      </property>
      <property name="currentIndex" >
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="aboutPage" >
       <property name="geometry" >
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>250</width>
-        <height>340</height>
+        <width>112</width>
+        <height>112</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>&amp;About</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="margin" >
+       <property name="leftMargin" >
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>6</number>
+       </property>
+       <property name="verticalSpacing" >
         <number>6</number>
        </property>
        <item row="0" column="0" >
@@ -78,18 +102,30 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>215</width>
-        <height>312</height>
+        <width>112</width>
+        <height>112</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>&amp;Image</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="margin" >
+       <property name="leftMargin" >
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>6</number>
+       </property>
+       <property name="verticalSpacing" >
         <number>6</number>
        </property>
        <item row="0" column="0" >
@@ -106,18 +142,30 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>215</width>
-        <height>312</height>
+        <width>250</width>
+        <height>368</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>&amp;Help</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="margin" >
+       <property name="leftMargin" >
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>6</number>
+       </property>
+       <property name="verticalSpacing" >
         <number>6</number>
        </property>
        <item row="0" column="0" >
@@ -129,10 +177,22 @@
    </item>
    <item row="0" column="0" >
     <widget class="QListWidget" name="categoryList" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="minimumSize" >
       <size>
        <width>130</width>
        <height>200</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>140</width>
+       <height>16777215</height>
       </size>
      </property>
     </widget>

@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPushButton>
 #include <QAction>
+#include <QPainter>
 
 #include "util_icon.h"
 
@@ -38,6 +39,7 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 	toolBox->setItemIcon(0, loadIcon("16/information.png"));
 	toolBox->setItemIcon(1, loadIcon("16/image-x-generic.png"));
 	toolBox->setItemIcon(2, loadIcon("16/help-browser.png"));
+	tnailGrid->setIconSize(QSize(60, 60));
 	
 	// Signals and Slots Connections
 	connect(categoryList, SIGNAL(itemSelectionChanged()), this, SLOT(setTNails()));
@@ -89,9 +91,17 @@ void nftdialog::setTNails()
 		for (uint i = 0; i < iconItems.size(); ++i) 
 		{
 			QPixmap pm(iconItems[i]->first->tnail);
-			QListWidgetItem* tmpQIVI = new QListWidgetItem(pm,
-			                                           iconItems[i]->first->name, tnailGrid);
-			tmpQIVI->setSizeHint(pm.size());
+			if (pm.width() > 60)
+				pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
+			if (pm.height() > 60)
+				pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+			QPixmap pmd(60, 60);
+			pmd.fill(palette().color(QPalette::Base));
+			QPainter p;
+			p.begin(&pmd);
+			p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+			p.end();
+			QListWidgetItem* tmpQIVI = new QListWidgetItem(pmd, iconItems[i]->first->name, tnailGrid);
 			iconItems[i]->second = tmpQIVI;
 		}
 		tnailGrid->sortItems();
@@ -107,9 +117,17 @@ void nftdialog::setTNails()
 			if (curtype.indexOf(iconItems[i]->first->templateCategory) != -1)
 			{
 				QPixmap pm(iconItems[i]->first->tnail);
-				QListWidgetItem* tmpQIVI = new QListWidgetItem(pm,
-			                                           iconItems[i]->first->name, tnailGrid);
-				tmpQIVI->setSizeHint(pm.size());
+				if (pm.width() > 60)
+					pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
+				if (pm.height() > 60)
+					pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+				QPixmap pmd(60, 60);
+				pmd.fill(palette().color(QPalette::Base));
+				QPainter p;
+				p.begin(&pmd);
+				p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+				p.end();
+				QListWidgetItem* tmpQIVI = new QListWidgetItem(pmd, iconItems[i]->first->name, tnailGrid);
 				iconItems[i]->second = tmpQIVI;
 			} 
 			else
@@ -145,8 +163,8 @@ void nftdialog::setInfo()
 	textBrowser->setText(infoText);
 	imageView->clear();
 	QPixmap tmplImg(currentDocumentTemplate->img);
-	QListWidgetItem *i = new QListWidgetItem(tmplImg, currentDocumentTemplate->name, imageView);
-	i->setSizeHint(tmplImg.size());
+	imageView->setIconSize(tmplImg.size());
+	new QListWidgetItem(tmplImg, currentDocumentTemplate->name, imageView);
 	
 	if (!buttonBox->button(QDialogButtonBox::Ok)->isEnabled())
 	{
@@ -207,7 +225,6 @@ void nftdialog::getCurrentDocumentTemplate(QListWidgetItem* item)
 {
 	for (uint i = 0; i < iconItems.size(); ++i)
 	{
-		QListWidgetItem* second = iconItems[i]->second;
 		if (iconItems[i]->second == item)
 		{
 			currentDocumentTemplate = iconItems[i]->first;
