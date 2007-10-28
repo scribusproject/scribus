@@ -400,7 +400,13 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;ime&quot;, &quot;zamenjaj&quot;)
+
+Vsaka pojavitev barve &quot;ime&quot; bo zamenjana z barvo &quot;zamenjaj&quot;.
+
+Vrne lahko napako NotFoundError, če imenovane barve ni mogoče najti.
+Vrne lahko napako ValueError, če je navedeno neveljavno ime barve.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmddialog.h" line="88"/>
@@ -579,7 +585,13 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setDocType(nasprotneStrani, prvaStranLevo)
+
+Določi vrsto dokumenta. Če želite nasprotne strani, nastavite prvi parameter na
+FACINGPAGES, sicer izključite tonastavitev z NOFACINGPAGES.  Če želite,
+da je prva stran na levi, nastavite drugi parameter na FIRSTPAGELEFT, za
+prvo stran ko desno pa uporabite FIRSTPAGERIGHT.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="51"/>
@@ -624,7 +636,11 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineEnd([&quot;ime&quot;]) -&gt; integer (glejte konstante)
+
+Vrne slog zaključkov črt predmeta &quot;ime&quot;. Če &quot;ime&quot; ni podano,
+je uporabljen trenutno izbran element. Vrste koncev črt so:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="124"/>
@@ -685,7 +701,13 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSize([&quot;ime&quot;]) -&gt; (širina,višina)
+
+Vrne par (širina, višina) z velikostjo predmeta &quot;ime&quot;.
+Če &quot;ime&quot; ni podano, je uporabljen trentno izbran element. Velikost je
+podana v trenutnih merskih enotah dokumenta - glejte UNIT_&lt;vrsta&gt;
+za cel nabor možnosti.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="200"/>
@@ -825,7 +847,13 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadImage(&quot;imedatoteke&quot; [, &quot;ime&quot;])
+
+Naloži sliko &quot;imedatoteke&quot; v slikovni okvir &quot;ime&quot;. Če &quot;ime&quot;
+ni podano, je uporabljen trenutno izbran element.
+
+Vrne lahko napako WrongFrameTypeError, če ciljni okvir ni slikovni okvir
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmani.h" line="166"/>
@@ -949,7 +977,14 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteLayer(&quot;plast&quot;)
+
+Izbriše plast z imenom &quot;plast&quot;. Nič se ne zgodi, če plast ne
+obstaja ali pa je edina plast v dokumentu.
+
+Vrne lahko napako NotFoundError, če plasti ni mogoče najti.
+Vrne lahko napako ValueError, če ime plasti ni sprejemljivo.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="311"/>
@@ -1122,7 +1157,12 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>objectExists([&quot;ime&quot;]) -&gt; bool
+
+Preizkusi, če predmet z navedenim imnom resnično obstaja v dokumentu.
+Dodaten možen parameter je ime predmeta. Če ime predmeta ni podano,
+vrne True, če je izbran kak predmet.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdobj.h" line="227"/>
@@ -1211,7 +1251,11 @@ Vrne število strani dokumenta.</translation>
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getHGuides() -&gt; seznam
+
+Vrne seznam s položaji vodoravnih vodil. Vrednosti so izražene v
+trenutnih merskih enotah dokumenta - oglejte si konstante UNIT_&lt;vrsta&gt;.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="123"/>
@@ -1223,7 +1267,14 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setHGuides(seznam)
+
+Določi vodoravna vodila. Vstopni parameter mora biti seznam položajev vodil
+v trenutnih merskih enotah dokumenta - oglejte si konstante UNIT_&lt;vrsta&gt;.
+
+Primer: setHGuides(getHGuides() + [200.0, 210.0] # doda nova vodila brez izgubljenih
+          setHGuides([90,250]) # v celoti zamenja trenutna vodila
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="132"/>
@@ -1554,7 +1605,11 @@ given the currently selected item is used.
 Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextStroke(&quot;barva&quot;, [&quot;ime&quot;])
+
+Doličite &quot;barvo&quot; poteze besedila. Če &quot;ime&quot; ni podano, je uporabljen
+trenutno izbrani element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="271"/>
@@ -1638,7 +1693,10 @@ progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCursor()
+
+[NEPODPRTO!] To lahko naredi škodo, zato se ukaza zaenkrat izogibajte.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/guiapp.h" line="83"/>
@@ -1774,7 +1832,11 @@ May throw IndexError if the selection is outside the bounds of the text.
 Shows &apos;Create new paragraph style&apos; dialog. Function returns real
 style name or None when user cancels the dialog.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newStyleDialog() -&gt; string
+
+Pokaže pogovorno okno &apos;Ustvari nov slog odstavka&apos;. Funkcija vrne resnično
+ime sloga ali Brez (None), če uporabnik prekliče pogovorno okno.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdpage.h" line="181"/>
@@ -1783,7 +1845,11 @@ style name or None when user cancels the dialog.
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Vrne robove strani kot kombinacijo (vrh, levo, desno, dno) v trenutnih
+merskih enotah. Oglejte si konstante UNIT_&lt;vrsta&gt; in getPageSize().
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="328"/>
@@ -1988,7 +2054,11 @@ constants.
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillTransparency([&quot;ime&quot;]) -&gt; float
+
+Vrne prosojnost polnila predmeta &quot;ime&quot;. Če &quot;ime&quot;
+ni podano, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="41"/>
@@ -2006,7 +2076,11 @@ is not given the currently selected Item is used.
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineTransparency([&quot;ime&quot;]) -&gt; float
+
+Vrne prosojnost predmeta &quot;ime&quot;. Če &quot;ime&quot;
+ni podano, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdgetprop.h" line="71"/>
@@ -2138,7 +2212,13 @@ Sets the layers &quot;layer&quot;  transparency to trans.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerTransparency(&quot;plast&quot;, prosoj)
+
+Nastavi prosojnost plasti &quot;plast&quot; na prosoj.
+
+Vrne lahko napako NotFoundError. če plasti ni mogoče najti.
+Vrne lahko napako ValueError, če ime plasti ni sprejemljivo.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmisc.h" line="208"/>
@@ -2211,7 +2291,13 @@ Returns the &quot;layer&quot; layer transparency,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayerTransparency(&quot;plast&quot;) -&gt; float
+
+Vrne prosojnost plasti &quot;plast&quot;,
+
+Vrne lahko napako NotFoundError. če plasti ni mogoče najti.
+Vrne lahko napako ValueError, če ime plasti ni sprejemljivo.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdobj.h" line="193"/>
@@ -2254,7 +2340,11 @@ May raise IndexError if the page number is out of range.
 Sets the fill transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillTransparency(prosojnost, [&quot;ime&quot;])
+
+Nastavi prosojnost polnila predmeta &quot;ime&quot; na vrednost prosojnost
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="53"/>
@@ -2272,7 +2362,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Sets the line transparency of the object &quot;name&quot; to transparency
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineTransparency(prosojnost, [&quot;ime&quot;])
+
+Nastavi prosojnost črt predmeta &quot;ime&quot; na vrednost prosojnost
+Če &quot;ime&quot; ni podao, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdsetprop.h" line="83"/>
@@ -2290,7 +2384,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns the number of lines of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextLines([&quot;ime&quot;]) -&gt; integer
+
+Vrne število vrstic besedila v besedilnem okviru &quot;ime&quot;.
+Če &quot;ime&quot; ni podano, je uporabljen trenutno izbran element.
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdtext.h" line="135"/>
@@ -2325,7 +2423,13 @@ x and y specify the coordinate of the topleft corner of the EPS placed on the pa
 
 If loading was successful, the selection contains the imported EPS
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeEPS(&quot;imedatoteke&quot;, x, y)
+
+Postavi EPS &quot;imedatoteke&quot; na trenutno stran,
+x in y določata koordinate vrhnjega levega kota na stran postavljenega EPS
+
+Če je bilo nalaganje uspešno, izbor vsebuje uvoženi EPS
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/svgimport.h" line="45"/>
@@ -2336,7 +2440,13 @@ x and y specify the coordinate of the topleft corner of the SXD placed on the pa
 
 If loading was successful, the selection contains the imported SXD
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeSXD(&quot;imedatoteke&quot;, x, y)
+
+Postavi SXD &quot;imedatoteke&quot; na trenutno stran,
+x in y določata koordinate vrhnjega levega kota na stran postavljenega SXD
+
+Če je bilo nalaganje uspešno, izbor vsebuje uvoženi SXD
+</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/svgimport.h" line="57"/>
@@ -2347,7 +2457,13 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 
 If loading was successful, the selection contains the imported ODG
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeODG(&quot;imedatoteke&quot;, x, y)
+
+Postavi ODG &quot;imedatoteke&quot; na trenutno stran,
+x in y določata koordinate vrhnjega levega kota na stran postavljenega ODG
+
+Če je bilo nalaganje uspešno, izbor vsebuje uvoženi ODG
+</translation>
     </message>
 </context>
 <context>
@@ -10165,472 +10281,6 @@ patenti, blagovne znamke</translation>
     </message>
 </context>
 <context>
-    <name>PrintDialog</name>
-    <message>
-        <location filename="../printdialog.cpp" line="822"/>
-        <source>All</source>
-        <translation>Vse</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="821"/>
-        <source>Cyan</source>
-        <translation>Cijanska</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="797"/>
-        <source>File</source>
-        <translation>Datoteka</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="820"/>
-        <source>Magenta</source>
-        <translation>Magenta</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="819"/>
-        <source>Yellow</source>
-        <translation>Rumena</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="226"/>
-        <source>Options</source>
-        <translation>Možnosti</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="620"/>
-        <source>Save as</source>
-        <translation>Shrani kot</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="67"/>
-        <source>Setup Printer</source>
-        <translation>Nastavi tiskalnik</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="818"/>
-        <source>Black</source>
-        <translation>Črna</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="380"/>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Vpišite z vejicami ločen spisek območij.
-Območje je lahko * za vse strani, 1-5 za 
-več strani ali samo številka ene strani.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="74"/>
-        <source>Print Destination</source>
-        <translation>Cilj tiskanja</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="115"/>
-        <source>&amp;Options...</source>
-        <translation>&amp;Možnosti ...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="127"/>
-        <source>&amp;File:</source>
-        <translation>&amp;Datoteka:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="133"/>
-        <source>C&amp;hange...</source>
-        <translation>&amp;Spremeni ...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="140"/>
-        <source>A&amp;lternative Printer Command</source>
-        <translation>&amp;Nadomesten ukaz za tiskanje</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="149"/>
-        <source>Co&amp;mmand:</source>
-        <translation>&amp;Ukaz:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="157"/>
-        <source>Range</source>
-        <translation>Obseg</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="162"/>
-        <source>Print &amp;All</source>
-        <translation>Natisni &amp;vse</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="634"/>
-        <source>Print Current Pa&amp;ge</source>
-        <translation>Natisni &amp;trenutno stran</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="166"/>
-        <source>Print &amp;Range</source>
-        <translation>Natisni &amp;obseg</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="186"/>
-        <source>N&amp;umber of Copies:</source>
-        <translation>&amp;Število kopij:</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Print &amp;Normal</source>
-        <translation type="obsolete">Tiskaj &amp;običajno</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Print &amp;Separations</source>
-        <translation type="obsolete">Tiskaj &amp;separacije</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Pr&amp;int In Color If Available</source>
-        <translation type="obsolete">Če je mogoče tiskaj v &amp;barvah</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Print In Gra&amp;yscale</source>
-        <translation type="obsolete">Tiskaj &amp;črnobelo</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Ad&amp;vanced Options...</source>
-        <translation type="obsolete">&amp;Napredne možnosti...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="353"/>
-        <source>&amp;Print</source>
-        <translation>&amp;Natisni</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">Prekli&amp;či</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Use an alternative print manager, such as kprinter or gtklp,
-to utilize additional printing options</source>
-        <translation type="obsolete">Uporabite drug upravljalnik tiskanja, na primer kprinter ali 
-gtklp, za dodatne možnosti tiskanja</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="582"/>
-        <source>Print Normal</source>
-        <translation>Tiskaj navadno</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="199"/>
-        <source>Print Separations</source>
-        <translation>Tiskaj ločeno (separacije)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="203"/>
-        <source>Print in Color if Available</source>
-        <translation>Če je mogoče, natisni v barvah</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="204"/>
-        <source>Print in Grayscale</source>
-        <translation>Natisni sivinsko</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="221"/>
-        <source>PostScript Level 1</source>
-        <translation>PostScript ravni 1</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="222"/>
-        <source>PostScript Level 2</source>
-        <translation>PostScript ravni 2</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="223"/>
-        <source>PostScript Level 3</source>
-        <translation>PostScript ravni 3</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="232"/>
-        <source>Page</source>
-        <translation>Stran</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="238"/>
-        <source>Mirror Page(s) Horizontal</source>
-        <translation>Vodoravno prezrcali stran(i)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="241"/>
-        <source>Mirror Page(s) Vertical</source>
-        <translation>Navpično prezrcali stran(i)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="244"/>
-        <source>Set Media Size</source>
-        <translation>Nastavi velikost papirja</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="250"/>
-        <source>Color</source>
-        <translation>Barva</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="256"/>
-        <source>Apply Under Color Removal</source>
-        <translation>Uveljavi odstranjevanje pod barvo</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="259"/>
-        <source>Convert Spot Colors to Process Colors</source>
-        <translation>Pretvori čiste barve v procesne barve</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Apply ICC Profiles</source>
-        <translation type="obsolete">Uporabi profile ICC</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="271"/>
-        <source>Advanced Options</source>
-        <translation>Napredne možnosti</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="348"/>
-        <source>Preview...</source>
-        <translation>Predogled ...</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="382"/>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation>Nastavi raven PostScripta.
-Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
-magenta barve s črnino. 
-POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
-lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
-narediti nekaj preiskusov. 
-POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="620"/>
-        <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation>Datoteke PostScript (*.ps);; Vse datoteke (*)</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="381"/>
-        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation>Za dodatne možnosti tiskanja uporabite drug upravljalnik tiskanja, na primer kprinter ali gtklp</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="383"/>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>To je način za zamenjavo sivin sestavljenih iz cijanske, rumene in magentne barve s črnino. POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej narediti nekaj poskusov. POD tudi zmanjša možnost prekomerne nasičenosti črnil CMY.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="384"/>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Vključi čiste barve, da se pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv v tiskarni, potem je verjetno najbolje, da to pustite vključeno.</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="obsolete">Omogoča vključevanje profilov ICC v pogovorno okno tiskanja, če je upravljalnik barv vključen</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="388"/>
-        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>To omogoča natančno določitev velikosti datoteke PostScript. Ni priporočeno, razen če to zahteva vaš tiskalnik.</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="246"/>
-        <source>Clip to Page Margins</source>
-        <translation>Poreži do robov strani</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Ne kaži predmet, ki so zunaj robov</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="570"/>
-        <source>Failed to retrieve printer settings</source>
-        <translation>Nastavitev tiskalnika ni mogoče pridobiti</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="377"/>
-        <source>Do not show objects outside the margins on the printed page</source>
-        <translation>Ne pokaži predmetov, ki so zunaj robov tiskanja strani</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="262"/>
-        <source>Force Overprint Mode</source>
-        <translation>Vsili pretisk</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="267"/>
-        <source>Apply Color Profiles</source>
-        <translation>Uporabi barvne profile</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="278"/>
-        <source>Printer Marks</source>
-        <translation>Oznake tiskalnika</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="283"/>
-        <source>Crop Marks</source>
-        <translation>Oznake za porezavo</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="285"/>
-        <source>Bleed Marks</source>
-        <translation>Oznake dodatka za porezavo</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="287"/>
-        <source>Registration Marks</source>
-        <translation type="unfinished">Registrske oznake</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="289"/>
-        <source>Color Bars</source>
-        <translation type="unfinished">Barvni stolpci</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="292"/>
-        <source>Offset:</source>
-        <translation>Zamik:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="297"/>
-        <source>Marks</source>
-        <translation>Oznake</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="304"/>
-        <source>Bleed Settings</source>
-        <translation>Nastavitve dodatka za porezavo</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="310"/>
-        <source>Top:</source>
-        <translation>Vrh:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="315"/>
-        <source>Bottom:</source>
-        <translation>Dno:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="320"/>
-        <source>Left:</source>
-        <translation>Levo:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="325"/>
-        <source>Right:</source>
-        <translation>Desno:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="329"/>
-        <source>Use Document Bleeds</source>
-        <translation>Uporabi dodatek za porezavo dokumenta</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="333"/>
-        <source>Bleeds</source>
-        <translation>Dodatki za porezavo</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="336"/>
-        <source>Inside:</source>
-        <translation>Navznoter:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="337"/>
-        <source>Outside:</source>
-        <translation>Navzven:</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="394"/>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation>Oddaljenost dodatka za porezavo od fizičnega vrha strani</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="395"/>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Oddaljenost dodatka za porezavo od fizičnega dna strani</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="396"/>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation>Oddaljenost dodatka za porezavo od fizičnega levega roba strani</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="397"/>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation>Oddaljenost dodatka za porezavo od fizičnega desnega roba strani</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="385"/>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="387"/>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="389"/>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation>To ustvari oznake za porezavo v dokumentu PDF, te pa nakazujejo, kje naj bo po zaključenem tiskanju odrezan ali prerezan papir</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="390"/>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="391"/>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished">Dodaj registrske oznake, ki so dodane vsaki separaciji</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="392"/>
-        <source>Add color calibration bars</source>
-        <translation type="unfinished">Dodaj barvne stolpce za kalibracijo</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="393"/>
-        <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished">Nakaži razdaljo odmika za registrske oznake</translation>
-    </message>
-    <message>
-        <location filename="../printdialog.cpp" line="398"/>
-        <source>Use the existing bleed settings from the document preferences</source>
-        <translation>Uporabi nastavitve dodatka za porezavo iz nastavitev dokumenta</translation>
-    </message>
-</context>
-<context>
     <name>EPSPlug</name>
     <message>
         <location filename="../plugins/psimport/importps.cpp" line="502"/>
@@ -15545,1173 +15195,6 @@ več strani ali samo številka ene strani.</translation>
         <location filename="../movepage.cpp" line="58"/>
         <source>Number of copies:</source>
         <translation>Število kopij:</translation>
-    </message>
-</context>
-<context>
-    <name>PropertiesPalette</name>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4488"/>
-        <source> %</source>
-        <translation> %</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source> p</source>
-        <translation type="obsolete"> pik</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>OK</source>
-        <translation type="obsolete">V redu</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source> in</source>
-        <translation type="obsolete"> in</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source> mm</source>
-        <translation type="obsolete"> mm</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4500"/>
-        <source> pt</source>
-        <translation> točk</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4329"/>
-        <source>Name</source>
-        <translation>Ime</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>None</source>
-        <translation type="obsolete">Brez</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4640"/>
-        <source>Move to back</source>
-        <translation>Premakni v ozadje</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4337"/>
-        <source>Level</source>
-        <translation>Raven</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4624"/>
-        <source>Width</source>
-        <translation>Širina</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4706"/>
-        <source>Keep the X and Y scaling the same</source>
-        <translation>Obdrži razmerje spremembe merila X in Y enako</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4630"/>
-        <source>Select bottom left for basepoint</source>
-        <translation>Izberi spodnji levi kot za izhodišče</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4375"/>
-        <source>Path Text Properties</source>
-        <translation>Lastnosti besedila po poti</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4682"/>
-        <source>Change settings for left or end points</source>
-        <translation>Spremeni nastavitve levih ali končnih točk</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4635"/>
-        <source>Flip Horizontal</source>
-        <translation>Prezrcali vodoravno </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4441"/>
-        <source>Absolute Colorimetric</source>
-        <translation>Absolutne barvne vrednosti</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4526"/>
-        <source>No Style</source>
-        <translation>Brez sloga</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4636"/>
-        <source>Flip Vertical</source>
-        <translation>Prezrcali navpično</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4629"/>
-        <source>Select top right for basepoint</source>
-        <translation>Izberi zgornji desni kot za izhodišče</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4711"/>
-        <source>Rendering intent for the image</source>
-        <translation>Namen upodobitve slike</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4696"/>
-        <source>Distance of text from bottom of frame</source>
-        <translation>Razdalja med besedilom in dnom okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4472"/>
-        <source>Flat Cap</source>
-        <translation>Raven konec</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4699"/>
-        <source>Edit tab settings of text frame...</source>
-        <translation>Uredi nastavitve tabulatorja v besedilnem okviru ...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4384"/>
-        <source>Distance from Curve:</source>
-        <translation>Razdalja do krivulje:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4627"/>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>Točka, od katere se merijo razdalje ali koti sukanja</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4703"/>
-        <source>Vertical offset of image within frame</source>
-        <translation>Navpični zamik slike znotraj okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4694"/>
-        <source>Distance between columns</source>
-        <translation>Razdalja med stolpci</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4710"/>
-        <source>Source profile of the image</source>
-        <translation>Izvorni profil slike</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4705"/>
-        <source>Resize the image vertically</source>
-        <translation>Spremeni velikost slike navpično</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4467"/>
-        <source>Round Join</source>
-        <translation>Zaobljen spoj</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4431"/>
-        <source>Rendering Intent:</source>
-        <translation>Namen upodobitve:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4482"/>
-        <source>Line at Bottom</source>
-        <translation>Črta na dnu</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3021"/>
-        <source>Column width</source>
-        <translation>Širina stolpcev</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4625"/>
-        <source>Height</source>
-        <translation>Višina</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4621"/>
-        <source>Name of selected object</source>
-        <translation>Ime izbranega predmeta</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4639"/>
-        <source>Move to front</source>
-        <translation>Premakni v ospredje</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4664"/>
-        <source>Saturation of color of text stroke</source>
-        <translation>Nasičenost barve črte besedila</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4658"/>
-        <source>Font Size</source>
-        <translation>Velikost pisave</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4446"/>
-        <source>End Points</source>
-        <translation>Končne točke</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Shade:</source>
-        <translation type="obsolete">Senca:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4340"/>
-        <source>Shape:</source>
-        <translation>Oblika:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4623"/>
-        <source>Vertical position of current basepoint</source>
-        <translation>Navpični položaj trenutnega izhodišča</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">Ime &quot;%1&quot; ni edinstveno.
-Prosim, izberite drugo.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4657"/>
-        <source>Font of selected text or object</source>
-        <translation>Pisava za izbrano besedilo ali predmet</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4704"/>
-        <source>Resize the image horizontally</source>
-        <translation>Spremeni velikost slike vodoravno</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4665"/>
-        <source>Saturation of color of text fill</source>
-        <translation>Nasičenost barve polnila besedila</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4445"/>
-        <source>Left Point</source>
-        <translation>Leva točka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4702"/>
-        <source>Horizontal offset of image within frame</source>
-        <translation>Vodoravni zamik slike znotraj okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4695"/>
-        <source>Distance of text from top of frame</source>
-        <translation>Razdalja med besedilom in vrhom okvirja</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Custom Spacing</source>
-        <translation type="obsolete">Posebna razdalja</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4319"/>
-        <source>Properties</source>
-        <translation>Lastnosti</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4479"/>
-        <source>Line at Top</source>
-        <translation>Črta na vrhu</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4685"/>
-        <source>Type of line joins</source>
-        <translation>Vrste spojev črt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4684"/>
-        <source>Thickness of line</source>
-        <translation>Debelina črte</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4660"/>
-        <source>Scaling width of characters</source>
-        <translation>Širina spremembe merila znakov</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Style of current paragraph</source>
-        <translation type="obsolete">Slog trenutnega odstavka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4631"/>
-        <source>Select bottom right for basepoint</source>
-        <translation>Izberi spodnji desni kot za izhodišče</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4473"/>
-        <source>Square Cap</source>
-        <translation>Kvadraten konec</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4626"/>
-        <source>Rotation of object at current basepoint</source>
-        <translation>Sukanje predmeta okrog trenutnega izhodišča</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4481"/>
-        <source>Line at the Right </source>
-        <translation>Črta na desni</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4480"/>
-        <source>Line at the Left</source>
-        <translation>Črta na levi</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4686"/>
-        <source>Type of line end</source>
-        <translation>Vrste zaključkov črt</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4381"/>
-        <source>Show Curve</source>
-        <translation>Pokaži krivuljo</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Ročno zgoščevanje</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4642"/>
-        <source>Lock or unlock the object</source>
-        <translation>Zakleni ali odkleni predmet </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4438"/>
-        <source>Perceptual</source>
-        <translation>Zaznavno</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4693"/>
-        <source>Switches between Gap or Column width</source>
-        <translation>Preklopi med presledkom in širino stolpca</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Color of text stroke</source>
-        <translation type="obsolete">Barva črte besedila</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4439"/>
-        <source>Relative Colorimetric</source>
-        <translation>Relativne barvne vrednosti</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4641"/>
-        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Nakaže raven, na kateri je predmet, 0 pomeni, da je predmet na dnu</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4708"/>
-        <source>Make the image fit within the size of the frame</source>
-        <translation>Naj slika ustreza velikosti okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4643"/>
-        <source>Lock or unlock the size of the object</source>
-        <translation>Zakleni ali odkleni velikost predmeta</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation type="obsolete">Naj besedilo iz nižjih okvirjev obliva obliko predmeta</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4628"/>
-        <source>Select top left for basepoint</source>
-        <translation>Izberi zgornji levi kot za izhodišče</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4709"/>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation>Uporabi raje razmerje stranic slike in ne okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4637"/>
-        <source>Move one level up</source>
-        <translation>Premakni eno raven navzgor </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4466"/>
-        <source>Bevel Join</source>
-        <translation>Nagnjen spoj</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4687"/>
-        <source>Line style of current object</source>
-        <translation>Slog črte trenutnega predmeta</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4638"/>
-        <source>Move one level down</source>
-        <translation>Premakni eno raven navzdol </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4465"/>
-        <source>Miter Join</source>
-        <translation>Spoj pod kotom</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4474"/>
-        <source>Round Cap</source>
-        <translation>Zaobljen konec</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4330"/>
-        <source>Geometry</source>
-        <translation>Geometrija</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4697"/>
-        <source>Distance of text from left of frame</source>
-        <translation>Razdalja med besedilom in levim robom okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4336"/>
-        <source>Basepoint:</source>
-        <translation>Izhodišče:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4440"/>
-        <source>Saturation</source>
-        <translation>Nasičenost</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Enable or disable printing of the object</source>
-        <translation type="obsolete">Vključi ali izključi možnost tiskanja predmeta</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Color of text fill</source>
-        <translation type="obsolete">Barva polnila besedila</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4690"/>
-        <source>Edit shape of the frame...</source>
-        <translation>Uredi obliko okvira ...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4707"/>
-        <source>Keep the aspect ratio</source>
-        <translation>Ohrani razmerja</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Warning</source>
-        <translation type="obsolete">Opozorilo</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4698"/>
-        <source>Distance of text from right of frame</source>
-        <translation>Razdalja med besedilom in desnim robom okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4430"/>
-        <source>Input Profile:</source>
-        <translation>Vhodni profil:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4683"/>
-        <source>Pattern of line</source>
-        <translation>Vzorec črte</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4632"/>
-        <source>Select center for basepoint</source>
-        <translation>Izberi središče za izhodišče</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4478"/>
-        <source>Cell Lines</source>
-        <translation>Črte celic</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4622"/>
-        <source>Horizontal position of current basepoint</source>
-        <translation>Vodoravni položaj trenutnega izhodišča</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4701"/>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation>Dovoli, da je slika lahko druge velikosti kot okvir</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4691"/>
-        <source>Set radius of corner rounding</source>
-        <translation>Nastavi radij zaobljenosti roba</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4689"/>
-        <source>Choose the shape of frame...</source>
-        <translation>Izberi obliko okvira ...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4362"/>
-        <source>Distance of Text</source>
-        <translation>Razdalja besedila</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4692"/>
-        <source>Number of columns in text frame</source>
-        <translation>Število stolpcev v okviru besedila</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4668"/>
-        <source>Line Spacing</source>
-        <translation>Razmik vrstic</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4383"/>
-        <source>Start Offset:</source>
-        <translation>Začetni zamik:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4321"/>
-        <source>X, Y, &amp;Z</source>
-        <translation>X, Y, &amp;Z</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4324"/>
-        <source>&amp;Shape</source>
-        <translation>&amp;Oblika</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4322"/>
-        <source>&amp;Text</source>
-        <translation>&amp;Besedilo</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4323"/>
-        <source>&amp;Image</source>
-        <translation>&amp;Slika</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4325"/>
-        <source>&amp;Line</source>
-        <translation>&amp;Črta</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4326"/>
-        <source>&amp;Colors</source>
-        <translation>&amp;Barve</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4422"/>
-        <source>&amp;X-Pos:</source>
-        <translation>&amp;X:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4423"/>
-        <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4333"/>
-        <source>&amp;Width:</source>
-        <translation>&amp;Širina:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4334"/>
-        <source>&amp;Height:</source>
-        <translation>&amp;Višina:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4335"/>
-        <source>&amp;Rotation:</source>
-        <translation>&amp;Sukanje:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4341"/>
-        <source>&amp;Edit Shape...</source>
-        <translation>&amp;Uredi obliko ...</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4361"/>
-        <source>R&amp;ound
-Corners:</source>
-        <translation>&amp;Zaobljeni
-robovi:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4363"/>
-        <source>Colu&amp;mns:</source>
-        <translation>&amp;Stolpci:</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>&amp;Gap:</source>
-        <translation type="obsolete">&amp;Razdalja:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4370"/>
-        <source>To&amp;p:</source>
-        <translation>&amp;Vrh:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4371"/>
-        <source>&amp;Bottom:</source>
-        <translation>&amp;Dno:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4372"/>
-        <source>&amp;Left:</source>
-        <translation>&amp;Levo:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4373"/>
-        <source>&amp;Right:</source>
-        <translation>&amp;Desno:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4374"/>
-        <source>T&amp;abulators...</source>
-        <translation>&amp;Tabulatorji ...</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Text &amp;Flows Around Frame</source>
-        <translation type="obsolete">Besedilo &amp;poteka okrog okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4397"/>
-        <source>Use &amp;Bounding Box</source>
-        <translation>Uporabi &amp;okvir</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4398"/>
-        <source>&amp;Use Contour Line</source>
-        <translation>&amp;Uporabi obrobno črto</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>&amp;Font Size:</source>
-        <translation type="obsolete">&amp;Velikost pisave:</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Zgoščevanje:</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>L&amp;ine Spacing:</source>
-        <translation type="obsolete">&amp;Razmik vrstic:</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>St&amp;yle:</source>
-        <translation type="obsolete">S&amp;log:</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Lan&amp;guage:</source>
-        <translation type="obsolete">&amp;Jezik:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4419"/>
-        <source>&amp;Free Scaling</source>
-        <translation>&amp;Prosto spreminjanje merila</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4424"/>
-        <source>X-Sc&amp;ale:</source>
-        <translation>&amp;Sprememba merila X:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4425"/>
-        <source>Y-Scal&amp;e:</source>
-        <translation>Sprememba &amp;merila Y:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4426"/>
-        <source>Scale &amp;To Frame Size</source>
-        <translation>Raztegni na &amp;velikost okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4427"/>
-        <source>P&amp;roportional</source>
-        <translation>&amp;Sorazmerno</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4448"/>
-        <source>&amp;Basepoint:</source>
-        <translation>&amp;Izhodišče:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4449"/>
-        <source>T&amp;ype of Line:</source>
-        <translation>&amp;Vrsta črte:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4461"/>
-        <source>Line &amp;Width:</source>
-        <translation>&amp;Širina črte:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4462"/>
-        <source>Ed&amp;ges:</source>
-        <translation>&amp;Robovi:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4476"/>
-        <source>&amp;Endings:</source>
-        <translation>&amp;Konci:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3228"/>
-        <source>&amp;X1:</source>
-        <translation>&amp;X1:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3229"/>
-        <source>X&amp;2:</source>
-        <translation>&amp;X2:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3230"/>
-        <source>Y&amp;1:</source>
-        <translation>&amp;Y1:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="3231"/>
-        <source>&amp;Y2:</source>
-        <translation>&amp;Y2:</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Pri oblivanju besedila uporabi pravokotno obrobo namesto oblike okvirja</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Pri oblivanju besedila uporabi dodatno črto na osnovi oblike okvirja</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Hyphenation language of frame</source>
-        <translation type="obsolete">Jezik za deljenje besed v tem okviru</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4666"/>
-        <source>Right to Left Writing</source>
-        <translation>Pisava z leve na desno</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4450"/>
-        <source>Start Arrow:</source>
-        <translation>Začetna puščica:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4451"/>
-        <source>End Arrow:</source>
-        <translation>Končna puščica:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4433"/>
-        <source>Fixed Linespacing</source>
-        <translation>Nespremenljiv razmik vrstic</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4434"/>
-        <source>Automatic Linespacing</source>
-        <translation>Samodejno razmikanje vrstic</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4435"/>
-        <source>Align to Baseline Grid</source>
-        <translation>Poravnaj na mrežo osnovnice </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4420"/>
-        <source>Actual X-DPI:</source>
-        <translation>Dejanska X-DPI:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4421"/>
-        <source>Actual Y-DPI:</source>
-        <translation>Dejanska Y-DPI:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4659"/>
-        <source>Offset to baseline of characters</source>
-        <translation>Zamik na osnovnico znakov</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4661"/>
-        <source>Scaling height of characters</source>
-        <translation>Višina spremembe merila znakov</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4667"/>
-        <source>Manual Tracking</source>
-        <translation>Ročno sledenje</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4204"/>
-        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Ime &quot;%1&quot; ni edinstveno.&lt;br/&gt;Prosim, izberite drugo.</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Barva črte besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Barva polnila besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4385"/>
-        <source>Fill Rule</source>
-        <translation>Pravilo polnjenja</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4386"/>
-        <source>Even-Odd</source>
-        <translation>Liho-sodo</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4387"/>
-        <source>Non Zero</source>
-        <translation>Neničelno</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Click to select the line spacing mode</source>
-        <translation type="obsolete">Klikni za izbiro kako so vrstice razmaknjene</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4662"/>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Barva poteze črke in/ali sence, odvisno od izbire. Če sta izbrani obe, si delita isto barvo.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4663"/>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Barva izbranega besedila. Če je izbran učinek pisave Orisano, bo to tudi barva polnila. Če je izbrano senčenje besedila, bo to najbolj vrhnja barva.</translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation type="obsolete">Besedilo v spodnjih okvirih naj obliva predmet. Možnosti spodaj določajo podrobnosti.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4653"/>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Uporabite okvirno škatlo, ki je vedno pravokotna, namesto oblike okvira za potek besedila ali okvire besedila pod predmetom. </translation>
-    </message>
-    <message>
-        <location filename="" line="7471221"/>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="obsolete">Uporabite drugo vrstico, izvorno temelječo na obliki okvira, za potek besedila ali okvire besedila pod predmetom. </translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="2415"/>
-        <source>Auto</source>
-        <translation>Samodejno</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4669"/>
-        <source>Click and hold down to select the line spacing mode.</source>
-        <translation>Klinite in držite pritisnjeno za izbor načina razmikanja črt.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4342"/>
-        <source>Transparency Settings</source>
-        <translation>Nastavitve prosojnosti</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4327"/>
-        <source>&amp;Group</source>
-        <translation>&amp;Združi</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4343"/>
-        <source>Opacity:</source>
-        <translation>Prekrivnost:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4344"/>
-        <source>Blend Mode:</source>
-        <translation>Način spajanja:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4346"/>
-        <source>Normal</source>
-        <translation>Navadno</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4347"/>
-        <source>Darken</source>
-        <translation>Potemni</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4348"/>
-        <source>Lighten</source>
-        <translation>Posvetli</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4349"/>
-        <source>Multiply</source>
-        <translation>Pomnoži</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4350"/>
-        <source>Screen</source>
-        <translation>Zaslon</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4351"/>
-        <source>Overlay</source>
-        <translation>Prekrij</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4352"/>
-        <source>Hard Light</source>
-        <translation>Ostra luč</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4353"/>
-        <source>Soft Light</source>
-        <translation>Mehka luč</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4354"/>
-        <source>Difference</source>
-        <translation>Razlika</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4355"/>
-        <source>Exclusion</source>
-        <translation>Izključitev</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4356"/>
-        <source>Color Dodge</source>
-        <translation>Barvno posvetli</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4357"/>
-        <source>Color Burn</source>
-        <translation>Barvno potemni</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4358"/>
-        <source>Hue</source>
-        <translation>Obarvanost</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4360"/>
-        <source>Color</source>
-        <translation>Barva</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4366"/>
-        <source>Gap:</source>
-        <translation>Razmik:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4367"/>
-        <source>Width:</source>
-        <translation>Širina:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4377"/>
-        <source>Default</source>
-        <translation>Privzeto</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4378"/>
-        <source>Stair Step</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4379"/>
-        <source>Skew</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4380"/>
-        <source>Flip Text</source>
-        <translation>Prezrcali besedilo</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4382"/>
-        <source>Type:</source>
-        <translation>Vrsta:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4394"/>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation>Besedilo &amp;poteka okrog okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4395"/>
-        <source>Disabled</source>
-        <translation>Izključeno</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4396"/>
-        <source>Use Frame &amp;Shape</source>
-        <translation>Uporabi &amp;obliko okvira</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4399"/>
-        <source>Use Image Clip Path</source>
-        <translation>Uporabi pot obrezovanja slike</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4400"/>
-        <source>Paragraph St&amp;yle:</source>
-        <translation>Slog &amp;odstavka:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4401"/>
-        <source>Character St&amp;yle:</source>
-        <translation>Slog &amp;znaka:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4402"/>
-        <source>Optical Margins:</source>
-        <translation>Optične meje:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4413"/>
-        <source>Word Tracking</source>
-        <translation>Sledenje besed</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4417"/>
-        <source>Min:</source>
-        <translation>Najm:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4415"/>
-        <source>Norm:</source>
-        <translation>Navad:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4416"/>
-        <source>Glyph Extension</source>
-        <translation>Končnica znaka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4418"/>
-        <source>Max:</source>
-        <translation>Najv:</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4428"/>
-        <source>Image Effects</source>
-        <translation>Slikovni učinki</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4429"/>
-        <source>Extended Image Properties</source>
-        <translation>Razširjene lastnosti slike</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4484"/>
-        <source>Overprinting</source>
-        <translation>Pretiskanje</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4485"/>
-        <source>Knockout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4486"/>
-        <source>Overprint</source>
-        <translation>Pretiskaj</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4633"/>
-        <source>Group the selected objects</source>
-        <translation>Združi izbrane predmete</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4634"/>
-        <source>Destroys the selected group</source>
-        <translation>Uniči izbrano skupino</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4644"/>
-        <source>Enable or disable exporting of the object</source>
-        <translation>Omogoči ali onemogoči izvoz predmeta</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4651"/>
-        <source>Disable text flow from lower frames around object</source>
-        <translation>Onemogoči potek besedila iz nižjih okvirov okoli predmeta</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4652"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Uporabi obliko okvira za potek besedila besedilnega okvira pod predmetom.</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4654"/>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation>Če je izbrano, lahko contour line urejate z orodjem Uredi lik na paleti zgoraj. Če urejate prek palete likov, to postane druga ločilna črta, ki izvorno temelji na obliki okvira za potek besedila ali besedilnih okvirov pod predmetom. č</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4655"/>
-        <source>Use the clipping path of the image</source>
-        <translation>Uporabi pot obrezovanja slike</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4670"/>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>Slog odstavka trenutno izbranega besedila ali odstavka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4671"/>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation>Slog znakov trenutno izbranega besedila ali odstavka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4672"/>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation>Odstrani neposredno oblikovanje odstavka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4673"/>
-        <source>Remove Direct Character Formatting</source>
-        <translation>Odstrani neposredno oblikovanje znaka</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4676"/>
-        <source>Minimal width of spaces between words</source>
-        <translation>Najmanjša širina presledka med besedami</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4677"/>
-        <source>Normal width of spaces between words</source>
-        <translation>Navadna širina presledka med besedami</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4678"/>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>Najmanjša mera stisnjenosti črk za poravnavo</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4679"/>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation>Največja razširitev znakov za poravnavo</translation>
-    </message>
-    <message>
-        <location filename="../propertiespalette.cpp" line="4680"/>
-        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
-        <translation>Uporablja viseče spodsekavanje ločil in robov, da doseže lepši videz stolpcev</translation>
     </message>
 </context>
 <context>
@@ -22949,6 +21432,1639 @@ Ali jih želite uporabiti z novo različico?</translation>
         <location filename="../marginWidget.cpp" line="490"/>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation>Tu lahko izberete vnaprej določeno postavitev strani. &apos;Brez&apos; pusti robove pri miru, Gutenberg jih določi klasično. &apos;Revija&apos; določi vse robove na isto vrednost, prednost ima leva ali notranja vrednost.</translation>
+    </message>
+</context>
+<context>
+    <name>PrintDialog</name>
+    <message>
+        <location filename="../printdialog.cpp" line="822"/>
+        <source>All</source>
+        <translation>Vse</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="821"/>
+        <source>Cyan</source>
+        <translation>Cijanska</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="797"/>
+        <source>File</source>
+        <translation>Datoteka</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="820"/>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Postscript-Files (*.ps);;All Files (*)</source>
+        <translation type="obsolete">Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="819"/>
+        <source>Yellow</source>
+        <translation>Rumena</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="226"/>
+        <source>Options</source>
+        <translation>Možnosti</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="620"/>
+        <source>Save as</source>
+        <translation>Shrani kot</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="67"/>
+        <source>Setup Printer</source>
+        <translation>Nastavi tiskalnik</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="818"/>
+        <source>Black</source>
+        <translation>Črna</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="380"/>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Vpišite z vejicami ločen spisek območij.
+Območje je lahko * za vse strani, 1-5 za 
+več strani ali samo številka ene strani.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="74"/>
+        <source>Print Destination</source>
+        <translation>Cilj tiskanja</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="115"/>
+        <source>&amp;Options...</source>
+        <translation>&amp;Možnosti ...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="127"/>
+        <source>&amp;File:</source>
+        <translation>&amp;Datoteka:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="133"/>
+        <source>C&amp;hange...</source>
+        <translation>&amp;Spremeni ...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="140"/>
+        <source>A&amp;lternative Printer Command</source>
+        <translation>&amp;Nadomesten ukaz za tiskanje</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="149"/>
+        <source>Co&amp;mmand:</source>
+        <translation>&amp;Ukaz:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="157"/>
+        <source>Range</source>
+        <translation>Obseg</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="162"/>
+        <source>Print &amp;All</source>
+        <translation>Natisni &amp;vse</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="634"/>
+        <source>Print Current Pa&amp;ge</source>
+        <translation>Natisni &amp;trenutno stran</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="166"/>
+        <source>Print &amp;Range</source>
+        <translation>Natisni &amp;obseg</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="186"/>
+        <source>N&amp;umber of Copies:</source>
+        <translation>&amp;Število kopij:</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Print &amp;Normal</source>
+        <translation type="obsolete">Tiskaj &amp;običajno</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Print &amp;Separations</source>
+        <translation type="obsolete">Tiskaj &amp;separacije</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Pr&amp;int In Color If Available</source>
+        <translation type="obsolete">Če je mogoče tiskaj v &amp;barvah</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Print In Gra&amp;yscale</source>
+        <translation type="obsolete">Tiskaj &amp;črnobelo</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Ad&amp;vanced Options...</source>
+        <translation type="obsolete">&amp;Napredne možnosti...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="353"/>
+        <source>&amp;Print</source>
+        <translation>&amp;Natisni</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">Prekli&amp;či</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Use an alternative print manager, such as kprinter or gtklp,
+to utilize additional printing options</source>
+        <translation type="obsolete">Uporabite drug upravljalnik tiskanja, na primer kprinter ali 
+gtklp, za dodatne možnosti tiskanja</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="582"/>
+        <source>Print Normal</source>
+        <translation>Tiskaj navadno</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="199"/>
+        <source>Print Separations</source>
+        <translation>Tiskaj ločeno (separacije)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="203"/>
+        <source>Print in Color if Available</source>
+        <translation>Če je mogoče, natisni v barvah</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="204"/>
+        <source>Print in Grayscale</source>
+        <translation>Natisni sivinsko</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="221"/>
+        <source>PostScript Level 1</source>
+        <translation>PostScript ravni 1</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="222"/>
+        <source>PostScript Level 2</source>
+        <translation>PostScript ravni 2</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="223"/>
+        <source>PostScript Level 3</source>
+        <translation>PostScript ravni 3</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="232"/>
+        <source>Page</source>
+        <translation>Stran</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="238"/>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Vodoravno prezrcali stran(i)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="241"/>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Navpično prezrcali stran(i)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="244"/>
+        <source>Set Media Size</source>
+        <translation>Nastavi velikost papirja</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="250"/>
+        <source>Color</source>
+        <translation>Barva</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="256"/>
+        <source>Apply Under Color Removal</source>
+        <translation>Uveljavi odstranjevanje pod barvo</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="259"/>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Pretvori čiste barve v procesne barve</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Apply ICC Profiles</source>
+        <translation type="obsolete">Uporabi profile ICC</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="271"/>
+        <source>Advanced Options</source>
+        <translation>Napredne možnosti</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="348"/>
+        <source>Preview...</source>
+        <translation>Predogled ...</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="382"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation>Nastavi raven PostScripta.
+Ravni 1 in 2 lahko ustvarita velike datoteke</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
+magenta barve s črnino. 
+POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
+lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
+narediti nekaj preiskusov. 
+POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="620"/>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation>Datoteke PostScript (*.ps);; Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="381"/>
+        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+        <translation>Za dodatne možnosti tiskanja uporabite drug upravljalnik tiskanja, na primer kprinter ali gtklp</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="383"/>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>To je način za zamenjavo sivin sestavljenih iz cijanske, rumene in magentne barve s črnino. POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej narediti nekaj poskusov. POD tudi zmanjša možnost prekomerne nasičenosti črnil CMY.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="384"/>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Vključi čiste barve, da se pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv v tiskarni, potem je verjetno najbolje, da to pustite vključeno.</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation type="obsolete">Omogoča vključevanje profilov ICC v pogovorno okno tiskanja, če je upravljalnik barv vključen</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="388"/>
+        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation>To omogoča natančno določitev velikosti datoteke PostScript. Ni priporočeno, razen če to zahteva vaš tiskalnik.</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="246"/>
+        <source>Clip to Page Margins</source>
+        <translation>Poreži do robov strani</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation type="obsolete">Ne kaži predmet, ki so zunaj robov</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="570"/>
+        <source>Failed to retrieve printer settings</source>
+        <translation>Nastavitev tiskalnika ni mogoče pridobiti</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="377"/>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation>Ne pokaži predmetov, ki so zunaj robov tiskanja strani</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="262"/>
+        <source>Force Overprint Mode</source>
+        <translation>Vsili pretisk</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="267"/>
+        <source>Apply Color Profiles</source>
+        <translation>Uporabi barvne profile</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="278"/>
+        <source>Printer Marks</source>
+        <translation>Oznake tiskalnika</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="283"/>
+        <source>Crop Marks</source>
+        <translation>Oznake za porezavo</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="285"/>
+        <source>Bleed Marks</source>
+        <translation>Oznake dodatka za porezavo</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="287"/>
+        <source>Registration Marks</source>
+        <translation>Registrske oznake</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="289"/>
+        <source>Color Bars</source>
+        <translation>Barvni stolpci</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="292"/>
+        <source>Offset:</source>
+        <translation>Zamik:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="297"/>
+        <source>Marks</source>
+        <translation>Oznake</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="304"/>
+        <source>Bleed Settings</source>
+        <translation>Nastavitve dodatka za porezavo</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="310"/>
+        <source>Top:</source>
+        <translation>Vrh:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="315"/>
+        <source>Bottom:</source>
+        <translation>Dno:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="320"/>
+        <source>Left:</source>
+        <translation>Levo:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="325"/>
+        <source>Right:</source>
+        <translation>Desno:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="329"/>
+        <source>Use Document Bleeds</source>
+        <translation>Uporabi dodatek za porezavo dokumenta</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="333"/>
+        <source>Bleeds</source>
+        <translation>Dodatki za porezavo</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="336"/>
+        <source>Inside:</source>
+        <translation>Navznoter:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="337"/>
+        <source>Outside:</source>
+        <translation>Navzven:</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="394"/>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega vrha strani</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="395"/>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega dna strani</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="396"/>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega levega roba strani</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="397"/>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Oddaljenost dodatka za porezavo od fizičnega desnega roba strani</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="385"/>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation>Omogoči splošni način pretiska za ta dokument in preglasi nastavitve predmeta</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="387"/>
+        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
+        <translation>Omogoča vključevanje barvnih profilov v tok tiskanja, če je upravljalnik barv vključen</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="389"/>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation>To ustvari oznake za porezavo v dokumentu PDF, te pa nakazujejo, kje naj bo po zaključenem tiskanju odrezan ali prerezan papir</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="390"/>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation>S tem ustvarite dodatek za porezavo, ki ga nakazujejo  _ . _ in prikazujejo mejo dodatka</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="391"/>
+        <source>Add registration marks which are added to each separation</source>
+        <translation>Dodaj registrske oznake, ki so dodane vsaki separaciji</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="392"/>
+        <source>Add color calibration bars</source>
+        <translation>Dodaj barvne stolpce za kalibracijo</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="393"/>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation>Nakaži razdaljo odmika za registrske oznake</translation>
+    </message>
+    <message>
+        <location filename="../printdialog.cpp" line="398"/>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation>Uporabi nastavitve dodatka za porezavo iz nastavitev dokumenta</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette</name>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4488"/>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source> p</source>
+        <translation type="obsolete"> pik</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>OK</source>
+        <translation type="obsolete">V redu</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source> in</source>
+        <translation type="obsolete"> in</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source> mm</source>
+        <translation type="obsolete"> mm</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4500"/>
+        <source> pt</source>
+        <translation> točk</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4329"/>
+        <source>Name</source>
+        <translation>Ime</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>None</source>
+        <translation type="obsolete">Brez</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4640"/>
+        <source>Move to back</source>
+        <translation>Premakni v ozadje</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4337"/>
+        <source>Level</source>
+        <translation>Raven</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4624"/>
+        <source>Width</source>
+        <translation>Širina</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4706"/>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>Obdrži razmerje spremembe merila X in Y enako</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4630"/>
+        <source>Select bottom left for basepoint</source>
+        <translation>Izberi spodnji levi kot za izhodišče</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4375"/>
+        <source>Path Text Properties</source>
+        <translation>Lastnosti besedila po poti</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4682"/>
+        <source>Change settings for left or end points</source>
+        <translation>Spremeni nastavitve levih ali končnih točk</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4635"/>
+        <source>Flip Horizontal</source>
+        <translation>Prezrcali vodoravno </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4441"/>
+        <source>Absolute Colorimetric</source>
+        <translation>Absolutne barvne vrednosti</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4526"/>
+        <source>No Style</source>
+        <translation>Brez sloga</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4636"/>
+        <source>Flip Vertical</source>
+        <translation>Prezrcali navpično</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4629"/>
+        <source>Select top right for basepoint</source>
+        <translation>Izberi zgornji desni kot za izhodišče</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4711"/>
+        <source>Rendering intent for the image</source>
+        <translation>Namen upodobitve slike</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4696"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Razdalja med besedilom in dnom okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4472"/>
+        <source>Flat Cap</source>
+        <translation>Raven konec</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4699"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Uredi nastavitve tabulatorja v besedilnem okviru ...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4384"/>
+        <source>Distance from Curve:</source>
+        <translation>Razdalja do krivulje:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4627"/>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Točka, od katere se merijo razdalje ali koti sukanja</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4703"/>
+        <source>Vertical offset of image within frame</source>
+        <translation>Navpični zamik slike znotraj okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4694"/>
+        <source>Distance between columns</source>
+        <translation>Razdalja med stolpci</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4710"/>
+        <source>Source profile of the image</source>
+        <translation>Izvorni profil slike</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4705"/>
+        <source>Resize the image vertically</source>
+        <translation>Spremeni velikost slike navpično</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4467"/>
+        <source>Round Join</source>
+        <translation>Zaobljen spoj</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4431"/>
+        <source>Rendering Intent:</source>
+        <translation>Namen upodobitve:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4482"/>
+        <source>Line at Bottom</source>
+        <translation>Črta na dnu</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3021"/>
+        <source>Column width</source>
+        <translation>Širina stolpcev</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4625"/>
+        <source>Height</source>
+        <translation>Višina</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4621"/>
+        <source>Name of selected object</source>
+        <translation>Ime izbranega predmeta</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4639"/>
+        <source>Move to front</source>
+        <translation>Premakni v ospredje</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4664"/>
+        <source>Saturation of color of text stroke</source>
+        <translation>Nasičenost barve črte besedila</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4658"/>
+        <source>Font Size</source>
+        <translation>Velikost pisave</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4446"/>
+        <source>End Points</source>
+        <translation>Končne točke</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Shade:</source>
+        <translation type="obsolete">Senca:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4340"/>
+        <source>Shape:</source>
+        <translation>Oblika:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4623"/>
+        <source>Vertical position of current basepoint</source>
+        <translation>Navpični položaj trenutnega izhodišča</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation type="obsolete">Ime &quot;%1&quot; ni edinstveno.
+Prosim, izberite drugo.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4657"/>
+        <source>Font of selected text or object</source>
+        <translation>Pisava za izbrano besedilo ali predmet</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4704"/>
+        <source>Resize the image horizontally</source>
+        <translation>Spremeni velikost slike vodoravno</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4665"/>
+        <source>Saturation of color of text fill</source>
+        <translation>Nasičenost barve polnila besedila</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4445"/>
+        <source>Left Point</source>
+        <translation>Leva točka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4702"/>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Vodoravni zamik slike znotraj okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4695"/>
+        <source>Distance of text from top of frame</source>
+        <translation>Razdalja med besedilom in vrhom okvirja</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Custom Spacing</source>
+        <translation type="obsolete">Posebna razdalja</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4319"/>
+        <source>Properties</source>
+        <translation>Lastnosti</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4479"/>
+        <source>Line at Top</source>
+        <translation>Črta na vrhu</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4685"/>
+        <source>Type of line joins</source>
+        <translation>Vrste spojev črt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4684"/>
+        <source>Thickness of line</source>
+        <translation>Debelina črte</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4660"/>
+        <source>Scaling width of characters</source>
+        <translation>Širina spremembe merila znakov</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Style of current paragraph</source>
+        <translation type="obsolete">Slog trenutnega odstavka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4631"/>
+        <source>Select bottom right for basepoint</source>
+        <translation>Izberi spodnji desni kot za izhodišče</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4473"/>
+        <source>Square Cap</source>
+        <translation>Kvadraten konec</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4626"/>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Sukanje predmeta okrog trenutnega izhodišča</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4481"/>
+        <source>Line at the Right </source>
+        <translation>Črta na desni</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4480"/>
+        <source>Line at the Left</source>
+        <translation>Črta na levi</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4686"/>
+        <source>Type of line end</source>
+        <translation>Vrste zaključkov črt</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4381"/>
+        <source>Show Curve</source>
+        <translation>Pokaži krivuljo</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Manual Kerning</source>
+        <translation type="obsolete">Ročno zgoščevanje</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4642"/>
+        <source>Lock or unlock the object</source>
+        <translation>Zakleni ali odkleni predmet </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4438"/>
+        <source>Perceptual</source>
+        <translation>Zaznavno</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4693"/>
+        <source>Switches between Gap or Column width</source>
+        <translation>Preklopi med presledkom in širino stolpca</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Color of text stroke</source>
+        <translation type="obsolete">Barva črte besedila</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4439"/>
+        <source>Relative Colorimetric</source>
+        <translation>Relativne barvne vrednosti</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4641"/>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Nakaže raven, na kateri je predmet, 0 pomeni, da je predmet na dnu</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4708"/>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Naj slika ustreza velikosti okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4643"/>
+        <source>Lock or unlock the size of the object</source>
+        <translation>Zakleni ali odkleni velikost predmeta</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation type="obsolete">Naj besedilo iz nižjih okvirjev obliva obliko predmeta</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4628"/>
+        <source>Select top left for basepoint</source>
+        <translation>Izberi zgornji levi kot za izhodišče</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4709"/>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation>Uporabi raje razmerje stranic slike in ne okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4637"/>
+        <source>Move one level up</source>
+        <translation>Premakni eno raven navzgor </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4466"/>
+        <source>Bevel Join</source>
+        <translation>Nagnjen spoj</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4687"/>
+        <source>Line style of current object</source>
+        <translation>Slog črte trenutnega predmeta</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4638"/>
+        <source>Move one level down</source>
+        <translation>Premakni eno raven navzdol </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4465"/>
+        <source>Miter Join</source>
+        <translation>Spoj pod kotom</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4474"/>
+        <source>Round Cap</source>
+        <translation>Zaobljen konec</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4330"/>
+        <source>Geometry</source>
+        <translation>Geometrija</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4697"/>
+        <source>Distance of text from left of frame</source>
+        <translation>Razdalja med besedilom in levim robom okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4336"/>
+        <source>Basepoint:</source>
+        <translation>Izhodišče:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4440"/>
+        <source>Saturation</source>
+        <translation>Nasičenost</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Enable or disable printing of the object</source>
+        <translation type="obsolete">Vključi ali izključi možnost tiskanja predmeta</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Color of text fill</source>
+        <translation type="obsolete">Barva polnila besedila</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4690"/>
+        <source>Edit shape of the frame...</source>
+        <translation>Uredi obliko okvira ...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4707"/>
+        <source>Keep the aspect ratio</source>
+        <translation>Ohrani razmerja</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Warning</source>
+        <translation type="obsolete">Opozorilo</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4698"/>
+        <source>Distance of text from right of frame</source>
+        <translation>Razdalja med besedilom in desnim robom okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4430"/>
+        <source>Input Profile:</source>
+        <translation>Vhodni profil:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4683"/>
+        <source>Pattern of line</source>
+        <translation>Vzorec črte</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4632"/>
+        <source>Select center for basepoint</source>
+        <translation>Izberi središče za izhodišče</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4478"/>
+        <source>Cell Lines</source>
+        <translation>Črte celic</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4622"/>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Vodoravni položaj trenutnega izhodišča</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4701"/>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Dovoli, da je slika lahko druge velikosti kot okvir</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4691"/>
+        <source>Set radius of corner rounding</source>
+        <translation>Nastavi radij zaobljenosti roba</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4689"/>
+        <source>Choose the shape of frame...</source>
+        <translation>Izberi obliko okvira ...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4362"/>
+        <source>Distance of Text</source>
+        <translation>Razdalja besedila</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4692"/>
+        <source>Number of columns in text frame</source>
+        <translation>Število stolpcev v okviru besedila</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4668"/>
+        <source>Line Spacing</source>
+        <translation>Razmik vrstic</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4383"/>
+        <source>Start Offset:</source>
+        <translation>Začetni zamik:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4321"/>
+        <source>X, Y, &amp;Z</source>
+        <translation>X, Y, &amp;Z</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4324"/>
+        <source>&amp;Shape</source>
+        <translation>&amp;Oblika</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4322"/>
+        <source>&amp;Text</source>
+        <translation>&amp;Besedilo</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4323"/>
+        <source>&amp;Image</source>
+        <translation>&amp;Slika</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4325"/>
+        <source>&amp;Line</source>
+        <translation>&amp;Črta</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4326"/>
+        <source>&amp;Colors</source>
+        <translation>&amp;Barve</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4422"/>
+        <source>&amp;X-Pos:</source>
+        <translation>&amp;X:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4423"/>
+        <source>&amp;Y-Pos:</source>
+        <translation>&amp;Y:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4333"/>
+        <source>&amp;Width:</source>
+        <translation>&amp;Širina:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4334"/>
+        <source>&amp;Height:</source>
+        <translation>&amp;Višina:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4335"/>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Sukanje:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4341"/>
+        <source>&amp;Edit Shape...</source>
+        <translation>&amp;Uredi obliko ...</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4361"/>
+        <source>R&amp;ound
+Corners:</source>
+        <translation>&amp;Zaobljeni
+robovi:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4363"/>
+        <source>Colu&amp;mns:</source>
+        <translation>&amp;Stolpci:</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>&amp;Gap:</source>
+        <translation type="obsolete">&amp;Razdalja:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4370"/>
+        <source>To&amp;p:</source>
+        <translation>&amp;Vrh:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4371"/>
+        <source>&amp;Bottom:</source>
+        <translation>&amp;Dno:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4372"/>
+        <source>&amp;Left:</source>
+        <translation>&amp;Levo:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4373"/>
+        <source>&amp;Right:</source>
+        <translation>&amp;Desno:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4374"/>
+        <source>T&amp;abulators...</source>
+        <translation>&amp;Tabulatorji ...</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Text &amp;Flows Around Frame</source>
+        <translation type="obsolete">Besedilo &amp;poteka okrog okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4397"/>
+        <source>Use &amp;Bounding Box</source>
+        <translation>Uporabi &amp;okvir</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4398"/>
+        <source>&amp;Use Contour Line</source>
+        <translation>&amp;Uporabi obrobno črto</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>&amp;Font Size:</source>
+        <translation type="obsolete">&amp;Velikost pisave:</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>&amp;Kerning:</source>
+        <translation type="obsolete">&amp;Zgoščevanje:</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>L&amp;ine Spacing:</source>
+        <translation type="obsolete">&amp;Razmik vrstic:</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>St&amp;yle:</source>
+        <translation type="obsolete">S&amp;log:</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Lan&amp;guage:</source>
+        <translation type="obsolete">&amp;Jezik:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4419"/>
+        <source>&amp;Free Scaling</source>
+        <translation>&amp;Prosto spreminjanje merila</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4424"/>
+        <source>X-Sc&amp;ale:</source>
+        <translation>&amp;Sprememba merila X:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4425"/>
+        <source>Y-Scal&amp;e:</source>
+        <translation>Sprememba &amp;merila Y:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4426"/>
+        <source>Scale &amp;To Frame Size</source>
+        <translation>Raztegni na &amp;velikost okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4427"/>
+        <source>P&amp;roportional</source>
+        <translation>&amp;Sorazmerno</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4448"/>
+        <source>&amp;Basepoint:</source>
+        <translation>&amp;Izhodišče:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4449"/>
+        <source>T&amp;ype of Line:</source>
+        <translation>&amp;Vrsta črte:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4461"/>
+        <source>Line &amp;Width:</source>
+        <translation>&amp;Širina črte:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4462"/>
+        <source>Ed&amp;ges:</source>
+        <translation>&amp;Robovi:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4476"/>
+        <source>&amp;Endings:</source>
+        <translation>&amp;Konci:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3228"/>
+        <source>&amp;X1:</source>
+        <translation>&amp;X1:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3229"/>
+        <source>X&amp;2:</source>
+        <translation>&amp;X2:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3230"/>
+        <source>Y&amp;1:</source>
+        <translation>&amp;Y1:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="3231"/>
+        <source>&amp;Y2:</source>
+        <translation>&amp;Y2:</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Pri oblivanju besedila uporabi pravokotno obrobo namesto oblike okvirja</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Pri oblivanju besedila uporabi dodatno črto na osnovi oblike okvirja</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Hyphenation language of frame</source>
+        <translation type="obsolete">Jezik za deljenje besed v tem okviru</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4666"/>
+        <source>Right to Left Writing</source>
+        <translation>Pisava z leve na desno</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4450"/>
+        <source>Start Arrow:</source>
+        <translation>Začetna puščica:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4451"/>
+        <source>End Arrow:</source>
+        <translation>Končna puščica:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4433"/>
+        <source>Fixed Linespacing</source>
+        <translation>Nespremenljiv razmik vrstic</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4434"/>
+        <source>Automatic Linespacing</source>
+        <translation>Samodejno razmikanje vrstic</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4435"/>
+        <source>Align to Baseline Grid</source>
+        <translation>Poravnaj na mrežo osnovnice </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4420"/>
+        <source>Actual X-DPI:</source>
+        <translation>Dejanska X-DPI:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4421"/>
+        <source>Actual Y-DPI:</source>
+        <translation>Dejanska Y-DPI:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4659"/>
+        <source>Offset to baseline of characters</source>
+        <translation>Zamik na osnovnico znakov</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4661"/>
+        <source>Scaling height of characters</source>
+        <translation>Višina spremembe merila znakov</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4667"/>
+        <source>Manual Tracking</source>
+        <translation>Ročno sledenje</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4204"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation>Ime &quot;%1&quot; ni edinstveno.&lt;br/&gt;Prosim, izberite drugo.</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="obsolete">Barva črte besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="obsolete">Barva polnila besedila. Na voljo le z nastavitvijo pisave na &quot;obrobo&quot;.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4385"/>
+        <source>Fill Rule</source>
+        <translation>Pravilo polnjenja</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4386"/>
+        <source>Even-Odd</source>
+        <translation>Liho-sodo</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4387"/>
+        <source>Non Zero</source>
+        <translation>Neničelno</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Click to select the line spacing mode</source>
+        <translation type="obsolete">Klikni za izbiro kako so vrstice razmaknjene</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4662"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Barva poteze črke in/ali sence, odvisno od izbire. Če sta izbrani obe, si delita isto barvo.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4663"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Barva izbranega besedila. Če je izbran učinek pisave Orisano, bo to tudi barva polnila. Če je izbrano senčenje besedila, bo to najbolj vrhnja barva.</translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="obsolete">Besedilo v spodnjih okvirih naj obliva predmet. Možnosti spodaj določajo podrobnosti.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4653"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Uporabite okvirno škatlo, ki je vedno pravokotna, namesto oblike okvira za potek besedila ali okvire besedila pod predmetom. </translation>
+    </message>
+    <message>
+        <location filename="" line="7471221"/>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="obsolete">Uporabite drugo vrstico, izvorno temelječo na obliki okvira, za potek besedila ali okvire besedila pod predmetom. </translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="2415"/>
+        <source>Auto</source>
+        <translation>Samodejno</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4669"/>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Klinite in držite pritisnjeno za izbor načina razmikanja črt.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4342"/>
+        <source>Transparency Settings</source>
+        <translation>Nastavitve prosojnosti</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4327"/>
+        <source>&amp;Group</source>
+        <translation>&amp;Združi</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4343"/>
+        <source>Opacity:</source>
+        <translation>Prekrivnost:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4344"/>
+        <source>Blend Mode:</source>
+        <translation>Način spajanja:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4346"/>
+        <source>Normal</source>
+        <translation>Navadno</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4347"/>
+        <source>Darken</source>
+        <translation>Potemni</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4348"/>
+        <source>Lighten</source>
+        <translation>Posvetli</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4349"/>
+        <source>Multiply</source>
+        <translation>Pomnoži</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4350"/>
+        <source>Screen</source>
+        <translation>Zaslon</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4351"/>
+        <source>Overlay</source>
+        <translation>Prekrij</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4352"/>
+        <source>Hard Light</source>
+        <translation>Ostra luč</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4353"/>
+        <source>Soft Light</source>
+        <translation>Mehka luč</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4354"/>
+        <source>Difference</source>
+        <translation>Razlika</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4355"/>
+        <source>Exclusion</source>
+        <translation>Izključitev</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4356"/>
+        <source>Color Dodge</source>
+        <translation>Barvno posvetli</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4357"/>
+        <source>Color Burn</source>
+        <translation>Barvno potemni</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4358"/>
+        <source>Hue</source>
+        <translation>Obarvanost</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4360"/>
+        <source>Color</source>
+        <translation>Barva</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4366"/>
+        <source>Gap:</source>
+        <translation>Razmik:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4367"/>
+        <source>Width:</source>
+        <translation>Širina:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4377"/>
+        <source>Default</source>
+        <translation>Privzeto</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4378"/>
+        <source>Stair Step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4379"/>
+        <source>Skew</source>
+        <translation>Nagib</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4380"/>
+        <source>Flip Text</source>
+        <translation>Prezrcali besedilo</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4382"/>
+        <source>Type:</source>
+        <translation>Vrsta:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4394"/>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation>Besedilo &amp;poteka okrog okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4395"/>
+        <source>Disabled</source>
+        <translation>Izključeno</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4396"/>
+        <source>Use Frame &amp;Shape</source>
+        <translation>Uporabi &amp;obliko okvira</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4399"/>
+        <source>Use Image Clip Path</source>
+        <translation>Uporabi pot obrezovanja slike</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4400"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation>Slog &amp;odstavka:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4401"/>
+        <source>Character St&amp;yle:</source>
+        <translation>Slog &amp;znaka:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4402"/>
+        <source>Optical Margins:</source>
+        <translation>Optične meje:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4413"/>
+        <source>Word Tracking</source>
+        <translation>Sledenje besed</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4417"/>
+        <source>Min:</source>
+        <translation>Najm:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4415"/>
+        <source>Norm:</source>
+        <translation>Navad:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4416"/>
+        <source>Glyph Extension</source>
+        <translation>Končnica znaka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4418"/>
+        <source>Max:</source>
+        <translation>Najv:</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4428"/>
+        <source>Image Effects</source>
+        <translation>Slikovni učinki</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4429"/>
+        <source>Extended Image Properties</source>
+        <translation>Razširjene lastnosti slike</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4484"/>
+        <source>Overprinting</source>
+        <translation>Pretiskanje</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4485"/>
+        <source>Knockout</source>
+        <translation>Izpodrivanje</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4486"/>
+        <source>Overprint</source>
+        <translation>Pretiskaj</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4633"/>
+        <source>Group the selected objects</source>
+        <translation>Združi izbrane predmete</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4634"/>
+        <source>Destroys the selected group</source>
+        <translation>Uniči izbrano skupino</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4644"/>
+        <source>Enable or disable exporting of the object</source>
+        <translation>Omogoči ali onemogoči izvoz predmeta</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4651"/>
+        <source>Disable text flow from lower frames around object</source>
+        <translation>Onemogoči potek besedila iz nižjih okvirov okoli predmeta</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4652"/>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation>Uporabi obliko okvira za potek besedila besedilnega okvira pod predmetom.</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4654"/>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
+        <translation>Če je izbrano, lahko contour line urejate z orodjem Uredi lik na paleti zgoraj. Če urejate prek palete likov, to postane druga ločilna črta, ki izvorno temelji na obliki okvira za potek besedila ali besedilnih okvirov pod predmetom. č</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4655"/>
+        <source>Use the clipping path of the image</source>
+        <translation>Uporabi pot obrezovanja slike</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4670"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation>Slog odstavka trenutno izbranega besedila ali odstavka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4671"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation>Slog znakov trenutno izbranega besedila ali odstavka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4672"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation>Odstrani neposredno oblikovanje odstavka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4673"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation>Odstrani neposredno oblikovanje znaka</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4676"/>
+        <source>Minimal width of spaces between words</source>
+        <translation>Najmanjša širina presledka med besedami</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4677"/>
+        <source>Normal width of spaces between words</source>
+        <translation>Navadna širina presledka med besedami</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4678"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation>Najmanjša mera stisnjenosti črk za poravnavo</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4679"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation>Največja razširitev znakov za poravnavo</translation>
+    </message>
+    <message>
+        <location filename="../propertiespalette.cpp" line="4680"/>
+        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation>Uporablja viseče spodsekavanje ločil in robov, da doseže lepši videz stolpcev</translation>
     </message>
 </context>
 <context>
@@ -35961,12 +36077,12 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabpdfoptions.cpp" line="792"/>
         <source>Registration Marks</source>
-        <translation type="unfinished">Registrske oznake</translation>
+        <translation>Registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="794"/>
         <source>Color Bars</source>
-        <translation type="unfinished">Barvni stolpci</translation>
+        <translation>Barvni stolpci</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="796"/>
@@ -36011,7 +36127,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabpdfoptions.cpp" line="860"/>
         <source>Pre-Press</source>
-        <translation type="unfinished">Pred tiskanjem</translation>
+        <translation>Pred tiskanjem</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="907"/>
@@ -36111,12 +36227,12 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabpdfoptions.cpp" line="981"/>
         <source>Add registration marks to each separation</source>
-        <translation type="unfinished">Vsaki separaciji dodaj registrske oznake</translation>
+        <translation>Vsaki separaciji dodaj registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="982"/>
         <source>Add color calibration bars</source>
-        <translation type="unfinished">Dodaj barvne stolpce za kalibracijo</translation>
+        <translation>Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="983"/>
@@ -36126,7 +36242,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabpdfoptions.cpp" line="984"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished">Nakaži odmik razdalje za registrske oznake</translation>
+        <translation>Nakaži odmik razdalje za registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabpdfoptions.cpp" line="989"/>
@@ -36361,12 +36477,12 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabprinter.ui" line="318"/>
         <source>Add color calibration bars</source>
-        <translation type="unfinished">Dodaj barvne stolpce za kalibracijo</translation>
+        <translation>Dodaj barvne stolpce za kalibracijo</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="321"/>
         <source>Color Bars</source>
-        <translation type="unfinished">Barvni stolpci</translation>
+        <translation>Barvni stolpci</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="331"/>
@@ -36376,12 +36492,12 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     <message>
         <location filename="../tabprinter.ui" line="341"/>
         <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished">Dodaj registrske označbe, ki so dodane vsaki separaciji posebej</translation>
+        <translation>Dodaj registrske oznake, ki so dodane vsaki separaciji posebej</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="344"/>
         <source>Registration Marks</source>
-        <translation type="unfinished">Registrske oznake</translation>
+        <translation>Registrske oznake</translation>
     </message>
     <message>
         <location filename="../tabprinter.ui" line="351"/>
