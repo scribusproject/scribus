@@ -3728,8 +3728,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	
 	if (glyph < ScFace::CONTROL_GLYPHS)
 	{
-		if (((cstyle.effects() & ScStyle_Underline)) //FIXME && (chstr != QChar(13)))  
-			|| ((cstyle.effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace()))) 
+		if (((cstyle.effects() & ScStyle_Underline) && (!SpecialChars::isBreak(chstr[0]))) //FIXME && (chstr != QChar(13)))  
+			|| ((cstyle.effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())) && (!SpecialChars::isBreak(chstr[0])))
 		{
 	//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
 			double Ulen = glyphs.xadvance;
@@ -3780,7 +3780,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		ScFace::FontType ftype = cstyle.font().type();
 		if ((ftype == ScFace::TTF) || (cstyle.font().isOTF()) || (cstyle.font().subset()))
 		{
-			if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')))
+			if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')) && (!SpecialChars::isBreak(chstr[0])))
 			{
 				PS_save();
 				if (ite->reversed())
