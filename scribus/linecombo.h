@@ -28,16 +28,18 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 
 #include "scribusapi.h"
+#include "sclistboxpixmap.h"
 
 /**
   *@author Franz Schmid
   */
 
-class SCRIBUS_API LineCombo : public QComboBox  
+class SCRIBUS_API LineCombo : public QComboBox
 {
 public: 
 	LineCombo(QWidget* pa);
 	~LineCombo() {};
+	QPixmap createIcon(int type);
 };
 
 #endif

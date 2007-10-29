@@ -22,9 +22,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "linecombo.h"
-#include "icons5.h"
-//Added by qt3to4:
-#include <QPixmap>
 
 /*!
  \fn LineCombo::LineCombo(QWidget* pa)
@@ -34,14 +31,54 @@ for which a new license (GPL+exception) is in place.
  \param pa Parent Window
  \retval None
  */
+
 LineCombo::LineCombo(QWidget* pa) : QComboBox(pa)
 {
 	setEditable(false);
 	setIconSize(QSize(73, 7));
-	addItem(QIcon(solidL), "");
-	addItem(QIcon(dashL), "");
-	addItem(QIcon(dotL), "");
-	addItem(QIcon(dashdotL), "");
-	addItem(QIcon(dashdotdotL), "");
+	addItem(QIcon(createIcon(0)), "");
+	addItem(QIcon(createIcon(1)), "");
+	addItem(QIcon(createIcon(2)), "");
+	addItem(QIcon(createIcon(3)), "");
+	addItem(QIcon(createIcon(4)), "");
+//	addItem(QIcon(createIcon(5)), "");
+}
+
+QPixmap LineCombo::createIcon(int type)
+{
+//	QPen pen;
+//	QVector<qreal> dashes;
+	QPixmap pmap(73, 7);
+	pmap.fill(Qt::transparent);
+	QPainter p;
+	p.begin(&pmap);
+	switch (type)
+	{
+		case 0:
+			p.setPen(QPen(Qt::black, 3, Qt::SolidLine));
+			break;
+		case 1:
+			p.setPen(QPen(Qt::black, 3, Qt::DashLine));
+			break;
+		case 2:
+			p.setPen(QPen(Qt::black, 3, Qt::DotLine));
+			break;
+		case 3:
+			p.setPen(QPen(Qt::black, 3, Qt::DashDotLine));
+			break;
+		case 4:
+			p.setPen(QPen(Qt::black, 3, Qt::DashDotDotLine));
+			break;
+/*		case 5:
+			dashes << 4 << 2 << 1 << 2;
+			pen.setDashPattern(dashes);
+			pen.setColor(Qt::black);
+			pen.setWidth(3);
+			p.setPen(pen);
+			break; */
+	}
+	p.drawLine(2, 3, 73, 3);
+	p.end();
+	return pmap;
 }
 
