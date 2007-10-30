@@ -80,7 +80,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "util.h"
 #include "util_icon.h"
-/*
+
 SideBar::SideBar(QWidget *pa) : QLabel(pa)
 {
 	QPalette pal;
@@ -138,11 +138,13 @@ void SideBar::paintEvent(QPaintEvent *e)
 	inRep = true;
 	QLabel::paintEvent(e);
 	QList<QRect> paraList;
-	QTextBlock tb = editor->document()->begin();
-	while (tb.isValid())
+	for (uint pr = 0; pr < editor->StyledText.nrOfParagraphs(); ++pr)
 	{
+		int pos = editor->StyledText.startOfParagraph(pr);
+		QTextCursor cur(editor->document());
+		cur.setPosition(pos);
+		QTextBlock tb = cur.block();
 		paraList.append(tb.layout()->boundingRect().toRect());
-		tb = tb.next();
 	}
 	QPainter p;
 	p.begin(this);
@@ -154,19 +156,21 @@ void SideBar::paintEvent(QPaintEvent *e)
 			QRect re = paraList[pa];
 			if (!re.isValid())
 				break;
+			int hh = re.height();
 			re.setWidth(width()-5);
-			re.translate(5, 0);
+			re.setHeight(re.height()-2);
+			re.translate(5, 2);
 			if (((re.y()+re.height())-offs + gesY < height()) && ((re.y()+re.height())-offs + gesY >= 0))
 				p.drawLine(0, (re.y()+re.height())-offs + gesY, width()-1, (re.y()+re.height())-offs + gesY);
 			if ((re.y()-offs + gesY < height()) && (re.y()-offs + gesY >= 0))
 			{
-				re.moveTop(gesY-offs);
+				re.moveTop(gesY-offs+2);
 				QString parname = editor->StyledText.paragraphStyle(editor->StyledText.startOfParagraph(pa)).parent();
 				if (parname.isEmpty())
 					parname = tr("No Style");
 				p.drawText(re, Qt::AlignLeft | Qt::AlignTop, parname);
 			}
-			gesY += re.height();
+			gesY += hh;
 		}
 	}
 	p.end();
@@ -190,7 +194,7 @@ void SideBar::setRepaint(bool r)
 {
 	noUpdt = r;
 }
-*/
+
 SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTextEdit(parent)
 {
 	setCurrentDocument(docc);
@@ -222,14 +226,14 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 	{
 		insChars(event->commitString());
 		QTextEdit::inputMethodEvent(event);
-//		emit SideBarUp(true);
-//		emit SideBarUpdate();
+		emit SideBarUp(true);
+		emit SideBarUpdate();
 	}
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
-//	emit SideBarUp(false);
+	emit SideBarUp(false);
 	int pos = textCursor().position();
 	int keyMod=0;
 	if (k->modifiers() & Qt::ShiftModifier)
@@ -280,7 +284,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_Y:
 			case Qt::Key_Z:
-//				emit SideBarUp(true);
+				emit SideBarUp(true);
 				return;
 				break;
 			case Qt::Key_C:
@@ -320,15 +324,15 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 						conv = 32;
 					insChars(QString(QChar(conv)));
 					insertPlainText(QString(QChar(conv)));
-//					emit SideBarUp(true);
-//					emit SideBarUpdate();
+					emit SideBarUp(true);
+					emit SideBarUpdate();
 					return;
 				}
 			}
 			else
 			{
-//				emit SideBarUp(true);
-//				emit SideBarUpdate();
+				emit SideBarUp(true);
+				emit SideBarUpdate();
 				return;
 			}
 		}
@@ -392,16 +396,16 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				{
 					insChars(k->text());
 					QTextEdit::keyPressEvent(k);
-//					emit SideBarUp(true);
-//					emit SideBarUpdate();
+					emit SideBarUp(true);
+					emit SideBarUpdate();
 				}
 				return;
 				break;
 		}
 	}
 	QTextEdit::keyPressEvent(k);
-//	emit SideBarUp(true);
-//	emit SideBarUpdate();
+	emit SideBarUp(true);
+	emit SideBarUpdate();
 }
 
 void SEditor::focusOutEvent(QFocusEvent *e)
@@ -773,7 +777,7 @@ void SEditor::setFarbe(bool marker)
 
 void SEditor::copy()
 {
-//	emit SideBarUp(false);
+	emit SideBarUp(false);
 	if ((textCursor().hasSelection()) && (!textCursor().selectedText().isEmpty()))
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
@@ -785,25 +789,25 @@ void SEditor::copy()
 //		connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		emit PasteAvail();
 	}
-//	emit SideBarUp(true);
+	emit SideBarUp(true);
 }
 
 void SEditor::cut()
 {
 	copy();
-//	emit SideBarUp(false);
+	emit SideBarUp(false);
 	if (textCursor().hasSelection())
 	{
 		deleteSel();
 		textCursor().removeSelectedText();
 	}
-//	emit SideBarUp(true);
-//	emit SideBarUpdate();
+	emit SideBarUp(true);
+	emit SideBarUpdate();
 }
 
 void SEditor::paste()
 {
-//	emit SideBarUp(false);
+	emit SideBarUp(false);
 //	int currentPara, currentCharPos;
 	QString data = "";
 	int newParaCount, lengthLastPara;
@@ -835,7 +839,7 @@ void SEditor::paste()
 		}
 		else
 		{
-//			emit SideBarUp(true);
+			emit SideBarUp(true);
 			return;
 		}
 	}
@@ -852,8 +856,8 @@ void SEditor::paste()
 //	if (inserted)
 //		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara-1);
 	repaint();
-//	emit SideBarUp(true);
-//	emit SideBarUpdate();
+	emit SideBarUp(true);
+	emit SideBarUpdate();
 }
 /*
 Q_3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
@@ -881,7 +885,7 @@ void SEditor::ClipChange()
 void SEditor::scrollContentsBy(int dx, int dy)
 {
 	emit contentsMoving(dx, dy);
-	QTextEdit::scrollContentsBy (dx, dy);
+	QTextEdit::scrollContentsBy(dx, dy);
 }
 
 /* Toolbar for Fill Colour */
@@ -1388,9 +1392,9 @@ void StoryEditor::savePrefs()
 	prefs->set("top", geo.top());
 	prefs->set("width", width());
 	prefs->set("height", height());
-//	QList<int> splitted = EdSplit->sizes();
-//	prefs->set("side", splitted[0]);
-//	prefs->set("main", splitted[1]);
+	QList<int> splitted = EdSplit->sizes();
+	prefs->set("side", splitted[0]);
+	prefs->set("main", splitted[1]);
 	prefs->set("winstate", QString(saveState().toBase64()));
 }
 
@@ -1421,7 +1425,7 @@ void StoryEditor::loadPrefs()
 	state = prefs->get("winstate","").toAscii();
 	if (!state.isEmpty())
 		restoreState(QByteArray::fromBase64(state));
-/*	int side = prefs->getInt("side", -1);
+	int side = prefs->getInt("side", -1);
 	int txtarea = prefs->getInt("main", -1);
 	if ((side != -1) && (txtarea != -1))
 	{
@@ -1429,7 +1433,7 @@ void StoryEditor::loadPrefs()
 		splitted.append(side);
 		splitted.append(txtarea);
 		EdSplit->setSizes(splitted);
-	} */
+	}
 }
 
 void StoryEditor::initActions()
@@ -1673,12 +1677,14 @@ void StoryEditor::buildGUI()
 	addToolBar(StrokeTools);
 	addToolBar(FillTools);
 
-//	EdSplit = new QSplitter(this);
+	EdSplit = new QSplitter(this);
 /* SideBar Widget */
-//	EditorBar = new SideBar(EdSplit);
+	EditorBar = new SideBar(this);
+	EdSplit->addWidget(EditorBar);
 /* Editor Widget, subclass of QTextEdit */
 	Editor = new SEditor(this, currDoc, this);
-	StoryEd2Layout->addWidget( Editor );
+	EdSplit->addWidget(Editor);
+	StoryEd2Layout->addWidget( EdSplit );
 
 /* Setting up Status Bar */
 	ButtonGroup1 = new QFrame( statusBar() );
@@ -1721,7 +1727,7 @@ void StoryEditor::buildGUI()
 	CharC2 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
 	statusBar()->addPermanentWidget(ButtonGroup2, 1);
-	setCentralWidget( Editor );
+	setCentralWidget( EdSplit );
 	//Final setup
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 	if (prefsManager==NULL)
@@ -1731,9 +1737,9 @@ void StoryEditor::buildGUI()
 	QFont fo;
 	fo.fromString(prefsManager->appPrefs.STEfont);
 	Editor->setFont(fo);
-//	EditorBar->setFrameStyle(Editor->frameStyle());
-//	EditorBar->setLineWidth(Editor->lineWidth());
-//	EditorBar->editor = Editor;
+	EditorBar->setFrameStyle(Editor->frameStyle());
+	EditorBar->setLineWidth(Editor->lineWidth());
+	EditorBar->editor = Editor;
 	Editor->installEventFilter(this);
 	languageChange();
 }
@@ -1803,7 +1809,7 @@ void StoryEditor::languageChange()
 void StoryEditor::disconnectSignals()
 {
 	disconnect(Editor,0,0,0);
-//	disconnect(EditorBar,0,0,0);
+	disconnect(EditorBar,0,0,0);
 	disconnect(AlignTools,0,0,0);
 	disconnect(FillTools,0,0,0);
 	disconnect(FontTools,0,0,0);
@@ -1819,14 +1825,14 @@ void StoryEditor::connectSignals()
 	connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
 	connect(Editor, SIGNAL(PasteAvail()), this, SLOT(PasteAvail()));
-//	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int )));
-//	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
-//	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
-//	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
+	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int )));
+	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
+	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 //	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
-//	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString& )), this, SLOT(changeStyleSB(int, const QString&)));
-//	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
+	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString& )), this, SLOT(changeStyleSB(int, const QString&)));
+	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
 	connect(AlignTools, SIGNAL(newParaStyle(const QString&)), this, SLOT(newStyle(const QString&)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
@@ -1859,10 +1865,13 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		firstSet = false;
 		FontTools->Fonts->RebuildList(currDoc, currItem->isAnnotation());
 		Editor->loadItemText(currItem);
-//		Editor->getCursorPosition(&CurrPara, &CurrChar);
+		Editor->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
 		Editor->repaint();
-//		EditorBar->setRepaint(true);
-//		EditorBar->doRepaint();
+		EditorBar->offs = 0;
+//		Editor->textCursor().setPosition(0);
+//		Editor->ensureCursorVisible();
+		EditorBar->setRepaint(true);
+		EditorBar->doRepaint();
 		updateProps(0,0);
 		updateStatus();
 		connectSignals();
@@ -1980,10 +1989,12 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 //				Editor->getCursorPosition(&CurrPara, &CurrChar);
 				updateStatus();
 				textChanged = false;
+				Editor->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
 				Editor->repaint();
+				EditorBar->offs = 0;
 //				EditorBar->doMove(0, Editor->contentsY());
-//				EditorBar->setRepaint(true);
-//				EditorBar->doRepaint();
+				EditorBar->setRepaint(true);
+				EditorBar->doRepaint();
 				connectSignals();
 			}
 		}
@@ -2013,7 +2024,7 @@ void StoryEditor::setFontPref()
 	blockUpdate = true;
 	Editor->setFont( QFontDialog::getFont( 0, Editor->font(), this ) );
 	prefsManager->appPrefs.STEfont = Editor->font().toString();
-//	EditorBar->doRepaint();
+	EditorBar->doRepaint();
 	blockUpdate = false;
 }
 
@@ -2544,8 +2555,8 @@ bool StoryEditor::Do_new()
 	seActions["editCut"]->setEnabled(false);
 	seActions["editClear"]->setEnabled(false);
 //	textChanged = false;
-//	EditorBar->setRepaint(true);
-//	EditorBar->doRepaint();
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 	updateProps(0, 0);
 	updateStatus();
 	blockUpdate = false;
@@ -2559,8 +2570,8 @@ void StoryEditor::slotFileRevert()
 		Editor->loadItemText(currItem);
 //		Editor->getCursorPosition(&CurrPara, &CurrChar);
 		updateStatus();
-//		EditorBar->setRepaint(true);
-//		EditorBar->doRepaint();
+		EditorBar->setRepaint(true);
+		EditorBar->doRepaint();
 		Editor->repaint();
 	}
 }
@@ -2602,14 +2613,14 @@ void StoryEditor::Do_del()
 {
 	if (Editor->StyledText.length() == 0)
 		return;
-//	EditorBar->setRepaint(false);
+	EditorBar->setRepaint(false);
 	if (Editor->textCursor().hasSelection())
 	{
 		Editor->deleteSel();
 		Editor->textCursor().removeSelectedText();
 	}
-//	EditorBar->setRepaint(true);
-//	EditorBar->doRepaint();
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 }
 
 void StoryEditor::CopyAvail(bool u)
@@ -2727,14 +2738,14 @@ void StoryEditor::updateTextFrame()
 void StoryEditor::SearchText()
 {
 	blockUpdate = true;
-//	EditorBar->setRepaint(false);
+	EditorBar->setRepaint(false);
 	SearchReplace* dia = new SearchReplace(this, currDoc, currItem, false);
 	dia->exec();
 	delete dia;
 	qApp->processEvents();
 	blockUpdate = false;
-//	EditorBar->setRepaint(true);
-//	EditorBar->doRepaint();
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 }
 
 void StoryEditor::slotEditStyles()
@@ -2766,7 +2777,8 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-//		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+		int pos = Editor->textCursor().position();
 
 /*		qDebug(QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
 			   .arg(pa)
@@ -2777,13 +2789,14 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 		Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
 
 		Editor->updateFromChars(pa);
+		Editor->textCursor().setPosition(pos);
 //		Editor->setCursorPosition(pa, 0);
 //		updateProps(pa, 0);
-		Editor->ensureCursorVisible();
-//		EditorBar->doRepaint();
+//		Editor->ensureCursorVisible();
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-//		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	else
 	{
@@ -2837,7 +2850,7 @@ void StoryEditor::changeStyle()
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-//		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 		int PStart = 0;
 		int PEnd = 0;
 		int SelStart = 0;
@@ -2868,10 +2881,10 @@ void StoryEditor::changeStyle()
 		}
 		Editor->ensureCursorVisible();
 		updateProps();
-//		EditorBar->doRepaint();
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-//		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	else
 	{
@@ -2924,7 +2937,7 @@ void StoryEditor::changeAlign(int )
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-//		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 		int PStart = 0;
 		int PEnd = 0;
 		int SelStart = 0;
@@ -2955,10 +2968,10 @@ void StoryEditor::changeAlign(int )
 		}
 		Editor->ensureCursorVisible();
 		updateProps();
-//		EditorBar->doRepaint();
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-//		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	modifiedText();
 	Editor->repaint();
@@ -2980,7 +2993,7 @@ void StoryEditor::LoadTextFile()
 {
 	if (Do_new())
 	{
-//		EditorBar->setRepaint(false);
+		EditorBar->setRepaint(false);
 		QString LoadEnc = "";
 		QString fileName = "";
 		PrefsContext* dirs = prefsManager->prefsFile->getContext("dirs");
@@ -3007,8 +3020,8 @@ void StoryEditor::LoadTextFile()
 				seActions["editClear"]->setEnabled(false);
 			}
 		}
-//		EditorBar->setRepaint(true);
-//		EditorBar->doRepaint();
+		EditorBar->setRepaint(true);
+		EditorBar->doRepaint();
 	}
 	Editor-> repaint();
 }
@@ -3095,8 +3108,8 @@ void StoryEditor::specialActionKeyEvent(const QString& /*actionName*/, int unico
 	if (setColor)
 		Editor->setFarbe(false);
 	modifiedText();
-//	EditorBar->setRepaint(true);
-//	EditorBar->doRepaint();
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 }
 
 void StoryEditor::updateUnicodeActions()

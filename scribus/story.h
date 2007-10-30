@@ -157,12 +157,12 @@ public slots:
 
 signals:
 	void setProps(int, int);
-//	void SideBarUp(bool);
-//	void SideBarUpdate();
+	void SideBarUp(bool);
+	void SideBarUpdate();
 	void PasteAvail();
 	void contentsMoving(int, int);
 };
-/*
+
 class SCRIBUS_API SideBar : public QLabel
 {
 	Q_OBJECT
@@ -195,7 +195,7 @@ public slots:
 	//! slot raising style manager
 	void editStyles();
 };
-*/
+
 class SCRIBUS_API SToolBColorF : public QToolBar
 {
 	Q_OBJECT
@@ -509,8 +509,8 @@ protected:
 	SToolBColorF* FillTools;
 	SToolBColorS* StrokeTools;
 	SToolBStyle* StyleTools;
-//	QSplitter* EdSplit;
-//	SideBar* EditorBar;
+	QSplitter* EdSplit;
+	SideBar* EditorBar;
 	QFrame* ButtonGroup1;
 	QFrame* ButtonGroup2;
 	QLabel* WordCT1;
