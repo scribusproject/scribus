@@ -595,40 +595,17 @@ void CMYKChoose::SelSwatch(int n)
 		QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + Swatches->currentText());
 		QString pfadC = ScPaths::instance().libDir()+"swatches/";
 		QString pfadC2 = pfadC + "Scribus_Basic.txt";
-		switch (n)
+		if (n<customSetStartIndex)
 		{
-			/*
-		case 1:
-			pfadC2 = pfadC + "Scribus_X11.txt";
-			break;
-		case 2:
-			pfadC2 = pfadC + "Scribus_X11Grey.txt";
-			break;
-		case 3:
-			pfadC2 = pfadC + "Scribus_Gnome.txt";
-			break;
-		case 4:
-			pfadC2 = pfadC + "Scribus_SVG.txt";
-			break;
-		case 5:
-			pfadC2 = pfadC + "Scribus_OpenOffice.txt";
+			QString listText=Swatches->itemText(n);
+			if (listText=="Scribus OpenOffice")
+				cus=true;
+			pfadC2 = csm.paletteFileFromName(listText);
+		}
+		else
+		{
+			pfadC2 = Cpfad;
 			cus = true;
-			break;
-			*/
-		default:
-			if (n<customSetStartIndex)
-			{
-				QString listText=Swatches->itemText(n);
-				if (listText=="Scribus OpenOffice")
-					cus=true;
-				pfadC2 = csm.paletteFileFromName(listText);
-			}
-			else
-			{
-				pfadC2 = Cpfad;
-				cus = true;
-			}
-			break;
 		}
 		if (n != 0)
 		{
