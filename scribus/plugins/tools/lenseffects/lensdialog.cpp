@@ -32,10 +32,12 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "commonstrings.h"
 
-LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsEllipseItem(geom)
+LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 {
 	dialog = parent;
-	strength = 100.0;
+	strength = -100.0;
+	scaling = 1.0,
+	handle = -1;
 	setPen(QPen(Qt::black));
 	QRadialGradient radialGrad(QPointF(0.5, 0.5), 1.0);
 	radialGrad.setColorAt(0.0, QColor(255, 0, 0, 127));
@@ -46,6 +48,143 @@ LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsEllipseItem(geom)
 #endif
 	setBrush(radialGrad);
 	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+	setAcceptsHoverEvents(true);
+}
+
+void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+	Q_UNUSED(widget);
+	painter->setPen(QPen(Qt::black, 1.0 / option->levelOfDetail));
+	QRadialGradient radialGrad(QPointF(0.5, 0.5), 1.0);
+	radialGrad.setColorAt(0.0, QColor(255, 0, 0, 127));
+	radialGrad.setColorAt(0.1, QColor(255, 0, 0, 127));
+	radialGrad.setColorAt(1.0, QColor(255, 255, 255, 0));
+#if QT_VERSION  >= 0x040301
+	radialGrad.setCoordinateMode(QGradient::ObjectBoundingMode);
+#endif
+	painter->setBrush(radialGrad);
+	painter->drawEllipse(rect().toRect());
+	if (option->state & QStyle::State_Selected)
+	{
+		scaling = option->levelOfDetail;
+		double siz = 6.0 / option->levelOfDetail;
+		QRectF br = boundingRect();
+		painter->setBrush(Qt::NoBrush);
+		painter->setPen(QPen(Qt::red, 1.0 / option->levelOfDetail, Qt::DotLine));
+		painter->drawRect(br);
+		painter->setBrush(Qt::red);
+		painter->setPen(Qt::NoPen);
+		painter->drawRect(QRectF(br.x() + br.width(), br.y() + br.height(), -siz, -siz));
+		painter->drawRect(QRectF(br.x() + br.width(), br.y(), -siz, siz));
+		painter->drawRect(QRectF(br.x(), br.y() + br.height(), siz, -siz));
+		painter->drawRect(QRectF(br.x(), br.y(), siz, siz));
+	}
+}
+
+void LensItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+	mousePoint = event->screenPos();
+	QRectF br = boundingRect();
+	double siz = 6.0 / scaling;
+	if (QRectF(br.x(), br.y(), siz, siz).contains(event->pos()))
+		handle = 0;
+	else if (QRectF(br.x() + br.width(), br.y(), -siz, siz).contains(event->pos()))
+		handle = 1;
+	else if (QRectF(br.x() + br.width(), br.y() + br.height(), -siz, -siz).contains(event->pos()))
+		handle = 2;
+	else if (QRectF(br.x(), br.y() + br.height(), siz, -siz).contains(event->pos()))
+		handle = 3;
+	else
+		handle = -1;
+	QGraphicsItem::mousePressEvent(event);
+}
+
+void LensItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+	QRectF r = rect();
+	double dx = (mousePoint.x() - event->screenPos().x()) / scaling;
+	if (handle == 0)
+	{
+		QPointF tl = r.topLeft();
+		tl = tl - QPointF(dx, dx);
+		r.setTopLeft(tl);
+		setRect(r.normalized());
+	}
+	else if (handle == 1)
+	{
+		QPointF tl = r.topRight();
+		tl = tl - QPointF(dx, -dx);
+		r.setTopRight(tl);
+		setRect(r.normalized());
+	}
+	else if (handle == 2)
+	{
+		QPointF tl = r.bottomRight();
+		tl = tl - QPointF(dx, dx);
+		r.setBottomRight(tl);
+		setRect(r.normalized());
+	}
+	else if (handle == 3)
+	{
+		QPointF tl = r.bottomLeft();
+		tl = tl - QPointF(dx, -dx);
+		r.setBottomLeft(tl);
+		setRect(r.normalized());
+	}
+	else
+		QGraphicsItem::mouseMoveEvent(event);
+	mousePoint = event->screenPos();
+	dialog->lensSelected(this);
+}
+
+void LensItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+	handle = -1;
+	updateEffect();
+	QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void LensItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+	QPainterPath p;
+	p.addEllipse(rect());
+	if ((p.contains(event->pos())) && (isSelected()))
+		qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+	else
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+}
+
+void LensItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+	QPainterPath p;
+	p.addEllipse(rect());
+	if (isSelected())
+	{
+		if (p.contains(event->pos()))
+			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+		else
+		{
+			QRectF br = boundingRect();
+			double siz = 6.0 / scaling;
+			if (QRectF(br.x(), br.y(), siz, siz).contains(event->pos()))
+				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+			else if (QRectF(br.x() + br.width(), br.y(), -siz, siz).contains(event->pos()))
+				qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+			else if (QRectF(br.x() + br.width(), br.y() + br.height(), -siz, -siz).contains(event->pos()))
+				qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+			else if (QRectF(br.x(), br.y() + br.height(), siz, -siz).contains(event->pos()))
+				qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+			else
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		}
+	}
+	else
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+}
+
+void LensItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *)
+{
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void LensItem::setStrength(double s)
@@ -255,10 +394,12 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 	connect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
 	connect(buttonAdd, SIGNAL(clicked()), this, SLOT(addLens()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removeLens()));
+	connect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
 	connect(buttonZoomI, SIGNAL(clicked()), this, SLOT(doZoomIn()));
 	connect(buttonZoomOut, SIGNAL(clicked()), this, SLOT(doZoomOut()));
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	connect(&scene, SIGNAL(selectionChanged()), this, SLOT(selectionHasChanged()));
 }
 
 void LensDialog::showEvent(QShowEvent *e)
@@ -285,6 +426,12 @@ void LensDialog::addLens()
 	disconnect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
 	disconnect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
 	disconnect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
+	disconnect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
+	if (lensList.count() > 0)
+	{
+		lensList[currentLens]->setSelected(false);
+		lensList[currentLens]->update();
+	}
 	QRectF bBox = scene.itemsBoundingRect();
 	double r = qMin(bBox.width(), bBox.height());
 	double x = (bBox.width() - r) / 2.0;
@@ -298,13 +445,16 @@ void LensDialog::addLens()
 	spinYPos->setValue(y + r / 2.0);
 	spinRadius->setValue(r / 2.0);
 	spinStrength->setValue(100.0);
+	buttonMagnify->setChecked(true);
 	lensList[currentLens]->updateEffect();
 	if (lensList.count() > 1)
 		buttonRemove->setEnabled(true);
+	lensList[currentLens]->setSelected(true);
 	connect(spinXPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensX(double)));
 	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
 	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
 	connect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
+	connect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
 }
 
 void LensDialog::removeLens()
@@ -319,6 +469,34 @@ void LensDialog::removeLens()
 	currentLens = lensList.count() - 1;
 	lensList[currentLens]->setSelected(true);
 	lensList[currentLens]->updateEffect();
+	lensSelected(lensList[currentLens]);
+}
+
+void LensDialog::changeLens()
+{
+	double s = qAbs(lensList[currentLens]->strength);
+	if (buttonMagnify->isChecked())
+		lensList[currentLens]->setStrength(s * -1.0);
+	else
+		lensList[currentLens]->setStrength(s);
+	lensList[currentLens]->updateEffect();
+}
+
+void LensDialog::selectionHasChanged()
+{
+	bool setter = true;
+	if (scene.selectedItems().count() == 0)
+		setter = false;
+	spinXPos->setEnabled(setter);
+	spinYPos->setEnabled(setter);
+	spinRadius->setEnabled(setter);
+	spinStrength->setEnabled(setter);
+	buttonMagnify->setEnabled(setter);
+	buttonFishEye->setEnabled(setter);
+	if (lensList.count() == 1)
+		buttonRemove->setEnabled(false);
+	else
+		buttonRemove->setEnabled(setter);
 }
 
 void LensDialog::lensSelected(LensItem *item)
@@ -327,11 +505,16 @@ void LensDialog::lensSelected(LensItem *item)
 	disconnect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
 	disconnect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
 	disconnect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
+	disconnect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
 	QPointF p = item->mapToScene(item->rect().center());
 	spinXPos->setValue(p.x());
 	spinYPos->setValue(p.y());
 	spinRadius->setValue(item->rect().width() / 2.0);
-	spinStrength->setValue(item->strength);
+	if (item->strength < 0.0)
+		buttonMagnify->setChecked(true);
+	else
+		buttonFishEye->setChecked(true);
+	spinStrength->setValue(qAbs(item->strength));
 	currentLens = lensList.indexOf(item);
 	if (currentLens < 0)
 		currentLens = 0;
@@ -339,6 +522,7 @@ void LensDialog::lensSelected(LensItem *item)
 	connect(spinYPos, SIGNAL(valueChanged(double)), this, SLOT(setNewLensY(double)));
 	connect(spinRadius, SIGNAL(valueChanged(double)), this, SLOT(setNewLensRadius(double)));
 	connect(spinStrength, SIGNAL(valueChanged(double)), this, SLOT(setNewLensStrength(double)));
+	connect(buttonMagnify, SIGNAL(toggled(bool)), this, SLOT(changeLens()));
 }
 
 void LensDialog::setLensPositionValues(QPointF p)
@@ -382,6 +566,9 @@ void LensDialog::setNewLensRadius(double radius)
 
 void LensDialog::setNewLensStrength(double s)
 {
-	lensList[currentLens]->setStrength(s);
+	if (buttonMagnify->isChecked())
+		lensList[currentLens]->setStrength(s * -1.0);
+	else
+		lensList[currentLens]->setStrength(s);
 	lensList[currentLens]->updateEffect();
 }

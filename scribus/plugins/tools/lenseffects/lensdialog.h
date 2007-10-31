@@ -31,15 +31,17 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPainterPath>
 #include <QGraphicsItem>
-#include <QGraphicsEllipseItem>
+#include <QGraphicsRectItem>
 #include <QGraphicsPathItem>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsSceneHoverEvent>
 #include "ui_lensdialogbase.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
 #include "scribus.h"
 class LensDialog;
 
-class PLUGIN_API LensItem : public QGraphicsEllipseItem
+class PLUGIN_API LensItem : public QGraphicsRectItem
 {
 public:
 	LensItem(QRectF geom, LensDialog *parent);
@@ -47,9 +49,19 @@ public:
 	void setStrength(double s);
 	void updateEffect();
 	QPainterPath lensDeform(const QPainterPath &source, const QPointF &offset, double m_radius, double s);
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget);
 	double strength;
+	double scaling;
+	int handle;
+	QPointF mousePoint;
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+	void mousePressEvent(QGraphicsSceneMouseEvent *event);
+	void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+	void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+	void hoverLeaveEvent(QGraphicsSceneHoverEvent *);
 	LensDialog *dialog;
 };
 
@@ -77,6 +89,8 @@ private slots:
 	void doZoomOut();
 	void addLens();
 	void removeLens();
+	void changeLens();
+	void selectionHasChanged();
 	void setNewLensX(double x);
 	void setNewLensY(double y);
 	void setNewLensRadius(double radius);
