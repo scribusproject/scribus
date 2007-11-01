@@ -173,6 +173,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "scpaths.h"
 #include "scpaths.h"
+#include "scprintengine_ps.h"
 #include "scraction.h"
 #include "scraction.h"
 #include "scrapbookpalette.h"
@@ -220,8 +221,8 @@ for which a new license (GPL+exception) is in place.
 
 
 #if defined(_WIN32)
-#include "scwinprint.h"
 #include "scdocoutput_ps2.h"
+#include "scprintengine_gdi.h"
 #endif
 
 using namespace std;
@@ -4465,7 +4466,7 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
+	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, doc->Print_Options.devMode, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -4484,19 +4485,7 @@ void ScribusMainWindow::slotReallyPrint()
 				parsePagesString(printer->pageNr->text(), &doc->Print_Options.pageNumbers, doc->DocPages.count());
 		}
 		PrinterUsed = true;
-#ifdef _WIN32
-		SHORT shiftState = GetKeyState( VK_SHIFT );
-		bool  forceGDI = ( shiftState & 0x8000 ) ? true : false;
-		if (doc->Print_Options.toFile == false)
-		{
-			ScWinPrint winPrint;
-			done = winPrint.print( doc, doc->Print_Options, printer->DevMode, forceGDI );
-		}
-		else
-			done = doPrint(doc->Print_Options);
-#else
 		done = doPrint(doc->Print_Options);
-#endif
 		if (!done)
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -4514,90 +4503,41 @@ void ScribusMainWindow::slotReallyPrint()
 
 bool ScribusMainWindow::doPrint(PrintOptions &options)
 {
-	bool retw = false;
-	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
+	bool printDone = false;
 	QString filename(options.filename);
-	ReallyUsed.clear();
-	doc->getUsedFonts(ReallyUsed);
-	ColorList usedColors;
-	doc->getUsedColors(usedColors);
+	if (options.toFile)
+	{
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!overwrite(this, filename))
+		{
+			return true;
+		}
+		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	}
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, options.useSpotColors);
-	if (dd != NULL)
+	ScPrintEngine* prnEngine = NULL;
+#if defined(_WIN32)
+	SHORT shiftState = GetKeyState( VK_SHIFT );
+	bool  forceGDI = ( shiftState & 0x8000 ) ? true : false;
+	if (doc->Print_Options.toFile)
+		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS());
+	else
 	{
-		if (!options.toFile)
-			filename = prefsManager->preferencesLocation()+"/tmp.ps";
-		else
-		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			if (!overwrite(this, filename))
-			{
-				delete dd;
-				ScCore->fileWatcher->start();
-				return true;
-			}
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-		}
-		bool PSfile = dd->PS_set_file(filename);
-		filename = QDir::convertSeparators(filename);
-		if (PSfile)
-		{
-			// Write the PS to a file
-			int psCreationRetVal=dd->CreatePS(doc, options);
-			if (psCreationRetVal!=0)
-			{
-				QFile::remove(filename);
-				if (psCreationRetVal==2)
-					return true;
-				else
-					return false;
-			}
-			if (options.prnEngine != PostScript3)
-			{
-				// use gs to convert our PS to a lower version
-				QString tmp;
-				QStringList opts;
-				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth)) );
-				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight)) );
-				convertPS2PS(filename, filename + ".tmp", opts, options.prnEngine);
-				moveFile( filename + ".tmp", filename );
-			}
-			if (!options.toFile)
-			{
-				// print and delete the PS file
-				QByteArray cmd;
-				if (options.useAltPrintCommand)
-				{
-					cmd += options.printerCommand;
-					cmd += " ";
-					cmd += filename;
-					system(cmd.data());
-				}
-				else
-				{
-					QByteArray cc;
-					cmd += "lpr -P '";
-					cmd += options.printer;
-					cmd += "'";
-					if (options.copies > 1)
-						cmd += " -#" + cc.setNum(options.copies);
-					cmd += options.printerOptions;
-					cmd += " "+filename;
-					system(cmd.data());
-				}
-// Disabled that for now, as kprinter won't work otherwise
-// leaving that file around doesn't harm, as it will be overwritten the next time.
-//				unlink(filename);
-			}
-			retw = true;
-		}
-		else
-			retw = false;
-		delete dd;
+		ScPrintEngine_GDI* gdiEngine = new ScPrintEngine_GDI();
+		gdiEngine->setForceGDI( forceGDI );
+		prnEngine = dynamic_cast<ScPrintEngine*>(gdiEngine);
+	}
+#else
+	prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS());
+#endif
+	if (prnEngine)
+	{
+		printDone = prnEngine->print(*doc, options);
+		delete prnEngine;
 	}
 	ScCore->fileWatcher->start();
-	return retw;
+	return printDone;
 }
 
 void ScribusMainWindow::slotFileQuit()

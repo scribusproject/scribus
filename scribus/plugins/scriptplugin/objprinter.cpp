@@ -28,7 +28,7 @@ void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 
 #if defined(_WIN32)
-#include "scwinprint.h"
+#include "scprintengine_gdi.h"
 #endif
 
 typedef struct
@@ -445,10 +445,10 @@ static PyObject *Printer_print(Printer *self)
 	{
 		QByteArray devMode;
 		bool printDone = false;
-		if ( PrinterUtil::getDefaultSettings(prn, devMode) )
+		if ( PrinterUtil::getDefaultSettings(prn, options.devMode) )
 		{
-			ScWinPrint winPrint;
-			printDone = winPrint.print( ScCore->primaryMainWindow()->doc, options, devMode, false );
+			ScPrintEngine_GDI winPrint;
+			printDone = winPrint.print( *ScCore->primaryMainWindow()->doc, options );
 		}
 		if (!printDone)
 			PyErr_SetString(PyExc_SystemError, "Printing failed");

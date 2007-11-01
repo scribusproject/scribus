@@ -32,8 +32,7 @@ using namespace Gdiplus;
 
 #include "util.h"
 #include "util_ghostscript.h"
-#include "scwinprint.h"
-//#include "scwinprint.moc"
+#include "scprintengine_gdi.h"
 #include "scpainterex_gdi.h"
 #include "scpageoutput.h"
 #include "scribusview.h"
@@ -72,41 +71,46 @@ typedef struct
 	BYTE  data[32768];
 } sPSPassthrough;
 
-// Generic type for page printing function
-//typedef bool (ScWinPrint::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode );
-
-ScWinPrint::ScWinPrint(void)
+ScPrintEngine_GDI::ScPrintEngine_GDI(void) : ScPrintEngine()
 {
 	resetData();
 }
 
-void ScWinPrint::resetData(void)
+void ScPrintEngine_GDI::setForceGDI(bool force)
+{
+	m_forceGDI = force;
+}
+
+void ScPrintEngine_GDI::resetData(void)
 {
 	m_abort = false;
+	m_forceGDI = false;
 }
 
-void ScWinPrint::cancelRequested()
+/*void ScPrintEngine_GDI::cancelRequested()
 {
 	m_abort = true;
-}
+	//m_forceGDI = false;
+}*/
 
-bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devMode, bool forceGDI )
+bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 {
 	bool toFile;
 	bool success;
 	HDC printerDC;
 	QString diaSelection, docDir, prefsDocDir;
 	QString printerName = options.printer;
+	QByteArray devMode  = options.devMode;
 	QString fileName;
 
-	if( !doc || options.toFile )	
+	if( options.toFile )	
 		return false;
 	resetData();
 
 	toFile = printerUseFilePort( options.printer );
 	if ( toFile )
 	{
-		diaSelection = doc->DocName.right( doc->DocName.length() - doc->DocName.lastIndexOf("/") - 1 );
+		diaSelection = doc.DocName.right( doc.DocName.length() - doc.DocName.lastIndexOf("/") - 1 );
 		diaSelection = diaSelection.left( diaSelection.indexOf(".") );
 		diaSelection += ".prn";
 		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -115,12 +119,12 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 			docDir = dirs->get("winprn", prefsDocDir);
 		else
 			docDir = ".";
-		CustomFDialog dia( doc->scMW()->view, docDir, QObject::tr("Save as"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
+		CustomFDialog dia( doc.scMW()->view, docDir, QObject::tr("Save as"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
 		dia.setSelection( diaSelection );
 		if (dia.exec() == QDialog::Accepted)
 		{
 			QString selectedFile = dia.selectedFile();
-			if ( overwrite(doc->scMW()->view, selectedFile) )
+			if ( overwrite(doc.scMW()->view, selectedFile) )
 			{
 				dirs->set("winprn", selectedFile.left(selectedFile.lastIndexOf("/")));
 				fileName = QDir::convertSeparators( selectedFile );
@@ -135,13 +139,13 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 #endif
 
 	// Set user options in the DEVmode structure
-	setDeviceParams( doc, options, (DEVMODEW*) devMode.data() );
+	setDeviceParams( &doc, options, (DEVMODEW*) devMode.data() );
 		
 	// Create the device context
 	printerDC = CreateDCW( NULL, (LPCWSTR) printerName.utf16(), NULL, (DEVMODEW*) devMode.data() );
 	if( printerDC )
 	{
-		success = printPages( doc, options, printerDC, (DEVMODEW*) devMode.data(), fileName, forceGDI );
+		success = printPages( &doc, options, printerDC, (DEVMODEW*) devMode.data(), fileName);
 		DeleteDC( printerDC );
 	}
 	else
@@ -157,7 +161,7 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 	return success;
 }
 
-bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, PrintOptions& options, double scale )
+bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, PrintOptions& options, double scale )
 {
 	HDC dc = NULL;
 	bool success = true;
@@ -282,7 +286,7 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	return success;
 }
 
-bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName, bool forceGDI )
+bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName )
 {
  int  jobId;
  bool psPrint;
@@ -296,8 +300,8 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 	// Test printer for PostScript support and
 	// choose appropriate page printing function
 	psPrint       = isPostscriptPrinter( printerDC );
-	bool useGDI   = (!psPrint || forceGDI || (options.prnEngine == WindowsGDI));
-	printPageFunc = (useGDI) ? &ScWinPrint::printPage_GDI : &ScWinPrint::printPage_PS; 
+	bool useGDI   = (!psPrint || m_forceGDI || (options.prnEngine == WindowsGDI));
+	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_GDI : &ScPrintEngine_GDI::printPage_PS; 
 
 	// Setup document infos structure
 	wcsncpy  (docName, (const WCHAR*) doc->DocName.utf16(), 511);
@@ -348,7 +352,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 	return success;
 }
 
-bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
+bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
 {
 	int logPixelsX;
 	int logPixelsY;
@@ -494,7 +498,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	return success;
 }
 
-bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
+bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
 {
 	bool succeed = false;
 	ColorList usedColors;
@@ -546,7 +550,7 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 	return succeed;
 }
 
-bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int pageHeight  )
+bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int pageHeight  )
 {
 	int  escape;
 	int  logPixelsX;
@@ -638,7 +642,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	return ( (fileSize == bw) && ( br >= 0 ) );
 }
 
-void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode )
+void ScPrintEngine_GDI::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode )
 {
 	HANDLE handle;
 	QString printer = options.printer;
@@ -662,7 +666,7 @@ void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMOD
 	ClosePrinter( handle );
 }
 
-QString ScWinPrint::getDefaultPrinter( void )
+QString ScPrintEngine_GDI::getDefaultPrinter( void )
 {
 	QString defPrinter;
 	OSVERSIONINFO osvi;
@@ -708,7 +712,7 @@ QString ScWinPrint::getDefaultPrinter( void )
 	return defPrinter;
 }
 
-bool ScWinPrint::isPostscriptPrinter( HDC dc )
+bool ScPrintEngine_GDI::isPostscriptPrinter( HDC dc )
 {
 	int	escapeCode;
 	char technology[MAX_PATH] = {0};
@@ -740,7 +744,7 @@ bool ScWinPrint::isPostscriptPrinter( HDC dc )
 	return false;
 }
 
-int	 ScWinPrint::getPSPassthroughSupport( HDC printerDC )
+int	 ScPrintEngine_GDI::getPSPassthroughSupport( HDC printerDC )
 {
 	int	escapeCode;
 	char technology[MAX_PATH] = {0};
@@ -761,7 +765,7 @@ int	 ScWinPrint::getPSPassthroughSupport( HDC printerDC )
 	return 0;
 }
 
-bool ScWinPrint::printerUseFilePort( QString& printerName )
+bool ScPrintEngine_GDI::printerUseFilePort( QString& printerName )
 {
  bool done;
  bool toFile = false;

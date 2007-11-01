@@ -685,10 +685,11 @@ void PrintDialog::storeValues()
 	else
 		m_doc->Print_Options.useAltPrintCommand = false;
 #ifdef HAVE_CUPS
-		m_doc->Print_Options.printerOptions = PrinterOpts;
+	m_doc->Print_Options.printerOptions = PrinterOpts;
 #else
-		m_doc->Print_Options.printerOptions = QString("");
+	m_doc->Print_Options.printerOptions = QString("");
 #endif
+	m_doc->Print_Options.devMode = DevMode;
 }
 
 void PrintDialog::okButtonClicked()

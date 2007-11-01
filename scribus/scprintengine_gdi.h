@@ -4,28 +4,27 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef __SCWINPRINT_H__
-#define __SCWINPRINT_H__
+#ifndef __SCPRINTENGINE_GDI_H__
+#define __SCPRINTENGINE_GDI_H__
 
-#include "qimage.h"
-//Added by qt3to4:
 #include <QByteArray>
+#include <QImage>
+
 #include "scconfig.h"
+#include "scprintengine.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include <windows.h>
 
-class SCRIBUS_API ScWinPrint : public QObject
+class SCRIBUS_API ScPrintEngine_GDI : public ScPrintEngine
 {
-	Q_OBJECT
-
 protected:
 
-	bool m_abort;
+	bool m_forceGDI;
 
 	void resetData(void);
 
-	typedef bool (ScWinPrint::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
+	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
 
 	/*! \brief Print selected pages to a printer or a file
 	\param doc the document whose pages are to be printer
@@ -37,7 +36,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName, bool forceGDI = false );
+	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName );
 	/*! \brief Print a page to a gdi printer
 	Print a page using GDI drawing code ( works on all printers : PS, PCL, GDI... )
 	\param doc the document whose page is to be printer
@@ -99,22 +98,23 @@ protected:
 	*/
 	bool isPostscriptPrinter( HDC dc );
 
-protected slots:
-	void cancelRequested(void);
-
 public:
 
-	ScWinPrint(void);
+	ScPrintEngine_GDI(void);
+
+	/*! \brief Force use of gdi even on ps printers
+	\param force if gdi should be forced
+	\author Jean Ghali
+	*/
+	void setForceGDI(bool force);
 
 	/*! \brief Print a document using gdi or ps methods
 	\param doc the document whose pages are to be printer
 	\param options print options
-	\param devMode a bytearray containing a DEVMODE structure to use for device context creation
-	\param forceGDI force use of GDI printing method
 	\retval bool return true if no error occured 
 	\author Jean Ghali
 	*/
-	bool print( ScribusDoc* doc, PrintOptions& options, QByteArray& devMode, bool forceGDI = false );
+	virtual bool print(ScribusDoc& doc, PrintOptions& options);
 
 	/*! \brief Draw print preview to an image using gdi method
 	\param doc the document whose page is to be preview

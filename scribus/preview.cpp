@@ -65,7 +65,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 
 #if defined(_WIN32)
-#include "scwinprint.h"
+#include "scprintengine_gdi.h"
 #endif
 
 extern bool printDinUse;
@@ -478,7 +478,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	{
 		QImage image;
 		Page* page;
-		ScWinPrint winPrint;
+		ScPrintEngine_GDI winPrint;
 		PrintOptions options;
 		page = doc->Pages->at( Seite );
 		options.copies = 1;
@@ -1107,7 +1107,7 @@ bool PPreview::usePostscriptPreview(QString printerName, PrintEngine engine)
 	if ( printerName == tr("File") )
 		return true;
 	else if( printerName.isEmpty() )
-		return PrinterUtil::isPostscriptPrinter( ScWinPrint::getDefaultPrinter() );
+		return PrinterUtil::isPostscriptPrinter( ScPrintEngine_GDI::getDefaultPrinter() );
 	else if( engine >= PostScript1 && engine <= PostScript3 )
 		return PrinterUtil::isPostscriptPrinter( printerName );
 	return false;

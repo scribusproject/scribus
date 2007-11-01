@@ -194,6 +194,7 @@ SET(SCRIBUS_MOC_CLASSES
   scmenu.h
   scmessagebox.h
   scplugin.h
+  scprintengine.h
   scraction.h
   scrapbookpalette.h
   scribus.h
@@ -465,6 +466,7 @@ SET(SCRIBUS_SOURCES
   scpattern.cpp
   scplugin.cpp
   scpreview.cpp
+  scprintengine_ps.cpp
   scraction.cpp
   scrapbookpalette.cpp
   scribus.cpp
@@ -557,10 +559,10 @@ SET(SCRIBUS_SOURCES
 )
 
 IF(WIN32)
-  SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scwinprint.h)
+  SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
   SET(SCRIBUS_WIN32_ONLY_SOURCES
       scpainterex_gdi.cpp
-      scwinprint.cpp
+      scprintengine_gdi.cpp
       )
   SET(SCRIBUS_MAIN_CPP main_win32.cpp)
 ELSE(WIN32)

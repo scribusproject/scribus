@@ -11,13 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 
+#include <QAction>
+#include <QByteArray>
+#include <QKeySequence>
 #include <QList>
+#include <QPolygon>
 #include <QStack>
 #include <QString>
-#include <QAction>
-#include <QKeySequence>
 #include <QMap>
-#include <QPolygon>
+
 #include <vector>
 
 #include "scribusapi.h"
@@ -350,6 +352,7 @@ struct PrintOptions
 	QString separationName;
 	QStringList allSeparations;
 	QString printerCommand;
+	QByteArray devMode; // printer specific options on Windows
 };
 
 typedef QMap<QString,QString> ProfilesL;
