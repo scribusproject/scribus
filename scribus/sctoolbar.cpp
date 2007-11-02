@@ -295,3 +295,15 @@ ScToolBar::~ScToolBar()
 {
 
 }
+
+void ScToolBar::hideEvent(QHideEvent * e)
+{
+	emit visibilityChanged(false);
+	QToolBar::hideEvent(e);
+}
+
+void ScToolBar::showEvent(QShowEvent * e)
+{
+	emit visibilityChanged(true);
+	QToolBar::showEvent(e);
+}

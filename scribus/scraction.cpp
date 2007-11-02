@@ -195,6 +195,7 @@ void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 			disconnect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
 	}
 	QAction::setCheckable(isToggle);
+	setChecked(isToggle); // set default state of the action's checkbox - PV
 	fakeToggle=isFakeToggle;
 	//if (fakeToggle)
 		//connect(this, toggled(bool), this, triggered());

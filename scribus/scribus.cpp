@@ -398,9 +398,9 @@ void ScribusMainWindow::initToolBars()
 	addToolBar(mainToolBar);
 	addToolBar(pdfToolBar);
 
-// 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));
+	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setVisible(bool)));
-// 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setChecked(bool)));
+	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setVisible(bool)) );
 }
 
