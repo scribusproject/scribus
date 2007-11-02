@@ -47,9 +47,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "scribuscore.h"
+#include "ui/modetoolbar.h"
 #include "util.h"
 #include "util_ghostscript.h"
-#include "modetoolbar.h"
+
 #include "pageitem_latexframe.h"
 
 extern bool emergencyActivated;

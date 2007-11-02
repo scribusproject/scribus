@@ -47,6 +47,7 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	parentMW=parent;
 	
 	setAllowedAreas(Qt::AllToolBarAreas);
+	this->setIconSize(QSize(16,16));
 	/*
 	setCloseMode(Q3DockWindow::Undocked);
 

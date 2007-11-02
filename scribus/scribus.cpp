@@ -127,7 +127,6 @@ for which a new license (GPL+exception) is in place.
 #include "measurements.h"
 #include "menumanager.h"
 #include "mergedoc.h"
-#include "modetoolbar.h"
 #include "movepage.h"
 #include "multipleduplicate.h"
 #include "newfile.h"
@@ -208,6 +207,10 @@ for which a new license (GPL+exception) is in place.
 #include "tocgenerator.h"
 #include "tocindexprefs.h"
 #include "ui/copypagetomasterpagedialog.h"
+#include "ui/edittoolbar.h"
+#include "ui/filetoolbar.h"
+#include "ui/modetoolbar.h"
+#include "ui/pdftoolbar.h"
 #include "undogui.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -372,36 +375,22 @@ ScribusMainWindow::~ScribusMainWindow()
 
 void ScribusMainWindow::initToolBars()
 {
-	fileToolBar = new ScToolBar( tr("File"), "File", this);
-	fileToolBar->setIconSize(QSize(16,16));
-	fileToolBar->addAction(scrActions["fileNew"]);
-	fileToolBar->addAction(scrActions["fileOpen"]);
-	QToolButton* tb = dynamic_cast<QToolButton*>(fileToolBar->widgetForAction(scrActions["fileOpen"]));
-	tb->setMenu(scrMenuMgr->getLocalPopupMenu("FileOpenRecent"));
-	tb->setPopupMode(QToolButton::DelayedPopup);
-	fileToolBar->addAction(scrActions["fileSave"]);
-	fileToolBar->addAction(scrActions["fileClose"]);
-	fileToolBar->addAction(scrActions["filePrint"]);
-	fileToolBar->addAction(scrActions["toolsPreflightVerifier"]);
-	fileToolBar->addAction(scrActions["fileExportAsPDF"]);
-
-	editToolBar = new ScToolBar( tr("Edit"), "Edit", this);
-	editToolBar->setIconSize(QSize(16,16));
+	fileToolBar = new FileToolBar(this);
+	editToolBar = new EditToolBar(this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
-
-	mainToolBar = new ModeToolBar(this);
+	modeToolBar = new ModeToolBar(this);
 	pdfToolBar = new PDFToolBar(this);
 
 	addToolBar(fileToolBar);
 	addToolBar(editToolBar);
-	addToolBar(mainToolBar);
+	addToolBar(modeToolBar);
 	addToolBar(pdfToolBar);
 
-	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));
+	connect(modeToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setVisible(bool)));
 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setChecked(bool)));
-	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setVisible(bool)) );
+	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), modeToolBar, SLOT(setVisible(bool)) );
 }
 
 
@@ -6242,9 +6231,9 @@ void ScribusMainWindow::setAppMode(int mode)
 		}
 		if (mode == modeDrawShapes)
 		{
-			doc->SubMode = mainToolBar->SubMode;
-			doc->ShapeValues = mainToolBar->ShapeVals;
-			doc->ValCount = mainToolBar->ValCount;
+			doc->SubMode = modeToolBar->SubMode;
+			doc->ShapeValues = modeToolBar->ShapeVals;
+			doc->ValCount = modeToolBar->ValCount;
 			propertiesPalette->SCustom->setIcon(propertiesPalette->SCustom->getIconPixmap(doc->SubMode));
 		}
 		else
@@ -7367,7 +7356,7 @@ void ScribusMainWindow::ShowSubs()
 	// init the toolbars
 // 	fileToolBar->initVisibility();
 // 	editToolBar->initVisibility();
-// 	mainToolBar->initVisibility();
+// 	modeToolBar->initVisibility();
 // 	pdfToolBar->initVisibility();
 
 	activateWindow();

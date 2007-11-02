@@ -45,7 +45,6 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
 	m_ScMW=parent;
-	this->setIconSize(QSize(16,16));
 	this->addAction(m_ScMW->scrActions["toolsSelect"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertTextFrame"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertImageFrame"]);
@@ -120,17 +119,4 @@ void ModeToolBar::languageChange()
 {
 	idInsertPolygonButtonMenu->setText( tr("Properties..."));
 	ScToolBar::languageChange();
-}
-
-
-PDFToolBar::PDFToolBar(ScribusMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
-{
-	this->setIconSize(QSize(16,16));
-	this->addAction(parent->scrActions["toolsPDFPushButton"]);
-	this->addAction(parent->scrActions["toolsPDFTextField"]);
-	this->addAction(parent->scrActions["toolsPDFCheckBox"]);
-	this->addAction(parent->scrActions["toolsPDFComboBox"]);
-	this->addAction(parent->scrActions["toolsPDFListBox"]);
-	this->addAction(parent->scrActions["toolsPDFAnnotText"]);
-	this->addAction(parent->scrActions["toolsPDFAnnotLink"]);
 }

@@ -77,6 +77,8 @@ class BookPalette;
 class CharSelect;
 class CheckDocument;
 class ColorCombo;
+class EditToolBar;
+class FileToolBar;
 class FontCombo;
 class FormatsManager;
 class GuideManager;
@@ -85,8 +87,8 @@ class LayerPalette;
 class Measurements;
 class MenuManager;
 class ModeToolBar;
-class PropertiesPalette;
 class NodePalette;
+class OutlinePalette;
 class PDFToolBar;
 class PSLib;
 class PageItem;
@@ -94,6 +96,7 @@ class PagePalette;
 class Preferences;
 class PrefsContext;
 class PrefsManager;
+class PropertiesPalette;
 class ReformDoc;
 class ScToolBar;
 class ScrAction;
@@ -105,10 +108,10 @@ class SimpleState;
 class StoryEditor;
 class StyleManager;
 class TOCGenerator;
-class OutlinePalette;
 class UndoManager;
 class UndoPalette;
 class UndoState;
+
 
 extern SCRIBUS_API ScribusQApp* ScQApp;
 
@@ -227,8 +230,6 @@ public:
 	QClipboard *ClipB;
 	QString LoadEnc;
 	bool ScriptRunning;
-	ModeToolBar* mainToolBar;
-
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 
@@ -577,8 +578,9 @@ private:
 	QString recentPasteMenuName;
 	QString layerMenuName;
 	QPixmap noIcon;
-	ScToolBar *fileToolBar;
-	ScToolBar *editToolBar;
+	EditToolBar *editToolBar;
+	FileToolBar *fileToolBar;
+	ModeToolBar* modeToolBar;
 	PDFToolBar* pdfToolBar;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;

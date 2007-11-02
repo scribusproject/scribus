@@ -141,7 +141,6 @@ SET(SCRIBUS_MOC_CLASSES
   menumanager.h
   mergedoc.h
   missing.h
-  modetoolbar.h
   movepage.h
   multipleduplicate.h
   multiprogressdialog.h
@@ -255,6 +254,10 @@ SET(SCRIBUS_MOC_CLASSES
   tt/simpletreemodel/treemodel.h
   ui/copypagetomasterpagedialog.h
   ui/createrange.h
+  ui/edittoolbar.h
+  ui/filetoolbar.h  
+  ui/modetoolbar.h
+  ui/pdftoolbar.h
   undogui.h
   undomanager.h
   unicodesearch.h
@@ -375,7 +378,6 @@ SET(SCRIBUS_SOURCES
   menumanager.cpp
   mergedoc.cpp
   missing.cpp
-  modetoolbar.cpp
   movepage.cpp
   multipleduplicate.cpp
   multiprogressdialog.cpp
@@ -533,6 +535,10 @@ SET(SCRIBUS_SOURCES
   tt/simpletreemodel/treemodel.cpp
   ui/copypagetomasterpagedialog.cpp
   ui/createrange.cpp
+  ui/edittoolbar.cpp
+  ui/filetoolbar.cpp
+  ui/modetoolbar.cpp
+  ui/pdftoolbar.cpp
   undogui.cpp
   undomanager.cpp
   undoobject.cpp
