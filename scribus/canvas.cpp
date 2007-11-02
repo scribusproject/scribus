@@ -1015,6 +1015,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
 						oldR = currItem->getRedrawBounding(m_viewMode.scale);
+						oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 						if (currItem->isGroupControl)
 						{
 							painter->save();
@@ -1125,6 +1126,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
 						oldR = currItem->getRedrawBounding(m_viewMode.scale);
+						oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 						if (clip.intersects(oldR))
 						{
 							painter->save();
@@ -1221,6 +1223,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 							continue;
 					}
 					oldR = currItem->getRedrawBounding(m_viewMode.scale);
+					oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 					if (currItem->isGroupControl)
 					{
 						painter->save();
@@ -1327,6 +1330,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 					if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
 						continue;
 					oldR = currItem->getRedrawBounding(m_viewMode.scale);
+					oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 					if (clip.intersects(oldR))
 					{
 						painter->save();
