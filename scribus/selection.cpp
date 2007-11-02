@@ -194,9 +194,9 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 		if (m_isGUISelection && !m_SelList.isEmpty())
 			m_SelList[0]->disconnectFromGUI();
 		m_SelList.prepend(item);
+		item->setSelected(true);
 		if (m_isGUISelection)
 		{
-			item->setSelected(true);
 			emit selectionChanged();
 		}
 
