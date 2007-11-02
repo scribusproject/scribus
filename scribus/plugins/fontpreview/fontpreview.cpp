@@ -100,12 +100,14 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		fontRow << col0 << col1 << col2 << col3 << col4;
 		fontModel->appendRow(fontRow);
 	}
-	fontList->setModel(fontModel);
+// 	fontList->setModel(fontModel); // displaying is handled by proxyModel
 
 	proxyModel = new QSortFilterProxyModel();
 	proxyModel->setDynamicSortFilter(true);
+	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 	proxyModel->setSourceModel(fontModel);
 	proxyModel->setFilterKeyColumn(0);
+	fontList->setModel(proxyModel);
 
 	// scribus config
 	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
