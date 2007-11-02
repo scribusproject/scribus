@@ -46,5 +46,5 @@ scribus.tr.qm
 scribus.uk.qm
 scribus.zh.qm
 scribus.zh_TW.qm
-  DESTINATION ${SHAREDIR}
+  DESTINATION ${SHAREDIR}/translations
 )
