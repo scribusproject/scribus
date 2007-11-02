@@ -4,4 +4,4 @@ INCLUDE_DIRECTORIES(
 
 #Install our qm files, selected from *.qm in this directory
 FILE( GLOB SCRIBUS_QM_FILES *.qm )
-INSTALL(FILES ${SCRIBUS_QM_FILES} DESTINATION ${LIBDIR})
+INSTALL(FILES ${SCRIBUS_QM_FILES} DESTINATION ${SHAREDIR}/translations)
