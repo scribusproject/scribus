@@ -85,6 +85,8 @@ class SCRIBUS_API Selection : public QObject
 		 * @return If the item was added
 		 */
 		bool prependItem(PageItem *item, bool doEmit=true);
+
+		bool containsItem(PageItem *item) const { return m_SelList.contains(item); }
 		/**
 		 * \brief Unused
 		 */

@@ -15,8 +15,8 @@
 
 
 
-#ifndef CANVAS_MODE_LEGACY_H
-#define CANVAS_MODE_LEGACY_H
+#ifndef CANVAS_MODE_CREATE_H
+#define CANVAS_MODE_CREATE_H
 
 #include "canvasmode.h"
 #include "fpointarray.h"
@@ -26,12 +26,13 @@ class ScribusMainWindow;
 class ScribusView;
 
 
-// This class encapsulate the old code for mouse interaction from scribusview.cpp
-
-class LegacyMode : public CanvasMode
+/**
+  Handles the creation of new pageitems
+*/
+class CreateMode : public CanvasMode
 {
 public:
-	LegacyMode(ScribusView* view);
+	CreateMode(ScribusView* view);
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
@@ -42,7 +43,7 @@ public:
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p) { }
+	virtual void drawControls(QPainter* p);
 	
 protected:
 	void setResizeCursor(int);
@@ -50,14 +51,12 @@ protected:
 private:
 	inline bool GetItem(PageItem** pi); 
 	void selectPage(QMouseEvent *m);
-	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
-	void createContextMenu(PageItem *);
-	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 
 	int Cp, oldCp;
 	bool inItemCreation, shiftSelItems, FirstPoly;
+	bool m_MouseButtonPressed;
 	int frameResizeHandle;
 	int RotMode;
 	int dragConstrainInitPtX, dragConstrainInitPtY;
@@ -66,7 +65,6 @@ private:
 	double SeRx, SeRy;
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;
-	ScribusMainWindow* m_ScMW;
 };
 
 

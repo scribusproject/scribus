@@ -18,12 +18,13 @@
 
 
 #include "canvas.h"
-
+#include "canvasmode.h"
 #include "page.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "scpainter.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "util.h"
 
@@ -61,7 +62,7 @@ void CanvasViewMode::init()
 	oldMinCanvasCoordinate = FPoint();
 }
 	
-Canvas::Canvas(ScribusDoc* doc, QWidget* parent) : QWidget(parent), m_doc(doc)
+Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(doc), m_view(parent)
 {
 	setAutoFillBackground(true);
 	m_viewMode.init();
@@ -429,6 +430,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			drawControlsSelection(&qp, m_doc->m_Selection->itemAt(0));
 		}		
 	}
+	m_view->m_canvasMode->drawControls(&qp);
 	m_viewMode.forceRedraw = false;
 }
 
@@ -1710,7 +1712,8 @@ void Canvas::drawControlsSelectionSpecial(QPainter* pp, PageItem *currItem)
  */
 void Canvas::drawControlsSelection(QPainter* psx, PageItem *currItem)
 {
-	if ((m_doc->appMode == modeEditClip) && (currItem->isSelected())) // && (!m_viewMode.specialRendering))
+	qDebug() << "Canvas::drawControlsSelection" << (m_doc->appMode == modeEditClip) << (currItem->isSelected());
+	if ((m_doc->appMode == modeEditClip)) // && (currItem->isSelected()) && (!m_viewMode.specialRendering))
 	{
 		if (m_doc->nodeEdit.isContourLine)
 			MarkClip(psx, currItem, currItem->ContourLine, true);
@@ -1780,6 +1783,7 @@ void Canvas::drawControlsSelection(QPainter* psx, PageItem *currItem)
  */
 void Canvas::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
 {
+	qDebug() << "Canvas::MarkClip";
 	double x, y;
 	p->save();
 //	p->resetMatrix();

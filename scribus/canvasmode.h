@@ -99,11 +99,14 @@ public:
 		Draws the controls for this mode and the selection marker. 
 	 If viewmode.drawSelectionWithControls is true, also draws the selection contents first.
 	 */
-	virtual void drawControls(QPainter* p) { drawSelection(p); }
+	virtual void drawControls(QPainter* p) { } 
 	
+
 	/** Draws the regular selection marker */
 	void drawSelection(QPainter* psx);
 
+	void setModeCursor();
+	
 	/** main canvas modes dont have a delegate */
 	virtual CanvasMode* delegate() { return 0; }
 	ScribusView* view() const { return m_view; }

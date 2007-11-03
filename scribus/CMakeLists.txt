@@ -288,6 +288,9 @@ SET(SCRIBUS_SOURCES
   canvasgesture_resize.cpp
   canvasgesture_rulermove.cpp
   canvasmode.cpp
+  canvasmode_create.cpp
+  canvasmode_drawbezier.cpp
+  canvasmode_drawfreehand.cpp
   canvasmode_legacy.cpp
   canvasmode_nodeedit.cpp
   charselect.cpp

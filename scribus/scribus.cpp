@@ -5117,8 +5117,7 @@ void ScribusMainWindow::SelectAll()
 			currItem = doc->Items->at(a);
 			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
 			{
-				if (!currItem->isSelected())
-					doc->m_Selection->addItem(currItem);
+				doc->m_Selection->addItem(currItem);
 			}
 		}
 		int docSelectionCount=doc->m_Selection->count();

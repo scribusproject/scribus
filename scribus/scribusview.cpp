@@ -313,10 +313,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	languageChange();
-	dragTimer = new QTimer(this);
-	connect(dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
-	dragTimer->stop();
-	dragTimerFired = false;
+	m_dragTimer = new QTimer(this);
+	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
+	m_dragTimer->stop();
+	m_dragTimerFired = false;
 }
 
 void ScribusView::changeEvent(QEvent *e)
@@ -1960,7 +1960,7 @@ void ScribusView::blinkCursor()
 
 void ScribusView::dragTimerTimeOut()
 {
-	dragTimerFired = true;
+	m_dragTimerFired = true;
 	qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
 }
 
@@ -2650,7 +2650,7 @@ void ScribusView::SetupDraw(int nr)
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = true;
 	m_canvas->setRenderModeFillBuffer();
-//	moveTimer = moveTimer.addSecs(1500);
+	resetMoveTimer();
 }
 
 void ScribusView::SetupDrawNoResize(int nr)
@@ -2668,7 +2668,7 @@ void ScribusView::SetupDrawNoResize(int nr)
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = false;
-	moveTimer = moveTimer.addSecs(1500);
+	resetMoveTimer();
 }
 
 #endif

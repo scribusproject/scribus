@@ -17,10 +17,13 @@
 #include "canvasmode.h"
 
 #include "canvas.h"
+#include "canvasmode_create.h"
+#include "canvasmode_drawbezier.h"
 #include "canvasmode_legacy.h"
 #include "canvasmode_nodeedit.h"
 #include "selection.h"
 #include "scribusview.h"
+#include "util_icon.h"
 
 #include <QPainter>
 
@@ -42,6 +45,30 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 	{
 		case modeEditClip:
 			result = new CanvasMode_NodeEdit(view);
+			break;
+		case modeDrawBezierLine:
+			result = new BezierMode(view);
+			break;
+		case modeDrawFreehandLine:
+			result = new LegacyMode(view);
+			break;
+		case modeDrawLine:
+			result = new LegacyMode(view);
+			break;
+		case modeDrawShapes:
+		case modeDrawPicture:
+		case modeDrawLatex:
+		case modeDrawText:
+		case modeDrawTable:
+		case modeDrawRegularPolygon:
+		case modeInsertPDFButton:
+		case modeInsertPDFTextfield:
+		case modeInsertPDFCheckbox:
+		case modeInsertPDFCombobox:
+		case modeInsertPDFListbox:
+		case modeInsertPDFTextAnnotation:
+		case modeInsertPDFLinkAnnotation:
+			result = new CreateMode(view);
 			break;
 			
 			// more modes as they are defined...
@@ -100,6 +127,65 @@ void CanvasMode::drawSelection(QPainter* psx)
 		psx->drawRect(QRectF(x, y, 6, 6));
 		psx->drawRect(QRectF(x, y+h/2 - 3, 6, 6));
 		psx->drawRect(QRectF(x, y+h-6, 6, 6));
+	}
+}
+
+void CanvasMode::setModeCursor()
+{
+	//NOTE: Merge with similar code in ScribusMainWindow::setAppMode()
+	switch (m_doc->appMode)
+	{
+		case modeDrawShapes:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			break;
+		case modeDrawPicture:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			break;
+		case modeDrawLatex:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			break;
+		case modeDrawText:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			break;
+		case modeDrawTable:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
+			break;
+		case modeDrawRegularPolygon:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			break;
+		case modeDrawLine:
+		case modeDrawBezierLine:
+			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			break;
+		case modeDrawFreehandLine:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			break;
+		case modeMagnifier:
+			if (m_view->Magnify)
+				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+			else
+				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+			break;
+		case modePanning:
+			qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+			break;
+		case modeEyeDropper:
+			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+			break;
+		case modeMeasurementTool:
+		case modeEditGradientVectors:
+		case modeInsertPDFButton:
+		case modeInsertPDFTextfield:
+		case modeInsertPDFCheckbox:
+		case modeInsertPDFCombobox:
+		case modeInsertPDFListbox:
+		case modeInsertPDFTextAnnotation:
+		case modeInsertPDFLinkAnnotation:
+			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			break;
+		default:
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			break;
 	}
 }
 

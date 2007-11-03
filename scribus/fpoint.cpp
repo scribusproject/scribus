@@ -56,7 +56,20 @@ void FPoint::transform(const double dx, const double dy, const double rot, const
 	xp = newxp;
 }
 
-FPoint FPoint::transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
+FPoint FPoint::transformPoint(const QMatrix& m, const bool invert) const
+{
+	QMatrix ma;
+	if (invert)
+		ma = m.inverted();
+	else
+		ma = m;
+	QPointF p(xp, yp);
+	p = ma.map(p);
+	return FPoint(p.x(), p.y());
+}
+
+
+FPoint FPoint::transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert) const
 {
 	QMatrix ma;
 	ma.translate(dx, dy);

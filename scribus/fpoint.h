@@ -58,7 +58,8 @@ public:
 	//Transform an existing point
 	void transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert);
 	//Transform an existing point, return a new one
-	FPoint transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert);
+	FPoint transformPoint(const QMatrix& m, const bool invert) const;
+	FPoint transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert) const;
 	friend class FPointArray;
 
 private:

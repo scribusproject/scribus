@@ -41,6 +41,7 @@ class Page;
 class PageItem;
 class ScPainter;
 class ScribusDoc;
+class ScribusView;
 
 struct CanvasViewMode
 {
@@ -82,7 +83,7 @@ class SCRIBUS_API Canvas : public QWidget
 	static const uint moveWithBoxesOnlyThreshold = 41;
 
 public:	
-	Canvas(ScribusDoc* doc, QWidget* parent);
+	Canvas(ScribusDoc* doc, ScribusView* parent);
 	
 	friend class ScribusView; // for now...
 	friend class LegacyMode;
@@ -185,6 +186,7 @@ private:
 		
 private:
 	ScribusDoc* m_doc;
+	ScribusView* m_view;
 	CanvasViewMode m_viewMode;
 };
 

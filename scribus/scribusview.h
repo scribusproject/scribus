@@ -49,8 +49,10 @@ for which a new license (GPL+exception) is in place.
 #include <QDropEvent>
 #include <QMouseEvent>
 #include <QPaintEvent>
+#include <QPoint>
 #include <QRect>
 #include <QRectF>
+#include <QTime>
 #include <QWheelEvent>
 #include <QRubberBand>
 #include <QList>
@@ -74,6 +76,9 @@ class PageSelector;
 class ScribusWin;
 class ScribusMainWindow;
 class UndoManager;
+
+
+
 
 /**
  * This class provides an incomplete base for your application view.
@@ -300,9 +305,10 @@ private: // Private attributes
 	int m_previousMode;
 	QMenu *pmen3;
 	QMenu *pmenResolution;
-	QTime moveTimer;
-	QTimer *dragTimer;
-	bool dragTimerFired;
+	QPoint m_pressLocation;
+	QTime m_moveTimer;
+	QTimer *m_dragTimer;
+	bool m_dragTimerFired;
 	bool Ready;
 	int  oldX;
 	int  oldY;
@@ -329,13 +335,22 @@ private slots:
 public:
 	virtual void contentsWheelEvent ( QWheelEvent *ev );
 	virtual void changeEvent(QEvent *e);
-		
+
+	inline void registerMousePress(QPoint p);
+	inline QPoint mousePressLocation();
+	inline bool moveTimerElapsed();
+	inline void resetMoveTimer();
+	
+	inline void startDragTimer();
+	inline void stopDragTimer();
+	inline void resetDragTimer();
+	inline bool dragTimerElapsed();
+
 protected: // Protected methods
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
 	virtual void resizeEvent ( QResizeEvent * event );
 	bool eventFilter(QObject *obj, QEvent *event);
-	inline bool moveTimerElapsed();
 
 	// those appear to be gone from QScrollArea:
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
@@ -418,10 +433,55 @@ signals:
 
 
 
-inline bool ScribusView::moveTimerElapsed()
+
+inline void ScribusView::registerMousePress(QPoint p)
 {
-	return (moveTimer.elapsed() > Prefs->moveTimeout);
+	m_pressLocation = p;
+	m_moveTimer.start();
+	m_dragTimerFired = false;
 }
 
+
+inline QPoint ScribusView::mousePressLocation()
+{
+	return m_pressLocation;
+}
+
+
+inline bool ScribusView::moveTimerElapsed()
+{
+	return (m_moveTimer.elapsed() > Prefs->moveTimeout);
+}
+
+
+inline void ScribusView::resetMoveTimer()
+{
+	m_moveTimer.start();
+}
+
+
+inline void ScribusView::startDragTimer()
+{
+	m_dragTimerFired = false;
+	m_dragTimer->setSingleShot(true);
+	m_dragTimer->start(1000);			// set Timeout for starting a Drag operation to 1 sec.
+}
+
+inline void ScribusView::stopDragTimer()
+{
+	m_dragTimer->stop();
+}
+
+
+inline void ScribusView::resetDragTimer()
+{
+	m_dragTimerFired = false;
+}
+
+
+inline bool ScribusView::dragTimerElapsed()
+{
+	return m_dragTimerFired;
+}
 
 #endif

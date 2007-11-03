@@ -105,6 +105,15 @@ void LegacyMode::leaveEvent(QEvent *e)
 void LegacyMode::activate(bool flag)
 {
 	qDebug() << "LegacyMode::activate" << flag;
+	m_canvas->m_viewMode.m_MouseButtonPressed = false;
+	m_canvas->resetRenderMode();
+	m_doc->DragP = false;
+	m_doc->leaveDrag = false;
+	m_canvas->m_viewMode.operItemMoving = false;
+	m_canvas->m_viewMode.operItemResizing = false;
+	m_view->MidButt = false;
+	shiftSelItems = false;
+	inItemCreation = false;
 	setModeCursor();
 }
 
@@ -119,7 +128,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
-	m_view->dragTimer->stop();
+	m_view->stopDragTimer();
 	PageItem *currItem = 0;
 	if ((m_doc->m_Selection->isMultipleSelection()) || (m_doc->appMode != modeNormal))
 	{
@@ -389,18 +398,18 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		if ((((m_view->dragTimerFired) && (m->buttons() & Qt::LeftButton)) || (m_view->moveTimerElapsed() && (m->buttons() & Qt::RightButton)))
+		if ((((m_view->dragTimerElapsed()) && (m->buttons() & Qt::LeftButton)) || (m_view->moveTimerElapsed() && (m->buttons() & Qt::RightButton)))
 			&& (m_canvas->m_viewMode.m_MouseButtonPressed)
 			&& (!m_doc->DragP) 
 			&& (m_doc->appMode == modeNormal) 
 			&& (!(currItem->isSingleSel)))
 		{
 			// start drag
-			m_view->dragTimer->stop();
+			m_view->stopDragTimer();
 			if ((fabs(Dxp - newX) > 10) || (fabs(Dyp - newY) > 10))
 			{
 				m_canvas->resetRenderMode();
-				m_view->dragTimerFired = false;
+				m_view->resetDragTimer();
 				m_doc->DragP = true;
 				m_doc->leaveDrag = false;
 				m_doc->DraggedElem = currItem;
@@ -442,7 +451,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			return;
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeRotation))
 		{
-			m_view->dragTimer->stop();
+			m_view->stopDragTimer();
 			double newW = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 			if (m->modifiers() & Qt::ControlModifier)
 			{
@@ -575,7 +584,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
 			((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
 		{
-			m_view->dragTimer->stop();
+			m_view->stopDragTimer();
 			if (m_canvas->m_viewMode.operItemResizing)
 			{
 //				newX = static_cast<int>(m->x()/sc);
@@ -1185,8 +1194,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	inItemCreation = false;
 //	oldClip = 0;
 	m->accept();
-	m_view->moveTimer.start();
-	m_view->dragTimerFired = false;
+	m_view->registerMousePress(m->globalPos());
 	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
@@ -1389,8 +1397,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			}
 			if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
 			{
-				m_view->dragTimer->setSingleShot(true);
-				m_view->dragTimer->start(1000);			// set Timeout for starting a Drag operation to 1 sec.
+				m_view->startDragTimer();
 			}
 			break;
 		case modeDrawShapes:
@@ -2017,7 +2024,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->dragTimer->stop();
+	m_view->stopDragTimer();
 	if ((m_doc->appMode == modeNormal) && m_doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
@@ -2620,7 +2627,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 		{
-			m_view->dragTimer->stop();
+			m_view->stopDragTimer();
 			m_canvas->setRenderModeUseBuffer(false);
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
@@ -3923,7 +3930,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	if (currItem)
 	{
 		m_doc->m_Selection->setIsGUISelection(false);
-		if (currItem->isSelected())
+		if (m_doc->m_Selection->containsItem(currItem))
 		{
 			m_doc->m_Selection->removeItem(currItem);
 		}
@@ -4343,7 +4350,7 @@ void LegacyMode::SetupDraw(int nr)
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = true;
 	m_canvas->setRenderModeFillBuffer();
-	//	moveTimer = moveTimer.addSecs(1500);
+	m_view->resetMoveTimer();
 }
 
 void LegacyMode::SetupDrawNoResize(int nr)
@@ -4361,7 +4368,7 @@ void LegacyMode::SetupDrawNoResize(int nr)
 //	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = false;
-	m_view->moveTimer = m_view->moveTimer.addSecs(1500);
+	m_view->resetMoveTimer();
 }
 
 
@@ -4436,64 +4443,6 @@ int LegacyMode::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
 	return frameResizeHandle;
 }
 
-void LegacyMode::setModeCursor()
-{
-	//NOTE: Merge with similar code in ScribusMainWindow::setAppMode()
-	switch (m_doc->appMode)
-	{
-		case modeDrawShapes:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
-			break;
-		case modeDrawPicture:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
-			break;
-		case modeDrawLatex:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
-			break;
-		case modeDrawText:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
-			break;
-		case modeDrawTable:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
-			break;
-		case modeDrawRegularPolygon:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
-			break;
-		case modeDrawLine:
-		case modeDrawBezierLine:
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-			break;
-		case modeDrawFreehandLine:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
-			break;
-		case modeMagnifier:
-			if (m_view->Magnify)
-				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
-			else
-				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
-			break;
-		case modePanning:
-			qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-			break;
-		case modeEyeDropper:
-			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
-			break;
-		case modeMeasurementTool:
-		case modeEditGradientVectors:
-		case modeInsertPDFButton:
-		case modeInsertPDFTextfield:
-		case modeInsertPDFCheckbox:
-		case modeInsertPDFCombobox:
-		case modeInsertPDFListbox:
-		case modeInsertPDFTextAnnotation:
-		case modeInsertPDFLinkAnnotation:
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-			break;
-		default:
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			break;
-	}
-}
 
 void LegacyMode::setResizeCursor(int how)
 {
