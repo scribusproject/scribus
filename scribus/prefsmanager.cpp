@@ -490,6 +490,18 @@ void PrefsManager::initDefaultActionKeys()
 	}
 }
 
+void PrefsManager::applyLoadedShortCuts()
+{
+	for (QMap<QString,Keys>::Iterator it = appPrefs.KeyActions.begin(); it != appPrefs.KeyActions.end(); ++it )
+	{
+		if (!it.value().actionName.isEmpty())
+		{
+			if (ScCore->primaryMainWindow()->scrActions[it.value().actionName])
+				ScCore->primaryMainWindow()->scrActions[it.value().actionName]->setShortcut(it.value().keySequence);
+		}
+	}
+}
+
 void PrefsManager::initDefaultGUIFont(const QFont& guiFont)
 {
 	appPrefs.AppFontSize = guiFont.pointSize();

@@ -4,56 +4,56 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "prefs.h"
-//#include "prefs.moc"
-#include "scribusdoc.h"
-#include "scribusstructs.h"
-#include "units.h"
-#include "langmgr.h"
-#include "hysettings.h"
-#include "cmsprefs.h"
-#include "tabtools.h"
-#include "undomanager.h"
-#include "tabcheckdoc.h"
-#include "tabpdfoptions.h"
-#include "fontprefs.h"
-#include "units.h"
-#include "pagesize.h"
-#include "pagestructs.h"
-#include "docitemattrprefs.h"
-#include "marginWidget.h"
-#include "prefsmanager.h"
-#include "polygonwidget.h"
-#include "fontcombo.h"
-#include "linecombo.h"
+
+#include <QList>
+#include <QPixmap>
+#include <QStackedWidget>
+
 #include "arrowchooser.h"
-#include "pagelayout.h"
-#include "pluginmanager.h"
-#include "pluginmanagerprefsgui.h"
-#include "prefsfile.h"
-#include "scpaths.h"
-#include "scplugin.h"
-#include "sccombobox.h"
+#include "cmsprefs.h"
 #include "colorcombo.h"
 #include "commonstrings.h"
+#include "docitemattrprefs.h"
+#include "fontcombo.h"
+#include "fontprefs.h"
+#include "hyphenator.h"
+#include "hysettings.h"
+#include "langmgr.h"
+#include "linecombo.h"
+#include "marginWidget.h"
+#include "pagelayout.h"
+#include "pagesize.h"
+#include "pagestructs.h"
+#include "pluginmanager.h"
+#include "pluginmanagerprefsgui.h"
+#include "polygonwidget.h"
+#include "prefs.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "sccombobox.h"
+#include "scpaths.h"
+#include "scplugin.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
-#include "tabtypography.h"
-#include "tabguides.h"
-#include "tabexternaltoolswidget.h"
-#include "tabkeyboardshortcutswidget.h"
-#include "tocindexprefs.h"
-#include "hyphenator.h"
-#include "tabgeneral.h"
+#include "scribusdoc.h"
+#include "scribusstructs.h"
+#include "tabcheckdoc.h"
 #include "tabdisplay.h"
 #include "tabdocument.h"
+#include "tabexternaltoolswidget.h"
+#include "tabgeneral.h"
+#include "tabguides.h"
+#include "tabkeyboardshortcutswidget.h"
 #include "tabmiscellaneous.h"
-#include "tabscrapbook.h"
+#include "tabpdfoptions.h"
 #include "tabprinter.h"
-//Added by qt3to4:
-#include <QPixmap>
-#include <QList>
-#include <QStackedWidget>
+#include "tabscrapbook.h"
+#include "tabtools.h"
+#include "tabtypography.h"
+#include "tocindexprefs.h"
+#include "undomanager.h"
+#include "units.h"
+#include "units.h"
 #include "util_icon.h"
 
 using namespace std;
@@ -67,6 +67,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ap = (ScribusMainWindow*)parent;
 	docUnitIndex = prefsData->docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
+
 
 	setWindowTitle( tr( "Preferences" ) );
 

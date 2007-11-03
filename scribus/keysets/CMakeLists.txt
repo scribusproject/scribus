@@ -3,6 +3,6 @@ INCLUDE_DIRECTORIES(
 )
 
 INSTALL(FILES
-scribus13.ksxml
-  DESTINATION ${LIBDIR}keysets
+scribus13.xml
+  DESTINATION ${SHAREDIR}keysets
 )

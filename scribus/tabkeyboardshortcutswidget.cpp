@@ -127,8 +127,8 @@ void TabKeyboardShortcutsWidget::loadKeySetFile()
 void TabKeyboardShortcutsWidget::importKeySetFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString currentPath = dirs->get("keymapprefs_import", ".");
-	QString s = QFileDialog::getOpenFileName(this, tr("Choose a file to read"), tr("Key Set XML Files (*.ksxml)"), currentPath);
+	QString currentPath = dirs->get("keymapprefs_import", ScPaths::instance().shareDir() + "keysets/");
+	QString s = QFileDialog::getOpenFileName(this, tr("Select a Key set file to read"), currentPath, tr("Key Set XML Files (*.xml)"));
 	if (!s.isEmpty())
 		importKeySet(s);
 }
@@ -136,7 +136,7 @@ void TabKeyboardShortcutsWidget::exportKeySetFile()
 {   
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
-	QString s = QFileDialog::getSaveFileName(this, tr("Choose a file to save"), tr("Key Set XML Files (*.ksxml)"), currentPath );
+	QString s = QFileDialog::getSaveFileName(this, tr("Select a Key set file to save to"), currentPath, tr("Key Set XML Files (*.xml)") );
 	if (!s.isEmpty())
 		exportKeySet(s);
 }
@@ -200,10 +200,10 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 {
 	QFileInfo fi = QFileInfo(filename);
 	QString exportFileName;
-	if (filename.endsWith(".ksxml"))
+	if (filename.endsWith(".xml"))
 		exportFileName = filename;
 	else
-		exportFileName = filename+".ksxml";
+		exportFileName = filename+".xml";
 	if (overwrite(this, exportFileName))
 	{
 		bool ok;
@@ -240,17 +240,17 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 
 void TabKeyboardShortcutsWidget::resetKeySet()
 {
-	QString location=ScPaths::instance().libDir();
-	QString defaultKeySetFileName=QDir::convertSeparators(location+"keysets/scribus13.ksxml");
+	QString location=ScPaths::instance().shareDir();
+	QString defaultKeySetFileName=QDir::convertSeparators(location+"keysets/scribus13.xml");
 	importKeySet(defaultKeySetFileName);	
 }
 
 QStringList TabKeyboardShortcutsWidget::scanForSets()
 {
 	keySetList.clear();
-	QString location=ScPaths::instance().libDir();
+	QString location=ScPaths::instance().shareDir();
 	QString keySetLocation=QDir::convertSeparators(location+"keysets/");
-	QDir keySetsDir(keySetLocation, "*.ksxml", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	QDir keySetsDir(keySetLocation, "*.xml", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((keySetsDir.exists()) && (keySetsDir.count() != 0))
 	{
 		QStringList appNames;

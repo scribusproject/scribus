@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shortcutset name="Scribus 1.3.4" >
-    <function shortcut="" name="Barcode Generator" />
-    <function shortcut="" name="ColorWheel" />
+<shortcutset name="Scribus 1.3.5" >
     <function shortcut="Ctrl+Shift+E" name="ExportAsImage" />
-    <function shortcut="" name="ExportAsSVG" />
-    <function shortcut="" name="FontPreview" />
     <function shortcut="Ctrl+Alt+N" name="NewFromDocumentTemplate" />
     <function shortcut="Ctrl+Alt+P" name="PrintPreview" />
     <function shortcut="Ctrl+Alt+S" name="SaveAsDocumentTemplate" />
-    <function shortcut="" name="ShortWords" />
     <function shortcut="" name="alignBlock" />
     <function shortcut="" name="alignCenter" />
     <function shortcut="" name="alignForced" />
@@ -22,6 +17,7 @@
     <function shortcut="Ctrl+X" name="editCut" />
     <function shortcut="Ctrl+Shift+A" name="editDeselectAll" />
     <function shortcut="" name="editEditWithImageEditor" />
+    <function shortcut="" name="editEditWithLatexEditor" />
     <function shortcut="" name="editExtendedImageProperties" />
     <function shortcut="" name="editJavascripts" />
     <function shortcut="" name="editMasterPages" />
@@ -72,7 +68,12 @@
     <function shortcut="" name="helpAboutPlugins" />
     <function shortcut="" name="helpAboutQt" />
     <function shortcut="" name="helpAboutScribus" />
+    <function shortcut="" name="helpCheckUpdates" />
     <function shortcut="F1" name="helpManual" />
+    <function shortcut="" name="helpOnlineDocs" />
+    <function shortcut="" name="helpOnlineTutorial1" />
+    <function shortcut="" name="helpOnlineWWW" />
+    <function shortcut="" name="helpOnlineWiki" />
     <function shortcut="" name="helpTooltips" />
     <function shortcut="" name="insertFrame" />
     <function shortcut="" name="insertGlyph" />
@@ -152,6 +153,7 @@
     <function shortcut="B" name="toolsInsertBezier" />
     <function shortcut="F" name="toolsInsertFreehandLine" />
     <function shortcut="I" name="toolsInsertImageFrame" />
+    <function shortcut="D" name="toolsInsertLatexFrame" />
     <function shortcut="L" name="toolsInsertLine" />
     <function shortcut="P" name="toolsInsertPolygon" />
     <function shortcut="S" name="toolsInsertShape" />
@@ -178,8 +180,8 @@
     <function shortcut="" name="toolsToolbarTools" />
     <function shortcut="U" name="toolsUnlinkTextFrame" />
     <function shortcut="Z" name="toolsZoom" />
-    <function shortcut="+" name="toolsZoomIn" />
-    <function shortcut="-" name="toolsZoomOut" />
+    <function shortcut="Ctrl++" name="toolsZoomIn" />
+    <function shortcut="Ctrl+-" name="toolsZoomOut" />
     <function shortcut="" name="typeEffectAllCaps" />
     <function shortcut="" name="typeEffectNormal" />
     <function shortcut="" name="typeEffectOutline" />
@@ -242,6 +244,7 @@
     <function shortcut="" name="unicodeZerowidthSpace" />
     <function shortcut="Ctrl+1" name="viewFit100" />
     <function shortcut="" name="viewFit200" />
+    <function shortcut="" name="viewFit400" />
     <function shortcut="" name="viewFit50" />
     <function shortcut="" name="viewFit75" />
     <function shortcut="Ctrl+0" name="viewFitInWindow" />

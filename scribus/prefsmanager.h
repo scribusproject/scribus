@@ -68,6 +68,7 @@ public:
 	void initDefaultGUIFont(const QFont&);
 	void initDefaultCheckerPrefs(CheckerPrefsList* cp);
 	void initDefaultActionKeys();
+	void applyLoadedShortCuts();
 	void initArrowStyles();
 	/*!
 	\author Craig Bradney

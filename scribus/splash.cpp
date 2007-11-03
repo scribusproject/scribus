@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 
 
 SplashScreen::SplashScreen() : QWidget( 0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool | Qt::SplashScreen)
-	 //WX11BypassWM )
 {
 	pix = loadIcon("Splash.png", true);
 	Q_ASSERT(!pix.isNull());

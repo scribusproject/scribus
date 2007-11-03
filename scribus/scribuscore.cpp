@@ -111,9 +111,11 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo,newGuiLanguage, prefsUserFile);
 	if (retVal == 1)
 		return(EXIT_FAILURE);
+	
 	retVal = scribus->initScMW(true);
 	if (retVal == 1)
 		return(EXIT_FAILURE);
+	
 	closeSplash();
 	m_ScribusInitialized=true;
 //	ScQApp->setMainWidget(scribus);
@@ -137,6 +139,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	// require the app to be fully set up (in particular, the main window to be
 	// built and shown) before running their setup.
 	emit appStarted();
+	
 	return EXIT_SUCCESS;
 }
 
@@ -183,7 +186,9 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		prefsManager->ReadPrefs();
 	else
 		prefsManager->ReadPrefs(prefsUserFile);
-
+	setSplashStatus( tr("Applying User Shortcuts") );
+	prefsManager->applyLoadedShortCuts();
+		
 	m_HaveGS = testGSAvailability();
 	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
 	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");

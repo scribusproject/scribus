@@ -302,15 +302,15 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	actionManager = new ActionManager(this);
 	actionManager->init(this);
+	if (primaryMainWindow)
+		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
+	prefsManager->applyLoadedShortCuts();
+	initKeyboardShortcuts();
 	initMenuBar();
 	initToolBars();
  	ScCore->pluginManager->setupPluginActions(this);
  	ScCore->pluginManager->languageChange();
-	initKeyboardShortcuts();
-	if (primaryMainWindow)
-		ScCore->setSplashStatus( tr("Setting up Shortcuts") );
-	SetShortCut();
-
+	
 	resize(610, 600);
 	wsp = new QWorkspace( this );
 	setCentralWidget( wsp );
@@ -327,7 +327,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	storyEditor = new StoryEditor(this);
 
 	DocDir = prefsManager->documentDir();
-
 
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Hyphenator") );
@@ -364,6 +363,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
 	QCoreApplication::instance()->installEventFilter(this);
+	
 	return retVal;
 }
 
@@ -7310,7 +7310,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	propertiesPalette->Fonts->RebuildList(0);
 	ScCore->getCMSProfiles(false);
 	ScCore->recheckGS();
-	SetShortCut();
+	prefsManager->applyLoadedShortCuts();
 }
 
 void ScribusMainWindow::slotPrefsOrg()
