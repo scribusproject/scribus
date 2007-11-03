@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef FPOINT_H
 #define FPOINT_H
 
+#include <QMatrix>
 #include <QPoint>
 #include "scribusapi.h"
 /**
