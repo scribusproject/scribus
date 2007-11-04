@@ -410,24 +410,25 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 				{
-					QString Dt = FToStr(qMax(2*Item->lineWidth(), 1.0));
-					QString Da = FToStr(qMax(6*Item->lineWidth(), 1.0));
+					QString Dt = FToStr(qMax(1*Item->lineWidth(), 1.0));
+					QString Sp = FToStr(qMax(2*Item->lineWidth(), 1.0));
+					QString Da = FToStr(qMax(4*Item->lineWidth(), 1.0));
 					switch (Item->PLineArt)
 					{
 						case Qt::SolidLine:
 							strokeDA += "none;";
 							break;
 						case Qt::DashLine:
-							strokeDA += Da+","+Dt+";";
+							strokeDA += Da+","+Sp+";";
 							break;
 						case Qt::DotLine:
-							strokeDA += Dt+";";
+							strokeDA += Dt+","+Sp+";";
 							break;
 						case Qt::DashDotLine:
-							strokeDA += Da+","+Dt+","+Dt+","+Dt+";";
+							strokeDA += Da+","+Sp+","+Dt+","+Sp+";";
 							break;
 						case Qt::DashDotDotLine:
-							strokeDA += Da+","+Dt+","+Dt+","+Dt+","+Dt+","+Dt+";";
+							strokeDA += Da+","+Sp+","+Dt+","+Sp+","+Dt+","+Sp+";";
 							break;
 						default:
 							strokeDA += "none;";

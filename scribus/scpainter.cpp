@@ -816,8 +816,9 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	PLineEnd = ca;
 	PLineJoin = jo;
 #ifdef HAVE_CAIRO
-	double Dt = qMax(2*w, 1.0);
-	double Da = qMax(6*w, 1.0);
+	double Dt = qMax(1*w, 1.0);
+	double Sp = qMax(2*w, 1.0);
+	double Da = qMax(4*w, 1.0);
 	m_array.clear();
 	m_offset = 0;
 	switch (st)
@@ -826,24 +827,25 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 			break;
 		case Qt::DashLine:
 			m_array.append(Da);
-			m_array.append(Dt);
+			m_array.append(Sp);
 			break;
 		case Qt::DotLine:
 			m_array.append(Dt);
+			m_array.append(Sp);
 			break;
 		case Qt::DashDotLine:
 			m_array.append(Da);
+			m_array.append(Sp);
 			m_array.append(Dt);
-			m_array.append(Dt);
-			m_array.append(Dt);
+			m_array.append(Sp);
 			break;
 		case Qt::DashDotDotLine:
 			m_array.append(Da);
+			m_array.append(Sp);
 			m_array.append(Dt);
+			m_array.append(Sp);
 			m_array.append(Dt);
-			m_array.append(Dt);
-			m_array.append(Dt);
-			m_array.append(Dt);
+			m_array.append(Sp);
 			break;
 		default:
 			break;

@@ -866,8 +866,9 @@ void PSLib::PS_setlinewidth(double w)
 
 void PSLib::PS_setdash(Qt::PenStyle st, double offset, QList<double> dash)
 {
-	QString Dt = ToStr(qMax(2*LineW, 1.0));
-	QString Da = ToStr(qMax(6*LineW, 1.0));
+	QString Dt = ToStr(qMax(1*LineW, 1.0));
+	QString Sp = ToStr(qMax(2*LineW, 1.0));
+	QString Da = ToStr(qMax(4*LineW, 1.0));
 	if (dash.count() != 0)
 	{
 		PutSeite("[ ");
@@ -886,16 +887,16 @@ void PSLib::PS_setdash(Qt::PenStyle st, double offset, QList<double> dash)
 				PutSeite("[] 0 setdash\n");
 				break;
 			case Qt::DashLine:
-				PutSeite("["+Da+" "+Dt+"] 0 setdash\n");
+				PutSeite("["+Da+" "+Sp+"] 0 setdash\n");
 				break;
 			case Qt::DotLine:
-				PutSeite("["+Dt+"] 0 setdash\n");
+				PutSeite("["+Dt+" "+Sp+"] 0 setdash\n");
 				break;
 			case Qt::DashDotLine:
-				PutSeite("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 setdash\n");
+				PutSeite("["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 setdash\n");
 				break;
 			case Qt::DashDotDotLine:
-				PutSeite("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 setdash\n");
+				PutSeite("["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 setdash\n");
 				break;
 			default:
 				PutSeite("[] 0 setdash\n");

@@ -1601,24 +1601,25 @@ void PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				}
 				else
 				{
-					QString Dt = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
-					QString Da = FToStr(qMax(6*fabs(ite->lineWidth()), 1.0));
+					QString Dt = FToStr(qMax(1*fabs(ite->lineWidth()), 1.0));
+					QString Sp = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
+					QString Da = FToStr(qMax(4*fabs(ite->lineWidth()), 1.0));
 					switch (ite->PLineArt)
 					{
 						case Qt::SolidLine:
 							PutPage("[] 0 d\n");
 							break;
 						case Qt::DashLine:
-							PutPage("["+Da+" "+Dt+"] 0 d\n");
+							PutPage("["+Da+" "+Sp+"] 0 d\n");
 							break;
 						case Qt::DotLine:
-							PutPage("["+Dt+"] 0 d\n");
+							PutPage("["+Dt+" "+Sp+"] 0 d\n");
 							break;
 						case Qt::DashDotLine:
-							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+							PutPage("["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n");
 							break;
 						case Qt::DashDotDotLine:
-							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+							PutPage("["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n");
 							break;
 						default:
 							PutPage("[] 0 d\n");
@@ -3097,24 +3098,25 @@ QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 	}
 	else
 	{
-		QString Dt = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
-		QString Da = FToStr(qMax(6*fabs(ite->lineWidth()), 1.0));
+		QString Dt = FToStr(qMax(1*fabs(ite->lineWidth()), 1.0));
+		QString Sp = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
+		QString Da = FToStr(qMax(4*fabs(ite->lineWidth()), 1.0));
 		switch (ite->PLineArt)
 		{
 			case Qt::SolidLine:
 				tmp += "[] 0 d\n";
 				break;
 			case Qt::DashLine:
-				tmp += "["+Da+" "+Dt+"] 0 d\n";
+				tmp += "["+Da+" "+Sp+"] 0 d\n";
 				break;
 			case Qt::DotLine:
-				tmp += "["+Dt+"] 0 d\n";
+				tmp += "["+Dt+" "+Sp+"] 0 d\n";
 				break;
 			case Qt::DashDotLine:
-				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
 				break;
 			case Qt::DashDotDotLine:
-				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
 				break;
 			default:
 				tmp += "[] 0 d\n";
@@ -3249,24 +3251,25 @@ QString PDFLibCore::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bo
 	}
 	else
 	{
-		QString Dt = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
-		QString Da = FToStr(qMax(6*fabs(ite->lineWidth()), 1.0));
+		QString Dt = FToStr(qMax(1*fabs(ite->lineWidth()), 1.0));
+		QString Sp = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
+		QString Da = FToStr(qMax(4*fabs(ite->lineWidth()), 1.0));
 		switch (ite->PLineArt)
 		{
 			case Qt::SolidLine:
 				tmp += "[] 0 d\n";
 				break;
 			case Qt::DashLine:
-				tmp += "["+Da+" "+Dt+"] 0 d\n";
+				tmp += "["+Da+" "+Sp+"] 0 d\n";
 				break;
 			case Qt::DotLine:
-				tmp += "["+Dt+"] 0 d\n";
+				tmp += "["+Dt+" "+Sp+"] 0 d\n";
 				break;
 			case Qt::DashDotLine:
-				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
 				break;
 			case Qt::DashDotDotLine:
-				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
 				break;
 			default:
 				tmp += "[] 0 d\n";
@@ -3917,24 +3920,25 @@ QString PDFLibCore::setStrokeMulti(struct SingleLine *sl)
 			putColor(sl->Color, sl->Shade, false) +
 			FToStr(sl->Width)+" w\n"
 			);
-	QString Dt = FToStr(qMax(2*sl->Width, 1.0));
-	QString Da = FToStr(qMax(6*sl->Width, 1.0));
+	QString Dt = FToStr(qMax(1*sl->Width, 1.0));
+	QString Sp = FToStr(qMax(2*sl->Width, 1.0));
+	QString Da = FToStr(qMax(4*sl->Width, 1.0));
 	switch (static_cast<Qt::PenStyle>(sl->Dash))
 	{
 		case Qt::SolidLine:
 			tmp += "[] 0 d\n";
 			break;
 		case Qt::DashLine:
-			tmp += "["+Da+" "+Dt+"] 0 d\n";
+			tmp += "["+Da+" "+Sp+"] 0 d\n";
 			break;
 		case Qt::DotLine:
-			tmp += "["+Dt+"] 0 d\n";
+			tmp += "["+Dt+" "+Sp+"] 0 d\n";
 			break;
 		case Qt::DashDotLine:
-			tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+			tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
 			break;
 		case Qt::DashDotDotLine:
-			tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+			tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
 			break;
 		default:
 			tmp += "[] 0 d\n";

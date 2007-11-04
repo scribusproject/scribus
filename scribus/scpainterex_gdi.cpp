@@ -408,8 +408,9 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 	m_lineWidth = w;
 	m_lineEnd = ca;
 	m_lineJoin = jo;
-	double Dt = qMax(2*w, 1.0);
-	double Da = qMax(6*w, 1.0);
+	double Dt = qMax(1*w, 1.0);
+	double Sp = qMax(2*w, 1.0);
+	double Da = qMax(4*w, 1.0);
 	QList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
@@ -419,27 +420,28 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 			break;
 		case Qt::DashLine:
 			m_array.append(Da);
-			m_array.append(Dt);
+			m_array.append(Sp);
 			break;
 		case Qt::DotLine:
 			m_array.append(Dt);
+			m_array.append(Sp);
 #ifdef SC_USE_GDIPLUS
 			m_array.append(Dt);
 #endif
 			break;
 		case Qt::DashDotLine:
 			m_array.append(Da);
+			m_array.append(Sp);
 			m_array.append(Dt);
-			m_array.append(Dt);
-			m_array.append(Dt);
+			m_array.append(Sp);
 			break;
 		case Qt::DashDotDotLine:
 			m_array.append(Da);
+			m_array.append(Sp);
 			m_array.append(Dt);
+			m_array.append(Sp);
 			m_array.append(Dt);
-			m_array.append(Dt);
-			m_array.append(Dt);
-			m_array.append(Dt);
+			m_array.append(Sp);
 			break;
 		default:
 			break;
