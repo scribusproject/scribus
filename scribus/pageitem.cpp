@@ -4464,7 +4464,7 @@ void PageItem::updateClip()
 				m_Doc->setRedrawBounding(this);
 				break;
 			case 2:
-				//CB FIXME: stop using clre or move out of here
+				//CB FIXME: stop using nodeEdit.clre or move out of here
 				m_Doc->nodeEdit.deselect();
 				SetFrameRound();
 				m_Doc->setRedrawBounding(this);

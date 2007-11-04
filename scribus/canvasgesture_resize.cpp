@@ -48,6 +48,8 @@ void ResizeGesture::activate(bool flag)
 						 QSize(currItem->width() * m_canvas->scale(), 
 							   currItem->height() * m_canvas->scale()));
 		m_rotation = currItem->rotation();
+		currItem->OldB2 = currItem->width();
+		currItem->OldH2 = currItem->height();
 	}
 	m_rectangle->setGeometry(m_bounds);
 	m_rectangle->show();
@@ -63,7 +65,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 {
 	adjustBounds(m);
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
-	QRectF newBounds = m_canvas->globalToCanvas(m_bounds);
+	QRectF newBounds = m_canvas->globalToCanvas(m_bounds.normalized());
 	
 	qDebug() << "ResizeGesture::release: new bounds" << newBounds;	
 	if (m_doc->m_Selection->isMultipleSelection())
@@ -91,6 +93,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		// rotation does not change
 	}
 	currItem->updateClip();
+	m_doc->setRedrawBounding(currItem);
 	m_canvas->setRenderModeFillBuffer();
 	m_view->stopGesture();
 }

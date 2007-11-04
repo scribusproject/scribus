@@ -6156,14 +6156,14 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 	if ((newMaxX != maxCanvasCoordinate.x()) || (newMaxY != maxCanvasCoordinate.y())
 	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
 	{
+		//Save the old values for the emit, but update now to ensure we are all ready
+		double oldMinX=minCanvasCoordinate.x();
+		double oldMinY=minCanvasCoordinate.y();
+		maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
+		minCanvasCoordinate = FPoint(newMinX, newMinY);
 		//CB TODO Make a list of views we belong to and make this the doc's active view via an internal*
 		if (ScCore->usingGUI()) 
 		{
-			//Save the old values for the emit, but update now to ensure we are all ready
-			double oldMinX=minCanvasCoordinate.x();
-			double oldMinY=minCanvasCoordinate.y();
-			maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
-			minCanvasCoordinate = FPoint(newMinX, newMinY);
 			// Why using a signal here ? much slower than a direct call
 //			emit canvasAdjusted(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
 //FIXME: stop using m_View
@@ -9060,7 +9060,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 		double my = ma.m12() * currItem->width() + ma.dy();
 		MoveItem(newX.x(), newX.y(), currItem, fromMP);
 		double newRot=xy2Deg(mx - currItem->xPos(), my - currItem->yPos());
-		//CB Hmm should work, doesnt. (constraining on the first point of a line)
+		//CB Hmm should work, doesnt. (constraining on the first point of a line) FIXME
 		//if (constrainRotation)
 		//	qDebug(QString("%1").arg(constrainAngle(newRot)));
 		currItem->setRotation(newRot);
