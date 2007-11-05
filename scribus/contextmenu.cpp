@@ -69,10 +69,11 @@ void ContextMenu::createMenuItems()
 	assert(m_doc!=0 && currItem!=0);
 	
 	QMenu *menuConvertTo = new QMenu(this);
-	QMenu *menuLayer = new QMenu(this);
-	QMenu *menuInfo = new QMenu(this);
 	QMenu *menuEditContents = new QMenu(this);
+	QMenu *menuInfo = new QMenu(this);
+	QMenu *menuLayer = new QMenu(this);
 	QMenu *menuLevel = new QMenu(this);
+	QMenu *menuPDF = new QMenu(this);
 	QMenu *menuResolution = new QMenu(this);
 	
 	//<-- Add Info
@@ -193,6 +194,20 @@ void ContextMenu::createMenuItems()
 	{
 		addSeparator();
 		addAction(m_AP->scrActions["itemAttributes"]);
+	}
+	//-->
+	//<-- Item PDF Options
+	QAction *act = addMenu(menuPDF);
+	act->setText( ScribusView::tr("&PDF Options"));
+	menuPDF->addAction(m_AP->scrActions["itemPDFIsAnnotation"]);
+	menuPDF->addAction(m_AP->scrActions["itemPDFIsBookmark"]);
+	if (selectedItemCount == 1)
+	{
+		menuPDF->addSeparator();
+		if (m_actionList.contains("itemPDFAnnotationProps"))
+			menuPDF->addAction(m_AP->scrActions["itemPDFAnnotationProps"]);
+		if (m_actionList.contains("itemPDFFieldProps"))
+			menuPDF->addAction(m_AP->scrActions["itemPDFFieldProps"]);
 	}
 	//-->
 	
