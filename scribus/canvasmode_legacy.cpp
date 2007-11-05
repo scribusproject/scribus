@@ -113,7 +113,16 @@ void LegacyMode::activate(bool flag)
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 	shiftSelItems = false;
+	GxM = GyM = -1;
+	Mxp = Myp = -1;
+	Dxp = Dyp = -1;
+	MoveGX = MoveGY = false;
+	oldCp = Cp = -1;
+	frameResizeHandle = -1;
+	RotMode = 0;
 	inItemCreation = false;
+	shiftSelItems = false;
+	FirstPoly = true;
 	setModeCursor();
 }
 

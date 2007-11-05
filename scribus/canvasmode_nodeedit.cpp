@@ -94,6 +94,16 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 		delete m_rectangleSelect;
 		m_rectangleSelect = NULL;
 	}
+	else
+	{
+		Mxp = -1;  // last mouse position
+		Myp = -1;
+		Dxp = -1;  // last mouse press position for rectangle select
+		Dyp = -1;
+		GxM = -1;  // guide position
+		GyM = -1;
+		MoveGX = MoveGY = false;
+	}		
 }
 
 
