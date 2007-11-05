@@ -106,28 +106,7 @@ void SMLineStyleWidget::slotEditNewLine(int i)
 	setCurrentComboItem(colorCombo, currentStyle[i].Color);
 	shadeBox->setValue(currentStyle[i].Shade);
 	
-	switch (static_cast<Qt::PenStyle>(currentStyle[i].Dash))
-	{
-	case Qt::SolidLine:
-		dashCombo->setCurrentIndex(0);
-		break;
-	case Qt::DashLine:
-		dashCombo->setCurrentIndex(1);
-		break;
-	case Qt::DotLine:
-		dashCombo->setCurrentIndex(2);
-		break;
-	case Qt::DashDotLine:
-		dashCombo->setCurrentIndex(3);
-		break;
-	case Qt::DashDotDotLine:
-		dashCombo->setCurrentIndex(4);
-		break;
-	default:
-		dashCombo->setCurrentIndex(0);
-		break;
-	}
-
+	dashCombo->setCurrentIndex(currentStyle[i].Dash - 1);
 	switch (static_cast<Qt::PenCapStyle>(currentStyle[i].LineEnd))
 	{
 	case Qt::FlatCap:
@@ -170,7 +149,8 @@ void SMLineStyleWidget::updateLineList()
 	{
 		pm2 = getWidePixmap(getColor((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
-		tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
+		if ((*it).Dash < 6)
+			tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
 		tmp2 += " ";
 		// lineStyles->insertItem( ...)
 		lineStyles->addItem(new QListWidgetItem(*pm2, tmp2, lineStyles));

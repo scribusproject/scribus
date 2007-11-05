@@ -1600,32 +1600,7 @@ void PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 					PutPage("] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n");
 				}
 				else
-				{
-					QString Dt = FToStr(qMax(1*fabs(ite->lineWidth()), 1.0));
-					QString Sp = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
-					QString Da = FToStr(qMax(4*fabs(ite->lineWidth()), 1.0));
-					switch (ite->PLineArt)
-					{
-						case Qt::SolidLine:
-							PutPage("[] 0 d\n");
-							break;
-						case Qt::DashLine:
-							PutPage("["+Da+" "+Sp+"] 0 d\n");
-							break;
-						case Qt::DotLine:
-							PutPage("["+Dt+" "+Sp+"] 0 d\n");
-							break;
-						case Qt::DashDotLine:
-							PutPage("["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n");
-							break;
-						case Qt::DashDotDotLine:
-							PutPage("["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n");
-							break;
-						default:
-							PutPage("[] 0 d\n");
-							break;
-					}
-				}
+					PutPage("["+getDashString(ite->PLineArt, ite->lineWidth())+"] 0 d\n");
 				switch (ite->PLineEnd)
 				{
 					case Qt::FlatCap:
@@ -3097,32 +3072,7 @@ QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 		tmp += "] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n";
 	}
 	else
-	{
-		QString Dt = FToStr(qMax(1*fabs(ite->lineWidth()), 1.0));
-		QString Sp = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
-		QString Da = FToStr(qMax(4*fabs(ite->lineWidth()), 1.0));
-		switch (ite->PLineArt)
-		{
-			case Qt::SolidLine:
-				tmp += "[] 0 d\n";
-				break;
-			case Qt::DashLine:
-				tmp += "["+Da+" "+Sp+"] 0 d\n";
-				break;
-			case Qt::DotLine:
-				tmp += "["+Dt+" "+Sp+"] 0 d\n";
-				break;
-			case Qt::DashDotLine:
-				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
-				break;
-			case Qt::DashDotDotLine:
-				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
-				break;
-			default:
-				tmp += "[] 0 d\n";
-				break;
-		}
-	}
+		tmp += "["+getDashString(ite->PLineArt, ite->lineWidth())+"] 0 d\n";
 	tmp += "2 J\n";
 	switch (ite->PLineJoin)
 	{
@@ -3250,32 +3200,7 @@ QString PDFLibCore::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bo
 		tmp += "] "+QString::number(static_cast<int>(ite->DashOffset))+" d\n";
 	}
 	else
-	{
-		QString Dt = FToStr(qMax(1*fabs(ite->lineWidth()), 1.0));
-		QString Sp = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
-		QString Da = FToStr(qMax(4*fabs(ite->lineWidth()), 1.0));
-		switch (ite->PLineArt)
-		{
-			case Qt::SolidLine:
-				tmp += "[] 0 d\n";
-				break;
-			case Qt::DashLine:
-				tmp += "["+Da+" "+Sp+"] 0 d\n";
-				break;
-			case Qt::DotLine:
-				tmp += "["+Dt+" "+Sp+"] 0 d\n";
-				break;
-			case Qt::DashDotLine:
-				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
-				break;
-			case Qt::DashDotDotLine:
-				tmp += "["+Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp+"] 0 d\n";
-				break;
-			default:
-				tmp += "[] 0 d\n";
-				break;
-		}
-	}
+		tmp += "["+getDashString(ite->PLineArt, ite->lineWidth())+"] 0 d\n";
 	switch (ite->PLineEnd)
 	{
 		case Qt::FlatCap:

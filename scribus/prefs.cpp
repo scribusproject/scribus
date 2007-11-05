@@ -505,47 +505,13 @@ void Preferences::updatePreferences()
 			prefsManager->appPrefs.toolSettings.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
 			break;
 	}
-	switch (tabTools->comboStyleShape->currentIndex())
-	{
-		case 0:
-			prefsManager->appPrefs.toolSettings.dLineArt = Qt::SolidLine;
-			break;
-		case 1:
-			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashLine;
-			break;
-		case 2:
-			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DotLine;
-			break;
-		case 3:
-			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashDotLine;
-			break;
-		case 4:
-			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashDotDotLine;
-			break;
-	}
+	prefsManager->appPrefs.toolSettings.dLineArt = static_cast<Qt::PenStyle>(tabTools->comboStyleShape->currentIndex()) + 1;
 	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
 	prefsManager->appPrefs.toolSettings.dPenLine = tabTools->colorComboLine->currentText();
 	if (prefsManager->appPrefs.toolSettings.dPenLine == CommonStrings::tr_NoneColor)
 		prefsManager->appPrefs.toolSettings.dPenLine = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dShadeLine = tabTools->shadingLine->value();
-	switch (tabTools->comboStyleLine->currentIndex())
-	{
-	case 0:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::SolidLine;
-		break;
-	case 1:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashLine;
-		break;
-	case 2:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DotLine;
-		break;
-	case 3:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashDotLine;
-		break;
-	case 4:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashDotDotLine;
-		break;
-	}
+	prefsManager->appPrefs.toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(tabTools->comboStyleLine->currentIndex()) + 1;
 	prefsManager->appPrefs.toolSettings.dWidthLine = tabTools->lineWidthLine->value();
 	prefsManager->appPrefs.toolSettings.dStartArrow = tabTools->startArrow->currentIndex();
 	prefsManager->appPrefs.toolSettings.dEndArrow = tabTools->endArrow->currentIndex();

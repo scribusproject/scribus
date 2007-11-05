@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "sccolorengine.h"
 #include "util_color.h"
+#include "util.h"
 
 
 SMLineStyle::SMLineStyle() : StyleItem(), doc_(0), widget_(0), twidget_(0), selectionIsDirty_(false)
@@ -372,26 +373,6 @@ void SMLineStyle::removeConnections()
 
 void SMLineStyle::slotLineStyle(int i)
 {
-	Qt::PenStyle c = Qt::SolidLine;
-	switch (i)
-	{
-		case 0:
-			c = Qt::SolidLine;
-			break;
-		case 1:
-			c = Qt::DashLine;
-			break;
-		case 2:
-			c = Qt::DotLine;
-			break;
-		case 3:
-			c = Qt::DashDotLine;
-			break;
-		case 4:
-			c = Qt::DashDotDotLine;
-			break;
-	}
-
 	Q_ASSERT(currentLine_ >= 0);
 	if (currentLine_ < 0)
 		return;
@@ -400,7 +381,7 @@ void SMLineStyle::slotLineStyle(int i)
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.value();
-		(*tmp)[currentLine_].Dash = static_cast<int>(c);
+		(*tmp)[currentLine_].Dash = i + 1;
 	}
 
 	updateSList();
@@ -607,7 +588,7 @@ void SMLineStyle::rebuildList()
 				tmp2 += tr("Dash Dot Dot Line");
 				break;
 			default:
-				tmp2 += tr("Solid Line");
+//				tmp2 += tr("Solid Line");
 				break;
 		}
 		tmp2 += " ";
@@ -683,7 +664,7 @@ void SMLineStyle::updateSList()
 			tmp2 += tr("Dash Dot Dot Line");
 			break;
 		default:
-			tmp2 += tr("Solid Line");
+//			tmp2 += tr("Solid Line");
 			break;
 	}
 	tmp2 += " ";
@@ -715,11 +696,20 @@ void SMLineStyle::updatePreview()
 
 	for (int it = (*tmpLine).size()-1; it > -1; it--)
 	{
-		p.setPen(QPen(calcFarbe((*tmpLine)[it].Color, (*tmpLine)[it].Shade),
-				 qMax(static_cast<int>((*tmpLine)[it].Width), 1),
-				 static_cast<Qt::PenStyle>((*tmpLine)[it].Dash),
-				 static_cast<Qt::PenCapStyle>((*tmpLine)[it].LineEnd),
-				 static_cast<Qt::PenJoinStyle>((*tmpLine)[it].LineJoin)));
+		QPen pen;
+		QList<double> m_array;
+		if ((*tmpLine)[it].Dash == 1)
+			pen.setStyle(Qt::SolidLine);
+		else
+		{
+			getDashArray((*tmpLine)[it].Dash, 1, m_array);
+			pen.setDashPattern(m_array.toVector());
+		}
+		pen.setColor(calcFarbe((*tmpLine)[it].Color, (*tmpLine)[it].Shade));
+		pen.setWidth(qMax(static_cast<int>((*tmpLine)[it].Width), 1));
+		pen.setCapStyle(static_cast<Qt::PenCapStyle>((*tmpLine)[it].LineEnd));
+		pen.setJoinStyle(static_cast<Qt::PenJoinStyle>((*tmpLine)[it].LineJoin));
+		p.setPen(pen);
 		p.drawLine(17, 18, 183, 18);
 	}
 	p.end();

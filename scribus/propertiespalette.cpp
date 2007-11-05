@@ -100,11 +100,20 @@ void LineFormatItemDelegate::redraw(const QVariant& data) const
 	{
 		const ScColor& col = item.m_doc->PageColors[item.m_Line[its].Color];
 		tmpf = ScColorEngine::getDisplayColor(col, item.m_doc, item.m_Line[its].Shade);
-		p.setPen(QPen(tmpf,
-						qMax(static_cast<int>(item.m_Line[its].Width), 1),
-						static_cast<Qt::PenStyle>(item.m_Line[its].Dash),
-						static_cast<Qt::PenCapStyle>(item.m_Line[its].LineEnd),
-						static_cast<Qt::PenJoinStyle>(item.m_Line[its].LineJoin)));
+		QPen pen;
+		QList<double> m_array;
+		if (item.m_Line[its].Dash == 1)
+			pen.setStyle(Qt::SolidLine);
+		else
+		{
+			getDashArray(item.m_Line[its].Dash, 1, m_array);
+			pen.setDashPattern(m_array.toVector());
+		}
+		pen.setColor(tmpf);
+		pen.setWidth(qMax(static_cast<int>(item.m_Line[its].Width), 1));
+		pen.setCapStyle(static_cast<Qt::PenCapStyle>(item.m_Line[its].LineEnd));
+		pen.setJoinStyle(static_cast<Qt::PenJoinStyle>(item.m_Line[its].LineJoin));
+		p.setPen(pen);
 		p.drawLine(0, 18, 37, 18);
 	}
 	p.end();
@@ -2355,7 +2364,8 @@ void PropertiesPalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJo
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	switch (p)
+	LStyle->setCurrentIndex(static_cast<int>(p) - 1);
+/*	switch (p)
 	{
 	case Qt::SolidLine:
 		LStyle->setCurrentIndex(0);
@@ -2375,7 +2385,7 @@ void PropertiesPalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJo
 	default:
 		LStyle->setCurrentIndex(0);
 		break;
-	}
+	} */
 	switch (pc)
 	{
 	case Qt::FlatCap:
@@ -3189,30 +3199,8 @@ void PropertiesPalette::NewLSty()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	Qt::PenStyle c = Qt::SolidLine;
-	switch (LStyle->currentIndex())
-	{
-	case 0:
-		c = Qt::SolidLine;
-		break;
-	case 1:
-		c = Qt::DashLine;
-		break;
-	case 2:
-		c = Qt::DotLine;
-		break;
-	case 3:
-		c = Qt::DashDotLine;
-		break;
-	case 4:
-		c = Qt::DashDotDotLine;
-		break;
-	}
 	if ((HaveDoc) && (HaveItem))
-	{
-		doc->ChLineArt(c);
-// 		emit DocChanged();
-	}
+		doc->ChLineArt(static_cast<Qt::PenStyle>(LStyle->currentIndex()+1));
 }
 
 void PropertiesPalette::NewLMode()

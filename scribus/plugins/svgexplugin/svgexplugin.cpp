@@ -410,30 +410,16 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 				{
-					QString Dt = FToStr(qMax(1*Item->lineWidth(), 1.0));
-					QString Sp = FToStr(qMax(2*Item->lineWidth(), 1.0));
-					QString Da = FToStr(qMax(4*Item->lineWidth(), 1.0));
-					switch (Item->PLineArt)
+					if (Item->PLineArt == Qt::SolidLine)
+						strokeDA += "none;";
+					else
 					{
-						case Qt::SolidLine:
+						QString Da = getDashString(Item->PLineArt, Item->lineWidth());
+						if (Da.isEmpty())
 							strokeDA += "none;";
-							break;
-						case Qt::DashLine:
-							strokeDA += Da+","+Sp+";";
-							break;
-						case Qt::DotLine:
-							strokeDA += Dt+","+Sp+";";
-							break;
-						case Qt::DashDotLine:
-							strokeDA += Da+","+Sp+","+Dt+","+Sp+";";
-							break;
-						case Qt::DashDotDotLine:
-							strokeDA += Da+","+Sp+","+Dt+","+Sp+","+Dt+","+Sp+";";
-							break;
-						default:
-							strokeDA += "none;";
-							break;
-						}
+						else
+							strokeDA += Da.replace(" ", ", ")+";";
+					}
 				}
 				gr = docu->createElement("g");
 				gr.setAttribute("transform", trans);
@@ -840,29 +826,16 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 			break;
 		}
 	tmp += " stroke-dasharray:";
-	QString Dt = FToStr(qMax(2*sl->Width, 1.0));
-	QString Da = FToStr(qMax(6*sl->Width, 1.0));
-	switch (static_cast<Qt::PenStyle>(sl->Dash))
-		{
-		case Qt::SolidLine:
+	if (static_cast<Qt::PenStyle>(sl->Dash) == Qt::SolidLine)
+		tmp += "none;";
+	else
+	{
+		QString Da = getDashString(sl->Dash, sl->Width);
+		if (Da.isEmpty())
 			tmp += "none;";
-			break;
-		case Qt::DashLine:
-			tmp += Da+","+Dt+";";
-			break;
-		case Qt::DotLine:
-			tmp += Dt+";";
-			break;
-		case Qt::DashDotLine:
-			tmp += Da+","+Dt+","+Dt+","+Dt+";";
-			break;
-		case Qt::DashDotDotLine:
-			tmp += Da+","+Dt+","+Dt+","+Dt+","+Dt+","+Dt+";";
-			break;
-		default:
-			tmp += "none;";
-			break;
-		}
+		else
+			tmp += Da.replace(" ", ", ")+";";
+	}
 	return tmp;
 }
 #endif

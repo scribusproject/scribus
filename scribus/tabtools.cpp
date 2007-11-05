@@ -756,28 +756,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	}
 
 	shadingFillShape->setValue(prefsData->dShade);
-	switch (prefsData->dLineArt)
-	{
-		case Qt::SolidLine:
-			comboStyleShape->setCurrentIndex(0);
-			break;
-		case Qt::DashLine:
-			comboStyleShape->setCurrentIndex(1);
-			break;
-		case Qt::DotLine:
-			comboStyleShape->setCurrentIndex(2);
-			break;
-		case Qt::DashDotLine:
-			comboStyleShape->setCurrentIndex(3);
-			break;
-		case Qt::DashDotDotLine:
-			comboStyleShape->setCurrentIndex(4);
-			break;
-		default:
-			comboStyleShape->setCurrentIndex(0);
-			break;
-	}
-
+	comboStyleShape->setCurrentIndex(static_cast<int>(prefsData->dLineArt) - 1);
 	lineWidthShape->setValue(prefsData->dWidth);
 
 	colorComboLine->clear();
@@ -794,28 +773,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 
 	shadingLine->setValue(prefsData->dShadeLine);
 
-	switch (prefsData->dLstyleLine)
-	{
-		case Qt::SolidLine:
-			comboStyleLine->setCurrentIndex(0);
-			break;
-		case Qt::DashLine:
-			comboStyleLine->setCurrentIndex(1);
-			break;
-		case Qt::DotLine:
-			comboStyleLine->setCurrentIndex(2);
-			break;
-		case Qt::DashDotLine:
-			comboStyleLine->setCurrentIndex(3);
-			break;
-		case Qt::DashDotDotLine:
-			comboStyleLine->setCurrentIndex(4);
-			break;
-		default:
-			comboStyleLine->setCurrentIndex(0);
-			break;
-	}
-
+	comboStyleLine->setCurrentIndex(static_cast<int>(prefsData->dLstyleLine) - 1);
 	if (docu != 0)
 	{
 		startArrow->rebuildList(&docu->arrowStyles);

@@ -373,24 +373,7 @@ void ReformDoc::updateDocumentSettings()
 		currDoc->toolSettings.dBrush = CommonStrings::None;
 	currDoc->toolSettings.dShade = tabTools->shadingFillShape->value();
 	currDoc->toolSettings.dShade2 = tabTools->shadingLineShape->value();
-	switch (tabTools->comboStyleShape->currentIndex())
-	{
-	case 0:
-		currDoc->toolSettings.dLineArt = Qt::SolidLine;
-		break;
-	case 1:
-		currDoc->toolSettings.dLineArt = Qt::DashLine;
-		break;
-	case 2:
-		currDoc->toolSettings.dLineArt = Qt::DotLine;
-		break;
-	case 3:
-		currDoc->toolSettings.dLineArt = Qt::DashDotLine;
-		break;
-	case 4:
-		currDoc->toolSettings.dLineArt = Qt::DashDotDotLine;
-		break;
-	}
+	currDoc->toolSettings.dLineArt = static_cast<Qt::PenStyle>(tabTools->comboStyleShape->currentIndex()) + 1;
 	currDoc->toolSettings.dWidth = tabTools->lineWidthShape->value();
 	currDoc->toolSettings.dStartArrow = tabTools->startArrow->currentIndex();
 	currDoc->toolSettings.dEndArrow = tabTools->endArrow->currentIndex();
@@ -401,24 +384,7 @@ void ReformDoc::updateDocumentSettings()
 	if (currDoc->toolSettings.dPenLine == CommonStrings::tr_NoneColor)
 		currDoc->toolSettings.dPenLine = CommonStrings::None;
 	currDoc->toolSettings.dShadeLine = tabTools->shadingLine->value();
-	switch (tabTools->comboStyleLine->currentIndex())
-	{
-	case 0:
-		currDoc->toolSettings.dLstyleLine = Qt::SolidLine;
-		break;
-	case 1:
-		currDoc->toolSettings.dLstyleLine = Qt::DashLine;
-		break;
-	case 2:
-		currDoc->toolSettings.dLstyleLine = Qt::DotLine;
-		break;
-	case 3:
-		currDoc->toolSettings.dLstyleLine = Qt::DashDotLine;
-		break;
-	case 4:
-		currDoc->toolSettings.dLstyleLine = Qt::DashDotDotLine;
-		break;
-	}
+	currDoc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(tabTools->comboStyleLine->currentIndex()) + 1;
 	currDoc->toolSettings.dWidthLine = tabTools->lineWidthLine->value();
 	currDoc->toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
 	if (currDoc->toolSettings.dBrushPict == CommonStrings::tr_NoneColor)

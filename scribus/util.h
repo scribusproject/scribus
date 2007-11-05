@@ -141,5 +141,7 @@ void tDebug(QString message);
 
 QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
 void SCRIBUS_API setCurrentComboItem(QComboBox *box, QString text);
+QString SCRIBUS_API getDashString(int dashtype, double linewidth);
+void SCRIBUS_API getDashArray(int dashtype, double linewidth, QList<double> &m_array);
 
 #endif

@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "linecombo.h"
+#include "util.h"
 
 /*!
  \fn LineCombo::LineCombo(QWidget* pa)
@@ -36,47 +37,31 @@ LineCombo::LineCombo(QWidget* pa) : QComboBox(pa)
 {
 	setEditable(false);
 	setIconSize(QSize(73, 7));
-	addItem(QIcon(createIcon(0)), "");
-	addItem(QIcon(createIcon(1)), "");
-	addItem(QIcon(createIcon(2)), "");
-	addItem(QIcon(createIcon(3)), "");
-	addItem(QIcon(createIcon(4)), "");
-//	addItem(QIcon(createIcon(5)), "");
+	for (int a = 0; a < 5; a++)
+	{
+		addItem(QIcon(createIcon(a)), "");
+	}
 }
 
 QPixmap LineCombo::createIcon(int type)
 {
-//	QPen pen;
-//	QVector<qreal> dashes;
+	QPen pen;
+	QList<double> m_array;
 	QPixmap pmap(73, 7);
 	pmap.fill(Qt::transparent);
 	QPainter p;
 	p.begin(&pmap);
-	switch (type)
+	if (type == 0)
+		pen = QPen(Qt::black, 3, Qt::SolidLine);
+	else
 	{
-		case 0:
-			p.setPen(QPen(Qt::black, 3, Qt::SolidLine));
-			break;
-		case 1:
-			p.setPen(QPen(Qt::black, 3, Qt::DashLine));
-			break;
-		case 2:
-			p.setPen(QPen(Qt::black, 3, Qt::DotLine));
-			break;
-		case 3:
-			p.setPen(QPen(Qt::black, 3, Qt::DashDotLine));
-			break;
-		case 4:
-			p.setPen(QPen(Qt::black, 3, Qt::DashDotDotLine));
-			break;
-/*		case 5:
-			dashes << 4 << 2 << 1 << 2;
-			pen.setDashPattern(dashes);
-			pen.setColor(Qt::black);
-			pen.setWidth(3);
-			p.setPen(pen);
-			break; */
+		getDashArray(type + 1, 1, m_array);
+		pen.setDashPattern(m_array.toVector());
 	}
+	pen.setColor(Qt::black);
+	pen.setWidth(3);
+	pen.setCapStyle(Qt::FlatCap);
+	p.setPen(pen);
 	p.drawLine(2, 3, 73, 3);
 	p.end();
 	return pmap;

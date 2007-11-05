@@ -408,13 +408,14 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 	m_lineWidth = w;
 	m_lineEnd = ca;
 	m_lineJoin = jo;
-	double Dt = qMax(1*w, 1.0);
-	double Sp = qMax(2*w, 1.0);
-	double Da = qMax(4*w, 1.0);
-	QList<double> tmp;
+//	double Dt = qMax(1*w, 1.0);
+//	double Sp = qMax(2*w, 1.0);
+//	double Da = qMax(4*w, 1.0);
+//	QList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
-	switch (st)
+	getDashArray(st, w, m_array);
+/*	switch (st)
 	{
 		case Qt::SolidLine:
 			break;
@@ -445,7 +446,7 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 			break;
 		default:
 			break;
-	}
+	} */
 }
 
 void ScPainterEx_GDI::setLineWidth( double w )

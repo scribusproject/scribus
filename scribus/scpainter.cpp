@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scpainter.h"
 #include "util_color.h"
+#include "util.h"
 
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
@@ -816,7 +817,9 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	PLineEnd = ca;
 	PLineJoin = jo;
 #ifdef HAVE_CAIRO
-	double Dt = qMax(1*w, 1.0);
+	m_offset = 0;
+	getDashArray(st, w, m_array);
+/*	double Dt = qMax(1*w, 1.0);
 	double Sp = qMax(2*w, 1.0);
 	double Da = qMax(4*w, 1.0);
 	m_array.clear();
@@ -849,7 +852,7 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 			break;
 		default:
 			break;
-		}
+		} */
 #else
 	PLineStyle = st;
 #endif
@@ -1128,19 +1131,19 @@ void ScPainter::drawVPath(int mode)
 	{
 		QColor paint = m_stroke;
 		paint.setAlphaF(stroke_trans);
-		QPen pen = QPen(paint, LineWidth, PLineStyle, PLineEnd, PLineJoin);
-		painter.strokePath(m_path, pen);
-//		Workaround for not correctly working strokePath method of QPainter
-/*		painter.setPen(pen);
-		painter.setBrush(Qt::NoBrush);
-		QList<QPolygonF> pl = m_path.toSubpathPolygons();
-		for (int a = 0; a < pl.count(); a++)
+		QPen pen;
+		if (PLineStyle == Qt::SolidLine)
+			pen = QPen(paint, LineWidth, PLineStyle, PLineEnd, PLineJoin);
+		else
 		{
-			if( m_fillRule )
-				painter.drawPolygon(pl[a], Qt::OddEvenFill);
-			else
-				painter.drawPolygon(pl[a],Qt::WindingFill);
-		} */
+			getDashArray(PLineStyle, 1, m_array);
+			pen.setDashPattern(m_array.toVector());
+			pen.setColor(paint);
+			pen.setWidth(LineWidth);
+			pen.setCapStyle(PLineEnd);
+			pen.setJoinStyle(PLineJoin);
+		}
+		painter.strokePath(m_path, pen);
 	}
 	painter.restore();
 }
