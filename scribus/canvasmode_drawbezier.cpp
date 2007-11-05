@@ -110,6 +110,16 @@ void BezierMode::leaveEvent(QEvent *e)
 void BezierMode::activate(bool flag)
 {
 	qDebug() << "DrawBezierMode::activate" << flag;
+	GxM = GyM = -1;
+	Mxp = Myp = -1;
+	Dxp = Dyp = -1;
+	MoveGX = MoveGY = false;
+	oldCp = Cp = -1;
+	frameResizeHandle = -1;
+	RotMode = 0;
+	inItemCreation = false;
+	shiftSelItems = false;
+	FirstPoly = true;
 	setModeCursor();
 }
 
