@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "util.h"
 #include "util_formats.h"
+#include "util_math.h"
 
 
 MarksOptions::MarksOptions(void)
@@ -986,25 +987,17 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 
 void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip )
 {
-	int a;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
-	double dx;
-	double sp = 0;
-	double oldSp = 0;
-	double oCurX = 0;
 	FPoint point = FPoint(0, 0);
-	FPoint normal = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
-	FPoint extPoint = FPoint(0, 0);
-	bool ext = false;
-	bool first = true;
-	double fsx = 0;
 	uint seg = 0;
-	double segLen = 0;
-	double distCurX;
+	double chs, dx, segLen = 0;
 	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
 	double CurY = 0;
+	QString actFill, actStroke;
+	double actFillShade, actStrokeShade;
+	StoryText& itemText = item->itemText;
 	if (item->lineColor() != CommonStrings::None && item->PoShow)
 	{
 		painter->setupPolygon(&item->PoLine, false);
@@ -1028,78 +1021,91 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 			}
 		}
 	}
-	if (item->itemText.length() != 0)
-		CurX += item->itemText.item(0)->fontSize() * item->itemText.item(0)->tracking() / 10000.0;
-	segLen = item->PoLine.lenPathSeg(seg);
-	for (a = 0; a < item->itemText.length(); ++a)
+	double totalTextLen = 0.0;
+	double totalCurveLen = 0.0;
+	double extraOffset = 0.0;
+	if (itemText.length() != 0)
 	{
-		CurY = 0;
-		hl = item->itemText.item(a);
+		CurX += itemText.item(0)->fontSize() * itemText.charStyle(0).tracking() / 10000.0;
+		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
+	}
+	segLen = item->PoLine.lenPathSeg(seg);
+	for (int a = 0; a < itemText.length(); ++a)
+	{
+		hl = itemText.item(a);
 		chstr = hl->ch;
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
 			|| chstr[0] == SpecialChars::TAB || chstr == SpecialChars::LINEBREAK)
 			continue;
-		if (a < item->itemText.length()-1)
-			chstr += item->itemText.text(a+1, 1);
+		if (a < itemText.length()-1)
+			chstr += itemText.text(a+1, 1);
 		hl->glyph.yadvance = 0;
-		item->layoutGlyphs(item->itemText.charStyle(a), chstr, hl->glyph);
+		item->layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
-		dx = hl->glyph.wide() / 2.0;
-		CurX += dx;
-		ext = false;
-		while ( (seg < item->PoLine.size()-3) && (CurX > fsx + segLen))
-		{
-			fsx += segLen;
-			seg += 4;
-			if (seg > item->PoLine.size()-3)
-				break;
-			segLen = item->PoLine.lenPathSeg(seg);
-			ext = true;
-		}
-		if (seg > item->PoLine.size()-3)
-			break;
-		if (CurX > fsx + segLen)
-			break;
-		if (ext)
-		{
-			sp = 0;
-			distCurX = item->PoLine.lenPathDist(seg, 0, sp);
-			while (distCurX <= ((CurX - oCurX) - (fsx - oCurX)))
-			{
-				sp += 0.001;
-				distCurX = item->PoLine.lenPathDist(seg, 0, sp);
-			}
-			item->PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
-			CurX = (CurX - (CurX - fsx)) + distCurX;
-			oldSp = sp;
-			ext = false;
-		}
+		if (hl->ch == SpecialChars::OBJECT)
+			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 		else
+			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
+	}
+	for (uint segs = 0; segs < item->PoLine.size()-3; segs += 4)
+	{
+		totalCurveLen += item->PoLine.lenPathSeg(segs);
+	}
+	if ((itemText.defaultStyle().alignment() != 0) && (totalCurveLen >= totalTextLen + item->textToFrameDistLeft()))
+	{
+		if (itemText.defaultStyle().alignment() == 2)
 		{
-			if( seg < item->PoLine.size()-3 )
-			{
-				if (CurX > fsx + segLen)
-					break;
-				distCurX = item->PoLine.lenPathDist(seg, oldSp, sp);
-				while (distCurX <= (CurX - oCurX))
-				{
-					sp += 0.001;
-					if (sp >= 1.0)
-					{
-						sp = 0.9999;
-						break;
-					}
-					distCurX = item->PoLine.lenPathDist(seg, oldSp, sp);
-				}
-				item->PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
-				CurX = oCurX + distCurX;
-				oldSp = sp;
-			}
-			else
-				break;
+			CurX = totalCurveLen  - totalTextLen;
+			CurX -= item->textToFrameDistLeft();
 		}
-		hl->glyph.xoffset = point.x();
-		hl->glyph.yoffset = point.y();
+		if (itemText.defaultStyle().alignment() == 1)
+			CurX = (totalCurveLen - totalTextLen) / 2.0;
+		if ((itemText.defaultStyle().alignment() == 3) || (itemText.defaultStyle().alignment() == 4))
+			extraOffset = (totalCurveLen - item->textToFrameDistLeft()  - totalTextLen) / static_cast<double>(itemText.length());
+	}
+
+	QPainterPath guidePath = item->PoLine.toQPainterPath(false);
+	QList<QPainterPath> pathList = decomposePath(guidePath);
+	QPainterPath currPath = pathList[0];
+	int currPathIndex = 0;
+	for (int a = item->firstInFrame(); a < itemText.length(); ++a)
+	{
+		CurY = 0;
+		hl = itemText.item(a);
+		chstr = hl->ch;
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
+			continue;
+		chs = hl->fontSize();
+		if (a < itemText.length()-1)
+			chstr += itemText.text(a+1, 1);
+		hl->glyph.yadvance = 0;
+		item->layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
+		hl->glyph.shrink();                                                           // HACK
+		if (hl->ch == SpecialChars::OBJECT)
+			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) / 2.0;
+		else
+			dx = hl->glyph.wide() / 2.0;
+
+		CurX += dx;
+
+		double currPerc = currPath.percentAtLength(CurX);
+		if (currPerc >= 0.9999999)
+		{
+			currPathIndex++;
+			if (currPathIndex == pathList.count())
+				break;
+			currPath = pathList[currPathIndex];
+			CurX = dx;
+			currPerc = currPath.percentAtLength(CurX);
+		}
+		double currAngle = currPath.angleAtPercent(currPerc);
+		QPointF currPoint = currPath.pointAtPercent(currPerc);
+		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
+		point = FPoint(currPoint.x(), currPoint.y());
+
+		hl->glyph.xoffset = 0;
+		hl->glyph.yoffset = item->pathTextBaseOffset();
 		hl->PtransX = tangent.x();
 		hl->PtransY = tangent.y();
 		hl->PRot = dx;
@@ -1125,14 +1131,38 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		painter->save();
 		QMatrix savWM = painter->worldMatrix();
 		painter->setWorldMatrix(trafo);
-		DrawGlyphs(item, painter, item->itemText.charStyle(a), hl->glyph, clip);
+
+		actFill = itemText.charStyle(a).fillColor();
+		actFillShade = itemText.charStyle(a).fillShade();
+		if (actFill != CommonStrings::None)
+		{
+			ScColorShade tmp(m_doc->PageColors[actFill], actFillShade);
+			painter->setBrush(tmp);
+		}
+		actStroke = itemText.charStyle(a).strokeColor();
+		actStrokeShade = itemText.charStyle(a).strokeShade();
+		if (actStroke != CommonStrings::None)
+		{
+			ScColorShade tmp(m_doc->PageColors[actStroke], actStrokeShade);
+			painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		}
+		if (hl->ch == SpecialChars::OBJECT)
+		{
+			painter->translate(0.0, item->pathTextBaseOffset());
+			DrawItem_Embedded(hl->embedded.getItem(), painter, clip, itemText.charStyle(a), hl->embedded.getItem());
+		}
+		else
+			DrawGlyphs(item, painter, itemText.charStyle(a), hl->glyph, clip);
+
+		hl->glyph.xoffset = point.x();
+		hl->glyph.yoffset = point.y();
 		painter->setWorldMatrix(savWM);
 		painter->restore();
-		//item->MaxChars = a+1;
-		oCurX = CurX;
 		CurX -= dx;
-		CurX += hl->glyph.wide() + hl->fontSize() * hl->tracking() / 10000.0;
-		first = false;
+		if (hl->ch == SpecialChars::OBJECT)
+			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+		else
+			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 	}
 }
 
