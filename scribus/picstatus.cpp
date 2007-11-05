@@ -112,20 +112,29 @@ void PicStatus::fillTable()
 {
 	PageItem *item;
 	imageViewArea->clear();
-	for (int it = 0; it < m_Doc->MasterItems.count(); ++it)
+	QListWidgetItem *firstItem=0;
+	QListWidgetItem *tempItem=0;
+	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 	{
-		item = m_Doc->MasterItems.at(it);
+		item = m_Doc->MasterItems.at(i);
+		QFileInfo fi = QFileInfo(item->Pfile);
+		if (item->itemType() == PageItem::ImageFrame)
+			tempItem=new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+		if (firstItem==0)
+			firstItem=tempItem;
+	}
+	for (int i = 0; i < m_Doc->Items->count(); ++i)
+	{
+		item = m_Doc->Items->at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
 			new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+		if (firstItem==0)
+			firstItem=tempItem;
 	}
-	for (int it = 0; it < m_Doc->Items->count(); ++it)
-	{
-		item = m_Doc->Items->at(it);
-		QFileInfo fi = QFileInfo(item->Pfile);
-		if (item->itemType() == PageItem::ImageFrame)
-			new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
-	}
+	imageViewArea->setCurrentItem(firstItem);
+	if (firstItem!=0)
+		imageSelected(firstItem);
 }
 
 void PicStatus::imageSelected(QListWidgetItem *ite)

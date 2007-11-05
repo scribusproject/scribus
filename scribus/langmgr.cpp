@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
  
 #include <iostream>
 
-#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QMap>
@@ -127,7 +126,6 @@ void LanguageManager::generateInstalledLangList()
 		for (uint i = 0; i < dir.count(); ++i) 
 		{
 			QFileInfo file(path + dir[i]);
-			qDebug() << file.absoluteFilePath();
 			if (file.suffix().toLower() == "qm")
 			{
 				langAbbrev = file.completeSuffix().remove(".qm");
