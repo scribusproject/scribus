@@ -411,7 +411,8 @@ void Scribus134Format::writePStyles(QDomDocument & docu)
 
 void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const ParagraphStyle & style)
 {
-	fo.setAttribute("NAME", style.name());
+	if ( ! style.name().isEmpty() )
+		fo.setAttribute("NAME", style.name());
 	if ( ! style.parent().isEmpty())
 		fo.setAttribute("PARENT", style.parent());
 	
@@ -462,7 +463,8 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 			fo.appendChild(tabs);
 		}
 	}
-	fo.setAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
+	if ( ! style.shortcut().isEmpty() )
+		fo.setAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
 	
 	putCStyle(docu, fo, style.charStyle());
 
@@ -483,7 +485,8 @@ void Scribus134Format::writeCStyles(QDomDocument & docu)
 
 void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const CharStyle & style)
 {
-	fo.setAttribute("CNAME", style.name());
+	if ( ! style.name().isEmpty() )
+		fo.setAttribute("CNAME", style.name());
 	if ( ! style.parent().isEmpty() )
 		fo.setAttribute("CPARENT", style.parent());
 	if ( ! style.isInhFont())	
@@ -524,7 +527,8 @@ void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const Ch
 		fo.setAttribute("KERN", style.tracking() / 10.0); 
 	if ( ! style.isInhWordTracking())
 		fo.setAttribute("wordTrack", style.wordTracking());
-	fo.setAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
+	if ( ! style.shortcut().isEmpty() )
+		fo.setAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
 }
 
 void Scribus134Format::writeLayers(QDomDocument & docu) 

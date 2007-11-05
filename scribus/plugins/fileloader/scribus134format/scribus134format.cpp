@@ -1837,7 +1837,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
 {
 	vg.erase();
-	vg.setName(pg.attribute("NAME"));
+	vg.setName(pg.attribute("NAME", ""));
 	vg.setParent(pg.attribute("PARENT", ""));
 	if (pg.hasAttribute("LINESPMode"))
 		vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode").toInt()));
