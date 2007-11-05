@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  
 #include <iostream>
 
+#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QMap>
@@ -117,7 +118,7 @@ void LanguageManager::generateLangList()
 
 void LanguageManager::generateInstalledLangList()
 {
-	QString path = ScPaths::instance().shareDir() + "translations";
+	QString path = ScPaths::instance().shareDir() + "translations/";
 	QString langAbbrev;
 	QMap<QString, langPair>::Iterator it;
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
@@ -126,6 +127,7 @@ void LanguageManager::generateInstalledLangList()
 		for (uint i = 0; i < dir.count(); ++i) 
 		{
 			QFileInfo file(path + dir[i]);
+			qDebug() << file.absoluteFilePath();
 			if (file.suffix().toLower() == "qm")
 			{
 				langAbbrev = file.completeSuffix().remove(".qm");
