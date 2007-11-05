@@ -36,16 +36,16 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef SC_USE_GDIPLUS
 #include <gdiplus.h>
-
-#include <QList>
 using namespace Gdiplus;
 #endif
 
 #include "scribusdoc.h"
 #include "scpainterex_gdi.h"
 #include "sccolorengine.h"
+#include "util.h"
 
 #include <QImage>
+#include <QList>
 #include <QPaintDevice>
 #include <QPixmap>
 
