@@ -122,12 +122,7 @@ bool PixmapExportPlugin::run(QString target)
 		}
 		ScMW->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
-		if (!res)
-		{
-			QMessageBox::warning(ScMW, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
-			ScMW->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
-		}
-		else
+		if (res)
 		{
 			ScMW->mainWindowStatusLabel->setText(QObject::tr("Export successful."));
 		}
@@ -161,6 +156,7 @@ ExportBitmap::~ExportBitmap()
 bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 {
 	uint over = 0;
+	bool saved = false, doFileSave = true;
 	QString fileName = getFileName(pageNr);
 
 	if (!ScMW->doc->Pages->at(pageNr))
@@ -173,15 +169,22 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	*/
 	double pixmapSize = (page->height() > page->width()) ? page->height() : page->width();
 	QImage im = ScMW->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false);
+	if (im.isNull())
+	{
+		QMessageBox::warning(ScMW, QObject::tr("Save as Image"), QObject::tr("Insufficient memory for this image size."));
+		ScMW->mainWindowStatusLabel->setText(QObject::tr("Insufficient memory for this image size."));
+		return false;
+	}
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
 	{
+		doFileSave = false;
 		QApplication::restoreOverrideCursor();
-/* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
-	 to keep the Code compatible to Qt-3.1.x
-	 f.s 12.05.2004 */
+	/* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
+		to keep the Code compatible to Qt-3.1.x
+		f.s 12.05.2004 */
 		over = ScMessageBox::warning(ScMW,
 				QObject::tr("File exists. Overwrite?"),
 				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
@@ -191,12 +194,19 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 				(single==true) ? QString::null : QObject::tr("Yes all"),
 				0, 0);
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-		if (over == 0)
-			return im.save(fileName, bitmapType, quality);
+		if (over == 0 || over == 2)
+			doFileSave = true;
 		if (over == 2)
 			overwrite = true;
 	}
-	return im.save(fileName, bitmapType, quality);
+	if (doFileSave)
+		saved = im.save(fileName, bitmapType, quality);
+	if (!saved && doFileSave)
+	{
+		QMessageBox::warning(ScMW, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
+		ScMW->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
+	}
+	return saved;
 }
 
 bool ExportBitmap::exportActual()
