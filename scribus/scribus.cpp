@@ -7244,8 +7244,8 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 			double x1 = cos(rotation*MPI180) * currItem->width();
 			double y2 = sin((rotation+90.0)*MPI180) * currItem->height();
 			double x2 = cos((rotation+90.0)*MPI180) * currItem->height();
-			double mx = currItem->xPos() + ((x1 + x2)/2.0);
-			double my = currItem->yPos() + ((y1 + y2)/2.0);
+			double mx = currItem->xPos() - ((x1 + x2)/2.0);
+			double my = currItem->yPos() - ((y1 + y2)/2.0);
 //			double viewScale=view->scale();
 //			if ((qRound((currItem->xPos() + qMax(x1, x2)) * viewScale) > view->contentsWidth()) ||
 //				(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale) > view->contentsHeight()))
@@ -7262,7 +7262,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 //				)
 //				view->resizeContents(qMax(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
 //									 qMax(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
-			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
+			view->SetCCPo(currItem->xPos() - currItem->width() / 2.0, currItem->yPos() - currItem->height() / 2.0);
 		}
 	}
 }
