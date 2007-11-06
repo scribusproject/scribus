@@ -51,6 +51,9 @@ public:
 	/** @brief Return path to the Scribus share directory */
 	const QString& shareDir() const;
 
+	/** @brief Return path to the translations directory */
+	QString translationDir() const;
+
 	/** @brief Return paths to system font directories*/
 	static QStringList getSystemFontDirs(void);
 	/** @brief Return paths to system icc profiles directories*/
