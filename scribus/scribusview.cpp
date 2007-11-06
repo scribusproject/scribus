@@ -3501,7 +3501,8 @@ void ScribusView::SetCCPo(double x, double y)
 		return;
 	QPoint nx = m_canvas->canvasToLocal(FPoint(x, y));
 	QSize viewsize = viewport()->size();
-	setContentsPos(nx.x() + viewsize.width() / 2, nx.y() + viewsize.height() / 2);
+	qDebug() << "setCCPo" << nx << viewsize;
+	setContentsPos(nx.x() - viewsize.width() / 2, nx.y() - viewsize.height() / 2);
 }
 
 void ScribusView::SetCPo(double x, double y)
