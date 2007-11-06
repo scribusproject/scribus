@@ -3676,47 +3676,50 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 	int cliph = qRound(Doc->Pages->at(Nr)->height() * sc);
 	if ((clipw > 0) && (cliph > 0))
 	{
-		double oldScale = m_canvas->scale();
-		double cx = Doc->minCanvasCoordinate.x();
-		double cy = Doc->minCanvasCoordinate.y();
-		Doc->minCanvasCoordinate = FPoint(0, 0);
-		bool frs = Doc->guidesSettings.framesShown;
-		bool ctrls = Doc->guidesSettings.showControls;
-		Doc->guidesSettings.framesShown = false;
-		Doc->guidesSettings.showControls = false;
-		m_canvas->setScale(sc);
-		m_canvas->m_viewMode.previewMode = true;
-		m_canvas->m_viewMode.forceRedraw = true;
-		Page* act = Doc->currentPage();
-		Doc->setLoading(true);
-		Doc->setCurrentPage(Doc->Pages->at(Nr));
 		im = QImage(clipw, cliph, QImage::Format_ARGB32);
-		ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
-		painter->clear(Doc->papColor);
-		painter->translate(-clipx, -clipy);
-		painter->setFillMode(ScPainter::Solid);
-		if (drawFrame)
+		if (!im.isNull())
 		{
-			painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			painter->setBrush(Doc->papColor);
-			painter->drawRect(clipx, clipy, clipw, cliph);
+			double oldScale = m_canvas->scale();
+			double cx = Doc->minCanvasCoordinate.x();
+			double cy = Doc->minCanvasCoordinate.y();
+			Doc->minCanvasCoordinate = FPoint(0, 0);
+			bool oldFramesShown  = Doc->guidesSettings.framesShown;
+			bool oldShowControls = Doc->guidesSettings.showControls;
+			Doc->guidesSettings.framesShown = false;
+			Doc->guidesSettings.showControls = false;
+			m_canvas->setScale(sc);
+			m_canvas->m_viewMode.previewMode = true;
+			m_canvas->m_viewMode.forceRedraw = true;
+			Page* act = Doc->currentPage();
+			Doc->setLoading(true);
+			Doc->setCurrentPage(Doc->Pages->at(Nr));
+			ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
+			painter->clear(Doc->papColor);
+			painter->translate(-clipx, -clipy);
+			painter->setFillMode(ScPainter::Solid);
+			if (drawFrame)
+			{
+				painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				painter->setBrush(Doc->papColor);
+				painter->drawRect(clipx, clipy, clipw, cliph);
+			}
+			painter->beginLayer(1.0, 0);
+			painter->setZoomFactor(m_canvas->scale());
+			m_canvas->DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
+			m_canvas->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+			painter->endLayer();
+			painter->end();
+			delete painter;
+			painter=NULL;
+			Doc->guidesSettings.framesShown  = oldFramesShown;
+			Doc->guidesSettings.showControls = oldShowControls;
+			m_canvas->setScale(oldScale);
+			Doc->setCurrentPage(act);
+			Doc->setLoading(false);		
+			m_canvas->m_viewMode.previewMode = false;
+			m_canvas->m_viewMode.forceRedraw = false;
+			Doc->minCanvasCoordinate = FPoint(cx, cy);
 		}
-		painter->beginLayer(1.0, 0);
-		painter->setZoomFactor(m_canvas->scale());
-		m_canvas->DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
-		m_canvas->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-		painter->endLayer();
-		painter->end();
-		Doc->guidesSettings.framesShown = frs;
-		Doc->guidesSettings.showControls = ctrls;
-		m_canvas->setScale(oldScale);
-		Doc->setCurrentPage(act);
-		Doc->setLoading(false);
-		delete painter;
-		painter=NULL;
-		m_canvas->m_viewMode.previewMode = false;
-		m_canvas->m_viewMode.forceRedraw = false;
-		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
 }

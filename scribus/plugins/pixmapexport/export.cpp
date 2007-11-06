@@ -125,12 +125,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		}
 		doc->scMW()->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
-		if (!res)
-		{
-			QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Error writing the output file(s)."));
-			doc->scMW()->setStatusBarInfoText( tr("Error writing the output file(s)."));
-		}
-		else
+		if (res)
 			doc->scMW()->setStatusBarInfoText( tr("Export successful"));
 	}
 	// clean the trash
@@ -161,7 +156,8 @@ ExportBitmap::~ExportBitmap()
 
 bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 {
-	uint over = 0;
+	uint over   = 0;
+	bool saved = false, doFileSave = true;
 	QString fileName(getFileName(doc, pageNr));
 
 	if (!doc->Pages->at(pageNr))
@@ -174,11 +170,18 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	*/
 	double pixmapSize = (page->height() > page->width()) ? page->height() : page->width();
 	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false));
+	if (im.isNull())
+	{
+		QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Insufficient memory for this image size."));
+		doc->scMW()->setStatusBarInfoText( tr("Insufficient memory for this image size."));
+		return false;
+	}
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
 	{
+		doFileSave = false;
 		QString fn = QDir::convertSeparators(fileName);
 		QApplication::restoreOverrideCursor();
 		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
@@ -186,12 +189,19 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 				// hack for multiple overwriting (petr) 
 				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
 		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
-		if (over == QMessageBox::Yes)
-			return im.save(fileName, bitmapType.toLocal8Bit().constData(), quality);
+		if (over == QMessageBox::Yes || over == QMessageBox::YesToAll)
+			doFileSave = true;
 		if (over == QMessageBox::YesToAll)
 			overwrite = true;
 	}
-	return im.save(fileName, bitmapType.toLocal8Bit().constData(), quality);
+	if (doFileSave)
+		saved = im.save(fileName, bitmapType.toLocal8Bit().constData(), quality);
+	if (!saved && doFileSave)
+	{
+		QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Error writing the output file(s)."));
+		doc->scMW()->setStatusBarInfoText( tr("Error writing the output file(s)."));
+	}
+	return saved;
 }
 
 bool ExportBitmap::exportCurrent(ScribusDoc* doc)
