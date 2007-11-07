@@ -1,0 +1,761 @@
+<editorsettings description="LaTeX">
+	<executable command="pdflatex  --interaction nonstopmode" />
+	<imagefile extension=".pdf"/>
+	<highlighter kate="latex"/>
+	<!-- highlighter file="latex.highlighter" -->
+	<empty-frame-text>
+		<i18n>
+			<en>
+				\section*{Manual}
+				Your \LaTeX-frames setup is working when you can read this text!\\
+				Placing formulas is very easy:\\
+				Right click $\\Rightarrow$ Edit Latex Source\\
+				And replace this text with your own. Here is an example:
+				\begin{verbatim}
+				\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				becomes
+				\[J = \int r^2 \mathrm{d}m\]
+			</en>
+			<de>
+				\section*{Einführung}
+				Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
+				Eigene Formel einzufügen ist sehr einfach:
+				Mit der rechten Maustaste auf diesen Frame klicken $\\Rightarrow$ Latex-Source bearbeiten\\
+				Danach diesen Text durch ihren eigenen ersetzen:\\
+				Ein Beispiel:
+				Aus 
+				\begin{verbatim}
+				\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				wird
+				\[J = \int r^2 \mathrm{d}m\]
+			</de>
+		</i18n>
+	</empty-frame-text>
+	<preamble>
+		\documentclass[a4paper,10pt]{article}
+		\usepackage[utf8]{inputenc}
+		\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}
+		\title{Scribus-Latex-File}
+		$scribus_font$
+		\author{Scribus}
+		\pagestyle{empty}
+		\setlength{\textwidth}{$scribus_realwidth$ pt}
+		\begin{document}
+	</preamble>
+	<postamble>
+		\end{document}
+	</postamble>
+	
+	
+	<tab type="settings">
+		<title><i18n>
+				<en>Fonts/Colors</en>
+				<de>Schriften/Farben</de>
+			</i18n>
+		</title>
+		<comment><i18n><en>Fontlist from http://www.tug.dk/FontCatalogue/anttor/</en>
+				<de>Schriftenliste von http://www.tug.dk/FontCatalogue/anttor/</de>
+			</i18n></comment>
+		<list name="font" default="lmodern">
+			<title><i18n>
+					<en>Font:</en>
+					<de>Schrift:</de>
+				</i18n></title>
+			<option value="\usepackage[T1]{fontenc}\usepackage[math]{anttor}">Antykwa Torunska</option>
+			<option value="lmodern">Latin Modern</option>
+			<option value="test2">Testeintrag 2</option>
+		</list>
+		<spinbox name="spin" type="int" min="8" max="20" step="1"><i18n>
+				<en>Fontsize</en>
+				<de>Schriftgröße</de>
+			</i18n></spinbox>
+		<color name="fg"><i18n>
+				<en>Fontcolor</en>
+				<de>Textfarbe</de>
+			</i18n></color>
+		<color name="bg"><i18n>
+				<en>Backgroudcolor</en>
+				<de>Hintergrundfarbe</de>
+			</i18n></color>
+	</tab>
+	<tab type="items">
+		<title><i18n>
+				<en>Relation symbols</en>
+				<de>Verhältnissymbole</de><!--TODO: Neuer text!-->
+			</i18n>
+		</title>
+		<item value="\pm"  image="pm.png" />
+		<item value="\cap"  image="cap.png" />
+		<item value="\diamond"  image="diamond.png" />
+		<item value="\oplus"  image="oplus.png" />
+		<item value="\mp"  image="mp.png" />
+		<item value="\cup"  image="cup.png" />
+		<item value="\bigtriangleup"  image="bigtriangleup.png" />
+		<item value="\ominus"  image="ominus.png" />
+		<item value="\times"  image="times.png" />
+		<item value="\uplus"  image="uplus.png" />
+		<item value="\bigtriangledown"  image="bigtriangledown.png" />
+		<item value="\otimes"  image="otimes.png" />
+		<item value="\div"  image="div.png" />
+		<item value="\sqcap"  image="sqcap.png" />
+		<item value="\triangleleft"  image="triangleleft.png" />
+		<item value="\oslash"  image="oslash.png" />
+		<item value="\ast"  image="ast.png" />
+		<item value="\sqcup"  image="sqcup.png" />
+		<item value="\triangleright"  image="triangleright.png" />
+		<item value="\odot"  image="odot.png" />
+		<item value="\star"  image="star.png" />
+		<item value="\vee"  image="vee.png" />
+		<item value="\bigcirc"  image="bigcirc.png" />
+		<item value="\circ"  image="circ.png" />
+		<item value="\wedge"  image="wedge.png" />
+		<item value="\dagger"  image="dagger.png" />
+		<item value="\bullet"  image="bullet.png" />
+		<item value="\setminus"  image="setminus.png" />
+		<item value="\ddagger"  image="ddagger.png" />
+		<item value="\cdot"  image="cdot.png" />
+		<item value="\wr"  image="wr.png" />
+		<item value="\amalg"  image="amalg.png" />
+		<item value="\leq"  image="leq.png" />
+		<item value="\geq"  image="geq.png" />
+		<item value="\equiv"  image="equiv.png" />
+		<item value="\models"  image="models.png" />
+		<item value="\prec"  image="prec.png" />
+		<item value="\succ"  image="succ.png" />
+		<item value="\sim"  image="sim.png" />
+		<item value="\perp"  image="perp.png" />
+		<item value="\preceq"  image="preceq.png" />
+		<item value="\succeq"  image="succeq.png" />
+		<item value="\simeq"  image="simeq.png" />
+		<item value="\mid"  image="mid.png" />
+		<item value="\ll"  image="ll.png" />
+		<item value="\gg"  image="gg.png" />
+		<item value="\asymp"  image="asymp.png" />
+		<item value="\parallel"  image="parallel.png" />
+		<item value="\subset"  image="subset.png" />
+		<item value="\supset"  image="supset.png" />
+		<item value="\approx"  image="approx.png" />
+		<item value="\bowtie"  image="bowtie.png" />
+		<item value="\subseteq"  image="subseteq.png" />
+		<item value="\supseteq"  image="supseteq.png" />
+		<item value="\cong"  image="cong.png" />
+		<item value="\neq"  image="neq.png" />
+		<item value="\smile"  image="smile.png" />
+		<item value="\sqsubseteq"  image="sqsubseteq.png" />
+		<item value="\sqsupseteq"  image="sqsupseteq.png" />
+		<item value="\doteq"  image="doteq.png" />
+		<item value="\frown"  image="frown.png" />
+		<item value="\in"  image="in.png" />
+		<item value="\ni"  image="ni.png" />
+		<item value="\propto"  image="propto.png" />
+		<item value="\vdash"  image="vdash.png" />
+		<item value="\dashv"  image="dashv.png" />
+		<item value="\sum"  image="sum.png" />
+		<item value="\bigcap"  image="bigcap.png" />
+		<item value="\bigodot"  image="bigodot.png" />
+		<item value="\prod"  image="prod.png" />
+		<item value="\bigcup"  image="bigcup.png" />
+		<item value="\bigotimes"  image="bigotimes.png" />
+		<item value="\coprod"  image="coprod.png" />
+		<item value="\bigsqcup"  image="bigsqcup.png" />
+		<item value="\bigoplus"  image="bigoplus.png" />
+		<item value="\int"  image="int.png" />
+		<item value="\bigvee"  image="bigvee.png" />
+		<item value="\biguplus"  image="biguplus.png" />
+		<item value="\oint"  image="oint.png" />
+		<item value="\bigwedge"  image="bigwedge.png" />
+		<item value="\leqslant"  image="leqslant.png" />
+		<item value="\geqslant"  image="geqslant.png" />
+		<item value="\lhd"  image="lhd.png" />
+		<item value="\rhd"  image="rhd.png" />
+		<item value="\unlhd"  image="unlhd.png" />
+		<item value="\unrhd"  image="unrhd.png" />
+		<item value="\Join"  image="Join.png" />
+		<item value="\sqsubset"  image="sqsubset.png" />
+		<item value="\sqsupset"  image="sqsupset.png" />
+		<item value="\dotplus"  image="dotplus.png" />
+		<item value="\smallsetminus"  image="smallsetminus.png" />
+		<item value="\Cap"  image="Cap.png" />
+		<item value="\Cup"  image="Cup.png" />
+		<item value="\barwedge"  image="barwedge.png" />
+		<item value="\veebar"  image="veebar.png" />
+		<item value="\doublebarwedge"  image="doublebarwedge.png" />
+		<item value="\boxminus"  image="boxminus.png" />
+		<item value="\boxtimes"  image="boxtimes.png" />
+		<item value="\boxdot"  image="boxdot.png" />
+		<item value="\boxplus"  image="boxplus.png" />
+		<item value="\divideontimes"  image="divideontimes.png" />
+		<item value="\ltimes"  image="ltimes.png" />
+		<item value="\rtimes"  image="rtimes.png" />
+		<item value="\leftthreetimes"  image="leftthreetimes.png" />
+		<item value="\rightthreetimes"  image="rightthreetimes.png" />
+		<item value="\curlywedge"  image="curlywedge.png" />
+		<item value="\curlyvee"  image="curlyvee.png" />
+		<item value="\circleddash"  image="circleddash.png" />
+		<item value="\circledast"  image="circledast.png" />
+		<item value="\circledcirc"  image="circledcirc.png" />
+		<item value="\centerdot"  image="centerdot.png" />
+		<item value="\intercal"  image="intercal.png" />
+		<item value="\leqq"  image="leqq.png" />
+		<item value="\eqslantless"  image="eqslantless.png" />
+		<item value="\lesssim"  image="lesssim.png" />
+		<item value="\lessapprox"  image="lessapprox.png" />
+		<item value="\approxeq"  image="approxeq.png" />
+		<item value="\lessdot"  image="lessdot.png" />
+		<item value="\lll"  image="lll.png" />
+		<item value="\lessgtr"  image="lessgtr.png" />
+		<item value="\lesseqgtr"  image="lesseqgtr.png" />
+		<item value="\lesseqqgtr"  image="lesseqqgtr.png" />
+		<item value="\doteqdot"  image="doteqdot.png" />
+		<item value="\risingdotseq"  image="risingdotseq.png" />
+		<item value="\fallingdotseq"  image="fallingdotseq.png" />
+		<item value="\backsim"  image="backsim.png" />
+		<item value="\backsimeq"  image="backsimeq.png" />
+		<item value="\subseteqq"  image="subseteqq.png" />
+		<item value="\Subset"  image="Subset.png" />
+		<item value="\preccurlyeq"  image="preccurlyeq.png" />
+		<item value="\curlyeqprec"  image="curlyeqprec.png" />
+		<item value="\precsim"  image="precsim.png" />
+		<item value="\precapprox"  image="precapprox.png" />
+		<item value="\vartriangleleft"  image="vartriangleleft.png" />
+		<item value="\trianglelefteq"  image="trianglelefteq.png" />
+		<item value="\vDash"  image="vDash.png" />
+		<item value="\Vvdash"  image="Vvdash.png" />
+		<item value="\smallsmile"  image="smallsmile.png" />
+		<item value="\smallfrown"  image="smallfrown.png" />
+		<item value="\bumpeq"  image="bumpeq.png" />
+		<item value="\Bumpeq"  image="Bumpeq.png" />
+		<item value="\geqq"  image="geqq.png" />
+		<item value="\eqslantgtr"  image="eqslantgtr.png" />
+		<item value="\gtrsim"  image="gtrsim.png" />
+		<item value="\gtrapprox"  image="gtrapprox.png" />
+		<item value="\gtrdot"  image="gtrdot.png" />
+		<item value="\ggg"  image="ggg.png" />
+		<item value="\gtrless"  image="gtrless.png" />
+		<item value="\gtreqless"  image="gtreqless.png" />
+		<item value="\gtreqqless"  image="gtreqqless.png" />
+		<item value="\eqcirc"  image="eqcirc.png" />
+		<item value="\circeq"  image="circeq.png" />
+		<item value="\triangleq"  image="triangleq.png" />
+		<item value="\thicksim"  image="thicksim.png" />
+		<item value="\thickapprox"  image="thickapprox.png" />
+		<item value="\supseteqq"  image="supseteqq.png" />
+		<item value="\Supset"  image="Supset.png" />
+		<item value="\succcurlyeq"  image="succcurlyeq.png" />
+		<item value="\curlyeqsucc"  image="curlyeqsucc.png" />
+		<item value="\succsim"  image="succsim.png" />
+		<item value="\succapprox"  image="succapprox.png" />
+		<item value="\vartriangleright"  image="vartriangleright.png" />
+		<item value="\trianglerighteq"  image="trianglerighteq.png" />
+		<item value="\Vdash"  image="Vdash.png" />
+		<item value="\shortmid"  image="shortmid.png" />
+		<item value="\shortparallel"  image="shortparallel.png" />
+		<item value="\between"  image="between.png" />
+		<item value="\pitchfork"  image="pitchfork.png" />
+		<item value="\varpropto"  image="varpropto.png" />
+		<item value="\blacktriangleleft"  image="blacktriangleleft.png" />
+		<item value="\therefore"  image="therefore.png" />
+		<item value="\backepsilon"  image="backepsilon.png" />
+		<item value="\blacktriangleright"  image="blacktriangleright.png" />
+		<item value="\because"  image="because.png" />
+		<item value="\nless"  image="nless.png" />
+		<item value="\nleq"  image="nleq.png" />
+		<item value="\nleqslant"  image="nleqslant.png" />
+		<item value="\nleqq"  image="nleqq.png" />
+		<item value="\lneq"  image="lneq.png" />
+		<item value="\lneqq"  image="lneqq.png" />
+		<item value="\lvertneqq"  image="lvertneqq.png" />
+		<item value="\lnsim"  image="lnsim.png" />
+		<item value="\lnapprox"  image="lnapprox.png" />
+		<item value="\nprec"  image="nprec.png" />
+		<item value="\npreceq"  image="npreceq.png" />
+		<item value="\precnsim"  image="precnsim.png" />
+		<item value="\precnapprox"  image="precnapprox.png" />
+		<item value="\nsim"  image="nsim.png" />
+		<item value="\nshortmid"  image="nshortmid.png" />
+		<item value="\nmid"  image="nmid.png" />
+		<item value="\nvdash"  image="nvdash.png" />
+		<item value="\nvDash"  image="nvDash.png" />
+		<item value="\ntriangleleft"  image="ntriangleleft.png" />
+		<item value="\ntrianglelefteq"  image="ntrianglelefteq.png" />
+		<item value="\nsubseteq"  image="nsubseteq.png" />
+		<item value="\subsetneq"  image="subsetneq.png" />
+		<item value="\varsubsetneq"  image="varsubsetneq.png" />
+		<item value="\subsetneqq"  image="subsetneqq.png" />
+		<item value="\varsubsetneqq"  image="varsubsetneqq.png" />
+		<item value="\ngtr"  image="ngtr.png" />
+		<item value="\ngeq"  image="ngeq.png" />
+		<item value="\ngeqslant"  image="ngeqslant.png" />
+		<item value="\ngeqq"  image="ngeqq.png" />
+		<item value="\gneq"  image="gneq.png" />
+		<item value="\gneqq"  image="gneqq.png" />
+		<item value="\gvertneqq"  image="gvertneqq.png" />
+		<item value="\gnsim"  image="gnsim.png" />
+		<item value="\gnapprox"  image="gnapprox.png" />
+		<item value="\nsucc"  image="nsucc.png" />
+		<item value="\nsucceq"  image="nsucceq.png" />
+		<item value="\succnsim"  image="succnsim.png" />
+		<item value="\succnapprox"  image="succnapprox.png" />
+		<item value="\ncong"  image="ncong.png" />
+		<item value="\nshortparallel"  image="nshortparallel.png" />
+		<item value="\nparallel"  image="nparallel.png" />
+		<item value="\nVDash"  image="nVDash.png" />
+		<item value="\ntriangleright"  image="ntriangleright.png" />
+		<item value="\ntrianglerighteq"  image="ntrianglerighteq.png" />
+		<item value="\nsupseteq"  image="nsupseteq.png" />
+		<item value="\nsupseteqq"  image="nsupseteqq.png" />
+		<item value="\supsetneq"  image="supsetneq.png" />
+		<item value="\varsupsetneq"  image="varsupsetneq.png" />
+		<item value="\supsetneqq"  image="supsetneqq.png" />
+		<item value="\varsupsetneqq"  image="varsupsetneqq.png" />
+	</tab>
+	<tab type="items">
+		<title><i18n>
+				<en>Arrows</en>
+				<de>Pfeile</de>
+			</i18n></title>
+		<item value="\leftarrow"  image="leftarrow.png" />
+		<item value="\longleftarrow"  image="longleftarrow.png" />
+		<item value="\uparrow"  image="uparrow.png" />
+		<item value="\Leftarrow"  image="Leftarrow.png" />
+		<item value="\Longleftarrow"  image="Longleftarrow.png" />
+		<item value="\Uparrow"  image="Uparrow.png" />
+		<item value="\rightarrow"  image="rightarrow.png" />
+		<item value="\longrightarrow"  image="longrightarrow.png" />
+		<item value="\downarrow"  image="downarrow.png" />
+		<item value="\Rightarrow"  image="Rightarrow.png" />
+		<item value="\Longrightarrow"  image="Longrightarrow.png" />
+		<item value="\Downarrow"  image="Downarrow.png" />
+		<item value="\leftrightarrow"  image="leftrightarrow.png" />
+		<item value="\longleftrightarrow"  image="longleftrightarrow.png" />
+		<item value="\updownarrow"  image="updownarrow.png" />
+		<item value="\Leftrightarrow"  image="Leftrightarrow.png" />
+		<item value="\Longleftrightarrow"  image="Longleftrightarrow.png" />
+		<item value="\Updownarrow"  image="Updownarrow.png" />
+		<item value="\mapsto"  image="mapsto.png" />
+		<item value="\longmapsto"  image="longmapsto.png" />
+		<item value="\nearrow"  image="nearrow.png" />
+		<item value="\hookleftarrow"  image="hookleftarrow.png" />
+		<item value="\hookrightarrow"  image="hookrightarrow.png" />
+		<item value="\searrow"  image="searrow.png" />
+		<item value="\leftharpoonup"  image="leftharpoonup.png" />
+		<item value="\rightharpoonup"  image="rightharpoonup.png" />
+		<item value="\swarrow"  image="swarrow.png" />
+		<item value="\leftharpoondown"  image="leftharpoondown.png" />
+		<item value="\rightharpoondown"  image="rightharpoondown.png" />
+		<item value="\nwarrow"  image="nwarrow.png" />
+		<item value="\rightleftharpoons"  image="rightleftharpoons.png" />
+		<item value="\dashrightarrow"  image="dashrightarrow.png" />
+		<item value="\dashleftarrow"  image="dashleftarrow.png" />
+		<item value="\leftleftarrows"  image="leftleftarrows.png" />
+		<item value="\leftrightarrows"  image="leftrightarrows.png" />
+		<item value="\Lleftarrow"  image="Lleftarrow.png" />
+		<item value="\twoheadleftarrow"  image="twoheadleftarrow.png" />
+		<item value="\leftarrowtail"  image="leftarrowtail.png" />
+		<item value="\looparrowleft"  image="looparrowleft.png" />
+		<item value="\leftrightharpoons"  image="leftrightharpoons.png" />
+		<item value="\curvearrowleft"  image="curvearrowleft.png" />
+		<item value="\circlearrowleft"  image="circlearrowleft.png" />
+		<item value="\Lsh"  image="Lsh.png" />
+		<item value="\upuparrows"  image="upuparrows.png" />
+		<item value="\upharpoonleft"  image="upharpoonleft.png" />
+		<item value="\downharpoonleft"  image="downharpoonleft.png" />
+		<item value="\multimap"  image="multimap.png" />
+		<item value="\leftrightsquigarrow"  image="leftrightsquigarrow.png" />
+		<item value="\rightrightarrows"  image="rightrightarrows.png" />
+		<item value="\rightleftarrows"  image="rightleftarrows.png" />
+		<item value="\twoheadrightarrow"  image="twoheadrightarrow.png" />
+		<item value="\rightarrowtail"  image="rightarrowtail.png" />
+		<item value="\looparrowright"  image="looparrowright.png" />
+		<item value="\curvearrowright"  image="curvearrowright.png" />
+		<item value="\circlearrowright"  image="circlearrowright.png" />
+		<item value="\Rsh"  image="Rsh.png" />
+		<item value="\downdownarrows"  image="downdownarrows.png" />
+		<item value="\upharpoonright"  image="upharpoonright.png" />
+		<item value="\downharpoonright"  image="downharpoonright.png" />
+		<item value="\rightsquigarrow"  image="rightsquigarrow.png" />
+		<item value="\nleftarrow"  image="nleftarrow.png" />
+		<item value="\nrightarrow"  image="nrightarrow.png" />
+		<item value="\nLeftarrow"  image="nLeftarrow.png" />
+		<item value="\nRightarrow"  image="nRightarrow.png" />
+		<item value="\nleftrightarrow"  image="nleftrightarrow.png" />
+		<item value="\nLeftrightarrow"  image="nLeftrightarrow.png" />
+		<item value="\leadsto"  image="leadsto.png" />
+		<item value="\xleftarrow[xyz]{abc}"  image="xleftarrowxyzabc.png" />
+		<item value="\xrightarrow[xyz]{abc}"  image="xrightarrowxyzabc.png" />
+	</tab>
+	<tab type="items">
+		<title><i18n>
+				<en>Miscellaneous symbols</en>
+				<de>Verschiedenes</de>
+			</i18n></title>
+		<item value="\ldots"  image="ldots.png" />
+		<item value="\cdots"  image="cdots.png" />
+		<item value="\vdots"  image="vdots.png" />
+		<item value="\ddots"  image="ddots.png" />
+		<item value="\aleph"  image="aleph.png" />
+		<item value="\prime"  image="prime.png" />
+		<item value="\forall"  image="forall.png" />
+		<item value="\infty"  image="infty.png" />
+		<item value="\hbar"  image="hbar.png" />
+		<item value="\emptyset"  image="emptyset.png" />
+		<item value="\exists"  image="exists.png" />
+		<item value="\imath"  image="imath.png" />
+		<item value="\nabla"  image="nabla.png" />
+		<item value="\neg"  image="neg.png" />
+		<item value="\jmath"  image="jmath.png" />
+		<item value="\surd"  image="surd.png" />
+		<item value="\flat"  image="flat.png" />
+		<item value="\triangle"  image="triangle.png" />
+		<item value="\ell"  image="ell.png" />
+		<item value="\top"  image="top.png" />
+		<item value="\natural"  image="natural.png" />
+		<item value="\clubsuit"  image="clubsuit.png" />
+		<item value="\wp"  image="wp.png" />
+		<item value="\bot"  image="bot.png" />
+		<item value="\sharp"  image="sharp.png" />
+		<item value="\diamondsuit"  image="diamondsuit.png" />
+		<item value="\Re"  image="Re.png" />
+		<item value="\backslash"  image="backslash.png" />
+		<item value="\heartsuit"  image="heartsuit.png" />
+		<item value="\Im"  image="Im.png" />
+		<item value="\angle"  image="angle.png" />
+		<item value="\partial"  image="partial.png" />
+		<item value="\spadesuit"  image="spadesuit.png" />
+		<item value="\hslash"  image="hslash.png" />
+		<item value="\vartriangle"  image="vartriangle.png" />
+		<item value="\triangledown"  image="triangledown.png" />
+		<item value="\square"  image="square.png" />
+		<item value="\lozenge"  image="lozenge.png" />
+		<item value="\circledS"  image="circledS.png" />
+		<item value="\measuredangle"  image="measuredangle.png" />
+		<item value="\nexists"  image="nexists.png" />
+		<item value="\mho"  image="mho.png" />
+		<item value="\Finv"  image="Finv.png" />
+		<item value="\Game"  image="Game.png" />
+		<item value="\Bbbk"  image="Bbbk.png" />
+		<item value="\backprime"  image="backprime.png" />
+		<item value="\varnothing"  image="varnothing.png" />
+		<item value="\blacktriangle"  image="blacktriangle.png" />
+		<item value="\blacktriangledown"  image="blacktriangledown.png" />
+		<item value="\blacksquare"  image="blacksquare.png" />
+		<item value="\blacklozenge"  image="blacklozenge.png" />
+		<item value="\bigstar"  image="bigstar.png" />
+		<item value="\sphericalangle"  image="sphericalangle.png" />
+		<item value="\complement"  image="complement.png" />
+		<item value="\eth"  image="eth.png" />
+		<item value="\diagup"  image="diagup.png" />
+		<item value="\diagdown"  image="diagdown.png" />
+	</tab>
+	<tab type="items">
+		<title>Delimiters</title>
+		<item value="\vert"  image="vert.png" />
+		<item value="\Vert"  image="Vert.png" />
+		<item value="\lbrace"  image="lbrace.png" />
+		<item value="\rbrace"  image="rbrace.png" />
+		<item value="\lfloor"  image="lfloor.png" />
+		<item value="\rfloor"  image="rfloor.png" />
+		<item value="\lceil"  image="lceil.png" />
+		<item value="\rceil"  image="rceil.png" />
+		<item value="\langle"  image="langle.png" />
+		<item value="\rangle"  image="rangle.png" />
+		<item value="\overbrace{xyz}"  image="overbracexyz.png" />
+		<item value="\underbrace{xyz}"  image="underbracexyz.png" />
+		<item value="\overline{xyz}"  image="overlinexyz.png" />
+		<item value="\underline{xyz}"  image="underlinexyz.png" />
+		<item value="\overleftarrow{xyz}"  image="overleftarrowxyz.png" />
+		<item value="\overrightarrow{xyz}"  image="overrightarrowxyz.png" />
+		<item value="\widehat{xyz}"  image="widehatxyz.png" />
+		<item value="\widetilde{xyz}"  image="widetildexyz.png" />
+		<item value="\ulcorner"  image="ulcorner.png" />
+		<item value="\urcorner"  image="urcorner.png" />
+		<item value="\llcorner"  image="llcorner.png" />
+		<item value="\lrcorner"  image="lrcorner.png" />
+		<item value="\lmoustache"  image="lmoustache.png" />
+		<item value="\rmoustache"  image="rmoustache.png" />
+		<item value="\lgroup"  image="lgroup.png" />
+		<item value="\rgroup"  image="rgroup.png" />
+		<item value="\arrowvert"  image="arrowvert.png" />
+		<item value="\Arrowvert"  image="Arrowvert.png" />
+		<item value="\bracevert"  image="bracevert.png" />
+		<item value="\sqrt{xyz}"  image="sqrtxyz.png" />
+		<item value="\sqrt[n]{xyz}"  image="sqrtnxyz.png" />
+		<item value="\frac{a}{b}"  image="fracab.png" />
+	</tab>
+	<tab type="items">
+		<title>Greek Alphabet</title>
+		<item value="\alpha"  image="alpha.png" />
+		<item value="\beta"  image="beta.png" />
+		<item value="\gamma"  image="gamma.png" />
+		<item value="\delta"  image="delta.png" />
+		<item value="\epsilon"  image="epsilon.png" />
+		<item value="\varepsilon"  image="varepsilon.png" />
+		<item value="\zeta"  image="zeta.png" />
+		<item value="\eta"  image="eta.png" />
+		<item value="\theta"  image="theta.png" />
+		<item value="\vartheta"  image="vartheta.png" />
+		<item value="\iota"  image="iota.png" />
+		<item value="\kappa"  image="kappa.png" />
+		<item value="\lambda"  image="lambda.png" />
+		<item value="\mu"  image="mu.png" />
+		<item value="\nu"  image="nu.png" />
+		<item value="\xi"  image="xi.png" />
+		<item value="\pi"  image="pi.png" />
+		<item value="\varpi"  image="varpi.png" />
+		<item value="\rho"  image="rho.png" />
+		<item value="\varrho"  image="varrho.png" />
+		<item value="\sigma"  image="sigma.png" />
+		<item value="\varsigma"  image="varsigma.png" />
+		<item value="\tau"  image="tau.png" />
+		<item value="\upsilon"  image="upsilon.png" />
+		<item value="\phi"  image="phi.png" />
+		<item value="\varphi"  image="varphi.png" />
+		<item value="\chi"  image="chi.png" />
+		<item value="\psi"  image="psi.png" />
+		<item value="\omega"  image="omega.png" />
+		<item value="\Gamma"  image="Gamma.png" />
+		<item value="\Delta"  image="Delta.png" />
+		<item value="\Theta"  image="Theta.png" />
+		<item value="\Lambda"  image="Lambda.png" />
+		<item value="\Xi"  image="Xi.png" />
+		<item value="\Pi"  image="Pi.png" />
+		<item value="\Sigma"  image="Sigma.png" />
+		<item value="\Upsilon"  image="Upsilon.png" />
+		<item value="\Phi"  image="Phi.png" />
+		<item value="\Psi"  image="Psi.png" />
+		<item value="\Omega"  image="Omega.png" />
+	</tab>
+	<tab type="items">
+		<title>Math alphabets</title>
+		<item value="\mathcal{A}"  image="mathcalA.png" />
+		<item value="\mathcal{B}"  image="mathcalB.png" />
+		<item value="\mathcal{C}"  image="mathcalC.png" />
+		<item value="\mathcal{D}"  image="mathcalD.png" />
+		<item value="\mathcal{E}"  image="mathcalE.png" />
+		<item value="\mathcal{F}"  image="mathcalF.png" />
+		<item value="\mathcal{G}"  image="mathcalG.png" />
+		<item value="\mathcal{H}"  image="mathcalH.png" />
+		<item value="\mathcal{I}"  image="mathcalI.png" />
+		<item value="\mathcal{J}"  image="mathcalJ.png" />
+		<item value="\mathcal{K}"  image="mathcalK.png" />
+		<item value="\mathcal{L}"  image="mathcalL.png" />
+		<item value="\mathcal{M}"  image="mathcalM.png" />
+		<item value="\mathcal{N}"  image="mathcalN.png" />
+		<item value="\mathcal{O}"  image="mathcalO.png" />
+		<item value="\mathcal{P}"  image="mathcalP.png" />
+		<item value="\mathcal{Q}"  image="mathcalQ.png" />
+		<item value="\mathcal{R}"  image="mathcalR.png" />
+		<item value="\mathcal{S}"  image="mathcalS.png" />
+		<item value="\mathcal{T}"  image="mathcalT.png" />
+		<item value="\mathcal{U}"  image="mathcalU.png" />
+		<item value="\mathcal{V}"  image="mathcalV.png" />
+		<item value="\mathcal{W}"  image="mathcalW.png" />
+		<item value="\mathcal{X}"  image="mathcalX.png" />
+		<item value="\mathcal{Y}"  image="mathcalY.png" />
+		<item value="\mathcal{Z}"  image="mathcalZ.png" />
+		<item value="\mathbb{A}"  image="mathbbA.png" />
+		<item value="\mathbb{B}"  image="mathbbB.png" />
+		<item value="\mathbb{C}"  image="mathbbC.png" />
+		<item value="\mathbb{D}"  image="mathbbD.png" />
+		<item value="\mathbb{E}"  image="mathbbE.png" />
+		<item value="\mathbb{F}"  image="mathbbF.png" />
+		<item value="\mathbb{G}"  image="mathbbG.png" />
+		<item value="\mathbb{H}"  image="mathbbH.png" />
+		<item value="\mathbb{I}"  image="mathbbI.png" />
+		<item value="\mathbb{J}"  image="mathbbJ.png" />
+		<item value="\mathbb{K}"  image="mathbbK.png" />
+		<item value="\mathbb{L}"  image="mathbbL.png" />
+		<item value="\mathbb{M}"  image="mathbbM.png" />
+		<item value="\mathbb{N}"  image="mathbbN.png" />
+		<item value="\mathbb{O}"  image="mathbbO.png" />
+		<item value="\mathbb{P}"  image="mathbbP.png" />
+		<item value="\mathbb{Q}"  image="mathbbQ.png" />
+		<item value="\mathbb{R}"  image="mathbbR.png" />
+		<item value="\mathbb{S}"  image="mathbbS.png" />
+		<item value="\mathbb{T}"  image="mathbbT.png" />
+		<item value="\mathbb{U}"  image="mathbbU.png" />
+		<item value="\mathbb{V}"  image="mathbbV.png" />
+		<item value="\mathbb{W}"  image="mathbbW.png" />
+		<item value="\mathbb{X}"  image="mathbbX.png" />
+		<item value="\mathbb{Y}"  image="mathbbY.png" />
+		<item value="\mathbb{Z}"  image="mathbbZ.png" />
+		<item value="\mathbf{A}"  image="mathbfA.png" />
+		<item value="\mathbf{B}"  image="mathbfB.png" />
+		<item value="\mathbf{C}"  image="mathbfC.png" />
+		<item value="\mathbf{D}"  image="mathbfD.png" />
+		<item value="\mathbf{E}"  image="mathbfE.png" />
+		<item value="\mathbf{F}"  image="mathbfF.png" />
+		<item value="\mathbf{G}"  image="mathbfG.png" />
+		<item value="\mathbf{H}"  image="mathbfH.png" />
+		<item value="\mathbf{I}"  image="mathbfI.png" />
+		<item value="\mathbf{J}"  image="mathbfJ.png" />
+		<item value="\mathbf{K}"  image="mathbfK.png" />
+		<item value="\mathbf{L}"  image="mathbfL.png" />
+		<item value="\mathbf{M}"  image="mathbfM.png" />
+		<item value="\mathbf{N}"  image="mathbfN.png" />
+		<item value="\mathbf{O}"  image="mathbfO.png" />
+		<item value="\mathbf{P}"  image="mathbfP.png" />
+		<item value="\mathbf{Q}"  image="mathbfQ.png" />
+		<item value="\mathbf{R}"  image="mathbfR.png" />
+		<item value="\mathbf{S}"  image="mathbfS.png" />
+		<item value="\mathbf{T}"  image="mathbfT.png" />
+		<item value="\mathbf{U}"  image="mathbfU.png" />
+		<item value="\mathbf{V}"  image="mathbfV.png" />
+		<item value="\mathbf{W}"  image="mathbfW.png" />
+		<item value="\mathbf{X}"  image="mathbfX.png" />
+		<item value="\mathbf{Y}"  image="mathbfY.png" />
+		<item value="\mathbf{Z}"  image="mathbfZ.png" />
+		<item value="\mathfrak{A}"  image="mathfrakA.png" />
+		<item value="\mathfrak{B}"  image="mathfrakB.png" />
+		<item value="\mathfrak{C}"  image="mathfrakC.png" />
+		<item value="\mathfrak{D}"  image="mathfrakD.png" />
+		<item value="\mathfrak{E}"  image="mathfrakE.png" />
+		<item value="\mathfrak{F}"  image="mathfrakF.png" />
+		<item value="\mathfrak{G}"  image="mathfrakG.png" />
+		<item value="\mathfrak{H}"  image="mathfrakH.png" />
+		<item value="\mathfrak{I}"  image="mathfrakI.png" />
+		<item value="\mathfrak{J}"  image="mathfrakJ.png" />
+		<item value="\mathfrak{K}"  image="mathfrakK.png" />
+		<item value="\mathfrak{L}"  image="mathfrakL.png" />
+		<item value="\mathfrak{M}"  image="mathfrakM.png" />
+		<item value="\mathfrak{N}"  image="mathfrakN.png" />
+		<item value="\mathfrak{O}"  image="mathfrakO.png" />
+		<item value="\mathfrak{P}"  image="mathfrakP.png" />
+		<item value="\mathfrak{Q}"  image="mathfrakQ.png" />
+		<item value="\mathfrak{R}"  image="mathfrakR.png" />
+		<item value="\mathfrak{S}"  image="mathfrakS.png" />
+		<item value="\mathfrak{T}"  image="mathfrakT.png" />
+		<item value="\mathfrak{U}"  image="mathfrakU.png" />
+		<item value="\mathfrak{V}"  image="mathfrakV.png" />
+		<item value="\mathfrak{W}"  image="mathfrakW.png" />
+		<item value="\mathfrak{X}"  image="mathfrakX.png" />
+		<item value="\mathfrak{Y}"  image="mathfrakY.png" />
+		<item value="\mathfrak{Z}"  image="mathfrakZ.png" />
+		<item value="\boldsymbol{A}"  image="boldsymbolA.png" />
+		<item value="\boldsymbol{B}"  image="boldsymbolB.png" />
+		<item value="\boldsymbol{C}"  image="boldsymbolC.png" />
+		<item value="\boldsymbol{D}"  image="boldsymbolD.png" />
+		<item value="\boldsymbol{E}"  image="boldsymbolE.png" />
+		<item value="\boldsymbol{F}"  image="boldsymbolF.png" />
+		<item value="\boldsymbol{G}"  image="boldsymbolG.png" />
+		<item value="\boldsymbol{H}"  image="boldsymbolH.png" />
+		<item value="\boldsymbol{I}"  image="boldsymbolI.png" />
+		<item value="\boldsymbol{J}"  image="boldsymbolJ.png" />
+		<item value="\boldsymbol{K}"  image="boldsymbolK.png" />
+		<item value="\boldsymbol{L}"  image="boldsymbolL.png" />
+		<item value="\boldsymbol{M}"  image="boldsymbolM.png" />
+		<item value="\boldsymbol{N}"  image="boldsymbolN.png" />
+		<item value="\boldsymbol{O}"  image="boldsymbolO.png" />
+		<item value="\boldsymbol{P}"  image="boldsymbolP.png" />
+		<item value="\boldsymbol{Q}"  image="boldsymbolQ.png" />
+		<item value="\boldsymbol{R}"  image="boldsymbolR.png" />
+		<item value="\boldsymbol{S}"  image="boldsymbolS.png" />
+		<item value="\boldsymbol{T}"  image="boldsymbolT.png" />
+		<item value="\boldsymbol{U}"  image="boldsymbolU.png" />
+		<item value="\boldsymbol{V}"  image="boldsymbolV.png" />
+		<item value="\boldsymbol{W}"  image="boldsymbolW.png" />
+		<item value="\boldsymbol{X}"  image="boldsymbolX.png" />
+		<item value="\boldsymbol{Y}"  image="boldsymbolY.png" />
+		<item value="\boldsymbol{Z}"  image="boldsymbolZ.png" />
+		<item value="\boldsymbol{\alpha}"  image="boldsymbolalpha.png" />
+		<item value="\boldsymbol{\beta}"  image="boldsymbolbeta.png" />
+		<item value="\boldsymbol{\gamma}"  image="boldsymbolgamma.png" />
+		<item value="\boldsymbol{\delta}"  image="boldsymboldelta.png" />
+		<item value="\boldsymbol{\epsilon}"  image="boldsymbolepsilon.png" />
+		<item value="\boldsymbol{\varepsilon}"  image="boldsymbolvarepsilon.png" />
+		<item value="\boldsymbol{\zeta}"  image="boldsymbolzeta.png" />
+		<item value="\boldsymbol{\eta}"  image="boldsymboleta.png" />
+		<item value="\boldsymbol{\theta}"  image="boldsymboltheta.png" />
+		<item value="\boldsymbol{\vartheta}"  image="boldsymbolvartheta.png" />
+		<item value="\boldsymbol{\iota}"  image="boldsymboliota.png" />
+		<item value="\boldsymbol{\kappa}"  image="boldsymbolkappa.png" />
+		<item value="\boldsymbol{\lambda}"  image="boldsymbollambda.png" />
+		<item value="\boldsymbol{\mu}"  image="boldsymbolmu.png" />
+		<item value="\boldsymbol{\nu}"  image="boldsymbolnu.png" />
+		<item value="\boldsymbol{\xi}"  image="boldsymbolxi.png" />
+		<item value="\boldsymbol{\pi}"  image="boldsymbolpi.png" />
+		<item value="\boldsymbol{\varpi}"  image="boldsymbolvarpi.png" />
+		<item value="\boldsymbol{\rho}"  image="boldsymbolrho.png" />
+		<item value="\boldsymbol{\varrho}"  image="boldsymbolvarrho.png" />
+		<item value="\boldsymbol{\sigma}"  image="boldsymbolsigma.png" />
+		<item value="\boldsymbol{\varsigma}"  image="boldsymbolvarsigma.png" />
+		<item value="\boldsymbol{\tau}"  image="boldsymboltau.png" />
+		<item value="\boldsymbol{\upsilon}"  image="boldsymbolupsilon.png" />
+		<item value="\boldsymbol{\phi}"  image="boldsymbolphi.png" />
+		<item value="\boldsymbol{\varphi}"  image="boldsymbolvarphi.png" />
+		<item value="\boldsymbol{\chi}"  image="boldsymbolchi.png" />
+		<item value="\boldsymbol{\psi}"  image="boldsymbolpsi.png" />
+		<item value="\boldsymbol{\omega}"  image="boldsymbolomega.png" />
+		<item value="\boldsymbol{\Gamma}"  image="boldsymbolGamma.png" />
+		<item value="\boldsymbol{\Delta}"  image="boldsymbolDelta.png" />
+		<item value="\boldsymbol{\Theta}"  image="boldsymbolTheta.png" />
+		<item value="\boldsymbol{\Lambda}"  image="boldsymbolLambda.png" />
+		<item value="\boldsymbol{\Xi}"  image="boldsymbolXi.png" />
+		<item value="\boldsymbol{\Pi}"  image="boldsymbolPi.png" />
+		<item value="\boldsymbol{\Sigma}"  image="boldsymbolSigma.png" />
+		<item value="\boldsymbol{\Upsilon}"  image="boldsymbolUpsilon.png" />
+		<item value="\boldsymbol{\Phi}"  image="boldsymbolPhi.png" />
+		<item value="\boldsymbol{\Psi}"  image="boldsymbolPsi.png" />
+		<item value="\boldsymbol{\Omega}"  image="boldsymbolOmega.png" />
+		<item value="\boldsymbol{\nabla}"  image="boldsymbolnabla.png" />
+		<item value="\boldsymbol{\infty}"  image="boldsymbolinfty.png" />
+		<item value="\boldsymbol{[sym]}"  image="boldsymbolsym.png" />
+		<item value="\text{}">
+			<i18n>
+				<en>Regular text</en>
+				<de>Normaler Text</de>
+			</i18n>
+		</item>
+	</tab>
+	<tab type="items">
+		<title>Math accents</title>
+		<item value="\bar{a}"  image="bara.png" />
+		<item value="\vec{a}"  image="veca.png" />
+		<item value="\dot{a}"  image="dota.png" />
+		<item value="\ddot{a}"  image="ddota.png" />
+		<item value="\hat{a}"  image="hata.png" />
+		<item value="\check{a}"  image="checka.png" />
+		<item value="\breve{a}"  image="brevea.png" />
+		<item value="\tilde{a}"  image="tildea.png" />
+		<item value="\acute{a}"  image="acutea.png" />
+		<item value="\grave{a}"  image="gravea.png" />
+	</tab>
+	<!-- Sample tab-->
+	<tab type="settings">
+		<title>
+			<i18n>
+				<!-- The first entry is always the default, so this should be english -->
+				<en>Sample tab</en>
+				<de>Beispielstab</de>
+			</i18n>
+		</title>
+		<!-- if some text shouldn't be translated just don't put it in a i18n tag -->
+		<!-- Comments must not have a "name" parameter! -->
+		<comment>Comments are for displaying some text (This comment is not to be translated!)</comment>
+		<!-- Common parameters for all tags in this group:
+			 name		Name from which this setting will be
+			 referenced in the text (as $scribus_NAME$)
+			 default    Default value
+			 For lists this must match a "value" defined in one of the
+			 options. Not the description text!
+			 -->
+		<font name="example1"><i18n><en>OS-Fonts</en><de>Betriebssystemschriften</de></i18n></font>
+		<list name="example2" default="blubb">
+			<title>List</title>
+			<option value="abc">List item 1</option>
+			<option value="blubb">
+				<i18n><en>List item 2</en><de>Listeneintrag 2</de></i18n></option>
+			<option value="xzy">List item 3</option>
+		</list>
+		
+		<!-- Spin boxes can be of type "int" or "double", "int" is default -->
+		<spinbox name="example3a" type="int" min="5" max="17" step="3">Int Spinbox</spinbox>
+		<spinbox name="example3b" type="double" min="5.2" max="17.3" step="0.3">Double Spinbox</spinbox>
+		<color name="example4">Color chooser</color>
+		<!-- Text boxes can be of type "short" or "long", "short" is default -->
+		<text name="example5a" type="short" default="abc">Short Textfield</text>
+		<text name="example5b" type="long" default="abc">Long Textfield</text>
+	</tab>
+</editorsettings>
