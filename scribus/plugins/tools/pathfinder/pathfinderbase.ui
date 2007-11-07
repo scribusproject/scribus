@@ -1,0 +1,445 @@
+<ui version="4.0" >
+ <class>PathFinderBase</class>
+ <widget class="QDialog" name="PathFinderBase" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>406</width>
+    <height>268</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Boolean Path Operations</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="spacing" >
+    <number>5</number>
+   </property>
+   <property name="leftMargin" >
+    <number>10</number>
+   </property>
+   <property name="topMargin" >
+    <number>10</number>
+   </property>
+   <property name="rightMargin" >
+    <number>10</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>10</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="spacing" >
+      <number>5</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="sourceShape" >
+       <property name="minimumSize" >
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoFillBackground" >
+        <bool>true</bool>
+       </property>
+       <property name="frameShape" >
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow" >
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" >
+       <property name="spacing" >
+        <number>0</number>
+       </property>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>2</width>
+           <height>2</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label" >
+         <property name="font" >
+          <font>
+           <pointsize>30</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text" >
+          <string>+</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>2</width>
+           <height>2</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="sourceShape2" >
+       <property name="minimumSize" >
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoFillBackground" >
+        <bool>true</bool>
+       </property>
+       <property name="frameShape" >
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow" >
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" >
+       <property name="spacing" >
+        <number>0</number>
+       </property>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>2</width>
+           <height>2</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2" >
+         <property name="font" >
+          <font>
+           <pointsize>30</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text" >
+          <string>=</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>2</width>
+           <height>2</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="resultShape" >
+       <property name="minimumSize" >
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="autoFillBackground" >
+        <bool>true</bool>
+       </property>
+       <property name="frameShape" >
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow" >
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="spacing" >
+      <number>5</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" >
+       <property name="spacing" >
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="groupBox" >
+         <property name="title" >
+          <string>Operation</string>
+         </property>
+         <layout class="QHBoxLayout" >
+          <property name="spacing" >
+           <number>5</number>
+          </property>
+          <property name="leftMargin" >
+           <number>10</number>
+          </property>
+          <property name="topMargin" >
+           <number>10</number>
+          </property>
+          <property name="rightMargin" >
+           <number>10</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QToolButton" name="opCombine" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="checkable" >
+             <bool>true</bool>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="opSubtraction" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="checkable" >
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="opIntersection" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="checkable" >
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="opExclusion" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="checkable" >
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="opParts" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="checkable" >
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="spacing" >
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="swapShapes" >
+           <property name="text" >
+            <string>Swap Shapes</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_2" >
+       <property name="title" >
+        <string>Options</string>
+       </property>
+       <layout class="QVBoxLayout" >
+        <property name="spacing" >
+         <number>5</number>
+        </property>
+        <property name="leftMargin" >
+         <number>10</number>
+        </property>
+        <property name="topMargin" >
+         <number>10</number>
+        </property>
+        <property name="rightMargin" >
+         <number>10</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_3" >
+          <property name="text" >
+           <string>Result gets Colors of:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="targetGetsSource1Color" >
+          <property name="text" >
+           <string>first Shape</string>
+          </property>
+          <property name="checked" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="targetGetsSource2Color" >
+          <property name="text" >
+           <string>second Shape</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="5" margin="10" />
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>PathFinderBase</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>PathFinderBase</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
