@@ -1217,6 +1217,7 @@ void ScPainter::drawImage( QImage *image )
 void ScPainter::setupPolygon(FPointArray *points, bool closed)
 {
 	bool nPath = true;
+	bool first = true;
 	FPoint np, np1, np2, np3;
 #ifdef HAVE_CAIRO
 	if (points->size() > 3)
@@ -1232,8 +1233,11 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			if (nPath)
 			{
 				np = points->point(poi);
+				if ((!first) && (closed))
+					cairo_close_path( m_cr );
     			cairo_move_to( m_cr, np.x(), np.y());
 				nPath = false;
+				first = false;
 			}
 			np = points->point(poi);
 			np1 = points->point(poi+1);
@@ -1262,8 +1266,11 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			if (nPath)
 			{
 				np = points->point(poi);
+				if ((!first) && (closed))
+					m_path.closeSubpath();
     			m_path.moveTo(np.x(), np.y());
 				nPath = false;
+				first = false;
 			}
 			np = points->point(poi);
 			np1 = points->point(poi+1);
