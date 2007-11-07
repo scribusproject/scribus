@@ -1383,6 +1383,29 @@ void PropertiesPalette::unsetDoc()
 	paraStyleCombo->setDoc(0);
 	charStyleCombo->setDoc(0);
 	SetLineFormats(0);
+	DoGroup->setEnabled(false);
+	DoUnGroup->setEnabled(false);
+	EditShape->setEnabled(false);
+	ShapeGroup->setEnabled(false);
+	FlipH->setEnabled(false);
+	FlipV->setEnabled(false);
+	xposLabel->setText( tr( "&X-Pos:" ) );
+	widthLabel->setText( tr( "&Width:" ) );
+	yposLabel->setText( tr( "&Y-Pos:" ) );
+	heightLabel->setText( tr( "&Height:" ) );
+	RoundRect->setEnabled(false);
+	HaveItem = false;
+	Xpos->setValue(0);
+	Ypos->setValue(0);
+	Width->setValue(0);
+	Height->setValue(0);
+	Rot->setValue(0);
+	RoundRect->setValue(0);
+	for (int ws = 1; ws < 7; ++ws)
+		TabStack->setItemEnabled(ws, false);
+	TabStack->widget(0)->setEnabled(false);
+	TabStack->setItemEnabled(idXYZItem, false);
+	Cpal->ChooseGrad(0);
 }
 
 void PropertiesPalette::unsetItem()
