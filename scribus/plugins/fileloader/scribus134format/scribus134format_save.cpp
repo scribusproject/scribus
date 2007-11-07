@@ -1194,6 +1194,14 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			latexinfo.setAttribute("APPLICATION", latexitem->getApplication());
 			latexinfo.setAttribute("DPI", latexitem->getDpi());
 			latexinfo.setAttribute("USE_PREAMBLE", latexitem->getUsePreamble());
+			QMapIterator<QString, QString> i(latexitem->editorProperties);
+			while (i.hasNext()) {
+				i.next();
+				QDomElement property = docu->createElement("PROPERTY");
+				property.setAttribute("name", i.key());
+				property.setAttribute("value", i.value());
+				latexinfo.appendChild(property);
+			}
 			QDomText latextext = docu->createTextNode(latexitem->getFormula());
 			latexinfo.appendChild(latextext);
 			ob.appendChild(latexinfo);

@@ -1975,8 +1975,18 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 					latexitem->setApplication(it.attribute("APPLICATION"));
 					latexitem->setDpi(it.attribute("DPI").toInt());
 					latexitem->setUsePreamble(static_cast<bool>(it.attribute("USE_PREAMBLE").toInt()));
+					QDomElement property = it.firstChildElement("PROPERTY");
+					while (!property.isNull()) {
+						QString name = property.attribute("name");
+						QString value = property.attribute("value");
+						property = property.nextSiblingElement("PROPERTY");
+						if (name.isEmpty()) continue;
+						latexitem->editorProperties[name] = value;
+					} 
+					
 					QString temp = it.text();
 					latexitem->setFormula(temp, false);
+					
 				}
 				IT=IT.nextSibling();
 			}
