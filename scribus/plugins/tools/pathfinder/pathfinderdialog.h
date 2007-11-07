@@ -7,14 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef PATHFINDERDIALOG_H
 #define PATHFINDERDIALOG_H
 
-#include "scribusapi.h"
+#include "pluginapi.h"
 #include "ui_pathfinderbase.h"
 #include <QPainterPath>
 #include <QColor>
 #include <QList>
 #include "pageitem.h"
 
-class SCRIBUS_API PathFinderDialog : public QDialog, Ui::PathFinderBase
+class PLUGIN_API PathFinderDialog : public QDialog, Ui::PathFinderBase
 { 
 	Q_OBJECT
 
