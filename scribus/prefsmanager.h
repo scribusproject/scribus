@@ -128,6 +128,7 @@ public:
 	void setLatexExecutable(const QString&);
 	void setLatexExtension(const QString&);
 	void setLatexEditorExecutable(const QString&);
+	void setLatexEditorConfig(const QString&);
 	void setLatexPre(const QString&);
 	void setLatexPost(const QString&);
 	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
@@ -136,14 +137,15 @@ public:
 	QString latexExecutable() const {return appPrefs.latexExecutable;}
 	QString latexExtension() const {return appPrefs.latexExtension;}
 	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
+	QString latexEditorConfig() const {return appPrefs.latexEditorConfig;}
 	QString latexPre() const {return appPrefs.latexPre;}
 	QString latexPost() const {return appPrefs.latexPost;}
-	const bool latexUseEmbeddedEditor() {return appPrefs.latexUseEmbeddedEditor;}
-	const bool latexStartWithEmptyFrames() {return appPrefs.latexStartWithEmptyFrames;}
+	bool latexUseEmbeddedEditor() const {return appPrefs.latexUseEmbeddedEditor;}
+	bool latexStartWithEmptyFrames() const {return appPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution
 	int gsResolution();
-	int latexResolution() {return appPrefs.latexResolution;}
-	bool latexForceDpi() {return appPrefs.latexForceDpi;}
+	int latexResolution() const {return appPrefs.latexResolution;}
+	bool latexForceDpi() const {return appPrefs.latexForceDpi;}
 	//! \brief Get the users preferred document directory
 	const QString documentDir();
 	void setDocumentDir(const QString& dirname);

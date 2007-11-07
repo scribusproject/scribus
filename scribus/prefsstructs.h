@@ -242,6 +242,7 @@ struct ApplicationPrefs
 	QString latexEditorExecutable;
 	QString latexPre;
 	QString latexPost;
+	QString latexEditorConfig;
 	int latexResolution;
 	bool latexForceDpi;
 	bool latexUseEmbeddedEditor;

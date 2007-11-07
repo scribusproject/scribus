@@ -26,6 +26,7 @@ copyright            : Scribus Team
 #include <QWidget>
 #include <QString>
 #include <QProcess>
+#include <QMap>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -47,7 +48,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		virtual PageItem_LatexFrame * asLatexFrame() { return this; }
 		virtual void clearContents();
 		virtual ItemType realItemType() const { return PageItem::LatexFrame; }
-		
+		void layout();
 		/* Called from UI callback 
 		UI-Handlers in other parts of the code should be as short as 
 		possible so this function will take most of the UI related code. */
@@ -84,9 +85,9 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		virtual void applicableActions(QStringList& actionList);
 		virtual QString infoDescription();
 		
+		QMap<QString,QString> editorProperties;
+		
 	protected:
-		/* DrawObj_Item is defined in ImageFrame and should be usable for
-		displaying images created by latex too in most cases */
 		virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 		
 		QString formulaText;
@@ -118,7 +119,6 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		void editorFileChanged(QString filename);
 		void editorError(QProcess::ProcessError error);
 		void latexError(QProcess::ProcessError error);
-		void sizeChanged(double, double);
 	public slots:
 		void killProcess();
 		void setDpi(int dpi);

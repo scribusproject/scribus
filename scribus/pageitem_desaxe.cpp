@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util.h"
 
+#include <QDebug>
+
 using namespace desaxe;
 
 
@@ -158,9 +160,8 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	}
 	
 //	result.insert("ANNAME", !item->AutoName ? item->itemName() : QString(""));  // not used
-//	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
 	const PageItem_LatexFrame *latexframe = NULL;
-	if (item->itemType() == PageItem::LatexFrame)
+	if (item->realItemType() == PageItem::LatexFrame)
 		latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
 	
 	if ((item->itemType()==PageItem::ImageFrame || item->itemType()==PageItem::TextFrame) && (!item->externalFile().isEmpty()) && !latexframe)
@@ -268,12 +269,20 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	{
 		itemText.saxx(handler, "text-content");
 	}
-//	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(this);
+
 	const PageItem_LatexFrame *latexframe = NULL;
-	if (this->itemType() == PageItem::LatexFrame)
+	if (this->realItemType() == PageItem::LatexFrame)
 		latexframe = dynamic_cast<const PageItem_LatexFrame*>(this);
 	if (latexframe) {
 		handler.begin("latex-source", empty);
+		QMapIterator<QString, QString> i(latexframe->editorProperties);
+		while (i.hasNext()) {
+			Xml_attr property;
+			i.next();
+			property.insert("name", i.key());
+			property.insert("value", i.value());
+			handler.begin("property", property);
+		}
 		handler.chars(latexframe->getFormula());
 		handler.end("latex-source");
 	}
@@ -484,7 +493,7 @@ class LatexSource_body : public Action_body
 	public:	
 		void chars(const Xml_string& txt)
 		{
-			if (this->dig->top<PageItem>()->itemType() == PageItem::LatexFrame)
+			if (this->dig->top<PageItem>()->realItemType() == PageItem::LatexFrame)
 			{
 				PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
 				obj->setFormula(txt);
@@ -501,7 +510,7 @@ class LatexParams_body : public Action_body
 	public:	
 		void begin(const Xml_string& tag, Xml_attr attr) 
 		{
-			if (this->dig->top<PageItem>()->itemType() == PageItem::LatexFrame)
+			if (this->dig->top<PageItem>()->realItemType() == PageItem::LatexFrame)
 			{
 				PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
 				obj->setApplication(attr["latex-application"]);

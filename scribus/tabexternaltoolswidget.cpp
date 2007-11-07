@@ -90,6 +90,11 @@ const QString TabExternalToolsWidget::newLatexEditor() const
 	return ScPaths::separatorsToSlashes(latexEditorLineEdit->text());
 }
 
+const QString TabExternalToolsWidget::newLatexEditorConfig() const 
+{
+	return latexEditorConfigLineEdit->text();
+}
+
 const QString TabExternalToolsWidget::newLatexPre() const 
 {
 	return latexPreTextEdit->toPlainText();
@@ -112,6 +117,7 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	latexExtensionLineEdit->setText(prefsData->latexExtension);
 	latexResolutionSpinBox->setValue(prefsData->latexResolution);
 	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
+	latexEditorConfigLineEdit->setText(prefsData->latexEditorConfig);
 	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
 	latexEmbeddedEditorCheckBox->setCheckState(prefsData->latexUseEmbeddedEditor?Qt::Checked:Qt::Unchecked);
 	latexEmptyFrameCheckBox->setCheckState(prefsData->latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);

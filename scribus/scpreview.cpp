@@ -277,7 +277,12 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.textAlignment = pg.attribute("ALIGN", "0").toInt();
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
 			OB.ISize = qRound(pg.attribute("ISIZE", "12").toDouble() * 10.0);
-			OB.Pfile = pg.attribute("PFILE");
+			if (OB.PType == PageItem::LatexFrame) {
+				OB.Pfile = pg.attribute("LATEXTEMPFILE", ""); 
+				//Hack to create a preview for latex frames
+			} else {
+				OB.Pfile = pg.attribute("PFILE");
+			}
 			OB.Pfile2 = pg.attribute("PFILE2","");
 			OB.Pfile3 = pg.attribute("PFILE3","");
 			OB.IProfile = pg.attribute("PRFILE","");

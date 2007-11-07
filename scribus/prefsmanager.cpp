@@ -336,6 +336,7 @@ void PrefsManager::initDefaults()
 	appPrefs.extBrowserExecutable = "";
 	appPrefs.latexExecutable = PageItem_LatexFrame::defaultApp;
 	appPrefs.latexEditorExecutable = "";
+	appPrefs.latexEditorConfig = ScPaths::instance().shareDir() + "editorconfig/latex.xml";
 	appPrefs.latexExtension = ".pdf";
 	appPrefs.latexResolution = 72;
 	appPrefs.latexForceDpi = false;
@@ -891,6 +892,11 @@ void PrefsManager::setLatexPost(const QString& text)
 	appPrefs.latexPost=text;
 }
 
+void PrefsManager::setLatexEditorConfig(const QString& text)
+{
+	appPrefs.latexEditorConfig=text;
+}
+
 const QString PrefsManager::documentDir()
 {
 	return appPrefs.DocDir;
@@ -1365,6 +1371,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("Resolution", appPrefs.gs_Resolution);
 	dc8Ex.setAttribute("Latex", latexExecutable());
 	dc8Ex.setAttribute("LatexEditor", latexEditorExecutable());
+	dc8Ex.setAttribute("LatexEditorConfig", latexEditorConfig());
 	dc8Ex.setAttribute("LatexExtension", latexExtension());
 	dc8Ex.setAttribute("LatexResolution", latexResolution());
 	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.latexForceDpi));
@@ -1966,6 +1973,7 @@ bool PrefsManager::ReadPref(QString ho)
 			setLatexExecutable(dc.attribute("Latex", PageItem_LatexFrame::defaultApp));
 			setLatexExtension(dc.attribute("LatexExtension", ".pdf"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
+			setLatexEditorConfig(dc.attribute("LatexEditorConfig", ScPaths::instance().shareDir() + "/editorconfig/latex.xml"));
 			setLatexPre(dc.attribute("LatexPre", PageItem_LatexFrame::defaultPre));
 			setLatexPost(dc.attribute("LatexPost", PageItem_LatexFrame::defaultPost));
 		}

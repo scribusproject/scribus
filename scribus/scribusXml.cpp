@@ -648,6 +648,9 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	else
 		writer.writeAttribute("PFILE","");
+	if (item->asLatexFrame()) {
+		writer.writeAttribute("LATEXTEMPFILE", Path2Relative(item->Pfile, baseDir));
+	}
 	if (!item->Pfile2.isEmpty())
 		writer.writeAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else

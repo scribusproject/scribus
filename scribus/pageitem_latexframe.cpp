@@ -97,9 +97,6 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	
 	dpi = 0;
 	pixm.imgInfo.lowResType = 0;
-	
-	
-	//connect(this, SIGNAL(widthAndHeight(double, double)), this, SLOT(sizeChanged(double, double)));
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
@@ -435,6 +432,13 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 	tmp.replace(QString("$scribus_scaleX$"), QString::number(scaleX));
 	tmp.replace(QString("$scribus_scaleY$"), QString::number(scaleY));
 	tmp.replace(QString("$scribus_dpi$"), QString::number(lDpi));
+	tmp.replace(QString("$scribus_file$"), tempFileBase);
+	tmp.replace(QString("$scribus_dir$"), QDir::tempPath());
+	QMapIterator<QString, QString> i(editorProperties);
+	while (i.hasNext()) {
+		i.next();
+		tmp.replace("$scribus_"+i.key()+"$", i.value());
+	}
 	tempfile->write(tmp.toUtf8());
 }
 
@@ -606,12 +610,6 @@ void PageItem_LatexFrame::restore(UndoState *state, bool isUndo)
 	}
 }
 
-void PageItem_LatexFrame::sizeChanged(double w, double h)
-{
-	imgValid = false;
-	//TODO: With a signal from the UI this could be much easier
-}
-
 
 void PageItem_LatexFrame::setUsePreamble(bool useP) 
 {
@@ -665,8 +663,8 @@ bool PageItem_LatexFrame::createContextMenu(QMenu *menu, int step)
 	switch(step) {
 		case 10:
 			menu->addSeparator();
-			/*if (PicAvail && !isTableItem)
-				menu->addAction(actions["itemAdjustFrameToImage"]);*/
+			if (PicAvail && !isTableItem)
+				menu->addAction(actions["itemAdjustFrameToImage"]);
 			menu->addAction(actions["itemUpdateImage"]);
 			menu->addAction(actions["editEditWithLatexEditor"]);
 			PageItem_ImageFrame::createContextMenu(menu, 11);
@@ -675,6 +673,14 @@ bool PageItem_LatexFrame::createContextMenu(QMenu *menu, int step)
 			return false;
 	}
 	return true;
+}
+
+void PageItem_LatexFrame::layout()
+{
+	qDebug() << "-----------------------------------------------------------";
+	qDebug() << "PageItem_LatexFrame::layout() called!";
+	qDebug() << "-----------------------------------------------------------";
+	rerunApplication();
 }
 
 

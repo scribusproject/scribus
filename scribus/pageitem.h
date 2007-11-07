@@ -283,7 +283,6 @@ public:
 	/**
 	 * @brief Check if the mouse is within the items boundaries
 	 * This method performs necessary page to device transformations
-	 * @param vport a view port
 		@param x X position
 		@param y Y position
 		@param scale scale of the vport

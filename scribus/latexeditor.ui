@@ -5,12 +5,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>477</width>
+    <height>388</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Dialog</string>
+   <string>Editor</string>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -193,24 +193,6 @@ p, li { white-space: pre-wrap; }
          </spacer>
         </item>
        </layout>
-      </widget>
-      <widget class="QWidget" name="tab_2" >
-       <attribute name="title" >
-        <string>Fonts and Colors</string>
-       </attribute>
-       <widget class="QLabel" name="label" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>221</width>
-          <height>18</height>
-         </rect>
-        </property>
-        <property name="text" >
-         <string>Will be filled later</string>
-        </property>
-       </widget>
       </widget>
      </widget>
     </widget>

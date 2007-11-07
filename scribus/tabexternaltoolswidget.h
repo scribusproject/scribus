@@ -48,6 +48,7 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		const QString newLatexTool() const;
 		const QString newLatexExtension() const;
 		const QString newLatexEditor() const;
+		const QString newLatexEditorConfig() const;
 		const QString newLatexPre() const;
 		const QString newLatexPost() const;
 		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();}

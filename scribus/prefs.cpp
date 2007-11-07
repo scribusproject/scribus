@@ -417,6 +417,7 @@ void Preferences::updatePreferences()
 	prefsManager->setLatexExecutable(tabExtTools->newLatexTool());
 	prefsManager->setLatexExtension(tabExtTools->newLatexExtension());
 	prefsManager->setLatexEditorExecutable(tabExtTools->newLatexEditor());
+	prefsManager->setLatexEditorConfig(tabExtTools->newLatexEditorConfig());
 	prefsManager->setLatexPre(tabExtTools->newLatexPre());
 	prefsManager->setLatexPost(tabExtTools->newLatexPost());
 
