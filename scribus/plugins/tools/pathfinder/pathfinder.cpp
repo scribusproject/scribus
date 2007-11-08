@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "pathfinder.h"
 #include "pathfinderdialog.h"
 #include "scribuscore.h"
+#include "util_math.h"
 
 int pathfinder_getPluginAPIVersion()
 {
@@ -126,6 +127,9 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			currItem->ClipEdited = true;
 			currItem->FrameType = 3;
 			currDoc->AdjustItemSize(currItem);
+			currItem->OldB2 = currItem->width();
+			currItem->OldH2 = currItem->height();
+			currItem->updateClip();
 			currItem->ContourLine = currItem->PoLine.copy();
 			currDoc->m_Selection->removeItem(currItem);
 			currDoc->itemSelection_DeleteItem();
