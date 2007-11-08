@@ -108,7 +108,7 @@ void LanguageManager::generateLangList()
 
 void LanguageManager::generateInstalledLangList()
 {
-	QString path = ScPaths::instance().shareDir() + "translations/";
+	QString path = ScPaths::instance().translationDir();
 	QString langAbbrev;
 	QMap<QString, langPair>::Iterator it;
 
