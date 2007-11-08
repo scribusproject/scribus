@@ -71,7 +71,7 @@ void PathStrokerPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.notSuitableFor.append(PageItem::TextFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
-	m_actionInfo.notSuitableFor.append(PageItem::Polygon);
+//	m_actionInfo.notSuitableFor.append(PageItem::Polygon);
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
 	m_actionInfo.needsNumObjects = 1;
@@ -88,7 +88,7 @@ const ScActionPlugin::AboutData* PathStrokerPlugin::getAboutData() const
 	Q_CHECK_PTR(about);
 	about->authors = QString::fromUtf8("Franz Schmid <Franz.Schmid@altmuehlnet.de>");
 	about->shortDescription = tr("Create Path from Stroke");
-	about->description = tr("Converts a Polyline to a filled Path.");
+	about->description = tr("Converts the stroke of a Path to a filled Path.");
 	// about->version
 	// about->releaseDate
 	// about->copyright
@@ -112,7 +112,11 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 		QList<double> m_array;
 		PageItem *currItem = currDoc->m_Selection->itemAt(0);
 		FPointArray path = currItem->PoLine;
-		QPainterPath pp = path.toQPainterPath(false);
+		QPainterPath pp;
+		if (currItem->itemType() == PageItem::PolyLine)
+			pp = path.toQPainterPath(false);
+		else
+			pp = path.toQPainterPath(true);
 		QPainterPathStroker stroke;
 		stroke.setCapStyle(currItem->lineEnd());
 		stroke.setJoinStyle(currItem->lineJoin());
@@ -180,6 +184,9 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 		newItem->ClipEdited = true;
 		newItem->FrameType = 3;
 		currDoc->AdjustItemSize(newItem);
+		newItem->OldB2 = newItem->width();
+		newItem->OldH2 = newItem->height();
+		newItem->updateClip();
 		newItem->ContourLine = newItem->PoLine.copy();
 		newItem->setFillEvenOdd(false);
 		currDoc->m_Selection->addItem(newItem);
