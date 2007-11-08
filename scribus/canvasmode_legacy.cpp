@@ -1543,7 +1543,12 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					if (!currItem->locked())
 					{
 						frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo, m);
-						if (frameResizeHandle != 0)
+						if (frameResizeHandle < 0)
+						{
+							m_view->requestMode(modeNormal);
+							return;
+						}
+						else if (frameResizeHandle > 0)
 						{
 							m_canvas->m_viewMode.operItemResizeInEditMode = true;
 							m_view->slotDoCurs(true);
