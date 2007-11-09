@@ -91,11 +91,12 @@ void sDebug(QString message)
 
 int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
-	QStringList stdErrData;
-	QStringList stdOutData;
-//	QStringList exeArgs;
 	QProcess proc;
-	proc.start(exename.toLocal8Bit(), args);
+	if (!fileStdOut.isEmpty())
+		proc.setStandardOutputFile(fileStdOut);
+	if (!fileStdErr.isEmpty())
+		proc.setStandardErrorFile(fileStdErr);
+	proc.start(exename, args);
 	if (proc.waitForStarted(5000))
 	{
 		while (!proc.waitForFinished(5000))
@@ -103,62 +104,7 @@ int System(const QString exename, const QStringList & args, const QString fileSt
 			qApp->processEvents();
 		}
 	}
-	QString gsVer;
-	stdOutData.append(proc.readAllStandardOutput());
-	stdErrData.append(proc.readAllStandardError());
-
-//	exeArgs<<exename<<args;
-//	Q3Process proc(exeArgs);
-//	if ( !proc.start() )
-//		return 1;
-//	/* start was OK */
-//	/* wait a little bit */
-//	while( proc.isRunning() || proc.canReadLineStdout() || proc.canReadLineStderr() )
-//	{
-//		// Otherwise Scribus will sleep a *lot* when proc has huge std output
-//		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
-//#ifndef _WIN32
-//			usleep(5000);
-//#else
-//			Sleep(5);
-//#endif
-//		}
-//		// Some configurations needs stdout and stderr to be read
-//		// if needed before the created process can exit
-//		if ( proc.canReadLineStdout() ) 
-//			stdOutData.append( proc.readLineStdout() ); 
-//		if ( proc.canReadLineStderr() ) 
-//			stdErrData.append( proc.readLineStderr() ); 
-//	}
-//	// TODO: What about proc.normalExit() ?
 	int ex = proc.exitCode();
-	QStringList::iterator pIterator;
-	QStringList::iterator pEnd;
-	if ( !fileStdErr.isEmpty() )
-	{
-		QFile ferr(fileStdErr);
-		if ( ferr.open(QIODevice::WriteOnly) )
-		{
-			pEnd = stdErrData.end();
-			QTextStream errStream(&ferr);
-			for ( pIterator = stdErrData.begin(); pIterator != pEnd; pIterator++ )
-				errStream << *pIterator << endl;
-			ferr.close();
-		}
-	}
-
-	if ( !fileStdOut.isEmpty() )
-	{
-		QFile fout(fileStdOut);
-		if ( fout.open(QIODevice::WriteOnly) )
-		{
-			pEnd = stdOutData.end();
-			QTextStream outStream(&fout);
-			for ( pIterator = stdOutData.begin(); pIterator != pEnd; pIterator++ )
-				outStream << *pIterator << endl;
-			fout.close();
-		}
-	}
 	return ex;
 }
 
