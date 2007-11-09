@@ -1545,6 +1545,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo, m);
 						if (frameResizeHandle < 0)
 						{
+							SeleItem(m);
 							m_view->requestMode(modeNormal);
 							return;
 						}

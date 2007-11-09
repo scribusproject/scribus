@@ -354,14 +354,14 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	
 	if ((m_viewMode.firstSpecial) || ((!m_viewMode.m_bufferRect.contains(p->rect())) || (m_doc->minCanvasCoordinate != m_viewMode.oldMinCanvasCoordinate) && !(m_doc->appMode == modeEditClip)))
 	{
-		if (m_viewMode.m_bufferRect.intersects(p->rect()))
+		if (m_viewMode.m_bufferRect.intersects(p->rect()) && !m_viewMode.firstSpecial)
 			m_viewMode.m_bufferRect = m_viewMode.m_bufferRect.united(p->rect());
 		else
 			m_viewMode.m_bufferRect = p->rect();
 		m_viewMode.m_buffer = QPixmap(m_viewMode.m_bufferRect.width(), m_viewMode.m_bufferRect.height());
 		QPainter bufp(&m_viewMode.m_buffer);
 		bufp.translate(-m_viewMode.m_bufferRect.x(), -m_viewMode.m_bufferRect.y());
-		qDebug() << "fill Buffer:" << m_viewMode.m_bufferRect << "special:" << m_viewMode.specialRendering;
+		qDebug() << "fill Buffer:" << m_viewMode.m_bufferRect << "special:" << m_viewMode.specialRendering << m_viewMode.firstSpecial;
 		bufp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 		drawContents(&bufp, 
 					 m_viewMode.m_bufferRect.x() + m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
