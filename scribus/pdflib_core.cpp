@@ -2217,7 +2217,7 @@ void PDFLibCore::PDF_End_Page()
 			PutPage(regCross);
 			PutPage("Q\n");
 			PutPage("q\n");
-			PutPage("1 0 0 1 3 "+FToStr(maxBoxY / 2.0 + 7.0)+" cm\n");
+			PutPage("1 0 0 1 3 "+FToStr(maxBoxY / 2.0 - 7.0)+" cm\n");
 			PutPage(regCross);
 			PutPage("Q\n");
 			PutPage("q\n");
@@ -2225,7 +2225,7 @@ void PDFLibCore::PDF_End_Page()
 			PutPage(regCross);
 			PutPage("Q\n");
 			PutPage("q\n");
-			PutPage("1 0 0 1 "+FToStr(maxBoxX - 17.0)+" "+FToStr(maxBoxY / 2.0 + 7.0)+" cm\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX - 17.0)+" "+FToStr(maxBoxY / 2.0 - 7.0)+" cm\n");
 			PutPage(regCross);
 			PutPage("Q\n");
 		}
