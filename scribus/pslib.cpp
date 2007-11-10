@@ -705,7 +705,7 @@ void PSLib::PS_end_page()
 			PutSeite(regCross);
 			PutSeite("gr\n");
 			PutSeite("gs\n");
-			PutSeite("3 "+ToStr(maxBoxY / 2.0 + 7.0)+" tr\n");
+			PutSeite("3 "+ToStr(maxBoxY / 2.0 - 7.0)+" tr\n");
 			PutSeite(regCross);
 			PutSeite("gr\n");
 			PutSeite("gs\n");
@@ -713,7 +713,7 @@ void PSLib::PS_end_page()
 			PutSeite(regCross);
 			PutSeite("gr\n");
 			PutSeite("gs\n");
-			PutSeite(ToStr(maxBoxX - 17.0)+" "+ToStr(maxBoxY / 2.0 + 7.0)+" tr\n");
+			PutSeite(ToStr(maxBoxX - 17.0)+" "+ToStr(maxBoxY / 2.0 - 7.0)+" tr\n");
 			PutSeite(regCross);
 			PutSeite("gr\n");
 		}
