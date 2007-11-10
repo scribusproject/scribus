@@ -79,7 +79,7 @@ void PathStrokerPlugin::languageChange()
 
 const QString PathStrokerPlugin::fullTrName() const
 {
-	return QObject::tr("PathFinder");
+	return QObject::tr("PathStroker");
 }
 
 const ScActionPlugin::AboutData* PathStrokerPlugin::getAboutData() const
