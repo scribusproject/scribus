@@ -9124,6 +9124,8 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 		currItem->moveImageInFrame(0, (currItem->height() - tp.y())/currItem->imageYScale());
 	SizeItem(tp.x(), tp.y(), currItem, true, false);
 	currItem->ClipEdited = true;
+	currItem->OldB2 = currItem->width();
+	currItem->OldH2 = currItem->height();
 	currItem->PoLine = Clip.copy();
 	if (currItem->asPolyLine())
 		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
