@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
 ****************************************************************************/
 
+#include <QMessageBox>
 #include "pathfinder.h"
 #include "pathfinderdialog.h"
 #include "scribuscore.h"
@@ -104,6 +105,12 @@ void PathFinderPlugin::deleteAboutData(const AboutData* about) const
 
 bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 {
+	QString vers = QString(qVersion()).left(5);
+	if (vers < "4.3.3")
+	{
+		QMessageBox::information(doc->scMW(), tr("Qt Version too low"), tr("This plugin requires at least version 4.3.3 of the Qt library"));
+		return true;
+	}
 	ScribusDoc* currDoc = doc;
 	if (currDoc == 0)
 		currDoc = ScCore->primaryMainWindow()->doc;

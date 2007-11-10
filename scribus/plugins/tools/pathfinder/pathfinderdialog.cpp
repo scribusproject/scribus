@@ -45,8 +45,8 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, PageItem *shape1, PageItem *
 	opSubtraction->setIcon(QIcon(loadIcon("pathsubtraction.png")));
 	opCombine->setIcon(QIcon(loadIcon("pathunite.png")));
 	// Disable for now
-	opExclusion->setEnabled(false);
-	opParts->setEnabled(false);
+//	opExclusion->setEnabled(false);
+//	opParts->setEnabled(false);
 	opMode = 0;
 	QMatrix ms;
 	ms.rotate(shape1->rotation());
@@ -146,12 +146,12 @@ void PathFinderDialog::updateResult()
 	{
 		result = input1.intersected(input2);
 	}
-/*	else if (opMode == 3)
+	else if (opMode == 3)
 	{
 		QPainterPath part1 = input1.subtracted(input2);
 		QPainterPath part2 = input2.subtracted(input1);
-		part1.closeSubpath();
-		part2.closeSubpath();
+	//	part1.closeSubpath();
+	//	part2.closeSubpath();
 		result.addPath(part1);
 		result.addPath(part2);
 	}
@@ -160,13 +160,13 @@ void PathFinderDialog::updateResult()
 		QPainterPath part1 = input1.subtracted(input2);
 		QPainterPath part2 = input2.subtracted(input1);
 		QPainterPath part3 = input1.intersected(input2);
-		part1.closeSubpath();
-		part2.closeSubpath();
-		part3.closeSubpath();
+	//	part1.closeSubpath();
+	//	part2.closeSubpath();
+	//	part3.closeSubpath();
 		result.addPath(part1);
 		result.addPath(part2);
 		result.addPath(part3);
-	} */
+	}
 	QRectF bb = input1.boundingRect().united(input2.boundingRect());
 	double scaleX = 90.0 / bb.width();
 	double scaleY = 90.0 / bb.height();
