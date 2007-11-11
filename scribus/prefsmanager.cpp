@@ -824,7 +824,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	{
 		appPrefs.RecentDocs.append(ScCore->primaryMainWindow()->RecentDocs[m]);
 	}
-	ScCore->primaryMainWindow()->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
+	ScCore->primaryMainWindow()->getDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
 	SavePrefsXML();
 	QString realFile;
 	if (fname.isNull())

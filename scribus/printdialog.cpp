@@ -763,7 +763,7 @@ void PrintDialog::setStoredValues(bool gcr)
 	}
 	else
 	{
-		int selectedDest = prefs->getInt("PrintDest", 0);
+		int selectedDest = PrintDest->findText(m_doc->Print_Options.printer);
 		if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
 		{
 			PrintDest->setCurrentIndex(selectedDest);

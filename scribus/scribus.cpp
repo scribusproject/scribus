@@ -4446,12 +4446,7 @@ void ScribusMainWindow::slotReallyPrint()
 	}
 	PrintOptions options;
 	mainWindowStatusLabel->setText( tr("Printing..."));
-	if (PrinterUsed)
-	{
-		doc->Print_Options.printer = PDef.Pname;
-		doc->Print_Options.filename = PDef.Dname;
-	}
-	else
+	if (doc->Print_Options.firstUse)
 	{
 		doc->Print_Options.printer = "";
 		if (!doc->DocName.startsWith( tr("Document")))
@@ -4496,6 +4491,7 @@ void ScribusMainWindow::slotReallyPrint()
 		}
 		else
 			doc->Print_Options.firstUse = false;
+		getDefaultPrinter(PDef.Pname, PDef.Pname, PDef.Command);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	printDinUse = false;
@@ -9062,11 +9058,11 @@ void ScribusMainWindow::setDefaultPrinter(const QString& name, const QString& fi
 	PDef.Command = command;
 }
 
-void ScribusMainWindow::getDefaultPrinter(QString *name, QString *file, QString *command)
+void ScribusMainWindow::getDefaultPrinter(QString& name, QString& file, QString& command)
 {
-	*name=PDef.Pname;
-	*file=PDef.Dname;
-	*command=PDef.Command;
+	name=PDef.Pname;
+	file=PDef.Dname;
+	command=PDef.Command;
 }
 
 void ScribusMainWindow::closeActiveWindowMasterPageEditor()
