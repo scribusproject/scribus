@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "subdivide.h"
 #include "scribuscore.h"
+#include "scribusstructs.h"
 
 int subdivide_getPluginAPIVersion()
 {
@@ -67,6 +68,7 @@ void SubdividePlugin::languageChange()
 	m_actionInfo.menu = "Item";
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
+	m_actionInfo.forAppMode.append(modeEditClip);
 	m_actionInfo.needsNumObjects = 3;
 }
 
@@ -81,7 +83,7 @@ const ScActionPlugin::AboutData* SubdividePlugin::getAboutData() const
 	Q_CHECK_PTR(about);
 	about->authors = QString::fromUtf8("Franz Schmid <Franz.Schmid@altmuehlnet.de>");
 	about->shortDescription = tr("Subdivide");
-	about->description = tr("Subdivide selected Polygons");
+	about->description = tr("Subdivide selected Path");
 	// about->version
 	// about->releaseDate
 	// about->copyright

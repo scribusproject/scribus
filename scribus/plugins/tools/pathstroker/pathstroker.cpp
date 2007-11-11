@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pathstroker.h"
 #include "scribuscore.h"
+#include "scribusstructs.h"
 #include "util.h"
 #include <QPainterPathStroker>
 
@@ -74,6 +75,7 @@ void PathStrokerPlugin::languageChange()
 //	m_actionInfo.notSuitableFor.append(PageItem::Polygon);
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
+	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = 1;
 }
 

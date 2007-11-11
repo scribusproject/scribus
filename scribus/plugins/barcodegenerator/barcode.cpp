@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "barcode.h"
 //#include "barcode.moc"
 #include "barcodegenerator.h"
+#include "scribusstructs.h"
 
 Barcode::Barcode() : ScActionPlugin()
 {
@@ -22,6 +23,7 @@ void Barcode::languageChange()
 	m_actionInfo.text = tr("&Barcode...");
 	m_actionInfo.menu = "Insert";
 	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = -1;
 }
 

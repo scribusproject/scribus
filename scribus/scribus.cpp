@@ -6266,6 +6266,35 @@ void ScribusMainWindow::setAppMode(int mode)
 		}
 		if (mode != modeNormal && mode != modeStoryEditor)
 			activateWindow();
+		PluginManager& pluginManager(PluginManager::instance());
+		QStringList pluginNames(pluginManager.pluginNames(false));
+		ScPlugin* plugin;
+		ScActionPlugin* ixplug;
+		ScrAction* pluginAction = 0;
+		QString pName;
+		for (int i = 0; i < pluginNames.count(); ++i)
+		{
+			pName = pluginNames.at(i);
+			plugin = pluginManager.getPlugin(pName, true);
+			Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+			if (plugin->inherits("ScActionPlugin"))
+			{
+				ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+				Q_ASSERT(ixplug);
+				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
+				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
+				if (pluginAction != 0)
+				{
+					if (ai.forAppMode.count() != 0)
+					{
+						if (ai.forAppMode.contains(mode))
+							pluginAction->setEnabled(true);
+						else
+							pluginAction->setEnabled(false);
+					}
+				}
+			}
+		}
 	}
 	actionManager->connectModeActions();
 }
