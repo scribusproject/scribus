@@ -3155,6 +3155,13 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 						else
 							pluginAction->setEnabled(false);
 					}
+					if (ai.forAppMode.count() != 0)
+					{
+						if (ai.forAppMode.contains(doc->appMode))
+							pluginAction->setEnabled(true);
+						else
+							pluginAction->setEnabled(false);
+					}
 				}
 				else
 				{
@@ -3162,6 +3169,13 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 						pluginAction->setEnabled(true);
 					else
 						pluginAction->setEnabled(false);
+					if (ai.forAppMode.count() != 0)
+					{
+						if (ai.forAppMode.contains(doc->appMode))
+							pluginAction->setEnabled(true);
+						else
+							pluginAction->setEnabled(false);
+					}
 				}
 			}
 		}
