@@ -1823,7 +1823,10 @@ QString SVGPlug::parseColor( const QString &s )
 	{
 		QString rgbColor = s.stripWhiteSpace();
 		if( rgbColor.startsWith( "#" ) )
+		{
+			rgbColor = rgbColor.left(7);
 			c.setNamedColor( rgbColor );
+		}
 		else
 			c = parseColorN( rgbColor );
 	}
@@ -1833,9 +1836,9 @@ QString SVGPlug::parseColor( const QString &s )
 	QColor tmpR;
 	for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
 	{
-		currDoc->PageColors[it.key()].getRGB(&r, &g, &b);
+		it.data().getRGB(&r, &g, &b);
 		tmpR.setRgb(r, g, b);
-		if (c == tmpR && currDoc->PageColors[it.key()].getColorModel() == colorModelRGB)
+		if (c == tmpR && it.data().getColorModel() == colorModelRGB)
 		{
 			ret = it.key();
 			found = true;
