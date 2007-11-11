@@ -1770,7 +1770,10 @@ QString SVGPlug::parseColor( const QString &s )
 	{
 		QString rgbColor = s.trimmed();
 		if( rgbColor.startsWith( "#" ) )
+		{
+			rgbColor = rgbColor.left(7);
 			c.setNamedColor( rgbColor );
+		}
 		else
 			c = parseColorN( rgbColor );
 	}
