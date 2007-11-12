@@ -183,55 +183,64 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				QPainterPath path;
 				FPointArray points;
 				PageItem *newItem;
-				path = dia->result;
-				points.fromQPainterPath(path);
-				Item1->PoLine = points;
-				Item1->Frame = false;
-				Item1->ClipEdited = true;
-				Item1->FrameType = 3;
-				currDoc->AdjustItemSize(Item1);
-				Item1->OldB2 = Item1->width();
-				Item1->OldH2 = Item1->height();
-				Item1->updateClip();
-				Item1->ContourLine = Item1->PoLine.copy();
+				if (!path.isEmpty())
+				{
+					path = dia->result;
+					points.fromQPainterPath(path);
+					Item1->PoLine = points;
+					Item1->Frame = false;
+					Item1->ClipEdited = true;
+					Item1->FrameType = 3;
+					currDoc->AdjustItemSize(Item1);
+					Item1->OldB2 = Item1->width();
+					Item1->OldH2 = Item1->height();
+					Item1->updateClip();
+					Item1->ContourLine = Item1->PoLine.copy();
+				}
 
 				path = QPainterPath();
 				path = dia->result1;
-				points.fromQPainterPath(path);
-				Item2->setXYPos(Item1->xPos(), Item1->yPos());
-				Item2->setRotation(0.0);
-				Item2->PoLine = points;
-				Item2->Frame = false;
-				Item2->ClipEdited = true;
-				Item2->FrameType = 3;
-				currDoc->AdjustItemSize(Item2);
-				Item2->OldB2 = Item2->width();
-				Item2->OldH2 = Item2->height();
-				Item2->updateClip();
-				Item2->ContourLine = Item2->PoLine.copy();
-
-				if (dia->targetColorIsSource1)
-					newItem = new PageItem_Polygon(*Item1);
-				else
+				if (!path.isEmpty())
 				{
-					newItem = new PageItem_Polygon(*Item2);
-					newItem->setXYPos(Item1->xPos(), Item1->yPos());
-					newItem->setRotation(0.0);
+					points.fromQPainterPath(path);
+					Item2->setXYPos(Item1->xPos(), Item1->yPos());
+					Item2->setRotation(0.0);
+					Item2->PoLine = points;
+					Item2->Frame = false;
+					Item2->ClipEdited = true;
+					Item2->FrameType = 3;
+					currDoc->AdjustItemSize(Item2);
+					Item2->OldB2 = Item2->width();
+					Item2->OldH2 = Item2->height();
+					Item2->updateClip();
+					Item2->ContourLine = Item2->PoLine.copy();
 				}
-				currDoc->Items->append(newItem);
-				newItem->ItemNr = currDoc->Items->count()-1;
+				
 				path = QPainterPath();
 				path = dia->result2;
-				points.fromQPainterPath(path);
-				newItem->PoLine = points;
-				newItem->Frame = false;
-				newItem->ClipEdited = true;
-				newItem->FrameType = 3;
-				currDoc->AdjustItemSize(newItem);
-				newItem->OldB2 = newItem->width();
-				newItem->OldH2 = newItem->height();
-				newItem->updateClip();
-				newItem->ContourLine = newItem->PoLine.copy();
+				if (!path.isEmpty())
+				{
+					if (dia->targetColorIsSource1)
+						newItem = new PageItem_Polygon(*Item1);
+					else
+					{
+						newItem = new PageItem_Polygon(*Item2);
+						newItem->setXYPos(Item1->xPos(), Item1->yPos());
+						newItem->setRotation(0.0);
+					}
+					currDoc->Items->append(newItem);
+					newItem->ItemNr = currDoc->Items->count()-1;
+					points.fromQPainterPath(path);
+					newItem->PoLine = points;
+					newItem->Frame = false;
+					newItem->ClipEdited = true;
+					newItem->FrameType = 3;
+					currDoc->AdjustItemSize(newItem);
+					newItem->OldB2 = newItem->width();
+					newItem->OldH2 = newItem->height();
+					newItem->updateClip();
+					newItem->ContourLine = newItem->PoLine.copy();
+				}
 				currDoc->m_Selection->clear();
 			}
 			currDoc->changed();
