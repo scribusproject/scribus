@@ -65,7 +65,7 @@ void SubdividePlugin::languageChange()
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Subdivide Path");
 	// Menu
-	m_actionInfo.menu = "Item";
+	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.forAppMode.append(modeEditClip);
