@@ -65,7 +65,7 @@ void LensEffectsPlugin::languageChange()
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Lens Effects...");
 	// Menu
-	m_actionInfo.menu = "Item";
+	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.needsNumObjects = 3;
