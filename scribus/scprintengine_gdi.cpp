@@ -34,6 +34,9 @@ using namespace Gdiplus;
 #include "util_ghostscript.h"
 #include "scprintengine_gdi.h"
 #include "scpainterex_gdi.h"
+#ifdef SC_USE_GDIPLUS
+#include "scpainterex_gdiplus.h"
+#endif
 #include "scpageoutput.h"
 #include "scribusview.h"
 #include "scribusapp.h"
@@ -84,7 +87,7 @@ void ScPrintEngine_GDI::setForceGDI(bool force)
 void ScPrintEngine_GDI::resetData(void)
 {
 	m_abort = false;
-	m_forceGDI = false;
+	//m_forceGDI = false;
 }
 
 /*void ScPrintEngine_GDI::cancelRequested()
@@ -165,7 +168,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* im
 {
 	HDC dc = NULL;
 	bool success = true;
-	ScPainterEx_GDI *painter;
+	ScPainterExBase *painter;
 	ScPageOutput *pageOutput;
 	HCOLORSPACE hColorSpace = NULL;
 	int imagew, imageh;
@@ -235,24 +238,31 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* im
 	double dy = - clipy * scaley;
 	if ( options.mirrorH ) dx += clipw;
 	if ( options.mirrorV ) dy += cliph;
-
-#ifdef SC_USE_GDIPLUS
-	// When using gdiplus ScPainterEx_GDI use point units
-	scalex *= ( 72.0 / logPixelsX );
-	scaley *= ( 72.0 / logPixelsY );
-	dx *= ( 72.0 / logPixelsX );
-	dy *= ( 72.0 / logPixelsY );
-#endif
-
-	scalex *= scale;
-	scaley *= scale;
-	dx *= scale;
-	dy *= scale;
 	 
 	// Create the GDI painters
 	pageOutput = new ScPageOutput(doc, false);
 	QRect drawRect( 0, 0, imagew, imageh );
+
+#ifdef SC_USE_GDIPLUS
+	if (m_forceGDI == false)
+	{
+		painter = new ScPainterEx_GDIPlus( dc, drawRect, doc, !options.useColor );
+		// When using gdiplus ScPainterEx_GDI use point units
+		scalex *= ( 72.0 / logPixelsX );
+		scaley *= ( 72.0 / logPixelsY );
+		dx     *= ( 72.0 / logPixelsX );
+		dy     *= ( 72.0 / logPixelsY );
+	}
+	else
+		painter = new ScPainterEx_GDI( dc, drawRect, doc, !options.useColor );
+#else
 	painter = new ScPainterEx_GDI( dc, drawRect, doc, !options.useColor );
+#endif
+	
+	scalex *= scale;
+	scaley *= scale;
+	dx *= scale;
+	dy *= scale;
 	
 	// Set the world transformation matrix
 	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
@@ -363,7 +373,7 @@ bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions
 	int physicalOffsetX;
 	int physicalOffsetY;
 	bool success = true;
-	ScPainterEx_GDI *painter;
+	ScPainterExBase *painter;
 	ScPageOutput *pageOutput;
 	QString inputProfile;
 	QString printerProfile;
@@ -463,15 +473,6 @@ bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions
 	if ( options.mirrorV ) dy += cliph;
 	dx -= ( physicalOffsetX / (double) logPixelsX * 72.0 );
 	dy -= ( physicalOffsetY / (double) logPixelsY * 72.0 );
-
-#ifndef SC_USE_GDIPLUS
-	// When using GDI, it's better to draw directly using device coordinates
-	// otherwise we may have crappy rendering of bezier curves
-	scalex *= ( logPixelsX / 72.0 );
-	scaley *= ( logPixelsY / 72.0 );
-	dx *= ( logPixelsX / 72.0 );
-	dy *= ( logPixelsY / 72.0 );
-#endif
 	 
 	// Create the GDI painter
 	MarksOptions marksOptions(options);
@@ -479,7 +480,26 @@ bool ScPrintEngine_GDI::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions
 	pageOutput->setMarksOptions(marksOptions);
 	
 	QRect drawRect( 0, 0, physicalWidth, physicalHeight);
+#ifdef SC_USE_GDIPLUS
+	if (m_forceGDI == false)
+		painter = new ScPainterEx_GDIPlus( printerDC, drawRect, doc, !options.useColor );
+	else
+	{
+		painter = new ScPainterEx_GDI( printerDC, drawRect, doc, !options.useColor );
+		// When using GDI, it's better to draw directly using device coordinates
+		// otherwise we may have crappy rendering of bezier curves
+		scalex *= ( logPixelsX / 72.0 );
+		scaley *= ( logPixelsY / 72.0 );
+		dx     *= ( logPixelsX / 72.0 );
+		dy     *= ( logPixelsY / 72.0 );
+	}
+#else
 	painter = new ScPainterEx_GDI( printerDC, drawRect, doc, !options.useColor );
+	scalex *= ( logPixelsX / 72.0 );
+	scaley *= ( logPixelsY / 72.0 );
+	dx     *= ( logPixelsX / 72.0 );
+	dy     *= ( logPixelsY / 72.0 );
+#endif
 	painter->clear();
 	
 	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );

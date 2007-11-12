@@ -572,6 +572,7 @@ IF(WIN32)
   SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
   SET(SCRIBUS_WIN32_ONLY_SOURCES
       scpainterex_gdi.cpp
+      scpainterex_gdiplus.cpp
       scprintengine_gdi.cpp
       )
   SET(SCRIBUS_MAIN_CPP main_win32.cpp)

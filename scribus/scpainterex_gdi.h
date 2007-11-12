@@ -25,8 +25,8 @@ for which a new license (GPL+exception) is in place.
 /* Adapted for Scribus 22.08.2003 by Franz Schmid */
 /* Adapted for Scribus 15.01.2006 by Jean Ghali */
 
-#ifndef __SCGDIPAINTER_H__
-#define __SCGDIPAINTER_H__
+#ifndef __SCPAINTEREX_GDI_H__
+#define __SCPAINTEREX_GDI_H__
 
 // libart wrapper
 
@@ -51,14 +51,6 @@ for which a new license (GPL+exception) is in place.
 
 class QPainter;
 class ScribusDoc;
-
-#ifdef SC_USE_GDIPLUS
-namespace Gdiplus
-{
-	class Graphics;
-	class GraphicsPath;
-};
-#endif
 
 // Typedef to use the GDI gradientFill function
 typedef bool (STDAPICALLTYPE *gradientFillFunc) (HDC, PTRIVERTEX, ULONG, PVOID, ULONG, ULONG);  
@@ -198,15 +190,6 @@ private:
 /* Color conversion function */
 	QColor transformColor( ScColorShade& colorShade, double trans );
 	void   transformImage( QImage* image, uchar* data, int scan);
-
-#ifdef SC_USE_GDIPLUS
-/* GDI+ needed data */
-	QStack<int> m_gStates;
-	Gdiplus::Graphics* m_graphics;
-	Gdiplus::GraphicsPath* m_graphicsPath;
-	double m_positionX;
-	double m_positionY;
-#endif
 };
 
 #endif
