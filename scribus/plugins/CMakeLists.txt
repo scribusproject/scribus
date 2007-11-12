@@ -17,3 +17,5 @@ ADD_SUBDIRECTORY(svgimplugin)
 ADD_SUBDIRECTORY(wmfimplugin)
 ADD_SUBDIRECTORY(imposition)
 ADD_SUBDIRECTORY(tools)
+
+# ADD_SUBDIRECTORY(myplugin)

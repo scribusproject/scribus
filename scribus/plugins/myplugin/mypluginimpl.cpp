@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 
 // Initialize members here, if any
-MyPluginImpl::MyPluginImpl() : QObject(0, "MyPluginImpl")
+MyPluginImpl::MyPluginImpl() : QObject(0)
 {
 }
 
