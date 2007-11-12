@@ -722,8 +722,9 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item");
+	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "ItemPathOps");
+	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "ItemPathOps");
 	scrMenuMgr->setMenuEnabled("ItemShapes", false);
 	scrActions["itemGroup"]->setEnabled(false);
 	scrActions["itemUngroup"]->setEnabled(false);
