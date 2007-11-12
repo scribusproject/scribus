@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 ****************************************************************************/
 
 #include <QMessageBox>
+#include "pageitem_polygon.h"
 #include "pathfinder.h"
 #include "pathfinderdialog.h"
 #include "scribuscore.h"
@@ -67,7 +68,7 @@ void PathFinderPlugin::languageChange()
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Path Operations...");
 	// Menu
-	m_actionInfo.menu = "Item";
+	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.notSuitableFor.append(PageItem::TextFrame);
@@ -108,7 +109,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 	QString vers = QString(qVersion()).left(5);
 	if (vers < "4.3.3")
 	{
-		QMessageBox::information(doc->scMW(), tr("Qt Version too low"), tr("This plugin requires at least version 4.3.3 of the Qt library"));
+		QMessageBox::information(doc->scMW(), tr("Qt Version too old"), tr("This plugin requires at least version 4.3.3 of the Qt library"));
 		return true;
 	}
 	ScribusDoc* currDoc = doc;
@@ -121,25 +122,118 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 		PathFinderDialog *dia = new PathFinderDialog(currDoc->scMW(), Item1, Item2);
 		if (dia->exec())
 		{
-			PageItem *currItem;
-			if (dia->swapped)
-				currItem = Item2;
+			if (dia->keepItem1)
+			{
+				if (dia->swapped)
+					currDoc->Items->insert(Item2->ItemNr, new PageItem_Polygon(*Item2));
+				else
+					currDoc->Items->insert(Item1->ItemNr, new PageItem_Polygon(*Item1));
+			}
+			if (dia->keepItem2)
+			{
+				if (dia->swapped)
+					currDoc->Items->insert(Item1->ItemNr, new PageItem_Polygon(*Item1));
+				else
+					currDoc->Items->insert(Item2->ItemNr, new PageItem_Polygon(*Item2));
+			}
+			if (dia->keepItem1 || dia->keepItem2)
+				currDoc->renumberItemsInListOrder();
+			if (dia->opMode != 4)
+			{
+				PageItem *currItem;
+				QPainterPath path;
+				FPointArray points;
+				if (dia->targetColorIsSource1)
+				{
+					currItem = Item1;
+					if (dia->swapped)
+					{
+						currItem = Item2;
+						currItem->setXYPos(Item1->xPos(), Item1->yPos());
+						currItem->setRotation(0.0);
+					}
+				}
+				else
+				{
+					if (dia->swapped)
+						currItem = Item1;
+					else
+					{
+						currItem = Item2;
+						currItem->setXYPos(Item1->xPos(), Item1->yPos());
+						currItem->setRotation(0.0);
+					}
+				}
+				path = dia->result;
+				points.fromQPainterPath(path);
+				currItem->PoLine = points;
+				currItem->Frame = false;
+				currItem->ClipEdited = true;
+				currItem->FrameType = 3;
+				currDoc->AdjustItemSize(currItem);
+				currItem->OldB2 = currItem->width();
+				currItem->OldH2 = currItem->height();
+				currItem->updateClip();
+				currItem->ContourLine = currItem->PoLine.copy();
+				currDoc->m_Selection->removeItem(currItem);
+				currDoc->itemSelection_DeleteItem();
+			}
 			else
-				currItem = Item1;
-			QPainterPath path = dia->result;
-			FPointArray points;
-			points.fromQPainterPath(path);
-			currItem->PoLine = points;
-			currItem->Frame = false;
-			currItem->ClipEdited = true;
-			currItem->FrameType = 3;
-			currDoc->AdjustItemSize(currItem);
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
-			currItem->updateClip();
-			currItem->ContourLine = currItem->PoLine.copy();
-			currDoc->m_Selection->removeItem(currItem);
-			currDoc->itemSelection_DeleteItem();
+			{
+				QPainterPath path;
+				FPointArray points;
+				PageItem *newItem;
+				path = dia->result;
+				points.fromQPainterPath(path);
+				Item1->PoLine = points;
+				Item1->Frame = false;
+				Item1->ClipEdited = true;
+				Item1->FrameType = 3;
+				currDoc->AdjustItemSize(Item1);
+				Item1->OldB2 = Item1->width();
+				Item1->OldH2 = Item1->height();
+				Item1->updateClip();
+				Item1->ContourLine = Item1->PoLine.copy();
+
+				path = QPainterPath();
+				path = dia->result1;
+				points.fromQPainterPath(path);
+				Item2->setXYPos(Item1->xPos(), Item1->yPos());
+				Item2->setRotation(0.0);
+				Item2->PoLine = points;
+				Item2->Frame = false;
+				Item2->ClipEdited = true;
+				Item2->FrameType = 3;
+				currDoc->AdjustItemSize(Item2);
+				Item2->OldB2 = Item2->width();
+				Item2->OldH2 = Item2->height();
+				Item2->updateClip();
+				Item2->ContourLine = Item2->PoLine.copy();
+
+				if (dia->targetColorIsSource1)
+					newItem = new PageItem_Polygon(*Item1);
+				else
+				{
+					newItem = new PageItem_Polygon(*Item2);
+					newItem->setXYPos(Item1->xPos(), Item1->yPos());
+					newItem->setRotation(0.0);
+				}
+				currDoc->Items->append(newItem);
+				newItem->ItemNr = currDoc->Items->count()-1;
+				path = QPainterPath();
+				path = dia->result2;
+				points.fromQPainterPath(path);
+				newItem->PoLine = points;
+				newItem->Frame = false;
+				newItem->ClipEdited = true;
+				newItem->FrameType = 3;
+				currDoc->AdjustItemSize(newItem);
+				newItem->OldB2 = newItem->width();
+				newItem->OldH2 = newItem->height();
+				newItem->updateClip();
+				newItem->ContourLine = newItem->PoLine.copy();
+				currDoc->m_Selection->clear();
+			}
 			currDoc->changed();
 		}
 		delete dia;

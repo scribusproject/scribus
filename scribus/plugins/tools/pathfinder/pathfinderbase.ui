@@ -5,61 +5,63 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>406</width>
-    <height>268</height>
+    <width>410</width>
+    <height>301</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Boolean Path Operations</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="spacing" >
-    <number>5</number>
-   </property>
-   <property name="leftMargin" >
-    <number>10</number>
-   </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>10</number>
-   </property>
    <item>
     <layout class="QHBoxLayout" >
      <property name="spacing" >
       <number>5</number>
      </property>
      <item>
-      <widget class="QLabel" name="sourceShape" >
-       <property name="minimumSize" >
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
+      <layout class="QVBoxLayout" >
+       <property name="spacing" >
+        <number>5</number>
        </property>
-       <property name="maximumSize" >
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="autoFillBackground" >
-        <bool>true</bool>
-       </property>
-       <property name="frameShape" >
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow" >
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="text" >
-        <string/>
-       </property>
-      </widget>
+       <item>
+        <widget class="QLabel" name="sourceShape" >
+         <property name="minimumSize" >
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="autoFillBackground" >
+          <bool>true</bool>
+         </property>
+         <property name="frameShape" >
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow" >
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="keepSource1" >
+         <property name="toolTip" >
+          <string>Keep a copy of the original Item after applying the operation</string>
+         </property>
+         <property name="text" >
+          <string>keep</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QVBoxLayout" >
@@ -109,32 +111,49 @@
       </layout>
      </item>
      <item>
-      <widget class="QLabel" name="sourceShape2" >
-       <property name="minimumSize" >
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
+      <layout class="QVBoxLayout" >
+       <property name="spacing" >
+        <number>5</number>
        </property>
-       <property name="maximumSize" >
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="autoFillBackground" >
-        <bool>true</bool>
-       </property>
-       <property name="frameShape" >
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow" >
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="text" >
-        <string/>
-       </property>
-      </widget>
+       <item>
+        <widget class="QLabel" name="sourceShape2" >
+         <property name="minimumSize" >
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="autoFillBackground" >
+          <bool>true</bool>
+         </property>
+         <property name="frameShape" >
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow" >
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="keepSource2" >
+         <property name="toolTip" >
+          <string>Keep a copy of the original Item after applying the operation</string>
+         </property>
+         <property name="text" >
+          <string>keep</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QVBoxLayout" >
@@ -184,32 +203,49 @@
       </layout>
      </item>
      <item>
-      <widget class="QLabel" name="resultShape" >
-       <property name="minimumSize" >
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="maximumSize" >
-        <size>
-         <width>100</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="autoFillBackground" >
-        <bool>true</bool>
-       </property>
-       <property name="frameShape" >
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow" >
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="text" >
-        <string/>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QLabel" name="resultShape" >
+         <property name="minimumSize" >
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="autoFillBackground" >
+          <bool>true</bool>
+         </property>
+         <property name="frameShape" >
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow" >
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -345,7 +381,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_2" >
+      <widget class="QGroupBox" name="optionGroup" >
        <property name="title" >
         <string>Options</string>
        </property>
@@ -368,7 +404,10 @@
         <item>
          <widget class="QLabel" name="label_3" >
           <property name="text" >
-           <string>Result gets Colors of:</string>
+           <string>Result gets Color of:</string>
+          </property>
+          <property name="wordWrap" >
+           <bool>true</bool>
           </property>
          </widget>
         </item>

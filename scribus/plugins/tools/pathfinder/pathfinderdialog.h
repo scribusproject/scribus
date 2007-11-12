@@ -22,14 +22,21 @@ public:
 	PathFinderDialog(QWidget* parent, PageItem *shape1, PageItem *shape2);
 	~PathFinderDialog() {};
 	void updatePreview(QLabel *label, QPainterPath &path, QColor color, double scale);
+	void updatePartPreview(QColor color, double scale);
 	int opMode;
 	bool swapped;
+	bool targetColorIsSource1;
+	bool keepItem1;
+	bool keepItem2;
 	QPainterPath input1;
 	QPainterPath input2;
 	QPainterPath result;
+	QPainterPath result1;
+	QPainterPath result2;
 	QColor inputC1;
 	QColor inputC2;
 private slots:
+	void checkKeep();
 	void newOpMode();
 	void swapObjects();
 	void updateAllPreviews();
