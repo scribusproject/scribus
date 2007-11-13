@@ -367,6 +367,7 @@ SET(SCRIBUS_SOURCES
   inspage.cpp
   ioapi.c
   javadocs.cpp
+  KarbonCurveFit.cpp
   langmgr.cpp
   latexeditor.cpp
   latexhighlighter.cpp

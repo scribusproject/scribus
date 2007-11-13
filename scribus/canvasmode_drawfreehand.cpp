@@ -37,6 +37,7 @@
 #include "vruler.h"
 #include "hyphenator.h"
 #include "insertTable.h"
+#include "KarbonCurveFit.h"
 #include "oneclick.h"
 #include "pageitem_textframe.h"
 #include "pageselector.h"
@@ -191,13 +192,15 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			redrawPolygon << RecordP.pointQ(pp);
 		}
-//FIXME		m_canvas->m_viewMode.operItemResizing = true;
+//FIXME		
+		m_canvas->m_viewMode.operItemResizing = true;
 		QRect bRect = m_canvas->redrawPolygon().boundingRect();
 //		QPoint in(qRound(bRect.x()*m_canvas->scale()), qRound(bRect.y()*m_canvas->scale()));
 //		in -= QPoint(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 //		QPoint out = contentsToViewport(in);
 //		m_view->updateContents(QRect(out.x()+0*contentsX(), out.y()+0*contentsY(), qRound(bRect.width()*m_canvas->scale()), qRound(bRect.height()*m_canvas->scale())).adjusted(-10, -10, 20, 20));
-		m_canvas->update(bRect);
+	//	m_canvas->update(bRect);
+		m_view->updateCanvas(bRect);
 		return;
 	}
 	
@@ -325,17 +328,31 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_MouseButtonPressed);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
-			currItem->PoLine.addPoint(RecordP.point(0));
-			currItem->PoLine.addPoint(RecordP.point(0));
-			for (uint px = 1; px < RecordP.size()-1; ++px)
+			if (m->modifiers() & Qt::ControlModifier)
 			{
-				currItem->PoLine.addPoint(RecordP.point(px));
-				currItem->PoLine.addPoint(RecordP.point(px));
-				currItem->PoLine.addPoint(RecordP.point(px));
-				currItem->PoLine.addPoint(RecordP.point(px));
+				QList<QPointF> clip;
+				for (uint px = 0; px < RecordP.size()-1; ++px)
+				{
+					FPoint clp = RecordP.point(px);
+					clip.append(QPointF(clp.x(), clp.y()));
+				}
+				QPainterPath pp = bezierFit(clip, 5.0);
+				currItem->PoLine.fromQPainterPath(pp);
 			}
-			currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
-			currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
+			else
+			{
+				currItem->PoLine.addPoint(RecordP.point(0));
+				currItem->PoLine.addPoint(RecordP.point(0));
+				for (uint px = 1; px < RecordP.size()-1; ++px)
+				{
+					currItem->PoLine.addPoint(RecordP.point(px));
+					currItem->PoLine.addPoint(RecordP.point(px));
+					currItem->PoLine.addPoint(RecordP.point(px));
+					currItem->PoLine.addPoint(RecordP.point(px));
+				}
+				currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
+				currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
+			}
 			FPoint tp2(getMinClipF(&currItem->PoLine));
 			currItem->setXYPos(tp2.x(), tp2.y(), true);
 			currItem->PoLine.translate(-tp2.x(), -tp2.y());
@@ -347,7 +364,8 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			currItem->ClipEdited = true;
 			currItem->FrameType = 3;
 			currItem->OwnPage = m_doc->OnPage(currItem);
-//FIXME:			m_canvas->m_viewMode.operItemResizing = false;
+//FIXME	
+			m_canvas->m_viewMode.operItemResizing = false;
 			inItemCreation = false;
 //			m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()).adjusted(-10, -10, 20, 20));
 		}

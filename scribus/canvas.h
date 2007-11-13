@@ -88,6 +88,7 @@ public:
 	friend class ScribusView; // for now...
 	friend class LegacyMode;
 	friend class CanvasMode_NodeEdit;
+	friend class FreehandMode;
 	
 	/* Dont rely on these codes!
 	 * 283

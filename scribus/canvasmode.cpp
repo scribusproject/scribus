@@ -21,6 +21,7 @@
 #include "canvasmode_drawbezier.h"
 #include "canvasmode_legacy.h"
 #include "canvasmode_nodeedit.h"
+#include "canvasmode_drawfreehand.h"
 #include "selection.h"
 #include "scribusview.h"
 #include "util_icon.h"
@@ -50,7 +51,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			result = new BezierMode(view);
 			break;
 		case modeDrawFreehandLine:
-			result = new LegacyMode(view);
+			result = new FreehandMode(view);
 			break;
 		case modeDrawLine:
 			result = new LegacyMode(view);
