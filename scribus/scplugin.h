@@ -254,6 +254,8 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QString keySequence;
 			QString menu;
 			QString menuAfterName;
+			QString toolbar;			// Name of the ToolBar the action is to be inserted, if that toolbar doesn't exits it will be created
+			QString toolBarName;		// translateable ToolBar title
 			QPixmap icon1;
 			QPixmap icon2;
 			QList<int> notSuitableFor;	// a list of PageItem type values which the plugin can *not* handle

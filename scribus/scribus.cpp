@@ -163,31 +163,18 @@ for which a new license (GPL+exception) is in place.
 #include "reformdoc.h"
 #include "resourcecollection.h"
 #include "sccolorengine.h"
-#include "sccolorengine.h"
-#include "sccombobox.h"
 #include "sccombobox.h"
 #include "scgtplugin.h"
-#include "scgtplugin.h"
 #include "scmessagebox.h"
-#include "scmessagebox.h"
-#include "scpaths.h"
 #include "scpaths.h"
 #include "scprintengine_ps.h"
 #include "scraction.h"
-#include "scraction.h"
-#include "scrapbookpalette.h"
 #include "scrapbookpalette.h"
 #include "scribus.h"
-#include "scribus.h"
-#include "scribusXml.h"
 #include "scribusXml.h"
 #include "scribusapp.h"
-#include "scribusapp.h"
-#include "scribuscore.h"
 #include "scribuscore.h"
 #include "scribuswin.h"
-#include "scribuswin.h"
-#include "search.h"
 #include "search.h"
 #include "selection.h"
 #include "serializer.h"
@@ -372,6 +359,12 @@ ScribusMainWindow::~ScribusMainWindow()
 {
 }
 
+void ScribusMainWindow::addScToolBar(ScToolBar *tb, QString name)
+{
+	if (!scrToolBars.contains(name))
+		scrToolBars.insert(name, tb);
+	addToolBar(tb);
+}
 
 void ScribusMainWindow::initToolBars()
 {
@@ -382,10 +375,10 @@ void ScribusMainWindow::initToolBars()
 	modeToolBar = new ModeToolBar(this);
 	pdfToolBar = new PDFToolBar(this);
 
-	addToolBar(fileToolBar);
-	addToolBar(editToolBar);
-	addToolBar(modeToolBar);
-	addToolBar(pdfToolBar);
+	addScToolBar(fileToolBar, "ToolBar-File");
+	addScToolBar(editToolBar, "ToolBar-Edit");
+	addScToolBar(modeToolBar, "ToolBar-Tools");
+	addScToolBar(pdfToolBar, "ToolBar-PDF_Tools");
 
 	connect(modeToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setVisible(bool)));
@@ -9025,6 +9018,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setText("ItemPDFOptions", tr("&PDF Options"));
 			scrMenuMgr->setText("ItemShapes", tr("&Shape"));
 			scrMenuMgr->setText("ItemConvertTo", tr("C&onvert To"));
+			scrMenuMgr->setText("ItemPathOps", tr("Path Tools"));
 			scrMenuMgr->setText("Insert", tr("I&nsert"));
 			scrMenuMgr->setText("InsertChar", tr("Character"));
 			scrMenuMgr->setText("InsertQuote", tr("Quote"));

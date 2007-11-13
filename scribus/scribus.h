@@ -134,6 +134,7 @@ public:
 	* \retval 0 - ok, 1 - no fonts, ...
 	*/
 	int initScMW(bool primaryMainwWindow);
+	void addScToolBar(ScToolBar *tb, QString name);
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
 	void startUpDialog();
@@ -240,6 +241,7 @@ public:
 	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
 	QMap<QString, QPointer<ScrAction> > scrLayersActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
+	QMap<QString, QPointer<ScToolBar> > scrToolBars;
 	QMultiHash<QString, QActionGroup*> scrActionGroups;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;

@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
+#include "sctoolbar.h"
 #include "menumanager.h"
 #include "scraction.h"
 #include "splash.h"
@@ -299,7 +300,10 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 							plugin, SLOT(run(ScribusDoc*)) );
 			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 			if ( ai.menuAfterName.isEmpty() )
-				mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu);
+			{
+				if (!ai.menu.isEmpty())
+					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu);
+			}
 			else
 			{
 				QString actionName(ai.menu.toLower()+ai.menuAfterName);
@@ -308,12 +312,22 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 					afterAction=mw->scrActions[actionName];
 				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, afterAction);
 			}
+			if (!ai.toolbar.isEmpty())
+			{
+				QString tbName = QString("ToolBar-%1").arg(ai.toolbar);
+				if (mw->scrToolBars.contains(tbName))
+					mw->scrToolBars[tbName]->addAction(mw->scrActions[ai.name]);
+				else
+				{
+					ScToolBar *tb = new ScToolBar(ai.toolBarName, ai.toolbar, mw);
+					tb->addAction(mw->scrActions[ai.name]);
+					mw->addScToolBar(tb, tbName);
+				}
+			}
 			if (it.value().enabled)
-				ScCore->setSplashStatus( tr("Plugin: %1 initialized ok ", "plugin manager")
-						.arg(plugin->fullTrName()));
+				ScCore->setSplashStatus( tr("Plugin: %1 initialized ok ", "plugin manager").arg(plugin->fullTrName()));
 			else
-				ScCore->setSplashStatus( tr("Plugin: %1 failed post initialization", "plugin manager")
-						.arg(plugin->fullTrName()));
+				ScCore->setSplashStatus( tr("Plugin: %1 failed post initialization", "plugin manager").arg(plugin->fullTrName()));
 		}
 		else
 		{
