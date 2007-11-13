@@ -137,6 +137,9 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 				points.addPoint(cn4);
 			}
 			currItem->PoLine = points;
+			currItem->Frame = false;
+			currItem->ClipEdited = true;
+			currItem->FrameType = 3;
 			currDoc->AdjustItemSize(currItem);
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
