@@ -25,11 +25,13 @@ for which a new license (GPL+exception) is in place.
 ****************************************************************************/
 
 #include <QMessageBox>
+#include <QPixmap>
 #include "pageitem_polygon.h"
 #include "pathfinder.h"
 #include "pathfinderdialog.h"
 #include "scribuscore.h"
 #include "util_math.h"
+#include "util_icon.h"
 
 int pathfinder_getPluginAPIVersion()
 {
@@ -69,6 +71,10 @@ void PathFinderPlugin::languageChange()
 	m_actionInfo.text = tr("Path Operations...");
 	// Menu
 	m_actionInfo.menu = "ItemPathOps";
+//	m_actionInfo.toolbar = "Vector";
+//	m_actionInfo.toolBarName = tr("Vector-Tools");
+//	m_actionInfo.icon1 = loadIcon("pathintersection.png");
+//	m_actionInfo.icon2 = loadIcon("pathintersection.png");
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.notSuitableFor.append(PageItem::TextFrame);
@@ -183,9 +189,9 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				QPainterPath path;
 				FPointArray points;
 				PageItem *newItem;
+				path = dia->result;
 				if (!path.isEmpty())
 				{
-					path = dia->result;
 					points.fromQPainterPath(path);
 					Item1->PoLine = points;
 					Item1->Frame = false;
