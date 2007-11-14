@@ -76,7 +76,8 @@ typedef struct
 
 ScPrintEngine_GDI::ScPrintEngine_GDI(void) : ScPrintEngine()
 {
-	resetData();
+	m_abort = false;
+	m_forceGDI = false;
 }
 
 void ScPrintEngine_GDI::setForceGDI(bool force)
@@ -192,7 +193,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* im
 	// Setup image
 	imagew = clipw * scale;
 	imageh = cliph * scale;
-	*image = QImage( imagew, imageh, QImage::Format_ARGB32 );
+	*image = QImage( imagew, imageh, QImage::Format_RGB32 );
 	if (image->width() <= 0 || image->height() <= 0)
 		return false;
 
