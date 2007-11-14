@@ -103,7 +103,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	gradientQCombo->setFont(fo);
 	GradLayout->addWidget( gradientQCombo );
 	gradEdit = new GradientEditor(this);
-	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
 	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
 	freeGradientQFrame = new QFrame( this );
 	freeGradientQFrame->setFrameShape( QFrame::NoFrame );

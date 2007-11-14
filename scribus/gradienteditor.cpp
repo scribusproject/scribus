@@ -273,14 +273,13 @@ void GradientPreview::setActStep(double t)
 
 GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
 {
-	Form1Layout = new QVBoxLayout( this );
-	Form1Layout->setSpacing(0);
-	Form1Layout->setMargin(0);
+	QGridLayout *gridLayout = new QGridLayout(this);
+	gridLayout->setSpacing(4);
+	gridLayout->setMargin(0);
+
 	Preview = new GradientPreview(this);
-	Form1Layout->addWidget(Preview);
-	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 4 );
-	Layout1->setMargin( 0 );
+	gridLayout->addWidget(Preview, 0, 0, 1, 2);
+
 	Position = new QSpinBox( this );
 	Position->setMinimum(0);
 	Position->setMaximum(100);
@@ -288,12 +287,12 @@ GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
 	Position->setValue(0);
 	Desc = new QLabel( this );
 	languageChange();
-	Layout1->addWidget( Desc );
-	Layout1->addWidget(Position);
-	Form1Layout->addLayout(Layout1);
+
+	gridLayout->addWidget(Desc, 1, 0, 1, 1);
+	gridLayout->addWidget(Position, 1, 1, 1, 1);
+
 	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
 	connect(Preview, SIGNAL(currStep(double)), this, SLOT(setPos(double)));
-	resize(minimumSizeHint());
 }
 
 void GradientEditor::setPos(double p)

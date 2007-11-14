@@ -93,8 +93,8 @@ signals:
 
 protected:
 	virtual bool event ( QEvent * event );
-	QVBoxLayout* Form1Layout;
-	QHBoxLayout* Layout1;
+// 	QVBoxLayout* Form1Layout;
+// 	QHBoxLayout* Layout1;
 };
 
 #endif
