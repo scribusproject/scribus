@@ -306,7 +306,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
 		if (m_Doc->docHyphenator->AutoCheck)
 			m_Doc->docHyphenator->slotHyphenate(currItem);
-		currItem->asTextFrame()->invalidateLayout(true);
+		currItem->invalidateLayout();
 	}
 // 	if (done)
 // 	{

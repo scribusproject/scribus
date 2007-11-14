@@ -293,6 +293,8 @@ public:
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 	
+	/// invalidates current layout information
+	virtual void invalidateLayout() { invalid = true; }
 	/// creates valid layout information
 	virtual void layout() {}
 	/// returns true if text overflows

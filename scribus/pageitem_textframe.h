@@ -67,8 +67,8 @@ public:
 	void ExpandSel(int dir, int oldPos);
 	void deselectAll();
 	
-	void layout();
-	void invalidateLayout(bool wholeChain = true);
+	virtual void invalidateLayout();
+	virtual void layout();
 
 	double columnWidth();
 #ifdef NLS_PROTO

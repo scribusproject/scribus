@@ -183,6 +183,7 @@ void CreateMode::activate(bool fromGesture)
 				else */
 				{
 					m_doc->SizeItem(xSize, ySize, currItem->ItemNr, false, false, false);
+					m_doc->AdjustItemSize(currItem);
 					currItem->updateClip();
 				}
 				currItem->ContourLine = currItem->PoLine.copy();

@@ -2151,8 +2151,9 @@ NoRoom:
 //	qDebug("textframe: len=%d, done relayout (no room %d)", itemText.length(), MaxChars);
 }
 
-void PageItem_TextFrame::invalidateLayout(bool wholeChain)
+void PageItem_TextFrame::invalidateLayout()
 {
+	const bool wholeChain = true;
 	this->invalid = true;
 	if (wholeChain)
 	{

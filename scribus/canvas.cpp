@@ -57,15 +57,16 @@ void CanvasViewMode::init()
 	specialRendering = false;
 	firstSpecial = false;
 	forceRedraw = false;
-	m_buffer = QPixmap();
-	m_bufferRect = QRect();
-	oldMinCanvasCoordinate = FPoint();
 }
 	
 Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(doc), m_view(parent)
 {
 	setAutoFillBackground(true);
+	m_buffer = QPixmap();
+	m_bufferRect = QRect();
+	oldMinCanvasCoordinate = FPoint();
 	m_viewMode.init();
+	m_renderMode = RENDER_LEGACY;
 }
 
 
@@ -338,6 +339,63 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 }
 
 
+/*
+ Rendermodes:
+ 
+ m_buffer holds the current page(s)
+ m_bufferRect describes the contents in local coordinates:
+
+ minCanvasCoordinate |-> local (0,0) 
+ 
+ (0,0) |-> local (scale*minCanvasCoordinate) 
+ 
+ local m_bufferRect.topLeft |-> buffer (0,0)
+ 
+ 
+ */
+
+void Canvas::setRenderMode(RenderMode mode)
+{
+	if ( (mode < RENDER_SELECTION_SEPARATE) != (m_renderMode < RENDER_SELECTION_SEPARATE) )
+	{
+		clearBuffers();
+	}
+	m_renderMode = mode;
+}
+
+
+void Canvas::clearBuffers()
+{
+	m_buffer = QPixmap();
+	m_bufferRect = QRect();
+	m_selectionBuffer = QPixmap();
+	m_selectionRect = QRect();
+}
+
+
+void Canvas::adjustBuffer()
+{
+	QRect viewport(-x(), -y(), width(), height());
+	if (!m_bufferRect.contains(viewport))
+	{
+		// for now just take new viewport. Better: larger buffer to avoid refills
+		m_bufferRect = viewport;
+		m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
+		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
+	}
+}
+
+void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect)
+{
+	QPainter painter(buffer);
+	painter.translate(-bufferOrigin.x(), -bufferOrigin.y());
+	drawContents(&painter,
+				 clipRect.x(),
+				 clipRect.y(),
+				 clipRect.width(), clipRect.height());
+	painter.end();
+}
+
 /**
   Actually we have at least three super-layers:
   - background (page outlines, guides if below)
@@ -350,85 +408,155 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	if (m_doc->isLoading())
 		return;
 
+	// fill buffer if necessary
+//	if ((m_viewMode.firstSpecial) || ((!m_bufferRect.contains(p->rect())) || (m_doc->minCanvasCoordinate != oldMinCanvasCoordinate) && !(m_doc->appMode == modeEditClip)))
+	if (m_doc->minCanvasCoordinate != oldMinCanvasCoordinate)
+	{
+		clearBuffers();
+		oldMinCanvasCoordinate = m_doc->minCanvasCoordinate;
+	}
+	adjustBuffer();	
+				
 	QPainter qp(this);
 	
-	if ((m_viewMode.firstSpecial) || ((!m_viewMode.m_bufferRect.contains(p->rect())) || (m_doc->minCanvasCoordinate != m_viewMode.oldMinCanvasCoordinate) && !(m_doc->appMode == modeEditClip)))
+	switch (m_renderMode)
 	{
-		if (m_viewMode.m_bufferRect.intersects(p->rect()) && !m_viewMode.firstSpecial)
-			m_viewMode.m_bufferRect = m_viewMode.m_bufferRect.united(p->rect());
-		else
-			m_viewMode.m_bufferRect = p->rect();
-		m_viewMode.m_buffer = QPixmap(m_viewMode.m_bufferRect.width(), m_viewMode.m_bufferRect.height());
-		QPainter bufp(&m_viewMode.m_buffer);
-		bufp.translate(-m_viewMode.m_bufferRect.x(), -m_viewMode.m_bufferRect.y());
-		qDebug() << "fill Buffer:" << m_viewMode.m_bufferRect << "special:" << m_viewMode.specialRendering << m_viewMode.firstSpecial;
-		bufp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-		drawContents(&bufp, 
-					 m_viewMode.m_bufferRect.x() + m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
-					 m_viewMode.m_bufferRect.y() + m_doc->minCanvasCoordinate.y() * m_viewMode.scale, 
-					 m_viewMode.m_bufferRect.width(), m_viewMode.m_bufferRect.height());
-		bufp.end();
-		m_viewMode.firstSpecial = false;
-		m_viewMode.oldMinCanvasCoordinate = m_doc->minCanvasCoordinate;
-	}
-	if (m_viewMode.specialRendering)
-	{
-		QPainter pixmapp;
-		QPixmap pixmap = m_viewMode.m_buffer; // copy
-		pixmapp.begin(&pixmap);
-		pixmapp.translate(-m_viewMode.m_bufferRect.x(), -m_viewMode.m_bufferRect.y());
-		pixmapp.setRenderHint(QPainter::Antialiasing, true);
-		pixmapp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-		drawControls(&pixmapp);
-#if DRAW_DEBUG_LINES
-		pixmapp.setPen(Qt::red);
-		pixmapp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
-		pixmapp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
-#endif
-		pixmapp.end();
-//		qp.resetMatrix();
-#if DRAW_DEBUG_LINES
-		qDebug() << "specialRendering:" << p->rect() << "from" << m_viewMode.m_bufferRect.x() << m_viewMode.m_bufferRect.y();
-#endif
-		int xV = p->rect().x() - m_viewMode.m_bufferRect.x();
-		int yV = p->rect().y() - m_viewMode.m_bufferRect.y();
-		int wV = p->rect().width();
-		int hV = p->rect().height();
-		if (xV < 0)
+		case RENDER_NORMAL:
 		{
-			wV += xV;
-			xV = 0;
+			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << p->region().boundingRect();
+			fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
+			int xV = p->rect().x() - m_bufferRect.x();
+			int yV = p->rect().y() - m_bufferRect.y();
+			int wV = p->rect().width();
+			int hV = p->rect().height();
+			if (hV > 0 && wV > 0)
+			{
+				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+#if DRAW_DEBUG_LINES
+				qDebug() << "normal rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
+				qp.setPen(Qt::blue);
+				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
+				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
+#endif
+			}
 		}
-		if (yV < 0)
-		{
-			hV += yV;
-			yV = 0;
-		}
-		if (hV > 0 && wV > 0)
-		{
-			qp.drawPixmap(p->rect().x(), p->rect().y(), pixmap, xV, yV,  wV, hV);		
-		}
+			if (m_doc->appMode == modeEditClip)
+			{
+				qp.save();
+				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
+							 -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+				drawControls( &qp );
+				qp.restore();
+			}				
+			break;
+		case RENDER_BUFFERED:
+			int xV = p->rect().x() - m_bufferRect.x();
+			int yV = p->rect().y() - m_bufferRect.y();
+			int wV = p->rect().width();
+			int hV = p->rect().height();
+			if (xV < 0)
+			{
+				wV += xV;
+				xV = 0;
+			}
+			if (yV < 0)
+			{
+				hV += yV;
+				yV = 0;
+			}
+			if (hV > 0 && wV > 0)
+			{
+				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 #if DRAW_DEBUG_LINES
-		qDebug() << "specialRendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
-		qp.setPen(Qt::green);
-		qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
-		qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
+				qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
+				qp.setPen(Qt::green);
+				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
+				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
 #endif
-	}
-	else
-	{
-		//drawContents(&qp, p->rect().x(), p->rect().y(), p->rect().width(), p->rect().height());
-		qp.drawPixmap(p->rect().x(), p->rect().y(), m_viewMode.m_buffer, p->rect().x() - m_viewMode.m_bufferRect.x(), p->rect().y() - m_viewMode.m_bufferRect.y(),  p->rect().width(), p->rect().height());
+			}
+			qp.save();
+			qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
+						 -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			drawControls( &qp );
+			qp.restore();
+			break;
+		case RENDER_SELECTION_SEPARATE:
+			break;
+		case RENDER_SELECTION_BUFFERED:
+			break;
+		case RENDER_LEGACY:
+		default:
+			assert (false);
+			QPainter bufp(&m_buffer);
+			bufp.translate(-m_bufferRect.x(), -m_bufferRect.y());
+			qDebug() << "fill Buffer2:" << m_bufferRect << p->rect();
+//			bufp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			drawContents(&bufp, 
+						 p->rect().x() + m_doc->minCanvasCoordinate.x() * m_viewMode.scale, 
+						 p->rect().y() + m_doc->minCanvasCoordinate.y() * m_viewMode.scale, 
+						 p->rect().width(), 
+						 p->rect().height());
+#if 0
+			if (m_viewMode.specialRendering)
+			{
+				QPainter pixmapp;
+				QPixmap pixmap = m_buffer; // copy
+				pixmapp.begin(&pixmap);
+				pixmapp.translate(-m_bufferRect.x(), -m_bufferRect.y());
+				pixmapp.setRenderHint(QPainter::Antialiasing, true);
+				pixmapp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+				drawControls(&pixmapp);
 #if DRAW_DEBUG_LINES
-		qp.setPen(Qt::blue);
-		qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
-		qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
+				pixmapp.setPen(Qt::red);
+				pixmapp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
+				pixmapp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
 #endif
-		if ((m_doc->m_Selection->count() != 0) && !(m_viewMode.operItemMoving || m_viewMode.operItemResizing) && (m_doc->appMode != modeDrawBezierLine))
-		{
-			qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-			drawControlsSelection(&qp, m_doc->m_Selection->itemAt(0));
-		}		
+				pixmapp.end();
+				//		qp.resetMatrix();
+#if DRAW_DEBUG_LINES
+				qDebug() << "specialRendering:" << p->rect() << "from" << m_bufferRect.x() << m_bufferRect.y();
+#endif
+				int xV = p->rect().x() - m_bufferRect.x();
+				int yV = p->rect().y() - m_bufferRect.y();
+				int wV = p->rect().width();
+				int hV = p->rect().height();
+				if (xV < 0)
+				{
+					wV += xV;
+					xV = 0;
+				}
+				if (yV < 0)
+				{
+					hV += yV;
+					yV = 0;
+				}
+				if (hV > 0 && wV > 0)
+				{
+					qp.drawPixmap(p->rect().x(), p->rect().y(), pixmap, xV, yV,  wV, hV);		
+				}
+#if DRAW_DEBUG_LINES
+				qDebug() << "specialRendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
+				qp.setPen(Qt::green);
+				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
+				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
+#endif
+			}
+			else
+#endif
+			{
+				//drawContents(&qp, p->rect().x(), p->rect().y(), p->rect().width(), p->rect().height());
+				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, p->rect().x() - m_bufferRect.x(), p->rect().y() - m_bufferRect.y(),  p->rect().width(), p->rect().height());
+#if DRAW_DEBUG_LINES
+				qp.setPen(Qt::blue);
+				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
+				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
+#endif
+				if ((m_doc->m_Selection->count() != 0) && !(m_viewMode.operItemMoving || m_viewMode.operItemResizing) && (m_doc->appMode != modeDrawBezierLine))
+				{
+					qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+					drawControlsSelection(&qp, m_doc->m_Selection->itemAt(0));
+				}		
+			}
 	}
 	m_view->m_canvasMode->drawControls(&qp);
 	m_viewMode.forceRedraw = false;
@@ -437,8 +565,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 
 void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
 {
+	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
 	uint docPagesCount=m_doc->Pages->count();
-	QPoint vr = contentsToViewport(QPoint(clipx, clipy));
 	ScPainter *painter=0;
 	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32);
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
@@ -452,7 +580,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->setClipPath();
 	painter->translate(-clipx, -clipy);
 	painter->setZoomFactor(m_viewMode.scale);
-//	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	painter->setLineWidth(1);
 	painter->setFillMode(ScPainter::Solid);
 	if (!m_doc->masterPageMode())
@@ -601,18 +729,18 @@ void Canvas::drawContentsOld(QPainter *psx, int clipx, int clipy, int clipw, int
 			{
 #ifdef Q_WS_MAC
 				QPoint viewportOrigin = mapToGlobal(QPoint(0,0));
-				m_viewMode.m_buffer = QPixmap::grabWindow(this->winId(), viewportOrigin.x(), viewportOrigin.y(), this->width(), this->height());
+				m_buffer = QPixmap::grabWindow(this->winId(), viewportOrigin.x(), viewportOrigin.y(), this->width(), this->height());
 				//m_buffer.resize(this->width(), this->height());
 				//this->render(m_buffer);
 //				qDebug(QString("drawContents:viewport (%1,%2) %3x%4 -> %5x%6").arg(viewportOrigin.x()).arg(viewportOrigin.y())
 //					   .arg(this->width()).arg(this->height()).arg(m_buffer.width()).arg(m_buffer.height()));
 #else
-				m_viewMode.m_buffer = QPixmap::grabWindow(this->winId(), 0, 0);
+				m_buffer = QPixmap::grabWindow(this->winId(), 0, 0);
 #endif
 				m_viewMode.firstSpecial = false;
 			}
 			QPainter pp;
-			QPixmap ppx = m_viewMode.m_buffer;
+			QPixmap ppx = m_buffer;
 			pp.begin(&ppx);
 			pp.setRenderHint(QPainter::Antialiasing, true);
 			drawControls(&pp);

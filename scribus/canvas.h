@@ -69,9 +69,6 @@ struct CanvasViewMode
 	bool specialRendering;
 	bool firstSpecial;
 	bool forceRedraw;
-	QPixmap m_buffer;
-	QRect m_bufferRect;
-	FPoint oldMinCanvasCoordinate;
 };
 
 
@@ -109,10 +106,23 @@ public:
 		WEST = 7
 	};
 	
+	enum RenderMode {
+		RENDER_NORMAL,                // update buffer, paint buffer: expensive for large regions
+		RENDER_BUFFERED,              // just paint buffer: fast, but only controls may change (eg. resize mode)
+		// in the following two modes, only the selected objects are updated. Might not be exact.
+		RENDER_SELECTION_SEPARATE,    // paint buffer w/o selection, then paint selection (eg. img edit, nodeedit, rotate, beziercurve)
+		RENDER_SELECTION_BUFFERED,    // paint buffer w/o selection, update selection buffer, then paint selection buffer (eg. move, text edit)
+		RENDER_LEGACY
+	};
 	
-	void resetRenderMode() { m_viewMode.specialRendering = false; m_viewMode.firstSpecial = true; }
-	void setRenderModeFillBuffer() { m_viewMode.specialRendering = true; m_viewMode.firstSpecial = true; }
-	void setRenderModeUseBuffer(bool use) { m_viewMode.specialRendering = use; }
+	void setRenderMode(RenderMode m);
+	
+	void clearBuffers();              // very expensive
+	
+	// deprecated:
+	void resetRenderMode() { m_renderMode = RENDER_NORMAL; clearBuffers(); }
+	void setRenderModeFillBuffer() { m_renderMode = RENDER_BUFFERED; }
+	void setRenderModeUseBuffer(bool use) { m_renderMode = (use ? RENDER_BUFFERED : RENDER_NORMAL) ; }
 
 	double scale() const { return m_viewMode.scale; }
 	void setScale(double scale) { m_viewMode.scale = scale; repaint(); }
@@ -165,6 +175,15 @@ private:
 	void TransformM(PageItem *currItem, QPainter *p);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 
+	/**
+		Enlarges the buffer such that it contains the viewport.
+	 */
+	void adjustBuffer();
+	/**
+		Fills the given buffer with contents.
+	    bufferOrigin and clipRect are in local coordinates
+	 */
+	void fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect);
 	void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
@@ -189,6 +208,13 @@ private:
 	ScribusDoc* m_doc;
 	ScribusView* m_view;
 	CanvasViewMode m_viewMode;
+	
+	RenderMode m_renderMode;
+	QPixmap m_buffer;
+	QRect m_bufferRect;
+	FPoint oldMinCanvasCoordinate;
+	QPixmap m_selectionBuffer;
+	QRect m_selectionRect;
 };
 
 

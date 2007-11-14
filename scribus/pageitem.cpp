@@ -3722,9 +3722,9 @@ QMatrix PageItem::getTransform() const
 
 QRectF PageItem::getBoundingRect() const
 {
-	double x,y,w,h;
-	getBoundingRect(&x, &y, &w, &h);
-	return QRectF(x,y,w,h);
+	double x,y,x2,y2;
+	getBoundingRect(&x, &y, &x2, &y2);
+	return QRectF(x,y,x2-x,y2-y);
 }
 
 

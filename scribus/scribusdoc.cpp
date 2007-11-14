@@ -96,14 +96,15 @@ public:
 	
 	void changed(Page* pg)
 	{
-		doc->regionsChanged()->update(QRectF(pg->xOffset(), pg->yOffset(), pg->width(), pg->height()));
+		QRectF pagebox(pg->xOffset(), pg->yOffset(), pg->width(), pg->height());
+		doc->invalidateRegion(pagebox);
+		doc->regionsChanged()->update(pagebox);
 	}
 	
 	void changed(PageItem* it)
 	{
-		double x,y,h,w;
-		it->getBoundingRect(&x, &y, &w, &h);
-		doc->regionsChanged()->update(QRectF(x, y, w, h));
+		it->invalidateLayout();
+		doc->regionsChanged()->update(it->getBoundingRect());
 	}
 };
 
@@ -8299,6 +8300,23 @@ void ScribusDoc::changed()
 {
 	setModified(true);
 	emit docChanged();
+}
+
+void ScribusDoc::invalidateRegion(QRectF region)
+{
+	for (int c=0; c<DocItems.count(); ++c)
+	{
+		PageItem *ite = DocItems.at(c);
+		if (ite->getBoundingRect().intersects(region))
+			ite->invalidateLayout();
+	}
+	for (int c=0; c<MasterItems.count(); ++c)
+	{
+		PageItem *ite = MasterItems.at(c);
+		// for now invalidate all masteritems, should be only necessary in masterpagemode
+		ite->invalidateLayout();
+	}
+	// for now hope that frameitems get invalidated by their parents layout() method.
 }
 
 
