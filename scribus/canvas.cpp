@@ -450,35 +450,37 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			}				
 			break;
 		case RENDER_BUFFERED:
-			int xV = p->rect().x() - m_bufferRect.x();
-			int yV = p->rect().y() - m_bufferRect.y();
-			int wV = p->rect().width();
-			int hV = p->rect().height();
-			if (xV < 0)
 			{
-				wV += xV;
-				xV = 0;
+				int xV = p->rect().x() - m_bufferRect.x();
+				int yV = p->rect().y() - m_bufferRect.y();
+				int wV = p->rect().width();
+				int hV = p->rect().height();
+				if (xV < 0)
+				{
+					wV += xV;
+					xV = 0;
+				}
+				if (yV < 0)
+				{
+					hV += yV;
+					yV = 0;
+				}
+				if (hV > 0 && wV > 0)
+				{
+					qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+	#if DRAW_DEBUG_LINES
+					qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
+					qp.setPen(Qt::green);
+					qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
+					qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
+	#endif
+				}
+				qp.save();
+				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
+							-m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+				drawControls( &qp );
+				qp.restore();
 			}
-			if (yV < 0)
-			{
-				hV += yV;
-				yV = 0;
-			}
-			if (hV > 0 && wV > 0)
-			{
-				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
-#if DRAW_DEBUG_LINES
-				qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
-				qp.setPen(Qt::green);
-				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
-				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
-#endif
-			}
-			qp.save();
-			qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
-						 -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-			drawControls( &qp );
-			qp.restore();
 			break;
 		case RENDER_SELECTION_SEPARATE:
 			break;
