@@ -317,18 +317,148 @@ PyObject *scribus_getpagemargins(PyObject* /* self */)
 	return margins;
 }
 
+/*!
+ \fn import_addpage()
+ \author Alessandro Pira <alex@alessandropira.org>
+ \date 11-11-2007
+ \param total: number of pages to add, pos: position in the document
+ \retval void
+ */
+// This function is used by scribus_importpage() to add new pages
+void import_addpages(int total, int pos) {
+	for (int i=0; i<total; i++) {
+		int locreal = pos + i;
+		int loc = pos + i + 1;
+
+		if (loc > ScCore->primaryMainWindow()->doc->Pages->count()) {
+			loc = ScCore->primaryMainWindow()->doc->Pages->count();
+		}
+		QString qName(CommonStrings::trMasterPageNormal);
+
+		if (ScCore->primaryMainWindow()->doc->pageSets[ScCore->primaryMainWindow()->doc->currentPageLayout].Columns != 1) {
+			ScCore->primaryMainWindow()->doc->locationOfPage(loc);
+			switch (ScCore->primaryMainWindow()->doc->locationOfPage(loc))
+			{
+				case LeftPage:
+					qName = CommonStrings::trMasterPageNormalLeft;
+					break;
+				case RightPage:
+					qName = CommonStrings::trMasterPageNormalRight;
+					break;
+				case MiddlePage:
+					qName = CommonStrings::trMasterPageNormalMiddle;
+					break;
+			}
+		}
+		ScCore->primaryMainWindow()->slotNewPageP(locreal, qName);
+	}
+}
+
+/*!
+ \fn scribus_importpage()
+ \author Alessandro Pira <alex@alessandropira.org>
+ \date 11-11-2007
+ \param PyObject-encoded ("fromDoc", (pageList), [create, imortwhere, importwherePage])
+ \retval Py_RETURN_NONE if ok, null if error
+ */
+PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
+{
+	char *doc = NULL;
+	PyObject *pages = NULL;
+	int createPageI = 1;
+	int importWhere = 2;
+	int importWherePage = 0;
+
+	if (!PyArg_ParseTuple(args, "sO|iii", &doc, &pages, &createPageI, &importWhere, &importWherePage))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+
+	if (!PyTuple_Check(pages))
+	{
+		PyErr_SetString(PyExc_TypeError, QObject::tr("second argument is not tuple: must be tuple of int values.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	Py_INCREF(pages);
+	std::vector<int> pageNs;
+	int i, n, p;
+	n = PyTuple_Size(pages);
+	for (i=0; i<n; i++)
+	{
+		if (!PyArg_Parse(PyTuple_GetItem(pages, i), "i", &p))
+		{
+			PyErr_SetString(PyExc_TypeError, QObject::tr("second argument contains non-numeric values: must be list of int values.","python error").toLocal8Bit().constData());
+			Py_DECREF(pages);
+			return NULL;
+		}
+		pageNs.push_back(p);
+	}
+	Py_DECREF(pages);
+ 
+	QString fromDoc = QString(doc);
+	bool createPage = (createPageI != 0);
+
+	int startPage=0, nrToImport=pageNs.size();
+	bool doIt = true;
+
+	if (ScCore->primaryMainWindow()->doc->masterPageMode())
+	{
+		if (nrToImport > 1)
+			ScCore->primaryMainWindow()->loadPage(fromDoc, pageNs[0] - 1, false);
+		doIt = false;
+	}
+	else if (createPage)
+	{
+		if (importWhere == 0) //Before page
+			startPage = importWherePage;
+		else if (importWhere == 1) //After page
+			startPage = importWherePage + 1;
+		else //at end
+			startPage = ScCore->primaryMainWindow()->doc->DocPages.count() + 1;
+
+		import_addpages(nrToImport, startPage);
+	}
+	else
+	{
+		startPage = ScCore->primaryMainWindow()->doc->currentPage()->pageNr() + 1;
+		if (nrToImport > (ScCore->primaryMainWindow()->doc->DocPages.count() - ScCore->primaryMainWindow()->doc->currentPage()->pageNr()))
+		{
+			int tmp=nrToImport - (ScCore->primaryMainWindow()->doc->DocPages.count() - ScCore->primaryMainWindow()->doc->currentPage()->pageNr());
+			import_addpages(tmp, ScCore->primaryMainWindow()->doc->DocPages.count());
+		}
+	}
+
+	if (doIt)
+	{
+		if (nrToImport > 0)
+		{
+			int counter = startPage + 1;
+			for (int i = 0; i < nrToImport; ++i)
+			{
+				ScCore->primaryMainWindow()->view->GotoPa(counter);
+				ScCore->primaryMainWindow()->loadPage(fromDoc, pageNs[i] - 1, false);
+				counter++;
+			}
+		}
+	}
+
+	Py_RETURN_NONE;
+}
+
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdpagedocwarnings()
 {
     QStringList s;
-    s << scribus_newpage__doc__       << scribus_pageposition__doc__
-	  << scribus_actualpage__doc__    << scribus_redraw__doc__
-	  << scribus_savepageeps__doc__   << scribus_deletepage__doc__
-	  << scribus_gotopage__doc__      << scribus_pagecount__doc__
-	  << scribus_getHguides__doc__    << scribus_setHguides__doc__
-	  << scribus_getVguides__doc__    << scribus_setVguides__doc__
-	  << scribus_pagedimension__doc__ <<scribus_getpageitems__doc__
-	  << scribus_getpagemargins__doc__;
+    s << scribus_newpage__doc__        << scribus_pageposition__doc__
+	  << scribus_actualpage__doc__     << scribus_redraw__doc__
+	  << scribus_savepageeps__doc__    << scribus_deletepage__doc__
+	  << scribus_gotopage__doc__       << scribus_pagecount__doc__
+	  << scribus_getHguides__doc__     << scribus_setHguides__doc__
+	  << scribus_getVguides__doc__     << scribus_setVguides__doc__
+	  << scribus_pagedimension__doc__  << scribus_getpageitems__doc__
+	  << scribus_getpagemargins__doc__ << scribus_importpage__doc__;
 }
