@@ -324,7 +324,7 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 		delete trans;
 	}
 	trans = new QTranslator(0);
-	QString path = ScPaths::instance().libDir();
+	QString path(ScPaths::instance().translationDir());
 	path += "scribus";
 
 	bool loaded = false;
