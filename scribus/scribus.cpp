@@ -715,9 +715,9 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item");
-	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "ItemPathOps");
-	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "ItemPathOps");
+//	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item");
 	scrMenuMgr->setMenuEnabled("ItemShapes", false);
 	scrActions["itemGroup"]->setEnabled(false);
 	scrActions["itemUngroup"]->setEnabled(false);
@@ -9018,7 +9018,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setText("ItemPDFOptions", tr("&PDF Options"));
 			scrMenuMgr->setText("ItemShapes", tr("&Shape"));
 			scrMenuMgr->setText("ItemConvertTo", tr("C&onvert To"));
-			scrMenuMgr->setText("ItemPathOps", tr("Path Tools"));
+//			scrMenuMgr->setText("ItemPathOps", tr("Path Tools"));
 			scrMenuMgr->setText("Insert", tr("I&nsert"));
 			scrMenuMgr->setText("InsertChar", tr("Character"));
 			scrMenuMgr->setText("InsertQuote", tr("Quote"));

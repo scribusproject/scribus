@@ -9151,6 +9151,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 		currItem->updatePolyClip();
 	else
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+	currItem->updateGradientVectors();
 	currItem->Sizing = siz;
 }
 

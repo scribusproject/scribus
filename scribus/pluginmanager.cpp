@@ -302,7 +302,14 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			if ( ai.menuAfterName.isEmpty() )
 			{
 				if (!ai.menu.isEmpty())
+				{
+					if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
+					{
+						if (!mw->scrMenuMgr->menuExists(ai.menu))
+							mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
+					}
 					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu);
+				}
 			}
 			else
 			{
@@ -310,6 +317,11 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 				ScrAction* afterAction=0;
 				if (mw->scrActions.contains(actionName))
 					afterAction=mw->scrActions[actionName];
+				if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
+				{
+					if (!mw->scrMenuMgr->menuExists(ai.menu))
+						mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
+				}
 				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, afterAction);
 			}
 			if (!ai.toolbar.isEmpty())

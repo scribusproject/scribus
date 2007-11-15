@@ -354,3 +354,8 @@ bool MenuManager::empty()
 {
 	return menuList.empty();
 }
+
+bool MenuManager::menuExists(const QString &menuName)
+{
+	return menuList.contains(menuName);
+}

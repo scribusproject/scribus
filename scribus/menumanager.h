@@ -68,6 +68,7 @@ public:
 
 	void generateKeyManList(QStringList *actionNames);
 	bool empty();
+	bool menuExists(const QString &menuName);
 
 private:
 	QMenuBar *scribusMenuBar;

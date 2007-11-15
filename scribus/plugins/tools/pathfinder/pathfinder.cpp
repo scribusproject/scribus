@@ -71,6 +71,8 @@ void PathFinderPlugin::languageChange()
 	m_actionInfo.text = tr("Path Operations...");
 	// Menu
 	m_actionInfo.menu = "ItemPathOps";
+	m_actionInfo.parentMenu = "Item";
+	m_actionInfo.subMenuName = tr("Path Tools");
 //	m_actionInfo.toolbar = "Vector";
 //	m_actionInfo.toolBarName = tr("Vector-Tools");
 //	m_actionInfo.icon1 = loadIcon("pathintersection.png");
