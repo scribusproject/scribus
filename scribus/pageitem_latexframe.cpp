@@ -162,7 +162,7 @@ void PageItem_LatexFrame::deleteImageFile()
 	imgValid = false;
 }
 
-void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
+void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e, double sc)
 {
 		if (!imgValid && !err) {
 			if (latex->state() == QProcess::NotRunning) {

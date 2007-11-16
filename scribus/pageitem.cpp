@@ -895,7 +895,7 @@ void PageItem::setCornerRadius(double newRadius)
 /** Paints the item.
     CHANGE: cullingArea is in doc coordinates!
  */
-void PageItem::DrawObj(ScPainter *p, QRect cullingArea)
+void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 {
 	double sc;
 	if (!m_Doc->DoDrawing)
@@ -1185,7 +1185,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	p->restore();
 }
 
-void PageItem::DrawObj_Embedded(ScPainter *p, QRect cullingArea, const CharStyle& style, PageItem* cembedded)
+void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded)
 {
 	if (!cembedded)
 		return;
@@ -1512,7 +1512,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		embedded->isEmbedded = true;
 		embedded->invalid = true;
-		embedded->DrawObj(painter, QRect());
+		embedded->DrawObj(painter, QRectF());
 		embedded->Xpos = x;
 		embedded->Ypos = y;
 		embedded->isEmbedded = false;
@@ -3262,7 +3262,7 @@ void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 	ScribusView* view = m_Doc->view();
 	setLayer(isUndo ? state->getInt("OLD_LAYER") : state->getInt("NEW_LAYER"));
 	view->Deselect(true);
-	m_Doc->regionsChanged()->update(QRect());
+	m_Doc->regionsChanged()->update(QRectF());
 }
 
 void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
@@ -3314,7 +3314,7 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 		}
 		m_Doc->AdjustItemSize(this);
 		m_Doc->MoveItem(mx, my, this, false);
-		m_Doc->regionsChanged()->update(QRect());
+		m_Doc->regionsChanged()->update(QRectF());
 	}
 
 }

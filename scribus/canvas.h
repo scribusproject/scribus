@@ -200,7 +200,6 @@ private:
 	void drawControlsFreehandLine(QPainter* pp);
 	void drawControlsSelection(QPainter* pp, PageItem *currItem);
 	void drawControlsSelectionSpecial(QPainter* pp, PageItem *currItem);
-	virtual void drawContentsOld(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	void getClipPathForPages(FPointArray* PoLine);
 	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
 		

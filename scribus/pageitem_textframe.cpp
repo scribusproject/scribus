@@ -2172,7 +2172,7 @@ void PageItem_TextFrame::invalidateLayout()
 	}
 }
 
-void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect cullingArea, double sc)
+void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
 {
 	layout();
 	if (invalid)

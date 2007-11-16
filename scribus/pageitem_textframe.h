@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #define PAGEITEMTEXTFRAME_H
 
 #include <QMap>
-#include <QRect>
+#include <QRectF>
 #include <QString>
 #include <QKeyEvent>
 
@@ -77,7 +77,7 @@ public:
 #endif
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
+	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
 	virtual void DrawObj_Post(ScPainter *p);
 	void drawOverflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);

@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QKeyEvent>
 #include <QMenu>
+#include <QRect>
 #include <QRectF>
 
 #include "scribusapi.h"
@@ -239,10 +240,10 @@ public:
 	
   /** Zeichnet das Item */
 	void paintObj(QPainter *p);
-	void DrawObj(ScPainter *p, QRect e);
+	void DrawObj(ScPainter *p, QRectF e);
 	void DrawObj_Pre(ScPainter *p, double &sc);
 	virtual void DrawObj_Post(ScPainter *p);
-	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc) = 0;
+	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc) = 0;
 	QImage DrawObj_toImage();
 	QImage DrawObj_toImage(QList<PageItem*> &emG);
 	
@@ -251,13 +252,13 @@ public:
 			
 protected:
 	void DrawObj_ImageFrame(ScPainter *p, double sc);
-	//void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);
+	//void DrawObj_TextFrame(ScPainter *p, QRectF e, double sc);
 	//void DrawObj_Line(ScPainter *p);
 	void DrawObj_Polygon(ScPainter *p);
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);
 public:
-	void DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, PageItem* cembedded);
+	void DrawObj_Embedded(ScPainter *p, QRectF e, const CharStyle& style, PageItem* cembedded);
 	void SetFrameShape(int count, double *vals);
 	void SetRectFrame();
 	void SetOvalFrame();

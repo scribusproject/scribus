@@ -48,7 +48,7 @@ PageItem_Polygon::PageItem_Polygon(ScribusDoc *pa, double x, double y, double w,
 {
 }
 
-void PageItem_Polygon::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
+void PageItem_Polygon::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 {
 	if (!m_Doc->RePos)
 	{

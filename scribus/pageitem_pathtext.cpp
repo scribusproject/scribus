@@ -62,7 +62,7 @@ PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double 
 void PageItem_PathText::layout()
 {
 	QImage pgPix(10, 10, QImage::Format_ARGB32);
-	QRect rd; // = QRect(0,0,9,9);
+	QRectF rd; // = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());	
 	DrawObj(painter, rd);
 	painter->end();
@@ -72,7 +72,7 @@ void PageItem_PathText::layout()
 }
 
 
-void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect cullingArea, double sc)
+void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc)
 {
 	itemText.invalidateAll();
 	firstChar = 0;

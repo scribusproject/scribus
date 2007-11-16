@@ -66,7 +66,7 @@ Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(do
 	m_bufferRect = QRect();
 	oldMinCanvasCoordinate = FPoint();
 	m_viewMode.init();
-	m_renderMode = RENDER_LEGACY;
+	m_renderMode = RENDER_NORMAL;
 }
 
 
@@ -409,7 +409,6 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		return;
 
 	// fill buffer if necessary
-//	if ((m_viewMode.firstSpecial) || ((!m_bufferRect.contains(p->rect())) || (m_doc->minCanvasCoordinate != oldMinCanvasCoordinate) && !(m_doc->appMode == modeEditClip)))
 	if (m_doc->minCanvasCoordinate != oldMinCanvasCoordinate)
 	{
 		clearBuffers();
@@ -489,76 +488,6 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		case RENDER_LEGACY:
 		default:
 			assert (false);
-			QPainter bufp(&m_buffer);
-			bufp.translate(-m_bufferRect.x(), -m_bufferRect.y());
-			qDebug() << "fill Buffer2:" << m_bufferRect << p->rect();
-//			bufp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-			drawContents(&bufp, 
-						 p->rect().x() + m_doc->minCanvasCoordinate.x() * m_viewMode.scale, 
-						 p->rect().y() + m_doc->minCanvasCoordinate.y() * m_viewMode.scale, 
-						 p->rect().width(), 
-						 p->rect().height());
-#if 0
-			if (m_viewMode.specialRendering)
-			{
-				QPainter pixmapp;
-				QPixmap pixmap = m_buffer; // copy
-				pixmapp.begin(&pixmap);
-				pixmapp.translate(-m_bufferRect.x(), -m_bufferRect.y());
-				pixmapp.setRenderHint(QPainter::Antialiasing, true);
-				pixmapp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-				drawControls(&pixmapp);
-#if DRAW_DEBUG_LINES
-				pixmapp.setPen(Qt::red);
-				pixmapp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
-				pixmapp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
-#endif
-				pixmapp.end();
-				//		qp.resetMatrix();
-#if DRAW_DEBUG_LINES
-				qDebug() << "specialRendering:" << p->rect() << "from" << m_bufferRect.x() << m_bufferRect.y();
-#endif
-				int xV = p->rect().x() - m_bufferRect.x();
-				int yV = p->rect().y() - m_bufferRect.y();
-				int wV = p->rect().width();
-				int hV = p->rect().height();
-				if (xV < 0)
-				{
-					wV += xV;
-					xV = 0;
-				}
-				if (yV < 0)
-				{
-					hV += yV;
-					yV = 0;
-				}
-				if (hV > 0 && wV > 0)
-				{
-					qp.drawPixmap(p->rect().x(), p->rect().y(), pixmap, xV, yV,  wV, hV);		
-				}
-#if DRAW_DEBUG_LINES
-				qDebug() << "specialRendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
-				qp.setPen(Qt::green);
-				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
-				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
-#endif
-			}
-			else
-#endif
-			{
-				//drawContents(&qp, p->rect().x(), p->rect().y(), p->rect().width(), p->rect().height());
-				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, p->rect().x() - m_bufferRect.x(), p->rect().y() - m_bufferRect.y(),  p->rect().width(), p->rect().height());
-#if DRAW_DEBUG_LINES
-				qp.setPen(Qt::blue);
-				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
-				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
-#endif
-				if ((m_doc->m_Selection->count() != 0) && !(m_viewMode.operItemMoving || m_viewMode.operItemResizing) && (m_doc->appMode != modeDrawBezierLine))
-				{
-					qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-					drawControlsSelection(&qp, m_doc->m_Selection->itemAt(0));
-				}		
-			}
 	}
 	m_view->m_canvasMode->drawControls(&qp);
 	m_viewMode.forceRedraw = false;
@@ -709,166 +638,6 @@ void Canvas::drawControls(QPainter *psx)
 	}
 	psx->restore();
 }	
-
-
-
-void Canvas::drawContentsOld(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
-{
-	if (m_doc->isLoading())
-		return;
-//	if (!updateOn)
-//		return;
-//	QTime tim;
-//	tim.start();
-	psx->setRenderHint(QPainter::Antialiasing, false);
-	psx->setRenderHint(QPainter::SmoothPixmapTransform, false);
-	if ((clipw > 0) && (cliph > 0))
-	{
-
-		if ((m_viewMode.specialRendering) || (m_doc->appMode == modeEditClip && m_viewMode.specialRendering))
-		{
-			if (m_viewMode.firstSpecial)
-			{
-#ifdef Q_WS_MAC
-				QPoint viewportOrigin = mapToGlobal(QPoint(0,0));
-				m_buffer = QPixmap::grabWindow(this->winId(), viewportOrigin.x(), viewportOrigin.y(), this->width(), this->height());
-				//m_buffer.resize(this->width(), this->height());
-				//this->render(m_buffer);
-//				qDebug(QString("drawContents:viewport (%1,%2) %3x%4 -> %5x%6").arg(viewportOrigin.x()).arg(viewportOrigin.y())
-//					   .arg(this->width()).arg(this->height()).arg(m_buffer.width()).arg(m_buffer.height()));
-#else
-				m_buffer = QPixmap::grabWindow(this->winId(), 0, 0);
-#endif
-				m_viewMode.firstSpecial = false;
-			}
-			QPainter pp;
-			QPixmap ppx = m_buffer;
-			pp.begin(&ppx);
-			pp.setRenderHint(QPainter::Antialiasing, true);
-			drawControls(&pp);
-			pp.end();
-			psx->resetMatrix();
-			psx->drawPixmap(0,0,ppx);
-			return;
-		}
-
-		drawContents(psx, clipx, clipy, clipw, cliph);
-	}
-/*	psx->setRenderHint(QPainter::Antialiasing, true);
-	if (operItemMoving || operItemResizing)
-	{
-		if (operItemResizing)
-		{
-			if (!redrawPolygon.isEmpty())
-			{
-				if (m_MouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))
-				{
-					psx->resetMatrix();
-					QPoint out = contentsToViewport(QPoint(0, 0));
-					psx->translate(out.x(), out.y());
-					psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-					psx->scale(m_viewMode.scale, m_viewMode.scale);
-					psx->setBrush(Qt::NoBrush);
-					psx->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					psx->drawPolyline(redrawPolygon);
-					redrawPolygon.clear();
-				}
-				else
-				{
-					QColor drawColor = qApp->palette().color(QPalette::Active, QColorGroup::Highlight);
-					psx->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-					drawColor.setAlpha(64);
-					psx->setBrush(drawColor);
-					psx->drawPolygon(redrawPolygon);
-					redrawPolygon.clear();
-				}
-			}
-		}
-		else
-		{
-			if (m_doc->m_Selection->count() != 0)
-			{
-				uint selectedItemCount = m_doc->m_Selection->count();
-				PageItem *currItem = m_doc->m_Selection->itemAt(0);
-				if (selectedItemCount < moveWithBoxesOnlyThreshold)
-				{
-					for (uint cu = 0; cu < selectedItemCount; cu++)
-					{
-						currItem = m_doc->m_Selection->itemAt(cu);
-						psx->resetMatrix();
-						QPoint out = contentsToViewport(QPoint(0, 0));
-						psx->translate(out.x(), out.y());
-						psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-						Transform(currItem, psx);
-						psx->setBrush(Qt::NoBrush);
-						psx->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-						if (selectedItemCount < moveWithFullOutlinesThreshold)
-						{
-							if (!(currItem->asLine()))
-								currItem->DrawPolyL(psx, currItem->Clip);
-							else
-							{
-								if (currItem->asLine())
-								{
-									int lw2 = 1;
-									int lw = 1;
-									Qt::PenCapStyle le = Qt::FlatCap;
-									if (currItem->NamedLStyle.isEmpty())
-									{
-										lw2 = qRound(currItem->lineWidth()  / 2.0);
-										lw = qRound(qMax(currItem->lineWidth(), 1.0));
-										le = currItem->PLineEnd;
-									}
-									else
-									{
-										multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
-										lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-										lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
-										le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-									}
-									if (le != Qt::FlatCap)
-										psx->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
-									else
-										psx->drawRect(-1, -lw2, qRound(currItem->width()), lw);
-								}
-							}
-						}
-						else
-							psx->drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
-					}
-				}
-				else
-				{
-					double gx, gy, gw, gh;
-					m_doc->m_Selection->setGroupRect();
-					getGroupRectScreen(&gx, &gy, &gw, &gh);
-					QPoint out = contentsToViewport(QPoint(0, 0));
-					psx->resetMatrix();
-					psx->translate(-out.x(), -out.y());
-					psx->translate(qRound(gx), qRound(gy));
-					psx->scale(m_viewMode.scale, m_viewMode.scale);
-					psx->drawRect(QRect(0, 0, qRound(gw), qRound(gh)));
-				}
-			}
-		}
-	}
-	else
-	{ */
-		if ((m_doc->m_Selection->count() != 0) && !(m_viewMode.operItemMoving || m_viewMode.operItemResizing) && (m_doc->appMode != modeDrawBezierLine))
-		{
-			drawControlsSelection(psx, m_doc->m_Selection->itemAt(0));
-		}
-/*	} */
-//FIXME	if (m_doc->appMode == modeEdit)
-//		slotDoCurs(true);
-	if (m_doc->appMode == modeEditGradientVectors)
-	{
-		drawControlsGradientVectors(psx, m_doc->m_Selection->itemAt(0));
-	}
-//FIXME	evSpon = false;
-//	forceRedraw = false;
-//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
-}
 
 
 
@@ -1093,9 +862,8 @@ void Canvas::drawControlsFreehandLine(QPainter* pp)
  */
 void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
-	QRect oldR;
 	FPoint orig = localToCanvas(clip.topLeft());
-	QRect cullingArea = QRect(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
+	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
@@ -1146,14 +914,12 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
-						oldR = currItem->getRedrawBounding(m_viewMode.scale);
-						oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 						if (currItem->isGroupControl)
 						{
 							painter->save();
 							currItem->savedOwnPage = currItem->OwnPage;
 							currItem->OwnPage = page->pageNr();
-							if ((clip.intersects(oldR)) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+							if ((cullingArea.intersects(currItem->getBoundingRect())) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
 								currItem->DrawObj(painter, cullingArea);
 							FPointArray cl = currItem->PoLine.copy();
 							QMatrix mm;
@@ -1177,7 +943,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						currItem->OwnPage = page->pageNr();
 //FIXME						if (!evSpon || forceRedraw)
 		//					currItem->invalid = true;
-						if (clip.intersects(oldR))
+						if (cullingArea.intersects(currItem->getBoundingRect()))
 						{
 							if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
 							{
@@ -1214,8 +980,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 									cite->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 									cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 								}
-								oldR = cite->getRedrawBounding(m_viewMode.scale);
-								if ((clip.intersects(oldR)) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
+								if ((cullingArea.intersects(cite->getBoundingRect())) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
 									cite->DrawObj(painter, cullingArea);
 								cite->OwnPage = cite->savedOwnPage;
 								if (!currItem->ChangedMasterItem)
@@ -1257,9 +1022,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
-						oldR = currItem->getRedrawBounding(m_viewMode.scale);
-						oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
-						if (clip.intersects(oldR))
+						if (cullingArea.intersects(currItem->getBoundingRect()))
 						{
 							painter->save();
 							painter->translate(currItem->xPos(), currItem->yPos());
@@ -1307,9 +1070,8 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 {
 	m_viewMode.linkedFramesToShow.clear();
-	QRect oldR;
 	FPoint orig = localToCanvas(clip.topLeft());
-	QRect cullingArea = QRect(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
+	QRectF cullingArea = QRectF(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
 							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
@@ -1354,8 +1116,6 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						if (currItem->OnMasterPage != m_doc->currentPage()->pageName())
 							continue;
 					}
-					oldR = currItem->getRedrawBounding(m_viewMode.scale);
-					oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 					if (currItem->isGroupControl)
 					{
 						painter->save();
@@ -1369,7 +1129,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						groupStack2.push(currItem);
 						continue;
 					}
-					if (clip.intersects(oldR))
+					if (cullingArea.intersects(currItem->getBoundingRect()))
 					{
 //FIXME						if (!evSpon || forceRedraw) 
 		//					currItem->invalid = true;
@@ -1437,8 +1197,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 							painter->endLayer();
 							painter->restore();
 							PageItem *cite = groupStack2.pop();
-							oldR = cite->getRedrawBounding(m_viewMode.scale);
-							if ((clip.intersects(oldR)) && (((m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
+							if ((cullingArea.intersects(cite->getBoundingRect())) && (((m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
 								cite->DrawObj(painter, cullingArea);
 							groupStack.pop();
 							if (groupStack.count() == 0)
@@ -1461,9 +1220,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
 						continue;
-					oldR = currItem->getRedrawBounding(m_viewMode.scale);
-					oldR.translate(qRound(m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
-					if (clip.intersects(oldR))
+					if (cullingArea.intersects(currItem->getBoundingRect()))
 					{
 						painter->save();
 						painter->translate(currItem->xPos(), currItem->yPos());

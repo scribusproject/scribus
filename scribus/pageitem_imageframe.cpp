@@ -53,7 +53,7 @@ PageItem_ImageFrame::PageItem_ImageFrame(ScribusDoc *pa, double x, double y, dou
 {
 }
 
-void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
+void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/, double sc)
 {
 	if(!m_Doc->RePos)
 	{

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #define PAGEITEMLINE_H
 
 #include <QString>
-#include <QRect>
+#include <QRectF>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -45,7 +45,7 @@ public:
 	virtual QString infoDescription();
 	
 protected:
-	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
+	virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
 
 };
 
