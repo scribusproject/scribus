@@ -71,7 +71,7 @@ void SubdividePlugin::languageChange()
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.forAppMode.append(modeEditClip);
-	m_actionInfo.needsNumObjects = 3;
+	m_actionInfo.needsNumObjects = 1;
 }
 
 const QString SubdividePlugin::fullTrName() const
