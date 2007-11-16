@@ -52,7 +52,7 @@ public:
 	const QString& shareDir() const;
 
 	/** @brief Return path to the translations directory */
-	/QString translationDir() const;
+	QString translationDir() const;
 
 	/** @brief Return paths to system font directories*/
 	static QStringList getSystemFontDirs(void);
