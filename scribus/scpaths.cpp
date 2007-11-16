@@ -194,8 +194,8 @@ const QString&  ScPaths::shareDir() const
 
 QString ScPaths::translationDir() const
 {
-        return(m_shareDir + "translations/");
- }
+	return(m_shareDir + "translations/");
+}
 
 
 QStringList ScPaths::getSystemFontDirs(void)
