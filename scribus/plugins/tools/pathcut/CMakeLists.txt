@@ -3,6 +3,11 @@ ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
+INSTALL(FILES
+transform-crop-and-resize.png
+  DESTINATION ${ICONDIR}
+)
+
 SET(PATHCUT_PLUGIN_MOC_CLASSES
 pathcut.h
 )

@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "util.h"
+#include "util_icon.h"
 #include <QPainterPathStroker>
 #include <QMessageBox>
 
@@ -68,6 +69,8 @@ void PathCutPlugin::languageChange()
 	// Action text for menu, including accel
 	m_actionInfo.text = tr("Cut Polygon");
 	// Menu
+	m_actionInfo.icon1 = loadIcon("transform-crop-and-resize.png");
+	m_actionInfo.icon2 = loadIcon("transform-crop-and-resize.png");
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
 	m_actionInfo.subMenuName = tr("Path Tools");
