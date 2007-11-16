@@ -4221,11 +4221,12 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 {
 	//Item to convert is null, return
 	Q_ASSERT(currItem!=NULL);
-	if (currItem==NULL)
-		return false;
+	if (currItem == NULL)
+		return NULL;
 	//Dont attempt a Line conversion
-	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
-		return false;
+//	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
+	if (newType==PageItem::Line)
+		return NULL;
 	//Take the item to convert from the docs Items list
 //	PageItem *oldItem = Items->take(currItem->ItemNr);
 	// Don't use take as we will insert the new item later at the same position
@@ -4250,9 +4251,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			}
 			break;
 		//We dont allow this
-		//case PageItem::Line:
-		//	newItem = new PageItem_Line(*oldItem);
-		//	break;
+/*		case PageItem::Line:
+			newItem = new PageItem_PolyLine(*oldItem);
+			break; */
 		case PageItem::Polygon:
 			newItem = new PageItem_Polygon(*oldItem);
 			break;
@@ -4261,7 +4262,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			break;
 		case PageItem::PathText:
 			if (secondaryItem==NULL)
-				return false;
+				return NULL;
 			if (UndoManager::undoEnabled())
 			{
 				undoManager->beginTransaction(currentPage()->getUName(), 0, Um::PathText, "", Um::ITextFrame);
@@ -4280,7 +4281,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	{
 		if (transactionConversion)
 			undoManager->cancelTransaction();
-		return false;
+		return NULL;
 	}
 	//Do new item type specific adjustments to the new item. Some of this may move when new
 	//constructors are built into the item classes
@@ -4310,9 +4311,8 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			}
 			break;
 		//We dont allow this right now
-		//case PageItem::Line:
-		//	newItem->convertTo(PageItem::Line);
-		//	break;
+	/*	case PageItem::Line:
+			break; */
 		case PageItem::Polygon:
 			newItem->convertTo(PageItem::Polygon);
 			newItem->Frame = false;
@@ -4331,7 +4331,20 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PolyLine:
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
-//			newItem->setPolyClip(qRound(qMax(newItem->lineWidth() / 2, 1)));
+			if(oldItem->itemType()==PageItem::Line)
+			{
+				QMatrix ma;
+				newItem->Frame = false;
+				newItem->FrameType = 3;
+				ma.rotate(newItem->rotation());
+				newItem->PoLine.resize(0);
+				newItem->PoLine.addPoint(0.0, 0.0);
+				newItem->PoLine.addPoint(0.0, 0.0);
+				newItem->PoLine.addPoint(newItem->width(), 0.0);
+				newItem->PoLine.addPoint(newItem->width(), 0.0);
+				newItem->PoLine.map(ma);
+				newItem->setRotation(0.0);
+			}
 			AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
