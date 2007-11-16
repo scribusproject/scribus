@@ -2988,6 +2988,16 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		}
+		else if (SelectedType == 5) // Line
+		{
+			scrMenuMgr->setMenuEnabled("ItemShapes", false);
+			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(true);
+			scrActions["itemConvertToImageFrame"]->setEnabled(false);
+			scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemConvertToPolygon"]->setEnabled(false);
+			scrActions["itemConvertToTextFrame"]->setEnabled(false);
+		}
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
@@ -3138,38 +3148,86 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			{
 				if (SelectedType != -1)
 				{
-					if (ai.notSuitableFor.contains(SelectedType))
-						pluginAction->setEnabled(false);
+					bool correctAppMode = false;
+					if (ai.forAppMode.count() == 0)
+						correctAppMode = true;
+					else if (ai.forAppMode.contains(doc->appMode))
+						correctAppMode = true;
+					if (correctAppMode)
+					{
+						if (ai.needsNumObjects == -1)
+							pluginAction->setEnabled(true);
+						else
+						{
+							if (ai.needsNumObjects > 2)
+							{
+								bool setter = true;
+								for (uint bx = 0; bx < docSelectionCount; ++bx)
+								{
+									if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
+										setter = false;
+								}
+								pluginAction->setEnabled(setter);
+							}
+							else
+							{
+								if (docSelectionCount == static_cast<uint>(ai.needsNumObjects))
+								{
+									if (ai.needsNumObjects == 2)
+									{
+										int sel1 = doc->m_Selection->itemAt(0)->itemType();
+										int sel2 = doc->m_Selection->itemAt(1)->itemType();
+										if (ai.notSuitableFor.contains(sel1))
+											pluginAction->setEnabled(false);
+										else if (ai.notSuitableFor.contains(sel2))
+											pluginAction->setEnabled(false);
+										else
+										{
+											if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() == 0))
+												pluginAction->setEnabled(true);
+											else if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() != 0))
+											{
+												if ((ai.secondObjectType.contains(sel2)) || (ai.secondObjectType.contains(sel1)))
+													pluginAction->setEnabled(true);
+											}
+											else if ((ai.firstObjectType.count() != 0) && (ai.secondObjectType.count() == 0))
+											{
+												if ((ai.firstObjectType.contains(sel2)) || (ai.firstObjectType.contains(sel1)))
+													pluginAction->setEnabled(true);
+											}
+											if (((ai.firstObjectType.contains(sel1)) && (ai.secondObjectType.contains(sel2))) || ((ai.firstObjectType.contains(sel2)) && (ai.secondObjectType.contains(sel1))))
+												pluginAction->setEnabled(true);
+										}
+									}
+									else if (!ai.notSuitableFor.contains(SelectedType))
+										pluginAction->setEnabled(true);
+									else
+										pluginAction->setEnabled(false);
+								}
+								else
+									pluginAction->setEnabled(false);
+							}
+						}
+					}
 					else
-					{
-						if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
-							pluginAction->setEnabled(true);
-						else if (docSelectionCount == static_cast<uint>(ai.needsNumObjects))
-							pluginAction->setEnabled(true);
-						else
-							pluginAction->setEnabled(false);
-					}
-					if (ai.forAppMode.count() != 0)
-					{
-						if (ai.forAppMode.contains(doc->appMode))
-							pluginAction->setEnabled(true);
-						else
-							pluginAction->setEnabled(false);
-					}
+						pluginAction->setEnabled(false);
 				}
 				else
 				{
-					if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
-						pluginAction->setEnabled(true);
-					else
-						pluginAction->setEnabled(false);
-					if (ai.forAppMode.count() != 0)
+					bool correctAppMode = false;
+					if (ai.forAppMode.count() == 0)
+						correctAppMode = true;
+					else if (ai.forAppMode.contains(doc->appMode))
+						correctAppMode = true;
+					if (correctAppMode)
 					{
-						if (ai.forAppMode.contains(doc->appMode))
+						if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
 							pluginAction->setEnabled(true);
 						else
 							pluginAction->setEnabled(false);
 					}
+					else
+						pluginAction->setEnabled(false);
 				}
 			}
 		}
@@ -6289,10 +6347,86 @@ void ScribusMainWindow::setAppMode(int mode)
 				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != 0)
 				{
-					if (ai.forAppMode.count() != 0)
+					if (doc->m_Selection->count() != 0)
 					{
-						if (ai.forAppMode.contains(mode))
-							pluginAction->setEnabled(true);
+						bool correctAppMode = false;
+						if (ai.forAppMode.count() == 0)
+							correctAppMode = true;
+						else if (ai.forAppMode.contains(doc->appMode))
+							correctAppMode = true;
+						if (correctAppMode)
+						{
+							if (ai.needsNumObjects == -1)
+								pluginAction->setEnabled(true);
+							else
+							{
+								if (ai.needsNumObjects > 2)
+								{
+									bool setter = true;
+									for (int bx = 0; bx < doc->m_Selection->count(); ++bx)
+									{
+										if (ai.notSuitableFor.contains(doc->m_Selection->itemAt(bx)->itemType()))
+											setter = false;
+									}
+									pluginAction->setEnabled(setter);
+								}
+								else
+								{
+									if (doc->m_Selection->count() == ai.needsNumObjects)
+									{
+										if (ai.needsNumObjects == 2)
+										{
+											int sel1 = doc->m_Selection->itemAt(0)->itemType();
+											int sel2 = doc->m_Selection->itemAt(1)->itemType();
+											if (ai.notSuitableFor.contains(sel1))
+												pluginAction->setEnabled(false);
+											else if (ai.notSuitableFor.contains(sel2))
+												pluginAction->setEnabled(false);
+											else
+											{
+												if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() == 0))
+													pluginAction->setEnabled(true);
+												else if ((ai.firstObjectType.count() == 0) && (ai.secondObjectType.count() != 0))
+												{
+													if ((ai.secondObjectType.contains(sel2)) || (ai.secondObjectType.contains(sel1)))
+														pluginAction->setEnabled(true);
+												}
+												else if ((ai.firstObjectType.count() != 0) && (ai.secondObjectType.count() == 0))
+												{
+													if ((ai.firstObjectType.contains(sel2)) || (ai.firstObjectType.contains(sel1)))
+														pluginAction->setEnabled(true);
+												}
+												if (((ai.firstObjectType.contains(sel1)) && (ai.secondObjectType.contains(sel2))) || ((ai.firstObjectType.contains(sel2)) && (ai.secondObjectType.contains(sel1))))
+													pluginAction->setEnabled(true);
+											}
+										}
+										else if (!ai.notSuitableFor.contains(doc->m_Selection->itemAt(0)->itemType()))
+											pluginAction->setEnabled(true);
+										else
+											pluginAction->setEnabled(false);
+									}
+									else
+										pluginAction->setEnabled(false);
+								}
+							}
+						}
+						else
+							pluginAction->setEnabled(false);
+					}
+					else
+					{
+						bool correctAppMode = false;
+						if (ai.forAppMode.count() == 0)
+							correctAppMode = true;
+						else if (ai.forAppMode.contains(doc->appMode))
+							correctAppMode = true;
+						if (correctAppMode)
+						{
+							if ((ai.needsNumObjects == -1) || (ai.needsNumObjects > 2))
+								pluginAction->setEnabled(true);
+							else
+								pluginAction->setEnabled(false);
+						}
 						else
 							pluginAction->setEnabled(false);
 					}

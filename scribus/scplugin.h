@@ -260,9 +260,13 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QString toolBarName;		// translateable ToolBar title
 			QPixmap icon1;
 			QPixmap icon2;
-			QList<int> notSuitableFor;	// a list of PageItem type values which the plugin can *not* handle
-			QList<int> forAppMode;		// a list of AppMode values for which the plugin will be active, an empty list indicates that the plugin is always active
-			int needsNumObjects;		// plugin needs this number of selected Objects. -1 = needs no Object, num > 2 any number of Objects is allowed
+			QList<int> notSuitableFor;		// a list of PageItem type values which the plugin can *not* handle
+			QList<int> forAppMode;			// a list of AppMode values for which the plugin will be active, an empty list indicates that the plugin is always active
+			int needsNumObjects;			// plugin needs this number of selected Objects. -1 = needs no Object, num > 2 any number of Objects is allowed
+			QList<int> firstObjectType;		// when needsNumObjects is 2 this list contains the Object Types of the first object on the selection
+			QList<int> secondObjectType;	// when needsNumObjects is 2 this list contains the Object Types of the second object on the selection
+											// -1 indicates that any kind of object is possible. Otherwise the selection must contain the 2 Object Types
+											// for the Plugin Action to be enabled
 			bool enabledOnStartup;
 		};
 

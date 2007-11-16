@@ -64,6 +64,23 @@ const QString ScPlugin::pluginTypeName() const
 
 ScActionPlugin::ScActionPlugin() : ScPlugin()
 {
+	m_actionInfo.name = "";
+	m_actionInfo.text = "";
+	m_actionInfo.keySequence = "";
+	m_actionInfo.menu = "";
+	m_actionInfo.menuAfterName = "";
+	m_actionInfo.parentMenu = "";
+	m_actionInfo.subMenuName = "";
+	m_actionInfo.toolbar = "";
+	m_actionInfo.toolBarName = "";
+	m_actionInfo.icon1 = QPixmap();
+	m_actionInfo.icon2 = QPixmap();
+	m_actionInfo.notSuitableFor.clear();
+	m_actionInfo.forAppMode.clear();
+	m_actionInfo.needsNumObjects = -1;
+	m_actionInfo.firstObjectType.clear();
+	m_actionInfo.secondObjectType.clear();
+	m_actionInfo.enabledOnStartup = true;
 }
 
 ScActionPlugin::~ScActionPlugin()
