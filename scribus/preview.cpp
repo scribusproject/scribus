@@ -537,8 +537,9 @@ int PPreview::RenderPreview(int Seite, int Res)
 		if (dd != NULL)
 		{
 			dd->PS_set_file( ScPaths::getTempFileDir() + "/tmp.ps");
-			dd->CreatePS(doc, options);
+			ret = dd->CreatePS(doc, options);
 			delete dd;
+			if (ret != 0) return 1;
 		}
 		else
 			return ret;
@@ -640,8 +641,9 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		if (dd != NULL)
 		{
 			dd->PS_set_file(ScPaths::getTempFileDir()+"/tmp.ps");
-			dd->CreatePS(doc, options);
+			ret = dd->CreatePS(doc, options);
 			delete dd;
+			if (ret != 0) return 1;
 		}
 		else
 			return ret;

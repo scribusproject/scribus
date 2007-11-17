@@ -536,8 +536,9 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions
 	tempFilePath = PrefsManager::instance()->preferencesLocation() + "/tmp.ps";
 	PSLib *dd = new PSLib(options2, false, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors );
 	dd->PS_set_file( tempFilePath );
-	dd->CreatePS( doc, options2);
+	ret = dd->CreatePS( doc, options2);
 	delete dd;
+	if (ret != 0) return false;
 
 	if ( options.prnEngine == PostScript1 || options.prnEngine == PostScript2 )
 	{

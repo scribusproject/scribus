@@ -18,13 +18,15 @@ class ScPrintEngine : public QObject
 
 protected:
 
-	bool m_abort;
+	bool    m_abort;
+	QString m_errorMessage;
 
 	ScPrintEngine() { m_abort = false; }
 
 public:
 	virtual ~ScPrintEngine() {}
 	virtual bool print(ScribusDoc& doc, PrintOptions& options) = 0;
+	virtual const QString& errorMessage(void) { return m_errorMessage; }
 
 public slots:
 	void cancelRequested(void) { m_abort = true; }

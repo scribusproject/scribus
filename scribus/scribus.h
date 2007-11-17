@@ -157,8 +157,8 @@ public:
 	QString GetLang(QString inLang);
 	bool getPDFDriver(const QString & fn, const QString & nam,
 					  int Components, const std::vector<int> & pageNs,
-					  const QMap<int,QPixmap> & thumbs);
-	bool DoSaveAsEps(QString fn);
+					  const QMap<int,QPixmap> & thumbs, QString& error);
+	bool DoSaveAsEps(QString fn, QString& error);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
 						int optionFlags = fdExistingFiles, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
 	/*! \brief Recalculate the colors after changing CMS settings.
@@ -329,9 +329,10 @@ public slots:
 	\author Franz Schmid
 	\brief Generate and print PostScript from a doc
 	\param options PrintOptions struct to control all settings
+	\param error   Error Message in case of failure
 	\sa ScribusMainWindow::slotFilePrint()
 	\retval bool True for success */
-	bool doPrint(PrintOptions &options);
+	bool doPrint(PrintOptions &options, QString& error);
 	/** \brief exits the application */
 	void slotFileQuit();
 	/** \brief put the marked text/object into the clipboard and remove

@@ -4496,6 +4496,7 @@ void ScribusMainWindow::slotReallyPrint()
 		scrActions["toolsPreflightVerifier"]->setChecked(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
 	}
+	QString printError;
 	PrintOptions options;
 	mainWindowStatusLabel->setText( tr("Printing..."));
 	if (doc->Print_Options.firstUse)
@@ -4535,11 +4536,14 @@ void ScribusMainWindow::slotReallyPrint()
 				parsePagesString(printer->pageNr->text(), &doc->Print_Options.pageNumbers, doc->DocPages.count());
 		}
 		PrinterUsed = true;
-		done = doPrint(doc->Print_Options);
+		done = doPrint(doc->Print_Options, printError);
 		if (!done)
 		{
+			QString message = tr("Printing failed!");
+			if (!printError.isEmpty())
+				message += QString("\n%1").arg(printError);
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			QMessageBox::warning(this, CommonStrings::trWarning, tr("Printing failed!"), CommonStrings::tr_OK);
+			QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
 		}
 		else
 			doc->Print_Options.firstUse = false;
@@ -4552,7 +4556,7 @@ void ScribusMainWindow::slotReallyPrint()
 	mainWindowStatusLabel->setText( tr("Ready"));
 }
 
-bool ScribusMainWindow::doPrint(PrintOptions &options)
+bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 {
 	bool printDone = false;
 	QString filename(options.filename);
@@ -4585,8 +4589,12 @@ bool ScribusMainWindow::doPrint(PrintOptions &options)
 	if (prnEngine)
 	{
 		printDone = prnEngine->print(*doc, options);
+		if (!printDone)
+			error = prnEngine->errorMessage();
 		delete prnEngine;
 	}
+	else
+		error = tr( "Print engine initialization failed");
 	ScCore->fileWatcher->start();
 	return printDone;
 }
@@ -7619,7 +7627,7 @@ void ScribusMainWindow::printPreview()
 	doPrintPreview();
 }
 
-bool ScribusMainWindow::DoSaveAsEps(QString fn)
+bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 {
 	QStringList spots;
 	bool return_value = true;
@@ -7659,7 +7667,12 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 	{
 		if (dd->PS_set_file(fn))
 		{
-			dd->CreatePS(doc, options);
+			int psRet = dd->CreatePS(doc, options);
+			if (psRet == 1)
+			{
+				error = dd->errorMessage();
+				return_value = false;
+			}
 		}
 		else
 			return_value = false;
@@ -7739,18 +7752,27 @@ void ScribusMainWindow::reallySaveAsEps()
 		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
 		if (overwrite(this, fn))
 		{
-			if (!DoSaveAsEps(fn))
-				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+			QString epsError;
+			if (!DoSaveAsEps(fn, epsError))
+			{
+				QString message = tr("Cannot write the file: \n%1").arg(fn);
+				if (!epsError.isEmpty())
+					message += QString("\n%1").arg(epsError);
+				QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
+			}
 		}
 	}
 }
 
 bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, int Components,
-									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
+									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs, QString& error)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-	bool ret = PDFlib(*doc).doExport(fn, nam, Components, pageNs, thumbs);
+	PDFlib pdflib(*doc);
+	bool ret = pdflib.doExport(fn, nam, Components, pageNs, thumbs);
+	if (!ret)
+		error = pdflib.errorMessage();
 	ScCore->fileWatcher->start();
 	return ret;
 }
@@ -7834,6 +7856,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		int components=dia.colorSpaceComponents();
 		QString nam(dia.cmsDescriptor());
 		QString fileName = doc->PDF_Options.Datei;
+		QString errorMsg;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
 		if (doc->PDF_Options.useDocBleeds)
 			doc->PDF_Options.bleeds = doc->bleeds;
@@ -7857,10 +7880,13 @@ void ScribusMainWindow::doSaveAsPDF()
 					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
 				thumbs.insert(1, pm);
 				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
-				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs))
+				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg))
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
+					QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei);
+					if (!errorMsg.isEmpty())
+						message = QString("%1\n%2").arg(message).arg(errorMsg);
+					QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
 					return;
 				}
 				aa++;
@@ -7876,10 +7902,13 @@ void ScribusMainWindow::doSaveAsPDF()
 					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[ap]-1, 100));
 				thumbs.insert(pageNs[ap], pm);
 			}
-			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs))
+			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs, errorMsg))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
+				QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei);
+				if (!errorMsg.isEmpty())
+					message = QString("%1\n%2").arg(message).arg(errorMsg);
+				QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
 			}
 		}
 		if (doc->PDF_Options.useDocBleeds)

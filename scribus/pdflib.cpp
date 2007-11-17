@@ -18,3 +18,8 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 {
     return static_cast<PDFLibCore*>(impl)->doExport(fn, nam, Components, pageNs, thumbs);
 }
+
+const QString& PDFlib::errorMessage(void)
+{
+	return static_cast<PDFLibCore*>(impl)->errorMessage();
+}

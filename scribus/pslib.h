@@ -58,9 +58,17 @@ class SCRIBUS_API PSLib : public QObject
 	public:
 		PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
 		virtual ~PSLib() {};
+
+		virtual int   CreatePS(ScribusDoc* Doc, PrintOptions &options);
+		virtual const QString& errorMessage(void);
+
+		virtual void PS_Error(const QString& message);
+		virtual void PS_Error_ImageLoadFailure(const QString& fileName);
+		virtual void PS_Error_InsufficientMemory(void);
+
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);
-		virtual void PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr, bool over = false);
+		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr, bool over = false);
 		virtual void PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -91,7 +99,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 		virtual void PS_show_xyG(QString font, uint gl, double x, double y, bool stop);
-		virtual void PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
+		virtual bool PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
+		virtual bool PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
 		virtual void PS_plate(int nr, QString name = "");
 		virtual void PS_setGray();
 		virtual void PDF_Bookmark(QString text, uint Seite);
@@ -101,9 +110,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateStart(QString Name);
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(QString Name);
-		virtual void PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
-		virtual int CreatePS(ScribusDoc* Doc, PrintOptions &options);
-		virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
+		virtual bool ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
 		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual void putColor(const QString& color, double shade, bool fill);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
@@ -114,15 +121,16 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
 		bool Art;
 	private:
-		void PutSeite(QString c);
-		void PutSeite(QByteArray& array, bool hexEnc);
-		void PutSeite(const char* array, int length, bool hexEnc);
+		void PutPage(QString c);
+		void PutPage(QByteArray& array, bool hexEnc);
+		void PutPage(const char* array, int length, bool hexEnc);
 		void PutDoc(QString c);
 		void PutDoc(QByteArray& array, bool hexEnc);
 		void PutDoc(const char* in, int length, bool hexEnc);
 		QString ToStr(double c);
 		QString IToStr(int c);
 		QString PSEncode(QString in);
+		QString ErrorMessage;
 		QString Prolog;
 		QString Header;
 		QString Creator;

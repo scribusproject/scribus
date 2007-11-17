@@ -53,6 +53,12 @@ public:
 	 */
 	bool doExport(const QString& fn, const QString& nam, int Components,
 				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
+
+	/**
+	 * Return an error message in case export has failed.
+	 */
+	const QString& errorMessage(void);
+
 private:
     /// A pointer to the real implementation of pdflib .
     void* impl;

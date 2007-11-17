@@ -1307,6 +1307,8 @@ QByteArray ScImage::ImageToArray()
 	QRgb *s;
 	QRgb r;
 	QByteArray imgArray(3 * h * w, ' ');
+	if (imgArray.isNull())
+		return imgArray;
 	for( int yi=0; yi < h; ++yi )
 	{
 		s = (QRgb*)(scanLine( yi ));
@@ -1326,13 +1328,14 @@ QByteArray ScImage::ImageToArray()
 
 QByteArray ScImage::ImageToGray()
 {
-	int i = 0;
+	int i = 0, k;
 	int h = height();
 	int w = width();
 	QRgb *s;
 	QRgb r;
 	QByteArray imgArray(h * w, ' ');
-	int k;
+	if (imgArray.isNull())
+		return imgArray;
 	for( int yi=0; yi < h; ++yi )
 	{
 		s = (QRgb*)(scanLine( yi ));
@@ -1357,6 +1360,8 @@ QByteArray ScImage::ImageToCMYK_PDF(bool pre)
 	QRgb r;
 	int c, m, y, k;
 	QByteArray imgArray( 4 * h * w, ' ' );
+	if (imgArray.isNull()) // Memory allocation failure
+		return imgArray;
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )
@@ -1405,10 +1410,10 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 	QRgb *s;
 	QRgb r;
 	int c, m, y, k;
-	if(pl == -1)
-		imgArray.resize(4 * h * w);
-	else
-		imgArray.resize(h * w);
+	int nBytes = (pl == -1) ? (4 * h * w) : (h * w);
+	imgArray.resize(nBytes);
+	if (imgArray.isNull()) // Memory allocation failure
+		return imgArray;
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )

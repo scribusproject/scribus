@@ -51,10 +51,14 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(QString::fromUtf8(Name));
+	QString epsError;
+	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(QString::fromUtf8(Name), epsError);
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to save EPS.","python error").toLocal8Bit().constData());
+		QString message = QObject::tr("Failed to save EPS.","python error");
+		if (!epsError.isEmpty())
+			message += QString("\n%1").arg(epsError);
+		PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
 		return NULL;
 	}
 // 	Py_INCREF(Py_True); // return True not None for backward compat
