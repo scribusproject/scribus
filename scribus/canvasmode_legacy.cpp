@@ -417,7 +417,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			m_view->stopDragTimer();
 			if ((fabs(Dxp - newX) > 10) || (fabs(Dyp - newY) > 10))
 			{
-				m_canvas->resetRenderMode();
+				m_canvas->setRenderMode(Canvas::RENDER_NORMAL);
 				m_view->resetDragTimer();
 				m_doc->DragP = true;
 				m_doc->leaveDrag = false;

@@ -375,13 +375,110 @@ void Canvas::clearBuffers()
 
 void Canvas::adjustBuffer()
 {
-	QRect viewport(-x(), -y(), width(), height());
+	QRect viewport(-x(), -y(), m_view->viewport()->width(), m_view->viewport()->height());
+	qDebug() << "adjust buffer for viewport" << viewport;
 	if (!m_bufferRect.contains(viewport))
 	{
-		// for now just take new viewport. Better: larger buffer to avoid refills
-		m_bufferRect = viewport;
-		m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
-		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
+		// enlarge buffer by half a screenwidth:
+		QRect newRect(m_bufferRect);
+		if (m_bufferRect.left() > viewport.left())
+			newRect.setLeft(qMin(newRect.left() - viewport.width()/2, viewport.left()));
+		if (m_bufferRect.right() < viewport.right())
+			newRect.setRight(qMax(newRect.right() + viewport.width()/2, viewport.right()));
+		if (m_bufferRect.top() > viewport.top())
+			newRect.setTop(qMin(newRect.top() - viewport.height()/2, viewport.top()));
+		if (m_bufferRect.bottom() < viewport.bottom())
+			newRect.setBottom(qMax(newRect.bottom() + viewport.height()/2, viewport.bottom()));
+		// if too large, try something smaller:
+		if (newRect.width() > 3*width())
+		{
+			newRect.setLeft(qMax(viewport.left() - viewport.width()/2, newRect.left()));
+			newRect.setRight(qMin(viewport.right() + viewport.width()/2, newRect.right()));
+		}
+		if (newRect.height() > 3*height())
+		{
+			newRect.setTop(qMax(viewport.top() - viewport.height()/2, newRect.top()));
+			newRect.setBottom(qMin(viewport.bottom() + viewport.height()/2, newRect.bottom()));
+		}
+		// copy buffer:
+		QPixmap newBuffer(newRect.width(), newRect.height());
+		QPainter p(&newBuffer);
+		int xpos = m_bufferRect.x() - newRect.x();
+		int ypos = m_bufferRect.y() - newRect.y();
+		int x = 0;
+		int y = 0;
+		int width = m_bufferRect.width();
+		int height = m_bufferRect.height();
+		if (xpos < 0)
+		{
+			x = -xpos;
+			width -= x;
+			xpos = 0;
+		}
+		if (ypos < 0)
+		{
+			y = -ypos;
+			height -= y;
+			ypos = 0;
+		}
+		if (xpos + width > newRect.width())
+		{
+			width = newRect.width() - xpos;
+		}
+		if (ypos + height > newRect.height())
+		{
+			height = newRect.height() - ypos;
+		}
+		p.drawPixmap(xpos, ypos, m_buffer, x, y,  width, height);
+#if DRAW_DEBUG_LINES
+		p.setPen(Qt::blue);
+		p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
+		p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos);
+		p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos+height);
+		p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos+height);
+#endif
+		p.end();
+		qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
+		if (newRect.top() < m_bufferRect.top())
+		{
+			fillBuffer(&newBuffer, newRect.topLeft(), 
+					   QRect(newRect.left(), 
+							 newRect.top(), 
+							 newRect.width(), 
+							 m_bufferRect.top() - newRect.top() + 1));
+		}
+		if (newRect.bottom() > m_bufferRect.bottom())
+		{
+			fillBuffer(&newBuffer, newRect.topLeft(), 
+					   QRect(newRect.left(), 
+							 m_bufferRect.bottom() - 1,
+							 newRect.width(), 
+							 newRect.bottom() - m_bufferRect.bottom() + 1));
+		}
+		if (newRect.left() < m_bufferRect.left())
+		{
+			fillBuffer(&newBuffer, newRect.topLeft(), 
+					   QRect(newRect.left(), 
+							 m_bufferRect.top(), 
+							 m_bufferRect.left() - newRect.left() + 1, 
+							 m_bufferRect.height()));
+		}
+		if (newRect.right() > m_bufferRect.right())
+		{
+			fillBuffer(&newBuffer, newRect.topLeft(), 
+					   QRect(m_bufferRect.right() - 1, 
+							 m_bufferRect.top(), 
+							 newRect.right() - m_bufferRect.right() + 1, 
+							 m_bufferRect.height()));
+		}
+		m_buffer = newBuffer;
+		m_bufferRect = newRect;
+#if DRAW_DEBUG_LINES
+		QPainter p2(&m_buffer);
+		p2.setPen(Qt::blue);
+		p2.drawRect(xpos, ypos, width, height);
+		p2.end();
+#endif
 	}
 }
 
@@ -411,7 +508,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	// fill buffer if necessary
 	if (m_doc->minCanvasCoordinate != oldMinCanvasCoordinate)
 	{
-		clearBuffers();
+//		clearBuffers();
 		oldMinCanvasCoordinate = m_doc->minCanvasCoordinate;
 	}
 	adjustBuffer();	
@@ -422,8 +519,11 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	{
 		case RENDER_NORMAL:
 		{
-			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << p->region().boundingRect();
-			fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
+			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << p->region().boundingRect() << m_viewMode.forceRedraw;
+			if (m_viewMode.forceRedraw)
+			{
+				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
+			}
 			int xV = p->rect().x() - m_bufferRect.x();
 			int yV = p->rect().y() - m_bufferRect.y();
 			int wV = p->rect().width();
