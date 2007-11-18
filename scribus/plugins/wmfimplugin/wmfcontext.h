@@ -37,6 +37,7 @@ public:
 	Qt::BGMode  backgroundMode;
 	QColor      textColor;
 	int         textAlign;
+	int         textCharset;
 	double      textRotation;
 	bool        windingFill;
 	FPointArray path;
@@ -71,6 +72,7 @@ public:
 	Qt::BGMode   backgroundMode(void) { return current().backgroundMode; }
 	QColor       textColor(void) { return current().textColor; }
 	int          textAlign(void) { return current().textAlign; }
+	int          textCharSet(void)  { return current().textCharset; }
 	double       textRotation(void) { return current().textRotation; }
 	bool         windingFill(void) { return current().windingFill; }
 	FPointArray& path (void) { return current().path; }
@@ -83,6 +85,7 @@ public:
 	void setBackgroundMode  (const Qt::BGMode& mode) { current().backgroundMode = mode; }
 	void setTextColor  (const QColor& color) { current().textColor = color; }
 	void setTextAlign  (int align) { current().textAlign = align; }
+	void setTextCharset(int align) { current().textCharset = align; }
 	void setTextRotation (double rot) { current().textRotation = rot; }
 	void setWindingFill (const bool winding) { current().windingFill = winding; }
 	void setPath (const FPointArray& path) { current().path = path; }

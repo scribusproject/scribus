@@ -44,14 +44,98 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-#define WMFIMPORT_DEBUG 1
-#define MAX_OBJHANDLE   128
-
 #include "wmfstruct.h"
 #include "wmfcmd.h"
 #include "wmfcontext.h"
 #include "wmfhandle.h"
 #include "metafuncs.h"
+
+#define WMFIMPORT_DEBUG 1
+#define MAX_OBJHANDLE   128
+
+#define ANSI_CHARSET			0		// ANSI charset (Windows-1252)
+#define DEFAULT_CHARSET			1
+#define SYMBOL_CHARSET			2
+#define MAC_CHARSET				77
+#define SHIFTJIS_CHARSET		128		// Shift JIS charset    (Windows-932)
+#define HANGEUL_CHARSET			129		// Hangeul charset      (Windows-949)
+#define JOHAB_CHARSET			130		// Johab charset        (Windows-1361)
+#define GB2312_CHARSET			134		// GB2312 charset       (Windows-936)
+#define CHINESEBIG5_CHARSET		136		// Chinese Big5 charset (Windows-950)
+#define GREEK_CHARSET			161		// Greek charset        (Windows-1253)
+#define TURKISH_CHARSET			162		// Turkish charset      (Windows-1254)
+#define VIETNAMESE_CHARSET		163		// Vietnamese charset   (Windows-1258)
+#define HEBREW_CHARSET			177		// Hebrew charset       (Windows-1255)
+#define ARABIC_CHARSET			178		// Arabic charset       (Windows-1256)
+#define BALTIC_CHARSET			186		// Baltic charset       (Windows-1257)
+#define RUSSIAN_CHARSET			204		// Cyrillic charset     (Windows-1251)
+#define THAI_CHARSET			222		// Thai charset         (Windows-874)
+#define EASTEUROPE_CHARSET		238		// Eastern european charset (Windows-1250)
+#define OEM_CHARSET				255
+
+/* Symbol to unicode conversion table copied from http://root.cern.ch/viewvc/trunk/qt/src/TQtSymbolCodec.cxx
+This code is placed under GPL licence (http://root.cern.ch/viewvc/trunk/LICENSE) */
+static const ushort greek_symbol_to_unicode[64] = {
+//
+//  upper case letters:
+//  ----------------
+//   Alpha   Beta     Chi   Delta   Epsilon   Phi    Gamma    Eta
+    0x0391, 0x0392, 0x03A7, 0x0394, 0x0395, 0x03A6, 0x0393, 0x0397,
+//   Iota   Theta(S) Kappa  Lambda    Mu      Nu    Omicron   Pi
+    0x0399, 0x03D1, 0x039A, 0x039B, 0x039C, 0x039D, 0x039F, 0x03A0,
+//  Theta    Rho    Sigma    Tau    Upsilon Stigma   Omega     Xi
+    0x0398, 0x03A1, 0x03A3, 0x03A4, 0x03A5, 0x03DB, 0x03A9, 0x039E,
+//   Psi     Zeta   Sigma    Tau    Upsilon  ????   Omega     Xi
+    0x03A8, 0x0396, 0x03EA, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD,
+//
+//  lower case letters:
+//  ----------------
+//   Alpha   Beta    Chi    Delta   Epsilon   Phi    Gamma    Eta
+    0x03B1, 0x03B2, 0x03C7, 0x03B4, 0x03B5, 0x03D5, 0x03B3, 0x03B7,
+//   Iota   Phi (2) Kappa   Lambda    Mu      Nu    Omicron   Pi
+    0x03B9, 0x03C6, 0x03BA, 0x03BB, 0x03BC, 0x03BD, 0x03BF, 0x03C0,
+//  Theta    Rho    Sigma    Tau    Upsilon OmegaPi Omega     Xi
+    0x03B8, 0x03C1, 0x03C3, 0x03C4, 0x03C5, 0x03D6, 0x03B9, 0x03BE,
+//   Psi     Zeta   Sigma    Tau    Upsilon  ????   Omega     Xi
+    0x03C8, 0x03B6, 0x03EA, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD
+};
+
+/* Symbol to unicode conversion table copied from http://root.cern.ch/viewvc/trunk/qt/src/TQtSymbolCodec.cxx
+This code is placed under GPL licence (http://root.cern.ch/viewvc/trunk/LICENSE) */
+static const ushort symbol_to_unicode[96] = {
+//
+//  upper case letters:
+//  ----------------
+// UPSILON  NUMBER  LessEq   Div   INFINITY ???????  CLUB   DIAMOND     
+    0x03D2, 0x0374, 0x2264, 0x2215, 0x221E, 0x0395, 0x2663, 0x2666,
+//   HEART  SPADE   <--->   <---             -->             RING
+    0x2665, 0x2660, 0x2194, 0x2190, 0x2191, 0x2192, 0x2193, 0x2218,
+//  Theta    Rho    Great    ????   Propor  diff    bullet   ????
+    0x0398, 0x03A1, 0x2265, 0x03A4, 0x221D, 0x2202, 0x2219, 0x03A8,
+//   NonEq  Ident    ????   ellips   div     minus  ?????   aleph
+    0x2260, 0x2261, 0xFFFD, 0x22EF, 0x2223, 0x2212, 0xFFFD, 0xFFFD,
+//
+//  lower case letters:
+//  ----------------
+//   Alpha   Beta    Chi    Delta   Epsilon   Phi    Gamma    Eta
+    0x03B1, 0x03B2, 0x03C7, 0x03B4, 0x03B5, 0x03D5, 0x03B3, 0x03B7,
+//   Iota   Phi (2) Kappa   Lambda    Mu      Nu    Omicron   Pi
+    0x03B9, 0x03C6, 0x03BA, 0x03BB, 0x03BC, 0x03BD, 0x03BF, 0x03C0,
+//  Theta    Rho    Sigma    Tau    Upsilon OmegaPi Omega     Xi
+    0x03B8, 0x03C1, 0x03C3, 0x03C4, 0x03C5, 0x03D6, 0x03B9, 0x03BE,
+//   Psi     Zeta   arrow    Tau    Upsilon  ????   Omega     Xi
+    0x03C8, 0x03B6, 0x21D4, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD,
+//  lower case letters:
+//  ----------------
+//   Alpha   Beta    Chi    Delta   Sigma     Phi    Gamma    Eta
+    0x03B1, 0x03B2, 0x03C7, 0x03B4, 0x2211, 0x03D5, 0x03B3, 0x03B7,
+//   Iota   Phi (2) Kappa   Lambda    Mu      Nu    Omicron   Pi
+    0x03B9, 0x03C6, 0x03BA, 0x03BB, 0x03BC, 0x03BD, 0x03BF, 0x03C0,
+//  Theta   Integr  Sigma    Tau    Upsilon OmegaPi Omega     Xi
+    0x03B8, 0x222b, 0x03C3, 0x03C4, 0x03C5, 0x03D6, 0x03B9, 0x03BE,
+//   Psi     Zeta   Sigma    Tau    Upsilon  ????   Omega     Xi
+    0x03C8, 0x03B6, 0x03EA, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD
+};
 
 WMFImport::WMFImport( ScribusMainWindow* mw, int flags ) :
 	QObject(mw)
@@ -131,6 +215,69 @@ QColor WMFImport::colorFromParam( short* params )
     blue     = ( colorRef>>16 ) & 255;
 
     return QColor( red, green, blue );
+}
+
+QTextCodec* WMFImport::codecFromCharset( int charset )
+{
+	QTextCodec* codec = NULL;
+	if (charset == DEFAULT_CHARSET || charset == OEM_CHARSET)
+		codec = QTextCodec::codecForLocale();
+	else if (charset == ANSI_CHARSET)
+		codec = QTextCodec::codecForName("windows-1252");
+	/*else if (charset == SYMBOL_CHARSET)
+		codec = QTextCodec::codecForLocale();// Not supported yet*/
+	else if (charset == MAC_CHARSET)
+		codec = QTextCodec::codecForName("Apple Roman");
+	else if (charset == SHIFTJIS_CHARSET)
+		codec = QTextCodec::codecForName("Shift-JIS");
+	else if (charset == HANGEUL_CHARSET)
+		codec = QTextCodec::codecForName("CP949");
+	else if (charset == GB2312_CHARSET)
+		codec = QTextCodec::codecForName("CP936");
+	else if (charset == CHINESEBIG5_CHARSET)
+		codec = QTextCodec::codecForName("Big5");
+	else if (charset == GREEK_CHARSET)
+		codec = QTextCodec::codecForName("windows-1253");
+	else if (charset == TURKISH_CHARSET)
+		codec = QTextCodec::codecForName("windows-1254");
+	else if (charset == VIETNAMESE_CHARSET)
+		codec = QTextCodec::codecForName("windows-1258");
+	else if (charset == HEBREW_CHARSET)
+		codec = QTextCodec::codecForName("windows-1255");
+	else if (charset == ARABIC_CHARSET)
+		codec = QTextCodec::codecForName("windows-1256");
+	else if (charset == BALTIC_CHARSET)
+		codec = QTextCodec::codecForName("windows-1257");
+	else if (charset == RUSSIAN_CHARSET)
+		codec = QTextCodec::codecForName("windows-1251");
+	else if (charset == THAI_CHARSET)
+		codec = QTextCodec::codecForName("CP874");
+	else if (charset == EASTEUROPE_CHARSET)
+		codec = QTextCodec::codecForName("windows-1250");
+	return codec;
+}
+
+QString WMFImport::symbolToUnicode ( const QByteArray& chars )
+{
+	/*Code under GPL licence (http://root.cern.ch/viewvc/trunk/LICENSE)
+	taken from http://root.cern.ch/viewvc/trunk/qt/src/TQtSymbolCodec.cxx*/
+	QString r;
+	const unsigned char * c = (const unsigned char *) chars.data();
+	
+	if( chars.size() == 0 ) return r;
+	
+	for (int i = 0; i < chars.size(); ++i) 
+	{
+		if ( 64 < c[i] && c[i] <= 64+32 )
+			r.append( QChar(greek_symbol_to_unicode[c[i]-65]) );
+		else if (64+32+1 <= c[i] && c[i] < 64+32+32+1)
+			r.append( QChar(greek_symbol_to_unicode[c[i]-65-32]+32) );
+		else if (161 <= c[i] )
+			r.append(  QChar(symbol_to_unicode[c[i]-161]) );
+		else
+			r.append( QChar(c[i]) );
+	}
+	return r;
 }
 
 FPointArray WMFImport::pointsFromParam( short num, short* params )
@@ -1045,13 +1192,21 @@ void WMFImport::textOut( QList<PageItem*>& items, long num, short* params )
 
 void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 {
+	QString    textString;
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 
 	// ETO_CLIPPED flag add 4 parameters
 	char* ptStr = (params[3] != 0) ? ((char*)&params[8]) : ((char*)&params[4]);
     QByteArray textArray( ptStr, params[2] );
-	QString    textString = QString::fromLocal8Bit(textArray.data());
+	
+	QTextCodec* codec = codecFromCharset( m_context.textCharSet() );
+	if (codec)
+		textString = codec->toUnicode(textArray);
+	else if ( m_context.textCharSet() == SYMBOL_CHARSET )
+		textString = symbolToUnicode(textArray);
+	else
+		textString = QString::fromLocal8Bit(textArray.data());
 
     QFontMetrics fm( m_context.font() );
     int width  = fm.width(textString) + fm.descent();  // because fm.width(text) isn't rigth with Italic text
@@ -1233,7 +1388,7 @@ void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , short* p
 
     handle->rotation = -params[ 2 ]  / 10; // text rotation (in 1/10 degree)
     handle->font.setFamily( family );
-	handle->font.setStyleStrategy( QFont::ForceOutline );
+	handle->font.setStyleStrategy( QFont::PreferOutline );
     handle->font.setFixedPitch( ((params[ 8 ] & 0x01) == 0) );
     // TODO: investigation why some test case need -2. (size of font in logical point)
 	int fontSize = (params[0] != 0) ? (qAbs(params[0]) - 2) : 12;
@@ -1241,6 +1396,8 @@ void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , short* p
     handle->font.setWeight( (params[ 4 ] >> 3) );
     handle->font.setItalic( (params[ 5 ] & 0x01) );
     handle->font.setUnderline( (params[ 5 ] & 0x100) );
+	handle->font.setStrikeOut( (params[ 6 ] & 0x01) );
+	handle->charset = (params[ 6 ] & 0xFF00) >> 8;
 }
 
 void WMFImport::noop( QList<PageItem*>& /*items*/, long, short* )

@@ -92,6 +92,12 @@ protected:
 	/** Get color from parameters array */
 	QColor  colorFromParam( short* params );
 
+	/** Get text codec from charset code */
+	QTextCodec* codecFromCharset( int charset );
+
+	/** Translate characters in symbol charset to unicode */
+	QString symbolToUnicode ( const QByteArray& chars );
+
 	/** Get polygon array from parameters array */
 	FPointArray pointsFromParam( short num,  short* params );
 
