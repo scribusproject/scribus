@@ -3003,13 +3003,12 @@ double ScribusDoc::unitRatio() const
 	return docUnitRatio;
 }
 
-#include <QtDebug>
+
 bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 {
-	qDebug() << "applyMasterPage";
 	if (!MasterNames.contains(pageName))
 		return false;
-	qDebug() << "applyMasterPage 1";
+
 	if (UndoManager::undoEnabled())
 	{
 		if (DocPages.at(pageNumber)->MPageNam != pageName)
