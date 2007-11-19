@@ -54,7 +54,7 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	{
 		QMenu *pmen = new QMenu();
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(ToggleTh()));
+        QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(toggleThumbnail()));
 		px->setCheckable(true);
 		if (Thumb)
 			px->setChecked(true);
@@ -64,10 +64,10 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	QListWidget::mouseReleaseEvent(m);
 }
 
-void SeList::ToggleTh()
+void SeList::toggleThumbnail()
 {
 	Thumb = !Thumb;
-	emit ThumbChanged();
+	emit thumbnailChanged();
 }
 
 void SeList::mousePressEvent(QMouseEvent* e)
@@ -262,13 +262,13 @@ void SeView::dropEvent(QDropEvent * e)
 			p = GetPage(a, b, &lastPage);
 			if (a == rowCount()-1)
 			{
-				emit MovePage(dr, p+1);
+				emit movePage(dr, p+1);
 				return;
 			}
 			if (columnCount() == 1)
 			{
 				if ((a % 2) == 0)
-					emit MovePage(dr, p);
+					emit movePage(dr, p);
 				else
 				{
 					emit UseTemp(tmp, p);
@@ -282,12 +282,7 @@ void SeView::dropEvent(QDropEvent * e)
 			else
 			{
 				if ((b % 2) == 0)
-				{
-					if (lastPage)
-						emit MovePage(dr, p+1);
-					else
-						emit MovePage(dr, p);
-				}
+					emit movePage(dr, lastPage ? p+1 : p);
 				else
 				{
 					emit UseTemp(tmp, p);
@@ -547,23 +542,23 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Rebuild();
 	languageChange();
 	connect(masterPageList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(selMasterPage()));
-	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
-	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
-	connect(pageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
-	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
+	connect(masterPageList, SIGNAL(thumbnailChanged()), this, SLOT(rebuildMasters()));
+	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(pageView_gotoPage(int, int, int)));
+	connect(pageView, SIGNAL(movePage(int, int)), this, SLOT(pageView_movePage(int, int)));
+	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(deleteMasterPage(QString)));
 	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 	connect(this, SIGNAL(EditTemp(QString)), m_scMW, SLOT(manageMasterPages(QString)));
 	connect(pageView, SIGNAL(UseTemp(QString, int)), m_scMW, SLOT(Apply_MasterPage(QString, int)));
 	connect(pageView, SIGNAL(NewPage(int, QString)), m_scMW, SLOT(slotNewPageP(int, QString)));
 	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
-	connect(this, SIGNAL(GotoSeite(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
+	connect(this, SIGNAL(gotoPage(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
 	
 	Trash->setToolTip( "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
 	masterPageList->setToolTip( "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 }
 
-void PagePalette::DelMPage(QString tmp)
+void PagePalette::deleteMasterPage(QString tmp)
 {
 	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
@@ -596,12 +591,12 @@ void PagePalette::DelMPage(QString tmp)
 			currView->Doc->DocPages.at(b)->MPageNam = CommonStrings::masterPageNormal;
 	}
 	currView->DrawNew();
-	RebuildTemp();
-	RebuildPage();
+	rebuildMasters();
+	rebuildPages();
 	currView->Doc->setModified(true);
 }
 
-void PagePalette::MPage(int r, int c)
+void PagePalette::pageView_movePage(int r, int c)
 {
 	if (r == c)
 		return;
@@ -610,20 +605,20 @@ void PagePalette::MPage(int r, int c)
 	else
 		currView->Doc->movePage(r, r + 1, c, 0);
 	currView->reformPages();
-	RebuildPage();
+	rebuildPages();
 	currView->DrawNew();
 //CB done by doc::reformpages
 // 	currView->Doc->setModified(true);
 }
 
-void PagePalette::GotoPage(int r, int c, int b)
+void PagePalette::pageView_gotoPage(int r, int c, int b)
 {
 	int p;
 	bool dummy;
 	if ((b == Qt::LeftButton) && (r != -1) && (c != -1))
 	{
 		p = pageView->GetPage(r, c, &dummy);
-		emit GotoSeite(p);
+		emit gotoPage(p);
 	}
 }
 
@@ -645,7 +640,7 @@ void PagePalette::handlePageLayout(int layout)
 	currView->reformPages();
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
-	RebuildPage();
+	rebuildPages();
 //CB done by doc::reformpages
 //	currView->Doc->setModified(true);
 }
@@ -656,12 +651,12 @@ void PagePalette::handleFirstPage(int fp)
 	currView->reformPages();
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
-	RebuildPage();
+	rebuildPages();
 //CB done by doc::reformpages
 // 	currView->Doc->setModified(true);
 }
 
-void PagePalette::RebuildTemp()
+void PagePalette::rebuildMasters()
 {
 	if (m_scMW->ScriptRunning)
 		return;
@@ -682,7 +677,7 @@ void PagePalette::RebuildTemp()
 	}
 }
 
-void PagePalette::RebuildPage()
+void PagePalette::rebuildPages()
 {
 	if (m_scMW->ScriptRunning)
 		return;
@@ -786,8 +781,8 @@ void PagePalette::RebuildPage()
 
 void PagePalette::Rebuild()
 {
-	RebuildTemp();
-	RebuildPage();
+	rebuildMasters();
+	rebuildPages();
 	enablePalette(currView != 0);
 }
 

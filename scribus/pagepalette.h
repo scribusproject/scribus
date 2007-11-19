@@ -66,10 +66,11 @@ public:
 	~SeList() {};
 
 private slots:
-	void ToggleTh();
+	void toggleThumbnail();
 
 signals:
-	void ThumbChanged();
+	//! Emitted when user requests/disables the thumbnais for master pages.
+	void thumbnailChanged();
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *m);
@@ -101,7 +102,7 @@ public slots:
 signals:
 	void UseTemp(QString, int);
 	void NewPage(int, QString);
-	void MovePage(int, int);
+	void movePage(int, int);
 	void Click(int, int, int);
 
 protected:
@@ -163,14 +164,16 @@ public:
 
 public slots:
 	void setView(ScribusView *view);
-	void DelMPage(QString tmp);
-	void MPage(int r, int c);
-	void GotoPage(int r, int c, int b);
+	void deleteMasterPage(QString tmp);
+	void pageView_movePage(int r, int c);
+	void pageView_gotoPage(int r, int c, int b);
 	void enablePalette(const bool);
 	void handlePageLayout(int layout);
 	void handleFirstPage(int fp);
-	void RebuildTemp();
-	void RebuildPage();
+	//! Recreate master pages thumbnails (if it's set on)
+	void rebuildMasters();
+	//! Recreate common pages arrangement
+	void rebuildPages();
 	void Rebuild();
 	void markPage(uint nr);
 	void selMasterPage();
@@ -179,7 +182,7 @@ public slots:
 
 signals:
 	void EditTemp(QString);
-	void GotoSeite(int);
+	void gotoPage(int);
 
 protected:
 	QVBoxLayout* PagePaletteLayout;

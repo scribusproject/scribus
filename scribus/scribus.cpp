@@ -2437,7 +2437,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	view->GotoPage(doc->currentPage()->pageNr());
 	view->DrawNew();
 	propertiesPalette->ShowCMS();
-	pagePalette->RebuildPage();
+	pagePalette->rebuildPages();
 }
 
 bool ScribusMainWindow::slotDocSetup()
@@ -5331,7 +5331,7 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 	doc->addPageToSection(wo, 1, 1);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
-	pagePalette->RebuildPage();
+	pagePalette->rebuildPages();
 }
 
 /** Erzeugt eine neue Seite */
@@ -5440,7 +5440,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	}
 	//Use wo, the dialog currently returns a page Index +1 due to old numbering scheme, function now does the -1 as required
 	doc->addPageToSection(wo, where, numPages);
-	pagePalette->RebuildPage();
+	pagePalette->rebuildPages();
 	view->reformPages(mov);
 	view->DrawNew();
 	if (outlinePalette->isVisible())
@@ -6600,7 +6600,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	//CB done by doc::reformpages
 	//slotDocCh();
 	doc->rebuildMasterNames();
-	pagePalette->RebuildPage();
+	pagePalette->rebuildPages();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
@@ -6690,8 +6690,8 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	doc->rebuildMasterNames();
-	pagePalette->RebuildPage();
-	pagePalette->RebuildTemp();
+	pagePalette->rebuildPages();
+	pagePalette->rebuildMasters();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
@@ -6712,7 +6712,7 @@ void ScribusMainWindow::MovePage()
 			doc->movePage(from-1, to, wo-1, wie);
 			view->reformPages();
 			view->DrawNew();
-			pagePalette->RebuildPage();
+			pagePalette->rebuildPages();
 			if (outlinePalette->isVisible())
 				outlinePalette->BuildTree();
 		}
@@ -6734,7 +6734,7 @@ void ScribusMainWindow::CopyPage()
 		doc->copyPage(pageNumberToCopy, wo, whereToInsert, copyCount);
 		view->Deselect(true);
 		view->DrawNew();
-		pagePalette->RebuildPage();
+		pagePalette->rebuildPages();
 		if (outlinePalette->isVisible())
 			outlinePalette->BuildTree();
 	}
@@ -8151,7 +8151,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
 //	doc->setMasterPageMode(false);
 	pagePalette->enablePalette(true);
-	pagePalette->RebuildTemp();
+	pagePalette->rebuildMasters();
 	ActWin->setMasterPagesPalette(NULL);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->reformPages(false);
@@ -8338,11 +8338,11 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	{
 		doc->setMasterPageMode(oldPageMode);
 		doc->rebuildMasterNames();
-		pagePalette->RebuildTemp();
+		pagePalette->rebuildMasters();
 	}
 	if (doc->masterPageMode() && !pageName.isEmpty())
 		ActWin->masterPagesPalette()->updateMasterPageList();
-	pagePalette->RebuildPage();
+	pagePalette->rebuildPages();
 }
 
 void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
