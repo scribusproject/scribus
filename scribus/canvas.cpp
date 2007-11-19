@@ -589,7 +589,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		default:
 			assert (false);
 	}
-	m_view->m_canvasMode->drawControls(&qp);
+//	m_view->m_canvasMode->drawControls(&qp);
+	drawControls(&qp);
 	m_viewMode.forceRedraw = false;
 }
 
