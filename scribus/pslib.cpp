@@ -2195,7 +2195,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		cmsDeleteTransform(solidTransform);
 	if (errorOccured)
 		return 1;
-	else if (!abortExport)
+	else if (abortExport)
 		return 2; //CB Lets leave 1 for general error condition
 	return 0; 
 }
