@@ -705,7 +705,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemPDFIsBookmark"], "ItemPDFOptions");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFAnnotationProps"], "ItemPDFOptions");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFFieldProps"], "ItemPDFOptions");
-	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
+	//scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
 	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToBezierCurve"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToImageFrame"], "ItemConvertTo");
@@ -718,7 +718,7 @@ void ScribusMainWindow::initMenuBar()
 //	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item");
-	scrMenuMgr->setMenuEnabled("ItemShapes", false);
+	//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 	scrActions["itemGroup"]->setEnabled(false);
 	scrActions["itemUngroup"]->setEnabled(false);
 	scrActions["itemAttachTextToPath"]->setEnabled(false);
@@ -2753,7 +2753,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Item", false);
-		scrMenuMgr->setMenuEnabled("ItemShapes", false);
+		//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -2794,7 +2794,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
+		//scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -2828,7 +2828,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["extrasHyphenateText"]->setEnabled(currItem->itemText.length() != 0);
 		scrActions["extrasDeHyphenateText"]->setEnabled(currItem->itemText.length() != 0);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
+		//scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
@@ -2929,7 +2929,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->setMenuEnabled("ItemShapes", false);
+		//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
@@ -2980,7 +2980,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrMenuMgr->setMenuEnabled("Item", true);
 		if (SelectedType == 6) //Polygon
 		{
-			scrMenuMgr->setMenuEnabled("ItemShapes", true);
+			//scrMenuMgr->setMenuEnabled("ItemShapes", true);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
 			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
@@ -2990,7 +2990,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		}
 		else if (SelectedType == 5) // Line
 		{
-			scrMenuMgr->setMenuEnabled("ItemShapes", false);
+			//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(true);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -3076,7 +3076,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		}
 		if (currItem->locked())
 		{
-			scrMenuMgr->setMenuEnabled("ItemShapes", false);
+			//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -9179,7 +9179,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setText("ItemLayer", tr("Send to Layer"));
 			scrMenuMgr->setText("ItemPreviewSettings", tr("Previe&w Settings"));
 			scrMenuMgr->setText("ItemPDFOptions", tr("&PDF Options"));
-			scrMenuMgr->setText("ItemShapes", tr("&Shape"));
+			//scrMenuMgr->setText("ItemShapes", tr("&Shape"));
 			scrMenuMgr->setText("ItemConvertTo", tr("C&onvert To"));
 //			scrMenuMgr->setText("ItemPathOps", tr("Path Tools"));
 			scrMenuMgr->setText("Insert", tr("I&nsert"));
