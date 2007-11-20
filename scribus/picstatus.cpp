@@ -114,23 +114,27 @@ void PicStatus::fillTable()
 	imageViewArea->clear();
 	QListWidgetItem *firstItem=0;
 	QListWidgetItem *tempItem=0;
+
 	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 	{
 		item = m_Doc->MasterItems.at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
-			tempItem=new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
-		if (firstItem==0)
-			firstItem=tempItem;
+			tempItem = new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+		if (firstItem == 0)
+			firstItem = tempItem;
 	}
+
 	for (int i = 0; i < m_Doc->Items->count(); ++i)
 	{
 		item = m_Doc->Items->at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
-			new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
-		if (firstItem==0)
-			firstItem=tempItem;
+			tempItem = new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+		// if an image is selected in a doc, Manage Pictures should
+		// display the selected image and its values
+		if (firstItem == 0 || item->isSelected())
+			firstItem = tempItem;
 	}
 	imageViewArea->setCurrentItem(firstItem);
 	if (firstItem!=0)
