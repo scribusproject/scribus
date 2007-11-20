@@ -69,7 +69,9 @@ void SplashScreen::setStatus( const QString &message )
 #elif defined(Q_OS_MAC)
 	QFont font("Helvetica Regular", 11);
 #else
-	QFont font("Bitstream Vera Sans", 8);
+	QFont font("DejaVu Sans", 8);
+	if (!font.exactMatch())
+		font.setFamily("Bitstream Vera Sans");
 #endif
 	painter.setFont(font);
 //	painter.setPen(QColor(236,233,216));
