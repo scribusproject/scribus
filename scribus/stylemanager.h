@@ -113,7 +113,12 @@ private slots:
 	void slotEdit();
 	void slotClone();
 	void slotNew();
+	//! \brief Open "New Style" widget from "New" GUI button.
 	void slotNewPopup(QAction *);
+	/*! \brief Overloaded slot for context QMenu handling.
+	QActions inserted by QMenu::addAction() can handle triggered() related slots only
+	*/
+	void slotNewPopup();
 	void slotScrap();
 	void slotRightClick(const QPoint &point);
 	void slotDoubleClick(QTreeWidgetItem * item, int column);

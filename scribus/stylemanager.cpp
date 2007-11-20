@@ -568,6 +568,11 @@ void StyleManager::slotNewPopup(QAction *i)
 	createNewStyle(typeName);
 }
 
+void StyleManager::slotNewPopup()
+{
+	slotNewPopup(rcpNewId_);
+}
+
 void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*, int col*/)
 {
 	StyleViewItem *item = static_cast<StyleViewItem*>(styleView->currentItem());
@@ -585,7 +590,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 	{
 		rightClickPopup_->removeAction(rcpNewId_);
 		rcpNewId_ = rightClickPopup_->addAction( tr("New %1").arg(styleClassesPS_[item->rootName()]),
-		                                         this, SLOT(slotNewPopup(int)));
+												this, SLOT(slotNewPopup()));
 		rcpDeleteId_->setEnabled(true);
 		rcpEditId_->setEnabled(true);
 		rcpCloneId_->setEnabled(true);
@@ -598,7 +603,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 	{
 		rightClickPopup_->removeAction(rcpNewId_);
 		rcpNewId_ = rightClickPopup_->addAction( tr("New %1").arg(styleClassesPS_[item->text(0)]),
-		                                         this, SLOT(slotNewPopup(int)));
+												this, SLOT(slotNewPopup()));
 		rcpDeleteId_->setEnabled(false);
 		rcpEditId_->setEnabled(false);
 		rcpCloneId_->setEnabled(false);
