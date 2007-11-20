@@ -3209,7 +3209,7 @@ void ScribusView::updatesOn(bool on)
  */
 void ScribusView::updateCanvas(QRectF box)
 {
-	m_canvas->m_viewMode.firstSpecial = true;
+	m_canvas->m_viewMode.forceRedraw = true;
 	if (box.isValid())
 	{
 		QPoint upperLeft = m_canvas->canvasToLocal(box.topLeft());
