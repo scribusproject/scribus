@@ -2288,12 +2288,12 @@ void Mpalette::NewW()
 			}
 			else
 			{
+				double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
 				if (CurItem->isTableItem)
 				{
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
 					double dist = w - CurItem->width();
-					double oldW = CurItem->width();
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->TopLink != 0)
@@ -2331,8 +2331,8 @@ void Mpalette::NewW()
 				{
 					if (keepFrameWHRatioButton->isOn())
 					{
-						setBH(w, (w / CurItem->width()) * CurItem->height());
-						ScMW->view->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
+						setBH(w, (w / oldW) * CurItem->height());
+						ScMW->view->SizeItem(w, (w / oldW) * CurItem->height(), CurItem->ItemNr, true);
 					}
 					else
 						ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
@@ -2393,12 +2393,12 @@ void Mpalette::NewH()
 			}
 			else
 			{
+				double oldH = (CurItem->height() != 0.0) ? CurItem->height() : 1.0;
 				if (CurItem->isTableItem)
 				{
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
 					double dist = h - CurItem->height();
-					double oldH = CurItem->height();
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->LeftLink != 0)
@@ -2436,8 +2436,8 @@ void Mpalette::NewH()
 				{
 					if (keepFrameWHRatioButton->isOn())
 					{
-						setBH((h / CurItem->height()) * CurItem->width(), h);
-						ScMW->view->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
+						setBH((h / oldH) * CurItem->width(), h);
+						ScMW->view->SizeItem((h / oldH) * CurItem->width(), h, CurItem->ItemNr, true);
 					}
 					else
 						ScMW->view->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
