@@ -955,6 +955,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 									double x2, y2, w, h;
 									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 									moveGroup(ex - x2, ey - y2);
+									m_ScMW->propertiesPalette->updateColorList();
+									m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
+									m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
+									m_ScMW->propertiesPalette->SetLineFormats(Doc);
 								}
 							}
 						}
