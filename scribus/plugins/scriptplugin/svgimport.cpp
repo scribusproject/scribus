@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "scribuscore.h"
 #include "selection.h"
+#include "propertiespalette.h"
 
 #include <QString>
 
@@ -35,6 +36,10 @@ PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
+			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
 		}
 	}
 	else
@@ -65,6 +70,10 @@ PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
+			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
 		}
 	}
 	else
@@ -95,6 +104,10 @@ PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
+			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
 		}
 	}
 	else
@@ -125,6 +138,10 @@ PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
+			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->SetLineFormats(ScCore->primaryMainWindow()->doc);
 		}
 	}
 	else
