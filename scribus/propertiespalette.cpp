@@ -2837,12 +2837,12 @@ void PropertiesPalette::NewW()
 			}
 			else
 			{
+				double oldW = (CurItem->width() != 0.0) ? CurItem->width() : 1.0;
 				if (CurItem->isTableItem)
 				{
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
 					double dist = w - CurItem->width();
-					double oldW = CurItem->width();
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->TopLink != 0)
@@ -2880,8 +2880,8 @@ void PropertiesPalette::NewW()
 				{
 					if (keepFrameWHRatioButton->isChecked())
 					{
-						setBH(w, (w / CurItem->width()) * CurItem->height());
-						doc->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
+						setBH(w, (w / oldW) * CurItem->height());
+						doc->SizeItem(w, (w / oldW) * CurItem->height(), CurItem->ItemNr, true);
 					}
 					else
 						doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
@@ -2942,12 +2942,12 @@ void PropertiesPalette::NewH()
 			}
 			else
 			{
+				double oldH = (CurItem->height() != 0.0) ? CurItem->height() : 1.0;
 				if (CurItem->isTableItem)
 				{
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
 					double dist = h - CurItem->height();
-					double oldH = CurItem->height();
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->LeftLink != 0)
@@ -2985,8 +2985,8 @@ void PropertiesPalette::NewH()
 				{
 					if (keepFrameWHRatioButton->isChecked())
 					{
-						setBH((h / CurItem->height()) * CurItem->width(), h);
-						doc->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
+						setBH((h / oldH) * CurItem->width(), h);
+						doc->SizeItem((h / oldH) * CurItem->width(), h, CurItem->ItemNr, true);
 					}
 					else
 						doc->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
