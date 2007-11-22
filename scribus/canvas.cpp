@@ -263,6 +263,9 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 				QPainterPath currClip;
 				currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
 				currClip.closeSubpath();
+				qDebug() << "itemUnderCursor: master" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
+//				if (currClip.intersects(mouseArea))
+//					qDebug() << "    within Clip:" << currClip.toFillPolygon();
 				if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
 //				if ((QRegion(itemPos.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
 //					(QRegion(currItem->Clip * itemPos).contains(mpo.toRect())))
@@ -309,6 +312,9 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			QPainterPath currClip;
 			currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
 			currClip.closeSubpath();
+			qDebug() << "itemUnderCursor:" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
+//			if (currClip.intersects(mouseArea))
+//				qDebug() << "    within Clip:" << currClip.toFillPolygon();
 			if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
 //				if ((QRegion(itemPos.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
 //				(QRegion(currItem->Clip * itemPos).contains(mpo.toRect())))
@@ -400,12 +406,12 @@ void Canvas::adjustBuffer()
 		if (m_bufferRect.bottom() < viewport.bottom())
 			newRect.setBottom(qMax(newRect.bottom() + viewport.height()/2, viewport.bottom()));
 		// if too large, try something smaller:
-		if (newRect.width() > 3*width())
+		if (newRect.width() > 3*viewport.width())
 		{
 			newRect.setLeft(qMax(viewport.left() - viewport.width()/2, newRect.left()));
 			newRect.setRight(qMin(viewport.right() + viewport.width()/2, newRect.right()));
 		}
-		if (newRect.height() > 3*height())
+		if (newRect.height() > 3*viewport.height())
 		{
 			newRect.setTop(qMax(viewport.top() - viewport.height()/2, newRect.top()));
 			newRect.setBottom(qMin(viewport.bottom() + viewport.height()/2, newRect.bottom()));
