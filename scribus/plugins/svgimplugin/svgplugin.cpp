@@ -298,20 +298,23 @@ void SVGPlug::convert(int flags)
 	viewScaleY = 1;
 	if( !docElem.attribute( "viewBox" ).isEmpty() )
 	{
-		QMatrix matrix;
-		QSize wh2 = parseWidthHeight(docElem);
-		double w2 = wh2.width();
-		double h2 = wh2.height();
-		addGraphicContext();
 		QString viewbox( docElem.attribute( "viewBox" ) );
 		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
-		viewTransformX = points[0].toDouble();
-		viewTransformY = points[1].toDouble();
-		viewScaleX = w2 / points[2].toDouble();
-		viewScaleY = h2 / points[3].toDouble();
-		matrix.translate(viewTransformX, viewTransformY);
-		matrix.scale(viewScaleX, viewScaleY);
-		m_gc.top()->matrix = matrix;
+		if (points.size() > 3)
+		{
+			QMatrix matrix;
+			QSize wh2 = parseWidthHeight(docElem);
+			double w2 = wh2.width();
+			double h2 = wh2.height();
+			addGraphicContext();
+			viewTransformX = points[0].toDouble();
+			viewTransformY = points[1].toDouble();
+			viewScaleX = w2 / points[2].toDouble();
+			viewScaleY = h2 / points[3].toDouble();
+			matrix.translate(viewTransformX, viewTransformY);
+			matrix.scale(viewScaleX, viewScaleY);
+			m_gc.top()->matrix = matrix;
+		}
 	}
 	QList<PageItem*> Elements = parseGroup( docElem );
 	if (flags & LoadSavePlugin::lfCreateDoc)
@@ -719,11 +722,14 @@ QRect SVGPlug::parseViewBox(const QDomElement &e)
 	{
 		QString viewbox( e.attribute( "viewBox" ) );
 		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
-		double left = points[0].toDouble();
-		double bottom  = points[1].toDouble();
-		double width = points[2].toDouble();
-		double height = points[3].toDouble();
-		box.setCoords((int) left, (int) bottom, (int) (left + width), (int) (bottom + height));
+		if (points.size() > 3)
+		{
+			double left = points[0].toDouble();
+			double bottom  = points[1].toDouble();
+			double width = points[2].toDouble();
+			double height = points[3].toDouble();
+			box.setCoords((int) left, (int) bottom, (int) (left + width), (int) (bottom + height));
+		}
 	}
 	return box;
 }
