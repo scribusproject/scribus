@@ -1486,7 +1486,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		double blh = (actPg->height() + bleedBottom + bleedTop) * m_viewMode.scale;
 		
 		QRectF drawRect = QRectF(blx, bly, blw+5, blh+5);
-//		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 		if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 		{
 			painter->setFillMode(ScPainter::Solid);
