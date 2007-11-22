@@ -408,10 +408,8 @@ void ScribusView::togglePreview()
 void ScribusView::changed(QRectF re)
 {
 	qDebug() << "ScribusView-changed(): changed region:" << re;
-//	if (re.isValid())
-		updateCanvas(re);
-//	else
-//		m_canvas->repaint();
+	m_canvas->m_viewMode.forceRedraw = true;
+	updateCanvas(re);
 }
 
 
@@ -3209,11 +3207,10 @@ void ScribusView::updatesOn(bool on)
 
 
 /*!
-  immediately paints the canvas inside the box given in canvas coordinates
+  paints the canvas inside the box given in canvas coordinates
  */
 void ScribusView::updateCanvas(QRectF box)
 {
-	m_canvas->m_viewMode.forceRedraw = true;
 	if (box.isValid())
 	{
 		QPoint upperLeft = m_canvas->canvasToLocal(box.topLeft());
@@ -5195,8 +5192,6 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 
 void ScribusView::updateContents(QRect box)
 {
-	if (m_canvas->m_viewMode.forceRedraw)
-		m_canvas->m_viewMode.firstSpecial = true;
 	if (box.isValid())
 		m_canvas->update(box);
 	else

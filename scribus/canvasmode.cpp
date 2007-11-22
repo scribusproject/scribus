@@ -92,6 +92,9 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 void CanvasMode::drawSelection(QPainter* psx)
 {
 	psx->scale(m_canvas->scale(), m_canvas->scale());
+	psx->translate(-m_doc->minCanvasCoordinate.x(),
+				   -m_doc->minCanvasCoordinate.y());
+	
 	if (m_doc->m_Selection->count() != 0)
 	{
 		uint docSelectionCount = m_doc->m_Selection->count();
@@ -115,19 +118,22 @@ void CanvasMode::drawSelection(QPainter* psx)
 //		y *= m_canvas->scale();
 //		w *= m_canvas->scale();
 //		h *= m_canvas->scale();
+		const double markWidth = 6 / m_canvas->scale();
+		const double halfMarkWidth = 3 / m_canvas->scale();
+
 		psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		psx->setBrush(Qt::NoBrush);
 		psx->drawRect(QRectF(x, y, w, h));
 		psx->setBrush(Qt::red);
 		psx->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		psx->drawRect(QRectF(x+w-6, y+h-6, 6, 6));
-		psx->drawRect(QRectF(x+w/2 - 3, y+h-6, 6, 6));
-		psx->drawRect(QRectF(x+w/2 - 3, y, 6, 6));
-		psx->drawRect(QRectF(x+w-6, y+h/2 - 3, 6, 6));
-		psx->drawRect(QRectF(x+w-6, y, 6, 6));
-		psx->drawRect(QRectF(x, y, 6, 6));
-		psx->drawRect(QRectF(x, y+h/2 - 3, 6, 6));
-		psx->drawRect(QRectF(x, y+h-6, 6, 6));
+		psx->drawRect(QRectF(x+w-markWidth, y+h-markWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y+h-markWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w/2 - halfMarkWidth, y, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w-markWidth, y+h/2 - halfMarkWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x+w-markWidth, y, markWidth, markWidth));
+		psx->drawRect(QRectF(x, y, markWidth, markWidth));
+		psx->drawRect(QRectF(x, y+h/2 - halfMarkWidth, markWidth, markWidth));
+		psx->drawRect(QRectF(x, y+h-markWidth, markWidth, markWidth));
 	}
 }
 

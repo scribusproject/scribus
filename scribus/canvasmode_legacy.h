@@ -42,7 +42,7 @@ public:
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
-	virtual void drawControls(QPainter* p) { }
+	virtual void drawControls(QPainter* p);
 	
 protected:
 	void setResizeCursor(int);

@@ -85,6 +85,11 @@ inline bool LegacyMode::GetItem(PageItem** pi)
 
 // the following code was moved from scribusview.cpp:
 
+void LegacyMode::drawControls(QPainter* p)
+{
+	qDebug() << "LegacyMode::drawControls";
+	drawSelection(p);
+}
 
 void LegacyMode::enterEvent(QEvent *)
 {

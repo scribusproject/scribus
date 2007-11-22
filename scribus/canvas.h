@@ -66,8 +66,6 @@ struct CanvasViewMode
 	bool drawFramelinksWithContents;
 	
 	// used for buffering:
-	bool specialRendering;
-	bool firstSpecial;
 	bool forceRedraw;
 };
 
@@ -125,7 +123,7 @@ public:
 	void setRenderModeUseBuffer(bool use) { m_renderMode = (use ? RENDER_BUFFERED : RENDER_NORMAL) ; }
 
 	double scale() const { return m_viewMode.scale; }
-	void setScale(double scale) { m_viewMode.scale = scale; repaint(); }
+	void setScale(double scale) { if (m_viewMode.scale != scale) { m_viewMode.scale = scale; clearBuffers(); update(); } }
 	QPoint canvasToLocal(FPoint p) const;
 	QPoint canvasToGlobal(FPoint p) const;
 	QPoint canvasToLocal(QPointF p) const;
@@ -166,10 +164,8 @@ public:
 private:
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
-	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QRect neu);
 	void PaintSizeRect(QPolygon neu);
-	void MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool once = false);
 	void Transform(PageItem *currItem, QPainter *p);
 	void Transform(PageItem *currItem, QMatrix& m);
 	void TransformM(PageItem *currItem, QPainter *p);
@@ -191,15 +187,12 @@ private:
 	void drawFrameLinks(ScPainter* painter);
 	void drawControls(QPainter* p);
 	void drawControlsMovingItemsRect(QPainter* pp);
-	void drawControlsHighlightRect(QPainter* pp);
+//	void drawControlsHighlightRect(QPainter* pp);
 	void drawControlsGradientVectors(QPainter* psx, PageItem *currItem);
 	void drawControlsBezierCurve(QPainter* pp, PageItem* currItem);
-	void drawControlsNodeEditPoints(QPainter* pp, PageItem* currItem);
 	void drawControlsMeasurementLine(QPainter* pp);
 	void drawControlsDrawLine(QPainter* pp);
 	void drawControlsFreehandLine(QPainter* pp);
-	void drawControlsSelection(QPainter* pp, PageItem *currItem);
-	void drawControlsSelectionSpecial(QPainter* pp, PageItem *currItem);
 	void getClipPathForPages(FPointArray* PoLine);
 	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
 		
@@ -211,7 +204,6 @@ private:
 	RenderMode m_renderMode;
 	QPixmap m_buffer;
 	QRect m_bufferRect;
-	FPoint oldMinCanvasCoordinate;
 	QPixmap m_selectionBuffer;
 	QRect m_selectionRect;
 };

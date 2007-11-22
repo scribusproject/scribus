@@ -54,8 +54,6 @@ void CanvasViewMode::init()
 	drawSelectedItemsWithControls = false;
 	drawFramelinksWithContents = false;
 	
-	specialRendering = false;
-	firstSpecial = false;
 	forceRedraw = false;
 }
 	
@@ -64,7 +62,6 @@ Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(do
 	setAutoFillBackground(true);
 	m_buffer = QPixmap();
 	m_bufferRect = QRect();
-	oldMinCanvasCoordinate = FPoint();
 	m_viewMode.init();
 	m_renderMode = RENDER_NORMAL;
 }
@@ -377,7 +374,20 @@ void Canvas::adjustBuffer()
 {
 	QRect viewport(-x(), -y(), m_view->viewport()->width(), m_view->viewport()->height());
 	qDebug() << "adjust buffer for viewport" << viewport;
-	if (!m_bufferRect.contains(viewport))
+	if (!m_bufferRect.isValid())
+	{
+		m_bufferRect = viewport;
+		m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
+		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);		
+#if DRAW_DEBUG_LINES
+		QPainter p(&m_buffer);
+		p.setPen(Qt::blue);
+		p.drawLine(0, 0, m_buffer.width(), m_buffer.height());
+		p.drawLine(m_buffer.width(), 0, 0, m_buffer.height());
+		p.end();
+#endif
+	}
+	else if (!m_bufferRect.contains(viewport))
 	{
 		// enlarge buffer by half a screenwidth:
 		QRect newRect(m_bufferRect);
@@ -506,11 +516,6 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		return;
 
 	// fill buffer if necessary
-	if (m_doc->minCanvasCoordinate != oldMinCanvasCoordinate)
-	{
-//		clearBuffers();
-		oldMinCanvasCoordinate = m_doc->minCanvasCoordinate;
-	}
 	adjustBuffer();	
 				
 	QPainter qp(this);
@@ -539,9 +544,10 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 			}
 		}
-			if (m_doc->appMode == modeEditClip)
+			if (m_doc->appMode != modeNormal)
 			{
 				qp.save();
+				qp.scale(m_viewMode.scale, m_viewMode.scale);
 				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
 							 -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 				drawControls( &qp );
@@ -574,11 +580,15 @@ void Canvas::paintEvent ( QPaintEvent * p )
 					qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
 	#endif
 				}
-				qp.save();
-				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
-							-m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
-				drawControls( &qp );
-				qp.restore();
+				if (m_doc->appMode != modeNormal)
+				{
+					qp.save();
+					qp.scale(m_viewMode.scale, m_viewMode.scale);
+					qp.translate(-m_doc->minCanvasCoordinate.x(),
+								 -m_doc->minCanvasCoordinate.y());
+					drawControls( &qp );
+					qp.restore();
+				}
 			}
 			break;
 		case RENDER_SELECTION_SEPARATE:
@@ -589,8 +599,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		default:
 			assert (false);
 	}
-//	m_view->m_canvasMode->drawControls(&qp);
-	drawControls(&qp);
+	// does mode specific rendering, currently selection in legacymode and nodes in nodeedit
+	m_view->m_canvasMode->drawControls(&qp);
 	m_viewMode.forceRedraw = false;
 }
 
@@ -656,7 +666,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		double w = m_doc->currentPage()->width() * m_viewMode.scale;
 		double h = m_doc->currentPage()->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
-//		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 		if ((!m_doc->guidesSettings.before) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 			DrawPageMarks(painter, m_doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 	}
@@ -709,9 +719,11 @@ void Canvas::drawControls(QPainter *psx)
 				{
 					drawControlsFreehandLine(psx);
 				}
-				else
+				else if (m_doc->appMode != modeDrawFreehandLine)
 				{
-					drawControlsHighlightRect(psx);
+					qDebug() << "XXX drawControls - operItemResizing";
+					assert(false);
+//					drawControlsHighlightRect(psx);
 				}
 			}
 		}
@@ -724,7 +736,7 @@ void Canvas::drawControls(QPainter *psx)
 	{
 		if ((m_doc->m_Selection->count() != 0) && (m_doc->appMode != modeDrawBezierLine))
 		{
-			drawControlsSelection(psx, m_doc->m_Selection->itemAt(0));
+//			drawControlsSelection(psx, m_doc->m_Selection->itemAt(0));
 			/*
 			 PageItem *currItem = m_doc->m_Selection->itemAt(0);
 			 if ((m_doc->appMode == modeEditClip) && (currItem->isSelected()))
@@ -760,7 +772,10 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 //				QPoint out = contentsToViewport(QPoint(0, 0));
 //				pp->translate(out.x(), out.y());
 //				pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-				Transform(currItem, pp);
+				pp->save();
+//				Transform(currItem, pp);
+				pp->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+				pp->rotate(currItem->rotation());							
 				pp->setBrush(Qt::NoBrush);
 				pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				if (selectedItemCount < moveWithFullOutlinesThreshold)
@@ -796,6 +811,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 				}
 				else
 					pp->drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
+				pp->restore();
 			}
 		}
 		else
@@ -807,7 +823,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 //			pp->resetMatrix();
 //			pp->translate(out.x(), out.y());
 //			pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-			pp->scale(m_viewMode.scale, m_viewMode.scale);
+//			pp->scale(m_viewMode.scale, m_viewMode.scale);
 			pp->translate(qRound(gx), qRound(gy));
 			pp->drawRect(QRect(0, 0, qRound(gw), qRound(gh)));
 		}
@@ -816,7 +832,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 
 
 /**
- */
+ 
 void Canvas::drawControlsHighlightRect(QPainter* pp)
 {
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
@@ -830,6 +846,8 @@ void Canvas::drawControlsHighlightRect(QPainter* pp)
 	pp->drawPolygon(m_viewMode.redrawPolygon);
 	m_viewMode.redrawPolygon.clear();
 }
+*/
+
 
 /**
  */
@@ -897,16 +915,6 @@ void Canvas::drawControlsBezierCurve(QPainter* pp, PageItem* currItem)
 }
 
 
-/**
- draws the control points for node edit - currently unused, see drawControlsSelection()
- */
-void Canvas::drawControlsNodeEditPoints(QPainter* pp, PageItem* currItem)
-{
-	if (m_doc->nodeEdit.isContourLine)
-		MarkClip(pp, currItem, currItem->ContourLine, true);
-	else
-		MarkClip(pp, currItem, currItem->PoLine, true);
-}
 
 
 /**
@@ -933,7 +941,7 @@ void Canvas::drawControlsDrawLine(QPainter* pp)
 //	pp->resetMatrix();
 //	pp->translate(out.x(), out.y());
 //	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-	pp->scale(m_viewMode.scale, m_viewMode.scale);
+//	pp->scale(m_viewMode.scale, m_viewMode.scale);
 	pp->setBrush(Qt::NoBrush);
 	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	pp->drawPolyline(m_viewMode.redrawPolygon);
@@ -950,7 +958,7 @@ void Canvas::drawControlsFreehandLine(QPainter* pp)
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	pp->translate(out.x(), out.y());
 //	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-	pp->scale(m_viewMode.scale, m_viewMode.scale);
+//	pp->scale(m_viewMode.scale, m_viewMode.scale);
 	pp->setBrush(Qt::NoBrush);
 	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	pp->drawPolyline(m_viewMode.redrawPolygon);
@@ -1235,7 +1243,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 //FIXME						if (!evSpon || forceRedraw) 
 		//					currItem->invalid = true;
 //						if ((!m_MouseButtonPressed) || (m_doc->appMode == modeEditClip))
-						if (((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected() && !m_viewMode.firstSpecial))
+						if (((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
 						{
 							qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
 						}
@@ -1365,7 +1373,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 	double w = m_doc->currentPage()->width() * m_viewMode.scale;
 	double h = m_doc->currentPage()->height() * m_viewMode.scale;
 	QRectF drawRect = QRectF(x, y, w+5, h+5);
-//	drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+	drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 	if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 	{
 		painter->setFillMode(ScPainter::Solid);
@@ -1426,7 +1434,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			double blh = (actPg->height() + bleedBottom + bleedTop) * m_viewMode.scale;
 			
 			QRectF drawRect = QRectF(blx-1, bly-1, blw+6, blh+6);
-//			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 			if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 			{
 				painter->setFillMode(ScPainter::Solid);
@@ -1548,7 +1556,7 @@ void Canvas::drawGuides(ScPainter* painter, int clipx, int clipy, int clipw, int
 		double w = actPg->width() * m_viewMode.scale;
 		double h = actPg->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
-//		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 		if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 			DrawPageMarks(painter, m_doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 	}				
@@ -1652,216 +1660,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 
 
 /**
-  - currently unused, see drawControlsSelection()
- */
-void Canvas::drawControlsSelectionSpecial(QPainter* pp, PageItem *currItem)
-{
-	if (m_doc->m_Selection->isMultipleSelection())
-	{
-//		pp->resetMatrix();
-//		QPoint out = contentsToViewport(QPoint(0, 0));
-//		pp->translate(out.x(), out.y());
-//		pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-		double x, y, w, h;
-		m_doc->m_Selection->setGroupRect();
-		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-		x *= m_viewMode.scale;
-		y *= m_viewMode.scale;
-		w *= m_viewMode.scale;
-		h *= m_viewMode.scale;
-		pp->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		pp->setBrush(Qt::NoBrush);
-		pp->drawRect(QRectF(x, y, w, h));
-		pp->setBrush(Qt::red);
-		pp->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		pp->drawRect(QRectF(x+w-6, y+h-6, 6, 6));
-		pp->drawRect(QRectF(x+w/2 - 3, y+h-6, 6, 6));
-		pp->drawRect(QRectF(x+w/2 - 3, y, 6, 6));
-		pp->drawRect(QRectF(x+w-6, y+h/2 - 3, 6, 6));
-		pp->drawRect(QRectF(x+w-6, y, 6, 6));
-		pp->drawRect(QRectF(x, y, 6, 6));
-		pp->drawRect(QRectF(x, y+h/2 - 3, 6, 6));
-		pp->drawRect(QRectF(x, y+h-6, 6, 6));
-	}
-	else
-	{
-//		pp->resetMatrix();
-//		QPoint out = contentsToViewport(QPoint(0, 0));
-//		pp->translate(out.x(), out.y());
-//		pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-		Transform(currItem, pp);
-		currItem->paintObj(pp);
-	}
-}
-
-
-/**
-  draws the marks for the currently active selection
- */
-void Canvas::drawControlsSelection(QPainter* psx, PageItem *currItem)
-{
-	qDebug() << "Canvas::drawControlsSelection" << (m_doc->appMode == modeEditClip) << (currItem->isSelected());
-	if ((m_doc->appMode == modeEditClip)) // && (currItem->isSelected()) && (!m_viewMode.specialRendering))
-	{
-		if (m_doc->nodeEdit.isContourLine)
-			MarkClip(psx, currItem, currItem->ContourLine, true);
-		else
-			MarkClip(psx, currItem, currItem->PoLine, true);
-	}
-	else
-	{
-		if (m_doc->m_Selection->isMultipleSelection())
-		{
-//			psx->resetMatrix();
-//			QPoint out = contentsToViewport(QPoint(0, 0));
-//			psx->translate(out.x(), out.y());
-//			psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-			if (m_doc->m_Selection->count() != 0)
-			{
-				uint docSelectionCount = m_doc->m_Selection->count();
-				PageItem *currItem;
-				for (uint a=0; a<docSelectionCount; ++a)
-				{
-					currItem = m_doc->m_Selection->itemAt(a);
-					psx->save();
-					Transform(currItem, psx);
-					currItem->paintObj(psx);
-					psx->restore();
-				}
-			}
-//			psx->resetMatrix();
-//			psx->translate(out.x(), out.y());
-//			psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-			double x, y, w, h;
-			m_doc->m_Selection->setGroupRect();
-			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			x *= m_viewMode.scale;
-			y *= m_viewMode.scale;
-			w *= m_viewMode.scale;
-			h *= m_viewMode.scale;
-			psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			psx->setBrush(Qt::NoBrush);
-			psx->drawRect(QRectF(x, y, w, h));
-			psx->setBrush(Qt::red);
-			psx->setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			psx->drawRect(QRectF(x+w-6, y+h-6, 6, 6));
-			psx->drawRect(QRectF(x+w/2 - 3, y+h-6, 6, 6));
-			psx->drawRect(QRectF(x+w/2 - 3, y, 6, 6));
-			psx->drawRect(QRectF(x+w-6, y+h/2 - 3, 6, 6));
-			psx->drawRect(QRectF(x+w-6, y, 6, 6));
-			psx->drawRect(QRectF(x, y, 6, 6));
-			psx->drawRect(QRectF(x, y+h/2 - 3, 6, 6));
-			psx->drawRect(QRectF(x, y+h-6, 6, 6));
-		}
-		else
-		{
-//			psx->resetMatrix();
-//			QPoint out = contentsToViewport(QPoint(0, 0));
-//			psx->translate(out.x(), out.y());
-//			psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-			Transform(currItem, psx);
-			currItem->paintObj(psx);
-		}
-	}
-}
-
-	
-/**
-  draws the control points for node editing
- */
-void Canvas::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
-{
-	qDebug() << "Canvas::MarkClip";
-	double x, y;
-	p->save();
-//	p->resetMatrix();
-//	QPoint out = contentsToViewport(QPoint(0, 0));
-//	p->translate(out.x(), out.y());
-//	p->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-	Transform(currItem, p);
-	p->setPen(QPen(Qt::blue, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	p->setBrush(Qt::NoBrush);
-	if ((m_doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
-		cli = currItem->ContourLine;
-	else
-		cli = currItem->PoLine;
-	if (cli.size() > 3)
-	{
-		for (uint poi=0; poi<cli.size()-3; poi += 4)
-		{
-			if (cli.point(poi).x() > 900000)
-				continue;
-			p->setPen(QPen(Qt::blue, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			FPoint a1 = cli.point(poi);
-			FPoint a2 = cli.point(poi+1);
-			FPoint a3 = cli.point(poi+3);
-			FPoint a4 =	cli.point(poi+2);
-			QPainterPath Bez;
-			Bez.moveTo(a1.x(), a1.y());
-			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
-			p->drawPath(Bez);
-			p->setPen(QPen(Qt::blue, 1 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			p->drawLine(QPointF(a1.x(), a1.y()), QPointF(a2.x(), a2.y()));
-			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
-		}
-	}
-	for (uint a=0; a<cli.size()-1; a += 2)
-	{
-		if (cli.point(a).x() > 900000)
-			continue;
-		if (m_doc->nodeEdit.EdPoints)
-		{
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
-				p->setPen(QPen(Qt::red, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::magenta, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a+1, &x, &y);
-			p->drawPoint(QPointF(x, y));
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
-				p->setPen(QPen(Qt::red, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::blue, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a, &x, &y);
-			p->drawPoint(QPointF(x, y));
-		}
-		else
-		{
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
-				p->setPen(QPen(Qt::red, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::blue, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a, &x, &y);
-			p->drawPoint(QPointF(x, y));
-			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
-				p->setPen(QPen(Qt::red, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			else
-				p->setPen(QPen(Qt::magenta, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-			cli.point(a+1, &x, &y);
-			p->drawPoint(QPointF(x, y));
-		}
-	}
-	if (m_doc->nodeEdit.ClRe != -1)
-	{
-		p->setPen(QPen(Qt::red, 8 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		cli.point(m_doc->nodeEdit.ClRe, &x, &y);
-		p->drawPoint(QPointF(x, y));
-		QList<int>::Iterator itm;
-		for (itm = m_doc->nodeEdit.SelNode.begin(); itm != m_doc->nodeEdit.SelNode.end(); ++itm)
-		{
-			cli.point((*itm), &x, &y);
-			p->drawPoint(QPointF(x, y));
-		}
-		// FIXME:av emit HavePoint(true, MoveSym);
-	}
-	else {
-		// FIXME:av emit HavePoint(false, MoveSym);
-	}
-	p->restore();
-}
-
-
-/**
-  draws the links between texframe chains.
+  draws the links between textframe chains.
   needs the list of visible textframes in m_viewMode.linkedFramesToShow
  */
 void Canvas::drawFrameLinks(ScPainter* painter)
@@ -1957,34 +1756,6 @@ void Canvas::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end)
 	painter->fillPath();
 }
 
-
-/**
-  draws the selection rectangle for a group
-*/
-void Canvas::paintGroupRect(bool norm)
-{
-	double x, y, w, h;
-	getGroupRectScreen(&x, &y, &w, &h);
-	QPainter pgc;
-	pgc.begin(this);
-	pgc.setPen(QPen((norm ? Qt::red : Qt::black), 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-	pgc.setBrush(Qt::NoBrush);
-	pgc.drawRect(static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h));
-	pgc.setBrush(Qt::red);
-	if (norm)
-	{
-		pgc.setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		pgc.drawRect(qRound(x+w-6), qRound(y+h-6), 6, 6);
-		pgc.drawRect(qRound(x+w/2 - 3), qRound(y+h-6), 6, 6);
-		pgc.drawRect(qRound(x+w/2 - 3), qRound(y), 6, 6);
-		pgc.drawRect(qRound(x+w-6), qRound(y+h/2 - 3), 6, 6);
-		pgc.drawRect(qRound(x+w-6), qRound(y), 6, 6);
-		pgc.drawRect(qRound(x), qRound(y), 6, 6);
-		pgc.drawRect(qRound(x), qRound(y+h/2 - 3), 6, 6);
-		pgc.drawRect(qRound(x), qRound(y+h-6), 6, 6);
-	}
-	pgc.end();
-}
 
 
 /**

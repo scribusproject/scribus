@@ -54,7 +54,103 @@ CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), 
 void CanvasMode_NodeEdit::drawControls(QPainter* p) 
 {
 	qDebug() << "NodeEdit::drawControls";
+//	void Canvas::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
+	double x, y;
+	PageItem* currItem = m_doc->m_Selection->itemAt(0);
+	FPointArray cli;
+	
+	p->save();
+	p->scale(m_canvas->scale(), m_canvas->scale());
+	p->translate(-m_doc->minCanvasCoordinate.x(),
+				   -m_doc->minCanvasCoordinate.y());
+	p->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+	p->rotate(currItem->rotation());			
+	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p->setBrush(Qt::NoBrush);
+
+	if ((m_doc->nodeEdit.isContourLine) && (currItem->ContourLine.size() != 0))
+		cli = currItem->ContourLine;
+	else
+		cli = currItem->PoLine;
+	// draw curve
+	const double scale = m_canvas->m_viewMode.scale;
+	const double onePerScale = 1 / scale;
+	if (cli.size() > 3)
+	{
+		for (uint poi=0; poi<cli.size()-3; poi += 4)
+		{
+			if (cli.point(poi).x() > 900000)
+				continue;
+			p->setPen(QPen(Qt::blue, onePerScale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			FPoint a1 = cli.point(poi);
+			FPoint a2 = cli.point(poi+1);
+			FPoint a3 = cli.point(poi+3);
+			FPoint a4 =	cli.point(poi+2);
+			QPainterPath Bez;
+			Bez.moveTo(a1.x(), a1.y());
+			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+			p->drawPath(Bez);
+			p->setPen(QPen(Qt::blue, onePerScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->drawLine(QPointF(a1.x(), a1.y()), QPointF(a2.x(), a2.y()));
+			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
+		}
+	}
+	// draw points
+	for (uint a=0; a<cli.size()-1; a += 2)
+	{
+		if (cli.point(a).x() > 900000)
+			continue;
+		if (m_doc->nodeEdit.EdPoints)
+		{
+			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
+				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			else
+				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(a+1, &x, &y);
+			p->drawPoint(QPointF(x, y));
+			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
+				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			else
+				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(a, &x, &y);
+			p->drawPoint(QPointF(x, y));
+		}
+		else
+		{
+			if (m_doc->nodeEdit.ClRe == static_cast<int>(a))
+				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			else
+				p->setPen(QPen(Qt::blue, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(a, &x, &y);
+			p->drawPoint(QPointF(x, y));
+			if (m_doc->nodeEdit.ClRe == static_cast<int>(a+1))
+				p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			else
+				p->setPen(QPen(Qt::magenta, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+			cli.point(a+1, &x, &y);
+			p->drawPoint(QPointF(x, y));
+		}
+	}
+	
+	if (m_doc->nodeEdit.ClRe != -1)
+	{
+		p->setPen(QPen(Qt::red, 8 / scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		cli.point(m_doc->nodeEdit.ClRe, &x, &y);
+		p->drawPoint(QPointF(x, y));
+		QList<int>::Iterator itm;
+		for (itm = m_doc->nodeEdit.SelNode.begin(); itm != m_doc->nodeEdit.SelNode.end(); ++itm)
+		{
+			cli.point((*itm), &x, &y);
+			p->drawPoint(QPointF(x, y));
+		}
+		// FIXME:av emit HavePoint(true, MoveSym);
+	}
+	else {
+		// FIXME:av emit HavePoint(false, MoveSym);
+	}
+	p->restore();
 }
+
 
 void CanvasMode_NodeEdit::activate(bool fromGesture)
 {
@@ -442,8 +538,12 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	if (m_view->moveTimerElapsed())
 	{
 		m_view->stopDragTimer();
-		m_doc->nodeEdit.SegP1 = -1;
-		m_doc->nodeEdit.SegP2 = -1;
+		if (m_doc->nodeEdit.SegP1 != -1 && m_doc->nodeEdit.SegP2 != -1)
+		{
+			m_doc->nodeEdit.deselect();
+			m_doc->nodeEdit.SegP1 = -1;
+			m_doc->nodeEdit.SegP2 = -1;
+		}
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_canvas->m_viewMode.operItemMoving = false;
 		double xposOrig = currItem->xPos();

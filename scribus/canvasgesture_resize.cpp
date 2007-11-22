@@ -16,17 +16,33 @@
 #include "canvasgesture_resize.h"
 
 #include <QMouseEvent>
+#include <QPainter>
+#include <QPen>
 #include <QRubberBand>
 
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 
+
+void ResizeGesture::drawControls(QPainter* p) 
+{ 
+	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+	QRect localRect = m_bounds.translated(-m_canvas->mapToGlobal(QPoint(0,0)));
+	p->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	drawColor.setAlpha(64);
+	p->setBrush(drawColor);
+	p->drawRect(localRect);
+//	p->setPen(Qt::darkMagenta);
+//	p->drawLine(localRect.topLeft(), localRect.bottomRight());
+}
+
+
 void ResizeGesture::activate(bool flag)
 {
 	qDebug() << "ResizeGesture::activate" << flag;
-	if (!m_rectangle)
-		m_rectangle = new QRubberBand(QRubberBand::Rectangle);
+//	if (!m_rectangle)
+//		m_rectangle = new QRubberBand(QRubberBand::Rectangle);
 	
 	if (m_doc->m_Selection->count() == 0)
 	{
@@ -51,14 +67,14 @@ void ResizeGesture::activate(bool flag)
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 	}
-	m_rectangle->setGeometry(m_bounds);
-	m_rectangle->show();
+//	m_rectangle->setGeometry(m_bounds);
+//	m_rectangle->show();
 }
 
 void ResizeGesture::deactivate(bool flag)
 {
 	qDebug() << "ResizeGesture::deactivate" << flag;
-	m_rectangle->hide();
+//	m_rectangle->hide();
 }
 
 void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
@@ -94,13 +110,15 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	}
 	currItem->updateClip();
 	m_doc->setRedrawBounding(currItem);
-	m_canvas->setRenderModeFillBuffer();
+	currItem->update();
+	m_canvas->update();
 	m_view->stopGesture();
 }
 
 void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 {
 	adjustBounds(m);
+	m_canvas->repaint();
 }
 
 
@@ -154,7 +172,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 			break;
 	}
 	//FIXME: show rotated
-	m_rectangle->setGeometry(m_bounds.normalized());		
+//	m_rectangle->setGeometry(m_bounds.normalized());		
 }
 
 void ResizeGesture::mousePressEvent(QMouseEvent *m)

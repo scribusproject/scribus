@@ -48,6 +48,7 @@ public:
 	ResizeGesture (CanvasMode* parent, Canvas::FrameHandle framehandle=Canvas::SOUTHEAST) : CanvasGesture(parent), m_handle(framehandle), m_rectangle(NULL) {};
 	
 
+	virtual void drawControls(QPainter* p);
 	virtual void activate(bool);
 	virtual void deactivate(bool);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
