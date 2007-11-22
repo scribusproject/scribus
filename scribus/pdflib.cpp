@@ -4542,7 +4542,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 				if (Options.Version < 14)
 					cnx += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 				else
-					cnx += UsedFontsP[ite->font()]+"Form";
+					cnx += UsedFontsP[ite->font()];
+//					cnx += UsedFontsP[ite->font()]+"Form";
 			}
 			cnx += " "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != CommonStrings::None)
@@ -4817,7 +4818,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->font()]+"Form";
+			cc += UsedFontsP[ite->font()];
+//			cc += UsedFontsP[ite->font()]+"Form";
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4858,7 +4860,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->font()]+"Form";
+			cc += UsedFontsP[ite->font()];
+//			cc += UsedFontsP[ite->font()]+"Form";
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
