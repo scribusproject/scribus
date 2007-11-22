@@ -416,85 +416,102 @@ void Canvas::adjustBuffer()
 			newRect.setTop(qMax(viewport.top() - viewport.height()/2, newRect.top()));
 			newRect.setBottom(qMin(viewport.bottom() + viewport.height()/2, newRect.bottom()));
 		}
-		// copy buffer:
-		QPixmap newBuffer(newRect.width(), newRect.height());
-		QPainter p(&newBuffer);
-		int xpos = m_bufferRect.x() - newRect.x();
-		int ypos = m_bufferRect.y() - newRect.y();
-		int x = 0;
-		int y = 0;
-		int width = m_bufferRect.width();
-		int height = m_bufferRect.height();
-		if (xpos < 0)
+		if (!m_bufferRect.intersects(newRect))
 		{
-			x = -xpos;
-			width -= x;
-			xpos = 0;
-		}
-		if (ypos < 0)
-		{
-			y = -ypos;
-			height -= y;
-			ypos = 0;
-		}
-		if (xpos + width > newRect.width())
-		{
-			width = newRect.width() - xpos;
-		}
-		if (ypos + height > newRect.height())
-		{
-			height = newRect.height() - ypos;
-		}
-		p.drawPixmap(xpos, ypos, m_buffer, x, y,  width, height);
+			qDebug() << "fresh buffer" << newRect << "was" << m_bufferRect;
+			m_bufferRect = newRect;
+			m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
+			fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);		
 #if DRAW_DEBUG_LINES
-		p.setPen(Qt::blue);
-		p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
-		p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos);
-		p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos+height);
-		p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos+height);
-#endif
-		p.end();
-		qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
-		if (newRect.top() < m_bufferRect.top())
-		{
-			fillBuffer(&newBuffer, newRect.topLeft(), 
-					   QRect(newRect.left(), 
-							 newRect.top(), 
-							 newRect.width(), 
-							 m_bufferRect.top() - newRect.top() + 1));
+			QPainter p(&m_buffer);
+			p.setPen(Qt::blue);
+			p.drawLine(0, 0, m_buffer.width(), m_buffer.height());
+			p.drawLine(m_buffer.width(), 0, 0, m_buffer.height());
+			p.end();
+#endif			
 		}
-		if (newRect.bottom() > m_bufferRect.bottom())
+		else
 		{
-			fillBuffer(&newBuffer, newRect.topLeft(), 
-					   QRect(newRect.left(), 
-							 m_bufferRect.bottom() - 1,
-							 newRect.width(), 
-							 newRect.bottom() - m_bufferRect.bottom() + 1));
-		}
-		if (newRect.left() < m_bufferRect.left())
-		{
-			fillBuffer(&newBuffer, newRect.topLeft(), 
-					   QRect(newRect.left(), 
-							 m_bufferRect.top(), 
-							 m_bufferRect.left() - newRect.left() + 1, 
-							 m_bufferRect.height()));
-		}
-		if (newRect.right() > m_bufferRect.right())
-		{
-			fillBuffer(&newBuffer, newRect.topLeft(), 
-					   QRect(m_bufferRect.right() - 1, 
-							 m_bufferRect.top(), 
-							 newRect.right() - m_bufferRect.right() + 1, 
-							 m_bufferRect.height()));
-		}
-		m_buffer = newBuffer;
-		m_bufferRect = newRect;
+			// copy buffer:
+			QPixmap newBuffer(newRect.width(), newRect.height());
+			QPainter p(&newBuffer);
+			int xpos = m_bufferRect.x() - newRect.x();
+			int ypos = m_bufferRect.y() - newRect.y();
+			int x = 0;
+			int y = 0;
+			int width = m_bufferRect.width();
+			int height = m_bufferRect.height();
+			if (xpos < 0)
+			{
+				x = -xpos;
+				width -= x;
+				xpos = 0;
+			}
+			if (ypos < 0)
+			{
+				y = -ypos;
+				height -= y;
+				ypos = 0;
+			}
+			if (xpos + width > newRect.width())
+			{
+				width = newRect.width() - xpos;
+			}
+			if (ypos + height > newRect.height())
+			{
+				height = newRect.height() - ypos;
+			}
+			p.drawPixmap(xpos, ypos, m_buffer, x, y,  width, height);
 #if DRAW_DEBUG_LINES
-		QPainter p2(&m_buffer);
-		p2.setPen(Qt::blue);
-		p2.drawRect(xpos, ypos, width, height);
-		p2.end();
+			p.setPen(Qt::blue);
+			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
+			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos);
+			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos+height);
+			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos+height);
 #endif
+			p.end();
+			qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
+			if (newRect.top() < m_bufferRect.top())
+			{
+				fillBuffer(&newBuffer, newRect.topLeft(), 
+						   QRect(newRect.left(), 
+								 newRect.top(), 
+								 newRect.width(), 
+								 m_bufferRect.top() - newRect.top() + 1));
+			}
+			if (newRect.bottom() > m_bufferRect.bottom())
+			{
+				fillBuffer(&newBuffer, newRect.topLeft(), 
+						   QRect(newRect.left(), 
+								 m_bufferRect.bottom() - 1,
+								 newRect.width(), 
+								 newRect.bottom() - m_bufferRect.bottom() + 1));
+			}
+			if (newRect.left() < m_bufferRect.left())
+			{
+				fillBuffer(&newBuffer, newRect.topLeft(), 
+						   QRect(newRect.left(), 
+								 m_bufferRect.top(), 
+								 m_bufferRect.left() - newRect.left() + 1, 
+								 m_bufferRect.height()));
+			}
+			if (newRect.right() > m_bufferRect.right())
+			{
+				fillBuffer(&newBuffer, newRect.topLeft(), 
+						   QRect(m_bufferRect.right() - 1, 
+								 m_bufferRect.top(), 
+								 newRect.right() - m_bufferRect.right() + 1, 
+								 m_bufferRect.height()));
+			}
+			m_buffer = newBuffer;
+			m_bufferRect = newRect;
+#if DRAW_DEBUG_LINES
+			QPainter p2(&m_buffer);
+			p2.setPen(Qt::blue);
+			p2.drawRect(xpos, ypos, width, height);
+			p2.end();
+#endif
+		}
 	}
 }
 
