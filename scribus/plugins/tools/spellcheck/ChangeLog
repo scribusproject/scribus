@@ -1,0 +1,51 @@
+2007-11-23  Franz Schmid
+
+	* aspellpluginimpl.ui Added proper layouts to the Gui
+	* aspellpluginimpl.cpp Adjusted the code to really work with Scribus 1.3.5
+	still needs cleanup of now unused code
+	Changed the behaviour to only scan the selected Objects.
+	Moved the menu entry to the "Item" menue.
+
+
+2007-10-23  Gora Mohanty  <gora@srijan.in>
+
+	* README.user, README.code: Documentation updated. 
+
+2007-10-23  Gora Mohanty  <gora@srijan.in>
+
+	* CMakeLists.txt: Added FindASPELL in order to use aspell
+	library/include file definitions from it. There are probably still
+	problems here.
+
+2007-10-23  Gora Mohanty  <gora@srijan.in>
+
+	* aspellpluginimpl.cpp: Changed slot function names to match
+	desired auto-connect names for QT4. These are now named
+	on_<widget-name>_<action>. See QT4 documentation for details.
+
+2007-10-22  Gora Mohanty  <gora@srijan.in>
+
+	* aspellpluginimpl.{ui,cpp}: Removed spell-check button, and
+	associated functionality. Too confusing.
+
+2007-10-22  Gora Mohanty  <gora@srijan.in>
+
+	* aspellpluginimpl.cpp: Switched to use QT4 GUI 
+
+2007-10-21  Gora Mohanty  <gora@srijan.in>
+
+	* aspellpluginimpl.cpp: Replaced instances of std::string with
+	QString, except when interacting with the Suggest class.
+
+2007-10-19  Gora Mohanty  <gora@srijan.in>
+
+	* aspellpluginimpl.ui: Switched to QT4 designer
+
+2007-10-18  Gora Mohanty  <gora@srijan.in>
+
+	* donedlgbase.ui: Switched to QT4 designer
+
+2007-10-18  Gora Mohanty  <gora@srijan.in>
+
+	* Started a ChangeLog on moving to Scribus 1.3.5
+
