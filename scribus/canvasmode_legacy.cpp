@@ -1301,17 +1301,17 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							setResizeCursor(frameResizeHandle);
 						}
 						*/
-					if (frameResizeHandle >= 0)
+					if (frameResizeHandle > 0)
 					{
 						if (currItem->sizeLocked())
 						{
 							qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 							frameResizeHandle = 0;
 						}
-						if (frameResizeHandle != 0)
-							m_canvas->m_viewMode.operItemResizing = true;
+						m_canvas->m_viewMode.operItemResizing = true;
 					}
-					else // OUTSIDE
+					else if (frameResizeHandle == Canvas::OUTSIDE ||
+							 (frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
 					{
 						frameResizeHandle = 0;
 						shiftSel = SeleItem(m);
@@ -1335,7 +1335,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					
 					// dont call SeleItem() without need here:
 					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-					if (frameResizeHandle < 0)
+					if (frameResizeHandle < 0 || m->modifiers() != Qt::NoModifier)
 					{
 						SeleItem(m); //Where we send the mouse press event to select an item
 						if (GetItem(&currItem))
@@ -3929,24 +3929,33 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	}
 	
 	currItem = NULL;
-	if ((m->modifiers() & SELECT_BENEATH))
+	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
 		for (int i=0; i < m_doc->m_Selection->count(); ++i)
 		{
-			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)))
+			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
+				qDebug() << "select item: found BENEATH" << currItem;
 				m_doc->m_Selection->removeItem(currItem);
 				break;
 			}
+			else
+				qDebug() << "select item: not BENEATH" << QPointF(mousePointDoc.x(),mousePointDoc.y()) 
+					<< m_doc->m_Selection->itemAt(i)->getTransform() 
+					<< m_doc->m_Selection->itemAt(i)->getBoundingRect();
 		}
 	}
-	else if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
+	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
 	{
 		m_view->Deselect(false);
 	}
 	
+	qDebug() << "select item: beneath" << (m->modifiers() & SELECT_BENEATH) << currItem 
+		<< "multi" << (m->modifiers() & SELECT_MULTIPLE)
+		<< "current sel" << m_doc->m_Selection->count();
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
+	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
 		m_doc->m_Selection->setIsGUISelection(false);

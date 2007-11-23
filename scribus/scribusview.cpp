@@ -2604,6 +2604,7 @@ void ScribusView::Deselect(bool prop)
 {
 	if (!Doc->m_Selection->isEmpty())
 	{
+		const double scale = m_canvas->scale();
 		PageItem* currItem=NULL;
 		for (int a = 0; a < Doc->m_Selection->count(); ++a)
 		{
@@ -2616,16 +2617,14 @@ void ScribusView::Deselect(bool prop)
 			double x, y, w, h;
 			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			Doc->m_Selection->clear();
-//			x -= Doc->minCanvasCoordinate.x();
-//			y -= Doc->minCanvasCoordinate.y();
-			updateContents(static_cast<int>(x*m_canvas->scale()-5), static_cast<int>(y*m_canvas->scale()-5), static_cast<int>(w*m_canvas->scale()+10), static_cast<int>(h*m_canvas->scale()+10));
+			updateCanvas(x - 5/scale, y - 5/scale, w + 10/scale, h + 10/scale);
 		}
 		else
 		{
 			currItem=Doc->m_Selection->itemAt(0);
 			Doc->m_Selection->clear();
 			if (currItem!=NULL)
-				updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+				updateContents(currItem->getRedrawBounding(scale));
 		}
 	}
 	if (prop)
@@ -3267,6 +3266,12 @@ void ScribusView::setCanvasOrigin(double x, double y)
 	double scale = m_canvas->scale();
 	horizontalScrollBar()->setValue(x * scale);
 	verticalScrollBar()->setValue(y * scale);	
+	// fix ranges
+	QSize maxViewport = maximumViewportSize();
+	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale), 
+									qRound(Doc->maxCanvasCoordinate.x() * scale) - maxViewport.width());
+	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale), 
+								  qRound(Doc->maxCanvasCoordinate.y() * scale) - maxViewport.height());
 }
 
 

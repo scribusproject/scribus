@@ -136,7 +136,12 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
  */
 Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) const
 {
-	return frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(0, 0, item->width(), item->height()));
+	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(0, 0, item->width(), item->height()));
+//	qDebug() << "frameHitTest for item" << item->ItemNr 
+//		<< item->getTransform().inverted().map(canvasPoint) 
+//		<< item->getTransform().inverted() 
+//		<< QRectF(0, 0, item->width(), item->height());
+	return result;
 }
 
 
@@ -161,6 +166,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) cons
 		canvasPoint.y() < frameOrigin.y() - radius ||
 		canvasPoint.y() > frameOrigin.y() + frameHeight + radius)
 	{
+//		qDebug() << "framehittest" << canvasPoint << frame << "-> OUTSIDE";
 		return OUTSIDE;
 	}
 	
@@ -228,6 +234,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) cons
 		//resultDistance = distance;
 	}
 	
+//	qDebug() << "framehittest" << canvasPoint << frame << "->" << result;
 	return result;
 }
 
@@ -263,7 +270,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 				QPainterPath currClip;
 				currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
 				currClip.closeSubpath();
-				qDebug() << "itemUnderCursor: master" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
+//				qDebug() << "itemUnderCursor: master" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
 //				if (currClip.intersects(mouseArea))
 //					qDebug() << "    within Clip:" << currClip.toFillPolygon();
 				if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
@@ -295,7 +302,8 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	if (m_doc->Items->count() == 0)
 		return NULL;
 
-	int currNr = itemAbove? m_doc->Items->indexOf(currItem)-1 : m_doc->Items->count()-1;
+	int currNr = itemAbove? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
+//	qDebug() << "itemUnderCursor searching from" << currNr << itemAbove << m_doc->Items->count();
 	while (currNr >= 0)
 	{
 		currItem = m_doc->Items->at(currNr);
@@ -312,7 +320,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			QPainterPath currClip;
 			currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
 			currClip.closeSubpath();
-			qDebug() << "itemUnderCursor:" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
+//			qDebug() << "itemUnderCursor:" << currNr << mouseArea << currPath.toFillPolygon() << currPath.intersects(mouseArea);
 //			if (currClip.intersects(mouseArea))
 //				qDebug() << "    within Clip:" << currClip.toFillPolygon();
 			if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
@@ -379,7 +387,7 @@ void Canvas::clearBuffers()
 void Canvas::adjustBuffer()
 {
 	QRect viewport(-x(), -y(), m_view->viewport()->width(), m_view->viewport()->height());
-	qDebug() << "adjust buffer for viewport" << viewport;
+	qDebug() << "adjust buffer" << m_bufferRect << "for viewport" << viewport;
 	if (!m_bufferRect.isValid())
 	{
 		m_bufferRect = viewport;
@@ -468,9 +476,9 @@ void Canvas::adjustBuffer()
 			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos);
 			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos+height);
 			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos+height);
+			qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
 #endif
 			p.end();
-			qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
 			if (newRect.top() < m_bufferRect.top())
 			{
 				fillBuffer(&newBuffer, newRect.topLeft(), 
