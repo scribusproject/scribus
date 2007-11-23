@@ -1,4 +1,5 @@
 <!DOCTYPE TS><TS>
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -21,11 +22,10 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished">
-      newDocDialog() -&gt; bool
+        <translation>newDocDialog() -&gt; bool
 
-      顯示 &quot;新建檔案&quot; 對話視窗, 如果使用者接受設定值, 則開啟新的檔案. 如果使用者案取消鍵,
-      檔案將不會新建. 如果新檔案已經新增, 傳回 &quot;真&quot;.
+顯示 &quot;新建檔案&quot; 對話視窗, 如果使用者接受設定值, 則開啟新的檔案. 如果使用者案取消鍵,
+檔案將不會新建. 如果新檔案已經新增, 傳回 &quot;真&quot;.
       </translation>
     </message>
     <message>
@@ -486,7 +486,7 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="obsolete">saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
@@ -2548,27 +2548,27 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;About</source>
-        <translation>&amp;A 關於</translation>
+        <translation>關於 (&amp;A)</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation>&amp;U 作者</translation>
+        <translation>作者 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Translations</source>
-        <translation>&amp;T 翻譯</translation>
+        <translation>翻譯 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Online</source>
-        <translation>&amp;O 線上資料</translation>
+        <translation>線上資料 (&amp;O)</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Development Team:</source>
-        <translation>開發團隊</translation>
+        <translation>開發團隊:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
@@ -2588,7 +2588,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Bugs and Feature Requests</source>
-        <translation>錯誤及功能請求</translation>
+        <translation>回報錯誤及功能請求</translation>
     </message>
     <message>
         <source>Mailing List</source>
@@ -2604,39 +2604,39 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation>關於於 %1</translation>
+        <translation>關於 Scribus %1</translation>
     </message>
     <message>
         <source>Windows Port:</source>
-        <translation type="obsolete">Windows 移植: </translation>
+        <translation>Windows 移植: </translation>
     </message>
     <message>
         <source>Mac OSX Aqua Port:</source>
-        <translation type="obsolete">Mac OSX Aqua 移植: </translation>
+        <translation>Mac OSX Aqua 移植: </translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished">Wiki</translation>
+        <translation>Wiki</translation>
     </message>
     <message>
         <source>%1 %2 %3</source>
-        <translation type="unfinished">%1 %2 %3</translation>
+        <translation>%1 %2 %3</translation>
     </message>
     <message>
         <source>%3-%2-%1 %4 %5</source>
-        <translation type="unfinished">%3-%2-%1 %4 %5</translation>
+        <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
         <source>Using Ghostscript version %1</source>
-        <translation>使用目前Ghostscript版本 %1</translation>
+        <translation>使用的 Ghostscript 版本 %1</translation>
     </message>
     <message>
         <source>No Ghostscript version available</source>
-        <translation>沒有 Ghostscript 版本可用 </translation>
+        <translation>沒有可用的 Ghostscript 版本 </translation>
     </message>
     <message>
         <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;Scribus 版本 %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Build ID:</source>
@@ -2645,30 +2645,30 @@ creates a Duplicate of the selected Object (or Selection Group).
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. 
         The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="obsolete">這個面板顯示Scribus版本, 編譯日期, 並且已經編譯到 Scribus 的支援的函式庫中,
+        <translation>這個面板顯示Scribus版本, 編譯日期, 並且已經編譯到 Scribus 的支援的函式庫中,
         這裡 C-C-T-F 指的是 C=littlecms C=CUPS T=TIFF 支援 F=Fontconfig, 最後一個字母是渲染器(?) 
         C=cairo 或者 A=libart。不存在的支援函式庫以*號表示. 這個也註明瞭Scribus檢測到的Ghostscript版本號碼
         </translation>
     </message>
     <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mac OS&amp;#174; X Aqua 移植:</translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows&amp;#174; 移植:</translation>
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tango Project Icons:</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; 移植:</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">這個面板顯示版本, 編譯日期, 和支援 Scribus 的 library。C-C-T-F 代表 C=littlecms C=CUPS T=TIFF 支援 F=Fontconfig 支援。</translation>
     </message>
 </context>
 <context>
@@ -2683,35 +2683,35 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation>檔案名:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">版本：</translation>
+        <translation>版本:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished">啓用：</translation>
+        <translation>啓用:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished">發佈日期：</translation>
+        <translation>發佈日期:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">描述：</translation>
+        <translation>描述:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="unfinished">作者：</translation>
+        <translation>作者:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished">版權：</translation>
+        <translation>版權:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="unfinished">授權：</translation>
+        <translation>授權:</translation>
     </message>
 </context>
 <context>
@@ -2722,90 +2722,90 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>File Name:</source>
-        <translation type="obsolete">檔案名：</translation>
+        <translation>檔案名:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="obsolete">版本：</translation>
+        <translation>版本:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="obsolete">啓用：</translation>
+        <translation>啓用:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="obsolete">發佈日期：</translation>
+        <translation>發佈日期:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="obsolete">版權：</translation>
+        <translation>版權:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="obsolete">作者：</translation>
+        <translation>作者:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="obsolete">描述：</translation>
+        <translation>描述:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="obsolete">授權：</translation>
+        <translation>授權:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
     <name>ActionManager</name>
     <message>
         <source>&amp;Image Effects</source>
-        <translation>&amp;I 圖像效果</translation>
+        <translation>圖像效果 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
-        <translation>&amp;T 跳位字元...</translation>
+        <translation>跳位字元 (&amp;T)...</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;O 打開...</translation>
+        <translation>打開 (&amp;O)...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>&amp;A 另存新檔...</translation>
+        <translation>另存新檔 (&amp;A)...</translation>
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation>&amp;V 恢復到已儲存</translation>
+        <translation>恢復到已儲存 (&amp;V)</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation>&amp;U 準備輸出...</translation>
+        <translation>準備輸出 (&amp;U)...</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation> 匯入文本...</translation>
+        <translation>匯入文字...</translation>
     </message>
     <message>
         <source>Append &amp;Text...</source>
-        <translation>&amp;T 追加文本...</translation>
+        <translation>追加文字 (&amp;T)...</translation>
     </message>
     <message>
         <source>Get Image...</source>
@@ -2813,395 +2813,395 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Save &amp;Text...</source>
-        <translation>&amp;T 儲存文本...</translation>
+        <translation>儲存文字 (&amp;T)...</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation>&amp;E 頁面存爲EPS...</translation>
+        <translation>儲存頁面爲 EPS (&amp;E)...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
-        <translation>&amp;D 儲存爲PDF...</translation>
+        <translation>儲存爲 PDF (&amp;D)...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation>&amp;S 檔案設定...</translation>
+        <translation>檔案設定 (&amp;S)...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>&amp;P 列印...</translation>
+        <translation>列印 (&amp;P)...</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation>&amp;Q 退出</translation>
+        <translation>退出 (&amp;Q)</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;U 復原</translation>
+        <translation>復原 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation>&amp;R 重做</translation>
+        <translation>重做 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
-        <translation>&amp;I 專案動作模式</translation>
+        <translation>物件動作模式 (&amp;I)</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>&amp;t 剪下</translation>
+        <translation>剪下 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;C 複製</translation>
+        <translation>複製 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;P 貼上</translation>
+        <translation>貼上 (&amp;P)</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="obsolete">&amp;L 清除內容</translation>
+        <translation>&amp;L 清除內容</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation>&amp;A 全選</translation>
+        <translation>全選 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Deselect All</source>
-        <translation>&amp;D 取消全選</translation>
+        <translation>取消全選 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;S 尋找/取代...</translation>
+        <translation>尋找 / 取代 (&amp;S)...</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation>&amp;O 顔色...</translation>
+        <translation>顔色 (&amp;O)...</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;P 段落樣式...</translation>
+        <translation>段落樣式 (&amp;P)...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;L 線條樣式...</translation>
+        <translation>線條樣式 (&amp;L)...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
-        <translation>&amp;M 主頁...</translation>
+        <translation>主頁 (&amp;M)...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation>&amp;R 偏好設定...</translation>
+        <translation>偏好設定 (&amp;R)...</translation>
     </message>
     <message>
         <source>%1 pt</source>
-        <translation type="unfinished">%1 pt</translation>
+        <translation>%1 pt</translation>
     </message>
     <message>
         <source>&amp;Other...</source>
-        <translation>&amp;O 其他...</translation>
+        <translation>其他 (&amp;O)...</translation>
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation>&amp;L 左邊</translation>
+        <translation>左 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Center</source>
-        <translation>&amp;C 中間</translation>
+        <translation>中間 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation>&amp;R 右邊</translation>
+        <translation>右 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Block</source>
-        <translation>&amp;B 區塊</translation>
+        <translation>區塊 (&amp;B)</translation>
     </message>
     <message>
         <source>&amp;Forced</source>
-        <translation>&amp;F 強制</translation>
+        <translation>強制 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;%1 %</source>
-        <translation type="unfinished">&amp;%1 %</translation>
+        <translation>%1 % (&amp;%)</translation>
     </message>
     <message>
         <source>&amp;Normal</source>
-        <translation>&amp;N 普通</translation>
+        <translation>普通 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation>&amp;U 底線</translation>
+        <translation>底線 (&amp;U)</translation>
     </message>
     <message>
         <source>Underline &amp;Words</source>
-        <translation>&amp;W 添加底線</translation>
+        <translation>增加底線 (&amp;W)</translation>
     </message>
     <message>
         <source>&amp;Strike Through</source>
-        <translation>&amp;S 刪除線</translation>
+        <translation>刪除線 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;All Caps</source>
-        <translation>&amp;A 全部大寫</translation>
+        <translation>全部大寫 (&amp;A)</translation>
     </message>
     <message>
         <source>Small &amp;Caps</source>
-        <translation>&amp;C 小寫</translation>
+        <translation>小寫 (&amp;C)</translation>
     </message>
     <message>
         <source>Su&amp;perscript</source>
-        <translation>&amp;P 上標</translation>
+        <translation>上標 (&amp;P)</translation>
     </message>
     <message>
         <source>Su&amp;bscript</source>
-        <translation>&amp;B 下標</translation>
+        <translation>下標 (&amp;B)</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation type="obsolete">&amp;O 檔案結構樹</translation>
+        <translation>&amp;O 檔案結構樹</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;U 複製</translation>
+        <translation>複製 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation>&amp;M 多重複製</translation>
+        <translation>多重複製 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation>&amp;G 群組</translation>
+        <translation>群組 (&amp;G)</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation>&amp;U 取消群組</translation>
+        <translation>取消群組 (&amp;U)</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
-        <translation>&amp;L 鎖定</translation>
+        <translation>鎖定 (&amp;L)</translation>
     </message>
     <message>
         <source>Si&amp;ze is Locked</source>
-        <translation>&amp;Z 大小鎖定</translation>
+        <translation>鎖定尺寸 (&amp;Z)</translation>
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
-        <translation type="unfinished">&amp;B 降低到底部</translation>
+        <translation>降低到底部 (&amp;B)</translation>
     </message>
     <message>
         <source>Raise to &amp;Top</source>
-        <translation>&amp;T 升高到頂部</translation>
+        <translation>升高到頂部 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation>&amp;L 降低</translation>
+        <translation>降低 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation>&amp;R 升高</translation>
+        <translation>升高 (&amp;R)</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation>&amp;C發送到寄存本</translation>
+        <translation>傳送到寄存本 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
-        <translation>&amp;A 屬性...</translation>
+        <translation>特性 (&amp;A)...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
-        <translation>&amp;M 顯示圖像</translation>
+        <translation>顯示圖像 (&amp;M)</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>&amp;B 爲PDF書簽</translation>
+        <translation>爲 PDF 書籤 (&amp;B)</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>&amp;N 爲PDF注釋</translation>
+        <translation>爲 PDF 注釋 (&amp;N)</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation>&amp;R 注釋屬性</translation>
+        <translation>注釋屬性 (&amp;R)</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation>&amp;R 文字域屬性</translation>
+        <translation>文字域屬性 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
-        <translation>&amp;E 編輯形狀...</translation>
+        <translation>編輯形狀 (&amp;E)...</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
-        <translation>&amp;A 附文字到路徑</translation>
+        <translation>將文字附到路徑上 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation>&amp;D 從路徑分離文字</translation>
+        <translation>從路徑分離文字 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
-        <translation>&amp;C 合併多邊形</translation>
+        <translation>合併多邊形 (&amp;C)</translation>
     </message>
     <message>
         <source>Split &amp;Polygons</source>
-        <translation>&amp;P 分離多邊形</translation>
+        <translation>分離多邊形 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation>&amp;B 貝茲(Bezier)曲線</translation>
+        <translation>貝茲曲線 (&amp;B)</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation>&amp;I 圖像框</translation>
+        <translation>圖片框 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;O 輪廓</translation>
+        <translation>&amp;O 輪廓</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
-        <translation>&amp;P 多邊形</translation>
+        <translation>多邊形 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation>&amp;T 文本框</translation>
+        <translation>文字框 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation>&amp;G 符號...</translation>
+        <translation>符號 (&amp;G)...</translation>
     </message>
     <message>
         <source>Sample Text</source>
-        <translation>文本字樣</translation>
+        <translation>範例文字</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation>&amp;I 插入...</translation>
+        <translation>插入 (&amp;I)...</translation>
     </message>
     <message>
         <source>Im&amp;port...</source>
-        <translation>&amp;P 匯入...</translation>
+        <translation>匯入 (&amp;P)...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
-        <translation>&amp;D 刪除...</translation>
+        <translation>刪除 (&amp;D)...</translation>
     </message>
     <message>
         <source>&amp;Copy...</source>
-        <translation>&amp;C 複製...</translation>
+        <translation>複製 (&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
-        <translation>&amp;M 移動...</translation>
+        <translation>移動 (&amp;M)...</translation>
     </message>
     <message>
         <source>&amp;Apply Master Page...</source>
-        <translation>&amp;A 應用主頁...</translation>
+        <translation>套用主頁 (&amp;A)...</translation>
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation>&amp;G 管理參考線...</translation>
+        <translation>管理參考線 (&amp;G)...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
-        <translation>&amp;F 符合視窗</translation>
+        <translation>符合視窗 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;50%</source>
-        <translation type="unfinished">&amp;50%</translation>
+        <translation>&amp;50%</translation>
     </message>
     <message>
         <source>&amp;75%</source>
-        <translation type="unfinished">&amp;75%</translation>
+        <translation>&amp;75%</translation>
     </message>
     <message>
         <source>&amp;100%</source>
-        <translation type="unfinished">&amp;100%</translation>
+        <translation>&amp;100%</translation>
     </message>
     <message>
         <source>&amp;200%</source>
-        <translation type="unfinished">&amp;200%</translation>
+        <translation>&amp;200%</translation>
     </message>
     <message>
         <source>&amp;Thumbnails</source>
-        <translation>&amp;T 縮圖</translation>
+        <translation>縮圖 (&amp;T)</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation>&amp;M 顯示邊距</translation>
+        <translation>顯示頁面邊距 (&amp;M)</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation>&amp;F 顯示框體</translation>
+        <translation>顯示框體 (&amp;F)</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation>&amp;I 顯示圖像</translation>
+        <translation>顯示圖片 (&amp;I)</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>&amp;G 顯示網格</translation>
+        <translation>顯示網格 (&amp;G)</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation>&amp;U 顯示參考線</translation>
+        <translation>顯示參考線 (&amp;U)</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;B 顯示底線網格</translation>
+        <translation>顯示底線網格 (&amp;B)</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
-        <translation>&amp;T 顯示文本鏈</translation>
+        <translation>顯示文字鏈 (&amp;T)</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation>&amp;A 吸附到網格</translation>
+        <translation>吸附到網格 (&amp;A)</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>&amp;P 吸附到參考線</translation>
+        <translation>吸附到參考線 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;P 屬性</translation>
+        <translation>屬性 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation>&amp;S 寄存本</translation>
+        <translation>寄存本 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
-        <translation>&amp;L 圖層</translation>
+        <translation>圖層 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation>&amp;B 書簽</translation>
+        <translation>書籤 (&amp;B)</translation>
     </message>
     <message>
         <source>&amp;Measurements</source>
-        <translation>&amp;M 尺寸</translation>
+        <translation>測量 (&amp;M)</translation>
     </message>
     <message>
         <source>Action &amp;History</source>
-        <translation>&amp;H 動作歷史</translation>
+        <translation>歷史動作 (&amp;H)</translation>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
-        <translation>&amp;V 印前檢驗器</translation>
+        <translation>印前檢驗器 (&amp;V)</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;工具</translation>
+        <translation>工具 (&amp;T)</translation>
     </message>
     <message>
         <source>P&amp;DF Tools</source>
@@ -3209,27 +3209,27 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Select Item</source>
-        <translation>選擇專案</translation>
+        <translation>選擇物件</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation>&amp;A 表格</translation>
+        <translation>表格 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>&amp;S 形狀</translation>
+        <translation>形狀 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation>&amp;L 線條</translation>
+        <translation>線條 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation>&amp;F 手繪線</translation>
+        <translation>手繪線 (&amp;F)</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation>旋轉專案</translation>
+        <translation>旋轉物件</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
@@ -3249,31 +3249,31 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>串聯文本框</translation>
+        <translation>串聯文字框</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>解鏈文本框</translation>
+        <translation>解除串聯文字框</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
-        <translation>&amp;E 取色器</translation>
+        <translation>取色器 (&amp;E)</translation>
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation>複製專案屬性</translation>
+        <translation>複製物件屬性</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>用故事編輯器編輯文本</translation>
+        <translation>用故事編輯器編輯文字</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
-        <translation>插入文本框體</translation>
+        <translation>插入文字框</translation>
     </message>
     <message>
         <source>Insert Image Frame</source>
-        <translation>插入圖像框體</translation>
+        <translation>插入圖片框</translation>
     </message>
     <message>
         <source>Insert Table</source>
@@ -3293,7 +3293,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Insert Bezier Curve</source>
-        <translation>插入貝茲(Bezier)曲線</translation>
+        <translation>插入貝茲曲線</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
@@ -3301,19 +3301,19 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;M 管理圖片</translation>
+        <translation>管理圖片 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation>&amp;H 用連字元連字</translation>
+        <translation>用連字元連字 (&amp;H)</translation>
     </message>
     <message>
         <source>&amp;Generate Table Of Contents</source>
-        <translation>&amp;G 生成目錄索引</translation>
+        <translation>產生目錄索引 (&amp;G)</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
-        <translation>&amp;A 關於Scribus</translation>
+        <translation>關於 Scribus (&amp;A)</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -3321,23 +3321,23 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Toolti&amp;ps</source>
-        <translation>&amp;P 提示</translation>
+        <translation>提示 (&amp;P)</translation>
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation>&amp;M Scribus 使用手冊...</translation>
+        <translation>Scribus 使用手冊 (&amp;M)...</translation>
     </message>
     <message>
         <source>Smart &amp;Hyphen</source>
-        <translation>&amp;H 智慧連字元</translation>
+        <translation>智慧連字元 (&amp;H)</translation>
     </message>
     <message>
         <source>Non Breaking &amp;Space</source>
-        <translation>&amp;S 不間斷空格</translation>
+        <translation>不間斷空格 (&amp;S)</translation>
     </message>
     <message>
         <source>Page &amp;Number</source>
-        <translation>&amp;N 頁碼</translation>
+        <translation>頁碼 (&amp;N)</translation>
     </message>
     <message>
         <source>Copyright</source>
@@ -3353,7 +3353,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Bullet</source>
-        <translation>專案符號</translation>
+        <translation>項目符號</translation>
     </message>
     <message>
         <source>Em Dash</source>
@@ -3449,19 +3449,19 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>S&amp;hadow</source>
-        <translation>&amp;H 陰影</translation>
+        <translation>陰影 (&amp;H)</translation>
     </message>
     <message>
         <source>&amp;Low Resolution</source>
-        <translation>&amp;L 底解析度</translation>
+        <translation>低解析度 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Normal Resolution</source>
-        <translation>&amp;N 正常解析度</translation>
+        <translation>正常解析度 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Full Resolution</source>
-        <translation>&amp;F 完全解析度</translation>
+        <translation>完全解析度 (&amp;F)</translation>
     </message>
     <message>
         <source>Edit Image...</source>
@@ -3469,7 +3469,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Update Image</source>
-        <translation>&amp;U 刷新圖片</translation>
+        <translation>刷新圖片 (&amp;U)</translation>
     </message>
     <message>
         <source>Adjust Frame to Image</source>
@@ -3477,19 +3477,19 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation>圖片擴展屬性</translation>
+        <translation>圖片延伸屬性</translation>
     </message>
     <message>
         <source>Show Control Characters</source>
-        <translation>顯示控制符</translation>
+        <translation>顯示控制字元</translation>
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation>&amp;A 對齊和分佈</translation>
+        <translation>對齊和分佈 (&amp;A)</translation>
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation>編輯文本...</translation>
+        <translation>編輯文字...</translation>
     </message>
     <message>
         <source>New Line</source>
@@ -3513,7 +3513,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Arrange Pages</source>
-        <translation>&amp;A 安排頁</translation>
+        <translation>安排頁面 (&amp;A)</translation>
     </message>
     <message>
         <source>Dehyphenate Text</source>
@@ -3529,27 +3529,27 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation>&amp;W 列印預覽</translation>
+        <translation>預覽列印 (&amp;W)</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished">&amp;JavaScripts...</translation>
+        <translation>&amp;JavaScripts...</translation>
     </message>
     <message>
         <source>Convert to Master Page...</source>
-        <translation> 轉換爲主頁...</translation>
+        <translation>轉換爲主頁...</translation>
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation>&amp;C 層疊</translation>
+        <translation>層疊 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation>&amp;T 平鋪</translation>
+        <translation>平鋪 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation>&amp;A 關於插件</translation>
+        <translation>關於插件 (&amp;A)</translation>
     </message>
     <message>
         <source>More Info...</source>
@@ -3557,24 +3557,24 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>允許列印 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Flip Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>水平翻轉 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Flip Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>垂直翻轉 (&amp;F)</translation>
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation type="unfinished"></translation>
+        <translation>顯示尺規</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
-        <translation type="unfinished">&amp;O 檔案結構樹</translation>
+        <translation>輪廓 (&amp;O)</translation>
     </message>
     <message>
         <source>Solidus</source>
@@ -3610,19 +3610,19 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Insert Smart Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>插入智慧型連字元</translation>
     </message>
     <message>
         <source>Insert Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>插入不間斷破折號</translation>
     </message>
     <message>
         <source>Insert Non Breaking Space</source>
-        <translation type="unfinished"></translation>
+        <translation>插入不間斷空格</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
-        <translation type="unfinished"></translation>
+        <translation>插入頁碼</translation>
     </message>
     <message>
         <source>ff</source>
@@ -3654,25 +3654,25 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>S&amp;tyles...</source>
-        <translation type="unfinished"></translation>
+        <translation>樣式 (&amp;T)...</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
-        <translation type="unfinished">&amp;O 檔案結構樹</translation>
+        <translation>輪廓 (&amp;O)</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation type="unfinished">&amp;O 輪廓</translation>
+        <translation>輪廓 (&amp;O)</translation>
     </message>
     <message>
         <source>Paste (&amp;Absolute)</source>
-        <translation type="unfinished"></translation>
+        <translation>絕對貼上 (&amp;A)</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;L 清除</translation>
+        <translation>清除 (&amp;L)</translation>
     </message>
     <message>
         <source>Show Text Frame Columns</source>
@@ -3680,7 +3680,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;400%</translation>
     </message>
 </context>
 <context>
@@ -3695,7 +3695,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Relative to:</source>
-        <translation>&amp;R 對應於：</translation>
+        <translation>對應於 (&amp;R):</translation>
     </message>
     <message>
         <source>First Selected</source>
@@ -3795,7 +3795,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;S 已選參考線：</translation>
+        <translation>已選參考線 (&amp;S):</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -3811,11 +3811,11 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation>&amp;D 間距：</translation>
+        <translation>間距 (&amp;D):</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
-        <translation>按指定的間距分佈專案</translation>
+        <translation>按指定的間距分佈物件</translation>
     </message>
     <message>
         <source>None Selected</source>
@@ -3827,38 +3827,38 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>&amp;U 全部解鎖</translation>
+        <translation>全部解除鎖定 (&amp;U)</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
-        <translation type="unfinished">Y: %1%2</translation>
+        <translation>Y: %1%2</translation>
     </message>
     <message>
         <source>X: %1%2</source>
-        <translation type="unfinished">X: %1%2</translation>
+        <translation>X: %1%2</translation>
     </message>
 </context>
 <context>
     <name>AlignSelect</name>
     <message>
         <source>Align Text Left</source>
-        <translation>文本左對齊</translation>
+        <translation>文字靠左對齊</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation>文本右對齊</translation>
+        <translation>文字靠右對齊</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation>文本居中對齊</translation>
+        <translation>文字居中對齊</translation>
     </message>
     <message>
         <source>Align Text Justified</source>
-        <translation>文本兩端對齊</translation>
+        <translation>文字兩端對齊</translation>
     </message>
     <message>
         <source>Align Text Forced Justified</source>
-        <translation>文本強制兩端對齊</translation>
+        <translation>文字強制兩端對齊</translation>
     </message>
 </context>
 <context>
@@ -3869,7 +3869,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Type:</source>
-        <translation>類型：</translation>
+        <translation>類型:</translation>
     </message>
     <message>
         <source>Button</source>
@@ -3897,11 +3897,11 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Name:</source>
-        <translation>名稱：</translation>
+        <translation>名稱:</translation>
     </message>
     <message>
         <source>Tool-Tip:</source>
-        <translation>工具提示：</translation>
+        <translation>工具提示:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -3913,7 +3913,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Color:</source>
-        <translation>顔色：</translation>
+        <translation>顔色:</translation>
     </message>
     <message>
         <source>None</source>
@@ -3921,7 +3921,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Width:</source>
-        <translation>寬度：</translation>
+        <translation>寬度:</translation>
     </message>
     <message>
         <source>Thin</source>
@@ -3973,11 +3973,11 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
-        <translation>Don&apos;t 輸出值</translation>
+        <translation>不要輸出值</translation>
     </message>
     <message>
         <source>Visibility:</source>
-        <translation>可見度：</translation>
+        <translation>可見度:</translation>
     </message>
     <message>
         <source>Visible</source>
@@ -3985,7 +3985,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Hidden</source>
-        <translation>隱蔽</translation>
+        <translation>隱藏</translation>
     </message>
     <message>
         <source>No Print</source>
@@ -4065,15 +4065,15 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Do Not Scroll</source>
-        <translation>不要滾動</translation>
+        <translation>不要捲動</translation>
     </message>
     <message>
         <source>Do Not Spell Check</source>
-        <translation>不拼寫檢查</translation>
+        <translation>不要拼寫檢查</translation>
     </message>
     <message>
         <source>Check Style:</source>
-        <translation>勾選樣式：</translation>
+        <translation>勾選樣式:</translation>
     </message>
     <message>
         <source>Check</source>
@@ -4129,7 +4129,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Event:</source>
-        <translation>事件：</translation>
+        <translation>事件:</translation>
     </message>
     <message>
         <source>Mouse Up</source>
@@ -4157,7 +4157,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Script:</source>
-        <translation>腳本：</translation>
+        <translation>Script:</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -4165,15 +4165,15 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Submit to URL:</source>
-        <translation>提交到URL地址：</translation>
+        <translation>傳送到 URL:</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>作爲HTML來提交資料</translation>
+        <translation>以 HTML 來傳送資料</translation>
     </message>
     <message>
         <source>Import Data from:</source>
-        <translation>從...匯入資料：</translation>
+        <translation>匯入資料:</translation>
     </message>
     <message>
         <source>Destination</source>
@@ -4181,7 +4181,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>To File:</source>
-        <translation>到文件：</translation>
+        <translation>到檔案:</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -4189,19 +4189,19 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Page:</source>
-        <translation>頁：</translation>
+        <translation>頁:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-座標：</translation>
+        <translation>X-座標:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-座標：</translation>
+        <translation>Y-座標:</translation>
     </message>
     <message>
         <source>Action</source>
@@ -4209,7 +4209,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Field is formatted as:</source>
-        <translation>域格式化爲：</translation>
+        <translation>域格式化爲:</translation>
     </message>
     <message>
         <source>Plain</source>
@@ -4241,7 +4241,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Decimals:</source>
-        <translation>小數位：</translation>
+        <translation>小數位:</translation>
     </message>
     <message>
         <source>Use Currency Symbol</source>
@@ -4269,15 +4269,15 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Custom Scripts</source>
-        <translation>自定義腳本</translation>
+        <translation>自定 Script</translation>
     </message>
     <message>
         <source>Format:</source>
-        <translation>格式：</translation>
+        <translation>格式:</translation>
     </message>
     <message>
         <source>Keystroke:</source>
-        <translation>按鍵：</translation>
+        <translation>按鍵:</translation>
     </message>
     <message>
         <source>Format</source>
@@ -4289,15 +4289,15 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Value must be greater than or equal to:</source>
-        <translation>值必須大於或等於：</translation>
+        <translation>值必須大於或等於:</translation>
     </message>
     <message>
         <source>and less or equal to:</source>
-        <translation>而且小於或等於：</translation>
+        <translation>而且小於或等於:</translation>
     </message>
     <message>
         <source>Custom validate script:</source>
-        <translation type="unfinished">自定義驗證腳本</translation>
+        <translation>自定驗證 Script:</translation>
     </message>
     <message>
         <source>Validate</source>
@@ -4317,7 +4317,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>product</source>
-        <translation type="unfinished">相乘</translation>
+        <translation>相乘</translation>
     </message>
     <message>
         <source>average</source>
@@ -4333,7 +4333,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>of the following fields:</source>
-        <translation>下面域：</translation>
+        <translation>下面域:</translation>
     </message>
     <message>
         <source>Pick...</source>
@@ -4341,7 +4341,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>自定義計算腳本：</translation>
+        <translation>自定計算 Script:</translation>
     </message>
     <message>
         <source>Calculate</source>
@@ -4369,7 +4369,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Example:</source>
-        <translation>範例：</translation>
+        <translation>範例:</translation>
     </message>
     <message>
         <source>Selection Change</source>
@@ -4377,7 +4377,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation>用於PDF 1.3的字體：</translation>
+        <translation>用於 PDF 1.3 的字體:</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF 1.3</source>
@@ -4385,25 +4385,25 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF 文件 (*.pdf);;全部文件 (*)</translation>
+        <translation>PDF 檔案 (*.pdf);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished">JavaScript</translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation>圖像 (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;全部文件 (*)</translation>
+        <translation>圖片 (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation type="unfinished">無</translation>
+        <translation>無</translation>
     </message>
 </context>
 <context>
@@ -4414,7 +4414,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Text</source>
-        <translation>文本</translation>
+        <translation>文字</translation>
     </message>
     <message>
         <source>Link</source>
@@ -4434,7 +4434,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Open</source>
@@ -4442,27 +4442,27 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>PDF文件 (*.pdf);;全部文件 (*)</translation>
+        <translation>PDF 檔案 (*.pdf);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation>&amp;T 類型</translation>
+        <translation>類型 (&amp;T):</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>&amp;H 更改...</translation>
+        <translation>更改 (&amp;H)...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation>&amp;P 頁：</translation>
+        <translation>頁面 (&amp;P):</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
-        <translation>&amp;X-座標：</translation>
+        <translation>X-座標 (&amp;X)</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-座標：</translation>
+        <translation>Y-座標 (&amp;Y):</translation>
     </message>
 </context>
 <context>
@@ -4473,75 +4473,75 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation>應用主頁</translation>
+        <translation>套用主頁</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation>&amp;M 主頁：</translation>
+        <translation>主頁 (&amp;M):</translation>
     </message>
     <message>
         <source>Apply To</source>
-        <translation>應用到</translation>
+        <translation>套用到</translation>
     </message>
     <message>
         <source>Current &amp;page</source>
-        <translation>&amp;P 當前頁</translation>
+        <translation>目前頁面 (&amp;P)</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>&amp;Even pages</source>
-        <translation>&amp;偶數頁</translation>
+        <translation>偶數頁面 (&amp;E)</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>O&amp;dd pages</source>
-        <translation>&amp;D 奇數頁</translation>
+        <translation>奇數頁面 (&amp;D)</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
-        <translation>&amp;A 全部頁</translation>
+        <translation>全部頁面 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
-        <translation>&amp;W 在範圍內</translation>
+        <translation>在範圍內 (&amp;W)</translation>
     </message>
     <message>
         <source>Alt+W</source>
-        <translation type="unfinished">Alt+W</translation>
+        <translation>Alt+W</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished">to</translation>
+        <translation>到</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Apply the selected template to even, odd or all pages within the following range</source>
-        <translation type="obsolete">在以下的範圍內應用所選的模板到偶數頁、奇數頁或者全部頁面</translation>
+        <translation>在以下的範圍內套用所選的模板到偶數頁, 奇數頁或者全部頁面</translation>
     </message>
     <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation type="unfinished"></translation>
+        <translation>在以下的範圍內套用所選的主頁到偶數頁, 奇數頁或者全部頁面</translation>
     </message>
 </context>
 <context>
@@ -4555,46 +4555,46 @@ creates a Duplicate of the selected Object (or Selection Group).
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation type="unfinished">&amp;B 條碼生成器...</translation>
+        <translation>條碼產生器 (&amp;B)...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation type="unfinished">Scribus 純Postscript條碼輸出前端</translation>
+        <translation>Scribus 的純 Postscript 條碼輸出前端</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished">打開文件錯誤：%1</translation>
+        <translation>打開檔案時發生錯誤: %1</translation>
     </message>
     <message>
         <source>Error creating preview</source>
-        <translation type="obsolete">生成預覽錯誤</translation>
+        <translation>產生預覽錯誤</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>12 或 13 位</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 位</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>11 或 12 位</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 或 8 位</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 位</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 位</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
@@ -4626,7 +4626,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation type="unfinished"></translation>
+        <translation>條碼未完成</translation>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
@@ -4637,119 +4637,119 @@ creates a Duplicate of the selected Object (or Selection Group).
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation type="unfinished">條碼生成器</translation>
+        <translation>條碼產生器</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation type="unfinished">條碼</translation>
+        <translation>條碼</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished">&amp;T 類型</translation>
+        <translation>類型 (&amp;T):</translation>
     </message>
     <message>
         <source>C&amp;ode:</source>
-        <translation type="obsolete">&amp;O 編碼：</translation>
+        <translation>編碼 (&amp;O):</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
-        <translation type="unfinished">在此選擇一個可用的條碼類型</translation>
+        <translation>選擇一個可用的條碼類型</translation>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation type="unfinished">代表編碼的數位。下面有求助資訊可循</translation>
+        <translation>代表編碼的數位。參見下面的求助資訊</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
-        <translation type="unfinished">重置條碼範例</translation>
+        <translation>重置條碼範例</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation type="unfinished">&amp;I 在條碼中包含文字</translation>
+        <translation>在條碼中包含文字 (&amp;I) </translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
-        <translation type="unfinished">如果勾選，在條碼中也會有數位</translation>
+        <translation>如果勾選, 在條碼中也會有數位</translation>
     </message>
     <message>
         <source>&amp;Guard whitespace</source>
-        <translation type="unfinished">&amp;G 注意留白</translation>
+        <translation>注意留白 (&amp;G)</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation type="unfinished">畫箭頭確保編碼旁的空位 </translation>
+        <translation>畫箭頭確保編碼旁的空位 </translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">顔色</translation>
+        <translation>顔色</translation>
     </message>
     <message>
         <source>&amp;Background</source>
-        <translation type="unfinished">&amp;B 背景</translation>
+        <translation>背景 (&amp;B)</translation>
     </message>
     <message>
         <source>Alt+B</source>
-        <translation type="unfinished">Alt+B</translation>
+        <translation>Alt+B</translation>
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation type="unfinished">背景顔色－在編碼線下面</translation>
+        <translation>背景顔色 - 在條碼下面</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation type="unfinished">&amp;L 線條</translation>
+        <translation>線條 (&amp;L)</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation type="unfinished">條碼線條的顔色</translation>
+        <translation>條碼中線條的顔色</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation type="unfinished">&amp;T 文本</translation>
+        <translation>文字 (&amp;T)</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
-        <translation type="unfinished">文字和數位的顔色</translation>
+        <translation>文字和數字的顔色</translation>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation type="unfinished">在這裏顯示訣竅和求助</translation>
+        <translation>這裡顯示提示和求助</translation>
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation type="unfinished">預覽效果。72dpi範例</translation>
+        <translation>預覽效果。72dpi 範例。</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
-        <translation type="unfinished"></translation>
+        <translation>條碼 (&amp;D):</translation>
     </message>
     <message>
         <source>I&amp;nclude checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>包含檢查碼 (&amp;N)</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>產生並包含檢查碼在條碼中</translation>
     </message>
     <message>
         <source>Incl&amp;ude checksum digit</source>
@@ -4757,7 +4757,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Include the checksum digit in the barcode text</source>
@@ -4772,7 +4772,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation type="obsolete">寄存本 (*.scs);;全部文件 (*)</translation>
+        <translation>寄存本 (*.scs);;全部文件 (*)</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -4784,7 +4784,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>New Entry</source>
-        <translation>新專案</translation>
+        <translation>新物件</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -4792,92 +4792,92 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
-        <translation>&amp;L 載入...</translation>
+        <translation>載入 (&amp;L)...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="obsolete">&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>&amp;A 儲存爲...</translation>
+        <translation>另存新檔 (&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Small</source>
-        <translation type="obsolete">&amp;S 小</translation>
+        <translation>小 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Medium</source>
-        <translation type="obsolete">&amp;M 中</translation>
+        <translation>中 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Large</source>
-        <translation type="obsolete">&amp;L 大</translation>
+        <translation>大 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;F 文件</translation>
+        <translation>檔案 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;P 預覽</translation>
+        <translation>預覽 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;N 名稱：</translation>
+        <translation>名稱 (&amp;N):</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation>名稱 &quot;%1&quot;非唯一，請另選 
-<byte value="x9"/></translation>
+        <translation>名稱 &quot;%1&quot;非唯一
+請另選。</translation>
     </message>
     <message>
         <source>Choose a Scrapbook Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇寄存本目錄</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">選擇一個目錄</translation>
+        <translation>選擇一個目錄</translation>
     </message>
     <message>
         <source>Scrapbook (*.scs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrapbook (*.scs)</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇要匯入的寄存本檔案</translation>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
-        <translation type="unfinished"></translation>
+        <translation>匯入寄存本檔案 (&amp;I)...</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>主要</translation>
     </message>
 </context>
 <context>
     <name>BookMView</name>
     <message>
         <source>Bookmarks</source>
-        <translation>書簽</translation>
+        <translation>書籤</translation>
     </message>
     <message>
         <source>Move Bookmark</source>
-        <translation>移動書簽</translation>
+        <translation>移動書籤</translation>
     </message>
     <message>
         <source>Insert Bookmark</source>
-        <translation>插入書簽</translation>
+        <translation>插入書籤</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4888,7 +4888,7 @@ Please choose another.</source>
     <name>BookPalette</name>
     <message>
         <source>Bookmarks</source>
-        <translation>書簽</translation>
+        <translation>書籤</translation>
     </message>
 </context>
 <context>
@@ -4899,7 +4899,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Layout:</source>
-        <translation>版面：</translation>
+        <translation>版面:</translation>
     </message>
     <message>
         <source>Caption only</source>
@@ -4931,7 +4931,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Scale:</source>
-        <translation>縮放：</translation>
+        <translation>縮放:</translation>
     </message>
     <message>
         <source>Always</source>
@@ -4939,7 +4939,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>When Icon is too big</source>
-        <translation>當圖示太大</translation>
+        <translation>當圖示太大時</translation>
     </message>
     <message>
         <source>Never</source>
@@ -4947,7 +4947,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Scale How:</source>
-        <translation>如何縮放：</translation>
+        <translation>如何縮放:</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -5023,8 +5023,8 @@ This profile should be specific to your printer and not a generic profile (i.e. 
     <message>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation type="unfinished">Black Point Compensation is a method of improving contrast in photos.
-It is recommended that you enable this if you have photos in your document.</translation>
+        <translation>黑點補償是增加照片對比的方法。
+如果你的檔案中有照片, 建議啟用此選項。</translation>
     </message>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
@@ -5052,55 +5052,55 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
-        <translation>&amp;A 啟動色彩管理</translation>
+        <translation>啟動色彩管理 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation>&amp;S 單色：</translation>
+        <translation>單色 (&amp;S):</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
-        <translation>&amp;M 監視器：</translation>
+        <translation>監視器 (&amp;M):</translation>
     </message>
     <message>
         <source>P&amp;rinter:</source>
-        <translation>&amp;R 印表機</translation>
+        <translation>印表機 (&amp;R):</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>&amp;O 監視器</translation>
+        <translation>監視器 (&amp;O):</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>&amp;I 印表機</translation>
+        <translation>印表機 (&amp;I):</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation>&amp;U 在監視器上類比印表機</translation>
+        <translation>在監視器上模擬印表機 (&amp;U)</translation>
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
-        <translation>&amp;G 標出超出範圍的顔色</translation>
+        <translation>標出超出範圍的顔色 (&amp;G)</translation>
     </message>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
-        <translation>&amp;B 使用黑點補償</translation>
+        <translation>使用黑點補償 (&amp;B)</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation>&amp;RGB 圖像：</translation>
+        <translation>RGB 圖片 (&amp;R):</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation>&amp;CMYK 圖像：</translation>
+        <translation>CMYK 圖片 (&amp;C):</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
-        <translation>匯入的CMYK圖像的預設顔色配置文件</translation>
+        <translation>匯入的 CMYK 圖片的預設顔色配置檔案</translation>
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
-        <translation>匯入的RGB圖像的預設顔色配置文件</translation>
+        <translation>匯入的 RGB 圖片的預設顔色配置檔案</translation>
     </message>
 </context>
 <context>
@@ -5111,11 +5111,11 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>Web Safe RGB</source>
@@ -5131,19 +5131,19 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <source>Dynamic Color Bars</source>
@@ -5155,19 +5155,19 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>B:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>HSV-Colormap</source>
@@ -5175,15 +5175,15 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;N 名稱：</translation>
+        <translation>名稱 (&amp;N):</translation>
     </message>
     <message>
         <source>Color &amp;Model</source>
-        <translation>&amp;M 顔色類型：</translation>
+        <translation>顔色類型 (&amp;M)</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
@@ -5223,39 +5223,39 @@ It is a reserved name for transparent color</source>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation>選擇字元：</translation>
+        <translation>選擇字元:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>字體：</translation>
+        <translation>字體:</translation>
     </message>
     <message>
         <source>Character Class:</source>
-        <translation>字元類：</translation>
+        <translation>字元類:</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation>&amp;I 插入</translation>
+        <translation>插入 (&amp;I)</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;L 清除</translation>
+        <translation>清除 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
-        <translation>在文本的游標處插入字元</translation>
+        <translation>在文字的游標處插入字元</translation>
     </message>
     <message>
         <source>Delete the current selection(s).</source>
-        <translation>刪除當前選擇</translation>
+        <translation>刪除目前選擇的。</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation type="obsolete">關閉對話窗並返回到文本編輯。</translation>
+        <translation>關閉對話框並返回到文字編輯。</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -5375,7 +5375,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Close this dialog and return to text editing</source>
-        <translation type="unfinished"></translation>
+        <translation>關閉此對話框並返回編輯文字</translation>
     </message>
     <message>
         <source>Type in a four digit unicode value directly here</source>
@@ -5386,11 +5386,11 @@ It is a reserved name for transparent color</source>
     <name>CheckDocument</name>
     <message>
         <source>Glyphs missing</source>
-        <translation>符號丟失</translation>
+        <translation>符號遺失</translation>
     </message>
     <message>
         <source>Text overflow</source>
-        <translation>文本溢出</translation>
+        <translation>文字溢出</translation>
     </message>
     <message>
         <source>Object is not on a Page</source>
@@ -5398,23 +5398,23 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Missing Image</source>
-        <translation>圖像丟失</translation>
+        <translation>圖片遺失</translation>
     </message>
     <message>
         <source>Image has a DPI-Value less than %1 DPI</source>
-        <translation>圖像的DPI-值低於 %1 DPI</translation>
+        <translation>圖片的 DPI 值低於 %1 DPI</translation>
     </message>
     <message>
         <source>Object has transparency</source>
-        <translation>物件有透明</translation>
+        <translation>物件有透明度</translation>
     </message>
     <message>
         <source>Object is a PDF Annotation or Field</source>
-        <translation>物件是一個PDF注釋或域</translation>
+        <translation>物件是一個 PDF 注釋或域</translation>
     </message>
     <message>
         <source>Object is a placed PDF</source>
-        <translation>物件是個嵌入的PDF</translation>
+        <translation>物件是個嵌入的 PDF</translation>
     </message>
     <message>
         <source>Document</source>
@@ -5422,11 +5422,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>No Problems found</source>
-        <translation>沒發現問題</translation>
+        <translation>沒有發現問題</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation>頁 </translation>
+        <translation>頁面 </translation>
     </message>
     <message>
         <source>Free Objects</source>
@@ -5442,7 +5442,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Items</source>
-        <translation>專案</translation>
+        <translation>物件</translation>
     </message>
     <message>
         <source>Problems</source>
@@ -5450,11 +5450,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Current Profile:</source>
-        <translation>當前配置文件：</translation>
+        <translation>目前的配置文件:</translation>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
-        <translation>&amp;I 忽略錯誤</translation>
+        <translation>忽略錯誤 (&amp;I)</translation>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
@@ -5489,13 +5489,13 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Cannot collect all files for output for file:
 %1</source>
-        <translation>不能收集所有文件來輸出文件：
+        <translation>不能收集所有文件來輸出文件:
 %1</translation>
     </message>
     <message>
         <source>Cannot collect the file: 
 %1</source>
-        <translation>不能收集文件： 
+        <translation>不能收集文件: 
 %1</translation>
     </message>
 </context>
@@ -5503,51 +5503,51 @@ It is a reserved name for transparent color</source>
     <name>ColorManager</name>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">顔色</translation>
+        <translation>顔色</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;I 匯入</translation>
+        <translation>匯入 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;E 編輯</translation>
+        <translation>編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>複製 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation type="unfinished">&amp;R 清除未用的</translation>
+        <translation>清除未用的 (&amp;R)</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation type="unfinished">顔色組合</translation>
+        <translation>顔色組合</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation type="unfinished">當前顔色組合</translation>
+        <translation>目前顔色組合:</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation type="unfinished">&amp;S 儲存顔色組合</translation>
+        <translation>儲存顔色組合 (&amp;S)</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation type="unfinished">選擇要載入的顔色組合</translation>
+        <translation>選擇要載入的顔色組合</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation type="unfinished">儲存當前顔色組合</translation>
+        <translation>儲存目前的顔色組合</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
@@ -5555,39 +5555,39 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation type="unfinished">從現存檔案中匯入顔色組合到當前組合</translation>
+        <translation>從現有的檔案中匯入顔色組合到目前的組合</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation type="unfinished"></translation>
+        <translation>在目前的顏色組合中建立一個新的顏色</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>編輯目前選取的顏色</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>複製目前選取的顏色</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>刪除目前選取的顏色</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation type="unfinished"></translation>
+        <translation>將目前的顏色組合設定為預設的顏色組合</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;N 名稱：</translation>
+        <translation>名稱 (&amp;N):</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇一個名稱</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>打開</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -5599,11 +5599,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Copy %1</translation>
+        <translation>複製 %1</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished">新顔色</translation>
+        <translation>新顔色</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
@@ -5709,23 +5709,23 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">C</translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation type="unfinished">M</translation>
+        <translation>M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished">Y</translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation type="unfinished">K</translation>
+        <translation>K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>選擇方式：</translation>
+        <translation>選擇方式:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
@@ -5733,11 +5733,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>&amp;M 混合顔色</translation>
+        <translation>混合顔色 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>&amp;R 替代顔色</translation>
+        <translation>取代顏色 (&amp;R)</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
@@ -5757,7 +5757,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Error: </source>
-        <translation type="unfinished">Error: </translation>
+        <translation>錯誤: </translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
@@ -5789,23 +5789,23 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>&amp;Merge colours</translation>
+        <translation>混合顔色 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>&amp;Replace colours</translation>
+        <translation>取代顏色 (&amp;R)</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished">E&amp;xit</translation>
+        <translation>退出 (&amp;X)</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>C&amp;olour</translation>
+        <translation>顔色 (&amp;O)</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>New Colour</translation>
+        <translation>新顔色</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
@@ -5845,7 +5845,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>C&amp;olour Components...</translation>
+        <translation>顏色組成 (&amp;C)...</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
@@ -5864,11 +5864,11 @@ It is a reserved name for transparent color</source>
     <name>ColorWheelPlugin</name>
     <message>
         <source>&amp;Color Wheel...</source>
-        <translation>&amp;C 顔色轉盤...</translation>
+        <translation>顔色轉盤 (&amp;C)...</translation>
     </message>
     <message>
         <source>Color setting helper</source>
-        <translation>Colour setting helper</translation>
+        <translation>顏色設定幫助</translation>
     </message>
     <message>
         <source>Color selector with color theory included.</source>
@@ -5879,23 +5879,23 @@ It is a reserved name for transparent color</source>
     <name>CommonStrings</name>
     <message>
         <source>&amp;Apply</source>
-        <translation>&amp;A 應用</translation>
+        <translation>套用 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;C 取消</translation>
+        <translation>取消 (&amp;C)</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;O 確認</translation>
+        <translation>確定 (&amp;O)</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -5904,52 +5904,52 @@ It is a reserved name for transparent color</source>
     <message>
         <source>None</source>
         <comment>color name</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
-        <translation type="unfinished">自定義</translation>
+        <translation>自定</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished">單頁</translation>
+        <translation>單頁</translation>
     </message>
     <message>
         <source>Double Sided</source>
-        <translation type="unfinished"></translation>
+        <translation>雙邊</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation type="unfinished">3折</translation>
+        <translation>3折</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation type="unfinished">4折</translation>
+        <translation>4折</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation type="unfinished">左頁</translation>
+        <translation>左頁</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation type="unfinished">中間</translation>
+        <translation>中間</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation type="unfinished">中左</translation>
+        <translation>中左</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished">中右</translation>
+        <translation>中右</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation type="unfinished">右頁</translation>
+        <translation>右頁</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>普通</translation>
     </message>
     <message>
         <source>Normal Left</source>
@@ -5965,83 +5965,83 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>星期一</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>星期二</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>星期三</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>星期四</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>星期五</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>星期六</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>星期日</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation>一月</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation>二月</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished"></translation>
+        <translation>三月</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished"></translation>
+        <translation>四月</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>五月</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>六月</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>七月</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation>八月</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>九月</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation>十月</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation>十一月</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished"></translation>
+        <translation>十二月</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6076,11 +6076,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">None</translation>
+        <translation>None</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -6147,7 +6147,7 @@ It is a reserved name for transparent color</source>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
-        <translation type="unfinished">CSV Importer Options</translation>
+        <translation>CSV 匯入器選項</translation>
     </message>
     <message>
         <source>Field delimiter:</source>
@@ -6155,7 +6155,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>(TAB)</source>
-        <translation type="unfinished">(TAB)</translation>
+        <translation>(TAB)</translation>
     </message>
     <message>
         <source>Value delimiter:</source>
@@ -6163,39 +6163,39 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>First row is a header</source>
-        <translation type="unfinished">First row is a header</translation>
+        <translation>第一列是標題</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">None</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>None</source>
         <comment>delimiter</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
 </context>
 <context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
-        <translation type="unfinished">印表機選項</translation>
+        <translation>印表機選項</translation>
     </message>
     <message>
         <source>Option</source>
-        <translation type="unfinished">選項</translation>
+        <translation>選項</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">數值</translation>
+        <translation>數值</translation>
     </message>
     <message>
         <source>Page Set</source>
@@ -6203,51 +6203,51 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>All Pages</source>
-        <translation type="unfinished">全部頁面</translation>
+        <translation>全部頁面</translation>
     </message>
     <message>
         <source>Even Pages only</source>
-        <translation type="unfinished">偶數頁</translation>
+        <translation>只要偶數頁</translation>
     </message>
     <message>
         <source>Odd Pages only</source>
-        <translation type="unfinished">奇數頁</translation>
+        <translation>只要奇數頁</translation>
     </message>
     <message>
         <source>Mirror</source>
-        <translation type="unfinished">鏡像</translation>
+        <translation>鏡像</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">否</translation>
+        <translation>否</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">是</translation>
+        <translation>是</translation>
     </message>
     <message>
         <source>Orientation</source>
-        <translation type="unfinished">頁面方向</translation>
+        <translation>頁面方向</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">豎式</translation>
+        <translation>直式</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">橫式</translation>
+        <translation>橫式</translation>
     </message>
     <message>
         <source>N-Up Printing</source>
-        <translation type="unfinished">N-Up 列印</translation>
+        <translation>N-Up 列印</translation>
     </message>
     <message>
         <source>Page per Sheet</source>
-        <translation type="unfinished">Page per Sheet</translation>
+        <translation>每張紙的頁面</translation>
     </message>
     <message>
         <source>Pages per Sheet</source>
-        <translation type="unfinished">Pages per Sheet</translation>
+        <translation>每張紙的頁面</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
@@ -6258,21 +6258,22 @@ It is a reserved name for transparent color</source>
     <name>CustomFDialog</name>
     <message>
         <source>Encoding:</source>
-        <translation type="unfinished">編碼：</translation>
+        <translation>編碼:</translation>
     </message>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation type="unfinished">移動到你的檔案目錄。這個可以在偏好設定裏設定。
+        <translation>移動到你的檔案目錄。
+這可以在偏好設定裡設定。
 </translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
-        <translation>&amp;C 壓縮文件</translation>
+        <translation>壓縮檔案 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Include Fonts</source>
-        <translation>&amp;I 包括字體</translation>
+        <translation>包括字體 (&amp;I)</translation>
     </message>
 </context>
 <context>
@@ -6283,74 +6284,74 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation type="unfinished">HSV</translation>
+        <translation>HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation type="unfinished">H:</translation>
+        <translation>H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation type="unfinished">S:</translation>
+        <translation>S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation type="unfinished">V:</translation>
+        <translation>V:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation type="unfinished">Set &amp;RGB</translation>
+        <translation>設定 RGB (&amp;R)</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation type="unfinished">Set C&amp;MYK</translation>
+        <translation>設定 CMYK (&amp;M)</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation type="unfinished">Set &amp;HSV</translation>
+        <translation>設定 HSV (&amp;H)</translation>
     </message>
 </context>
 <context>
     <name>DeferredTask</name>
     <message>
         <source>Cancelled by user</source>
-        <translation>被用戶取消</translation>
+        <translation>被使用者取消</translation>
     </message>
 </context>
 <context>
@@ -6361,15 +6362,15 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Delete Color:</source>
-        <translation>刪除顔色：</translation>
+        <translation>刪除顔色:</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation>取代上：</translation>
+        <translation>取代上:</translation>
     </message>
 </context>
 <context>
@@ -6380,11 +6381,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>to:</source>
-        <translation>到：</translation>
+        <translation>到:</translation>
     </message>
     <message>
         <source>Delete From:</source>
-        <translation>刪除來自：</translation>
+        <translation>刪除來自:</translation>
     </message>
 </context>
 <context>
@@ -6395,11 +6396,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Delete Style:</source>
-        <translation>刪除樣式：</translation>
+        <translation>刪除樣式:</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation>取代上：</translation>
+        <translation>取代為:</translation>
     </message>
     <message>
         <source>No Style</source>
@@ -6410,12 +6411,13 @@ This can be set in the Preferences.</source>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>匯入失敗</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>匯入 Word 檔案失敗
+%1</translation>
     </message>
 </context>
 <context>
@@ -6426,67 +6428,67 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&amp;Title:</source>
-        <translation>&amp;T 標題：</translation>
+        <translation>標題 (&amp;T):</translation>
     </message>
     <message>
         <source>&amp;Author:</source>
-        <translation>&amp;A 作者：</translation>
+        <translation>作者 (&amp;A):</translation>
     </message>
     <message>
         <source>&amp;Keywords:</source>
-        <translation>&amp;K 關鍵字：</translation>
+        <translation>關鍵字 (&amp;K):</translation>
     </message>
     <message>
         <source>Descri&amp;ption:</source>
-        <translation>&amp;P 描述：</translation>
+        <translation>描述 (&amp;P):</translation>
     </message>
     <message>
         <source>P&amp;ublisher:</source>
-        <translation>&amp;U 出版人：</translation>
+        <translation>出版者 (&amp;U):</translation>
     </message>
     <message>
         <source>&amp;Contributors:</source>
-        <translation>&amp;C 貢獻者：</translation>
+        <translation>貢獻者 (&amp;C):</translation>
     </message>
     <message>
         <source>Dat&amp;e:</source>
-        <translation>&amp;E 日期：</translation>
+        <translation>日期 (&amp;E):</translation>
     </message>
     <message>
         <source>T&amp;ype:</source>
-        <translation>&amp;Y 類型：</translation>
+        <translation>類型 (&amp;Y):</translation>
     </message>
     <message>
         <source>F&amp;ormat:</source>
-        <translation>&amp;O 格式：</translation>
+        <translation>格式 (&amp;O):</translation>
     </message>
     <message>
         <source>Identi&amp;fier:</source>
-        <translation>&amp;F 身份標記</translation>
+        <translation>身份標記 (&amp;F):</translation>
     </message>
     <message>
         <source>&amp;Source:</source>
-        <translation>&amp;S 來源：</translation>
+        <translation>來源 (&amp;S):</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation>&amp;L 語言：</translation>
+        <translation>語言 (&amp;L):</translation>
     </message>
     <message>
         <source>&amp;Relation:</source>
-        <translation>&amp;R 關係：</translation>
+        <translation>關係 (&amp;R):</translation>
     </message>
     <message>
         <source>Co&amp;verage:</source>
-        <translation>&amp;V 範圍：</translation>
+        <translation>範圍 (&amp;V):</translation>
     </message>
     <message>
         <source>Ri&amp;ghts:</source>
-        <translation>&amp;G 權利：</translation>
+        <translation>權利 (&amp;G):</translation>
     </message>
     <message>
         <source>Further &amp;Information</source>
-        <translation>&amp;I 進一步資訊</translation>
+        <translation>更多資訊 (&amp;I)</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
@@ -6526,7 +6528,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Documen&amp;t</source>
-        <translation>&amp;T 檔案</translation>
+        <translation>檔案 (&amp;T)</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
@@ -6534,7 +6536,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>賦予檔案的名稱。這個專案可以被嵌入到Scribus檔案以及PDF檔案中的元資料中備考。</translation>
+        <translation>賦予檔案的名稱。這個專案可以被嵌入到 Scribus 檔案以及 PDF 檔案中的元資料中備考</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
@@ -6557,35 +6559,35 @@ This can be set in the Preferences.</source>
     <name>DocSections</name>
     <message>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
-        <translation>添加一個頁碼區域到檔案。這個新區域將被添加到當前選中的區域後面</translation>
+        <translation>增加一個頁碼區域到檔案。這個新區域將被增加到目前選中的區域後面。</translation>
     </message>
     <message>
         <source>Delete the currently selected section.</source>
-        <translation>刪除當前選中的區域</translation>
+        <translation>刪除目前所選擇的區域。</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
-        <translation type="unfinished">1, 2, 3, ...</translation>
+        <translation>1, 2, 3, ...</translation>
     </message>
     <message>
         <source>i, ii, iii, ...</source>
-        <translation type="unfinished">i, ii, iii, ...</translation>
+        <translation>i, ii, iii, ...</translation>
     </message>
     <message>
         <source>I, II, III, ...</source>
-        <translation type="unfinished">I, II, III, ...</translation>
+        <translation>I, II, III, ...</translation>
     </message>
     <message>
         <source>a, b, c, ...</source>
-        <translation type="unfinished">a, b, c, ...</translation>
+        <translation>a, b, c, ...</translation>
     </message>
     <message>
         <source>A, B, C, ...</source>
-        <translation type="unfinished">A, B, C, ...</translation>
+        <translation>A, B, C, ...</translation>
     </message>
     <message>
         <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
-        <translation type="obsolete">名稱：區域的可選名稱，例如：Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
+        <translation>名稱：區域的可選名稱，例如：Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
@@ -6616,7 +6618,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>To</source>
-        <translation type="unfinished">To</translation>
+        <translation>到</translation>
     </message>
     <message>
         <source>Style</source>
@@ -6628,19 +6630,19 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;A 添加</translation>
+        <translation>增加 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>Shown</source>
@@ -6651,7 +6653,7 @@ This can be set in the Preferences.</source>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -6667,7 +6669,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Text Frames</source>
-        <translation>文本框</translation>
+        <translation>文字框</translation>
     </message>
     <message>
         <source>Image Frames</source>
@@ -6675,7 +6677,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Boolean</source>
-        <translation>布林型</translation>
+        <translation>布林</translation>
     </message>
     <message>
         <source>Integer</source>
@@ -6687,29 +6689,29 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Real Number</source>
-        <translation type="unfinished"></translation>
+        <translation>實數</translation>
     </message>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
 </context>
 <context>
     <name>DocumentItemAttributesBase</name>
     <message>
         <source>Document Item Attributes</source>
-        <translation>檔案專案屬性</translation>
+        <translation>檔案物件特性</translation>
     </message>
     <message>
         <source>Name</source>
@@ -6737,39 +6739,39 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Auto Add To</source>
-        <translation>自動添加到</translation>
+        <translation>自動增加到</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;A 添加</translation>
+        <translation>增加 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;C 複製</translation>
+        <translation>複製 (&amp;C)</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;L 清除</translation>
+        <translation>清除 (&amp;L)</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
 </context>
 <context>
@@ -6814,7 +6816,9 @@ This can be set in the Preferences.</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>插入一個以逗號隔開的記號列表，這裏一個記號可以以*來代表所有頁，1-5代表頁的範圍，或者單獨一個頁碼
+        <translation>插入一個以逗號隔開的記號列表,
+可以 * 來代表所有頁, 1-5代表頁面的範圍,
+或者單獨一個頁碼。
 </translation>
     </message>
     <message>
@@ -6823,23 +6827,23 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>&amp;Options...</source>
-        <translation>&amp;O 選項...</translation>
+        <translation>選項 (&amp;O)...</translation>
     </message>
     <message>
         <source>&amp;File:</source>
-        <translation>&amp;F 檔案：</translation>
+        <translation>檔案 (&amp;F):</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>&amp;H 更改...</translation>
+        <translation>更改 (&amp;H)...</translation>
     </message>
     <message>
         <source>A&amp;lternative Printer Command</source>
-        <translation>&amp;L 另外的印表機命令</translation>
+        <translation>另外的印表機命令 (&amp;L)</translation>
     </message>
     <message>
         <source>Co&amp;mmand:</source>
-        <translation>&amp;M 命令：</translation>
+        <translation>命令 (&amp;M):</translation>
     </message>
     <message>
         <source>Range</source>
@@ -6847,23 +6851,23 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Print &amp;All</source>
-        <translation>&amp;A 全部列印</translation>
+        <translation>全部列印 (&amp;A)</translation>
     </message>
     <message>
         <source>Print Current Pa&amp;ge</source>
-        <translation>&amp;G 列印當前頁</translation>
+        <translation>列印目前頁面 (&amp;G)</translation>
     </message>
     <message>
         <source>Print &amp;Range</source>
-        <translation>&amp;R 列印範圍</translation>
+        <translation>列印範圍 (&amp;R)</translation>
     </message>
     <message>
         <source>N&amp;umber of Copies:</source>
-        <translation>&amp;U 列印份數：</translation>
+        <translation>列印份數 (&amp;U):</translation>
     </message>
     <message>
         <source>&amp;Print</source>
-        <translation>&amp;P 列印</translation>
+        <translation>列印 (&amp;P)</translation>
     </message>
     <message>
         <source>Print Normal</source>
@@ -6895,19 +6899,19 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Page</source>
-        <translation>頁</translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <source>Mirror Page(s) Horizontal</source>
-        <translation>頁水平鏡像</translation>
+        <translation>頁面水平鏡像</translation>
     </message>
     <message>
         <source>Mirror Page(s) Vertical</source>
-        <translation>頁垂直鏡像</translation>
+        <translation>頁面垂直鏡像</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation>設置介質尺寸</translation>
+        <translation>設定介質尺寸</translation>
     </message>
     <message>
         <source>Color</source>
@@ -6919,15 +6923,15 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>把Spot Colours 轉成 Process Colours</translation>
+        <translation>把 Spot Colours 轉成 Process Colours</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation>應用ICC配置文件</translation>
+        <translation>套用 ICC 配置檔案</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation>高級選項</translation>
+        <translation>進階選項</translation>
     </message>
     <message>
         <source>Preview...</source>
@@ -6936,16 +6940,16 @@ a range of pages or a single page number.</source>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation>設置PostScript 級別.
-設置成級別 1或2可能生成巨大文件</translation>
+        <translation>設定 PostScript 級別。
+設定成級別 1或 2 可能產生巨大檔案</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation>PostScript 文件 (*.ps);;全部文件 (*)</translation>
+        <translation>PostScript 檔案 (*.ps);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation>使用其他列印管理器來使用額外的列印選項，例如kprinter或者gtklp</translation>
+        <translation>使用其他列印管理器來使用額外的列印選項, 例如 kprinter 或者 gtklp</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -6969,11 +6973,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>裁切到頁邊</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Do not show objects outside the margins on the printed page or exported file</translation>
+        <translation>Do not show objects outside the margins on the printed page or exported file</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
@@ -6986,9 +6990,9 @@ a range of pages or a single page number.</source>
         <source>Importing File:
 %1
 failed!</source>
-        <translation>匯入文件：
+        <translation>匯入文件:
 %1
-失敗！</translation>
+失敗!</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -6996,23 +7000,23 @@ failed!</source>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>錯誤</translation>
     </message>
     <message>
         <source>Importing PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>匯入 PostScript</translation>
     </message>
     <message>
         <source>Analyzing PostScript:</source>
-        <translation type="unfinished"></translation>
+        <translation>分析 PostScript:</translation>
     </message>
     <message>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation>產生物件中</translation>
     </message>
     <message>
         <source>Converting of %1 images failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>轉換圖片 %! 失敗!</translation>
     </message>
 </context>
 <context>
@@ -7027,11 +7031,11 @@ failed!</source>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -7043,7 +7047,7 @@ failed!</source>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>所選文本或物件的字體</translation>
+        <translation>所選文字或物件的字體</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -7075,15 +7079,15 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;N 名稱：</translation>
+        <translation>名稱 (&amp;N):</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation>&amp;L 行：</translation>
+        <translation>行 (&amp;L):</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Distances</source>
@@ -7107,7 +7111,7 @@ failed!</source>
     </message>
     <message>
         <source>Distance from Text:</source>
-        <translation>到文本距離：</translation>
+        <translation>到文字的距離:</translation>
     </message>
     <message>
         <source>Preview of the Paragraph Style</source>
@@ -7115,11 +7119,11 @@ failed!</source>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
-        <translation>確定下沈字和文本的間隔</translation>
+        <translation>確定下沈字和文字的間隔</translation>
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
-        <translation>切換這個段落樣式的文本範例</translation>
+        <translation>切換這個段落樣式的文字範例</translation>
     </message>
     <message>
         <source>Name of the style is not unique</source>
@@ -7139,7 +7143,7 @@ failed!</source>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>取消字元的基準線</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
@@ -7147,113 +7151,113 @@ failed!</source>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">自動</translation>
+        <translation>自動</translation>
     </message>
 </context>
 <context>
     <name>Editor</name>
     <message>
         <source>Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>編輯器</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;O 打開...</translation>
+        <translation>打開 (&amp;O)...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>&amp;A 另存爲...</translation>
+        <translation>另存新檔 (&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Save and Exit</source>
-        <translation>&amp;S 儲存並退出</translation>
+        <translation>儲存並退出 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Exit without Saving</source>
-        <translation>&amp;E 不儲存退出</translation>
+        <translation>退出但不儲存 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;U 撤銷動作</translation>
+        <translation>復原 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation>&amp;R 重復動作</translation>
+        <translation>重做 (&amp;R)</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>&amp;T 剪下</translation>
+        <translation>剪下 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;C 複製</translation>
+        <translation>複製 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;P 貼上</translation>
+        <translation>貼上 (&amp;P)</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;L 清除</translation>
+        <translation>清除 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Get Field Names</source>
-        <translation>&amp;G 獲取功能變數名稱稱</translation>
+        <translation>取得功能變數名稱 (&amp;G)</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;F 檔案</translation>
+        <translation>檔案 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;E 編輯</translation>
+        <translation>編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation>JavaScripts (*.js);;全部文件 (*)</translation>
+        <translation>JavaScripts (*.js);;全部檔案 (*)</translation>
     </message>
 </context>
 <context>
     <name>EffectsDialog</name>
     <message>
         <source>Image Effects</source>
-        <translation>圖像效果</translation>
+        <translation>圖片效果</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>選項：</translation>
+        <translation>選項:</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>顔色：</translation>
+        <translation>顔色:</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation>陰影：</translation>
+        <translation>陰影:</translation>
     </message>
     <message>
         <source>Brightness:</source>
-        <translation>亮度：</translation>
+        <translation>亮度:</translation>
     </message>
     <message>
         <source>Contrast:</source>
-        <translation>對比：</translation>
+        <translation>對比:</translation>
     </message>
     <message>
         <source>Radius:</source>
-        <translation>半徑：</translation>
+        <translation>半徑:</translation>
     </message>
     <message>
         <source>Value:</source>
-        <translation>數值：</translation>
+        <translation>數值:</translation>
     </message>
     <message>
         <source>Posterize:</source>
-        <translation>海報效果化：</translation>
+        <translation>海報效果化:</translation>
     </message>
     <message>
         <source>Available Effects</source>
@@ -7293,11 +7297,11 @@ failed!</source>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation type="unfinished">&gt;&gt;</translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation type="unfinished">&lt;&lt;</translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <source>Effects in use</source>
@@ -7305,7 +7309,7 @@ failed!</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>確認</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -7316,7 +7320,7 @@ failed!</source>
     <name>ExportForm</name>
     <message>
         <source>&amp;All pages</source>
-        <translation>&amp;A 全部頁</translation>
+        <translation>全部頁面 (&amp;A)</translation>
     </message>
     <message>
         <source>Change the output directory</source>
@@ -7325,12 +7329,12 @@ failed!</source>
     <message>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation>輸出目錄－儲存你的圖像的地方。輸出文件的名稱將會是
-&apos;檔案名-頁碼.文件類型&apos;</translation>
+        <translation>輸出目錄是儲存你的圖片的地方。
+輸出檔案的名稱將會是 &apos;檔案名-頁碼.文件類型&apos;</translation>
     </message>
     <message>
         <source>Export only the current page</source>
-        <translation>僅匯出當前頁</translation>
+        <translation>僅匯出目前頁面</translation>
     </message>
     <message>
         <source>Available export formats</source>
@@ -7342,23 +7346,23 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>&amp;H 更改...</translation>
+        <translation>更改 (&amp;H)...</translation>
     </message>
     <message>
         <source>&amp;Export to Directory:</source>
-        <translation>&amp;E 匯出到目錄：</translation>
+        <translation>匯出到目錄 (&amp;E):</translation>
     </message>
     <message>
         <source>Image &amp;Type:</source>
-        <translation>&amp;T 圖像類型：</translation>
+        <translation>圖片類型 (&amp;T):</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation>&amp;Q 質量：</translation>
+        <translation>品質 (&amp;Q):</translation>
     </message>
     <message>
         <source>Export as Image(s)</source>
-        <translation>作爲圖像匯出</translation>
+        <translation>匯出成圖片</translation>
     </message>
     <message>
         <source>Options</source>
@@ -7366,15 +7370,15 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>&amp;Resolution:</source>
-        <translation>&amp;R 解析度：</translation>
+        <translation>解析度 (&amp;R):</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Range</source>
@@ -7382,15 +7386,15 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>&amp;Current page</source>
-        <translation>&amp;C 當前頁</translation>
+        <translation>目前頁面 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Range</source>
-        <translation type="unfinished">&amp;R 範圍</translation>
+        <translation>範圍 (&amp;R)</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">C</translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>Export a range of pages</source>
@@ -7410,20 +7414,20 @@ a range of pages or a single page number.</source>
     <message>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
-        <translation>圖像的解析度。
-如果圖像用於螢幕顯示，用72 dpi</translation>
+        <translation>圖片的解析度。
+如果圖片用於螢幕顯示, 用 72 dpi</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-        <translation>圖像的質量－100%爲最好，1%爲最低質量</translation>
+        <translation>圖片的品質, 100% 爲最好, 1% 爲最低</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;S 尺寸</translation>
+        <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation>圖像尺寸。100%爲沒有更改，200%是兩倍大，以此類推</translation>
+        <translation>圖片尺寸。100% 爲沒有更改, 200% 是兩倍大, 以此類推。</translation>
     </message>
 </context>
 <context>
@@ -7502,15 +7506,15 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation>混合模式：</translation>
+        <translation>混合模式:</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation>透明度：</translation>
+        <translation>透明度:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7541,11 +7545,11 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FDialogPreview</name>
     <message>
         <source>Size:</source>
-        <translation>尺寸</translation>
+        <translation>尺寸:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>標題：</translation>
+        <translation>標題:</translation>
     </message>
     <message>
         <source>No Title</source>
@@ -7561,23 +7565,23 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Scribus Document</source>
-        <translation>Scribus檔案</translation>
+        <translation>Scribus 檔案</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>解析度</translation>
+        <translation>解析度:</translation>
     </message>
     <message>
         <source>DPI</source>
-        <translation type="unfinished">DPI</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>Grayscale</source>
@@ -7585,18 +7589,18 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Colorspace:</source>
-        <translation>顔色模式：</translation>
+        <translation>顔色模式:</translation>
     </message>
 </context>
 <context>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation>這個文件使用的一些字體被替代爲：</translation>
+        <translation>這個檔案使用的一些字體被替代爲:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation>已被替代成：</translation>
+        <translation> 已被替代成: </translation>
     </message>
 </context>
 <context>
@@ -7627,31 +7631,31 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
-        <translation>&amp;A 可用字體</translation>
+        <translation>可用字體 (&amp;A)</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation>&amp;S 字體替代</translation>
+        <translation>字體替代 (&amp;S)</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
-        <translation>&amp;P 其他路徑</translation>
+        <translation>其他路徑 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>&amp;H 更改...</translation>
+        <translation>更改 (&amp;H)...</translation>
     </message>
     <message>
         <source>A&amp;dd...</source>
-        <translation>&amp;D 添加...</translation>
+        <translation>增加 (&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;R 移除</translation>
+        <translation>移除 (&amp;R)</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -7666,7 +7670,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation>嵌入在：</translation>
+        <translation>嵌入在:</translation>
     </message>
     <message>
         <source>Subset</source>
@@ -7680,11 +7684,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation type="obsolete">字體搜索路徑只能在偏好設定中設定，而且要在沒有打開任何檔案的情況下。關閉所有檔案，然後用編輯－設置來更改字體搜索路徑。</translation>
+        <translation>字體搜索路徑只能在偏好設定中設定，而且要在沒有打開任何檔案的情況下。關閉所有檔案，然後用編輯－設置來更改字體搜索路徑。</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -7696,59 +7700,59 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation type="obsolete">字體名稱</translation>
+        <translation>字體名稱</translation>
     </message>
     <message>
         <source>Doc</source>
         <comment>font preview</comment>
-        <translation type="obsolete">文件</translation>
+        <translation>文件</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>font preview</comment>
-        <translation type="obsolete">類型</translation>
+        <translation>類型</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation type="obsolete">子集</translation>
+        <translation>子集</translation>
     </message>
     <message>
         <source>Access</source>
         <comment>font preview</comment>
-        <translation type="obsolete">Access</translation>
+        <translation>Access</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation type="obsolete">字體尺寸：</translation>
+        <translation>字體尺寸:</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation type="obsolete">字體預覽</translation>
+        <translation>字體預覽</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <comment>font preview</comment>
-        <translation type="obsolete">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Quick Search: </source>
-        <translation type="obsolete">快速尋找：</translation>
+        <translation>快速尋找: </translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="obsolete">&amp;S 尋找</translation>
+        <translation>尋找 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <comment>font preview</comment>
-        <translation type="obsolete">&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <comment>font preview</comment>
-        <translation type="obsolete">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
@@ -7758,11 +7762,11 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Leave preview</source>
         <comment>font preview</comment>
-        <translation>Leave 預覽</translation>
+        <translation>離開預覽</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="obsolete">在此輸入字以便快速尋找字體名稱。例如&apos;粗體&apos;顯示所帶有粗體的名稱。尋找大小寫有別</translation>
+        <translation>在此輸入字以便快速尋找字體名稱。例如&apos;粗體&apos;顯示所帶有粗體的名稱。尋找大小寫有別</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7789,7 +7793,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="obsolete">&amp;A 追加</translation>
+        <translation>追加 (&amp;A)</translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
@@ -7804,35 +7808,35 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">字體預覽</translation>
+        <translation>字體預覽</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>快速尋找 (&amp;Q):</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;S 尋找</translation>
+        <translation>尋找 (&amp;S)</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished">字體名稱</translation>
+        <translation>字體名稱</translation>
     </message>
     <message>
         <source>Doc</source>
-        <translation type="unfinished">文件</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">類型</translation>
+        <translation>類型</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="unfinished">子集</translation>
+        <translation>子集</translation>
     </message>
     <message>
         <source>Access</source>
@@ -7840,15 +7844,15 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>字體大小 (&amp;F):</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">文本</translation>
+        <translation>文字</translation>
     </message>
     <message>
         <source>Sample text to display</source>
-        <translation type="unfinished"></translation>
+        <translation>要顯示的文字樣本</translation>
     </message>
     <message>
         <source>Se&amp;t</source>
@@ -7856,34 +7860,34 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Reset the text</source>
-        <translation type="unfinished"></translation>
+        <translation>重置文字</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="unfinished">&amp;A 追加</translation>
+        <translation>追加 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation>&amp;F 字體預覽...</translation>
+        <translation>字體預覽 (&amp;F)...</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
@@ -7891,7 +7895,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Sorting, searching and browsing available fonts.</source>
-        <translation>排列，尋找和瀏覽可用的字體。</translation>
+        <translation>排列, 尋找和瀏覽可用的字體。</translation>
     </message>
 </context>
 <context>
@@ -7922,30 +7926,30 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>啓用這個就告訴Scribus永久性地在以後的版面使用替代字體來代替不存在的字體。這個可以在編輯－偏好設定－字體中被改變或逆轉。</translation>
+        <translation>啓用這個就告訴 Scribus 永久性地在以後的版面使用替代字體來代替不存在的字體。這個可以在編輯－偏好設定－字體中被改變或逆轉。</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>如果你選擇確認然後儲存，這些替代將永久保留到檔案中。</translation>
+        <translation>如果你選擇確認然後儲存, 這些替代將永久保留到檔案中。</translation>
     </message>
 </context>
 <context>
     <name>GradientEditor</name>
     <message>
         <source>Position:</source>
-        <translation>位置：</translation>
+        <translation>位置:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation type="obsolete">這裏你可以增加，更改或者刪除顔色節點</translation>
+        <translation>這裡你可以增加, 更改或者刪除顔色節點。</translation>
     </message>
     <message>
         <source>Add, change or remove color stops here</source>
-        <translation type="unfinished"></translation>
+        <translation>在這裡增加, 更改或者刪除顔色節點</translation>
     </message>
 </context>
 <context>
@@ -7964,59 +7968,59 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-座標:</translation>
+        <translation>Y-座標 (&amp;Y):</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;A 添加</translation>
+        <translation>增加 (&amp;A)</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation>&amp;E 刪除</translation>
+        <translation>刪除 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X-座標：</translation>
+        <translation>X-座標 (&amp;X):</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>&amp;D 添加</translation>
+        <translation>增加 (&amp;D)</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>&amp;L 刪除</translation>
+        <translation>刪除 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;L 鎖定參考線</translation>
+        <translation>鎖定參考線 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Rows:</source>
-        <translation>&amp;R 行：</translation>
+        <translation>行 (&amp;R):</translation>
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation>&amp;O 列：</translation>
+        <translation>列 (&amp;O):</translation>
     </message>
     <message>
         <source>Refer to:</source>
-        <translation>參考：</translation>
+        <translation>參考:</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>&amp;P 頁</translation>
+        <translation>頁面 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Margins</source>
-        <translation>&amp;M 頁邊距</translation>
+        <translation>頁面邊距 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Selection</source>
-        <translation>&amp;S 選擇</translation>
+        <translation>選擇 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
@@ -8024,15 +8028,15 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Row &amp;Gap</source>
-        <translation>&amp;G 行距</translation>
+        <translation>行距 (&amp;G)</translation>
     </message>
     <message>
         <source>Colum&amp;n Gap</source>
-        <translation>&amp;N 列距</translation>
+        <translation>列距 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation>&amp;U 更新</translation>
+        <translation>更新 (&amp;U)</translation>
     </message>
     <message>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
@@ -8041,7 +8045,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Apply to All Pages</source>
-        <translation>&amp;A 應用到所有頁面</translation>
+        <translation>套用到所有頁面 (&amp;A)</translation>
     </message>
     <message>
         <source>Guide</source>
@@ -8049,15 +8053,15 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Unit</source>
-        <translation type="unfinished"></translation>
+        <translation>單位</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">預覽</translation>
+        <translation>預覽</translation>
     </message>
     <message>
         <source>There is empty (0.0) guide already</source>
-        <translation type="unfinished">已經有空白的(0.0)參考線</translation>
+        <translation>已經有空白的(0.0)參考線</translation>
     </message>
 </context>
 <context>
@@ -8065,8 +8069,8 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation>對不起，沒有使用手冊可用！請訪問： http://docs.scribus.net 來獲得最新檔案，如果要下載，請訪問
-www.scribus.net 。</translation>
+        <translation>對不起, 沒有使用手冊可用! 請造訪: http://docs.scribus.net 來獲得最新檔案。
+如果要下載, 請造訪: www.scribus.net 。</translation>
     </message>
     <message>
         <source>Contents</source>
@@ -8078,19 +8082,19 @@ www.scribus.net 。</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation>Scribus在線求助</translation>
+        <translation>Scribus 線上求助</translation>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation>&amp;C 內容</translation>
+        <translation>內容 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>&amp;S 尋找</translation>
+        <translation>尋找 (&amp;S)</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="obsolete">未知</translation>
+        <translation>未知</translation>
     </message>
     <message>
         <source>Find</source>
@@ -8098,35 +8102,35 @@ www.scribus.net 。</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation>尋找條件：</translation>
+        <translation>尋找條件:</translation>
     </message>
     <message>
         <source>Se&amp;arch</source>
-        <translation>&amp;A 尋找</translation>
+        <translation>尋找 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>De&amp;lete All</source>
-        <translation>&amp;L 全部刪除</translation>
+        <translation>全部刪除 (&amp;L)</translation>
     </message>
     <message>
         <source>Book&amp;marks</source>
-        <translation>&amp;M 書簽</translation>
+        <translation>書籤 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>&amp;P 列印...</translation>
+        <translation>列印 (&amp;P)...</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>&amp;X 退出</translation>
+        <translation>退出 (&amp;X)</translation>
     </message>
     <message>
         <source>Searching is case unsensitive</source>
@@ -8134,47 +8138,47 @@ www.scribus.net 。</translation>
     </message>
     <message>
         <source>New Bookmark</source>
-        <translation>新書簽</translation>
+        <translation>新書籤</translation>
     </message>
     <message>
         <source>New Bookmark&apos;s Title:</source>
-        <translation>新書簽標題：</translation>
+        <translation>新書籤的標題:</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;F 文件</translation>
+        <translation>檔案 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Find...</source>
-        <translation>&amp;F 尋找...</translation>
+        <translation>尋找 (&amp;F)...</translation>
     </message>
     <message>
         <source>Find &amp;Next</source>
-        <translation>&amp;N 尋找下一個</translation>
+        <translation>尋找下一個 (&amp;N)</translation>
     </message>
     <message>
         <source>Find &amp;Previous</source>
-        <translation>&amp;P 尋找上一個</translation>
+        <translation>尋找上一個 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;E 編輯</translation>
+        <translation>編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Add Bookmark</source>
-        <translation>&amp;A 添加書簽</translation>
+        <translation>增加書籤 (&amp;A)</translation>
     </message>
     <message>
         <source>D&amp;elete All</source>
-        <translation>&amp;E 全部刪除</translation>
+        <translation>全部刪除 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation>&amp;B 書簽</translation>
+        <translation>書籤 (&amp;B)</translation>
     </message>
     <message>
         <source>Relevance</source>
-        <translation type="unfinished"></translation>
+        <translation>相關</translation>
     </message>
 </context>
 <context>
@@ -8205,24 +8209,24 @@ www.scribus.net 。</translation>
     <message>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation type="unfinished">Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</translation>
+        <translation>連續連字元的最大允許數目。
+0 表示不限制。</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation>&amp;L 語言：</translation>
+        <translation>語言 (&amp;L):</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
-        <translation>&amp;S 最小字：</translation>
+        <translation>最小字 (&amp;S):</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>&amp;H 連字元提示</translation>
+        <translation>連字元提示 (&amp;H)</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation>&amp;D 輸入時自動添加連字元到文本</translation>
+        <translation>輸入時自動增加連字元到文字 (&amp;D)</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -8230,134 +8234,134 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished">啓用在輸入時自動用連字元</translation>
+        <translation>啓用在輸入時自動用連字元。</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished">&amp;A 允許連續連字元：</translation>
+        <translation>允許連續連字元 (&amp;A):</translation>
     </message>
 </context>
 <context>
     <name>ImageInfoDialog</name>
     <message>
         <source>Image Info</source>
-        <translation type="unfinished">圖片資訊</translation>
+        <translation>圖片資訊</translation>
     </message>
     <message>
         <source>General Info</source>
-        <translation type="unfinished">一般資訊</translation>
+        <translation>一般資訊</translation>
     </message>
     <message>
         <source>Date / Time:</source>
-        <translation type="unfinished">日期/時間：</translation>
+        <translation>日期 / 時間:</translation>
     </message>
     <message>
         <source>Has Embedded Profile:</source>
-        <translation type="unfinished">已經嵌入配置文件：</translation>
+        <translation>已經嵌入配置檔案:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">是</translation>
+        <translation>是</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">否</translation>
+        <translation>否</translation>
     </message>
     <message>
         <source>Profile Name:</source>
-        <translation type="unfinished">配置檔案名稱：</translation>
+        <translation>配置檔案名稱:</translation>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
-        <translation type="unfinished">已經嵌入路徑：</translation>
+        <translation>已經嵌入路徑:</translation>
     </message>
     <message>
         <source>Has Layers:</source>
-        <translation type="unfinished">有圖層：</translation>
+        <translation>有圖層:</translation>
     </message>
     <message>
         <source>EXIF Info</source>
-        <translation type="unfinished">EXIF資訊</translation>
+        <translation>EXIF 資訊</translation>
     </message>
     <message>
         <source>Artist:</source>
-        <translation type="unfinished">作者：</translation>
+        <translation>作者:</translation>
     </message>
     <message>
         <source>Comment:</source>
-        <translation type="unfinished">說明：</translation>
+        <translation>評論:</translation>
     </message>
     <message>
         <source>User Comment:</source>
-        <translation type="unfinished">用戶說明：</translation>
+        <translation>用戶評論:</translation>
     </message>
     <message>
         <source>Camera Model:</source>
-        <translation type="unfinished">相機型號：</translation>
+        <translation>相機型號:</translation>
     </message>
     <message>
         <source>Camera Manufacturer:</source>
-        <translation type="unfinished">相機廠家：</translation>
+        <translation>相機製造商:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">描述：</translation>
+        <translation>描述:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished">版權：</translation>
+        <translation>版權:</translation>
     </message>
     <message>
         <source>Scanner Model:</source>
-        <translation type="unfinished">掃描器型號：</translation>
+        <translation>掃描器型號:</translation>
     </message>
     <message>
         <source>Scanner Manufacturer:</source>
-        <translation type="unfinished">掃描器廠家</translation>
+        <translation>掃描器製造商:</translation>
     </message>
 </context>
 <context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation type="unfinished">&amp;E  匯入EPS/PS...</translation>
+        <translation>匯入 EPS / PS (&amp;E)...</translation>
     </message>
     <message>
         <source>Imports EPS Files</source>
-        <translation type="unfinished">匯入EPS文件</translation>
+        <translation>匯入 EPS 檔案</translation>
     </message>
     <message>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished">匯入大部分EPS文件到當前檔案，
-把它們的向量資料轉換爲Scribus物件</translation>
+        <translation>匯入大部分 EPS 檔案到目前文件,
+把它們的向量資料轉換爲 Scribus 物件。</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
     <name>InsPage</name>
     <message>
         <source>Insert Page</source>
-        <translation type="unfinished">插入頁面</translation>
+        <translation>插入頁面</translation>
     </message>
     <message>
         <source>before Page</source>
-        <translation type="unfinished">頁之前</translation>
+        <translation>頁面之前</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation type="unfinished">頁之後</translation>
+        <translation>頁面之後</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation type="unfinished">最後</translation>
+        <translation>最後</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -8369,11 +8373,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation>&amp;I 插入</translation>
+        <translation>插入 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation>&amp;M 主頁：</translation>
+        <translation>主頁 (&amp;M):</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -8381,19 +8385,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;S 尺寸：</translation>
+        <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>自定義</translation>
+        <translation>自定</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>&amp;N 檔案方向：</translation>
+        <translation>頁面方向 (&amp;N):</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>豎式</translation>
+        <translation>直式</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -8401,15 +8405,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>&amp;W 寬度：</translation>
+        <translation>寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;H 高度：</translation>
+        <translation>高度 (&amp;H):</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
-        <translation>物件和它們的頁一起移動</translation>
+        <translation>物件和它們的頁面一起移動</translation>
     </message>
     <message>
         <source>Master Pages</source>
@@ -8424,58 +8428,58 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Number of rows:</source>
-        <translation>行數：</translation>
+        <translation>行數:</translation>
     </message>
     <message>
         <source>Number of columns:</source>
-        <translation>列數：</translation>
+        <translation>列數:</translation>
     </message>
 </context>
 <context>
     <name>JavaDocs</name>
     <message>
         <source>New Script</source>
-        <translation>新腳本</translation>
+        <translation>新 Script</translation>
     </message>
     <message>
         <source>Edit JavaScripts</source>
-        <translation>編輯JavaScripts</translation>
+        <translation>編輯 JavaScripts</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;E 編輯...</translation>
+        <translation>編輯 (&amp;E)...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation>&amp;A 添加...</translation>
+        <translation>增加 (&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;New Script:</source>
-        <translation>&amp;N 新腳本：</translation>
+        <translation>新 Script (&amp;N):</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;N 否</translation>
+        <translation>否 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Y 是</translation>
+        <translation>是 (&amp;Y)</translation>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
-        <translation>你真的要刪除這個腳本嗎？</translation>
+        <translation>你真的要刪除這個 Script 嗎?</translation>
     </message>
     <message>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
-        <translation type="unfinished">添加一個新腳本，預設了一個同名稱的函數。如果你想把這個腳本作爲一個“打開動作”腳本來用，確保沒有更改函數的名稱</translation>
+        <translation>增加一個新 Script, 預設了一個同名稱的函數。如果你想把這個 Script 作爲 &quot;打開動作&quot; Script 來用, 確保沒有更改函數的名稱。</translation>
     </message>
 </context>
 <context>
@@ -8486,7 +8490,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Current Key</source>
-        <translation>當前鍵位</translation>
+        <translation>目前鍵位</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
@@ -8494,43 +8498,43 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
-        <translation type="unfinished">ALT+SHIFT+T</translation>
+        <translation>ALT+SHIFT+T</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation type="unfinished">Shift+</translation>
+        <translation>Shift+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation type="unfinished">Alt+</translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation type="unfinished">Ctrl+</translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
-        <translation>&amp;N 沒鍵</translation>
+        <translation>沒有鍵 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation>&amp;U 用戶自定義鍵</translation>
+        <translation>使用者自定鍵 (&amp;U)</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation>&amp;K 設置鍵</translation>
+        <translation>設定鍵 (&amp;K)</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
@@ -8538,43 +8542,43 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation>&amp;L 載入</translation>
+        <translation>載入 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation>&amp;I 匯入...</translation>
+        <translation>匯入 (&amp;I)...</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation>&amp;E 匯出...</translation>
+        <translation>匯出 (&amp;E)...</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation>&amp;R 重置</translation>
+        <translation>重置 (&amp;R)</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation>可載入快捷鍵組合</translation>
+        <translation>可載入的快捷鍵組合</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation>載入選中的快捷鍵組合</translation>
+        <translation>載入選擇的快捷鍵組合</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation>匯入一個快捷鍵組合到當前配置中</translation>
+        <translation>匯入一個快捷鍵組合到目前設置中</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation>匯出當前快捷鍵到一個可被匯入的文件中</translation>
+        <translation>匯出目前快捷鍵到一個可被匯入的檔案中</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
-        <translation>重新載入預設的Scribus快捷鍵</translation>
+        <translation>重新載入 Scribus 預設的快捷鍵</translation>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>鍵位組合 XML 文件 (*.ksxml)</translation>
+        <translation>鍵位組合 XML 檔案 (*.ksxml)</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
@@ -8582,11 +8586,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Meta</source>
-        <translation type="unfinished">Meta</translation>
+        <translation>Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation type="unfinished">Meta+</translation>
+        <translation>Meta+</translation>
     </message>
 </context>
 <context>
@@ -8605,11 +8609,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you want to delete all objects on this layer too?</source>
-        <translation>你確信一併刪除此圖層上的所有物件嗎？</translation>
+        <translation>你確定要一併刪除此圖層上的所有物件嗎?</translation>
     </message>
     <message>
         <source>Add a new layer</source>
-        <translation>添加圖層</translation>
+        <translation>增加圖層</translation>
     </message>
     <message>
         <source>Delete layer</source>
@@ -8644,58 +8648,58 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>文件 (*.sla *.sla.gz *.scd *.scd.gz);;所有文件 (*)</translation>
+        <translation>檔案 (*.sla *.sla.gz *.scd *.scd.gz);;所有檔案 (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>文件 (*.sla *.scd);;所有文件 (*)</translation>
+        <translation>檔案 (*.sla *.scd);;所有檔案 (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;E 編輯</translation>
+        <translation>編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;U 複製</translation>
+        <translation>複製 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;N 否</translation>
+        <translation>否 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Y 是</translation>
+        <translation>是 (&amp;Y)</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;I 匯入</translation>
+        <translation>匯入 (&amp;I)</translation>
     </message>
     <message>
         <source>Do you really want to delete this style?</source>
-        <translation>你真的要刪除此樣式嗎？</translation>
+        <translation>你真的要刪除此樣式嗎?</translation>
     </message>
 </context>
 <context>
     <name>LineStyleWBase</name>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">線條寬度：</translation>
+        <translation>線條寬度:</translation>
     </message>
 </context>
 <context>
@@ -8706,15 +8710,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished">平頭</translation>
+        <translation>平頭</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished">方頭</translation>
+        <translation>方頭</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished">圓頭</translation>
+        <translation>圓頭</translation>
     </message>
     <message>
         <source>Miter Join</source>
@@ -8753,53 +8757,53 @@ converting their vector data into Scribus objects.</source>
     <name>LoadSavePlugin</name>
     <message>
         <source>All Files (*)</source>
-        <translation>所有文件 (*)</translation>
+        <translation>所有檔案 (*)</translation>
     </message>
 </context>
 <context>
     <name>LoremManager</name>
     <message>
         <source>Select Lorem Ipsum</source>
-        <translation>選擇範例文本</translation>
+        <translation>選擇範例文字</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation>作者：</translation>
+        <translation>作者:</translation>
     </message>
     <message>
         <source>Get More:</source>
-        <translation>獲得更多：</translation>
+        <translation>獲得更多:</translation>
     </message>
     <message>
         <source>XML File:</source>
-        <translation>XML 文件：</translation>
+        <translation>XML 檔案:</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
-        <translation type="unfinished">範例文本</translation>
+        <translation>範例文字</translation>
     </message>
     <message>
         <source>Paragraphs:</source>
-        <translation>段落：</translation>
+        <translation>段落:</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
     <name>MarginDialog</name>
     <message>
         <source>Margin Guides</source>
-        <translation>頁邊距參考線</translation>
+        <translation>頁面邊緣參考線</translation>
     </message>
     <message>
         <source>Manage Page Properties</source>
-        <translation>管理頁屬性</translation>
+        <translation>管理頁面屬性</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -8807,19 +8811,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;S 尺寸：</translation>
+        <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>自定義</translation>
+        <translation>自定</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>&amp;N 頁面方向</translation>
+        <translation>頁面方向 (&amp;N):</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>豎式</translation>
+        <translation>直式</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -8827,38 +8831,38 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>&amp;W 寬度：</translation>
+        <translation>寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;H 高度：</translation>
+        <translation>高度 (&amp;H):</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
-        <translation>把物件和頁一起移動</translation>
+        <translation>把物件和頁面一起移動</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>類型：</translation>
+        <translation>類型:</translation>
     </message>
 </context>
 <context>
     <name>MarginWidget</name>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;B 底部：</translation>
+        <translation>底部 (&amp;B):</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>&amp;T 頂部：</translation>
+        <translation>頂部 (&amp;T):</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;R 右邊：</translation>
+        <translation>右 (&amp;R):</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;L 左邊：</translation>
+        <translation>左 (&amp;L):</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
@@ -8870,39 +8874,39 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>&amp;I 裏面：</translation>
+        <translation>裡面 (&amp;I):</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
-        <translation>&amp;U 外面：</translation>
+        <translation>外面 (&amp;U):</translation>
     </message>
     <message>
         <source>Preset Layouts:</source>
-        <translation>預設版面：</translation>
+        <translation>預設版面:</translation>
     </message>
     <message>
         <source>Apply margin settings to all pages</source>
-        <translation>應用頁邊距設置到所有頁面</translation>
+        <translation>應用頁邊距設定到所有頁面</translation>
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
-        <translation>應用頁邊距設置到檔案中現存的所有頁面</translation>
+        <translation>應用頁邊距設定到檔案中現存的所有頁面</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>左邊頁邊距線到頁邊的距離。如果對面頁被選擇，這個距離可以用來獲得正確的裝訂邊距。</translation>
+        <translation>左邊頁邊邊距到頁邊的距離。如果對面頁被選擇, 這個距離可以用來獲得正確的裝訂邊距</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>右邊頁邊距線到頁邊的距離。如果對面頁被選擇，這個距離可以用來獲得正確的裝訂邊距。</translation>
+        <translation>右邊頁邊邊距到頁邊的距離。如果對面頁被選擇, 這個距離可以用來獲得正確的裝訂邊距</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
-        <translation type="unfinished">列印邊距...</translation>
+        <translation>印表機頁面邊距...</translation>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation type="unfinished">從可用印表機裏匯入所選頁碼的頁邊距。</translation>
+        <translation>從可用印表機匯入所選頁面的頁面邊距。</translation>
     </message>
 </context>
 <context>
@@ -8913,19 +8917,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
-        <translation>你確認要刪除這個主頁嗎？</translation>
+        <translation>你確認要刪除這個主頁嗎?</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;N 否</translation>
+        <translation>否 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Y 是</translation>
+        <translation>是 (&amp;Y)</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;N 名稱：</translation>
+        <translation>名稱 (&amp;N):</translation>
     </message>
     <message>
         <source>New Master Page</source>
@@ -8937,7 +8941,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Name:</source>
-        <translation>名稱：</translation>
+        <translation>名稱:</translation>
     </message>
     <message>
         <source>New MasterPage</source>
@@ -8945,7 +8949,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Copy #%1 of</translation>
+        <translation>複製 #%1 的 </translation>
     </message>
     <message>
         <source>Normal</source>
@@ -8953,11 +8957,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
-        <translation>複製當前選中的主頁</translation>
+        <translation>複製目前選擇的主頁</translation>
     </message>
     <message>
         <source>Delete the selected master page</source>
-        <translation>刪除當前選中的主頁</translation>
+        <translation>刪除目前選擇的主頁</translation>
     </message>
     <message>
         <source>Add a new master page</source>
@@ -8965,15 +8969,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import master pages from another document</source>
-        <translation>從另外一個文件匯入主頁</translation>
+        <translation>從另外一個檔案匯入主頁</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished">新建主頁 %1</translation>
+        <translation>新建主頁 %1</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>無法重新命名主頁</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
@@ -8981,11 +8985,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>重新命名主頁</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>新名稱:</translation>
     </message>
 </context>
 <context>
@@ -8996,15 +9000,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Number of Copies:</source>
-        <translation>&amp;N 複件數：</translation>
+        <translation>複製數量 (&amp;N):</translation>
     </message>
     <message>
         <source>&amp;Horizontal Shift:</source>
-        <translation>&amp;H 水平提升：</translation>
+        <translation>水平位移 (&amp;H):</translation>
     </message>
     <message>
         <source>&amp;Vertical Shift:</source>
-        <translation>&amp;V 垂直提升：</translation>
+        <translation>垂直位移 (&amp;V):</translation>
     </message>
 </context>
 <context>
@@ -9015,39 +9019,39 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>X1:</source>
-        <translation type="unfinished">X1:</translation>
+        <translation>X1:</translation>
     </message>
     <message>
         <source>Y1:</source>
-        <translation type="unfinished">Y1:</translation>
+        <translation>Y1:</translation>
     </message>
     <message>
         <source>X2:</source>
-        <translation type="unfinished">X2:</translation>
+        <translation>X2:</translation>
     </message>
     <message>
         <source>Y2:</source>
-        <translation type="unfinished">Y2:</translation>
+        <translation>Y2:</translation>
     </message>
     <message>
         <source>DX:</source>
-        <translation type="unfinished">DX:</translation>
+        <translation>DX:</translation>
     </message>
     <message>
         <source>DY:</source>
-        <translation type="unfinished">DY:</translation>
+        <translation>DY:</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation>角度：</translation>
+        <translation>角度:</translation>
     </message>
     <message>
         <source>Length:</source>
-        <translation>長度：</translation>
+        <translation>長度:</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -9058,15 +9062,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>檔案 (*.sla *.sla.gz *.scd *.scd.gz);;全部文件 (*)</translation>
+        <translation>檔案 (*.sla *.sla.gz *.scd *.scd.gz);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>檔案 (*.sla *.scd);;全部文件 (*)</translation>
+        <translation>檔案 (*.sla *.scd);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
-        <translation>輸入頁</translation>
+        <translation>匯入頁面</translation>
     </message>
     <message>
         <source> from 0</source>
@@ -9074,7 +9078,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Create Page(s)</source>
-        <translation>創建頁</translation>
+        <translation>建立頁面</translation>
     </message>
     <message>
         <source> from %1</source>
@@ -9086,27 +9090,27 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;From Document:</source>
-        <translation>&amp;F 來自檔案：</translation>
+        <translation>來自檔案 (&amp;F):</translation>
     </message>
     <message>
         <source>Chan&amp;ge...</source>
-        <translation>&amp;G 更改...</translation>
+        <translation>更改 (&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;Import Page(s):</source>
-        <translation>&amp;I 匯入頁：</translation>
+        <translation>匯入頁面 (&amp;I):</translation>
     </message>
     <message>
         <source>&amp;Import Master Page</source>
-        <translation>&amp;I 匯入主頁</translation>
+        <translation>匯入主頁 (&amp;I)</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation>頁之前</translation>
+        <translation>頁面之前</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation>頁之後</translation>
+        <translation>頁面之後</translation>
     </message>
     <message>
         <source>At End</source>
@@ -9114,11 +9118,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;I 匯入</translation>
+        <translation>匯入 (&amp;I)</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>插入野鴿以逗號隔開的標記，這裏一個記號可以是*來表示全部也，1-5表示頁範圍，或者輸入單個頁碼。</translation>
+        <translation>插入一個以逗號隔開的標記, 這裏一個記號可以是* 來表示全部頁面, 1-5表示頁面範圍, 或者輸入單個頁碼。</translation>
     </message>
 </context>
 <context>
@@ -9144,27 +9148,27 @@ converting their vector data into Scribus objects.</source>
     <name>MovePages</name>
     <message>
         <source>Move Pages</source>
-        <translation>移動頁</translation>
+        <translation>移動頁面</translation>
     </message>
     <message>
         <source>Copy Page</source>
-        <translation>複製頁</translation>
+        <translation>複製頁面</translation>
     </message>
     <message>
         <source>Move Page(s):</source>
-        <translation>移動頁：</translation>
+        <translation>移動頁面:</translation>
     </message>
     <message>
         <source>Move Page(s)</source>
-        <translation>移動頁</translation>
+        <translation>移動頁面</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation>頁之前</translation>
+        <translation>頁面之前</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation>頁之後</translation>
+        <translation>頁面之後</translation>
     </message>
     <message>
         <source>At End</source>
@@ -9172,11 +9176,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>To:</source>
-        <translation>到：</translation>
+        <translation>到:</translation>
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation>複件數量：</translation>
+        <translation>複製數量:</translation>
     </message>
 </context>
 <context>
@@ -9203,7 +9207,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Level</source>
-        <translation>高低</translation>
+        <translation>圖層</translation>
     </message>
     <message>
         <source>Shape:</source>
@@ -9211,7 +9215,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Distance of Text</source>
-        <translation>文本距離</translation>
+        <translation>文字距離</translation>
     </message>
     <message>
         <source>Show Curve</source>
@@ -9219,23 +9223,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>開始位移：</translation>
+        <translation>開始位移:</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation>到曲線的距離：</translation>
+        <translation>到曲線的距離:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation>  %</translation>
     </message>
     <message>
         <source>Input Profile:</source>
-        <translation>輸入配置文件：</translation>
+        <translation>輸入配置檔案:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>渲染意圖：</translation>
+        <translation type="unfinished">渲染意圖:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -9299,7 +9303,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -9383,11 +9387,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation type="obsolete">啓用或者禁用物件的列印</translation>
+        <translation>啓用或者禁用物件的列印</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation type="unfinished">選中的文本或者物件的字體</translation>
+        <translation type="unfinished">選中的文字或者物件的字體</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
@@ -9395,11 +9399,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>文本輪廓顔色的飽和度</translation>
+        <translation>文字輪廓顔色的飽和度</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>文本填充色的飽和度</translation>
+        <translation>文字填充色的飽和度</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
@@ -9443,7 +9447,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation type="unfinished">文本框中的列數</translation>
+        <translation type="unfinished">文字框中的列數</translation>
     </message>
     <message>
         <source>Distance between columns</source>
@@ -9451,19 +9455,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation type="unfinished">文本和框體頂部距離</translation>
+        <translation>文字和框體頂部的距離</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation type="unfinished">文本和框體底部距離</translation>
+        <translation>文字和框體底部的距離</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation type="unfinished">Distance of text from left of frame</translation>
+        <translation>文字和框體左邊的距離</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation type="unfinished">Distance of text from right of frame</translation>
+        <translation>文字和框體右邊的距離</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
@@ -9543,7 +9547,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation type="obsolete">Make text in lower frames flow around the object shape</translation>
+        <translation>Make text in lower frames flow around the object shape</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -9555,81 +9559,81 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
-        <translation type="unfinished">X, Y, &amp;Z</translation>
+        <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>&amp;S 形狀</translation>
+        <translation>形狀 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation>&amp;T 文本</translation>
+        <translation>文字 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Image</source>
-        <translation>&amp;I 圖像</translation>
+        <translation>圖片 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation>&amp;L 線條</translation>
+        <translation>線條 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Colors</source>
-        <translation>&amp;C 顔色</translation>
+        <translation>顔色 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X-座標：</translation>
+        <translation>X-座標 (&amp;X):</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-座標：</translation>
+        <translation>Y-座標 (&amp;Y):</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>&amp;W 寬度：</translation>
+        <translation>寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;H 高度：</translation>
+        <translation>高度 (&amp;H):</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;R 旋轉：</translation>
+        <translation>旋轉 (&amp;R):</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
-        <translation>&amp;E 編輯形狀...</translation>
+        <translation>編輯形狀 (&amp;E)...</translation>
     </message>
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation>&amp;O 圓角
+        <translation>圓角 (&amp;O):
 </translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;M 列：</translation>
+        <translation type="unfinished">&amp;M 列：</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;G 間距：</translation>
+        <translation type="unfinished">間距 (&amp;G):</translation>
     </message>
     <message>
         <source>To&amp;p:</source>
-        <translation>&amp;P 頂：</translation>
+        <translation>頂部 (&amp;P):</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;B 底：</translation>
+        <translation>底部 (&amp;B):</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;L 左：</translation>
+        <translation>左 (&amp;L):</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;R 右：</translation>
+        <translation>右 (&amp;R):</translation>
     </message>
     <message>
         <source>T&amp;abulators...</source>
@@ -9649,23 +9653,23 @@ Corners:</source>
     </message>
     <message>
         <source>St&amp;yle:</source>
-        <translation>&amp;Y 樣式：</translation>
+        <translation>樣式 (&amp;Y):</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
-        <translation>&amp;G 語言：</translation>
+        <translation>語言 (&amp;G):</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>&amp;F 自由縮放</translation>
+        <translation>自由縮放 (&amp;F)</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
-        <translation>X-&amp;A 縮放：</translation>
+        <translation>X-縮放 (&amp;A):</translation>
     </message>
     <message>
         <source>Y-Scal&amp;e:</source>
-        <translation>Y-&amp;E 縮放：</translation>
+        <translation>Y-縮放 (&amp;E):</translation>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
@@ -9681,15 +9685,15 @@ Corners:</source>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
-        <translation type="unfinished">&amp;Y 線條類型：</translation>
+        <translation>線條類型 (&amp;Y):</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">&amp;W 線寬：</translation>
+        <translation>線條寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>Ed&amp;ges:</source>
-        <translation type="unfinished">d&amp;G 邊緣：</translation>
+        <translation>邊緣 (&amp;G):</translation>
     </message>
     <message>
         <source>&amp;Endings:</source>
@@ -9697,27 +9701,27 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;X1:</source>
-        <translation type="unfinished">&amp;X1:</translation>
+        <translation>&amp;X1:</translation>
     </message>
     <message>
         <source>X&amp;2:</source>
-        <translation type="unfinished">X&amp;2:</translation>
+        <translation>X&amp;2:</translation>
     </message>
     <message>
         <source>Y&amp;1:</source>
-        <translation type="unfinished">Y&amp;1:</translation>
+        <translation>Y&amp;1:</translation>
     </message>
     <message>
         <source>&amp;Y2:</source>
-        <translation type="unfinished">&amp;Y2:</translation>
+        <translation>&amp;Y2:</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
+        <translation>Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Use a second line originally based on the frame&apos;s shape for text flow</translation>
+        <translation>Use a second line originally based on the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -9761,11 +9765,11 @@ Corners:</source>
     </message>
     <message>
         <source>Actual X-DPI:</source>
-        <translation type="unfinished">實際 X-DPI:</translation>
+        <translation>實際 X-DPI:</translation>
     </message>
     <message>
         <source>Actual Y-DPI:</source>
-        <translation type="unfinished">實際 Y-DPI:</translation>
+        <translation>實際 Y-DPI:</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
@@ -9773,11 +9777,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation>Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation>Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9789,7 +9793,7 @@ Corners:</source>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation type="unfinished"></translation>
+        <translation>非零</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
@@ -9813,7 +9817,7 @@ Corners:</source>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">自動</translation>
+        <translation>自動</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
@@ -9872,7 +9876,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation type="obsolete"> pt </translation>
+        <translation> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -9907,33 +9911,33 @@ Corners:</source>
     <name>MultiProgressDialogBase</name>
     <message>
         <source>Progress</source>
-        <translation type="unfinished">進度</translation>
+        <translation>進度</translation>
     </message>
     <message>
         <source>Overall Progress:</source>
-        <translation type="unfinished">總進度</translation>
+        <translation>總進度:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;C 取消</translation>
+        <translation>取消 (&amp;C)</translation>
     </message>
 </context>
 <context>
     <name>MyPlugin</name>
     <message>
         <source>My &amp;Plugin</source>
-        <translation type="unfinished">&amp;P 我的插件</translation>
+        <translation>我的插件 (&amp;P)</translation>
     </message>
 </context>
 <context>
     <name>MyPluginImpl</name>
     <message>
         <source>Scribus - My Plugin</source>
-        <translation type="unfinished">Scribus－我的插件</translation>
+        <translation>Scribus - 我的插件</translation>
     </message>
     <message>
         <source>The plugin worked!</source>
-        <translation type="unfinished">插件可工作！</translation>
+        <translation>插件可作用!</translation>
     </message>
 </context>
 <context>
@@ -9948,7 +9952,7 @@ Corners:</source>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>豎式</translation>
+        <translation>直式</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -9956,7 +9960,7 @@ Corners:</source>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>頁邊距參考線</translation>
+        <translation>頁面邊緣參考線</translation>
     </message>
     <message>
         <source>Options</source>
@@ -9964,7 +9968,7 @@ Corners:</source>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation>檔案的頁面大小，或是標準尺寸或者是自定義尺寸</translation>
+        <translation>檔案的頁面大小, 標準尺寸或者是自定尺寸</translation>
     </message>
     <message>
         <source>Orientation of the document&apos;s pages</source>
@@ -9972,71 +9976,71 @@ Corners:</source>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>檔案的頁面寬度，如果你選擇了一個自定義的頁面尺寸，它是可以編輯的</translation>
+        <translation>檔案的頁面寬度, 當你選擇自定頁面尺寸時, 可以修改它</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>檔案的頁面高度，如果你選擇了一個自定義的頁面尺寸，它是可以編輯的</translation>
+        <translation>檔案的頁面高度, 當你選擇自定頁面尺寸時, 可以修改它</translation>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation type="obsolete">檔案的起始頁碼</translation>
+        <translation>檔案的起始頁碼</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation>檔案編輯預設所使用的尺寸單位</translation>
+        <translation>編輯檔案時預設使用的尺寸單位</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
-        <translation>當新頁被添加時自動創建文本框</translation>
+        <translation>當新頁面增加時自動建立文字框</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
-        <translation>自動創建的列的列距</translation>
+        <translation>自動建立的列的列距</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
-        <translation>自動創建的文本框裏的列數</translation>
+        <translation>自動建立的文字框裡的列數</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;S 尺寸：</translation>
+        <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>&amp;N 頁面方向：</translation>
+        <translation>頁面方向 (&amp;N):</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>&amp;W 寬度：</translation>
+        <translation>寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;H 高度：</translation>
+        <translation>高度 (&amp;H):</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="obsolete">&amp;I 起始頁碼：</translation>
+        <translation>起始頁碼 (&amp;I):</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
-        <translation>&amp;D 預設單位：</translation>
+        <translation>預設單位 (&amp;D):</translation>
     </message>
     <message>
         <source>&amp;Automatic Text Frames</source>
-        <translation>&amp;A 自動文本框</translation>
+        <translation>自動文字框 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;G 間隔：</translation>
+        <translation>間距 (&amp;G):</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;M 列：</translation>
+        <translation>列 (&amp;M):</translation>
     </message>
     <message>
         <source>Do not show this dialog again</source>
-        <translation>不再顯示此對話</translation>
+        <translation>不再顯示此對話框</translation>
     </message>
     <message>
         <source>Initial number of pages of the document</source>
@@ -10044,7 +10048,7 @@ Corners:</source>
     </message>
     <message>
         <source>N&amp;umber of Pages:</source>
-        <translation>&amp;U 頁數：</translation>
+        <translation>頁面數 (&amp;U):</translation>
     </message>
     <message>
         <source>Open</source>
@@ -10052,26 +10056,26 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;New Document</source>
-        <translation>&amp;N 新建檔案</translation>
+        <translation>新建檔案 (&amp;N)</translation>
     </message>
     <message>
         <source>Open &amp;Existing Document</source>
-        <translation>&amp;E 打開現有檔案</translation>
+        <translation>打開現有檔案 (&amp;E)</translation>
     </message>
     <message>
         <source>Open Recent &amp;Document</source>
-        <translation>&amp;D 打開最近檔案</translation>
+        <translation>打開最近的檔案 (&amp;D)</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">自定義</translation>
+        <translation>自定</translation>
     </message>
 </context>
 <context>
     <name>NewFromTemplatePlugin</name>
     <message>
         <source>New &amp;from Template...</source>
-        <translation>&amp;F 從模板新建...</translation>
+        <translation>從模板新建 (&amp;F)...</translation>
     </message>
     <message>
         <source>Load documents with predefined layout</source>
@@ -10098,7 +10102,7 @@ Corners:</source>
     </message>
     <message>
         <source>Add Nodes</source>
-        <translation>添加節點</translation>
+        <translation>增加節點</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
@@ -10114,27 +10118,27 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Absolute Coordinates</source>
-        <translation>&amp;A 絕對座標</translation>
+        <translation>絕對座標 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X-座標：</translation>
+        <translation>X-座標 (&amp;X):</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-座標：</translation>
+        <translation>Y-座標 (&amp;Y):</translation>
     </message>
     <message>
         <source>Edit &amp;Contour Line</source>
-        <translation>&amp;C 編輯輪廓線</translation>
+        <translation>編輯輪廓線 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation>&amp;R 重置輪廓線</translation>
+        <translation>重置輪廓線 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
-        <translation>&amp;E 結束編輯</translation>
+        <translation>結束編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
@@ -10146,19 +10150,19 @@ Corners:</source>
     </message>
     <message>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation>打開一個多邊形或剪下貝茲(Bezier)曲線</translation>
+        <translation>打開一個多邊形或剪下貝茲 (Bezier) 曲線</translation>
     </message>
     <message>
         <source>Close this Bezier Curve</source>
-        <translation>閉合這個貝茲(Bezier)曲線</translation>
+        <translation>關閉這個貝茲 (Bezier) 曲線</translation>
     </message>
     <message>
         <source>Mirror the Path Horizontally</source>
-        <translation type="unfinished">水平鏡像路徑</translation>
+        <translation>水平鏡像路徑</translation>
     </message>
     <message>
         <source>Mirror the Path Vertically</source>
-        <translation type="unfinished">垂直鏡像路徑</translation>
+        <translation>垂直鏡像路徑</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Left</source>
@@ -10182,7 +10186,7 @@ Corners:</source>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation type="obsolete">按所示減少路徑尺寸 %</translation>
+        <translation>按所示減少路徑尺寸 %</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
@@ -10194,7 +10198,7 @@ Corners:</source>
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation type="obsolete">% 來增加或減少</translation>
+        <translation>% 來增加或減少</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -10241,18 +10245,18 @@ Corners:</source>
     <name>OODPlug</name>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation type="unfinished"></translation>
+        <translation>這個檔案似乎不是 OpenOffice Draw 檔案。</translation>
     </message>
 </context>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished">&amp;O 匯入OpenOffice.org Draw...</translation>
+        <translation>匯入OpenOffice.org Draw (&amp;O)...</translation>
     </message>
     <message>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation type="unfinished">匯入OpenOffice.org Draw文件</translation>
+        <translation>匯入 OpenOffice.org Draw 檔案</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
@@ -10261,12 +10265,12 @@ Corners:</source>
     <message>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished">OpenDocument 1.0 Draw</translation>
+        <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished">OpenOffice.org 1.x Draw</translation>
+        <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
         <source>This file contains some unsupported features</source>
@@ -10281,11 +10285,11 @@ Corners:</source>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">下次不問</translation>
+        <translation>下次不要再詢問</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">確認</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -10309,68 +10313,68 @@ Corners:</source>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished">覆蓋段落樣式</translation>
+        <translation>覆蓋段落樣式</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished">OpenDocument匯入器選項</translation>
+        <translation>OpenDocument 匯入器選項</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
     <name>OldScribusFormat</name>
     <message>
         <source>Scribus Document</source>
-        <translation type="unfinished">Scribus檔案</translation>
+        <translation>Scribus 檔案</translation>
     </message>
     <message>
         <source>Scribus 1.2.x Document</source>
-        <translation type="unfinished">Scribus 1.2.x檔案</translation>
+        <translation>Scribus 1.2.x 檔案</translation>
     </message>
 </context>
 <context>
     <name>OutlineValues</name>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished">線寬</translation>
+        <translation>線條寬度</translation>
     </message>
 </context>
 <context>
     <name>PDFExportDialog</name>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished">另存爲PDF</translation>
+        <translation>儲存爲 PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
-        <translation type="unfinished">&amp; U 輸出文件：</translation>
+        <translation>輸出到檔案 (&amp;U):</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished">&amp; N 更改：</translation>
+        <translation>更改 (&amp;N)...</translation>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation type="unfinished">&amp; H 逐頁輸出單個文件</translation>
+        <translation>逐頁輸出單個檔案 (&amp;H)</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">另存爲</translation>
+        <translation>另存新檔</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation type="unfinished">PDF文件 (*.pdf);;全部文件 (*)</translation>
+        <translation>PDF 檔案 (*.pdf);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
@@ -10385,19 +10389,19 @@ Corners:</source>
     <name>PDFlib</name>
     <message>
         <source>Saving PDF</source>
-        <translation type="unfinished">儲存PDF中</translation>
+        <translation>儲存 PDF</translation>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation type="unfinished">輸出主頁：</translation>
+        <translation>輸出主頁:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation type="unfinished">輸出頁：</translation>
+        <translation>輸出頁面:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
-        <translation type="unfinished">輸出當前頁裏的專案：</translation>
+        <translation>輸出目前頁面的物件:</translation>
     </message>
 </context>
 <context>
@@ -10412,7 +10416,7 @@ Corners:</source>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation>顯示檔案中的透明度和透明專案。需要Ghostscript 7.07或更高</translation>
+        <translation>顯示檔案中的透明度和透明物件。需要 Ghostscript 7.07 或更高版本</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
@@ -10420,55 +10424,55 @@ Corners:</source>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation>啓用/停用 C （青）墨水板</translation>
+        <translation>啓用 / 停用 C (青) 墨水板</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation>啓用/停用 M （洋紅）墨水板</translation>
+        <translation>啓用 / 停用 M (洋紅) 墨水板</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation>啓用/停用 Y （黃）墨水板</translation>
+        <translation>啓用 / 停用 Y (黃) 墨水板</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation>啓用/停用 K （黑）墨水板</translation>
+        <translation>啓用 / 停用 K (黑) 墨水板</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation type="obsolete">&amp;T 反鋸齒文本</translation>
+        <translation>&amp;T 反鋸齒文本</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation type="obsolete">&amp;T 反鋸齒圖像</translation>
+        <translation>&amp;T 反鋸齒圖像</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
-        <translation>&amp;P 顯示透明度</translation>
+        <translation>顯示透明度 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Display CMYK</source>
-        <translation>&amp;D 顯示CMYK</translation>
+        <translation>顯示 CMYK (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;C</source>
-        <translation type="unfinished">&amp;C</translation>
+        <translation>&amp;C</translation>
     </message>
     <message>
         <source>&amp;M</source>
-        <translation type="unfinished">&amp;M</translation>
+        <translation>&amp;M</translation>
     </message>
     <message>
         <source>&amp;Y</source>
-        <translation type="unfinished">&amp;Y</translation>
+        <translation>&amp;Y</translation>
     </message>
     <message>
         <source>&amp;K</source>
-        <translation type="unfinished">&amp;K</translation>
+        <translation>&amp;K</translation>
     </message>
     <message>
         <source>&amp;Under Color Removal</source>
-        <translation>&amp;U 清除底色</translation>
+        <translation>清除底色 (&amp;U)</translation>
     </message>
     <message>
         <source>Separation Name</source>
@@ -10492,7 +10496,7 @@ Corners:</source>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation>伸縮：</translation>
+        <translation>縮放:</translation>
     </message>
     <message>
         <source>Print...</source>
@@ -10500,11 +10504,11 @@ Corners:</source>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="obsolete">在閱讀器中提供更加悅目的文本顯示，代價是預覽稍微緩慢。這只影響Type 1字體</translation>
+        <translation>在閱讀器中提供更加悅目的文本顯示，代價是預覽稍微緩慢。這只影響Type 1字體</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">在預覽中提供了對TrueType字體，OpenType字體，EPS，PDF和向量圖更加悅目的顯示，代價是預覽速度輕微的緩慢。</translation>
+        <translation>在預覽中提供了對TrueType字體，OpenType字體，EPS，PDF和向量圖更加悅目的顯示，代價是預覽速度輕微的緩慢。</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -10520,7 +10524,7 @@ Corners:</source>
     </message>
     <message>
         <source>File</source>
-        <translation>文件</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>Enable &amp;Antialiasing</source>
@@ -10546,11 +10550,11 @@ Corners:</source>
     <name>PageItem</name>
     <message>
         <source>Image</source>
-        <translation>圖像</translation>
+        <translation>圖片</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>文本</translation>
+        <translation>文字</translation>
     </message>
     <message>
         <source>Line</source>
@@ -10566,18 +10570,18 @@ Corners:</source>
     </message>
     <message>
         <source>PathText</source>
-        <translation>路徑文本</translation>
+        <translation>路徑文字</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Copy of</translation>
+        <translation type="unfinished">Copy of</translation>
     </message>
 </context>
 <context>
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -10594,14 +10598,14 @@ Corners:</source>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
 </context>
 <context>
     <name>PageItemAttributesBase</name>
     <message>
         <source>Page Item Attributes</source>
-        <translation>頁面專案屬性</translation>
+        <translation>頁面物件特性</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10621,66 +10625,66 @@ Corners:</source>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished">關係</translation>
+        <translation>關係</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished">關係於</translation>
+        <translation>關係於</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;A 添加</translation>
+        <translation>增加 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;C 複製</translation>
+        <translation>複製 (&amp;C)</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;L 清除</translation>
+        <translation>清除 (&amp;L)</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;O 確認</translation>
+        <translation>確定 (&amp;O)</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;C 取消</translation>
+        <translation>取消 (&amp;C)</translation>
     </message>
 </context>
 <context>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation type="obsolete">頁面排版</translation>
+        <translation>頁面排版</translation>
     </message>
     <message>
         <source>First Page is:</source>
-        <translation>第一頁是：</translation>
+        <translation>第一頁是:</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>文件樣式</translation>
     </message>
 </context>
 <context>
@@ -10695,38 +10699,38 @@ Corners:</source>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="unfinished">把頁面或者主頁拖拉到垃圾箱裏來刪除它們</translation>
+        <translation>把頁面或者主頁拖拉到垃圾箱裏來刪除它們</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation type="unfinished">這是你所有的主頁。要創建新頁，請把主頁拖拉到下面頁面視圖</translation>
+        <translation>這是你所有的主頁。要建立新頁, 請把主頁拖拉到下面的頁面視圖</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">普通</translation>
+        <translation>普通</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
-        <translation type="unfinished">管理頁</translation>
+        <translation>管理頁面</translation>
     </message>
     <message>
         <source>Available Master Pages:</source>
-        <translation type="unfinished">可用主頁：</translation>
+        <translation>可用主頁:</translation>
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation type="unfinished">檔案頁：</translation>
+        <translation>檔案頁:</translation>
     </message>
 </context>
 <context>
     <name>PageSelector</name>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished">%1 of %2</translation>
+        <translation>%1 的 %2</translation>
     </message>
     <message>
         <source>%1 of %1</source>
-        <translation type="unfinished">%1 of %1</translation>
+        <translation>%1 的 %1</translation>
     </message>
 </context>
 <context>
@@ -10801,128 +10805,128 @@ Corners:</source>
     </message>
     <message>
         <source>A</source>
-        <translation type="unfinished">A</translation>
+        <translation>A</translation>
     </message>
     <message>
         <source>B</source>
-        <translation type="unfinished">B</translation>
+        <translation>B</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">C</translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>D</source>
-        <translation type="unfinished">D</translation>
+        <translation>D</translation>
     </message>
     <message>
         <source>E</source>
-        <translation type="unfinished">E</translation>
+        <translation>E</translation>
     </message>
 </context>
 <context>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
-        <translation type="unfinished">結果</translation>
+        <translation>結果</translation>
     </message>
     <message>
         <source>Search Results for: </source>
-        <translation type="unfinished">搜索結果給：</translation>
+        <translation>搜尋結果: </translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">預覽</translation>
+        <translation>預覽</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished">選擇</translation>
+        <translation>選擇</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
     <name>PicStatus</name>
     <message>
         <source>Goto</source>
-        <translation type="unfinished">跳到</translation>
+        <translation>跳到</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">是</translation>
+        <translation>是</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">確認</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation type="unfinished">丟失</translation>
+        <translation>遺失</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">尋找</translation>
+        <translation>尋找</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">名稱</translation>
+        <translation>名稱</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished">路徑</translation>
+        <translation>路徑</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">頁</translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="unfinished">列印</translation>
+        <translation>列印</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished">狀態</translation>
+        <translation>狀態</translation>
     </message>
     <message>
         <source>Cancel Search</source>
-        <translation type="unfinished">取消尋找</translation>
+        <translation>取消尋找</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="unfinished">管理圖片</translation>
+        <translation>管理圖片</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
-        <translation type="unfinished">Scribus－圖像尋找</translation>
+        <translation>Scribus - 圖像尋找</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation type="unfinished">尋找失敗： %1</translation>
+        <translation>尋找失敗: %1</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
-        <translation type="unfinished">圖像名叫 &quot;%1&quot; 的沒找到。</translation>
+        <translation>找不到叫做 &quot;%1&quot; 的圖片。</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
-        <translation type="unfinished">選擇尋找的一個基礎目錄</translation>
+        <translation>選擇一個尋找的基礎目錄</translation>
     </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
     <message>
         <source>Save as &amp;Image...</source>
-        <translation type="unfinished">&amp;I 另存爲圖片...</translation>
+        <translation>另存為圖片 (&amp;I)...</translation>
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished">作爲圖像匯出</translation>
+        <translation>匯出成圖片</translation>
     </message>
     <message>
         <source>Exports selected pages as bitmap images.</source>
-        <translation type="unfinished">把選中的頁面匯出爲點陣圖。</translation>
+        <translation>把選中的頁面匯出爲點陣圖。</translation>
     </message>
 </context>
 <context>
@@ -10930,12 +10934,12 @@ Corners:</source>
     <message>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">無法找到插件</translation>
+        <translation>找不到插件</translation>
     </message>
     <message>
         <source>unknown error</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">未知錯誤</translation>
+        <translation>未知的錯誤</translation>
     </message>
     <message>
         <source>Cannot find symbol (%1)</source>
@@ -10945,7 +10949,7 @@ Corners:</source>
     <message>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">插件：正在載入 %1</translation>
+        <translation>插件: 正在載入 %1</translation>
     </message>
     <message>
         <source>init failed</source>
@@ -10955,12 +10959,12 @@ Corners:</source>
     <message>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished">未知插件類型</translation>
+        <translation>未知的插件類型</translation>
     </message>
     <message>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">插件： %1 已經載入</translation>
+        <translation>插件 %1 已經載入</translation>
     </message>
     <message>
         <source>Plugin: %1 failed to load: %2</source>
@@ -10972,11 +10976,11 @@ Corners:</source>
     <name>PluginManagerPrefsGui</name>
     <message>
         <source>Plugin Manager</source>
-        <translation type="unfinished">插件管理器</translation>
+        <translation>插件管理器</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished">插件</translation>
+        <translation>插件</translation>
     </message>
     <message>
         <source>How to run</source>
@@ -10988,7 +10992,7 @@ Corners:</source>
     </message>
     <message>
         <source>Load it?</source>
-        <translation type="unfinished">載入它嗎？</translation>
+        <translation>載入嗎?</translation>
     </message>
     <message>
         <source>Plugin ID</source>
@@ -11000,11 +11004,11 @@ Corners:</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">是</translation>
+        <translation>是</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">否</translation>
+        <translation>否</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
@@ -11015,42 +11019,42 @@ Corners:</source>
     <name>PolygonProps</name>
     <message>
         <source>Polygon Properties</source>
-        <translation type="unfinished">多邊形屬性</translation>
+        <translation>多邊形屬性</translation>
     </message>
 </context>
 <context>
     <name>PolygonWidget</name>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation type="unfinished">&amp;E 角數：</translation>
+        <translation>角數 (&amp;E):</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;R 旋轉：</translation>
+        <translation>旋轉 (&amp;R):</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished">&amp;F 應用因式</translation>
+        <translation>套用因式 (&amp;F)</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation type="unfinished">&amp;F 因式：</translation>
+        <translation>因式 (&amp;F):</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">多邊形的角數</translation>
+        <translation>多邊形的角數</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">多邊形的旋轉角度</translation>
+        <translation>多邊形的旋轉角度</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">應用凹凸大小來改變多邊形的形狀</translation>
+        <translation>套用凹凸大小來改變多邊形的形狀</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -11065,155 +11069,155 @@ Corners:</source>
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation type="unfinished">偏好設定</translation>
+        <translation>偏好設定</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">一般</translation>
+        <translation>一般</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">檔案</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation type="unfinished">參考線</translation>
+        <translation>參考線</translation>
     </message>
     <message>
         <source>Typography</source>
-        <translation type="unfinished">排版</translation>
+        <translation>排版</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished">工具</translation>
+        <translation>工具</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation type="obsolete">寄存本</translation>
+        <translation>寄存本</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished">顯示</translation>
+        <translation>顯示</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation type="unfinished">圖形介面</translation>
+        <translation>圖形介面</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation type="unfinished">路徑</translation>
+        <translation>路徑</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">頁面大小</translation>
+        <translation>頁面大小</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">自定義</translation>
+        <translation>自定</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">豎式</translation>
+        <translation>直式</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">橫式</translation>
+        <translation>橫式</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished">頁邊距參考線</translation>
+        <translation>頁面邊緣參考線</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished">自動儲存</translation>
+        <translation>自動儲存</translation>
     </message>
     <message>
         <source>min</source>
-        <translation type="unfinished">分鐘</translation>
+        <translation>分鐘</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Other Options</source>
-        <translation type="obsolete">其他選項</translation>
+        <translation>其他選項</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="obsolete">預覽</translation>
+        <translation>預覽</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation type="obsolete">小</translation>
+        <translation>小</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="obsolete">中</translation>
+        <translation>中</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">選擇一個目錄</translation>
+        <translation>選擇一個目錄</translation>
     </message>
     <message>
         <source>External Tools</source>
-        <translation type="unfinished">外部工具</translation>
+        <translation>外部工具</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation type="unfinished">圖像處理工具</translation>
+        <translation>圖片處理工具</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation type="obsolete">列印</translation>
+        <translation>列印</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
-        <translation type="unfinished">功能表和視窗的預設字體大小</translation>
+        <translation>功能表和視窗的預設字體大小</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished">檔案編輯預設的長度單位</translation>
+        <translation>檔案編輯預設的長度單位</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="unfinished">Scribus滑鼠滾輪每次滾動移動行數</translation>
+        <translation>滑鼠滾輪每次滾動移動的行數</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished">在文件功能表裏顯示最近編輯檔案數目</translation>
+        <translation>在檔案功能表裡顯示最近編輯檔案的數目</translation>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation type="unfinished">預設檔案目錄</translation>
+        <translation>預設的檔案目錄</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished">預設腳本器腳本目錄</translation>
+        <translation>預設 Scripter scripts 目錄</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation type="unfinished">預設頁面尺寸，或是標準的，或是自定義的尺寸</translation>
+        <translation>預設頁面尺寸, 標準或是自定的尺寸</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished">預設檔案頁面方向</translation>
+        <translation>預設檔案頁面方向</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Width of document pages, editable if you have chosen a custom page size</translation>
+        <translation>檔案的頁面寬度, 當你選擇自定頁面尺寸時, 可以修改它</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Height of document pages, editable if you have chosen a custom page size</translation>
+        <translation>檔案的頁面高度, 當你選擇自定頁面尺寸時, 可以修改它</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation type="unfinished">Time period between saving automatically</translation>
+        <translation>自動儲存的時間間隔</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="obsolete">Choose the size of the preview in the scrapbook palette</translation>
+        <translation>Choose the size of the preview in the scrapbook palette</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -11237,99 +11241,99 @@ Corners:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Do not show objects outside the margins on the printed page or exported file</translation>
+        <translation>Do not show objects outside the margins on the printed page or exported file</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="obsolete">Save the scrapbook contents everytime after a change</translation>
+        <translation>Save the scrapbook contents everytime after a change</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
-        <translation type="unfinished">&amp;T 主題：</translation>
+        <translation>佈景主題 (&amp;T):</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
-        <translation type="unfinished">&amp;W 滾輪跳行：</translation>
+        <translation>滾輪跳行 (&amp;W):</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
-        <translation type="unfinished">&amp;R 最近檔案：</translation>
+        <translation>最近打開的檔案 (&amp;R):</translation>
     </message>
     <message>
         <source>&amp;Documents:</source>
-        <translation type="unfinished">&amp;D 檔案：</translation>
+        <translation>檔案 (&amp;D):</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation type="unfinished">&amp;C 更改...</translation>
+        <translation>更改 (&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
-        <translation type="unfinished">&amp;ICC配置文件：</translation>
+        <translation>ICC配置文件 (&amp;I):</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">&amp;H 更改...</translation>
+        <translation>更改 (&amp;H)...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation>&amp;S 腳本：</translation>
+        <translation>&amp;Scripts:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation type="unfinished">&amp;A 更改...</translation>
+        <translation>更改 (&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;S 尺寸：</translation>
+        <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">&amp;N 方向：</translation>
+        <translation>方向 (&amp;N):</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;W 寬度：</translation>
+        <translation>寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;H 高度：</translation>
+        <translation>高度 (&amp;H):</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;B 底部：</translation>
+        <translation>底部 (&amp;B):</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;T 頂部：</translation>
+        <translation>頂部 (&amp;T):</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;R 右：</translation>
+        <translation>右 (&amp;R):</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;L 左：</translation>
+        <translation>左 (&amp;L):</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;I 間隔：</translation>
+        <translation>間隔 (&amp;I):</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
-        <translation type="obsolete">&amp;V 更改時儲存內容</translation>
+        <translation>&amp;V 更改時儲存內容</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation type="obsolete">大</translation>
+        <translation>大</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>&amp;U 用頁邊顔色標出非列印區域</translation>
+        <translation>用頁面邊緣顔色標出非列印區域 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
-        <translation type="unfinished">&amp;A 調整顯示尺寸</translation>
+        <translation>調整顯示尺寸 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
@@ -11349,35 +11353,35 @@ Corners:</source>
     </message>
     <message>
         <source>Clip to Page &amp;Margins</source>
-        <translation type="obsolete">&amp;M 按頁邊距線裁剪</translation>
+        <translation>&amp;M 按頁邊距線裁剪</translation>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation type="obsolete">&amp;U 應用底色清除</translation>
+        <translation>&amp;U 應用底色清除</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished">&amp;N 更改...</translation>
+        <translation>更改 (&amp;N)...</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;L 語言：</translation>
+        <translation>語言 (&amp;L):</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
-        <translation type="unfinished">&amp;E 模板：</translation>
+        <translation>文件模板 (&amp;E):</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation type="unfinished">單位：</translation>
+        <translation>單位:</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
-        <translation type="unfinished">撤銷/重做</translation>
+        <translation>復原/重做</translation>
     </message>
     <message>
         <source>Action history length</source>
-        <translation type="unfinished">動作歷史長度</translation>
+        <translation>儲存的歷史動作長度</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -11385,7 +11389,7 @@ Corners:</source>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished">字體</translation>
+        <translation>字體</translation>
     </message>
     <message>
         <source>Color Management</source>
@@ -11393,11 +11397,11 @@ Corners:</source>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished">PDF輸出</translation>
+        <translation>PDF 輸出</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished">檔案專案屬性</translation>
+        <translation type="unfinished">檔案物件特性</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
@@ -11405,7 +11409,7 @@ Corners:</source>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished">鍵盤快捷鍵</translation>
+        <translation>鍵盤快捷鍵</translation>
     </message>
     <message>
         <source>Page Display</source>
@@ -11413,11 +11417,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color:</source>
-        <translation>顔色：</translation>
+        <translation>顔色:</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
@@ -11437,11 +11441,11 @@ Corners:</source>
     </message>
     <message>
         <source>Miscellaneous</source>
-        <translation type="unfinished">其他</translation>
+        <translation>其他</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished">插件</translation>
+        <translation>插件</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
@@ -11457,7 +11461,7 @@ Corners:</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Ghostscript解析器在文件系統裏的位置</translation>
+        <translation>Ghostscript解析器在文件系統裏的位置</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -11505,11 +11509,11 @@ Corners:</source>
     </message>
     <message>
         <source>dpi</source>
-        <translation type="unfinished">dpi</translation>
+        <translation>dpi</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished">解析度：</translation>
+        <translation>解析度:</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
@@ -11521,7 +11525,7 @@ Corners:</source>
     </message>
     <message>
         <source>Count of the Paragraphs:</source>
-        <translation type="unfinished">段落數：</translation>
+        <translation>段落數:</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -11533,19 +11537,19 @@ Corners:</source>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished">水平：</translation>
+        <translation>水平:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished">垂直：</translation>
+        <translation>垂直:</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished">顯示啓動對話</translation>
+        <translation>啓動時顯示對話框</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
-        <translation type="unfinished">定位 Ghostscript</translation>
+        <translation>定位 Ghostscript</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
@@ -11561,15 +11565,15 @@ Corners:</source>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">選擇你要Scribus預設使用的語言。留白將預設使用系統環境設定。你還可以在命令行運行Scribus時給出選項。</translation>
+        <translation type="unfinished">選擇 Scribus 預設使用的語言。空白則預設使用系統環境設定。你還可以在命令行運行Scribus時給出選項。</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="unfinished">&amp;F 字體大小（功能表）：</translation>
+        <translation>字體大小 (功能表) (&amp;F):</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="unfinished">字體大小（&amp;P 調色板）：</translation>
+        <translation>字體大小 (工具視窗) (&amp;P):</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
@@ -11585,11 +11589,11 @@ Corners:</source>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="unfinished">When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</translation>
+        <translation>當啟用時, Scribus 會自動在每個時間間隔以 .bak 為副檔名儲存一份檔案的備份</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished">Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</translation>
+        <translation>設定儲存的歷史動作長度。設定為 0 則表示不限制儲存長度上限。</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
@@ -11597,7 +11601,7 @@ Corners:</source>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
+        <translation>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
@@ -11608,34 +11612,34 @@ Corners:</source>
     <name>PrefsDialogBase</name>
     <message>
         <source>&amp;Defaults</source>
-        <translation type="unfinished">&amp;D 預設</translation>
+        <translation>預設 (&amp;D)</translation>
     </message>
     <message>
         <source>Save...</source>
-        <translation type="unfinished">儲存...</translation>
+        <translation>儲存...</translation>
     </message>
     <message>
         <source>Save Preferences</source>
-        <translation type="unfinished">儲存偏好設定</translation>
+        <translation>儲存偏好設定</translation>
     </message>
 </context>
 <context>
     <name>PrefsManager</name>
     <message>
         <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
+        <translation>Postscript</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="obsolete">PDF 1.3</translation>
+        <translation>PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="obsolete">PDF 1.4</translation>
+        <translation>PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation type="obsolete">PDF/X-3</translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -11649,43 +11653,43 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="obsolete">單頁</translation>
+        <translation>單頁</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation type="obsolete">雙頁</translation>
+        <translation>雙頁</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation type="obsolete">左頁</translation>
+        <translation>左頁</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation type="obsolete">右頁</translation>
+        <translation>右頁</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation type="obsolete">3折</translation>
+        <translation>3折</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation type="obsolete">中間</translation>
+        <translation>中間</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation type="obsolete">4折</translation>
+        <translation>4折</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation type="obsolete">中左</translation>
+        <translation>中左</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="obsolete">中右</translation>
+        <translation>中右</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
@@ -11714,18 +11718,18 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation type="unfinished">Error Loading Preferences</translation>
+        <translation>載入設定時出錯</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation type="unfinished">Scribus無法載入它的偏好設定 &lt;br&gt;%1&lt;br&lt; 預設設置將被載入</translation>
+        <translation>Scribus 無法載入偏好設定: &lt;br&gt;%1&lt;br&gt; 將載入預設設置。</translation>
     </message>
 </context>
 <context>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Magazine</source>
@@ -11754,42 +11758,42 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>None</source>
         <comment>layout type</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
 </context>
 <context>
     <name>PythonConsole</name>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;O 打開...</translation>
+        <translation>打開 (&amp;O)...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Exit</source>
-        <translation>&amp;E 退出</translation>
+        <translation>退出 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;F 檔案</translation>
+        <translation>檔案 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Run</source>
-        <translation>&amp;R 運行</translation>
+        <translation>執行 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Save Output...</source>
-        <translation>&amp;S 儲存輸出...</translation>
+        <translation>儲存輸出 (&amp;S)...</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation>&amp;S 腳本</translation>
+        <translation>&amp;Script</translation>
     </message>
     <message>
         <source>Script Console</source>
-        <translation>腳本控制臺</translation>
+        <translation>Script 控制臺</translation>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script</source>
@@ -11797,23 +11801,23 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Output of your script</source>
-        <translation type="unfinished">你的腳本輸出</translation>
+        <translation>你的 Script 輸出</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation type="unfinished">Python 腳本 (*.py)</translation>
+        <translation>Python Scripts (*.py)</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
-        <translation type="unfinished">儲存Python命令於文件中</translation>
+        <translation>將 Python 命令儲存於檔案中</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">警告</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished">文字檔案 (*.txt)</translation>
+        <translation>文字檔案 (*.txt)</translation>
     </message>
     <message>
         <source>Save Current Output</source>
@@ -11821,15 +11825,15 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">&amp;A 另存爲...</translation>
+        <translation>另存新檔 (&amp;A)...</translation>
     </message>
     <message>
         <source>Run As &amp;Console</source>
-        <translation type="unfinished">&amp;C 作爲控制臺運行</translation>
+        <translation>以控制臺模式執行 (&amp;C)</translation>
     </message>
     <message>
         <source>Scribus Python Console</source>
-        <translation type="unfinished">Scribus Python控制臺</translation>
+        <translation>Scribus Python 控制臺</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
@@ -11837,7 +11841,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Open Python Script File</source>
-        <translation type="unfinished">打開Python腳本文件</translation>
+        <translation>打開 Python Script 檔案</translation>
     </message>
 </context>
 <context>
@@ -11856,43 +11860,43 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&amp;Red:</source>
-        <translation type="unfinished">&amp;R 紅：</translation>
+        <translation>紅 (&amp;R):</translation>
     </message>
     <message>
         <source>&amp;Green:</source>
-        <translation type="unfinished">&amp;G 綠：</translation>
+        <translation>綠 (&amp;G):</translation>
     </message>
     <message>
         <source>Bl&amp;ue:</source>
-        <translation type="unfinished">&amp;U 藍：</translation>
+        <translation>藍 (&amp;U):</translation>
     </message>
     <message>
         <source>A&amp;lpha channel:</source>
-        <translation type="unfinished">&amp;L 阿法通道</translation>
+        <translation>A&amp;lpha 通道:</translation>
     </message>
     <message>
         <source>&amp;Basic colors</source>
-        <translation>&amp;B 基本顔色</translation>
+        <translation>基本顔色 (&amp;B)</translation>
     </message>
     <message>
         <source>&amp;Custom colors</source>
-        <translation>&amp;C 自定義顔色</translation>
+        <translation>自定顔色 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation>&amp;D 設定自定義顔色 &gt;&gt;</translation>
+        <translation>設定自定顔色 (&amp;D)&gt;&gt;</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">確定</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>&amp;Add to Custom Colors</source>
-        <translation>&amp;A 添加到自定義顔色</translation>
+        <translation>增加到自定顔色 (&amp;A)</translation>
     </message>
     <message>
         <source>Select color</source>
@@ -11903,99 +11907,99 @@ Do you want to migrate them to the new Scribus version?</source>
     <name>QFileDialog</name>
     <message>
         <source>Copy or Move a File</source>
-        <translation type="unfinished">複製或移動文件</translation>
+        <translation>複製或移動檔案</translation>
     </message>
     <message>
         <source>Read: %1</source>
-        <translation type="unfinished">讀取： %1</translation>
+        <translation>讀取: %1</translation>
     </message>
     <message>
         <source>Write: %1</source>
-        <translation type="unfinished">寫入： %1</translation>
+        <translation>寫入: %1</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
-        <translation type="unfinished">&amp;N 檔案名：</translation>
+        <translation>檔案名 (&amp;N):</translation>
     </message>
     <message>
         <source>File &amp;type:</source>
-        <translation type="unfinished">&amp;T 檔案名字：</translation>
+        <translation>檔案類型 (&amp;T):</translation>
     </message>
     <message>
         <source>One directory up</source>
-        <translation type="unfinished">上一級目錄</translation>
+        <translation>上一層目錄</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">全部文件 (*)</translation>
+        <translation>全部檔案 (*)</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">名稱</translation>
+        <translation>名稱</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished">尺寸</translation>
+        <translation>大小</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">類型</translation>
+        <translation>類型</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished">日期</translation>
+        <translation>日期</translation>
     </message>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished">屬性</translation>
+        <translation>特性</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">確認</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>Look &amp;in:</source>
-        <translation type="unfinished">&amp;L 尋找地方：</translation>
+        <translation>尋找 (&amp;L): </translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished">回退</translation>
+        <translation>退回</translation>
     </message>
     <message>
         <source>Create New Folder</source>
-        <translation type="unfinished">創建新目錄</translation>
+        <translation>建立新目錄</translation>
     </message>
     <message>
         <source>List View</source>
-        <translation type="unfinished">列舉視圖</translation>
+        <translation>清單</translation>
     </message>
     <message>
         <source>Detail View</source>
-        <translation type="unfinished">詳細視圖</translation>
+        <translation>詳細資料</translation>
     </message>
     <message>
         <source>Preview File Info</source>
-        <translation type="unfinished">預覽文件資訊</translation>
+        <translation>預覽檔案資訊</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
-        <translation type="unfinished">預覽文件內容</translation>
+        <translation>預覽檔案內容</translation>
     </message>
     <message>
         <source>Read-write</source>
-        <translation type="unfinished">只寫</translation>
+        <translation>可讀寫</translation>
     </message>
     <message>
         <source>Read-only</source>
-        <translation type="unfinished">唯讀</translation>
+        <translation>唯讀</translation>
     </message>
     <message>
         <source>Write-only</source>
-        <translation type="unfinished">只寫</translation>
+        <translation>只可寫入</translation>
     </message>
     <message>
         <source>Inaccessible</source>
@@ -12003,245 +12007,245 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Symlink to File</source>
-        <translation type="unfinished">指向文件的鏈結</translation>
+        <translation>指向檔案的鏈結</translation>
     </message>
     <message>
         <source>Symlink to Directory</source>
-        <translation type="unfinished">指向目錄的鏈結</translation>
+        <translation>指向目錄的鏈結</translation>
     </message>
     <message>
         <source>Symlink to Special</source>
-        <translation type="unfinished">指向特別物件的鏈結</translation>
+        <translation>指向特別物件的鏈結</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">文件</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>Dir</source>
-        <translation type="unfinished">目錄</translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <source>Special</source>
-        <translation type="unfinished">特別物件</translation>
+        <translation>特別物件</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">打開</translation>
+        <translation>打開</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation type="unfinished">另存爲</translation>
+        <translation>另存新檔</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished">&amp;O 打開</translation>
+        <translation>打開 (&amp;O)</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Rename</source>
-        <translation type="unfinished">&amp;R 重命名</translation>
+        <translation>重新命名 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
-        <translation type="unfinished">&amp;E 重新載入</translation>
+        <translation>重新載入 (&amp;E)</translation>
     </message>
     <message>
         <source>Sort by &amp;Name</source>
-        <translation type="unfinished">&amp;N 按名稱排序</translation>
+        <translation>按名稱排序 (&amp;N)</translation>
     </message>
     <message>
         <source>Sort by &amp;Size</source>
-        <translation type="unfinished">&amp;S 按大小排序</translation>
+        <translation>按大小排序 (&amp;S)</translation>
     </message>
     <message>
         <source>Sort by &amp;Date</source>
-        <translation type="unfinished">&amp;D 按日期排序</translation>
+        <translation>按日期排序 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Unsorted</source>
-        <translation type="unfinished">&amp;U 不排序</translation>
+        <translation>不排序 (&amp;U)</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished">排序</translation>
+        <translation>排序</translation>
     </message>
     <message>
         <source>Show &amp;hidden files</source>
-        <translation type="unfinished">&amp;H 顯示隱藏文件</translation>
+        <translation>顯示隱藏檔案 (&amp;H)</translation>
     </message>
     <message>
         <source>the file</source>
-        <translation type="unfinished">文件</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>the directory</source>
-        <translation type="unfinished">目錄</translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <source>the symlink</source>
-        <translation type="unfinished">鏈結</translation>
+        <translation>鏈結</translation>
     </message>
     <message>
         <source>Delete %1</source>
-        <translation type="unfinished">刪除 %1</translation>
+        <translation>刪除 %1</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;你真的要刪除 %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;你真的要刪除 %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Y 是</translation>
+        <translation>是 (&amp;Y)</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;N 否</translation>
+        <translation>否 (&amp;N)</translation>
     </message>
     <message>
         <source>New Folder 1</source>
-        <translation type="unfinished">新文件夾 1</translation>
+        <translation>新檔案夾 1</translation>
     </message>
     <message>
         <source>New Folder</source>
-        <translation type="unfinished">新建文件夾</translation>
+        <translation>新建檔案夾</translation>
     </message>
     <message>
         <source>New Folder %1</source>
-        <translation type="unfinished">新文件夾 %1</translation>
+        <translation>新檔案夾 %1</translation>
     </message>
     <message>
         <source>Find Directory</source>
-        <translation type="unfinished">尋找文件夾</translation>
+        <translation>尋找檔案夾</translation>
     </message>
     <message>
         <source>Directories</source>
-        <translation type="unfinished">目錄</translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">儲存</translation>
+        <translation>儲存</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished">錯誤</translation>
+        <translation>錯誤</translation>
     </message>
     <message>
         <source>%1
 File not found.
 Check path and filename.</source>
-        <translation type="unfinished">%1
-文件未找到。
+        <translation>%1
+檔案未找到。
 請檢查路徑和檔案名。</translation>
     </message>
     <message>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">全部文件 (*.*)</translation>
+        <translation>全部檔案 (*.*)</translation>
     </message>
     <message>
         <source>Select a Directory</source>
-        <translation type="unfinished">選擇一個目錄</translation>
+        <translation>選擇一個目錄</translation>
     </message>
     <message>
         <source>Directory:</source>
-        <translation type="unfinished">目錄：</translation>
+        <translation>目錄:</translation>
     </message>
 </context>
 <context>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished">&amp;F 字體</translation>
+        <translation>字體 (&amp;F)</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation type="unfinished">&amp;Y 字體樣式</translation>
+        <translation>字體樣式 (&amp;Y)</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;S 尺寸</translation>
+        <translation>尺寸 (&amp;S)</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">特效</translation>
+        <translation>特效</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
-        <translation type="unfinished">&amp;K 刪除線</translation>
+        <translation>刪除線 (&amp;K)</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation type="unfinished">&amp;U 底線</translation>
+        <translation>底線 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation>&amp;C 顔色</translation>
+        <translation>顔色 (&amp;C)</translation>
     </message>
     <message>
         <source>Sample</source>
-        <translation type="unfinished">範例</translation>
+        <translation>範例</translation>
     </message>
     <message>
         <source>Scr&amp;ipt</source>
-        <translation type="unfinished">&amp;I 腳本</translation>
+        <translation>Scr&amp;ipt</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">確定</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">應用</translation>
+        <translation>套用</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation type="unfinished">選擇字體</translation>
+        <translation>選擇字體</translation>
     </message>
 </context>
 <context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">清除</translation>
+        <translation>清除</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished">全選</translation>
+        <translation>全選</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;U 撤銷</translation>
+        <translation>復原 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;R 重做</translation>
+        <translation>重做 (&amp;R)</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">&amp;T 剪下</translation>
+        <translation>剪下 (&amp;t )</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;C 複製</translation>
+        <translation>複製 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;P 貼上</translation>
+        <translation>貼上 (&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -12252,7 +12256,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Customize...</source>
-        <translation>自定義...</translation>
+        <translation>自定...</translation>
     </message>
 </context>
 <context>
@@ -12270,45 +12274,45 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">背景</translation>
+        <translation>背景</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">警告</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation type="unfinished">你真的要覆蓋文件：
-%1 ？</translation>
+        <translation>你真的要覆蓋檔案:
+%1 ?</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Open</translation>
+        <translation>打開</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">另存爲</translation>
+        <translation>另存新檔</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation type="unfinished">SVG-圖像 (*.svg *.svgz);;全部文件 (*)</translation>
+        <translation>SVG 圖片 (*.svg *.svgz);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation type="unfinished">SVG-圖像 (*.svg);;全部文件 (*)</translation>
+        <translation>SVG 圖片 (*.svg);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">是</translation>
+        <translation>是</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">否</translation>
+        <translation>否</translation>
     </message>
     <message>
         <source>Save as Image</source>
-        <translation type="unfinished">另存爲圖像</translation>
+        <translation>另存爲圖片</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
@@ -12316,15 +12320,15 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Export successful.</source>
-        <translation type="unfinished">輸出成功。</translation>
+        <translation>輸出成功。</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation type="unfinished">文件存在。覆蓋嗎？</translation>
+        <translation>檔案已存在, 要覆蓋嗎?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
-        <translation type="unfinished">已經存在。覆蓋嗎？</translation>
+        <translation>已經存在, 要覆蓋嗎?</translation>
     </message>
     <message>
         <source>Yes all</source>
@@ -12332,35 +12336,35 @@ Check path and filename.</source>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished">所以支援的格式 (*.eps *.EPS *.ps *.PS);;</translation>
+        <translation>所有支援的格式 (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">全部文件 (*)</translation>
+        <translation>全部檔案 (*)</translation>
     </message>
     <message>
         <source>Newsletters</source>
-        <translation type="unfinished">時事傳報</translation>
+        <translation>報紙</translation>
     </message>
     <message>
         <source>Brochures</source>
-        <translation type="unfinished">小冊子</translation>
+        <translation>小冊子</translation>
     </message>
     <message>
         <source>Catalogs</source>
-        <translation>商品目錄</translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <source>Flyers</source>
-        <translation type="unfinished">傳單</translation>
+        <translation>傳單</translation>
     </message>
     <message>
         <source>Signs</source>
-        <translation type="unfinished">標誌</translation>
+        <translation>標誌</translation>
     </message>
     <message>
         <source>Cards</source>
-        <translation type="unfinished">卡片</translation>
+        <translation>卡片</translation>
     </message>
     <message>
         <source>Letterheads</source>
@@ -12368,59 +12372,59 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Envelopes</source>
-        <translation type="unfinished">信封</translation>
+        <translation>信封</translation>
     </message>
     <message>
         <source>Business Cards</source>
-        <translation type="unfinished">名片</translation>
+        <translation>名片</translation>
     </message>
     <message>
         <source>Calendars</source>
-        <translation type="unfinished">日曆</translation>
+        <translation>日曆</translation>
     </message>
     <message>
         <source>Advertisements</source>
-        <translation type="unfinished">廣告</translation>
+        <translation>廣告</translation>
     </message>
     <message>
         <source>Labels</source>
-        <translation type="unfinished">標簽</translation>
+        <translation>標簽</translation>
     </message>
     <message>
         <source>Menus</source>
-        <translation type="unfinished">功能表</translation>
+        <translation>功能表</translation>
     </message>
     <message>
         <source>Programs</source>
-        <translation type="unfinished">程式</translation>
+        <translation>程式</translation>
     </message>
     <message>
         <source>PDF Forms</source>
-        <translation type="unfinished">PDF表單</translation>
+        <translation>PDF 表單</translation>
     </message>
     <message>
         <source>PDF Presentations</source>
-        <translation type="unfinished">PDF報告</translation>
+        <translation>PDF 報告</translation>
     </message>
     <message>
         <source>Magazines</source>
-        <translation type="unfinished">雜誌</translation>
+        <translation>雜誌</translation>
     </message>
     <message>
         <source>Posters</source>
-        <translation type="unfinished">海報</translation>
+        <translation>海報</translation>
     </message>
     <message>
         <source>Announcements</source>
-        <translation type="unfinished">公告</translation>
+        <translation>公告</translation>
     </message>
     <message>
         <source>Text Documents</source>
-        <translation type="unfinished">文本檔案</translation>
+        <translation>文字檔案</translation>
     </message>
     <message>
         <source>Folds</source>
-        <translation type="unfinished">折頁</translation>
+        <translation>折頁</translation>
     </message>
     <message>
         <source>Own Templates</source>
@@ -12428,43 +12432,43 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Importing text</source>
-        <translation type="unfinished">匯入文本</translation>
+        <translation>匯入文字</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished">全部支援的格式</translation>
+        <translation>全部支援的格式</translation>
     </message>
     <message>
         <source>HTML Files</source>
-        <translation type="unfinished">HTML文件</translation>
+        <translation>HTML 檔案</translation>
     </message>
     <message>
         <source>html</source>
-        <translation type="unfinished">html</translation>
+        <translation>html</translation>
     </message>
     <message>
         <source>Text Files</source>
-        <translation type="unfinished">Text文件</translation>
+        <translation>文字檔案</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
-        <translation type="unfinished">以逗號分開數值的文件</translation>
+        <translation>以逗號分開數值的文件</translation>
     </message>
     <message>
         <source>CSV_data</source>
-        <translation type="unfinished">CSV_資料</translation>
+        <translation>CSV 資料</translation>
     </message>
     <message>
         <source>CSV_header</source>
-        <translation type="unfinished">CSV_頭</translation>
+        <translation>CSV 標頭</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation type="unfinished">字體 %1 破損，忽略它</translation>
+        <translation>字體 %1 損壞, 將忽略之</translation>
     </message>
     <message>
         <source>External Links</source>
-        <translation type="obsolete">外部鏈結</translation>
+        <translation>外部鏈結</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -12476,7 +12480,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="unfinished">阿爾巴尼亞語</translation>
+        <translation>阿爾巴尼亞語</translation>
     </message>
     <message>
         <source>Basque</source>
@@ -12488,7 +12492,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="obsolete">巴西語</translation>
+        <translation>巴西語</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -12496,115 +12500,115 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished">漢語(簡體中文)</translation>
+        <translation>中文 (簡體中文)</translation>
     </message>
     <message>
         <source>Traditional Chinese</source>
-        <translation type="obsolete">中文(繁體中文)</translation>
+        <translation>中文(繁體中文)</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">捷克語</translation>
+        <translation>捷克語</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">丹麥語</translation>
+        <translation>丹麥語</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">荷蘭語</translation>
+        <translation>荷蘭語</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">英語</translation>
+        <translation>英語</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished">英式英語</translation>
+        <translation>英式英語</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished">世界語</translation>
+        <translation>世界語</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">德語</translation>
+        <translation>德語</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">芬蘭語</translation>
+        <translation>芬蘭語</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">法語</translation>
+        <translation>法語</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished">加利西亞語</translation>
+        <translation>加利西亞語</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">希臘語</translation>
+        <translation>希臘語</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">匈牙利語</translation>
+        <translation>匈牙利語</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished">印尼語</translation>
+        <translation>印尼語</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">義大利語</translation>
+        <translation>義大利語</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished">韓語</translation>
+        <translation>韓語</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">立陶宛語</translation>
+        <translation>立陶宛語</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished">挪威語 (Bokmaal)</translation>
+        <translation>挪威語 (Bokmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished">挪威語 (Nnyorsk)</translation>
+        <translation>挪威語 (Nnyorsk)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">挪威語</translation>
+        <translation>挪威語</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">波蘭語</translation>
+        <translation>波蘭語</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">俄語</translation>
+        <translation>俄語</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">瑞典語</translation>
+        <translation>瑞典語</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">西班牙語</translation>
+        <translation>西班牙語</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished">西班牙語（拉丁）</translation>
+        <translation>西班牙語 (拉丁)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">斯洛伐克語</translation>
+        <translation>斯洛伐克語</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">斯洛文尼亞語</translation>
+        <translation>斯洛文尼亞語</translation>
     </message>
     <message>
         <source>Serbian</source>
@@ -12673,7 +12677,7 @@ Check path and filename.</source>
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Target is not an image frame.</translation>
+        <translation>目標不是一個圖片框。</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
@@ -12707,11 +12711,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;All Files (*)</translation>
+        <translation>OpenOffice.org Draw (*.sxd);;All Files (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished">OpenOffice.org Writer Documents</translation>
+        <translation>OpenOffice.org Writer 檔案</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
@@ -12740,24 +12744,24 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Afrikaans</translation>
+        <translation>阿富汗語</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished">土耳其語</translation>
+        <translation>土耳其語</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished">烏克蘭語</translation>
+        <translation>烏克蘭語</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished">威爾士語</translation>
+        <translation>威爾士語</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished">檔案名必須是個字串。</translation>
+        <translation>檔案名必須是個字串。</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
@@ -12807,7 +12811,7 @@ Check path and filename.</source>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Font not found.</translation>
+        <translation>字型不存在。</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
@@ -12822,7 +12826,7 @@ Check path and filename.</source>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Layer not found.</translation>
+        <translation>圖層不存在。</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
@@ -12969,31 +12973,31 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="unfinished">葡萄牙語</translation>
+        <translation>葡萄牙語</translation>
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished">葡萄牙語 (BR)</translation>
+        <translation>葡萄牙語 (BR)</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">自定義</translation>
+        <translation>自定</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">頁面</translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <source>Master Page </source>
-        <translation type="unfinished">主頁</translation>
+        <translation>主頁</translation>
     </message>
     <message>
         <source>4A0</source>
-        <translation type="unfinished">4A0</translation>
+        <translation>4A0</translation>
     </message>
     <message>
         <source>2A0</source>
-        <translation type="unfinished">2A0</translation>
+        <translation>2A0</translation>
     </message>
     <message>
         <source>Comm10E</source>
@@ -13066,23 +13070,23 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="obsolete">Font %1 (found using fontconfig) is broken, discarding it</translation>
+        <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
-        <translation type="unfinished">Scribus 開發中版本</translation>
+        <translation>Scribus 開發中版本</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished"> mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished"> in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
@@ -13090,19 +13094,19 @@ Check path and filename.</source>
     </message>
     <message>
         <source> cm</source>
-        <translation type="unfinished"> cm</translation>
+        <translation> cm</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation type="unfinished">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source>p</source>
@@ -13110,11 +13114,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation type="unfinished">點 (pt)</translation>
+        <translation>點 (pt)</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
@@ -13122,7 +13126,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation type="unfinished">英寸 (in)</translation>
+        <translation>英寸 (in)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
@@ -13134,37 +13138,37 @@ Check path and filename.</source>
     </message>
     <message>
         <source>File exists</source>
-        <translation type="unfinished">文件存在</translation>
+        <translation>檔案存在</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;R 取代</translation>
+        <translation>取代 (&amp;R)</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">全部</translation>
+        <translation>全部</translation>
     </message>
     <message>
         <source>Document Template: </source>
-        <translation type="unfinished">檔案模板：</translation>
+        <translation>檔案模板: </translation>
     </message>
     <message>
         <source>Failed to open document.</source>
         <comment>python error</comment>
-        <translation type="unfinished">無法打開檔案</translation>
+        <translation>無法打開檔案。</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
         <comment>python ??</comment>
-        <translation type="obsolete">Failed to save document.</translation>
+        <translation>Failed to save document.</translation>
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
-        <translation type="unfinished">參數必須是頁面專案名稱，或者是PyCObject實例</translation>
+        <translation>參數必須是頁面物件名稱，或者是 PyCObject 實例</translation>
     </message>
     <message>
         <source>Property not found</source>
-        <translation type="unfinished">沒找到屬性</translation>
+        <translation>屬性不存在</translation>
     </message>
     <message>
         <source>Child not found</source>
@@ -13224,12 +13228,12 @@ Check path and filename.</source>
     <message>
         <source>Object not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Object not found.</translation>
+        <translation>找不到物件。</translation>
     </message>
     <message>
         <source>Style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Style not found.</translation>
+        <translation>找不到樣式。</translation>
     </message>
     <message>
         <source>Cannot set style on a non-text frame.</source>
@@ -13239,7 +13243,7 @@ Check path and filename.</source>
     <message>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Failed to save EPS.</translation>
+        <translation>儲存至 EPS 失敗。</translation>
     </message>
     <message>
         <source>Page number out of range.</source>
@@ -13264,7 +13268,7 @@ Check path and filename.</source>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</translation>
+        <translation>線條寬度超出範圍, 必須在 0 &lt;= line_width &lt;= 12。</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
@@ -13279,7 +13283,7 @@ Check path and filename.</source>
     <message>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Line style not found.</translation>
+        <translation>找不到線條樣式。</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
@@ -13298,31 +13302,31 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;E 執行腳本...</translation>
+        <translation>執行 Script (&amp;E)...</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>&amp;C 顯示控制臺</translation>
+        <translation>顯示控制臺 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation>&amp;A 關於腳本...</translation>
+        <translation>關於 Script (&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation>&amp;S 腳本</translation>
+        <translation>&amp;Script</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation>&amp;Scribus腳本</translation>
+        <translation>&amp;Scribus Scripts</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>&amp;R 最近腳本</translation>
+        <translation>最近的 Script (&amp;R)</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation>關於腳本</translation>
+        <translation>關於 Script</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -13398,39 +13402,39 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Freetype2 library not available</source>
-        <translation>Freetype2庫不可用 </translation>
+        <translation>Freetype2 庫不可用 </translation>
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation>字體 %1 破損，將不嵌入</translation>
+        <translation>字體 %1 損壞, 將不嵌入</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation>字體 %1 破損 （查看流），將不嵌入</translation>
+        <translation type="unfinished">字體 %1 破損 （查看流），將不嵌入</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation>字體 %1 破損 （FreeType2）,將放棄它</translation>
+        <translation>字體 %1 損壞 (FreeType2), 將忽略它</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation>字體 %1 破損 (沒字型），將放棄它</translation>
+        <translation>字體 %1 損壞 (no Face), 將忽略它</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation>字體 %1 有破損字元 %2 （字元碼 %3）</translation>
+        <translation>字體 %1 有破損字元 %2 (字元碼 %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation>字體 %1 破損而且將被放棄</translation>
+        <translation>字體 %1 損壞而且將被忽略</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished">Font %1 cannot be read, no embedding</translation>
+        <translation>無法讀取字體 %1 , 將不嵌入</translation>
     </message>
     <message>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation type="unfinished">Failed to load font %1 - font type unknown</translation>
+        <translation>讀取字體 %1 失敗 - 無法辨識的字體型態</translation>
     </message>
     <message>
         <source>Font %1 loaded from %2(%3)</source>
@@ -13478,7 +13482,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation>Scribus崩潰</translation>
+        <translation>Scribus 崩潰</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
@@ -13486,30 +13490,30 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;O 確認</translation>
+        <translation>確定 (&amp;O)</translation>
     </message>
     <message>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
-        <translation>不能群組少於2個專案</translation>
+        <translation type="unfinished">不能群組少於 2 個物件</translation>
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
-        <translation>群組需要專案選擇範圍或者參數列表</translation>
+        <translation type="unfinished">群組需要物件選擇範圍或者參數列表</translation>
     </message>
     <message>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
-        <translation>不能群組少於2個專案</translation>
+        <translation type="unfinished">不能群組少於 2 個物件</translation>
     </message>
     <message>
         <source> c</source>
-        <translation type="unfinished"> c</translation>
+        <translation> c</translation>
     </message>
     <message>
         <source>c</source>
-        <translation type="unfinished">c</translation>
+        <translation>c</translation>
     </message>
     <message>
         <source>Cicero (c)</source>
@@ -13563,11 +13567,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Export As Image</source>
-        <translation>以圖像匯出</translation>
+        <translation>匯出成圖片</translation>
     </message>
     <message>
         <source>PS/EPS Importer</source>
-        <translation>PS/EPS 匯入器</translation>
+        <translation>PS / EPS 匯入器</translation>
     </message>
     <message>
         <source>Save As Template</source>
@@ -13575,7 +13579,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scripter</source>
-        <translation>腳本器(Scripter)</translation>
+        <translation>Scripter</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -13583,43 +13587,43 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>SVG Export</source>
-        <translation>匯出SVG</translation>
+        <translation>匯出 SVG</translation>
     </message>
     <message>
         <source>SVG Import</source>
-        <translation>匯入SVG</translation>
+        <translation>匯入 SVG</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw Importer</source>
-        <translation>OpenOffice.org Draw匯入器</translation>
+        <translation>OpenOffice.org Draw 匯入器</translation>
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation>Scribus崩潰了，因由以下異常： %1</translation>
+        <translation>Scribus崩潰了, 因由以下異常: %1</translation>
     </message>
     <message>
         <source>Creating Font Cache</source>
-        <translation>創建字體緩衝</translation>
+        <translation>建立字體快取</translation>
     </message>
     <message>
         <source>New Font found, checking...</source>
-        <translation>發現新字體，驗證中...</translation>
+        <translation>發現新字體, 驗證中...</translation>
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation>發現更改過的字體，驗證中...</translation>
+        <translation>發現更改過的字體, 驗證中...</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
-        <translation>讀取字體緩衝</translation>
+        <translation>讀取字體快取</translation>
     </message>
     <message>
         <source>Writing updated Font Cache</source>
-        <translation>寫入已更新字體緩衝</translation>
+        <translation>寫入已更新字體快取</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>搜索字體</translation>
+        <translation>搜尋字體</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
@@ -13631,7 +13635,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
-        <translation type="unfinished">A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</translation>
+        <translation>&lt;br&gt;名為 &apos;%1&apos; 的檔案已存在&lt;br/&gt;你想要以你正在儲存的檔案取代它嗎?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
@@ -13640,76 +13644,76 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Old .sla format support</source>
-        <translation type="unfinished">老 .sla 格式支援</translation>
+        <translation>舊 .sla 格式支援</translation>
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation type="unfinished">德語 (傳統)</translation>
+        <translation>德語 (傳統)</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
-        <translation type="unfinished">輸出PostScript文件</translation>
+        <translation>輸出 PostScript 檔案</translation>
     </message>
     <message>
         <source>Printing File</source>
-        <translation type="unfinished">列印文件</translation>
+        <translation>列印檔案</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
+        <translation type="unfinished">&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>C&amp;reate</source>
-        <translation type="unfinished">&amp;R 創建</translation>
+        <translation>建立 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;I 匯入</translation>
+        <translation>匯入 (&amp;I)</translation>
     </message>
     <message>
         <source>Thai</source>
-        <translation type="unfinished">泰語</translation>
+        <translation>泰語</translation>
     </message>
     <message>
         <source>Barcode Generator</source>
-        <translation type="unfinished"></translation>
+        <translation>條碼產生器</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Failed to save document.</translation>
+        <translation>儲存檔案失敗。</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd *.odg);;所有檔案(*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Word 檔案</translation>
     </message>
     <message>
         <source>Palm PDB Documents</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Palm PDB 檔案</translation>
     </message>
     <message>
         <source>PDB_data</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>PDB 資料</translation>
     </message>
     <message>
         <source>PDB Import</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>PDB 匯入</translation>
     </message>
     <message>
         <source>Could not open file %1</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>無法打開檔案 %1</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
-        <translation type="unfinished"></translation>
+        <translation>盧森堡語</translation>
     </message>
     <message>
         <source>Arabic</source>
@@ -13721,7 +13725,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>日語</translation>
     </message>
     <message>
         <source>Given master page name does not match any existing.</source>
@@ -13730,7 +13734,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>冰島語</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
@@ -13747,11 +13751,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>English (American)</source>
-        <translation type="unfinished"></translation>
+        <translation>美式英語</translation>
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
+        <translation>澳式英語</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
@@ -13759,48 +13763,50 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
+        <translation>德語 (瑞士)</translation>
     </message>
     <message>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>中文 (正體中文)</translation>
     </message>
     <message>
         <source>
 External Links
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+外部連結
+</translation>
     </message>
 </context>
 <context>
     <name>QTextEdit</name>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Clear</translation>
+        <translation>清除</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished">全選</translation>
+        <translation>全選</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;U 撤銷</translation>
+        <translation>復原 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;R 重做</translation>
+        <translation>重做 (&amp;R)</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">&amp;T 剪下</translation>
+        <translation>剪下 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;C 複製</translation>
+        <translation>複製 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;P 貼上</translation>
+        <translation>貼上 (&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -13831,22 +13837,22 @@ External Links
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
     <name>QWorkspace</name>
     <message>
         <source>&amp;Restore</source>
-        <translation type="unfinished">&amp;R 恢復</translation>
+        <translation>復原 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Move</source>
-        <translation type="unfinished">&amp;M 移動</translation>
+        <translation>移動 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;S 尺寸</translation>
+        <translation>尺寸 (&amp;S)</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
@@ -13858,11 +13864,11 @@ External Links
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation type="unfinished">&amp;T 呆在頂上</translation>
+        <translation>至於頂部 (&amp;T)</translation>
     </message>
     <message>
         <source>Minimize</source>
@@ -13870,11 +13876,11 @@ External Links
     </message>
     <message>
         <source>Restore Down</source>
-        <translation type="unfinished">往下恢復</translation>
+        <translation>往下恢復</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
     <message>
         <source>Sh&amp;ade</source>
@@ -13882,7 +13888,7 @@ External Links
     </message>
     <message>
         <source>%1 - [%2]</source>
-        <translation type="unfinished">%1 - [%2]</translation>
+        <translation>%1 - [%2]</translation>
     </message>
     <message>
         <source>&amp;Unshade</source>
@@ -13897,43 +13903,43 @@ External Links
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished">頁邊距參考線</translation>
+        <translation>頁面邊緣參考線</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;T 頂：</translation>
+        <translation>頂部 (&amp;T):</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;L 左：</translation>
+        <translation>左 (&amp;L):</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;B 底：</translation>
+        <translation>底部 (&amp;B):</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;R 右：</translation>
+        <translation>右 (&amp;R):</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">頁面尺寸</translation>
+        <translation>頁面尺寸</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">自定義</translation>
+        <translation>自定</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">豎式</translation>
+        <translation>直式</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">橫式</translation>
+        <translation>橫式</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;S 尺寸：</translation>
+        <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -13941,7 +13947,7 @@ External Links
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;W 寬度：</translation>
+        <translation>寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
@@ -13949,19 +13955,19 @@ External Links
     </message>
     <message>
         <source>&amp;Unit:</source>
-        <translation type="unfinished">&amp;U 單位：</translation>
+        <translation>單位 (&amp;U):</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished">自動儲存</translation>
+        <translation>自動儲存</translation>
     </message>
     <message>
         <source>min</source>
-        <translation type="unfinished">分鐘</translation>
+        <translation>分鐘</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;I 間隔：</translation>
+        <translation>間隔 (&amp;I):</translation>
     </message>
     <message>
         <source>Document</source>
@@ -13969,15 +13975,15 @@ External Links
     </message>
     <message>
         <source>Guides</source>
-        <translation type="unfinished">參考線</translation>
+        <translation>參考線</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation type="unfinished">頁面顯示</translation>
+        <translation>頁面顯示</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>顔色：</translation>
+        <translation>顔色:</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -13985,11 +13991,11 @@ External Links
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">顯示圖片</translation>
+        <translation>顯示圖片</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
@@ -13997,35 +14003,35 @@ External Links
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished">顯示框體</translation>
+        <translation>顯示框體</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished">顯示</translation>
+        <translation>顯示</translation>
     </message>
     <message>
         <source>Typography</source>
-        <translation type="unfinished">排版</translation>
+        <translation>排版</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished">工具</translation>
+        <translation>工具</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished">連字元</translation>
+        <translation>連字元</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished">字體</translation>
+        <translation>字體</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished">PDF輸出</translation>
+        <translation>PDF 輸出</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished">檔案專案屬性</translation>
+        <translation>檔案物件特性</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
@@ -14065,7 +14071,7 @@ External Links
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished">印前檢驗器</translation>
+        <translation>印前檢驗器</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -14077,19 +14083,19 @@ External Links
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation type="unfinished">頁之間的間距</translation>
+        <translation>頁面之間的間距</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished">水平：</translation>
+        <translation>水平:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished">垂直：</translation>
+        <translation>垂直:</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation>調整顔色：</translation>
+        <translation>調整顔色</translation>
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
@@ -14097,7 +14103,7 @@ External Links
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation type="unfinished">應用尺寸設置到所有頁</translation>
+        <translation>應用尺寸設定到所有頁面</translation>
     </message>
     <message>
         <source>Sections</source>
@@ -14112,19 +14118,19 @@ External Links
     <name>RunScriptDialog</name>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Python腳本 (*.py);; 全部文件 (*)</translation>
+        <translation>Python Scripts (*.py);; 全部檔案 (*)</translation>
     </message>
     <message>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
-        <translation type="unfinished">作爲擴展腳本來運行</translation>
+        <translation>以延伸 Script 來執行</translation>
     </message>
 </context>
 <context>
     <name>SMBase</name>
     <message>
         <source>Style Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>樣式管理者</translation>
     </message>
     <message>
         <source>Column 1</source>
@@ -14132,11 +14138,11 @@ External Links
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;A 添加</translation>
+        <translation>增加 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>C&amp;lone</source>
@@ -14144,72 +14150,72 @@ External Links
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">名稱：</translation>
+        <translation>名稱:</translation>
     </message>
     <message>
         <source>O&amp;K</source>
-        <translation type="unfinished"></translation>
+        <translation>確定 (&amp;K)</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
+        <translation>套用 (&amp;P)</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消 (&amp;N)</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>SMLineStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">屬性</translation>
+        <translation>屬性</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>線條</translation>
     </message>
 </context>
 <context>
     <name>SToolBAlign</name>
     <message>
         <source>Style of current paragraph</source>
-        <translation type="unfinished">當前段落的樣式</translation>
+        <translation>目前段落的樣式</translation>
     </message>
     <message>
         <source>Style Settings</source>
-        <translation type="unfinished">樣式設置</translation>
+        <translation>樣式設定</translation>
     </message>
 </context>
 <context>
     <name>SToolBColorF</name>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -14228,7 +14234,7 @@ External Links
     <name>SToolBColorS</name>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -14247,85 +14253,86 @@ External Links
     <name>SToolBFont</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Font of selected text</source>
-        <translation type="unfinished">選中文本的字體</translation>
+        <translation>選中文字的字體</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished">字體大小</translation>
+        <translation>字體大小</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished">字元寬縮放</translation>
+        <translation>字元寬度縮放</translation>
     </message>
     <message>
         <source>Font Settings</source>
-        <translation type="unfinished">字體設置</translation>
+        <translation>字體設定</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished">字元高縮放</translation>
+        <translation>字元高度縮放</translation>
     </message>
 </context>
 <context>
     <name>SToolBStyle</name>
     <message>
         <source>Character Settings</source>
-        <translation type="unfinished">字元設置</translation>
+        <translation>字元設定</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished">手工追蹤</translation>
+        <translation>手動追蹤</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
 </context>
 <context>
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation type="unfinished">&amp;S 頁面另存爲SVG...</translation>
+        <translation>儲存頁面爲 SVG (&amp;S)...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
-        <translation type="unfinished">匯出SVG文件</translation>
+        <translation>匯出 SVG 檔案</translation>
     </message>
     <message>
         <source>Exports the current page into an SVG file.</source>
-        <translation type="unfinished">把當前頁匯出爲一個SVG文件。</translation>
+        <translation>把目前頁面匯出成一個 SVG 檔案。</translation>
     </message>
 </context>
 <context>
     <name>SVGImportPlugin</name>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation type="unfinished">&amp;S 匯入SVG...</translation>
+        <translation>匯入 SVG (&amp;S)...</translation>
     </message>
     <message>
         <source>Imports SVG Files</source>
-        <translation type="unfinished">匯入SVG文件</translation>
+        <translation>匯入 SVG 檔案</translation>
     </message>
     <message>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished">匯入大部分SVG文件到當前檔案，把它們的向量資料轉換爲Scribus物件。</translation>
+        <translation>匯入大部分 SVG 檔案到目前文件,
+把它們的向量資料轉換爲 Scribus 物件。</translation>
     </message>
     <message>
         <source>Scalable Vector Graphics</source>
-        <translation type="unfinished">可縮放向量圖</translation>
+        <translation>可縮放向量圖 (SVG)</translation>
     </message>
     <message>
         <source>SVG file contains some unsupported features</source>
-        <translation type="unfinished">SVG文件包含一些不被支援的功能</translation>
+        <translation>SVG 檔案包含了一些不被支援的功能</translation>
     </message>
 </context>
 <context>
@@ -14338,12 +14345,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">應用不間斷的空格於：</translation>
+        <translation>應用不間斷的空格於:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;S 所選框體</translation>
+        <translation>所選框體 (&amp;S)</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
@@ -14353,12 +14360,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;All items</translation>
+        <translation>所有物件 (&amp;A)</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Only selected frames processed.</translation>
+        <translation>只處理了所選的框體。</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
@@ -14368,38 +14375,38 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">All items in document processed.</translation>
+        <translation>已處理檔案中所有的物件。</translation>
     </message>
 </context>
 <context>
     <name>SWPrefsGui</name>
     <message>
         <source>User settings</source>
-        <translation type="unfinished">User settings</translation>
+        <translation>使用者設定</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation type="unfinished">System wide configuration</translation>
+        <translation>系統範圍設定</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;S 儲存</translation>
+        <translation>儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished">&amp;R 重置</translation>
+        <translation>重置 (&amp;R)</translation>
     </message>
     <message>
         <source>Save user configuration</source>
-        <translation type="unfinished">儲存用戶設置</translation>
+        <translation>儲存用戶設定</translation>
     </message>
     <message>
         <source>Reload system wide configuration and remove user defined one</source>
-        <translation type="unfinished">重新載入系統範圍的設置並清除用戶定義的設置</translation>
+        <translation>重新載入系統範圍的設定並清除使用者定義的設定</translation>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation type="unfinished">編輯自定義的設置。如果你儲存了它，它將覆蓋系統範圍的設置</translation>
+        <translation>編輯自定的設置。如果你儲存了它, 它將覆蓋系統範圍的設置</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -14407,19 +14414,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation type="unfinished">用戶設置已經存在。你真的要覆蓋它嗎？</translation>
+        <translation>使用者設定已經存在。你真的要覆蓋它嗎?</translation>
     </message>
     <message>
         <source>Cannot write file %1.</source>
-        <translation type="unfinished">不能寫入文件 %1 。</translation>
+        <translation>不能寫入檔案 %1 。</translation>
     </message>
     <message>
         <source>User settings saved</source>
-        <translation type="unfinished">用戶設置被儲存</translation>
+        <translation>使用者設定已儲存</translation>
     </message>
     <message>
         <source>System wide configuration reloaded</source>
-        <translation type="unfinished">系統範圍的設置被重新載入</translation>
+        <translation>已重新載入系統範圍的設定</translation>
     </message>
     <message>
         <source>Cannot open file %1</source>
@@ -14430,7 +14437,7 @@ converting their vector data into Scribus objects.</source>
     <name>SaveAsTemplatePlugin</name>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation>&amp;T 儲存爲模板...</translation>
+        <translation>儲存爲模板 (&amp;T)...</translation>
     </message>
     <message>
         <source>Save a document as a template</source>
@@ -14470,15 +14477,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">右</translation>
+        <translation>右</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>底部</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">左</translation>
+        <translation>左</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
@@ -14486,11 +14493,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation>水平</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation>垂直</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
@@ -14501,7 +14508,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScWinPrint</name>
     <message>
         <source>Printing...</source>
-        <translation type="unfinished">列印中...</translation>
+        <translation>列印中...</translation>
     </message>
 </context>
 <context>
@@ -14542,15 +14549,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
+        <translation>你真的想清除你所有的文字嗎?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished">不能刪除正在使用的專案</translation>
+        <translation>不能刪除正在使用的物件</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="unfinished">專案 %1 正被故事編輯器使用中。刪除操作將被取消。</translation>
+        <translation>物件 %1 正被故事編輯器使用中。刪除操作將被取消</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
@@ -14561,7 +14568,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
@@ -14581,7 +14588,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation>讀取ICC配置文件</translation>
+        <translation>讀取 ICC 配置檔案</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
@@ -14593,11 +14600,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation>設置快捷鍵</translation>
+        <translation>設定快捷鍵</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>文件</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -14613,7 +14620,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation>現在退出中。</translation>
+        <translation>現在退出。</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -14621,83 +14628,83 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>字體系統被啓動</translation>
+        <translation>字體系統已被啓動</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;F 文件</translation>
+        <translation>檔案 (&amp;F)</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation>&amp;R 打開最近</translation>
+        <translation>打開最近的檔案 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;I 匯入</translation>
+        <translation>匯入 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation>&amp;E 匯出</translation>
+        <translation>匯出 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;E 編輯</translation>
+        <translation>編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>St&amp;yle</source>
-        <translation>&amp;Y 格式</translation>
+        <translation>樣式 (&amp;Y)</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation>&amp;C 顔色</translation>
+        <translation>顔色 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>&amp;S 尺寸</translation>
+        <translation>尺寸 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation>&amp;S 陰暗</translation>
+        <translation>陰暗 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;F 字體</translation>
+        <translation>字體 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
-        <translation>&amp;E 效果</translation>
+        <translation>效果 (&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Item</source>
-        <translation>&amp;I 效果</translation>
+        <translation>物件 (&amp;I)</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>預覽設置</translation>
+        <translation>預覽設定</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>高低</translation>
+        <translation type="unfinished">圖層</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation>&amp;Y 發送到圖層</translation>
+        <translation>傳送到圖層 (&amp;Y)</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF選項</translation>
+        <translation>PDF 選項 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>&amp;S 形狀</translation>
+        <translation>形狀 (&amp;S)</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation>&amp;O 轉換爲</translation>
+        <translation>轉換爲 (&amp;O)</translation>
     </message>
     <message>
         <source>I&amp;nsert</source>
-        <translation>&amp;N 插入</translation>
+        <translation>插入 (&amp;N)</translation>
     </message>
     <message>
         <source>Character</source>
@@ -14713,27 +14720,27 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>&amp;P 頁面</translation>
+        <translation>頁面 (&amp;P)</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;V 檢視</translation>
+        <translation>檢視 (&amp;V)</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>&amp;X 附加命令</translation>
+        <translation>附加命令 (&amp;X)</translation>
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation>&amp;W 視窗</translation>
+        <translation>視窗 (&amp;W)</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;H 求助</translation>
+        <translation>說明 (&amp;H)</translation>
     </message>
     <message>
         <source>&amp;Alignment</source>
-        <translation>&amp;A 對齊</translation>
+        <translation>對齊 (&amp;A)</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -14741,15 +14748,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Open</source>
-        <translation>O 打開</translation>
+        <translation>打開</translation>
     </message>
     <message>
         <source>Importing Pages...</source>
-        <translation>匯入頁...</translation>
+        <translation>匯入頁面...</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
-        <translation>匯入頁</translation>
+        <translation>匯入頁面</translation>
     </message>
     <message>
         <source>Import done</source>
@@ -14757,11 +14764,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Found nothing to import</source>
-        <translation>匯入沒有找到任何東西</translation>
+        <translation>沒有找到任何可匯入的東西</translation>
     </message>
     <message>
         <source>File %1 is not in an acceptable format</source>
-        <translation>文件 %1 格式不可接受</translation>
+        <translation>檔案 %1 的格式不被接受</translation>
     </message>
     <message>
         <source>Loading...</source>
@@ -14769,19 +14776,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation>這個檔案使用的一些ICC配置文件沒有安裝：</translation>
+        <translation>這個檔案使用的一些 ICC 配置檔案沒有安裝:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation>被取代爲：</translation>
+        <translation> 被取代爲: </translation>
     </message>
     <message>
         <source>(converted)</source>
-        <translation>（被轉換）</translation>
+        <translation>(被轉換)</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -14789,25 +14796,25 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>所有文件 (*)</translation>
+        <translation>所有檔案 (*)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation>不能寫入文件： 
+        <translation>不能寫入檔案:
 %1</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>檔案 (*.sla *.sla.gz *.scd *scd.gz);;全部文件 (*)</translation>
+        <translation>檔案 (*.sla *.sla.gz *.scd *scd.gz);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>檔案 (*.sla *.scd);;全部文件 (*)</translation>
+        <translation>檔案 (*.sla *.scd);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation>另存爲</translation>
+        <translation>另存新檔</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -14815,15 +14822,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation>Scribus已經檢測到一些錯誤。考慮用印前檢驗器來糾正它們。</translation>
+        <translation>Scribus 偵測到一些錯誤。考慮使用印前檢驗器來修正它們</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation>&amp;I 忽略</translation>
+        <translation>忽略 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;Abort</source>
-        <translation>&amp;A 退出</translation>
+        <translation>退出 (&amp;A)</translation>
     </message>
     <message>
         <source>Printing...</source>
@@ -14835,31 +14842,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Printing failed!</source>
-        <translation type="unfinished">Printing failed!</translation>
+        <translation>列印失敗!</translation>
     </message>
     <message>
         <source>Cannot Cut In-Use Item</source>
-        <translation>不能剪下正在使用的專案</translation>
+        <translation>不能剪下正在使用的物件</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation>專案 %1 目前正被故事編輯器編輯中，剪下操作將被取消</translation>
+        <translation>物件 %1 目前正被故事編輯器編輯中, 剪下操作將被取消</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>關於Qt</translation>
+        <translation>關於 Qt</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation>Scribus使用手冊</translation>
+        <translation>Scribus 使用手冊</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>另存爲</translation>
+        <translation>另存新檔</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>文字檔案 (*.txt);;全部文件(*)</translation>
+        <translation>文字檔案 (*.txt);;全部檔案(*)</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -14867,19 +14874,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Name:</source>
-        <translation>名稱：</translation>
+        <translation>名稱:</translation>
     </message>
     <message>
         <source>Convert Page to Master Page</source>
-        <translation>把頁轉換爲主頁</translation>
+        <translation>把頁面轉換爲主頁</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation type="obsolete">新建主頁</translation>
+        <translation>新建主頁</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;S 尺寸：</translation>
+        <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
         <source>Size</source>
@@ -14887,7 +14894,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation>&amp;S 陰暗：</translation>
+        <translation>陰暗 (&amp;S):</translation>
     </message>
     <message>
         <source>Shade</source>
@@ -14899,11 +14906,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The following programs are missing:</source>
-        <translation>以下段落丟失：</translation>
+        <translation>以下段落遺失:</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation>Ghostscript：你不能使用ESP圖像或者列印預覽</translation>
+        <translation>Ghostscript: 你不能使用 ESP 圖片或者列印預覽</translation>
     </message>
     <message>
         <source>All</source>
@@ -14912,22 +14919,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
-        <translation>Scribus檢測到一些錯誤。
-考慮使用印前檢驗器來糾正它們</translation>
+        <translation>Scribus 偵測到一些錯誤。
+考慮使用印前檢驗器  來修正它們。</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation>EPS文件 (*.eps);;所有文件 (*)</translation>
+        <translation>EPS 檔案 (*.eps);;所有檔案 (*)</translation>
     </message>
     <message>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
-        <translation>檢測到一些錯誤。
+        <translation>偵測到一些錯誤。
 考慮使用印前檢驗器來糾正它們</translation>
     </message>
     <message>
         <source>-Page%1</source>
-        <translation>-頁%1</translation>
+        <translation>-頁面%1</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -14935,11 +14942,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Lock All</source>
-        <translation>&amp;L 全部鎖定</translation>
+        <translation>全部鎖定 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>&amp;U 全部解鎖</translation>
+        <translation>全部解除鎖定 (&amp;U)</translation>
     </message>
     <message>
         <source>Information</source>
@@ -14947,11 +14954,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The program %1 is already running!</source>
-        <translation>程式 %1 已經在運行中！</translation>
+        <translation>程式 %1 已經在執行!</translation>
     </message>
     <message>
         <source>The program %1 is missing!</source>
-        <translation>程式 %1 不存在！</translation>
+        <translation>程式 %1 遺失!</translation>
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
@@ -14967,35 +14974,35 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Level</source>
-        <translation>&amp;L 高低</translation>
+        <translation type="unfinished">圖層 (&amp;L)</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation>發送到圖層</translation>
+        <translation>傳送到圖層</translation>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation>&amp;W 預覽設置</translation>
+        <translation>預覽設定 (&amp;W)</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;T 工具</translation>
+        <translation>工具 (&amp;T)</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-座標：</translation>
+        <translation>X-座標:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-座標：</translation>
+        <translation>Y-座標:</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation type="unfinished">Ghostcript：你不能使用EPS圖像或者PostScript列印預覽</translation>
+        <translation>Ghostscript: 你不能使用 ESP 圖片或者 PostScript 列印預覽</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
-        <translation type="unfinished">Ghostscript丟失：Postscript列印預覽不可用</translation>
+        <translation>Ghostscript 遺失: Postscript 列印預覽不可用</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
@@ -15003,80 +15010,82 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>連字</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>新主頁 %1</translation>
     </message>
     <message>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>複製數目: %1
+水平位移: %2
+垂直位移: %3</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
-        <translation type="unfinished"></translation>
+        <translation>你真的想取代現存的圖片嗎?</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">內容</translation>
+        <translation>內容</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>連字 (&amp;T)</translation>
     </message>
 </context>
 <context>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation type="unfinished">無效參數：</translation>
+        <translation>無效參數: </translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished">文件 %1 不存在，退出中。</translation>
+        <translation>檔案 %1 不存在, 中止。</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished">用法：scribus [選項...] [文件]</translation>
+        <translation>用法: scribus [選項...] [檔案]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished">選項：</translation>
+        <translation>選項:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation type="unfinished">列印求助（這個資訊）然後退出</translation>
+        <translation>列印求助 (這個資訊) 然後退出</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
-        <translation type="unfinished">使用XX作爲一個語言的快捷鍵，例如&apos;en&apos;或者&apos;de&apos;</translation>
+        <translation>使用 xx 作爲一個語言的快捷鍵, 例如 &apos;en&apos; 或者 &apos;de&apos;</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished">列出當前已經安裝的介面語言</translation>
+        <translation>列出目前已經安裝的介面語言</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished">在控制臺顯示字體被載入的時間資訊</translation>
+        <translation>在控制臺顯示字體何時被載入的資訊</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation type="unfinished">在啓動時不顯示啓動視窗</translation>
+        <translation>在啓動時不顯示啓動視窗</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation type="unfinished">輸出版本資訊然後退出</translation>
+        <translation>輸出版本資訊然後退出</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished">使用從右到左的對話按鈕順序（例如：取消/否/是，而不是 是/否/取消）</translation>
+        <translation>使用從右到左的對話框按鈕順序 (例如: 取消 / 否 / 是, 而不是 是 / 否 / 取消）</translation>
     </message>
     <message>
         <source>filename</source>
-        <translation type="unfinished">檔案名</translation>
+        <translation>檔案名</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
@@ -15084,11 +15093,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation type="unfinished">爲Scribus已經安裝的介面語言如下：</translation>
+        <translation>Scribus 已經安裝的介面語言如下:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation type="unfinished">覆蓋預設語言選擇：</translation>
+        <translation>覆蓋預設語言選擇:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
@@ -15096,31 +15105,31 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Scribus Version</source>
-        <translation type="unfinished">Scribus版本</translation>
+        <translation>Scribus 版本</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation type="unfinished">Scribus，開源桌面出版</translation>
+        <translation>Scribus, 開放原始碼的桌面出版軟體</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished">主頁</translation>
+        <translation>首頁</translation>
     </message>
     <message>
         <source>Documentation</source>
-        <translation type="unfinished">檔案</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished">Wiki</translation>
+        <translation>Wiki</translation>
     </message>
     <message>
         <source>Issues</source>
-        <translation type="unfinished">問題</translation>
+        <translation>問題</translation>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation type="unfinished"></translation>
+        <translation>顯示控制臺視窗</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
@@ -15131,7 +15140,7 @@ Vertical shift: %3</source>
     <name>ScribusView</name>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Layer</source>
@@ -15151,7 +15160,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;P 貼上</translation>
+        <translation>貼上 (&amp;P)</translation>
     </message>
     <message>
         <source>Picture</source>
@@ -15159,43 +15168,43 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>File: </source>
-        <translation>文件：</translation>
+        <translation>檔案: </translation>
     </message>
     <message>
         <source>Original PPI: </source>
-        <translation>原始PPI： </translation>
+        <translation>原始 PPI: </translation>
     </message>
     <message>
         <source>Actual PPI: </source>
-        <translation>實際PPI： </translation>
+        <translation>實際 PPI:  </translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation>串聯的文本</translation>
+        <translation>串聯的文字</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>文本框</translation>
+        <translation>文字框</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation>路徑上文本</translation>
+        <translation>路徑上的文字</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>段落：</translation>
+        <translation>段落: </translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation>詞：</translation>
+        <translation>字: </translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation>字元：</translation>
+        <translation>字元: </translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="obsolete">列印：</translation>
+        <translation>列印：</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15207,43 +15216,43 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation>&amp;F 資訊</translation>
+        <translation>資訊 (&amp;F)</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>預覽設置</translation>
+        <translation>預覽設定</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF選項 </translation>
+        <translation>&amp;PDF 選項 </translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation>&amp;Y 發送到圖層</translation>
+        <translation>傳送到圖層 (&amp;Y)</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation>&amp;V 高低</translation>
+        <translation>圖層 (&amp;V)</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation>&amp;R 轉換爲</translation>
+        <translation>轉換爲 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="obsolete">不能刪除正在使用的專案</translation>
+        <translation>不能刪除正在使用的專案</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="obsolete">專案 %1 正被故事編輯器使用中。刪除操作將被取消。</translation>
+        <translation>專案 %1 正被故事編輯器使用中。刪除操作將被取消。</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
-        <translation>串聯文本框</translation>
+        <translation>串聯文字框</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
@@ -15251,23 +15260,23 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="obsolete">你真的要清除所有的文本嗎？</translation>
+        <translation>你真的要清除所有的文本嗎？</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
-        <translation>不能轉換正在使用的專案</translation>
+        <translation>不能轉換正在使用的物件</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation>專案 %1 當前正在被故事編輯器編輯。把當前專案轉換爲曲線的操作將被跳過</translation>
+        <translation>物件 %1 目前正在被故事編輯器編輯。把目前物件轉換爲曲線的操作將被跳過</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
-        <translation>頁 %1 到 %2</translation>
+        <translation>頁面 %1 到 %2</translation>
     </message>
     <message>
         <source>Colorspace: </source>
-        <translation>顔色模式：</translation>
+        <translation>顔色模式: </translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -15275,11 +15284,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>Grayscale</source>
@@ -15287,18 +15296,18 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">內容</translation>
+        <translation>內容</translation>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>匯出: </translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
     <message>
         <source>Document:</source>
-        <translation>檔案：</translation>
+        <translation>檔案:</translation>
     </message>
     <message>
         <source>has been changed since the last save.</source>
@@ -15306,29 +15315,29 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Discard</source>
-        <translation>&amp;D 放棄</translation>
+        <translation>放棄 (&amp;D)</translation>
     </message>
 </context>
 <context>
     <name>ScriptPlugin</name>
     <message>
         <source>Embedded Python scripting support.</source>
-        <translation>嵌入的Python腳本支援。</translation>
+        <translation>嵌入的 Python scripting 支援。</translation>
     </message>
     <message>
         <source>Scripter</source>
-        <translation>腳本器（Scripter）</translation>
+        <translation>Scripter</translation>
     </message>
 </context>
 <context>
     <name>ScripterCore</name>
     <message>
         <source>Script error</source>
-        <translation>腳本錯誤</translation>
+        <translation>Script 錯誤</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>如果你正在運行一個官方的腳本，請在 &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; 報告。</translation>
+        <translation>如果你正在執行一個官方的 script, 請在 &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; 報告。</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
@@ -15336,7 +15345,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Examine Script</source>
-        <translation>檢驗腳本</translation>
+        <translation>檢驗 Script</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
@@ -15344,11 +15353,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>設置Python插件失敗。具體錯誤資訊已被列印到標準輸出。</translation>
+        <translation>設定 Python 插件失敗。具體錯誤資訊已被列印到標準輸出。</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python Scripts (*.py);;All 檔案 (*)</translation>
     </message>
     <message>
         <source>Documentation for:</source>
@@ -15356,7 +15365,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Script</translation>
     </message>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
@@ -15367,15 +15376,15 @@ Vertical shift: %3</source>
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation>腳本器偏好設定</translation>
+        <translation>Scripter 偏好設定</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
-        <translation>啓用擴展腳本</translation>
+        <translation>啓用延伸 Script</translation>
     </message>
     <message>
         <source>Extensions</source>
-        <translation>擴展</translation>
+        <translation>延伸</translation>
     </message>
     <message>
         <source>Console</source>
@@ -15383,42 +15392,42 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Startup Script:</source>
-        <translation>啓動運行腳本：</translation>
+        <translation>啓動運行 Script:</translation>
     </message>
     <message>
         <source>Errors:</source>
         <comment>syntax highlighting</comment>
-        <translation>語法高亮：</translation>
+        <translation>錯誤:</translation>
     </message>
     <message>
         <source>Comments:</source>
         <comment>syntax highlighting</comment>
-        <translation>說明：</translation>
+        <translation>說明:</translation>
     </message>
     <message>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
-        <translation>關鍵字：</translation>
+        <translation>關鍵字:</translation>
     </message>
     <message>
         <source>Signs:</source>
         <comment>syntax highlighting</comment>
-        <translation>簽名：</translation>
+        <translation>簽名:</translation>
     </message>
     <message>
         <source>Numbers:</source>
         <comment>syntax highlighting</comment>
-        <translation>數位：</translation>
+        <translation>數位:</translation>
     </message>
     <message>
         <source>Strings:</source>
         <comment>syntax highlighting</comment>
-        <translation>字串：</translation>
+        <translation>字串:</translation>
     </message>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation>基本文本：</translation>
+        <translation>基本文字:</translation>
     </message>
     <message>
         <source>Select Color</source>
@@ -15426,7 +15435,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished">更改...</translation>
+        <translation>更改...</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
@@ -15508,15 +15517,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Replace with:</source>
-        <translation>替代爲：</translation>
+        <translation>取代為:</translation>
     </message>
     <message>
         <source>Search finished</source>
@@ -15524,35 +15533,35 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Whole Word</source>
-        <translation>&amp;W 整個字</translation>
+        <translation>整個字 (&amp;W)</translation>
     </message>
     <message>
         <source>&amp;Ignore Case</source>
-        <translation>&amp;I 忽略大小寫</translation>
+        <translation>忽略大小寫 (&amp;I)</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>&amp;S 尋找</translation>
+        <translation>尋找 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation>&amp;R 替代</translation>
+        <translation>取代 (&amp;R)</translation>
     </message>
     <message>
         <source>Replace &amp;All</source>
-        <translation>&amp;A 全部替代</translation>
+        <translation>全部取代 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;C 關閉</translation>
+        <translation>關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;L 清除</translation>
+        <translation>清除 (&amp;L)</translation>
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
-        <translation>尋找結束，找到 %1 符合</translation>
+        <translation>尋找結束, 找到 %1 個符合</translation>
     </message>
 </context>
 <context>
@@ -15571,11 +15580,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation type="unfinished">&amp;&gt;&gt;</translation>
+        <translation>&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation type="unfinished">&amp;&lt;&lt;</translation>
+        <translation>&amp;&lt;&lt;</translation>
     </message>
 </context>
 <context>
@@ -15597,11 +15606,11 @@ Vertical shift: %3</source>
     <name>ShadowValues</name>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>X-Offset</source>
-        <translation>X-移位 (ENGB)</translation>
+        <translation>X-移位</translation>
     </message>
     <message>
         <source>Y-Offset</source>
@@ -15662,202 +15671,202 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>檔案 (*.sla *.sla.gz *.scd *.scd.gz);;全部文件 (*)</translation>
+        <translation>檔案 (*.sla *.sla.gz *.scd *.scd.gz);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>檔案 (*.sla *.scd);;全部文件 (*)</translation>
+        <translation>檔案 (*.sla *.scd);;全部檔案 (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;E 編輯</translation>
+        <translation>編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;U 複件</translation>
+        <translation>複件 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;I 匯入</translation>
+        <translation>匯入 (&amp;I)</translation>
     </message>
 </context>
 <context>
     <name>StoryEditor</name>
     <message>
         <source>Story Editor</source>
-        <translation type="unfinished">故事編輯器</translation>
+        <translation>故事編輯器</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
-        <translation type="unfinished">當前段落：</translation>
+        <translation>目前段落:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation type="unfinished">字：</translation>
+        <translation>字: </translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation type="unfinished">字元：</translation>
+        <translation>字元: </translation>
     </message>
     <message>
         <source>Totals:</source>
-        <translation type="unfinished">總計：</translation>
+        <translation>總計: </translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation type="unfinished">段落：</translation>
+        <translation>段落: </translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">打開</translation>
+        <translation>打開</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="unfinished">文字檔案 (*.txt);;全部文件(*)</translation>
+        <translation>文字檔案 (*.txt);;全部檔案(*)</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">另存</translation>
+        <translation>另存新檔</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
-        <translation type="unfinished">你要儲存更改嗎？</translation>
+        <translation>你要儲存變更嗎?</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;N 新建</translation>
+        <translation>新建 (&amp;N)</translation>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation type="unfinished">&amp;R 從框體重新載入文本</translation>
+        <translation>從框體重新載入文字 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
-        <translation type="unfinished">&amp;S 儲存到文件...</translation>
+        <translation>儲存到檔案 (&amp;S)...</translation>
     </message>
     <message>
         <source>&amp;Load from File...</source>
-        <translation type="unfinished">&amp;L 從文件載入...</translation>
+        <translation>從檔案載入 (&amp;L)...</translation>
     </message>
     <message>
         <source>Save &amp;Document</source>
-        <translation type="unfinished">&amp;D 儲存檔案</translation>
+        <translation>儲存檔案 (&amp;D)</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation type="unfinished">&amp;U 更新文本框然後退出</translation>
+        <translation>更新文字框並退出 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation type="unfinished">&amp;E 不更新文本框就退出</translation>
+        <translation>不更新文字框就退出 (&amp;E)</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">&amp;T 剪下</translation>
+        <translation>剪下 (&amp;T)</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;C 複製</translation>
+        <translation>複製 (&amp;C)</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;P 貼上</translation>
+        <translation>貼上 (&amp;P)</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;L 清除</translation>
+        <translation>清除 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
-        <translation type="unfinished">&amp;U 更新文本框</translation>
+        <translation>更新文字框 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;F 文件</translation>
+        <translation>檔案 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;E 編輯</translation>
+        <translation>編輯 (&amp;E)</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation>&amp;A 全選</translation>
+        <translation>全選 (&amp;A)</translation>
     </message>
     <message>
         <source>&amp;Edit Styles...</source>
-        <translation>&amp;E 編輯樣式...</translation>
+        <translation>編輯樣式 (&amp;E)...</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>文件</translation>
+        <translation>檔案</translation>
     </message>
     <message>
         <source>Load Text from File</source>
-        <translation type="obsolete">從文件載入文本</translation>
+        <translation>從文件載入文本</translation>
     </message>
     <message>
         <source>Save Text to File</source>
-        <translation type="obsolete">把文本另存到文件</translation>
+        <translation>把文本另存到文件</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">更新文本框並退出</translation>
+        <translation>更新文本框並退出</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">退出而不更新文本框</translation>
+        <translation>退出而不更新文本框</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation type="obsolete">從框重新載入文本</translation>
+        <translation>從框重新載入文本</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation type="obsolete">更新文本框</translation>
+        <translation>更新文本框</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished">&amp;S 尋找/替代...</translation>
+        <translation>尋找 / 取代 (&amp;S)...</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="unfinished">&amp;F 字體預覽...</translation>
+        <translation>字體預覽 (&amp;F)...</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
-        <translation type="unfinished">&amp;B 背景...</translation>
+        <translation>背景 (&amp;B)...</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation type="unfinished">&amp;D 顯示字體...</translation>
+        <translation>顯示字體 (&amp;D)...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished">&amp;S 設置</translation>
+        <translation>設定 (&amp;S)</translation>
     </message>
     <message>
         <source>Search/Replace</source>
-        <translation type="obsolete">尋找/替代</translation>
+        <translation>尋找/替代</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
-        <translation type="unfinished">&amp;S 智慧文本選擇</translation>
+        <translation>智慧文字選擇 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation>&amp;I 插入符號...</translation>
+        <translation>插入符號 (&amp;I)...</translation>
     </message>
     <message>
         <source>Clear All Text</source>
-        <translation type="unfinished">清除全部文本</translation>
+        <translation>清除全部文字</translation>
     </message>
     <message>
         <source>Story Editor - %1</source>
@@ -15865,23 +15874,23 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Do you really want to lose all your changes?</source>
-        <translation>你真的想丟失所有更改嗎？</translation>
+        <translation>你真的想遺失所有更改嗎?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>你真的想清除你所有的文本嗎？</translation>
+        <translation>你真的想清除你所有的文字嗎?</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;I 插入</translation>
+        <translation>插入 (&amp;I)</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">字元</translation>
+        <translation>字元</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished">引號</translation>
+        <translation>引號</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
@@ -15889,11 +15898,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>連字</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished">空間</translation>
+        <translation>空間</translation>
     </message>
 </context>
 <context>
@@ -15919,14 +15928,14 @@ Vertical shift: %3</source>
     <name>StyleManager</name>
     <message>
         <source>More than one item selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">多於一個 item 被選擇</translation>
     </message>
 </context>
 <context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation type="obsolete">底線</translation>
+        <translation>底線</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -15942,7 +15951,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation type="obsolete">刪除線</translation>
+        <translation>刪除線</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -15950,15 +15959,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Outline</source>
-        <translation type="obsolete">輪廓</translation>
+        <translation>輪廓</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation type="obsolete">陰影</translation>
+        <translation>陰影</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation type="obsolete">只文字底線</translation>
+        <translation>只文字底線</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
@@ -15989,15 +15998,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation>下次不再問</translation>
+        <translation>下次不要再詢問</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>確認</translation>
+        <translation>確定</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation>OpenOffice.org Writer匯入器選項</translation>
+        <translation>OpenOffice.org Writer 匯入器選項</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -16009,7 +16018,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished">按屬性合併段落樣式。這將減少類似段落樣式的數量，將保持段落樣式的屬性，即使原始檔案的樣式的命名不同。</translation>
+        <translation type="unfinished">按特性合併段落樣式。這將減少類似段落樣式的數量，將保持段落樣式的特性，即使原始檔案的樣式的命名不同。</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
@@ -16044,27 +16053,27 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;A 添加</translation>
+        <translation>增加 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation>專案屬性名稱：</translation>
+        <translation>物件屬性名稱:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation>目標框：</translation>
+        <translation>目標框:</translation>
     </message>
     <message>
         <source>At the beginning</source>
@@ -16084,11 +16093,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation>放置的頁碼：</translation>
+        <translation>放置的頁碼:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation>將被創建條目作爲基礎的框體裏的專案屬性</translation>
+        <translation>將被創建條目作爲基礎的框體裏的物件屬性</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
@@ -16108,11 +16117,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation>段落樣式：</translation>
+        <translation>段落樣式:</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation type="obsolete">&amp;X 索引</translation>
+        <translation>&amp;X 索引</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
@@ -16131,19 +16140,19 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;A 添加</translation>
+        <translation>增加 (&amp;A)</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;D 刪除</translation>
+        <translation>刪除 (&amp;D)</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
@@ -16187,54 +16196,54 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation type="obsolete">Inde&amp;x</translation>
+        <translation>Inde&amp;x</translation>
     </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
     <message>
         <source>Ignore all errors</source>
-        <translation type="unfinished">忽略全部錯誤</translation>
+        <translation>忽略全部的錯誤</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished">在列印或輸出前自動檢測</translation>
+        <translation>在列印或匯出前自動檢查</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
-        <translation type="unfinished">檢測丟失字形</translation>
+        <translation>檢查遺失的字形</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation type="unfinished">檢測不在頁面上的物件</translation>
+        <translation>檢查不在頁面上的物件</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
-        <translation type="unfinished">檢測文本框溢出</translation>
+        <translation>檢查文字框是否有溢出</translation>
     </message>
     <message>
         <source>Check for transparencies used</source>
-        <translation type="unfinished">檢測使用透明度</translation>
+        <translation>檢查使用的透明度</translation>
     </message>
     <message>
         <source>Check for missing images</source>
-        <translation type="unfinished">檢測丟失圖像</translation>
+        <translation>檢查遺失的圖片</translation>
     </message>
     <message>
         <source>Check image resolution</source>
-        <translation type="unfinished">檢測圖像解析度</translation>
+        <translation>檢查圖片的解析度</translation>
     </message>
     <message>
         <source>Lowest allowed resolution</source>
-        <translation type="unfinished">最低允許解析度</translation>
+        <translation>允許的最低解析度</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
-        <translation type="unfinished">檢測置入PDF文件</translation>
+        <translation>檢查放入的 PDF 檔案</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
@@ -16242,98 +16251,98 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Add Profile</source>
-        <translation type="unfinished">添加配置文件</translation>
+        <translation>增加配置檔案</translation>
     </message>
     <message>
         <source>Remove Profile</source>
-        <translation type="unfinished">移除配置文件</translation>
+        <translation>移除配置檔案</translation>
     </message>
 </context>
 <context>
     <name>TabGuides</name>
     <message>
         <source>Common Settings</source>
-        <translation type="unfinished">普通設置</translation>
+        <translation>一般設定</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
-        <translation type="unfinished">檔案中的位置</translation>
+        <translation>檔案中的位置</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation type="unfinished">在背景</translation>
+        <translation>在背景</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation type="unfinished">在前景</translation>
+        <translation>在前景</translation>
     </message>
     <message>
         <source>Snapping</source>
-        <translation type="unfinished">附著</translation>
+        <translation>吸附</translation>
     </message>
     <message>
         <source>Snap Distance:</source>
-        <translation type="unfinished">附著距離：</translation>
+        <translation>吸附距離:</translation>
     </message>
     <message>
         <source>Grab Radius:</source>
-        <translation type="unfinished">抓取半徑：</translation>
+        <translation>抓取半徑:</translation>
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished"> px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation type="unfinished">顯示參考線</translation>
+        <translation>顯示參考線</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>顔色：</translation>
+        <translation>顔色:</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation type="unfinished">顯示頁邊距</translation>
+        <translation>顯示頁面邊距</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation type="unfinished">顯示頁面網格</translation>
+        <translation>顯示頁面網格</translation>
     </message>
     <message>
         <source>Major Grid</source>
-        <translation type="unfinished">主網格</translation>
+        <translation>主網格</translation>
     </message>
     <message>
         <source>Spacing:</source>
-        <translation type="unfinished">間距：</translation>
+        <translation>間距:</translation>
     </message>
     <message>
         <source>Minor Grid</source>
-        <translation type="unfinished">次網格</translation>
+        <translation>次網格</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation type="unfinished">顯示基線網格</translation>
+        <translation>顯示基線網格</translation>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation type="unfinished">Baseline Settings</translation>
+        <translation>基線設定</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">&amp;G 基線網格：</translation>
+        <translation>基線網格 (&amp;G):</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">&amp;O 基線位移：</translation>
+        <translation>基線位移 (&amp;O):</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation type="unfinished">Distance between the minor grid lines</translation>
+        <translation>頁面次網格中線的距離</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation type="unfinished">Distance between the major grid lines</translation>
+        <translation>頁面主網格中線的距離</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
@@ -16345,55 +16354,55 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation>Colour of the minor grid lines</translation>
+        <translation>次網格的顏色</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation>Colour of the major grid lines</translation>
+        <translation>主網格的顏色</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
-        <translation>Colour of the guide lines you insert</translation>
+        <translation>參考線的顏色</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation>Colour for the margin lines</translation>
+        <translation>頁面邊距的顏色</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
-        <translation>Colour for the baseline grid</translation>
+        <translation>基線網格的顏色</translation>
     </message>
     <message>
         <source>Turns the basegrid on or off</source>
-        <translation type="unfinished">Turns the basegrid on or off</translation>
+        <translation>顯示或不顯示基線網格</translation>
     </message>
     <message>
         <source>Turns the gridlines on or off</source>
-        <translation type="unfinished">Turns the gridlines on or off</translation>
+        <translation>顯示或不顯示頁面網格</translation>
     </message>
     <message>
         <source>Turns the guides on or off</source>
-        <translation type="unfinished">Turns the guides on or off</translation>
+        <translation>顯示或不顯示參考線</translation>
     </message>
     <message>
         <source>Turns the margins on or off</source>
-        <translation type="unfinished">Turns the margins on or off</translation>
+        <translation>顯示或不顯示頁面邊距</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
-        <translation type="unfinished">Guides are not visible through objects on the page</translation>
+        <translation>參考線在頁面物件之下</translation>
     </message>
     <message>
         <source>Guides are visible above all objects on the page</source>
-        <translation type="unfinished">Guides are visible above all objects on the page</translation>
+        <translation>參考線在頁面物件之上</translation>
     </message>
     <message>
         <source>Distance between the lines of the baseline grid</source>
-        <translation type="unfinished">Distance between the lines of the baseline grid</translation>
+        <translation>基線網格中線的距離</translation>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation type="unfinished">Distance from the top of the page for the first baseline</translation>
+        <translation>頁面頂端到第一條基線的距離</translation>
     </message>
 </context>
 <context>
@@ -16407,191 +16416,191 @@ Vertical shift: %3</source>
     <name>TabPDFOptions</name>
     <message>
         <source>Export Range</source>
-        <translation type="unfinished">輸出範圍</translation>
+        <translation>輸出範圍</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
-        <translation type="unfinished">&amp;A 全部頁面</translation>
+        <translation>全部頁面 (&amp;A)</translation>
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation type="unfinished">&amp;H 選擇頁面</translation>
+        <translation>選擇頁面 (&amp;H)</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;R 旋轉：</translation>
+        <translation>旋轉 (&amp;R):</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation type="unfinished">文件選項</translation>
+        <translation>檔案選項</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
-        <translation type="unfinished">&amp;Y 相容性：</translation>
+        <translation>相容性 (&amp;Y):</translation>
     </message>
     <message>
         <source>&amp;Binding:</source>
-        <translation type="unfinished">&amp;B 裝訂：</translation>
+        <translation>裝訂 (&amp;B):</translation>
     </message>
     <message>
         <source>Left Margin</source>
-        <translation type="unfinished">左邊距</translation>
+        <translation>左邊</translation>
     </message>
     <message>
         <source>Right Margin</source>
-        <translation type="unfinished">右邊距</translation>
+        <translation>右邊</translation>
     </message>
     <message>
         <source>Generate &amp;Thumbnails</source>
-        <translation type="unfinished">&amp;T 生成縮圖</translation>
+        <translation>產生縮圖 (&amp;T)</translation>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation type="unfinished">&amp;L 把文本框連鎖另存爲PDF專案</translation>
+        <translation>把連鎖的文字框另存爲 PDF 物件 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
-        <translation type="unfinished">&amp;I 包括書簽</translation>
+        <translation>包括書籤 (&amp;I)</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation type="unfinished">&amp;R EPS圖的解析度：</translation>
+        <translation>EPS 圖的解析度 (&amp;R):</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished">&amp;P 壓縮文本和向量圖</translation>
+        <translation>壓縮文字和向量圖 (&amp;P)</translation>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation type="obsolete">圖像設置</translation>
+        <translation>圖像設置</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">自動</translation>
+        <translation>自動</translation>
     </message>
     <message>
         <source>JPEG</source>
-        <translation type="obsolete">JPEG</translation>
+        <translation>JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation type="obsolete">Zip</translation>
+        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation type="unfinished">最大</translation>
+        <translation>最大</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished">高</translation>
+        <translation>高</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">中</translation>
+        <translation>中</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished">低</translation>
+        <translation>低</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation type="unfinished">最小</translation>
+        <translation>最小</translation>
     </message>
     <message>
         <source>&amp;General</source>
-        <translation type="unfinished">&amp;G 一般</translation>
+        <translation>一般 (&amp;G)</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="obsolete">&amp;E 嵌入全部字體</translation>
+        <translation>&amp;E 嵌入全部字體</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="obsolete">&amp;S 子集所有字體</translation>
+        <translation>&amp;S 子集所有字體</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation type="unfinished">嵌入</translation>
+        <translation>嵌入</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation type="unfinished">可用字體：</translation>
+        <translation>可用字體:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation type="unfinished">&amp;&gt;&gt;</translation>
+        <translation>&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation type="unfinished">&amp;&lt;&lt;</translation>
+        <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="unfinished">嵌入的字體：</translation>
+        <translation>要嵌入的字體:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="obsolete">子集的字體：</translation>
+        <translation>子集的字體：</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="unfinished">&amp;F 字體</translation>
+        <translation>字體 (&amp;F)</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished">&amp;P 啓用報告效果</translation>
+        <translation>啓用報告效果 (&amp;P)</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">頁</translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
-        <translation type="unfinished">&amp;V 顯示頁面預覽</translation>
+        <translation>顯示頁面預覽 (&amp;V)</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">特效</translation>
+        <translation>特效</translation>
     </message>
     <message>
         <source>&amp;Display Duration:</source>
-        <translation type="unfinished">&amp;D 顯示持續時間：</translation>
+        <translation>顯示持續時間 (&amp;D):</translation>
     </message>
     <message>
         <source>Effec&amp;t Duration:</source>
-        <translation type="unfinished">&amp;T 特效持續時間：</translation>
+        <translation>特效持續時間 (&amp;T):</translation>
     </message>
     <message>
         <source>Effect T&amp;ype:</source>
-        <translation type="unfinished">&amp;Y 特效類型：</translation>
+        <translation>特效類型 (&amp;Y):</translation>
     </message>
     <message>
         <source>&amp;Moving Lines:</source>
-        <translation type="unfinished">&amp;M 移動的線條：</translation>
+        <translation>移動的線條 (&amp;M):</translation>
     </message>
     <message>
         <source>F&amp;rom the:</source>
-        <translation type="unfinished">&amp;R 來自：</translation>
+        <translation>來自 (&amp;R):</translation>
     </message>
     <message>
         <source>D&amp;irection:</source>
-        <translation type="unfinished">&amp;I 方向：</translation>
+        <translation>方向 (&amp;I):</translation>
     </message>
     <message>
         <source> sec</source>
-        <translation type="unfinished">秒</translation>
+        <translation>秒</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation type="unfinished">沒有特效</translation>
+        <translation>沒有特效</translation>
     </message>
     <message>
         <source>Blinds</source>
@@ -16599,7 +16608,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Box</source>
-        <translation type="unfinished">盒子</translation>
+        <translation>盒子</translation>
     </message>
     <message>
         <source>Dissolve</source>
@@ -16619,99 +16628,99 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">水平</translation>
+        <translation>水平</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">垂直</translation>
+        <translation>垂直</translation>
     </message>
     <message>
         <source>Inside</source>
-        <translation type="unfinished">裏面</translation>
+        <translation>裡面</translation>
     </message>
     <message>
         <source>Outside</source>
-        <translation type="unfinished">外面</translation>
+        <translation>外面</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation type="unfinished">從左到右</translation>
+        <translation>從左到右</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation type="unfinished">從頂到底</translation>
+        <translation>從頂部到底部</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation type="unfinished">從底到頂</translation>
+        <translation>從底部到頂部</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation type="unfinished">從右到左</translation>
+        <translation>從右到左</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation type="unfinished">從左上到右下</translation>
+        <translation>從左上到右下</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished">&amp;A 應用特效到所有頁</translation>
+        <translation>套用特效到所有頁面 (&amp;A)</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">&amp;X 附加</translation>
+        <translation>附加 (&amp;X)</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
-        <translation type="unfinished">&amp;U 使用加密</translation>
+        <translation>使用加密 (&amp;U)</translation>
     </message>
     <message>
         <source>Passwords</source>
-        <translation type="unfinished">密碼</translation>
+        <translation>密碼</translation>
     </message>
     <message>
         <source>&amp;User:</source>
-        <translation type="unfinished">&amp;U 用戶名：</translation>
+        <translation>使用者 (&amp;U):</translation>
     </message>
     <message>
         <source>&amp;Owner:</source>
-        <translation type="unfinished">&amp;O 所有者：</translation>
+        <translation>所有者 (&amp;O):</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">設置</translation>
+        <translation>設定</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
-        <translation type="unfinished">&amp;P 檔案允許列印</translation>
+        <translation>允許列印檔案 (&amp;P)</translation>
     </message>
     <message>
         <source>Allow &amp;Changing the Document</source>
-        <translation type="unfinished">&amp;C 允許更改檔案</translation>
+        <translation>允許更改檔案 (&amp;C)</translation>
     </message>
     <message>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation type="unfinished">&amp;Y 允許複製文本和圖像</translation>
+        <translation>允許複製文字和圖片 (&amp;Y)</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation type="unfinished">&amp;A 允許添加注釋和表單域</translation>
+        <translation>允許添加注釋和表單域 (&amp;A)</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
-        <translation type="unfinished">&amp;E 安全</translation>
+        <translation>安全 (&amp;E)</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>普通</translation>
+        <translation>一般</translation>
     </message>
     <message>
         <source>Output &amp;Intended For:</source>
-        <translation>&amp;I 輸出目的：</translation>
+        <translation>輸出目的 (&amp;I):</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation>螢幕/網頁</translation>
+        <translation>螢幕 / 網頁</translation>
     </message>
     <message>
         <source>Printer</source>
@@ -16723,7 +16732,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>&amp;U 使用自定義渲染設置</translation>
+        <translation>使用自定渲染設定 (&amp;U)</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
@@ -16731,11 +16740,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
-        <translation>&amp;Q 頻率：</translation>
+        <translation>頻率 (&amp;Q):</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation>&amp;A 角度：</translation>
+        <translation>角度 (&amp;A):</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
@@ -16767,11 +16776,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Profile:</source>
-        <translation>配置文件：</translation>
+        <translation>配置文件:</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>渲染意圖：</translation>
+        <translation>渲染意圖:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -16791,15 +16800,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Images:</source>
-        <translation>圖像：</translation>
+        <translation>圖片:</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>不使用嵌入ICC配置文件</translation>
+        <translation>不使用嵌入 ICC 配置檔案</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>&amp;O 顔色</translation>
+        <translation>顔色 (&amp;O)</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
@@ -16807,11 +16816,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Info String:</source>
-        <translation>&amp;資訊字串：</translation>
+        <translation>資訊字串 (&amp;I):</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation>&amp;P 輸出配置文件：</translation>
+        <translation>輸入配置檔案 (&amp;P):</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -16819,19 +16828,19 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
-        <translation type="unfinished">PDF/X-&amp;3</translation>
+        <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished">顯示以上列出的每頁的頁面預覽。</translation>
+        <translation>顯示以上列出的每頁的頁面預覽。</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="obsolete">在選中的頁裏開始報告前頁面顯示時間長度。</translation>
+        <translation>在選中的頁裏開始報告前頁面顯示時間長度。</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">顯示特效類型。</translation>
+        <translation>顯示特效類型。</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
@@ -16847,15 +16856,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Apply the selected effect to all pages.</translation>
+        <translation>套用所選特效到所有頁面。</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
-        <translation type="unfinished">Export all pages to PDF</translation>
+        <translation>匯出所有頁面為 PDF</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation type="unfinished">把一個頁範圍匯出爲PDF</translation>
+        <translation>匯出一個範圍的頁面爲 PDF</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -16863,27 +16872,27 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="unfinished">匯出圖像DPI (每英寸的點數）。</translation>
+        <translation>匯出圖片的 DPI (每英寸的點數)。</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished">選擇一個用戶可以讀取你的PDF文件的密碼。</translation>
+        <translation>選擇一個使用者可以讀取你的 PDF 文件的密碼。</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished">允許列印PDF。如果不勾選，列印被禁止。</translation>
+        <translation>允許列印 PDF。如果不勾選, 則禁止列印。 </translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="unfinished">允許修改PDF。如果不勾選，修改PDF被禁止。</translation>
+        <translation>允許修改 PDF。如果不勾選, 則禁止修改 PDF。</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation>爲單色嵌入顔色配置文件</translation>
+        <translation>爲單色嵌入顔色配置檔案</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation>單色的顔色配置文件</translation>
+        <translation>單色的顔色配置檔案</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
@@ -16891,19 +16900,19 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Embed a color profile for images</source>
-        <translation>爲圖像嵌入一個顔色配置文件</translation>
+        <translation>爲圖片嵌入一個顔色配置檔案</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation>不使用源圖像中嵌入的顔色配置文件</translation>
+        <translation>不使用來源圖片中嵌入的顔色配置檔案</translation>
     </message>
     <message>
         <source>Color profile for images</source>
-        <translation>圖像的顔色配置文件</translation>
+        <translation>圖片的顔色配置檔案</translation>
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation type="unfinished">圖像的渲染意圖</translation>
+        <translation>圖片的渲染意圖</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -16927,15 +16936,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished">水平鏡像頁面</translation>
+        <translation>水平鏡像頁面</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished">垂直鏡像頁面</translation>
+        <translation>垂直鏡像頁面</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="obsolete">Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</translation>
+        <translation>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
@@ -16943,23 +16952,23 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
-        <translation type="unfinished">&amp;Q 壓縮質量：</translation>
+        <translation>壓縮品質 (&amp;Q):</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="obsolete">Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
+        <translation>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished">Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</translation>
+        <translation>壓縮圖片的方法。選擇自動則 Scribus 會選擇最好的方法。ZIP 是無損壓縮, 適用於有 solid colours 的圖片。JPEG 對於要製作有很多照片的 PDF 是個好方法 (有可能會減低圖片品質)。如果你不需要選擇特殊的壓縮方式, 則選自動。</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="obsolete">Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</translation>
+        <translation>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="unfinished">Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</translation>
+        <translation>允許從 PDF 中複製文字或圖片。如果不勾選, 則文字和圖片不可複製。</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
@@ -16971,19 +16980,19 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Include La&amp;yers</source>
-        <translation type="unfinished">&amp;Y 包括圖層</translation>
+        <translation>包括圖層 (&amp;Y)</translation>
     </message>
     <message>
         <source>Compression Metho&amp;d:</source>
-        <translation type="unfinished">&amp;D 壓縮方式：</translation>
+        <translation>壓縮方式 (&amp;D):</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation type="unfinished">&amp;M 重新採樣圖像爲：</translation>
+        <translation>重新採樣圖片為 (&amp;M):</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">嵌入字體到PDF。嵌入字體將保持你的檔案的版面外觀。</translation>
+        <translation>嵌入字體到PDF。嵌入字體將保持你的檔案的版面外觀。</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -16995,31 +17004,31 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished">Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</translation>
+        <translation>決定 PDF 檔案頁面裝訂的地方。除非你知道你需要修改它, 否則保持預設選項, 也就是左邊。</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished">Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</translation>
+        <translation>在 PDF 裡產生每個頁面的縮圖。有些 PDF 檢視器可使用這些縮圖來導覽。</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation type="obsolete">Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</translation>
+        <translation>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished">Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</translation>
+        <translation>嵌入你在檔案中建立的書籤。這對於瀏覽長的 PDF 檔案很有幫助。</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished">Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</translation>
+        <translation>文字和向量圖的匯出解析度。這不會影響 bitmap 圖片 (例如照片) 的解析度。</translation>
     </message>
     <message>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="unfinished">Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</translation>
+        <translation>對文字和圖片啟用失真壓縮。除非你有理由, 否則請勾選此選項。這會減少 PDF 檔案的大小。</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="obsolete">Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
+        <translation>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -17027,15 +17036,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation type="unfinished">Choose a master password which enables or disables all the security features in your exported PDF</translation>
+        <translation>選擇一個所有者的密碼。這個密碼可以對輸出的 PDF 啟用或停用所有的安全功能</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="obsolete">Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
+        <translation>Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
+        <translation type="unfinished">這個進階設定, 預設是不啟用的。This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
@@ -17043,11 +17052,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation type="unfinished">顯示設置</translation>
+        <translation>顯示設定</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="obsolete">頁面排版</translation>
+        <translation>頁面排版</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -17055,15 +17064,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished">連續的</translation>
+        <translation>連續的</translation>
     </message>
     <message>
         <source>Double Page Left</source>
-        <translation type="unfinished">雙頁左</translation>
+        <translation>雙頁左</translation>
     </message>
     <message>
         <source>Double Page Right</source>
-        <translation type="unfinished">雙頁右</translation>
+        <translation>雙頁右</translation>
     </message>
     <message>
         <source>Visual Appearance</source>
@@ -17075,19 +17084,19 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Use Full Screen Mode</source>
-        <translation type="unfinished">使用全屏模式</translation>
+        <translation>使用全螢幕模式</translation>
     </message>
     <message>
         <source>Display Bookmarks Tab</source>
-        <translation type="unfinished">宣示書簽欄</translation>
+        <translation>顯示書籤欄</translation>
     </message>
     <message>
         <source>Display Thumbnails</source>
-        <translation type="unfinished">顯示縮圖</translation>
+        <translation>顯示縮圖</translation>
     </message>
     <message>
         <source>Display Layers Tab</source>
-        <translation type="unfinished">顯示圖層欄</translation>
+        <translation>顯示圖層欄</translation>
     </message>
     <message>
         <source>Hide Viewers Toolbar</source>
@@ -17108,15 +17117,15 @@ Vertical shift: %3</source>
     <message>
         <source>Javascript to be executed
 when Document is opened:</source>
-        <translation type="obsolete">檔案被打開時執行的Javascript</translation>
+        <translation>檔案被打開時執行的Javascript</translation>
     </message>
     <message>
         <source>No Script</source>
-        <translation type="unfinished">沒有腳本</translation>
+        <translation>沒有 Script</translation>
     </message>
     <message>
         <source>Viewer</source>
-        <translation type="unfinished">檢視器</translation>
+        <translation>檢視器</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
@@ -17124,20 +17133,21 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Lossy - JPEG</source>
-        <translation type="unfinished"></translation>
+        <translation>失真 - JPEG</translation>
     </message>
     <message>
         <source>Lossless - Zip</source>
-        <translation type="unfinished"></translation>
+        <translation>無失真 - Zip</translation>
     </message>
     <message>
         <source>Image Compression Method</source>
-        <translation type="unfinished"></translation>
+        <translation>圖片壓縮方法</translation>
     </message>
     <message>
         <source>Javascript to be executed
 when PDF document is opened:</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 檔案開啟時,
+所要執行的 Javascript:</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
@@ -17145,11 +17155,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">決定 PDF 的相容性。預設的 PDF 1.3 有著最廣的相容性。若你需要透明度或 128 bit 的加密功能, 則選擇 PDF 1.4 。若你想要保存物件在不同的圖層中, 則選擇 PDF 1.5。  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>檔案中的圖層只有在選擇 PDF 1.5 時才會被匯出到 PDF。</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -17161,7 +17171,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="unfinished"></translation>
+        <translation>在匯出的檔案中不要顯示超出頁邊的物件</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
@@ -17169,7 +17179,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>失真壓縮的品質: 最小 (25%), 低 (50%), 中 (75%), 高 (85%), 最大 (95%)。需注意的是品質和壓縮後的圖片檔案大小沒有直接關係。不同的圖片在相同的品質設定之下壓所出的檔案大小和品質的損失都不同。即使選擇最大品質, 使用 JPEG 壓縮時仍然會有些品質損失。</translation>
     </message>
     <message>
         <source>&amp;Embed All</source>
@@ -17185,11 +17195,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>文件樣式</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
+        <translation>嵌入字體到 PDF。嵌入字體將保持你的檔案的版面外觀。有些字體, 例如 Open Type, 只能是個子集, 所以在 PDF 1.6 版之前的版本是無法嵌入的。 </translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
@@ -17200,23 +17210,23 @@ when PDF document is opened:</source>
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">字體：</translation>
+        <translation>字體:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">尺寸：</translation>
+        <translation>尺寸:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation>填充顔色：</translation>
+        <translation>填充顔色:</translation>
     </message>
     <message>
         <source>Stroke Color:</source>
@@ -17228,7 +17238,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation type="unfinished">&amp;G 間距：</translation>
+        <translation> 間距 (&amp;G):</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
@@ -17236,11 +17246,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation>&amp;L 線條顔色：</translation>
+        <translation>線條顔色 (&amp;L):</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
@@ -17248,7 +17258,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation>&amp;F 填充顔色：</translation>
+        <translation>填充顔色 (&amp;F):</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
@@ -17256,51 +17266,51 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation type="unfinished">線條樣式：</translation>
+        <translation>線條樣式:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">&amp;W 線條寬度：</translation>
+        <translation>線條寬度 (&amp;W):</translation>
     </message>
     <message>
         <source>Line S&amp;tyle:</source>
-        <translation type="unfinished">&amp;T 線條樣式：</translation>
+        <translation>線條樣式 (&amp;T):</translation>
     </message>
     <message>
         <source>Arrows:</source>
-        <translation>箭形：</translation>
+        <translation>箭頭:</translation>
     </message>
     <message>
         <source>Start:</source>
-        <translation>開始：</translation>
+        <translation>開始:</translation>
     </message>
     <message>
         <source>End:</source>
-        <translation>結束：</translation>
+        <translation>結束:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>&amp;F 自由縮放</translation>
+        <translation>自由縮放 (&amp;F)</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
-        <translation>&amp;H 水平縮放：</translation>
+        <translation>水平縮放 (&amp;H):</translation>
     </message>
     <message>
         <source>&amp;Vertical Scaling:</source>
-        <translation>&amp;V 垂直縮放：</translation>
+        <translation>垂直縮放 (&amp;V):</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;S 按框體大小縮放圖像</translation>
+        <translation>按框體大小縮放圖像 (&amp;S)</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation>&amp;R 保持比例</translation>
+        <translation>保持比例 (&amp;R)</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation>&amp;L 填充顔色</translation>
+        <translation>填充顔色 (&amp;L):</translation>
     </message>
     <message>
         <source>Use embedded Clipping Path</source>
@@ -17324,19 +17334,19 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Mi&amp;nimum:</source>
-        <translation>&amp;N 最小：</translation>
+        <translation>最小 (&amp;N):</translation>
     </message>
     <message>
         <source>Ma&amp;ximum:</source>
-        <translation>&amp;X 最大：</translation>
+        <translation>最大 (&amp;X):</translation>
     </message>
     <message>
         <source>&amp;Stepping:</source>
-        <translation>&amp;S 步長：</translation>
+        <translation>步長 (&amp;S):</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation>文本框屬性</translation>
+        <translation>文字框屬性</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
@@ -17360,11 +17370,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation>新建文本框的字體</translation>
+        <translation>新建文字框的字體</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation>新建文本框的字體大小</translation>
+        <translation>新建文字框的字體大小</translation>
     </message>
     <message>
         <source>Color of font</source>
@@ -17372,11 +17382,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>文本框中的列數</translation>
+        <translation type="unfinished">文字框中的列數</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation>文本框中列間隔</translation>
+        <translation type="unfinished">文字框中列間隔</translation>
     </message>
     <message>
         <source>Sample of your font</source>
@@ -17464,31 +17474,31 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Tab Fill Character:</source>
-        <translation>跳位字元填充字元：</translation>
+        <translation>跳位字元填充字元:</translation>
     </message>
     <message>
         <source>Tab Width:</source>
-        <translation>跳位字元寬度：</translation>
+        <translation>跳位字元寬度:</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>自定義：</translation>
+        <translation>自定:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>自定義：</translation>
+        <translation>自定: </translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation>文本顔色：</translation>
+        <translation>文字顔色:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation>陰暗：</translation>
+        <translation>陰暗:</translation>
     </message>
     <message>
         <source>Text Stroke:</source>
-        <translation>文本筆劃：</translation>
+        <translation>文字筆劃:</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -17520,15 +17530,15 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Displacement:</source>
-        <translation>&amp;D 移位：</translation>
+        <translation>移位 (&amp;D):</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation>&amp;S 縮放：</translation>
+        <translation>縮放 (&amp;S):</translation>
     </message>
     <message>
         <source>Superscript</source>
@@ -17536,11 +17546,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation>&amp;I 移位</translation>
+        <translation>移位 (&amp;I):</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
-        <translation>&amp;C 縮放：</translation>
+        <translation>縮放 (&amp;S):</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -17548,7 +17558,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation>&amp;A 縮放：</translation>
+        <translation>縮放 (&amp;A):</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -17556,7 +17566,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation>移位：</translation>
+        <translation>移位:</translation>
     </message>
     <message>
         <source>Auto</source>
@@ -17564,7 +17574,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>線條寬度：</translation>
+        <translation>線條寬度:</translation>
     </message>
     <message>
         <source>Strikethru</source>
@@ -17572,11 +17582,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation>&amp;L 自動線條間隔</translation>
+        <translation>自動線條間隔 (&amp;L)</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation>線條間隔：</translation>
+        <translation>線條間隔:</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -17600,7 +17610,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished">在字體大小的基礎上爲行距所增加的百分比</translation>
+        <translation>在字體大小的基礎上爲行距所增加的百分比</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
@@ -17635,7 +17645,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Center</source>
-        <translation>Centre</translation>
+        <translation>中間</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -17655,23 +17665,23 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Position:</source>
-        <translation>&amp;P 位置：</translation>
+        <translation>位置 (&amp;P):</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">無</translation>
+        <translation>無</translation>
     </message>
     <message>
         <source>Fill Char:</source>
-        <translation type="unfinished">填充字元：</translation>
+        <translation>填充字元:</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>自定義：</translation>
+        <translation>自定:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>自定義：</translation>
+        <translation>自定: </translation>
     </message>
     <message>
         <source>Dot</source>
@@ -17687,12 +17697,12 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>自定義</translation>
+        <translation>自定</translation>
     </message>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>無</translation>
     </message>
 </context>
 <context>
@@ -17726,7 +17736,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Displacement</source>
@@ -17734,18 +17744,18 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation>線寬</translation>
+        <translation>線條寬度</translation>
     </message>
 </context>
 <context>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation>添加垂直參考線</translation>
+        <translation>增加垂直參考線</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation>添加水平參考線</translation>
+        <translation>增加水平參考線</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
@@ -17769,7 +17779,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation>解鎖參考線</translation>
+        <translation>解除鎖定參考線</translation>
     </message>
     <message>
         <source>Move</source>
@@ -17805,11 +17815,11 @@ W2: %3, H2: %4</translation>
     </message>
     <message>
         <source>Selection/Group</source>
-        <translation>選擇/群組</translation>
+        <translation>選擇 / 群組</translation>
     </message>
     <message>
         <source>Create</source>
-        <translation>生成</translation>
+        <translation>產生</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
@@ -17819,11 +17829,11 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation>對齊/排列</translation>
+        <translation>對齊 / 排列</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation>參加專案</translation>
+        <translation>參加物件</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -17893,7 +17903,7 @@ to %2</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation>應用主頁</translation>
+        <translation>套用主頁</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -17949,7 +17959,7 @@ to %2</translation>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished">創建表格</translation>
+        <translation>建立表格</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
@@ -18001,7 +18011,7 @@ to %2</translation>
     </message>
     <message>
         <source>Align text</source>
-        <translation>對齊文本</translation>
+        <translation>對齊文字</translation>
     </message>
     <message>
         <source>Set font effect</source>
@@ -18013,7 +18023,7 @@ to %2</translation>
     </message>
     <message>
         <source>Text frame</source>
-        <translation>文本框</translation>
+        <translation>文字框</translation>
     </message>
     <message>
         <source>Polygon</source>
@@ -18021,7 +18031,7 @@ to %2</translation>
     </message>
     <message>
         <source>Bezier curve</source>
-        <translation>貝茲(Bezier)曲線</translation>
+        <translation>貝茲曲線</translation>
     </message>
     <message>
         <source>Polyline</source>
@@ -18033,11 +18043,11 @@ to %2</translation>
     </message>
     <message>
         <source>Import SVG image</source>
-        <translation>匯入SVG圖像</translation>
+        <translation>匯入 SVG 圖像</translation>
     </message>
     <message>
         <source>Import EPS image</source>
-        <translation>匯入EPS圖像</translation>
+        <translation>匯入 EPS 圖像</translation>
     </message>
     <message>
         <source>Scratch space</source>
@@ -18069,7 +18079,7 @@ to %2</translation>
     </message>
     <message>
         <source>Page %1</source>
-        <translation type="unfinished">頁 %1</translation>
+        <translation>頁面 %1</translation>
     </message>
     <message>
         <source>Set image scaling</source>
@@ -18081,11 +18091,11 @@ to %2</translation>
     </message>
     <message>
         <source>Free scaling</source>
-        <translation type="unfinished">自由縮放</translation>
+        <translation>自由縮放</translation>
     </message>
     <message>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished">保持比例</translation>
+        <translation>保持比例</translation>
     </message>
     <message>
         <source>Break aspect ratio</source>
@@ -18105,23 +18115,23 @@ to %2</translation>
     </message>
     <message>
         <source>Add page</source>
-        <translation type="unfinished">添加頁</translation>
+        <translation>增加頁面</translation>
     </message>
     <message>
         <source>Add pages</source>
-        <translation type="unfinished">添加頁</translation>
+        <translation>增加頁面</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <translation>刪除頁</translation>
+        <translation>刪除頁面</translation>
     </message>
     <message>
         <source>Delete pages</source>
-        <translation>刪除頁</translation>
+        <translation>刪除頁面</translation>
     </message>
     <message>
         <source>Add layer</source>
-        <translation>添加圖層</translation>
+        <translation>增加圖層</translation>
     </message>
     <message>
         <source>Delete layer</source>
@@ -18129,7 +18139,7 @@ to %2</translation>
     </message>
     <message>
         <source>Rename layer</source>
-        <translation>重命名圖層</translation>
+        <translation>重新命名圖層</translation>
     </message>
     <message>
         <source>Raise layer</source>
@@ -18145,11 +18155,11 @@ to %2</translation>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation>允許圖層列印</translation>
+        <translation>允許列印圖層</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation>取消圖層列印</translation>
+        <translation>取消列印圖層</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
@@ -18157,11 +18167,11 @@ to %2</translation>
     </message>
     <message>
         <source>Get image</source>
-        <translation>獲取圖像</translation>
+        <translation>取得圖片</translation>
     </message>
     <message>
         <source>Import OpenOffice.org Draw image</source>
-        <translation>匯入OpenOffice.org Draw圖像</translation>
+        <translation>匯入 OpenOffice.org Draw 圖片</translation>
     </message>
     <message>
         <source>Set font height</source>
@@ -18169,19 +18179,19 @@ to %2</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation>路徑裏的文本</translation>
+        <translation>路徑裏的文字</translation>
     </message>
     <message>
         <source>Enable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>允許物件列印</translation>
     </message>
     <message>
         <source>Disable Item Printing</source>
-        <translation type="unfinished">取消專案列印</translation>
+        <translation>取消物件列印</translation>
     </message>
     <message>
         <source>Multiple duplicate</source>
-        <translation type="unfinished">多重複製</translation>
+        <translation>多重複製</translation>
     </message>
     <message>
         <source>Change Image Offset</source>
@@ -18203,11 +18213,11 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation>重置控制點</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation>重置控制點</translation>
     </message>
     <message>
         <source>Modify image effects</source>
@@ -18230,11 +18240,11 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;U 撤銷動作</translation>
+        <translation>復原 (&amp;U)</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation>&amp;R 重復動作</translation>
+        <translation>重做 (&amp;R)</translation>
     </message>
 </context>
 <context>
@@ -18242,7 +18252,7 @@ X: %4, Y: %5</source>
     <message>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
-        <translation type="unfinished">%1: %2</translation>
+        <translation>%1: %2</translation>
     </message>
 </context>
 <context>
@@ -18257,15 +18267,15 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>取得更新檔逾時。</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>取得更新檔時發生錯誤: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>在伺服器中找不到檔案</translation>
     </message>
     <message>
         <source>Could not open version file: %1
@@ -18290,7 +18300,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>細節請瀏覽 www.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -18304,47 +18314,47 @@ Error:%2 at line: %3, row: %4</source>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
         <source>Use Printer Margins</source>
-        <translation type="unfinished">用戶印表機頁邊距</translation>
+        <translation>使用印表機頁面邊距</translation>
     </message>
     <message>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished">&amp;P 選擇印表機：</translation>
+        <translation>選擇印表機 (&amp;P):</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished">邊距</translation>
+        <translation>邊距</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished">右邊：</translation>
+        <translation>右:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;T 頂部：</translation>
+        <translation>頂部 (&amp;T):</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;B 底部</translation>
+        <translation>底部 (&amp;B):</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;L 左邊</translation>
+        <translation>左 (&amp;L):</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;O 確認</translation>
+        <translation>確定 (&amp;O)</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;C 取消</translation>
+        <translation>取消 (&amp;C)</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -18359,15 +18369,15 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation>輸入一個數值然後按確定</translation>
+        <translation type="unfinished">輸入一個數值然後按確定</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation>發一個數值給腳本</translation>
+        <translation>傳送一個數值給 Script</translation>
     </message>
 </context>
 <context>
@@ -18389,7 +18399,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Text Field</source>
-        <translation>文本域</translation>
+        <translation>文字域</translation>
     </message>
     <message>
         <source>Check Box</source>
@@ -18405,7 +18415,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Text</source>
-        <translation>文本</translation>
+        <translation>文字</translation>
     </message>
     <message>
         <source>Link</source>
@@ -18417,11 +18427,11 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation>插入PDF域</translation>
+        <translation type="unfinished">插入PDF域</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>插入PDF注釋</translation>
+        <translation>插入 PDF 注釋</translation>
     </message>
 </context>
 <context>
@@ -18436,23 +18446,23 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Import text without any formatting</source>
-        <translation>不帶格式地匯入文本</translation>
+        <translation>匯入文字但不帶格式</translation>
     </message>
     <message>
         <source>Importer:</source>
-        <translation>匯入器：</translation>
+        <translation>匯入器:</translation>
     </message>
     <message>
         <source>Encoding:</source>
-        <translation>編碼：</translation>
+        <translation>編碼:</translation>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation>只匯入文本</translation>
+        <translation>只匯入文字</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>打開</translation>
     </message>
 </context>
 <context>
@@ -18514,11 +18524,11 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;R 移除</translation>
+        <translation>移除 (&amp;R)</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation>&amp;O 打開</translation>
+        <translation>打開 (&amp;O)</translation>
     </message>
     <message>
         <source>Downloading Templates</source>
@@ -18546,11 +18556,11 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation type="unfinished">Document templates can be found at http://www.scribus.net/ in the Downloads section.</translation>
+        <translation>檔案模板可在 http://www.scribus.net/ 的下載區取得。</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished">Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</translation>
+        <translation>確定你使用的圖片及字體可以自由取得。若字體無法分享, 儲存模板時不要將其放入。</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
@@ -18621,7 +18631,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
@@ -18637,7 +18647,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>portrait</source>
-        <translation>豎式</translation>
+        <translation>直式</translation>
     </message>
     <message>
         <source>custom</source>
