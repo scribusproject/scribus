@@ -417,7 +417,9 @@ void ScribusView::changed(QRectF re)
 
 void ScribusView::startGesture(CanvasGesture* gesture)
 {
-	qDebug() << "start gesture" << typeid(*m_canvasMode).name() << "---->" << typeid(*gesture).name();
+	qDebug() << "start gesture" << typeid(*m_canvasMode).name() 
+			<< "---->" 
+			<< typeid(*gesture).name();
 	m_canvasMode->deactivate(true);
 	gesture->setDelegate(m_canvasMode);
 	m_canvasMode = gesture;

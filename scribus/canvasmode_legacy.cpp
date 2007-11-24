@@ -72,6 +72,7 @@ LegacyMode::LegacyMode(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScM
 	inItemCreation = false;
 	shiftSelItems = false;
 	FirstPoly = true;
+	resizeGesture = NULL;
 }
 
 inline bool LegacyMode::GetItem(PageItem** pi)
@@ -117,7 +118,6 @@ void LegacyMode::activate(bool flag)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	shiftSelItems = false;
 	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
@@ -981,6 +981,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					Mxp = newX;
 					Myp = newY;
 				}
+				m_canvas->repaint();
 			}
 		}
 		if ((!m_canvas->m_viewMode.m_MouseButtonPressed) && (m_doc->appMode != modeDrawBezierLine))
@@ -1244,11 +1245,12 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			if (GetItem(&currItem))
 			{
-				ResizeGesture* rsz = new ResizeGesture(this);
-				rsz->mousePressEvent(m);
-				if (rsz->frameHandle() > 0)
+				if (!resizeGesture)
+					resizeGesture = new ResizeGesture(this);
+				resizeGesture->mousePressEvent(m);
+				if (resizeGesture->frameHandle() > 0)
 				{
-					m_view->startGesture(rsz);
+					m_view->startGesture(resizeGesture);
 					return;
 				}
 #if 1				
@@ -2045,6 +2047,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
+	// will be executed later
+	m_canvas->update();
 	if ((m_doc->appMode == modeNormal) && m_doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;

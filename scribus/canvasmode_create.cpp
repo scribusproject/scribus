@@ -959,8 +959,9 @@ void CreateMode::SetupDraw(int nr)
 	m_doc->m_Selection->addItem(currItem);
 	m_doc->m_Selection->connectItemToGUI();
 	currItem->update();
-	ResizeGesture* rsz = new ResizeGesture(this);
-	m_view->startGesture(rsz);
+	if (resizeGesture)
+		resizeGesture = new ResizeGesture(this);
+	m_view->startGesture(resizeGesture);
 //	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = true;

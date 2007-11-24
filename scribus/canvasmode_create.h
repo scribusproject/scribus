@@ -22,6 +22,7 @@
 #include "fpointarray.h"
 
 class PageItem;
+class ResizeGesture;
 class ScribusMainWindow;
 class ScribusView;
 
@@ -65,6 +66,7 @@ private:
 	double SeRx, SeRy;
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;
+	ResizeGesture* resizeGesture;
 };
 
 

@@ -25,24 +25,10 @@
 #include "selection.h"
 
 
-void ResizeGesture::drawControls(QPainter* p) 
-{ 
-	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
-	QRect localRect = m_bounds.translated(-m_canvas->mapToGlobal(QPoint(0,0)));
-	p->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	drawColor.setAlpha(64);
-	p->setBrush(drawColor);
-	p->drawRect(localRect);
-//	p->setPen(Qt::darkMagenta);
-//	p->drawLine(localRect.topLeft(), localRect.bottomRight());
-}
-
 
 void ResizeGesture::activate(bool flag)
 {
 	qDebug() << "ResizeGesture::activate" << flag;
-//	if (!m_rectangle)
-//		m_rectangle = new QRubberBand(QRubberBand::Rectangle);
 	
 	if (m_doc->m_Selection->count() == 0)
 	{
@@ -67,15 +53,40 @@ void ResizeGesture::activate(bool flag)
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 	}
-//	m_rectangle->setGeometry(m_bounds);
-//	m_rectangle->show();
 }
+
+
 
 void ResizeGesture::deactivate(bool flag)
 {
 	qDebug() << "ResizeGesture::deactivate" << flag;
-//	m_rectangle->hide();
 }
+
+
+
+void ResizeGesture::drawControls(QPainter* p) 
+{ 
+	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+	QRect localRect = m_bounds.translated(-m_canvas->mapToGlobal(QPoint(0,0)));
+	p->save();
+//	p->setPen(QPen(Qt::black, 1, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
+//	p->drawRect(localRect);
+	if (m_rotation != 0)
+	{
+		p->translate(localRect.x(), localRect.y());
+		p->rotate(m_rotation);
+		p->translate(-localRect.x(), -localRect.y());
+	}
+	p->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	drawColor.setAlpha(64);
+	p->setBrush(drawColor);
+	p->drawRect(localRect);
+	//	p->setPen(Qt::darkMagenta);
+	//	p->drawLine(localRect.topLeft(), localRect.bottomRight());
+	p->restore();
+}
+
+
 
 void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 {
@@ -110,10 +121,13 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	}
 	currItem->updateClip();
 	m_doc->setRedrawBounding(currItem);
+	currItem->invalidateLayout();
 	currItem->update();
 	m_canvas->update();
 	m_view->stopGesture();
 }
+
+
 
 void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 {
@@ -122,19 +136,23 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 }
 
 
+
 void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
 	// snap to guides
 	// snap to grid
 	// proportional resize
 	QPoint point = m->globalPos();
+	QPoint oldXY = m_bounds.topLeft();
+	QMatrix mat;
+	
 	if (m_rotation != 0)
 	{
 		// rotate point around item position
-		QMatrix mat;
-		mat.translate(-m_bounds.x(), -m_bounds.y());
-		mat.rotate(-m_rotation);
 		mat.translate(m_bounds.x(), m_bounds.y());
+		mat.rotate(-m_rotation);
+		mat.translate(-m_bounds.x(), -m_bounds.y());
+//		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << mat << ":" << point-m_bounds.topLeft() << "-->" << mat.map(point)-m_bounds.topLeft();
 		point = mat.map(point);
 	}
 	switch (m_handle)
@@ -142,13 +160,13 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		case Canvas::NORTHWEST:
 		case Canvas::NORTH:
 		case Canvas::NORTHEAST:
-			qDebug() << "ResizeGesture: top to" << point.y();
+//			qDebug() << "ResizeGesture: top to" << point.y();
 			m_bounds.setTop(point.y());
 			break;
 		case Canvas::SOUTHWEST:
 		case Canvas::SOUTH:
 		case Canvas::SOUTHEAST:
-			qDebug() << "ResizeGesture: bottom to" << point.y();
+//			qDebug() << "ResizeGesture: bottom to" << point.y();
 			m_bounds.setBottom(point.y());
 			break;
 		default:
@@ -159,21 +177,25 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		case Canvas::NORTHWEST:
 		case Canvas::WEST:
 		case Canvas::SOUTHWEST:
-			qDebug() << "ResizeGesture: left to" << point.x();
+//			qDebug() << "ResizeGesture: left to" << point.x();
 			m_bounds.setLeft(point.x());
 			break;
 		case Canvas::NORTHEAST:
 		case Canvas::EAST:
 		case Canvas::SOUTHEAST:
-			qDebug() << "ResizeGesture: right to" << point.x();
+//			qDebug() << "ResizeGesture: right to" << point.x();
 			m_bounds.setRight(point.x());
 			break;
 		default:
 			break;
 	}
-	//FIXME: show rotated
-//	m_rectangle->setGeometry(m_bounds.normalized());		
+	if (m_rotation != 0)
+	{
+		m_bounds.moveTo(mat.inverted().map(m_bounds.topLeft()));
+	}
 }
+
+
 
 void ResizeGesture::mousePressEvent(QMouseEvent *m)
 {

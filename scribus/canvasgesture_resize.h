@@ -45,7 +45,7 @@ class QRubberBand;
 class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
 public:
-	ResizeGesture (CanvasMode* parent, Canvas::FrameHandle framehandle=Canvas::SOUTHEAST) : CanvasGesture(parent), m_handle(framehandle), m_rectangle(NULL) {};
+	ResizeGesture (CanvasMode* parent, Canvas::FrameHandle framehandle=Canvas::SOUTHEAST) : CanvasGesture(parent), m_handle(framehandle) {};
 	
 
 	virtual void drawControls(QPainter* p);
@@ -62,7 +62,6 @@ private:
 	Canvas::FrameHandle m_handle;
 	double m_rotation;
 	QRect m_bounds;
-	QRubberBand* m_rectangle;
 };
 
 
