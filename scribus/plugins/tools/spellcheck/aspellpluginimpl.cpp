@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "aspellpluginimpl.h"
 #include "pageitem_textframe.h"
+#include "util.h"
 #include <QMessageBox>
 const char* AspellPluginImpl::kDEF_CONTEXT = "AspellPlugin";
 const QString AspellPluginImpl::kDEF_ASPELL_ENTRY =
@@ -23,26 +24,11 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	setModal( true );
 
 	rememberedWords.clear();
-	// Fill in choices in combo box for text to be spell-checked.
-//	ftextSelect->insertItem( 0, "None" );
-//	ftextSelect->insertItem( 1, "Selected frame" );
-//	ftextSelect->insertItem( 2, "Active page" );
-//	ftextSelect->insertItem( 3, "All items" );
-
-	// Clear out default suggestions listbox entry: "New item"
-
 	// Get stored language, jargon, encoding settings
 	fprefs = PrefsManager::instance()->prefsFile->getPluginContext( kDEF_CONTEXT );
 	getPreferences();
-
-	// Start with settings tab, if dictionary had not been selected
-	// earlier.
-	fmainTab->setCurrentIndex( 0 );
 	QString text = tr( "Loaded " ) + (fentry == kDEF_ASPELL_ENTRY ? tr( "default " ) : "") + fentry + tr( " aspell dictionary." );
 	doc->scMW()->setStatusBarInfoText( text );
-
-	ftextDictDetails->setText( fentry );
-
 	try
 	{
 		// Deactivate GUI elements in spell-checking tab until an
@@ -57,13 +43,12 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 		// Get list of available aspell dictionaries
 		std::vector<std::string> entries;
 		fsuggest->listDicts( entries );
-		unsigned int idx = 0;
 		for( std::vector<std::string>::const_iterator i = entries.begin(); i != entries.end(); ++i )
 		{
 			// FIXME: Handle encodings other than UTF-8.
-			flistDicts->insertItem( idx, i->c_str() );
-			idx++;
+			flistDicts->addItem(i->c_str());
 		}
+		setCurrentComboItem(flistDicts, fentry);
 	}
 	catch( const std::invalid_argument& err )
 	{
@@ -99,13 +84,6 @@ AspellPluginImpl::~AspellPluginImpl()
 	delete fsuggest;
 }
 //__________________________________________________________________________
-void AspellPluginImpl::activateAll()
-{
-        // Activates all GUI elements in spell-checking tab. Called once an
-        // aspell dictionary has been selected.
-        fmainTab->widget(0)->setEnabled( true );
-}
-//__________________________________________________________________________
 void AspellPluginImpl::activateSpellGUI()
 {
 	// Activates spell-checking GUI elements in spell-checking
@@ -122,20 +100,7 @@ void AspellPluginImpl::activateSpellGUI()
 	ftextLabel3->setEnabled( true );
 	ftextLabel4->setEnabled( true );
 	fmisSpelling->setEnabled( true );
-	ftextDictDetails->setEnabled( true );
-}
-//__________________________________________________________________________
-void AspellPluginImpl::activateTextSelect()
-{
-	// Activates text select combo box at top of spell-checking tab.
-//	fgroupSelect->setEnabled( true );
-//	ftextSelect->setEnabled( true );
-}
-//__________________________________________________________________________
-void AspellPluginImpl::deactivateAll()
-{
-	// Deactivates all GUI elements in spell-checking tab,
-	fmainTab->widget(0)->setEnabled( false );
+	flistDicts->setEnabled( true );
 }
 //__________________________________________________________________________
 void AspellPluginImpl::deactivateSpellGUI()
@@ -154,14 +119,7 @@ void AspellPluginImpl::deactivateSpellGUI()
 	ftextLabel3->setEnabled( false );
 	ftextLabel4->setEnabled( false );
 	fmisSpelling->setEnabled( false );
-	ftextDictDetails->setEnabled( false );
-}
-//__________________________________________________________________________
-void AspellPluginImpl::deactivateTextSelect()
-{
-	// Deactivates text select combo box at top of spell-checking tab.
-//	fgroupSelect->setEnabled( false );
-//	ftextSelect->setEnabled( false );
+	flistDicts->setEnabled( false );
 }
 //__________________________________________________________________________
 void AspellPluginImpl::nextWord()
@@ -181,26 +139,6 @@ void AspellPluginImpl::nextWord()
 	pe = fpos;
 	fcontent = fFrame->itemText.text(pa, pe - pa);
 	fpos = pa;
-	// Called to skip to the beginning of the next word. 'fpos' is
-	// set to the position in 'fcontent' of the beginning of this
-	// word, and 'fidx' is set to the index of this word in 'fwordlist'.
-//#if 0
-//	std::cerr << "nextWord: before, pos = " << fpos << ", length = "
-//		  << fwordlist[fidx].length() << "\n";
-//#endif
-	// FIXME: Regexp searches are probably expensive. So, we should
-	// replace these with something else. Certainly the first find()
-	// can be replaced by adding the length of the word just replaced
-	// to 'fpos'.
-	// Skip to next whitespace character, i.e., end of last word.
-//	fpos = fcontent.indexOf( QRegExp( "\\s|\\W|\\d|\\n|\\r|\\t" ), fpos );
-	// Skip to next non-whitespace character, i.e., beginning of
-	// next word.
-//	fpos = fcontent.indexOf( QRegExp( "\\w" ), fpos );
-//#if 0
-//	std::cerr << "nextWord: after, pos = " << fpos << "\n";
-//#endif
-//	fidx++;  // Increment index in 'fcontent'
 }
 //__________________________________________________________________________
 void AspellPluginImpl::checkText()
@@ -285,56 +223,10 @@ void AspellPluginImpl::spellCheckDone()
 	close();
 }
 //__________________________________________________________________________
-void AspellPluginImpl::checkWord(const QString& word)
-{
-	// Called when "Spell-check" button is clicked, or return pressed in
-	// text entry box.  Spell-checks current word (in the text entry box).
-	std::vector<std::string> replacement;
-	bool status = fsuggest->checkWord(word.toUtf8().data(), replacement);
-#if 0
-	std::cerr << "checkWord: checked \"" << word << "\". "
-	  "Status = " << (status ? 1 : 0) << '\n';
-#endif
-	if( status )
-	{
-		// FIXME: Recursive calls
-		nextWord();
-		checkText();
-	}
-	else
-	{
-		fmisSpelling->setText( fwordlist[fidx] );
-		fcurrWord->setText( "" );
-		flistReplacements->clear();
-		unsigned int idx = 0;
-		for( std::vector<std::string>::const_iterator i =
-			     replacement.begin();
-		     i != replacement.end();
-		     ++i )
-		{
-			// FIXME: Handle encodings other than UTF-8.
-			QString dict = QString::fromUtf8(i->c_str());
-			flistReplacements->insertItem( idx, dict );
-			idx++;
-		}
-
-		if( flistReplacements->count() > 0 )
-		{
-			// FIXME: Is this the correct substitute for
-			// setSelected()?
-			flistReplacements->setCurrentRow( 0 );
-			fcurrWord->setText( flistReplacements->currentItem()->text() );
-		}
-	}
-}
-//__________________________________________________________________________
 void AspellPluginImpl::on_fcloseBtn_clicked()
 {
 	// Called when the "Close" button is clicked. Makes any pending
 	// replacements and closes the spell-checking window.
-#if 0
-	std::cerr << "on_fcloseBtn_clicked: Making replacements.\n";
-#endif
 	spellCheckDone();  // Also closes spell-checking window.
 }
 //__________________________________________________________________________
@@ -343,7 +235,7 @@ void AspellPluginImpl::on_fchangeBtn_clicked()
 	// Called when the "Change" button is clicked. Replaces the word
 	// being spell-checked with the current word in text edit box.
 	// FIXME: Handle encodings other than UTF-8.
-	QString repl = fcurrWord->toPlainText();
+	QString repl = fcurrWord->text();
 	int cs, cx;
 	if (fcontent.length() == repl.length())
 	{
@@ -376,10 +268,7 @@ void AspellPluginImpl::on_fchangeAllBtn_clicked()
 	// Called when the "Change All" button is clicked. Replaces all
 	// instances of the word being spell-checked with the current word in
 	// text edit box.
-	// FIXME: Change commented-out statement below
-	// fnchanges.fnwords += fcontent.contains( fwordlist[fidx] );
-	// FIXME: Is this the right replacement for fcurrWord->text()?
-	QString repl = fcurrWord->toPlainText();
+	QString repl = fcurrWord->text();
 	int cs, cx;
 	if (fcontent.length() == repl.length())
 	{
@@ -453,7 +342,7 @@ void AspellPluginImpl::on_faddWordBtn_clicked()
 	{
 		// FIXME: Handle encodings other than UTF-8.
 		// FIXME: Is this the right replacement for fcurrWord->text()?
-		fsuggest->addPersonalList( fcurrWord->toPlainText().toUtf8().data() );
+		fsuggest->addPersonalList( fcurrWord->text().toUtf8().data() );
 	}
 	catch( const std::runtime_error& err )
 	{
@@ -472,12 +361,12 @@ void AspellPluginImpl::on_flistReplacements_itemActivated()
 	fcurrWord->setText( flistReplacements->currentItem()->text() );
 }
 //__________________________________________________________________________
-void AspellPluginImpl::on_flistDicts_itemActivated()
+void AspellPluginImpl::on_flistDicts_activated()
 {
 	// Called when an item in the list of available aspell dictionaries is
 	// selected, i.e., by double-clicking, or pressing enter. Resets
 	// aspell configuration to use the selected dictionary.
-	QString entry = flistDicts->currentItem()->text();
+	QString entry = flistDicts->currentText();
 	QStringList fields = entry.split( Speller::Aspell::Suggest::kDICT_DELIM );
 	// Ensure that we have at least the right no.of fields.
 	if( fields.size() == 4 )
@@ -487,16 +376,10 @@ void AspellPluginImpl::on_flistDicts_itemActivated()
 			fields[1] + Speller::Aspell::Suggest::kDICT_DELIM +
 			fields[2] + Speller::Aspell::Suggest::kDICT_DELIM +
 			fields[3];
-		ftextDictDetails->setText( value );
-		fsuggest->resetConfig( fields[1].toAscii().data(),
-				       fields[2].toAscii().data() );
+		fsuggest->resetConfig( fields[1].toAscii().data(), fields[2].toAscii().data() );
 		// FIXME: Handle encodings other than UTF-8.
 		setPreferences( fields[1], fields[2], Speller::Aspell::Suggest::kDEF_ENCODING, value );
 	}
-
-	// Activate text select combo box at top of spell-checking tab.
-//	activateTextSelect();
-	fmainTab->setCurrentIndex( 0 );  // Switch to spell-checking tab.
 }
 //__________________________________________________________________________
 void AspellPluginImpl::getPreferences()
@@ -504,11 +387,9 @@ void AspellPluginImpl::getPreferences()
 	// Retrieves user preferences from saved settings. Defaults are
 	// supplied 
 	flang =	fprefs->get( "lang", Speller::Aspell::Suggest::kDEF_LANG );
-	fjargon = fprefs->get( "jargon",
-			       Speller::Aspell::Suggest::kDEF_JARGON );
+	fjargon = fprefs->get( "jargon", Speller::Aspell::Suggest::kDEF_JARGON );
 	// FIXME: Handle encodings other than UTF-8.
-	fencoding = fprefs->get( "encoding",
-				 Speller::Aspell::Suggest::kDEF_ENCODING );
+	fencoding = fprefs->get( "encoding", Speller::Aspell::Suggest::kDEF_ENCODING );
 	fentry = fprefs->get( "entry", kDEF_ASPELL_ENTRY );
 }
 //__________________________________________________________________________
@@ -519,8 +400,7 @@ void AspellPluginImpl::setPreferences(const QString& lang,
 {
 	// Saves user preferences using Scribus preferences manager.
 	fprefs->set( "lang", lang );
-	QString val = jargon == Speller::Aspell::Suggest::kEMPTY ? "" :
-		jargon;
+	QString val = jargon == Speller::Aspell::Suggest::kEMPTY ? "" : jargon;
 	fprefs->set( "jargon", val );
 	fprefs->set( "encoding", encoding );
 	fprefs->set( "entry", entry );
@@ -531,126 +411,14 @@ void AspellPluginImpl::languageChange()
 	qWarning( "AspellPluginImpl::languageChange(): Not implemented yet" );
 }
 //__________________________________________________________________________
-void AspellPluginImpl::on_ftextSelect_activated(int key)
-{
-	// Called when item is chosen from combo box at top, selecting what
-	// items to applyspell-scheking to.
-	QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
-	fdoc->scMW()->setStatusBarInfoText( tr( "Spell-checking in "
-					       "progress. Please "
-					       "wait..." ) );
-	// Activate spell-checking GUI elements, and deactivate top combo
-	// box.
-	activateSpellGUI();
-//	deactivateTextSelect();
-
-	// Initialise counters for no. of changes. */
-	fnchanges.fntot = fnchanges.fnframes = 0;
-
-	// The numbering of the keys follows the order in which they were
-	// inserted into the combo box. 0 is "None", the default choice.
-	if( key == 1 )
-	{
-		parseSelection();
-	}
-	else if( key == 2 )
-	{
-		parsePage();
-
-	}
-	else if( key == 3 )
-	{
-		parseAll();
-	}
-
-	// Enable "Save" icon
-	if( fnchanges.fntot > 0 )
-	{
-		fdoc->changed();
-	}
-
-	// Redraw document
-	fdoc->view()->DrawNew();
-
-	QApplication::restoreOverrideCursor();
-	fdoc->scMW()->setStatusBarInfoText(tr("Spell-checking done." ));
-	fdoc->scMW()->mainWindowProgressBar->reset();
-}
-//__________________________________________________________________________
-void AspellPluginImpl::makeReplacements()
-{
-//	if( fnchanges.fnwords > 0 && fFrame && fFrame->asTextFrame() )
-//	{
-#if 0
-		std::cerr << "makeReplacements: Replacing\n\"" <<
-			fFrame->itemText.text( 0, fFrame->itemText.length() )
-			  << "\"\nwith\n\"" << fcontent << "\"\n";
-#endif
-		// Remove all text, and replace it with the modified text.
-		// FIXME: What does fFrame->frameDisplays() do? Should we be
-		// concerned about it.
-//		fFrame->itemText.removeChars( 0, fFrame->itemText.length() );
-//		fFrame->itemText.insertChars( 0, fcontent );
-//		fnchanges.fnframes++;
-#if 0
-		std::cerr << "makeReplacements: made replacements\n";
-#endif
-//	}
-
-	// Done with spell-checking at this point.
-#if 0
-	if( ftextSelect->currentItem() == 1 )
-	{
-		std::cerr << "makeReplacements: Spell-checking finished\n";
-#endif
-		spellCheckDone();
-#if 0
-	}
-#endif
-}
-//__________________________________________________________________________
 void AspellPluginImpl::parseItem()
 {
 	// Parse text in a frame, and spell-check it.
-
 	// Process only text frames
 	if( fFrame && fFrame->asTextFrame() )
 	{
 		nextWord();
 		checkText();
-		// Process text from
-		// frame.
-		// FIXME: There must be a smarter method to get individual
-		// words from Scribus text, than pulling out characters into a
-		// string, and then parsing that.
-		// FIXME: Should we worry about inordinately long strings of
-		// text?
-//		int i;
-//		for( i = 0; i < fFrame->itemText.length() &&
-//			     ! fFrame->frameDisplays( i ); ++i )
-//		{
-			;  // Do nothing.
-//		}
-//		for( ; i < fFrame->itemText.length() && fFrame->frameDisplays(i); ++i  )
-//		{
-//			fcontent += fFrame->itemText.text( i, 1 );
-//		}
-
-//		fnchanges.fnframes++;
-//#if 0
-//		std::cerr << "parseItem: fcontent = \"" << fcontent <<
-//		  "\"\n";
-//#endif
-//		fwordlist = fcontent.split( QRegExp( "\\s|\\W|\\d|\\n|\\r|\\t" ) );
-//#if 0
-//		for( size_t i = 0; i < fwordlist.size(); i++ )
-//		{
-//			std::cerr << "parseItem: fwordlist[" << i << "] = \""
-//				  << fwordlist[i] << "\"\n";
-//		}
-//#endif
-//		fpos = fidx = 0;
-//		checkText();
 	}
 }
 //__________________________________________________________________________
@@ -658,62 +426,11 @@ void AspellPluginImpl::parseSelection()
 {
 	fcontent.truncate( 0 );  // Start with empty string
 	uint ndocs = fdoc->m_Selection->count();
-        //fdoc->scMW()->mainWindowProgressBar->setTotalSteps( ndocs );
 	for( uint i = 0; i < ndocs; ++i )
 	{
-//		fnchanges.fnwords = 0;
-		//fdoc->scMW()->mainWindowProgressBar->setProgress( i );
 		fFrame = fdoc->m_Selection->itemAt( i );
 		parseItem();
-//		fnchanges.fntot += fnchanges.fnwords;
 	}
-        //fdoc->scMW()->mainWindowProgressBar->setProgress( ndocs );
-}
-//__________________________________________________________________________
-void AspellPluginImpl::parsePage()
-{
-	parsePage( fdoc->currentPageNumber() );
-	//spellCheckDone();
-}
-//__________________________________________________________________________
-void AspellPluginImpl::parsePage(int page)
-{
-	fcontent.truncate( 0 );  // Start with empty string
-	uint nproc = 0;
-        uint ndocs = fdoc->Items->count();
-        for( uint i = 0; i < ndocs; ++i )
-        {
-                if( fdoc->Items->at( i )->OwnPage == page )
-		{
-                        ++nproc;
-		}
-        }
-
-        //fdoc->scMW()->mainWindowProgressBar->setTotalSteps( nproc );
-        fdoc->view()->GotoPage( page );
-        //uint n = 0;
-        for( uint i = 0; i < ndocs; ++i )
-        {
-                PageItem* b = fdoc->Items->at( i );
-                if( b->OwnPage == page )
-                {
-                        //fdoc->scMW()->mainWindowProgressBar->setProgress(++n);
-			fFrame = b;
-                        parseItem();
-			fnchanges.fntot += fnchanges.fnwords;
-                }
-        }
-        //fdoc->scMW()->mainWindowProgressBar->setProgress( n );
-}
-//__________________________________________________________________________
-void AspellPluginImpl::parseAll()
-{
-	fcontent.truncate( 0 );  // Start with empty string
-	for( int i = 0; i < fdoc->Pages->count(); ++i )
-	{
-                parsePage( i );
-	}
-	//spellCheckDone();
 }
 //__________________________________________________________________________
 //@@@@@@@@@@@@@@@@@@@@@@@@@ END OF FILE @@@@@@@@@@@@@@@@@@@@@@@@@

@@ -126,14 +126,6 @@ protected:
 	*/
 	void getPreferences();
 	/*!
-	  \fn AspellPluginImpl::activateAll()
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Activates all GUI elements in spell-checking tab
-	  \param None
-	  \retval None
-	*/
-	void activateAll();
-	/*!
 	  \fn AspellPluginImpl::activateSpellGUI()
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Activates spell-checking GUI elements in spell-checking tab, i.e., everything except combo box at top
@@ -142,22 +134,6 @@ protected:
 	*/
 	void activateSpellGUI();
 	/*!
-	  \fn AspellPluginImpl::activateTextSelect()
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Activates text select combo box at top of spell-checking tab
-	  \param None
-	  \retval None
-	*/
-	void activateTextSelect();
-	/*!
-	  \fn AspellPluginImpl::deactivateAll()
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Deactivates all GUI elements in spell-checking tab
-	  \param None
-	  \retval None
-	*/
-	void deactivateAll();
-	/*!
 	  \fn AspellPluginImpl::deactivateSpellGUI()
 	  \author Gora Mohanty <gora@srijan.in>
 	  \brief Deactivates spell-checking GUI elements in spell-checking tab, i.e., everything except combo box at top
@@ -165,14 +141,6 @@ protected:
 	  \retval None
 	*/
 	void deactivateSpellGUI();
-	/*!
-	  \fn AspellPluginImpl::deactivateTextSelect()
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Deactivates text select combo box at top of spell-checking tab
-	  \param None
-	  \retval None
-	*/
-	void deactivateTextSelect();
 	/*!
 	  \fn AspellPluginImpl::parseItem
 	  \author Gora Mohanty <gora@srijan.in>
@@ -189,46 +157,6 @@ protected:
 	  \retval None
 	*/
         void parseSelection();
-	/*!
-	  \fn AspellPluginImpl::parsePage
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Spell-check this page
-	  \param None
-	  \retval None
-	*/
-	void parsePage();
-	/*!
-	  \fn AspellPluginImpl::parsePage
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Spell-check this page
-	  \param page: Page number
-	  \retval None
-	*/
-	void parsePage(int page);
-	/*!
-	  \fn AspellPluginImpl::parseAll
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Spell-check all pages in the document
-	  \param None
-	  \retval None
-	*/
-        void parseAll();
-	/*!
-	  \fn AspellPluginImpl::makeReplacements
-	  \author Gora Mohanty <gora@srijan.in>
-	  \brief Called when one frame has been spell-checked. Replaces original text, if modifications had been made.
-	  \param None
-	  \retval None
-	*/
-	void makeReplacements();
-        /*!
-          \fn AspellPluginImpl::checkWord
-          \author Gora Mohanty <gora@srijan.in>
-          \brief Called when the "Spell-check" button is clicked, or return pressed in text entry box. Spell-checks current word.
-          \param word: Word to be checked.
-          \retval None
-        */
-        void checkWord(const QString& word);
 	/*!
 	  \fn AspellPluginImpl::spellCheckDone
 	  \author Gora Mohanty <gora@srijan.in>
@@ -321,16 +249,7 @@ public slots:
 	  \param None
 	  \retval None
 	*/
-	void on_flistDicts_itemActivated();
-        /*!
-          \fn AspellPluginImpl::on_ftextSelect_activated()
-          \author Gora Mohanty <gora@srijan.in>
-          \brief Slot: Called when one of the items in the "Choose text 
-to be spell-checked" combo box is clicked.
-          \param key: Key for selected radio button.
-          \retval None
-        */
-    virtual void on_ftextSelect_activated(int key);
+	void on_flistDicts_activated();
 
 protected slots:
     void languageChange();
