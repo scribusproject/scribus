@@ -113,9 +113,7 @@ PSD/CMYK TIFF Support
 
 1.3.2 now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
 16-bit TIFF support is being developed. PSD and TIFF support includes layers, ICC
-profiles and embedding clipping paths. CMYKA is not yet supported as there is a
-limitation in the QImage class. RGBA is supported. Expect this to be enhanced in
-a future version.
+profiles and embedding clipping paths. CMYKA is supported in Scribus 1.3.4+
 
 FONT ISSUES
 -----------
@@ -127,7 +125,7 @@ http://docs.scribus.net  Please read these carefully before filing bugs.
 There are issues with the postscript naming conventions with the Computer Modern
 Type 1 fonts, depending on distribution.  In some cases, not all fonts from the
 same family are visible in Scribus. We are working on a more complete solution
-for the next release.
+during a future release.
 
 
 

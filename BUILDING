@@ -44,6 +44,10 @@ Recommended:
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
+	apspell for the spell checker
+	podofo - 0.5.0 for enhanced Illustrator AI/EPS import, svn versions
+	after 0.5.0 have a different API and Scribus will not compile using
+	newer versions currently
 
 
 If any recommended libraries (and their dev/devel packages or headers) are not
@@ -232,8 +236,6 @@ need to run up2date first to set up your yum configuration (not required on
 FC4). Be patient - the first time you run yum it may take a long time to
 download the headers for all the security updates that have been released.
 
-You may also need to 'export QTDIR=/usr/lib/qt-3.3' before running
-configure or make.
 
 More info can be found in the README.
 
@@ -256,6 +258,7 @@ Recommended packages for compiling from source on SuSE 10.x:
 	python-devel
 	tk
 	python-imaging
+	aspell-devel
 
 You can install these packages using YaST. You may find it difficult to compile
 Scribus 1.3.5+ on anything older than Suse 10.0. 
