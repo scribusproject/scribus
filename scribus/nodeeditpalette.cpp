@@ -411,7 +411,11 @@ void NodePalette::CloseBezier()
 	if (doc==0)
 		return;
 	MoveN();
-	view->Bezier2Poly();
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	PageItem* newItem = doc->convertItemTo(currItem, PageItem::Polygon);
+	doc->m_Selection->clear();
+	doc->m_Selection->addItem(newItem);
+	newItem->update();
 	BezierClose->setEnabled(false);
 	PolySplit->setEnabled(true);
 	EditCont->setEnabled(true);

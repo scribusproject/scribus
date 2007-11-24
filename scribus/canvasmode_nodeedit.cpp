@@ -143,11 +143,12 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 			cli.point((*itm), &x, &y);
 			p->drawPoint(QPointF(x, y));
 		}
-		// FIXME:av emit HavePoint(true, MoveSym);
+		emit m_view->HavePoint(true, m_doc->nodeEdit.MoveSym);
+		cli.point(m_doc->nodeEdit.ClRe, &x, &y);
+		emit m_view->ClipPo(x, y);
 	}
-	else {
-		// FIXME:av emit HavePoint(false, MoveSym);
-	}
+	else
+		emit m_view->HavePoint(false, m_doc->nodeEdit.MoveSym);
 	p->restore();
 }
 
@@ -363,10 +364,10 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 {
-	double Rxp = 0;
-	double Ryp = 0;
-	double Rxpd = 0;
-	double Rypd = 0;
+//	double Rxp = 0;
+//	double Ryp = 0;
+//	double Rxpd = 0;
+//	double Rypd = 0;
 	QPainter p;
 	m_canvas->PaintSizeRect(QRect());
 //	FPoint npf, npf2;
@@ -427,8 +428,8 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 {
-	const double mouseX = m->globalX();
-	const double mouseY = m->globalY();
+//	const double mouseX = m->globalX();
+//	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	QMenu* pmen3 = NULL;
@@ -760,311 +761,69 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	{
 		if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
 				continue;
-			QPointF npf = pm2.map(Clip.pointQF(a));
+		QPointF npf = pm2.map(Clip.pointQF(a));
 //			QRect tx = QRect(static_cast<int>(npf.x()-3), static_cast<int>(npf.y()-3), 6, 6);
 //			if (tx.intersects(mpo))
-			if (m_canvas->hitsCanvasPoint(m->globalPos(), npf))
-			{
+		if (m_canvas->hitsCanvasPoint(m->globalPos(), npf))
+		{
 #ifdef MODEDEBUG
-				qDebug() << "nodeedit: selecting point" << a << "at" << npf.x() << npf.y();
+			qDebug() << "nodeedit: selecting point" << a << "at" << npf.x() << npf.y();
 #endif
-				m_doc->nodeEdit.ClRe = a;
-				if ((m_doc->nodeEdit.EdPoints) && (m_doc->nodeEdit.SelNode.contains(a) == 0))
-				{
-					if (m->modifiers() == Qt::ShiftModifier)
-						m_doc->nodeEdit.SelNode.append(a);
-					else
-					{
-						m_doc->nodeEdit.SelNode.clear();
-						m_doc->nodeEdit.SelNode.append(a);
-					}
-				}
-				m_doc->nodeEdit.update(Clip.pointQF(a));
-				pfound = true;
-				break;
-			}
-		}
-		if ((!pfound) || (!m_doc->nodeEdit.EdPoints))
-			m_doc->nodeEdit.SelNode.clear();
-		
-		if ((m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) && (m_doc->nodeEdit.ClRe2 != -1) && !m_doc->nodeEdit.hasNodeSelected())
-		{
-			m_doc->nodeEdit.SegP1 = m_doc->nodeEdit.ClRe2;
-			m_doc->nodeEdit.SegP2 = m_doc->nodeEdit.ClRe2+2;
-			m_doc->nodeEdit.ClRe = m_doc->nodeEdit.ClRe2;
-		}
-		FPointArray cli;
-		uint EndInd = Clip.size();
-		uint StartInd = 0;
-		for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
-		{
-			if (Clip.point(n).x() > 900000)
+			m_doc->nodeEdit.ClRe = a;
+			if ((m_doc->nodeEdit.EdPoints) && (m_doc->nodeEdit.SelNode.contains(a) == 0))
 			{
-				EndInd = n;
-				break;
-			}
-		}
-		if (m_doc->nodeEdit.ClRe > 0)
-		{
-			for (uint n2 = m_doc->nodeEdit.ClRe; n2 > 0; n2--)
-			{
-				if (n2 == 0)
-					break;
-				if (Clip.point(n2).x() > 900000)
-				{
-					StartInd = n2 + 1;
-					break;
-				}
-			}
-		}
-		if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
-		{
-			if (!m_doc->nodeEdit.EdPoints)
-						return;
-			if (!m_doc->nodeEdit.hasNodeSelected())	// We don't have a Point, try to add one onto the current curve segment
-			{
-				bool foundP = false;
-				uint seg = 0;
-				double absDist = 9999999999.9;
-				FPoint point = FPoint(0, 0);
-				FPoint normal = FPoint(0, 0);
-				FPoint tangent = FPoint(0, 0);
-				FPoint nearPoint = FPoint(0, 0);
-				double nearT = 0.0;
-				QRect mpo2(0, 0, m_doc->guidesSettings.grabRad*3, m_doc->guidesSettings.grabRad*3);
-				mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
-				for (uint poi=0; poi<Clip.size()-3; poi += 4)
-				{
-					FPoint a1 = Clip.point(poi);
-					FPoint a2 = Clip.point(poi+1);
-					FPoint a3 = Clip.point(poi+3);
-					FPoint a4 = Clip.point(poi+2);
-					QPainterPath Bez;
-					Bez.moveTo(a1.x(), a1.y());
-					Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
-					QPolygon cli2 = Bez.toFillPolygon().toPolygon();
-					for (int clp = 0; clp < cli2.size()-1; ++clp)
-					{
-						if (m_view->PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
-						{
-							seg = poi;
-							double sp = 0.0;
-							double spadd = 1.0 / (Clip.lenPathSeg(seg) * m_canvas->scale());
-							while (sp < 1.0)
-							{
-								Clip.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
-								double d1 = fabs(sqrt(pow(point.x() - npf2.x(), 2) + pow(point.y() - npf2.y() ,2)));
-								if (d1 < absDist)
-								{
-									foundP = true;
-									nearPoint = point;
-									nearT = sp;
-									absDist = d1;
-								}
-								sp += spadd;
-							}
-						}
-					}
-				}
-				cli.putPoints(0, m_doc->nodeEdit.ClRe2+2, Clip);
-				if (foundP)
-				{
-					npf2 = nearPoint;
-					FPoint base = cli.point(cli.size()-2);
-					FPoint c1 = cli.point(cli.size()-1);
-					FPoint base2 =  Clip.point(m_doc->nodeEdit.ClRe2+2);
-					FPoint c2 = Clip.point(m_doc->nodeEdit.ClRe2+3);
-					if ((base == c1) && (base2 == c2))
-					{
-						cli.resize(cli.size()+4);
-						cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-						cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
-					}
-					else
-					{
-						FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
-						FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
-						FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
-						FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
-						cli.setPoint(cli.size()-1, cn1);
-						cli.resize(cli.size()+4);
-						uint basind = cli.size()+1;
-						cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
-						cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
-						cli.setPoint(basind, cn4);
-					}
-					Clip = cli.copy();
-					cli.resize(0);
-					m_doc->nodeEdit.ClRe = m_doc->nodeEdit.ClRe2+2;
-					m_doc->nodeEdit.ClRe2 = -1;
-					EndInd = Clip.size();
-					StartInd = 0;
-					for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
-					{
-						if (Clip.point(n).x() > 900000)
-						{
-							EndInd = n;
-							break;
-						}
-					}
-					if (m_doc->nodeEdit.ClRe > 0)
-					{
-						for (uint n2 = m_doc->nodeEdit.ClRe; n2 > 0; n2--)
-						{
-							if (n2 == 0)
-								break;
-							if (Clip.point(n2).x() > 900000)
-							{
-								StartInd = n2 + 1;
-								break;
-							}
-						}
-					}
-				}
-				else
-					m_doc->nodeEdit.deselect();
-			}
-			if (m_doc->nodeEdit.hasNodeSelected())
-			{
-				if (currItem->asPolygon())
-				{
-					if ((m_doc->nodeEdit.ClRe != 0) && (m_doc->nodeEdit.ClRe != static_cast<int>(EndInd-2)))
-					{
-						if (currItem->Segments.count() == 0)
-						{
-							cli.putPoints(0, EndInd-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
-							cli.putPoints(cli.size(), m_doc->nodeEdit.ClRe+2, Clip);
-						}
-						else
-						{
-							cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
-							int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
-							PageItem* bb = m_doc->Items->at(z);
-							if (m_doc->nodeEdit.isContourLine)
-								bb->ContourLine.resize(0);
-							else
-								bb->PoLine.resize(0);
-							if (StartInd != 0)
-							{
-								if (m_doc->nodeEdit.isContourLine)
-								{
-									bb->ContourLine.putPoints(0, StartInd - 4, Clip);
-									bb->ContourLine.putPoints(bb->ContourLine.size(), Clip.size()-EndInd, Clip, EndInd);
-								}
-								else
-								{
-									bb->PoLine.putPoints(0, StartInd - 4, Clip);
-									bb->PoLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
-								}
-							}
-							else
-							{
-								if (m_doc->nodeEdit.isContourLine)
-									bb->ContourLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
-								else
-									bb->PoLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
-							}
-							bb->setRotation(currItem->rotation());
-							m_doc->AdjustItemSize(bb);
-							bb->ClipEdited = true;
-							PageItem *bx = m_doc->Items->takeAt(bb->ItemNr);
-							m_doc->Items->insert(bb->ItemNr-1, bx);
-						}
-						currItem->PoLine = cli.copy();
-					}
-					m_doc->nodeEdit.deselect();
-					currItem->ClipEdited = true;
-					edited = true;
-					m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
-					PageItem* newItem=m_doc->convertItemTo(currItem, PageItem::PolyLine);
-					currItem=newItem;
-//FIXME:av					emit PolyOpen();
-				}
+				if (m->modifiers() == Qt::ShiftModifier)
+					m_doc->nodeEdit.SelNode.append(a);
 				else
 				{
-					if ((currItem->asPolyLine()) || (currItem->asPathText()))
-					{
-						if ((m_doc->nodeEdit.ClRe > 1) && (m_doc->nodeEdit.ClRe < static_cast<int>(Clip.size()-2)))
-						{
-							int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
-							PageItem* bb = m_doc->Items->at(z);
-							if (m_doc->nodeEdit.isContourLine)
-								bb->ContourLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
-							else
-								bb->PoLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
-							bb->setRotation(currItem->rotation());
-							m_doc->AdjustItemSize(bb);
-							bb->ClipEdited = true;
-							cli.resize(0);
-							cli.putPoints(0, m_doc->nodeEdit.ClRe+2, Clip);
-							currItem->PoLine = cli.copy();
-						}
-						m_doc->nodeEdit.deselect();
-						currItem->ClipEdited = true;
-						edited = true;
-						m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
-						currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
-//FIXME:av					emit PolyOpen();
-					}
+					m_doc->nodeEdit.SelNode.clear();
+					m_doc->nodeEdit.SelNode.append(a);
 				}
 			}
-		}
-		if ((m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT) && m_doc->nodeEdit.hasNodeSelected())
-		{
-			if (!m_doc->nodeEdit.EdPoints)
-				return;
-			if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
-			{
-				if ((currItem->Segments.count() == 0) && (Clip.size() <= 12))  // min. 3 points
-					return;
-			}
-			else
-			{
-				if (Clip.size() <= 4)
-					return;
-			}
-			if ((currItem->Segments.count() != 0) && ((EndInd - StartInd) <= 12))
-			{
-				if (StartInd != 0)
-					cli.putPoints(0, StartInd-4, Clip);
-				cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
-			}
-			else
-			{
-				if (m_doc->nodeEdit.ClRe == static_cast<int>(StartInd))
-				{
-					if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
-					{
-						FPoint kp(Clip.point(EndInd-3));
-						cli.putPoints(0, StartInd, Clip);
-						cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
-						cli.setPoint(StartInd, cli.point(cli.size()-2));
-						cli.setPoint(StartInd + 1, kp);
-						cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
-					}
-					else
-					{
-						cli.putPoints(0, StartInd, Clip);
-						cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd+4);
-						cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
-					}
-				}
-				else
-				{
-					if (m_doc->nodeEdit.ClRe != 0)
-						cli.putPoints(0, m_doc->nodeEdit.ClRe, Clip);
-					cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe + 4), Clip, m_doc->nodeEdit.ClRe+4);
-				}
-			}
-			if (m_doc->nodeEdit.isContourLine)
-				currItem->ContourLine = cli.copy();
-			else
-				currItem->PoLine = cli.copy();
-			m_doc->nodeEdit.deselect();
-			currItem->ClipEdited = true;
+			m_doc->nodeEdit.update(Clip.pointQF(a));
+			pfound = true;
 			edited = true;
+			break;
 		}
-		if ((m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT) && (m_doc->nodeEdit.ClRe2 != -1))
+	}
+	if ((!pfound) || (!m_doc->nodeEdit.EdPoints))
+		m_doc->nodeEdit.SelNode.clear();
+
+	if ((m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) && (m_doc->nodeEdit.ClRe2 != -1) && !m_doc->nodeEdit.hasNodeSelected())
+	{
+		m_doc->nodeEdit.SegP1 = m_doc->nodeEdit.ClRe2;
+		m_doc->nodeEdit.SegP2 = m_doc->nodeEdit.ClRe2+2;
+		m_doc->nodeEdit.ClRe = m_doc->nodeEdit.ClRe2;
+	}
+	FPointArray cli;
+	uint EndInd = Clip.size();
+	uint StartInd = 0;
+	for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
+	{
+		if (Clip.point(n).x() > 900000)
+		{
+			EndInd = n;
+			break;
+		}
+	}
+	if (m_doc->nodeEdit.ClRe > 0)
+	{
+		for (uint n2 = m_doc->nodeEdit.ClRe; n2 > 0; n2--)
+		{
+			if (n2 == 0)
+				break;
+			if (Clip.point(n2).x() > 900000)
+			{
+				StartInd = n2 + 1;
+				break;
+			}
+		}
+	}
+	if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
+	{
+		if (!m_doc->nodeEdit.EdPoints)
+			return;
+		if (!m_doc->nodeEdit.hasNodeSelected())	// We don't have a Point, try to add one onto the current curve segment
 		{
 			bool foundP = false;
 			uint seg = 0;
@@ -1121,7 +880,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				{
 					cli.resize(cli.size()+4);
 					cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-							cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+					cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
 				}
 				else
 				{
@@ -1136,49 +895,294 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
 					cli.setPoint(basind, cn4);
 				}
+				Clip = cli.copy();
+				cli.resize(0);
+				m_doc->nodeEdit.ClRe = m_doc->nodeEdit.ClRe2+2;
+				m_doc->nodeEdit.ClRe2 = -1;
+				EndInd = Clip.size();
+				StartInd = 0;
+				for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
+				{
+					if (Clip.point(n).x() > 900000)
+					{
+						EndInd = n;
+						break;
+					}
+				}
+				if (m_doc->nodeEdit.ClRe > 0)
+				{
+					for (uint n2 = m_doc->nodeEdit.ClRe; n2 > 0; n2--)
+					{
+						if (n2 == 0)
+							break;
+						if (Clip.point(n2).x() > 900000)
+						{
+							StartInd = n2 + 1;
+							break;
+						}
+					}
+				}
+			}
+			else
+				m_doc->nodeEdit.deselect();
+		}
+		if (m_doc->nodeEdit.hasNodeSelected())
+		{
+			if (currItem->asPolygon())
+			{
+				if ((m_doc->nodeEdit.ClRe != 0) && (m_doc->nodeEdit.ClRe != static_cast<int>(EndInd-2)))
+				{
+					if (currItem->Segments.count() == 0)
+					{
+						cli.putPoints(0, EndInd-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
+						cli.putPoints(cli.size(), m_doc->nodeEdit.ClRe+2, Clip);
+					}
+					else
+					{
+						cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
+						int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
+						PageItem* bb = m_doc->Items->at(z);
+						if (m_doc->nodeEdit.isContourLine)
+							bb->ContourLine.resize(0);
+						else
+							bb->PoLine.resize(0);
+						if (StartInd != 0)
+						{
+							if (m_doc->nodeEdit.isContourLine)
+							{
+								bb->ContourLine.putPoints(0, StartInd - 4, Clip);
+								bb->ContourLine.putPoints(bb->ContourLine.size(), Clip.size()-EndInd, Clip, EndInd);
+							}
+							else
+							{
+								bb->PoLine.putPoints(0, StartInd - 4, Clip);
+								bb->PoLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
+							}
+						}
+						else
+						{
+							if (m_doc->nodeEdit.isContourLine)
+								bb->ContourLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
+							else
+								bb->PoLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
+						}
+						bb->setRotation(currItem->rotation());
+						m_doc->AdjustItemSize(bb);
+						bb->ClipEdited = true;
+						PageItem *bx = m_doc->Items->takeAt(bb->ItemNr);
+						m_doc->Items->insert(bb->ItemNr-1, bx);
+					}
+					currItem->PoLine = cli.copy();
+				}
+				m_doc->nodeEdit.deselect();
+				currItem->ClipEdited = true;
+				edited = true;
+				m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+				PageItem* newItem=m_doc->convertItemTo(currItem, PageItem::PolyLine);
+				currItem=newItem;
+				m_doc->m_Selection->clear();
+				m_doc->m_Selection->addItem(currItem);
+				emit m_view->PolyOpen();
 			}
 			else
 			{
-				cli.resize(cli.size()+4);
-				cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-				cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+				if ((currItem->asPolyLine()) || (currItem->asPathText()))
+				{
+					if ((m_doc->nodeEdit.ClRe > 1) && (m_doc->nodeEdit.ClRe < static_cast<int>(Clip.size()-2)))
+					{
+						int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
+						PageItem* bb = m_doc->Items->at(z);
+						if (m_doc->nodeEdit.isContourLine)
+							bb->ContourLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
+						else
+							bb->PoLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.ClRe+2), Clip, m_doc->nodeEdit.ClRe+2);
+						bb->setRotation(currItem->rotation());
+						m_doc->AdjustItemSize(bb);
+						bb->ClipEdited = true;
+						cli.resize(0);
+						cli.putPoints(0, m_doc->nodeEdit.ClRe+2, Clip);
+						currItem->PoLine = cli.copy();
+						m_doc->m_Selection->clear();
+						m_doc->m_Selection->addItem(currItem);
+					}
+					m_doc->nodeEdit.deselect();
+					currItem->ClipEdited = true;
+					edited = true;
+					m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+					currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
+					emit m_view->PolyOpen();
+				}
 			}
-			if (m_doc->nodeEdit.isContourLine)
-				currItem->ContourLine = cli.copy();
-			else
-				currItem->PoLine = cli.copy();
-			m_doc->nodeEdit.ClRe2 = -1;
-			currItem->ClipEdited = true;
-			edited = true;
 		}
-		if (edited)
+	}
+	if ((m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT) && m_doc->nodeEdit.hasNodeSelected())
+	{
+		if (!m_doc->nodeEdit.EdPoints)
+			return;
+		if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
 		{
-			currItem->FrameType = 3;
-			m_doc->AdjustItemSize(currItem);
-			currItem->update();
-//			updateContents();
-//			emit DocChanged();
-		}
-		if ((m_doc->nodeEdit.SelNode.count() != 0) || ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.EdPoints)))
-		{
-			Mxp = m->x();
-			Myp = m->y();
-			m_canvas->setRenderModeFillBuffer();
+			if ((currItem->Segments.count() == 0) && (Clip.size() <= 12))  // min. 3 points
+				return;
 		}
 		else
 		{
-			/*
-			 m_view->redrawMarker->setGeometry(m->x(), m->y(), 1, 1);
-			 m_view->redrawMarker->show();
-			 */
-			Mxp = m->x();
-			Myp = m->y();
-			Dxp = qRound(m->x()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
-			Dyp = qRound(m->y()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
-			m_rectangleSelect = new RectSelect(this);
-			m_rectangleSelect->setStart(m->globalPos());
-			m_view->startGesture(m_rectangleSelect);		
+			if (Clip.size() <= 4)
+				return;
 		}
+		if ((currItem->Segments.count() != 0) && ((EndInd - StartInd) <= 12))
+		{
+			if (StartInd != 0)
+				cli.putPoints(0, StartInd-4, Clip);
+			cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
+		}
+		else
+		{
+			if (m_doc->nodeEdit.ClRe == static_cast<int>(StartInd))
+			{
+				if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
+				{
+					FPoint kp(Clip.point(EndInd-3));
+					cli.putPoints(0, StartInd, Clip);
+					cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
+					cli.setPoint(StartInd, cli.point(cli.size()-2));
+					cli.setPoint(StartInd + 1, kp);
+					cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
+				}
+				else
+				{
+					cli.putPoints(0, StartInd, Clip);
+					cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd+4);
+					cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
+				}
+			}
+			else
+			{
+				if (m_doc->nodeEdit.ClRe != 0)
+					cli.putPoints(0, m_doc->nodeEdit.ClRe, Clip);
+				cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe + 4), Clip, m_doc->nodeEdit.ClRe+4);
+			}
+		}
+		if (m_doc->nodeEdit.isContourLine)
+			currItem->ContourLine = cli.copy();
+		else
+			currItem->PoLine = cli.copy();
+		m_doc->nodeEdit.deselect();
+		currItem->ClipEdited = true;
+		edited = true;
+	}
+	if ((m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT) && (m_doc->nodeEdit.ClRe2 != -1))
+	{
+		bool foundP = false;
+		uint seg = 0;
+		double absDist = 9999999999.9;
+		FPoint point = FPoint(0, 0);
+		FPoint normal = FPoint(0, 0);
+		FPoint tangent = FPoint(0, 0);
+		FPoint nearPoint = FPoint(0, 0);
+		double nearT = 0.0;
+		QRect mpo2(0, 0, m_doc->guidesSettings.grabRad*3, m_doc->guidesSettings.grabRad*3);
+		mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
+		for (uint poi=0; poi<Clip.size()-3; poi += 4)
+		{
+			FPoint a1 = Clip.point(poi);
+			FPoint a2 = Clip.point(poi+1);
+			FPoint a3 = Clip.point(poi+3);
+			FPoint a4 = Clip.point(poi+2);
+			QPainterPath Bez;
+			Bez.moveTo(a1.x(), a1.y());
+			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+			QPolygon cli2 = Bez.toFillPolygon().toPolygon();
+			for (int clp = 0; clp < cli2.size()-1; ++clp)
+			{
+				if (m_view->PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
+				{
+					seg = poi;
+					double sp = 0.0;
+					double spadd = 1.0 / (Clip.lenPathSeg(seg) * m_canvas->scale());
+					while (sp < 1.0)
+					{
+						Clip.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
+						double d1 = fabs(sqrt(pow(point.x() - npf2.x(), 2) + pow(point.y() - npf2.y() ,2)));
+						if (d1 < absDist)
+						{
+							foundP = true;
+							nearPoint = point;
+							nearT = sp;
+							absDist = d1;
+						}
+						sp += spadd;
+					}
+				}
+			}
+		}
+		cli.putPoints(0, m_doc->nodeEdit.ClRe2+2, Clip);
+		if (foundP)
+		{
+			npf2 = nearPoint;
+			FPoint base = cli.point(cli.size()-2);
+			FPoint c1 = cli.point(cli.size()-1);
+			FPoint base2 =  Clip.point(m_doc->nodeEdit.ClRe2+2);
+			FPoint c2 = Clip.point(m_doc->nodeEdit.ClRe2+3);
+			if ((base == c1) && (base2 == c2))
+			{
+				cli.resize(cli.size()+4);
+				cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
+						cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+			}
+			else
+			{
+				FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
+				FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
+				FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
+				FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
+				cli.setPoint(cli.size()-1, cn1);
+				cli.resize(cli.size()+4);
+				uint basind = cli.size()+1;
+				cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
+				cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+				cli.setPoint(basind, cn4);
+			}
+		}
+		else
+		{
+			cli.resize(cli.size()+4);
+			cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
+			cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.ClRe2 + 2), Clip, m_doc->nodeEdit.ClRe2+2);
+		}
+		if (m_doc->nodeEdit.isContourLine)
+			currItem->ContourLine = cli.copy();
+		else
+			currItem->PoLine = cli.copy();
+		m_doc->nodeEdit.ClRe2 = -1;
+		currItem->ClipEdited = true;
+		edited = true;
+	}
+	if (edited)
+	{
+		currItem->FrameType = 3;
+		m_doc->AdjustItemSize(currItem);
+		currItem->update();
+	}
+	if ((m_doc->nodeEdit.SelNode.count() != 0) || ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.EdPoints)))
+	{
+		Mxp = m->x();
+		Myp = m->y();
+		m_canvas->setRenderModeFillBuffer();
+	}
+	else
+	{
+		/*
+		m_view->redrawMarker->setGeometry(m->x(), m->y(), 1, 1);
+		m_view->redrawMarker->show();
+		*/
+		Mxp = m->x();
+		Myp = m->y();
+		Dxp = qRound(m->x()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
+		Dyp = qRound(m->y()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
+		m_rectangleSelect = new RectSelect(this);
+		m_rectangleSelect->setStart(m->globalPos());
+		m_view->startGesture(m_rectangleSelect);		
+	}
 	
 }
 
