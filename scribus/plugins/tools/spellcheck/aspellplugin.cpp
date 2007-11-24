@@ -37,6 +37,7 @@ void AspellPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::PolyLine);
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
 	m_actionInfo.forAppMode.append(modeNormal);
+	m_actionInfo.needsNumObjects = 1;
 	// If needed, what item to add the menu item after
 	//m_actionInfo.menuAfterName = "ColorWheel"
 	// If needed, the keyboard shortcut for the plugin
