@@ -44,7 +44,7 @@ public:
 	QLabel* TextLabel3;
 	ScComboBox* ComboBox1;
 	QCheckBox* Separations;
-	QCheckBox* Regist;
+//	QCheckBox* Regist;
 	ScComboBox* Swatches;
 	QLabel* TextLabel5_2;
 	QLabel* OldC;
@@ -97,7 +97,7 @@ public slots:
 	QPixmap SliderBlack();
 	void SelSwatch(int n);
 	void setSpot();
-	void setRegist();
+//	void setRegist();
 	void SelModel(const QString& mod);
 	void setColor();
 	void setColor2(int h, int s, bool ende);

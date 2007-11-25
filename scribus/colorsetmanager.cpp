@@ -36,6 +36,9 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 	{
 		appPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
 		appPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
+		ScColor cc = ScColor(255, 255, 255, 255);
+		cc.setRegistrationColor(true);
+		appPrefs.DColors.insert("Registration", cc);
 		appPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
 		appPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
 		appPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));

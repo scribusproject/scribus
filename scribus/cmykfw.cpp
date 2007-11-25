@@ -123,12 +123,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Separations->setText( tr( "Is Spot Color" ) );
 	Separations->setChecked(orig.isSpotColor());
 	Layout23->addWidget( Separations );
-
+/*
 	Regist = new QCheckBox( this );
 	Regist->setText( tr( "Is Registration Color" ) );
 	Regist->setChecked(orig.isRegistrationColor());
 	Layout23->addWidget( Regist );
-
+*/
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
 
@@ -382,7 +382,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	setFixedSize(minimumSizeHint());
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	// signals and slots connections
-	Regist->setToolTip( "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
+//	Regist->setToolTip( "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
 	Separations->setToolTip( "<qt>" + tr( "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks." ) + "</qt>");
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
@@ -403,7 +403,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
 	connect(ColorSwatch, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( SelFromSwatch(QListWidgetItem*) ) );
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
-	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
+//	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
 	layout()->activate();
 	if (!CMYKmode)
@@ -697,6 +697,9 @@ void CMYKChoose::SelSwatch(int n)
 			{
 				CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
 				CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+				ScColor cc = ScColor(255, 255, 255, 255);
+				cc.setRegistrationColor(true);
+				CurrSwatch.insert("Registration", cc);
 				CurrSwatch.insert("Blue", ScColor(255, 255, 0, 0));
 				CurrSwatch.insert("Cyan", ScColor(255, 0, 0, 0));
 				CurrSwatch.insert("Green", ScColor(255, 0, 255, 0));
@@ -711,7 +714,7 @@ void CMYKChoose::SelSwatch(int n)
 		TabStack->setCurrentIndex(1);
 	}
 }
-
+/*
 void CMYKChoose::setRegist()
 {
 	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
@@ -723,14 +726,14 @@ void CMYKChoose::setRegist()
 	}
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 }
-
+*/
 void CMYKChoose::setSpot()
 {
 	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	if (Separations->isChecked())
 	{
 		ComboBox1->setCurrentIndex( 0 );
-		Regist->setChecked(false);
+//		Regist->setChecked(false);
 		SelModel( tr("CMYK"));
 	}
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
@@ -981,7 +984,7 @@ void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
 	Farbe = tmp;
 	setValues();
 	Separations->setChecked(tmp.isSpotColor());
-	Regist->setChecked(tmp.isRegistrationColor());
+//	Regist->setChecked(tmp.isRegistrationColor());
 }
 
 void CMYKChoose::setValues()

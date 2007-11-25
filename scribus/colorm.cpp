@@ -271,6 +271,9 @@ void ColorManager::loadDefaults(const QString &txt)
 		setCurrentComboItem(LoadColSet, "Scribus Small");
 		EditColors.insert("White", ScColor(0, 0, 0, 0));
 		EditColors.insert("Black", ScColor(0, 0, 0, 255));
+		ScColor cc = ScColor(255, 255, 255, 255);
+		cc.setRegistrationColor(true);
+		EditColors.insert("Registration", cc);
 		EditColors.insert("Blue", ScColor(255, 255, 0, 0));
 		EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
 		EditColors.insert("Green", ScColor(255, 0, 255, 0));
@@ -397,6 +400,9 @@ void ColorManager::loadDefaults(const QString &txt)
 			setCurrentComboItem(LoadColSet, "Scribus Small");
 			EditColors.insert("White", ScColor(0, 0, 0, 0));
 			EditColors.insert("Black", ScColor(0, 0, 0, 255));
+			ScColor cc = ScColor(255, 255, 255, 255);
+			cc.setRegistrationColor(true);
+			EditColors.insert("Registration", cc);
 			EditColors.insert("Blue", ScColor(255, 255, 0, 0));
 			EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
 			EditColors.insert("Green", ScColor(255, 0, 255, 0));
@@ -567,17 +573,17 @@ void ColorManager::newColor()
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
-		bool regChecked=dia->Regist->isChecked();
+//		bool regChecked=dia->Regist->isChecked();
 		ColorList::Iterator it;
 		for (it = EditColors.begin(); it != EditColors.end(); ++it)
 		{
-			if (regChecked)
-				it.value().setRegistrationColor(false);
+//			if (regChecked)
+//				it.value().setRegistrationColor(false);
 			if (it==itnew)
 				newItemIndex=colCount;
 			++colCount;
 		}
-		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
+//		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		updateCList();
 	}
 	delete dia;
@@ -597,13 +603,13 @@ void ColorManager::editColor()
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		EditColors[dia->Farbname->text()] = dia->Farbe;
-		if (dia->Regist->isChecked())
+/*		if (dia->Regist->isChecked())
 		{
 			ColorList::Iterator it;
 			for (it = EditColors.begin(); it != EditColors.end(); ++it)
 				it.value().setRegistrationColor(false);
 		}
-		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
+		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked()); */
 		if (sColor != dia->Farbname->text())
 		{
 			replaceMap.insert(sColor, dia->Farbname->text());
