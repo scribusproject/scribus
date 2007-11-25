@@ -501,6 +501,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	int a;
 	Bvie = vi;
 	BookMinUse = false;
+	UsedFontsF.clear();
 	UsedFontsP.clear();
 	if ((Options.Version == 15) && (Options.useLayers))
 		ObjCounter = 10;
@@ -976,54 +977,128 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 			}
 			else */
 //			{
-				GListeInd gl;
-				GlyIndex(AllFonts[it.key()], &gl);
-				GlyphsIdxOfFont.insert(it.key(), gl);
+				
+				GListeInd glyphIndexes;
+				struct GlNamInd glIndexName;
+				GlyphsIdxOfFont.insert(it.key(), glyphIndexes);
+				QMap<uint,std::pair<uint,QString> > gl;
+				GlyNames2(AllFonts[it.key()], &gl);
+				int nglyphs = 0;
+				QMap<uint,std::pair<uint,QString> >::Iterator gli;
+				for (gli = gl.begin(); gli != gl.end(); ++gli)
+				{
+					if (gli.key() > static_cast<uint>(nglyphs))
+						nglyphs = gli.key();
+				}
+				++nglyphs;
+//				qDebug(QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(AllFonts[it.key()].maxGlyph()));
 				uint FontDes = ObjCounter - 1;
-				GListeInd::Iterator itg;
-				itg = gl.begin();
-				GListeInd::Iterator itg2;
-				itg2 = gl.begin();
-				uint Fcc = gl.count() / 224;
-				if ((gl.count() % 224) != 0)
+				uint Fcc = nglyphs / 224;
+				if ((nglyphs % 224) != 0)
 					Fcc += 1;
 				for (uint Fc = 0; Fc < Fcc; ++Fc)
 				{
 					StartObj(ObjCounter);
-					int chCount = 31;
-					PutDoc("[ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ");
-					for (int ww = 31; ww < 256; ++ww)
+					int chCount = 32;
+					PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
+					for (int ww = 32; ww < 256; ++ww)
 					{
-						PutDoc(QString::number(static_cast<int>(AllFonts[it.key()]->CharWidth[itg.key()]* 1000))+" ");
-						if (itg == gl.end())
-							break;
-						++itg;
+						uint glyph = 224 * Fc + ww - 32;
+						if (gl.contains(glyph))
+						{
+							PutDoc(QString::number(static_cast<int>(AllFonts[it.key()]->CharWidth[gl[glyph].first] * 1000))+" ");
+							glIndexName.Code = chCount + Fc * 256;
+							glIndexName.Name = "/" + gl[glyph].second;
+							glyphIndexes[gl[glyph].first] = glIndexName;
+						}
+						else
+							PutDoc("0 ");
 						chCount++;
+						if (signed(glyph) == nglyphs-1)
+							break;
 					}
 					PutDoc("]\nendobj\n");
 					ObjCounter++;
 					StartObj(ObjCounter);
 					ObjCounter++;
+					QStringList toUnicodeMaps;
+					QValueList<int> toUnicodeMapsCount;
+					QString toUnicodeMap = "";
+					int toUnicodeMapCounter = 0;
 					PutDoc("<< /Type /Encoding\n");
-//					PutDoc("/BaseEncoding /" + AllFonts[it.key()]->FontEnc + "\n");
-					PutDoc("/Differences [ 32\n");
+					PutDoc("/Differences [ \n");
 					int crc = 0;
+					bool startOfSeq = true;
 					for (int ww2 = 32; ww2 < 256; ++ww2)
 					{
-						PutDoc(itg2.data().Name+" ");
-						if (itg2 == gl.end())
+						uint glyph = 224 * Fc + ww2 - 32;
+						QMap<uint,std::pair<uint,QString> >::Iterator glIt = gl.find(glyph);
+						if (glIt != gl.end() && !glIt.data().second.isEmpty())
+						{
+							if (startOfSeq)
+							{
+								PutDoc(QString::number(ww2)+" ");
+								startOfSeq = false;
+							}
+							PutDoc("/"+glIt.data().second+" ");
+							QString tmp, tmp2;
+							tmp.sprintf("%02X", ww2);
+							tmp2.sprintf("%04X", glIt.data().first);
+							toUnicodeMap += QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
+							toUnicodeMapCounter++;
+							if (toUnicodeMapCounter == 100)
+							{
+								toUnicodeMaps.append(toUnicodeMap);
+								toUnicodeMapsCount.append(toUnicodeMapCounter);
+								toUnicodeMap = "";
+								toUnicodeMapCounter = 0;
+							}
+							crc++;
+						}
+						else
+						{
+							startOfSeq = true;
+						}
+						if (signed(glyph) == nglyphs-1)
 							break;
-						++itg2;
-						crc++;
 						if (crc > 8)
 						{
 							PutDoc("\n");
 							crc = 0;
 						}
 					}
+					if (toUnicodeMapCounter != 0)
+					{
+						toUnicodeMaps.append(toUnicodeMap);
+						toUnicodeMapsCount.append(toUnicodeMapCounter);
+					}
 					PutDoc("]\n");
-
 					PutDoc(">>\nendobj\n");
+					QString toUnicodeMapStream = "";
+					toUnicodeMapStream += "/CIDInit /ProcSet findresource begin\n";
+					toUnicodeMapStream += "12 dict begin\n";
+					toUnicodeMapStream += "begincmap\n";
+					toUnicodeMapStream += "/CIDSystemInfo <<\n";
+					toUnicodeMapStream += "/Registry (Adobe)\n";
+					toUnicodeMapStream += "/Ordering (UCS)\n";
+					toUnicodeMapStream += "/Supplement 0\n";
+					toUnicodeMapStream += ">> def\n";
+					toUnicodeMapStream += "/CMapName /Adobe-Identity-UCS def\n";
+					toUnicodeMapStream += "/CMapType 2 def\n";
+					toUnicodeMapStream += "1 begincodespacerange\n";
+					toUnicodeMapStream += "<0000> <FFFF>\n";
+					toUnicodeMapStream += "endcodespacerange\n";
+					for (uint uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
+					{
+						toUnicodeMapStream += QString("%1 beginbfchar\n").arg(toUnicodeMapsCount[uniC]);
+						toUnicodeMapStream += toUnicodeMaps[uniC];
+						toUnicodeMapStream += "endbfchar\n";
+					}
+					toUnicodeMapStream += "endcmap\n";
+					toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
+					toUnicodeMapStream += "end\n";
+					toUnicodeMapStream += "end\n";
+					WritePDFStream(toUnicodeMapStream);
 					StartObj(ObjCounter);
 					PutDoc("<<\n/Type /Font\n/Subtype ");
 					PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
@@ -1031,41 +1106,73 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 					PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 					PutDoc("/FirstChar 0\n");
 					PutDoc("/LastChar "+QString::number(chCount-1)+"\n");
-					PutDoc("/Widths "+QString::number(ObjCounter-2)+" 0 R\n");
-					PutDoc("/Encoding "+QString::number(ObjCounter-1)+" 0 R\n");
+					PutDoc("/Widths "+QString::number(ObjCounter-3)+" 0 R\n");
+					PutDoc("/Encoding "+QString::number(ObjCounter-2)+" 0 R\n");
+					PutDoc("/ToUnicode "+QString::number(ObjCounter-1)+" 0 R\n");
 					PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
 					PutDoc(">>\nendobj\n");
 					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(Fc)] = ObjCounter;
 					ObjCounter++;
-					if (Fc == 0)
-					{
-						StartObj(ObjCounter);
-						PutDoc("<<\n/Type /Font\n/Subtype ");
-						PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
-						PutDoc("/Name /Fo"+QString::number(a)+"Form"+"\n");
-						PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-						PutDoc("/Encoding << \n");
-						PutDoc("/Differences [ \n");
-						PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
-						PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
-						PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
-						PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
-						PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
-						PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
-						PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
-						PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
-						PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
-						PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
-						PutDoc("] >>\n");
-						PutDoc("/FirstChar 0\n");
-						PutDoc("/LastChar 255\n");
-						PutDoc("/Widths "+QString::number(ObjCounter-3)+" 0 R\n");
-						PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
-						PutDoc(">>\nendobj\n");
-						Seite.FObjects["Fo"+QString::number(a)+"Form"] = ObjCounter;
-						ObjCounter++;
-					}
 				} // for(Fc)
+				GlyphsIdxOfFont.insert(it.key(), glyphIndexes);
+				StartObj(ObjCounter);
+				PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
+				for (int ww = 32; ww < 256; ++ww)
+				{
+					uint glyph = 99999999;
+					for (gli = gl.begin(); gli != gl.end(); ++gli)
+					{
+						ushort uni = gli.data().first;
+						if (uni == ww)
+						{
+							glyph = gli.key();
+							break;
+						}
+					}
+					if (gl.contains(glyph))
+						PutDoc(QString::number(static_cast<int>(AllFonts[it.key()]->CharWidth[gl[glyph].first]* 1000))+" ");
+					else
+						PutDoc("0 ");
+				}
+				PutDoc("]\nendobj\n");
+				ObjCounter++;
+				StartObj(ObjCounter);
+				PutDoc("<<\n/Type /Font\n/Subtype ");
+				PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
+//				if (fformat == Foi::SFNT || fformat == ScFace::TTCF)
+//				{
+//					PutDoc("/TrueType\n");
+					PutDoc("/Name /Fo"+QString::number(a)+"Form"+"\n");
+					Seite.FObjects["Fo"+QString::number(a)+"Form"] = ObjCounter;
+					UsedFontsF.insert(it.key(), "/Fo"+QString::number(a)+"Form");
+/*				}
+				else
+				{
+					PutDoc("/Type1\n");
+					PutDoc("/Name /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+					Seite.FObjects[AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )] = ObjCounter;
+					UsedFontsF.insert(it.key(), "/"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+				} */
+				PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+				PutDoc("/Encoding << \n");
+				PutDoc("/Differences [ \n");
+				PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
+				PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
+				PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
+				PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
+				PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
+				PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
+				PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
+				PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
+				PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
+				PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
+				PutDoc("] >>\n");
+				PutDoc("/FirstChar 0\n");
+				PutDoc("/LastChar 255\n");
+				PutDoc("/Widths "+QString::number(ObjCounter-1)+" 0 R\n");
+				PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
+				PutDoc(">>\nendobj\n");
+				ObjCounter++;
 //			} // FT_Has_PS_Glyph_Names
 		}
 		a++;
@@ -4542,8 +4649,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 				if (Options.Version < 14)
 					cnx += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 				else
-					cnx += UsedFontsP[ite->font()];
-//					cnx += UsedFontsP[ite->font()]+"Form";
+					cnx += UsedFontsF[ite->font()];
 			}
 			cnx += " "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != CommonStrings::None)
@@ -4818,8 +4924,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->font()];
-//			cc += UsedFontsP[ite->font()]+"Form";
+			cc += UsedFontsF[ite->font()];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4860,8 +4965,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->font()];
-//			cc += UsedFontsP[ite->font()]+"Form";
+			cc += UsedFontsF[ite->font()];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)

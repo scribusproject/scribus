@@ -4,9 +4,11 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <utility>
 #include <qglobal.h>
 #include <qstring.h>
 #include <qcolor.h>
+#include <qmap.h>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -19,13 +21,14 @@ for which a new license (GPL+exception) is in place.
 #include "pdflib.h"
 
 class Foi;
-class Scribusdoc;
+class ScribusDoc;
 
 int SCRIBUS_API setBestEncoding(FT_Face face);
 FPointArray SCRIBUS_API traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
 QPixmap SCRIBUS_API FontSample(Foi * fnt, int s, QString ts, QColor back, bool force = false);
 QPixmap SCRIBUS_API fontSamples(Foi * fnt, int s, QString ts, QColor back);
 bool SCRIBUS_API GlyNames(Foi * fnt, QMap<uint, QString> *GList);
+bool SCRIBUS_API GlyNames2(Foi * fnt, QMap<uint, std::pair<uint, QString> > *GListInd);
 bool SCRIBUS_API GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd);
 double SCRIBUS_API Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz, QString ch2 = " ");
 double SCRIBUS_API RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz);
