@@ -206,6 +206,7 @@ private:
 	QRect m_bufferRect;
 	QPixmap m_selectionBuffer;
 	QRect m_selectionRect;
+	FPoint m_oldMinCanvasCoordinate;
 };
 
 

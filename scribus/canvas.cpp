@@ -387,6 +387,13 @@ void Canvas::clearBuffers()
 void Canvas::adjustBuffer()
 {
 	QRect viewport(-x(), -y(), m_view->viewport()->width(), m_view->viewport()->height());
+	FPoint minCanvasCoordinate = m_doc->minCanvasCoordinate;
+	if (minCanvasCoordinate != m_oldMinCanvasCoordinate)
+	{
+		m_bufferRect.translate(qRound((m_oldMinCanvasCoordinate.x() - minCanvasCoordinate.x())*m_viewMode.scale),
+							   qRound((m_oldMinCanvasCoordinate.y() - minCanvasCoordinate.y())*m_viewMode.scale));
+		m_oldMinCanvasCoordinate = minCanvasCoordinate;
+	}
 	qDebug() << "adjust buffer" << m_bufferRect << "for viewport" << viewport;
 	if (!m_bufferRect.isValid())
 	{
@@ -555,7 +562,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	{
 		case RENDER_NORMAL:
 		{
-			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << p->region().boundingRect() << m_viewMode.forceRedraw;
+			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << m_viewMode.forceRedraw;
 			if (m_viewMode.forceRedraw)
 			{
 				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());

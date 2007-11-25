@@ -3216,12 +3216,11 @@ void ScribusView::updateCanvas(QRectF box)
 	{
 		QPoint upperLeft = m_canvas->canvasToLocal(box.topLeft());
 		QPoint lowerRight = m_canvas->canvasToLocal(box.bottomRight());
-		qDebug() << "ScribusView:" << upperLeft << lowerRight;
 		upperLeft.setX(qMax(0, upperLeft.x()-10));
 		upperLeft.setY(qMax(0, upperLeft.y()-10));
 		lowerRight.setX(qMax(0, lowerRight.x()+10));
 		lowerRight.setY(qMax(0, lowerRight.y()+10));
-		qDebug() << "updateCanvas:" << upperLeft << lowerRight;
+//		qDebug() << "updateCanvas:" << upperLeft << lowerRight;
 		m_canvas->update(upperLeft.x(), upperLeft.y(), lowerRight.x()-upperLeft.x(), lowerRight.y()-upperLeft.y());
 /*		double scale = m_canvas->scale();
 		double x = box.x() * scale;

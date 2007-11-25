@@ -88,7 +88,7 @@ inline bool LegacyMode::GetItem(PageItem** pi)
 
 void LegacyMode::drawControls(QPainter* p)
 {
-	qDebug() << "LegacyMode::drawControls";
+//	qDebug() << "LegacyMode::drawControls";
 	drawSelection(p);
 }
 
@@ -849,6 +849,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			else
 			{
 				//Dragging an item (plus more?)
+				QRectF newPlace;
 				newX = mousePointDoc.x(); //static_cast<int>(m->x()/sc);
 				newY = mousePointDoc.y(); //static_cast<int>(m->y()/sc);
 				m_canvas->m_viewMode.operItemMoving = true;
@@ -981,7 +982,13 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					Mxp = newX;
 					Myp = newY;
 				}
-				m_canvas->repaint();
+				
+				{
+					double gx, gy, gh, gw;
+					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					m_doc->adjustCanvas(FPoint(gx,gy), FPoint(gx+gw, gy+gh));
+					m_canvas->repaint();
+				}
 			}
 		}
 		if ((!m_canvas->m_viewMode.m_MouseButtonPressed) && (m_doc->appMode != modeDrawBezierLine))
