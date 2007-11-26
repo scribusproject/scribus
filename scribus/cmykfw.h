@@ -82,6 +82,7 @@ public:
 	bool Wsave;
 	bool dynamic;
 	bool isNew;
+	bool isRegistration;
 	int BlackComp;
 	ColorList *EColors;
 	ColorList CurrSwatch;

@@ -408,6 +408,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	layout()->activate();
 	if (!CMYKmode)
 		SelModel ( tr( "RGB" ));
+	isRegistration = Farbe.isRegistrationColor();
+	if (Farbe.isRegistrationColor())
+	{
+		ComboBox1->setEnabled(false);
+		Separations->setEnabled(false);
+	}
 }
 
 void CMYKChoose::setValSLiders(double value)
@@ -733,7 +739,6 @@ void CMYKChoose::setSpot()
 	if (Separations->isChecked())
 	{
 		ComboBox1->setCurrentIndex( 0 );
-//		Regist->setChecked(false);
 		SelModel( tr("CMYK"));
 	}
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
@@ -857,8 +862,8 @@ void CMYKChoose::SelModel(const QString& mod)
 	if (ScColorEngine::isOutOfGamut(Farbe, m_doc))
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
-        NewC->setToolTip( "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
-        OldC->setToolTip( "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
+	NewC->setToolTip( "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
+	OldC->setToolTip( "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 
 	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
@@ -966,17 +971,27 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 
 void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
 {
+	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	ScColor tmp = CurrSwatch[c->text()];
-	if (tmp.getColorModel() == colorModelCMYK)
-		SelModel( tr("CMYK"));
-	else
-		SelModel( tr("RGB"));
-/*	if (CMYKmode)
+	if (isRegistration)
 	{
-		CMYKColor cmyk;
-		ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
-		tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
-	} */
+		if (tmp.getColorModel() != colorModelCMYK)
+			tmp = ScColorEngine::convertToModel(tmp, m_doc, colorModelCMYK);
+		SelModel( tr("CMYK"));
+	}
+	else
+	{
+		if (tmp.getColorModel() == colorModelCMYK)
+		{
+			ComboBox1->setCurrentIndex( 0 );
+			SelModel( tr("CMYK"));
+		}
+		else
+		{
+			ComboBox1->setCurrentIndex( 1 );
+			SelModel( tr("RGB"));
+		}
+	}
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
@@ -984,7 +999,7 @@ void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
 	Farbe = tmp;
 	setValues();
 	Separations->setChecked(tmp.isSpotColor());
-//	Regist->setChecked(tmp.isRegistrationColor());
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 }
 
 void CMYKChoose::setValues()

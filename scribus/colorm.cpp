@@ -546,9 +546,25 @@ void ColorManager::importColors()
 
 void ColorManager::deleteUnusedColors()
 {
+	ColorList::Iterator it;
+	ScColor regColor;
+	QString regName;
+	bool hasReg = false;
+	for (it = EditColors.begin(); it != EditColors.end(); ++it)
+	{
+		if (it.value().isRegistrationColor())
+		{
+			regColor = it.value();
+			regName = it.key();
+			hasReg = true;
+			break;
+		}
+	}
 	m_Doc->getUsedColors(UsedC);
 	EditColors = UsedC;
 	EditColors.ensureBlackAndWhite();
+	if (hasReg)
+		EditColors.insert(regName, regColor);
 	updateCList();
 	updateButtons();
 }
@@ -573,43 +589,31 @@ void ColorManager::newColor()
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
-//		bool regChecked=dia->Regist->isChecked();
 		ColorList::Iterator it;
 		for (it = EditColors.begin(); it != EditColors.end(); ++it)
 		{
-//			if (regChecked)
-//				it.value().setRegistrationColor(false);
 			if (it==itnew)
 				newItemIndex=colCount;
 			++colCount;
 		}
-//		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		updateCList();
 	}
 	delete dia;
 	colorListBox->item(newItemIndex)->setSelected(true);
 	colorListBox->setCurrentRow(newItemIndex);
 	updateButtons();
-//	colorListBox->setTopItem(newItemIndex);
 }
 
 void ColorManager::editColor()
 {
 	int selectedIndex = colorListBox->row(colorListBox->currentItem());
-//	int topIndex=colorListBox->topItem();
 	ScColor tmpColor = EditColors[sColor];
 	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, sColor, &EditColors, customColSet, false);
 	if (dia->exec())
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
+		dia->Farbe.setRegistrationColor(tmpColor.isRegistrationColor());
 		EditColors[dia->Farbname->text()] = dia->Farbe;
-/*		if (dia->Regist->isChecked())
-		{
-			ColorList::Iterator it;
-			for (it = EditColors.begin(); it != EditColors.end(); ++it)
-				it.value().setRegistrationColor(false);
-		}
-		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked()); */
 		if (sColor != dia->Farbname->text())
 		{
 			replaceMap.insert(sColor, dia->Farbname->text());
@@ -621,13 +625,11 @@ void ColorManager::editColor()
 	colorListBox->item(selectedIndex)->setSelected(true);
 	colorListBox->setCurrentRow(selectedIndex);
 	updateButtons();
-//	colorListBox->setTopItem(topIndex);
 }
 
 void ColorManager::deleteColor()
 {
 	int selectedIndex = colorListBox->row(colorListBox->currentItem());
-//	int topIndex=colorListBox->topItem();
 	DelColor *dia = new DelColor(this, EditColors, sColor, (m_Doc!=0));
 	if (dia->exec())
 	{
@@ -655,27 +657,27 @@ void ColorManager::deleteColor()
 		colorListBox->setCurrentRow(selectedIndex);
 	}
 	updateButtons();
-//	if (listBoxCount>topIndex)
-//		colorListBox->setTopItem(topIndex);
 }
 
 void ColorManager::selColor(QListWidgetItem *c)
 {
 	sColor = c->text();
+	ScColor tmpColor = EditColors[sColor];
 	bool enableEdit = (sColor != "Black" && sColor != "White");
-	bool enableDel  = (sColor != "Black" && sColor != "White") && (EditColors.count() > 1);
+	bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
 	editColorButton->setEnabled(enableEdit);
-	duplicateColorButton->setEnabled(true);
+	duplicateColorButton->setEnabled(sColor != "Registration");
 	deleteColorButton->setEnabled(enableDel);
 }
 
 void ColorManager::selEditColor(QListWidgetItem *c)
 {
 	sColor = c->text();
+	ScColor tmpColor = EditColors[sColor];
 	bool enableEdit = (sColor != "Black" && sColor != "White");
-	bool enableDel  = (sColor != "Black" && sColor != "White") && (EditColors.count() > 1);
+	bool enableDel  = (sColor != "Black" && sColor != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
 	editColorButton->setEnabled(enableEdit);
-	duplicateColorButton->setEnabled(true);
+	duplicateColorButton->setEnabled(!tmpColor.isRegistrationColor());
 	deleteColorButton->setEnabled(enableDel);
 	if(enableEdit)
 		editColor();
@@ -687,9 +689,10 @@ void ColorManager::updateButtons()
 	if (currItem)
 	{
 		QString curCol = currItem->text();
-		bool enableDel  = (curCol != "Black" && curCol != "White") && (EditColors.count() > 1);
+		ScColor tmpColor = EditColors[curCol];
+		bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (EditColors.count() > 1);
 		bool enableEdit = (curCol != "Black" && curCol != "White");
-		duplicateColorButton->setEnabled(true);
+		duplicateColorButton->setEnabled(sColor != "Registration");
 		deleteColorButton->setEnabled(enableDel);
 		editColorButton->setEnabled(enableEdit);
 	}
