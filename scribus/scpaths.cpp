@@ -197,6 +197,10 @@ QString ScPaths::translationDir() const
 	return(m_shareDir + "translations/");
 }
 
+QString ScPaths::dictDir() const
+{
+	return(m_shareDir + "dicts/");
+}
 
 QStringList ScPaths::getSystemFontDirs(void)
 {

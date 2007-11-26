@@ -35,5 +35,5 @@ hyph_sk.dic
 hyph_sl.dic
 hyph_sv.dic
 hyph_uk.dic
-  DESTINATION ${LIBDIR}dicts
+  DESTINATION ${SHAREDIR}dicts
 )
