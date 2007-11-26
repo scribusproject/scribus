@@ -2513,13 +2513,13 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	if ( (Options.MirrorV) && (!pag->MPageNam.isEmpty()) )
 		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->height())+" cm\n");
 	if (clip)
-	{
+/*	{
 		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(pag->Margins.Bottom) + " m\n");
 		PutPage(FToStr(ActPageP->width() - pag->Margins.Right) + " " + FToStr(pag->Margins.Bottom) + " l\n");
 		PutPage(FToStr(ActPageP->width() - pag->Margins.Right) + " " + FToStr(ActPageP->height() - pag->Margins.Top) + " l\n");
 		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(ActPageP->height() - pag->Margins.Top) + " l h W n\n");
 	}
-	else
+	else */
 	{
 		double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 		double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
