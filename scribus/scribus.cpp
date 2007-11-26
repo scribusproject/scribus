@@ -7459,7 +7459,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	QString oldGUILanguage = prefsManager->guiLanguage();
 	QString oldGUIStyle = prefsManager->guiStyle();
 	int oldGUIFontSize = prefsManager->guiFontSize();
-	//double oldDisplayScale=prefsManager->displayScale();
+	double oldDisplayScale = prefsManager->displayScale();
 	dia->updatePreferences();
 	prefsManager->SavePrefs();
 	DocDir = prefsManager->documentDir();
@@ -7485,6 +7485,18 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	ScCore->getCMSProfiles(false);
 	ScCore->recheckGS();
 	prefsManager->applyLoadedShortCuts();
+	QWidgetList windows = wsp->windowList();
+	if (!windows.isEmpty())
+	{
+		int windowCount=static_cast<int>(windows.count());
+		for ( int i = 0; i < windowCount; ++i )
+		{
+			QWidget* w = windows.at(i);
+			ScribusWin* scw = (ScribusWin*)w;
+			scw->view()->setScale((scw->view()->scale() / oldDisplayScale) * prefsManager->displayScale());
+			scw->view()->slotDoZoom();
+		}
+	}
 }
 
 void ScribusMainWindow::slotPrefsOrg()
