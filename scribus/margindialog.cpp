@@ -110,6 +110,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage->initialMargins, doc->unitIndex());
 //	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage->Margins, doc->unitIndex());
 	GroupRand->setPageWidthHeight(doc->currentPage->width(), doc->currentPage->height());
+	GroupRand->setPageSize(doc->currentPage->PageSize);
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage));
 	dialogLayout->addWidget( GroupRand );
 
@@ -192,6 +193,7 @@ void MarginDialog::setSize(const QString & gr)
 	heightMSpinBox->setValue(pageHeight * unitRatio);
 	GroupRand->setPageHeight(pageHeight);
 	GroupRand->setPageWidth(pageWidth);
+	GroupRand->setPageSize(gr);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	delete ps2;
