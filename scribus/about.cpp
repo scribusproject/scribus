@@ -65,7 +65,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "06";
+	QString BUILD_DAY = "26";
 	QString BUILD_MONTH = CommonStrings::november;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -170,6 +170,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 											"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
 											"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
 											"<tr><td>Eirik Øverby</td><td>ltning@anduin.net</td></tr>" +
+											"<tr><td>Gora Mohanty </td><td>gora@srijan.in</td></tr>" +
 											"<tr><td>Kevin Young</td><td>k.young@youngscomputing.com</td></tr>" +
 											"<tr><td></td><td></td></tr>" +
 
@@ -233,6 +234,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 											"<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("zh_TW").toLocal8Bit()  + "</b></td><td> </td></tr>" +
+											"<tr><td>dneif</td><td>dnextstep@gmail.com</td></tr>" +
 											"<tr><td>Gilbert Su</td><td>gilbert_su@yahoo.com.tw</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("cs").toLocal8Bit()  + "</b></td><td></td></tr>" +
