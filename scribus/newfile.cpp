@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "units.h"
 #include "pagesize.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "scconfig.h"
 #include "scribus.h"
 #include "prefsmanager.h"

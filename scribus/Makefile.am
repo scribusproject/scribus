@@ -116,7 +116,7 @@ scribus_SOURCES = \
 	loadsaveplugin.cpp	\
 	loremipsum.cpp	\
 	margindialog.cpp	\
-	marginWidget.cpp	\
+	marginwidget.cpp	\
 	md5.c	\
 	mdup.cpp	\
 	measurements.cpp	\
@@ -342,7 +342,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/md5.h                         $(prefix)/include/scribus/md5.h
 	$(INSTALL_DATA) $(srcdir)/mdup.h                        $(prefix)/include/scribus/mdup.h
 	$(INSTALL_DATA) $(srcdir)/margindialog.h                $(prefix)/include/scribus/margindialog.h
-	$(INSTALL_DATA) $(srcdir)/marginWidget.h                $(prefix)/include/scribus/marginWidget.h
+	$(INSTALL_DATA) $(srcdir)/marginwidget.h                $(prefix)/include/scribus/marginwidget.h
 	$(INSTALL_DATA) $(srcdir)/measurements.h                $(prefix)/include/scribus/measurements.h
 	$(INSTALL_DATA) $(srcdir)/menumanager.h                 $(prefix)/include/scribus/menumanager.h
 	$(INSTALL_DATA) $(srcdir)/mergedoc.h                    $(prefix)/include/scribus/mergedoc.h
@@ -530,7 +530,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/linkbutton.h
 	-rm -f $(prefix)/include/scribus/loremipsum.h
 	-rm -f $(prefix)/include/scribus/margindialog.h
-	-rm -f $(prefix)/include/scribus/marginWidget.h
+	-rm -f $(prefix)/include/scribus/marginwidget.h
 	-rm -f $(prefix)/include/scribus/md5.h
 	-rm -f $(prefix)/include/scribus/mdup.h
 	-rm -f $(prefix)/include/scribus/measurements.h
@@ -657,4 +657,4 @@ AM_CXXFLAGS = \
 AM_CFLAGS = \
     $(GCC_C_VISIBILITY_FLAGS)
 
-noinst_HEADERS = marginWidget.h
+noinst_HEADERS = marginwidget.h

@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "prefsmanager.h"
 #include "polygonwidget.h"
 #include "fontcombo.h"

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "margindialog.h"
 #include "margindialog.moc"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "pagestructs.h"
 #include "page.h"
 #include "scribusdoc.h"

@@ -94,7 +94,7 @@ lineformats.h
 loadsaveplugin.h
 loremipsum.h
 margindialog.h
-marginWidget.h
+marginwidget.h
 mdup.h
 measurements.h
 menumanager.h
@@ -274,7 +274,7 @@ loadsaveplugin.cpp
 loremipsum.cpp
 main.cpp
 margindialog.cpp
-marginWidget.cpp
+marginwidget.cpp
 md5.c
 mdup.cpp
 measurements.cpp

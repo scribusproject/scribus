@@ -157,7 +157,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "pagesize.h"
 #include "loremipsum.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "margindialog.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"

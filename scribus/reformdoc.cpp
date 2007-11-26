@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagesize.h"
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "page.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
