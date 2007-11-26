@@ -135,7 +135,7 @@ SET(SCRIBUS_MOC_CLASSES
   layers.h
   loadsaveplugin.h
   loremipsum.h
-  marginWidget.h
+  marginwidget.h
   margindialog.h
   masterpagepalette.h
   measurements.h
@@ -376,7 +376,7 @@ SET(SCRIBUS_SOURCES
   linkbutton.cpp
   loadsaveplugin.cpp
   loremipsum.cpp
-  marginWidget.cpp
+  marginwidget.cpp
   margindialog.cpp
   masterpagepalette.cpp
   measurements.cpp

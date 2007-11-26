@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 
 #include "margindialog.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "pagestructs.h"
 #include "page.h"
 #include "scribusdoc.h"

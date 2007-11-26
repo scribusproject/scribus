@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "hysettings.h"
 #include "linecombo.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "page.h"
 #include "pagelayout.h"
 #include "pagesize.h"

@@ -121,7 +121,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "layers.h"
 #include "loremipsum.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "margindialog.h"
 #include "masterpagepalette.h"
 #include "measurements.h"

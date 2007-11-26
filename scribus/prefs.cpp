@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "hysettings.h"
 #include "langmgr.h"
 #include "linecombo.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "pagelayout.h"
 #include "pagesize.h"
 #include "pagestructs.h"

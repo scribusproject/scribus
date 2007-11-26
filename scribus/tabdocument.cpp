@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "prefsmanager.h"
 #include "units.h"
-#include "marginWidget.h"
+#include "marginwidget.h"
 #include "scrspinbox.h"
 #include "pagelayout.h"
 #include "pagesize.h"
