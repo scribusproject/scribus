@@ -53,6 +53,7 @@ bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
 QByteArray SCRIBUS_API ComputeMD5Sum(QByteArray *in);
 QString SCRIBUS_API Path2Relative(QString Path, const QString& baseDir = QDir::currentPath());
 QString SCRIBUS_API Relative2Path(QString File, const QString& baseDir = QDir::currentPath());
+char SCRIBUS_API *toAscii85( quint32 value, bool& allZero );
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);

@@ -314,6 +314,23 @@ QByteArray CompressArray(QByteArray *in)
 	return out;
 }
 
+char *toAscii85( quint32 value, bool& allZero )
+{
+	int digit, i;
+	static char asciiVal[6];
+	allZero = true;
+    for (i = 0; i < 5; ++i) 
+	{
+		digit = value % 85;
+		if (digit != 0)
+			allZero = false;
+		asciiVal[4-i] = digit + 33;
+		value = (value - digit) / 85;
+    }
+	asciiVal[5] = 0;
+	return asciiVal;
+}
+
 char *toHex( uchar u )
 {
 	static char hexVal[3];

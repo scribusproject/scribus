@@ -245,114 +245,131 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	Prolog += "%%EndProlog\n";
 }
 
-void PSLib::PutPage(QString c)
+void PSLib::PutPage(const QString& c)
 {
 	spoolStream.flush();
 	spoolStream.device()->write(c.toUtf8().data(), c.length());
-//	spoolStream.writeRawBytes(c, c.length());
 }
 
-void PSLib::PutPage(QByteArray& array, bool hexEnc)
+void PSLib::PutPage(const QByteArray& array, bool hexEnc)
 {
 	if(hexEnc)
-	{
-		int length = 0;
-		for (int i = 0; i < array.size(); i++)
-		{
-			length++;
-			spoolStream << toHex(array[i]);
-			if ( length > 40 )
-			{
-				spoolStream << "\n";
-				length = 0;
-			}
-		}
-	}
+		WriteASCII85Bytes(array);
 	else
 	{
 		spoolStream.flush();
 		spoolStream.device()->write(array.data(), array.size());
 	}
-//		spoolStream.writeRawBytes(array, array.size());
 }
 
 void PSLib::PutPage(const char* array, int length, bool hexEnc)
 {
 	if(hexEnc)
-	{
-		int len = 0;
-		for (int i = 0; i < length; i++)
-		{
-			len++;
-			spoolStream << toHex(array[i]);
-			if ( len > 40 )
-			{
-				spoolStream << "\n";
-				len = 0;
-			}
-		}
-	}
+		WriteASCII85Bytes((const unsigned char*) array, length);
 	else
 	{
 		spoolStream.flush();
 		spoolStream.device()->write(array, length);
 	}
-//		spoolStream.writeRawBytes(array, length);
 }
 
-void PSLib::PutDoc(QString c)
+void PSLib::PutDoc(const QString& c)
 {
 	spoolStream.flush();
 	spoolStream.device()->write(c.toUtf8().data(), c.length());
-//	spoolStream.writeRawBytes(c, c.length());
 }
 
-void PSLib::PutDoc(QByteArray& array, bool hexEnc)
+void PSLib::PutDoc(const QByteArray& array, bool hexEnc)
 {
 	if(hexEnc)
-	{
-		int length = 0;
-		for (int i = 0; i < array.size(); i++)
-		{
-			length++;
-			spoolStream << toHex(array[i]);
-			if ( length > 40 )
-			{
-				spoolStream << "\n";
-				length = 0;
-			}
-		}
-	}
+		WriteASCII85Bytes(array);
 	else
 	{
 		spoolStream.flush();
 		spoolStream.device()->write(array.data(), array.size());
 	}
-//		spoolStream.writeRawBytes(array, array.size());
 }
 
 void PSLib::PutDoc(const char* array, int length, bool hexEnc)
 {
 	if(hexEnc)
-	{
-		int len = 0;
-		for (int i = 0; i < length; i++)
-		{
-			len++;
-			spoolStream << toHex(array[i]);
-			if ( len > 40 )
-			{
-				spoolStream << "\n";
-				len = 0;
-			}
-		}
-	}
+		WriteASCII85Bytes((const unsigned char*) array, length);
 	else
 	{
 		spoolStream.flush();
 		spoolStream.device()->write(array, length);
 	}
-//		spoolStream.writeRawBytes(array, length);
+}
+
+void PSLib::WriteASCII85Bytes(const QByteArray& array)
+{
+	WriteASCII85Bytes((const unsigned char*) array.data(), array.size());
+}
+
+void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
+{
+	int  pending = 0;
+	int  written = 0;
+	bool allZero  = true;
+	unsigned char  four_tuple[4];
+	const unsigned char *ptr = array;
+	const char* ascii85;
+	quint32 value;
+
+	while (length) 
+	{
+		four_tuple[pending++] = *ptr++;
+		length--;
+		if (pending == 4) 
+		{
+			value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
+			ascii85 = toAscii85(value, allZero);
+			if (allZero)
+				spoolStream << "z";
+			else
+				spoolStream << ascii85;
+			written += ((allZero) ? 1 : 5);
+			if (written > 75)
+			{
+				spoolStream << "\n";
+				written = 0;
+			}
+			pending = 0;
+		}
+	}
+
+	if (pending) 
+	{
+		unsigned char five_tuple[6];
+		memset (four_tuple + pending, 0, 4 - pending);
+		value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
+		ascii85 = toAscii85(value, allZero);
+		memcpy (five_tuple, ascii85, 5);
+		five_tuple[pending + 1] = 0;
+		spoolStream << (const char*) five_tuple;
+	}
+	spoolStream << "~>\n";
+}
+
+void PSLib::WriteASCIIHexBytes(const QByteArray& array)
+{
+	WriteASCIIHexBytes(array.data(), array.size());
+}
+
+void PSLib::WriteASCIIHexBytes(const char* array, int length)
+{
+	int len = 0;
+	for (int i = 0; i < length; i++)
+	{
+		len++;
+		spoolStream << toHex(array[i]);
+		if ( len > 40 )
+		{
+			spoolStream << "\n";
+			len = 0;
+		}
+	}
+	spoolStream << "\n>\n";
 }
 
 QString PSLib::ToStr(double c)
@@ -1354,13 +1371,12 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	}
 	if (CompAvail)
 	{
-		PutPage("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
+		PutPage("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
 		imgArray = CompressArray(&imgArray);
 	}
 	else
-		PutPage("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
+		PutPage("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
 	PutPage(imgArray, true);
-	PutPage("\n>\n");
 	PutPage("/"+PSEncode(Name)+"Bild exch def\n");
 	imgArray.resize(0);
 	QByteArray maskArray;
@@ -1369,13 +1385,12 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	{
 		if (CompAvail)
 		{
-			PutPage("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
+			PutPage("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
 			maskArray = CompressArray(&maskArray);
 		}
 		else
-			PutPage("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
+			PutPage("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
 		PutPage(maskArray, true);
-		PutPage("\n>\n");
 		PutPage("/"+PSEncode(Name)+"Mask exch def\n");
 	}
 	return true;
@@ -1472,24 +1487,22 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			{
 				if (CompAvail)
 				{
-					PutPage("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
+					PutPage("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
 					imgArray = CompressArray(&imgArray);
 				}
 				else
-					PutPage("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
+					PutPage("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
 				PutPage(imgArray, true);
 				imgArray.resize(0);
-				PutPage("\n>\n");
 				PutPage("/Bild exch def\n");
 				if (CompAvail)
 				{
-					PutPage("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
+					PutPage("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
 					maskArray = CompressArray(&maskArray);
 				}
 				else
-					PutPage("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
+					PutPage("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
 				PutPage(maskArray, true);
-				PutPage("\n>\n");
 				PutPage("/Mask exch def\n");
 			}
 			PutPage("<<\n");
@@ -1553,8 +1566,8 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			}
 			else
 			{
-				PutPage ( CompAvail ? "   /DataSource currentfile /ASCIIHexDecode filter /FlateDecode filter >>\n" :
-							"   /DataSource currentfile /ASCIIHexDecode filter >>\n");
+				PutPage ( CompAvail ? "   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n" :
+							"   /DataSource currentfile /ASCII85Decode filter >>\n");
 				PutPage("image\n");
 				if (DoSep)
 					imgArray = image.ImageToCMYK_PS(Plate, true);
@@ -1568,7 +1581,6 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 					return false;
 				}
 				PutPage(imgArray, true);
-				PutPage("\n>\n");
 			}
 		}
 	}

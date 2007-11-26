@@ -118,9 +118,6 @@ public:
 
 	virtual bool hasAlphaChannel( ScImage* image );
 
-	virtual void writeMaskToStream ( QImage* image ); 
-	virtual void writeImageToStream( ScImage* image, ScPainterExBase::ImageMode mode );
-
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
 	virtual void setupTextPolygon(FPointArray *points);
 	virtual void drawPolygon();
@@ -148,11 +145,25 @@ public:
 
 	virtual void setRasterOp( int op );
 
+protected:
+
+	virtual void writeRGBImageToStream_Ascii85 ( ScImage* image );
+	virtual void writeRGBImageToStream_AsciiHex ( ScImage* image );
+	virtual void writeCMYKImageToStream_Ascii85( ScImage* image );
+	virtual void writeCMYKImageToStream_AsciiHex( ScImage* image );
+	virtual void writeMaskToStream ( QImage* image ); 
+
 private:
 
+	typedef enum {
+		Ascii85Encoding,
+		AsciiHexEncoding
+	} AsciiEncoding;
+
 	/* Output stream */
-	QTextStream m_stream;
-	ColorMode   m_colorMode;
+	QTextStream   m_stream;
+	ColorMode     m_colorMode;
+	AsciiEncoding m_encoding; 
 
 	/* Path bounding boxes*/
 	QRect m_pathBBox;

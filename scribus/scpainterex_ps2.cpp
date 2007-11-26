@@ -61,6 +61,7 @@ ScPainterEx_Ps2::ScPainterEx_Ps2(QIODevice* iodev, QRect& rect, ScPs2OutputParam
 {
 	m_stream.setDevice( iodev );
 	m_colorMode = options.colorMode;
+	m_encoding  = Ascii85Encoding;
 	m_options = options;
 	m_width = rect.width();
 	m_height= rect.height();
@@ -560,13 +561,19 @@ void ScPainterEx_Ps2::drawRGBImage_ps2( ScImage *image )
 	{
 		QImage imgTemp = image->qImage();
 		QImage mask = imgTemp.createAlphaMask();
-		m_stream << "currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n";
-		writeImageToStream(image, ScPainterExBase::rgbImages);
-		m_stream << "\n>\n";
+		if (m_encoding == Ascii85Encoding)
+		{
+			m_stream << "currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n";
+			writeRGBImageToStream_Ascii85(image);
+		}
+		else
+		{
+			m_stream << "currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n";
+			writeRGBImageToStream_AsciiHex(image);
+		}
 		m_stream << "/myImage exch def\n";
 		m_stream << "currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n";
 		writeMaskToStream(&mask);
-		m_stream << "\n>\n";
 		m_stream << "/myMask exch def\n";
 		m_stream << QString("<<\n");
 		m_stream << QString("    /PaintType   1\n");
@@ -611,11 +618,20 @@ void ScPainterEx_Ps2::drawRGBImage_ps2( ScImage *image )
 		m_stream << QString("    /Decode [0 1 0 1 0 1]\n");
 		m_stream << QString("    /BitsPerComponent 8\n");
 		//TODO case where compression is available
-		m_stream << QString("    /DataSource currentfile /ASCIIHexDecode filter\n");
-		m_stream << QString(">>\n");
-		m_stream << "image\n";
-		writeImageToStream(image, ScPainterExBase::rgbImages);
-		m_stream << "\n>\n";
+		if (m_encoding == Ascii85Encoding)
+		{
+			m_stream << QString("    /DataSource currentfile /ASCII85Decode filter\n");
+			m_stream << QString(">>\n");
+			m_stream << "image\n";
+			writeRGBImageToStream_Ascii85(image);
+		}
+		else
+		{
+			m_stream << QString("    /DataSource currentfile /ASCIIHexDecode filter\n");
+			m_stream << QString(">>\n");
+			m_stream << "image\n";
+			writeRGBImageToStream_AsciiHex(image);
+		}
 	}
 	restore();
 }
@@ -643,11 +659,20 @@ void ScPainterEx_Ps2::drawCMYKImage_ps2( ScImage *image )
 		m_stream << QString("    /Decode [0 1 0 1 0 1 0 1]\n");
 		m_stream << QString("    /BitsPerComponent 8\n");
 		//TODO case where compression is available
-		m_stream << QString("    /DataSource currentfile /ASCIIHexDecode filter\n");
-		m_stream << QString(">>\n");
-		m_stream << "image\n";
-		writeImageToStream(image, ScPainterExBase::cmykImages);
-		m_stream << "\n>\n";
+		if (m_encoding == Ascii85Encoding)
+		{
+			m_stream << QString("    /DataSource currentfile /ASCII85Decode filter\n");
+			m_stream << QString(">>\n");
+			m_stream << "image\n";
+			writeCMYKImageToStream_Ascii85(image);
+		}
+		else
+		{
+			m_stream << QString("    /DataSource currentfile /ASCIIHexDecode filter\n");
+			m_stream << QString(">>\n");
+			m_stream << "image\n";
+			writeCMYKImageToStream_AsciiHex(image);
+		}
 	}
 	restore();
 }
@@ -660,7 +685,7 @@ bool ScPainterEx_Ps2::hasAlphaChannel( ScImage* image )
 	for( int y = 0; y < height; y++ )
 	{
 		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-		for( int x = 0; x < width; x++ )
+		for( int x = 0; x < width; ++x )
 		{
 			if( qAlpha(*imageBits) != 255 )
 			{
@@ -681,7 +706,7 @@ void ScPainterEx_Ps2::writeMaskToStream( QImage* image )
 	int    height = image->height();
 	if ((image->width() % 8) != 0)
 		width++;
-	for( int y = 0; y < height; y++ )
+	for( int y = 0; y < height; ++y )
 	{
 		unsigned char* imageBits = image->scanLine(y);
 		for( int x = 0; x < width; x++ )
@@ -693,60 +718,156 @@ void ScPainterEx_Ps2::writeMaskToStream( QImage* image )
 				m_stream << "\n";
 		}
 	}
+	m_stream << "\n>\n";
 }
 
-void ScPainterEx_Ps2::writeImageToStream( ScImage* image, ScPainterExBase::ImageMode mode )
+void ScPainterEx_Ps2::writeRGBImageToStream_Ascii85( ScImage* image )
 {
-	int    length = 0;
-	int    width = image->width();
-	int    height = image->height();
-	bool   rgbMode = (mode == ScPainterExBase::rgbImages || mode == ScPainterExBase::rgbProofImages);
-	bool   rgbPicture = rgbMode || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == 0);
-	bool   cmykPicture = (mode == ScPainterExBase::cmykImages || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == 1));
-	if( rgbPicture ) // RGB image
+	int  cindex;
+	int  pending = 0, written = 0;
+	bool allZero  = true;
+	unsigned char  four_tuple[4];
+	const char* ascii85;
+	quint32 value;
+
+	int width = image->width();
+	int height = image->height();
+	for( int y = 0; y < height; ++y )
 	{
-		for( int y = 0; y < height; y++ )
+		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
+		for( int x = 0; x < width; ++x )
 		{
-			QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-			for( int x = 0; x < width; x++ )
+			cindex = 0;
+			while (cindex < 3)
 			{
-				length++;
-				uchar r = (uchar) qRed(*imageBits);
-				m_stream << toHex(r);
-				uchar g = (uchar) qGreen(*imageBits);
-				m_stream << toHex(g);
-				uchar b = (uchar) qBlue(*imageBits);
-				m_stream << toHex(b);
-				if ( (length % 17) == 0 )
-					m_stream << "\n";
-				imageBits++;
+				if (cindex == 0)
+					four_tuple[pending++] = (uchar) qRed(*imageBits);
+				else if (cindex == 1)
+					four_tuple[pending++] = (uchar) qGreen(*imageBits);
+				else if (cindex == 2)
+					four_tuple[pending++] = (uchar) qBlue(*imageBits);
+				if (pending == 4) 
+				{
+					value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
+					ascii85 = toAscii85(value, allZero);
+					if (allZero)
+						m_stream << "z";
+					else
+						m_stream << ascii85;
+					written += ((allZero) ? 1 : 5);
+					if (written > 75)
+					{
+						m_stream << "\n";
+						written = 0;
+					}
+					pending = 0;
+				}
+				++cindex;
 			}
+			
 		}
 	}
-	else if( cmykPicture ) // CMYK image
+	if (pending) 
 	{
-		for( int y = 0; y < height; y++ )
+		unsigned char five_tuple[6];
+		memset (four_tuple + pending, 0, 4 - pending);
+		value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
+		ascii85 = toAscii85(value, allZero);
+		memcpy (five_tuple, ascii85, 5);
+		five_tuple[pending + 1] = 0;
+		m_stream << (const char*) five_tuple;
+	}
+	m_stream << "~>\n";
+}
+
+void ScPainterEx_Ps2::writeRGBImageToStream_AsciiHex ( ScImage* image )
+{
+	int  length = 0;
+	int  width = image->width();
+	int  height = image->height();
+	for( int y = 0; y < height; ++y )
+	{
+		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
+		for( int x = 0; x < width; ++x )
 		{
-			QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
-			for( int x = 0; x < width; x++ )
-			{
-				length++;
-				uchar c = (uchar) qRed(*imageBits);
-				m_stream << toHex(c);
-				uchar m = (uchar) qGreen(*imageBits);
-				m_stream << toHex(m);
-				uchar y = (uchar) qBlue(*imageBits);
-				m_stream << toHex(y);
-				uchar k = (uchar) qAlpha(*imageBits);
-				m_stream << toHex(k);
-				if ( (length % 13) == 0 )
-					m_stream << "\n";
-				imageBits++;
-			}
+			length++;
+			uchar r = (uchar) qRed(*imageBits);
+			m_stream << toHex(r);
+			uchar g = (uchar) qGreen(*imageBits);
+			m_stream << toHex(g);
+			uchar b = (uchar) qBlue(*imageBits);
+			m_stream << toHex(b);
+			if ( (length % 17) == 0 )
+				m_stream << "\n";
+			imageBits++;
 		}
 	}
-	else
-		qDebug( "ScPainterEx_Ps2::writeImageToStream(): unexpected colorspace" );
+	m_stream << "\n>\n";
+}
+
+void ScPainterEx_Ps2::writeCMYKImageToStream_Ascii85( ScImage* image )
+{
+	int  pending = 0;
+	int  written = 0;
+	bool allZero  = true;
+	unsigned char  four_tuple[4];
+	const char* ascii85;
+	quint32 value;
+
+	int width = image->width();
+	int height = image->height();
+	for( int y = 0; y < height; y++ )
+	{
+		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
+		for( int x = 0; x < width; x++ )
+		{
+			four_tuple[0] = (uchar) qRed(*imageBits);
+			four_tuple[1] = (uchar) qGreen(*imageBits);
+			four_tuple[2] = (uchar) qBlue(*imageBits);
+			four_tuple[3] = (uchar) qAlpha(*imageBits);
+			value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
+			ascii85 = toAscii85(value, allZero);
+			if (allZero)
+				m_stream << "z";
+			else
+				m_stream << ascii85;
+			written += ((allZero) ? 1 : 5);
+			if (written > 75)
+			{
+				m_stream << "\n";
+				written = 0;
+			}
+			imageBits++;
+		}
+	}
+	m_stream << "~>\n";
+}
+
+void ScPainterEx_Ps2::writeCMYKImageToStream_AsciiHex( ScImage* image )
+{
+	int length = 0;
+	int width = image->width();
+	int height = image->height();
+	for( int y = 0; y < height; ++y )
+	{
+		QRgb* imageBits = (QRgb*)(image->qImage().scanLine(y));
+		for( int x = 0; x < width; ++x )
+		{
+			length++;
+			uchar c = (uchar) qRed(*imageBits);
+			m_stream << toHex(c);
+			uchar m = (uchar) qGreen(*imageBits);
+			m_stream << toHex(m);
+			uchar y = (uchar) qBlue(*imageBits);
+			m_stream << toHex(y);
+			uchar k = (uchar) qAlpha(*imageBits);
+			m_stream << toHex(k);
+			if ( (length % 13) == 0 )
+				m_stream << "\n";
+			imageBits++;
+		}
+	}
+	m_stream << "\n>\n";
 }
 
 void ScPainterEx_Ps2::setupPolygon(FPointArray *points, bool closed)

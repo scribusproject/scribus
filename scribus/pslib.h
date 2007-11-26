@@ -121,12 +121,16 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
 		bool Art;
 	private:
-		void PutPage(QString c);
-		void PutPage(QByteArray& array, bool hexEnc);
+		void PutPage(const QString& c);
+		void PutPage(const QByteArray& array, bool hexEnc);
 		void PutPage(const char* array, int length, bool hexEnc);
-		void PutDoc(QString c);
-		void PutDoc(QByteArray& array, bool hexEnc);
-		void PutDoc(const char* in, int length, bool hexEnc);
+		void PutDoc (const QString& c);
+		void PutDoc (const QByteArray& array, bool hexEnc);
+		void PutDoc (const char* in, int length, bool hexEnc);
+		void WriteASCII85Bytes(const QByteArray& array);
+		void WriteASCII85Bytes(const unsigned char* array, int length);
+		void WriteASCIIHexBytes(const QByteArray& array);
+		void WriteASCIIHexBytes(const char* array, int length);
 		QString ToStr(double c);
 		QString IToStr(int c);
 		QString PSEncode(QString in);
