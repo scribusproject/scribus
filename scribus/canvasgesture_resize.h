@@ -39,7 +39,7 @@ class QRubberBand;
 /**
   This class realizes resizing of selected items on behalf of its parent mode.
   The user presses the mousebutton at one of the framehandles, drags it to the end point
-  and releases the mousebutton. The item or group selection is reiszed to the new dimensions.
+  and releases the mousebutton. The item or group selection is resized to the new dimensions.
   During the move the selected items are highlighted.
  */
 class SCRIBUS_API ResizeGesture : public CanvasGesture
@@ -53,6 +53,11 @@ public:
 	virtual void deactivate(bool);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
+	/**
+	  This method only sets the m_handle field.
+	  If the correct value is set by the constructor (default = SOUTHEAST), 
+	  it's not necessary to call this method.
+	 */
 	virtual void mousePressEvent(QMouseEvent *m);
 	
 	Canvas::FrameHandle frameHandle() const { return m_handle; }
@@ -61,6 +66,7 @@ private:
 	void adjustBounds(QMouseEvent *m);
 	Canvas::FrameHandle m_handle;
 	double m_rotation;
+	double m_oldRatio;
 	QRect m_bounds;
 };
 

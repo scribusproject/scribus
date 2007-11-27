@@ -53,6 +53,7 @@ void ResizeGesture::activate(bool flag)
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 	}
+	m_oldRatio = double(m_bounds.width()) / double(m_bounds.height());
 }
 
 
@@ -73,6 +74,7 @@ void ResizeGesture::drawControls(QPainter* p)
 //	p->drawRect(localRect);
 	if (m_rotation != 0)
 	{
+		p->setRenderHint(QPainter::Antialiasing);
 		p->translate(localRect.x(), localRect.y());
 		p->rotate(m_rotation);
 		p->translate(-localRect.x(), -localRect.y());
@@ -139,13 +141,35 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 
 void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
-	// snap to guides
-	// snap to grid
 	// proportional resize
 	QPoint point = m->globalPos();
-	QPoint oldXY = m_bounds.topLeft();
+	QRect oldBounds = m_bounds;
+	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
 	QMatrix mat;
 	
+
+	// snap to grid	+ snap to guides
+	bool isCorner = m_handle == Canvas::NORTHWEST || m_handle == Canvas::NORTHEAST 
+		|| m_handle == Canvas::SOUTHWEST || m_handle == Canvas::SOUTHEAST;
+	if (m_rotation == 0 || isCorner)
+	{
+		FPoint docPoint = m_canvas->globalToCanvas(point);
+		FPoint snappedPoint = m_doc->ApplyGridF(docPoint);
+		double x = snappedPoint.x(), y = snappedPoint.y();
+		if (m_doc->ApplyGuides(&x, &y))
+			qDebug() << "guides applied:" << snappedPoint.x() << snappedPoint.y() << "to" << x << y;
+		if (m_handle == Canvas::NORTH || m_handle == Canvas::SOUTH) 
+			// only snap on y-axis
+			point = m_canvas->canvasToGlobal(FPoint(docPoint.x(), y));
+		else if (m_handle == Canvas::EAST || m_handle == Canvas::WEST)
+			// only snap on x-axis
+			point = m_canvas->canvasToGlobal(FPoint(x, docPoint.y()));
+		else 
+			point = m_canvas->canvasToGlobal(FPoint(x,y));
+		qDebug() << "resize snap grid/guides:" << m->globalPos() << "-->" << point;
+	}
+	
+	// un-rotate point
 	if (m_rotation != 0)
 	{
 		// rotate point around item position
@@ -155,6 +179,8 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 //		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << mat << ":" << point-m_bounds.topLeft() << "-->" << mat.map(point)-m_bounds.topLeft();
 		point = mat.map(point);
 	}
+	
+	// adjust bounds vertically
 	switch (m_handle)
 	{
 		case Canvas::NORTHWEST:
@@ -172,6 +198,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		default:
 			break;
 	}
+	// adjust bounds horizontally
 	switch (m_handle)
 	{
 		case Canvas::NORTHWEST:
@@ -189,7 +216,78 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		default:
 			break;
 	}
-	if (m_rotation != 0)
+
+	// constrain ratio
+	double newRatio = double(m_bounds.width()) / double(m_bounds.height());
+	if (constrainRatio && m_oldRatio != newRatio)
+	{
+		qDebug() << "constrain ratio:" << m_bounds << newRatio << "to" << m_oldRatio; 
+		int newWidth = qRound(m_bounds.height() * m_oldRatio);
+		int newHeight = qRound(m_bounds.width() / m_oldRatio);
+		switch (m_handle)
+		{
+			case Canvas::NORTHWEST:
+				// axis: topleft + t*[oldRatio, 1]    t:= y-top
+				//       [x',y] = [left, top] + [(y-top)*oldRatio, y-top]
+				//              = [left + (y-top)*oldRatio, y]
+				// x < x'  => mouse is WEST, x > x'  => mouse is NORTH
+				// x < left + (y-top)*oldratio   <=> x - left < (y - top) * oldratio
+				
+//				qDebug() << "NORTHWEST" << point << oldBounds.topLeft() << m_oldRatio
+//				<< (point.x() - oldBounds.left() < (point.y()-oldBounds.top()) * m_oldRatio);
+				
+				if (point.x() - oldBounds.left() < (point.y()-oldBounds.top()) * m_oldRatio)
+					m_bounds.setTop(m_bounds.top() - newHeight + m_bounds.height());
+				else
+					m_bounds.setLeft(m_bounds.left() - newWidth + m_bounds.width());
+				break;
+			case Canvas::SOUTHWEST:
+				// axis: bottomleft + t*[oldRatio, -1]    t:= bottom-y
+				//       (x',y) = [left, bottom] + [(bottom-y)*oldRatio, -bottom+y]
+				//              = [left + (bottom-y)*oldRatio, y]
+				// x < x'  => mouse is WEST, x > x'  => mouse is SOUTH
+				// x < left + (bottom-y)*oldratio   <=> x - left < (bottom-y) * oldratio
+				
+//				qDebug() << "SOUTHWEST" << point << oldBounds.bottomLeft()  << m_oldRatio
+//				<< (point.x() - oldBounds.left() < (oldBounds.bottom() - point.y()) * m_oldRatio);
+				
+				if (point.x() - oldBounds.left() < (oldBounds.bottom() - point.y()) * m_oldRatio)
+					m_bounds.setHeight(newHeight);
+				else
+					m_bounds.setLeft(m_bounds.left() - newWidth + m_bounds.width());
+				break;
+			case Canvas::NORTHEAST:
+				// cf. SOUTHWEST
+				if (point.x() - oldBounds.left() > (oldBounds.bottom() - point.y()) * m_oldRatio)
+					m_bounds.setTop(m_bounds.top() - newHeight + m_bounds.height());
+				else
+					m_bounds.setWidth(newWidth);
+				break;
+			case Canvas::SOUTHEAST:
+				// cf. NORTHWEST
+				if (point.x() - oldBounds.left() > (point.y()-oldBounds.top()) * m_oldRatio)
+					m_bounds.setHeight(newHeight);
+				else
+					m_bounds.setWidth(newWidth);
+				break;
+			case Canvas::WEST:
+			case Canvas::EAST:
+				m_bounds.setTop(m_bounds.top() - (newHeight - m_bounds.height()) / 2);
+				m_bounds.setHeight(newHeight);
+				break;
+			case Canvas::NORTH:
+			case Canvas::SOUTH:
+				m_bounds.setLeft(m_bounds.left() - (newWidth - m_bounds.width()) / 2);
+				m_bounds.setWidth(newWidth);
+				break;
+			default:
+				break;
+		}
+		qDebug() << "constrained:" << m_bounds << double(m_bounds.width()) / m_bounds.height();
+	}
+
+	// re-rotate: if top left has changed, then it needs rotation
+	if (m_rotation != 0 && oldBounds.topLeft() != m_bounds.topLeft())
 	{
 		m_bounds.moveTo(mat.inverted().map(m_bounds.topLeft()));
 	}

@@ -104,7 +104,11 @@ void CanvasMode::drawSelection(QPainter* psx)
 			currItem = m_doc->m_Selection->itemAt(a);
 			psx->save();
 			psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-			psx->rotate(currItem->rotation());			
+			if (currItem->rotation() != 0)
+			{
+				psx->setRenderHint(QPainter::Antialiasing);
+				psx->rotate(currItem->rotation());
+			}		
 			currItem->paintObj(psx);
 			psx->restore();
 		}
