@@ -72,7 +72,7 @@ class ScFace_postscript : public FtFace
 			}
 			if (afm.exists())
 			{
-				if (FT_Attach_File(face, afm.fileName().toLatin1().constData()))
+				if (FT_Attach_File(face, afm.fileName().toLocal8Bit().constData()))
 					qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontFile).arg(afm.fileName()).toLatin1().constData());
 				else
 					// re-initialize: ScFaceData::load() just clears caches,
