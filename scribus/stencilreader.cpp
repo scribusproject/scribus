@@ -774,8 +774,9 @@ bool StencilReader::parseSVG( const QString &s, FPointArray *ite )
 	if( !d.isEmpty() )
 	{
 		d = d.simplified();
-		const char *ptr = d.toLatin1().constData();
-		const char *end = d.toLatin1().constData() + d.length() + 1;
+		QByteArray pathData = d.toLatin1();
+		const char *ptr = pathData.constData();
+		const char *end = pathData.constData() + pathData.length() + 1;
 		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
 		double px1, py1, px2, py2, px3, py3;
 		bool relative;
