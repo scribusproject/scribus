@@ -53,7 +53,8 @@ void ResizeGesture::activate(bool flag)
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 	}
-	m_oldRatio = double(m_bounds.width()) / double(m_bounds.height());
+	m_origRatio = double(m_bounds.width()) / double(m_bounds.height());
+	m_origBounds = m_bounds;
 }
 
 
@@ -141,11 +142,11 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 
 void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
-	// proportional resize
+	QMatrix rotation;
 	QPoint point = m->globalPos();
-	QRect oldBounds = m_bounds;
+	QPoint oldXY = m_bounds.topLeft();
+	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
-	QMatrix mat;
 	
 
 	// snap to grid	+ snap to guides
@@ -173,11 +174,11 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	if (m_rotation != 0)
 	{
 		// rotate point around item position
-		mat.translate(m_bounds.x(), m_bounds.y());
-		mat.rotate(-m_rotation);
-		mat.translate(-m_bounds.x(), -m_bounds.y());
-//		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << mat << ":" << point-m_bounds.topLeft() << "-->" << mat.map(point)-m_bounds.topLeft();
-		point = mat.map(point);
+		rotation.translate(m_bounds.x(), m_bounds.y());
+		rotation.rotate(m_rotation);
+		rotation.translate(-m_bounds.x(), -m_bounds.y());
+//		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << rotation << ":" << point-m_bounds.topLeft() << "-->" << rotation.map(point)-m_bounds.topLeft();
+		point = rotation.inverted().map(point);
 	}
 	
 	// adjust bounds vertically
@@ -219,65 +220,69 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 
 	// constrain ratio
 	double newRatio = double(m_bounds.width()) / double(m_bounds.height());
-	if (constrainRatio && m_oldRatio != newRatio)
+	if (constrainRatio && m_origRatio != newRatio)
 	{
-		qDebug() << "constrain ratio:" << m_bounds << newRatio << "to" << m_oldRatio; 
-		int newWidth = qRound(m_bounds.height() * m_oldRatio);
-		int newHeight = qRound(m_bounds.width() / m_oldRatio);
+		qDebug() << "constrain ratio:" << m_bounds << newRatio << "to" << m_origRatio; 
+		int newWidth = qRound(m_bounds.height() * m_origRatio);
+		int newHeight = qRound(m_bounds.width() / m_origRatio);
 		switch (m_handle)
 		{
 			case Canvas::NORTHWEST:
-				// axis: topleft + t*[oldRatio, 1]    t:= y-top
-				//       [x',y] = [left, top] + [(y-top)*oldRatio, y-top]
-				//              = [left + (y-top)*oldRatio, y]
+				// axis: topleft + t*[origRatio, 1]    t:= y-top
+				//       [x',y] = [left, top] + [(y-top)*origRatio, y-top]
+				//              = [left + (y-top)*origRatio, y]
 				// x < x'  => mouse is WEST, x > x'  => mouse is NORTH
-				// x < left + (y-top)*oldratio   <=> x - left < (y - top) * oldratio
+				// x < left + (y-top)*origratio   <=> x - left < (y - top) * origratio
 				
-//				qDebug() << "NORTHWEST" << point << oldBounds.topLeft() << m_oldRatio
-//				<< (point.x() - oldBounds.left() < (point.y()-oldBounds.top()) * m_oldRatio);
+//				qDebug() << "NORTHWEST" << point << m_origBounds.topLeft() << m_origRatio
+//				<< (point.x() - m_origBounds.left() < (point.y()-m_origBounds.top()) * m_origRatio);
 				
-				if (point.x() - oldBounds.left() < (point.y()-oldBounds.top()) * m_oldRatio)
+				if (point.x() - m_origBounds.left() < (point.y()-m_origBounds.top()) * m_origRatio)
 					m_bounds.setTop(m_bounds.top() - newHeight + m_bounds.height());
 				else
 					m_bounds.setLeft(m_bounds.left() - newWidth + m_bounds.width());
 				break;
 			case Canvas::SOUTHWEST:
-				// axis: bottomleft + t*[oldRatio, -1]    t:= bottom-y
-				//       (x',y) = [left, bottom] + [(bottom-y)*oldRatio, -bottom+y]
-				//              = [left + (bottom-y)*oldRatio, y]
+				// axis: bottomleft + t*[origRatio, -1]    t:= bottom-y
+				//       (x',y) = [left, bottom] + [(bottom-y)*origRatio, -bottom+y]
+				//              = [left + (bottom-y)*origRatio, y]
 				// x < x'  => mouse is WEST, x > x'  => mouse is SOUTH
-				// x < left + (bottom-y)*oldratio   <=> x - left < (bottom-y) * oldratio
+				// x < left + (bottom-y)*origratio   <=> x - left < (bottom-y) * origratio
 				
-//				qDebug() << "SOUTHWEST" << point << oldBounds.bottomLeft()  << m_oldRatio
-//				<< (point.x() - oldBounds.left() < (oldBounds.bottom() - point.y()) * m_oldRatio);
+//				qDebug() << "SOUTHWEST" << point << m_origBounds.bottomLeft()  << m_origRatio
+//				<< (point.x() - m_origBounds.left() < (m_origBounds.bottom() - point.y()) * m_origRatio);
 				
-				if (point.x() - oldBounds.left() < (oldBounds.bottom() - point.y()) * m_oldRatio)
+				if (point.x() - m_origBounds.left() < (m_origBounds.bottom() - point.y()) * m_origRatio)
 					m_bounds.setHeight(newHeight);
 				else
 					m_bounds.setLeft(m_bounds.left() - newWidth + m_bounds.width());
 				break;
 			case Canvas::NORTHEAST:
 				// cf. SOUTHWEST
-				if (point.x() - oldBounds.left() > (oldBounds.bottom() - point.y()) * m_oldRatio)
+				if (point.x() - m_origBounds.left() > (m_origBounds.bottom() - point.y()) * m_origRatio)
 					m_bounds.setTop(m_bounds.top() - newHeight + m_bounds.height());
 				else
 					m_bounds.setWidth(newWidth);
 				break;
 			case Canvas::SOUTHEAST:
 				// cf. NORTHWEST
-				if (point.x() - oldBounds.left() > (point.y()-oldBounds.top()) * m_oldRatio)
+				if (point.x() - m_origBounds.left() > (point.y()-m_origBounds.top()) * m_origRatio)
 					m_bounds.setHeight(newHeight);
 				else
 					m_bounds.setWidth(newWidth);
 				break;
 			case Canvas::WEST:
 			case Canvas::EAST:
-				m_bounds.setTop(m_bounds.top() - (newHeight - m_bounds.height()) / 2);
+				// (origBounds.top + origBounds.bottom) / 2 is the horizontal axis
+				// keep that fixed
+				m_bounds.setTop(((m_origBounds.top() + m_origBounds.bottom()) / 2) - newHeight / 2);
 				m_bounds.setHeight(newHeight);
 				break;
 			case Canvas::NORTH:
 			case Canvas::SOUTH:
-				m_bounds.setLeft(m_bounds.left() - (newWidth - m_bounds.width()) / 2);
+				// (origBounds.left + origBounds.right) / 2 is the vertical axis
+				// keep that fixed
+				m_bounds.setLeft(((m_origBounds.left() + m_origBounds.right()) / 2) - newWidth / 2);
 				m_bounds.setWidth(newWidth);
 				break;
 			default:
@@ -287,9 +292,54 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	}
 
 	// re-rotate: if top left has changed, then it needs rotation
-	if (m_rotation != 0 && oldBounds.topLeft() != m_bounds.topLeft())
+	if (m_rotation != 0 && oldXY != m_bounds.topLeft())
 	{
-		m_bounds.moveTo(mat.inverted().map(m_bounds.topLeft()));
+		m_bounds.moveTo(rotation.map(m_bounds.topLeft()));
+		// fix opposite corner to avoid aggregating rounding errors
+		QPoint origFixPoint, newFixPoint;
+		switch (m_handle)
+		{
+			case Canvas::NORTHWEST:
+				origFixPoint = m_origBounds.bottomRight();
+				newFixPoint = m_bounds.bottomRight();
+				break;
+			case Canvas::WEST:
+				origFixPoint = m_origBounds.topRight() + QPoint(0, m_origBounds.height()/2);
+				newFixPoint = m_bounds.topRight() + QPoint(0, m_bounds.height()/2);
+				break;
+			case Canvas::SOUTHWEST:
+				origFixPoint = m_origBounds.topRight();
+				newFixPoint = m_bounds.topRight();
+				break;
+			case Canvas::SOUTH:
+				origFixPoint = m_origBounds.topLeft() + QPoint(m_origBounds.width()/2, 0);
+				newFixPoint = m_bounds.topLeft() + QPoint(m_bounds.width()/2, 0);
+				break;
+			case Canvas::SOUTHEAST:
+				origFixPoint = m_origBounds.topLeft();
+				newFixPoint = m_bounds.topLeft();
+				break;
+			case Canvas::EAST:
+				origFixPoint = m_origBounds.topLeft() + QPoint(0, m_origBounds.height()/2);
+				newFixPoint = m_bounds.topLeft() + QPoint(0, m_bounds.height()/2);
+				break;
+			case Canvas::NORTHEAST:
+				origFixPoint = m_origBounds.bottomLeft();
+				newFixPoint = m_bounds.bottomLeft();
+				break;
+			case Canvas::NORTH:
+				origFixPoint = m_origBounds.bottomLeft() + QPoint(m_origBounds.width()/2, 0);
+				newFixPoint = m_bounds.bottomLeft() + QPoint(m_bounds.width()/2, 0);
+				break;
+			default:
+				origFixPoint = m_origBounds.topLeft();
+				newFixPoint = m_bounds.topLeft();
+				break;
+		}
+		origFixPoint = m_origBounds.topLeft() + rotation.map(origFixPoint - m_origBounds.topLeft());
+		newFixPoint = m_bounds.topLeft() + rotation.map(newFixPoint - m_bounds.topLeft());
+		if (origFixPoint != newFixPoint)
+			m_bounds.translate(origFixPoint - newFixPoint);
 	}
 }
 

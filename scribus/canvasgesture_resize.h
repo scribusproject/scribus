@@ -66,8 +66,9 @@ private:
 	void adjustBounds(QMouseEvent *m);
 	Canvas::FrameHandle m_handle;
 	double m_rotation;
-	double m_oldRatio;
+	double m_origRatio;
 	QRect m_bounds;
+	QRect m_origBounds;
 };
 
 
