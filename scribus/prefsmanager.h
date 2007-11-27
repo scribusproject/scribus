@@ -156,6 +156,7 @@ public:
 	const QString& guiLanguage() const;
 	//! \brief Get the GUI style from preferences
 	const QString& guiStyle() const;
+	const QString& guiSystemStyle() const;
 	//! \brief Get the GUI style from preferences
 	const int& guiFontSize() const;
 	const int& paletteFontSize() const;

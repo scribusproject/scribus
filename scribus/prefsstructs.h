@@ -169,7 +169,10 @@ struct ApplicationPrefs
 	QColor DFrameAnnotationColor;
 	QColor DPageBorderColor;
 	QColor DControlCharColor;
+	//! Currently used QStyle name
 	QString GUI;
+	//! System default QStyle name for current instance
+	QString GUIsystem;
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSettings;
 	toolPrefs toolSettings;

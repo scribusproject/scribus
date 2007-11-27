@@ -223,7 +223,7 @@ void PrefsManager::initDefaults()
 	appPrefs.typographicSettings.valueStrikeThruWidth = -1;
 	appPrefs.typographicSettings.valueBaseGrid = 14.4;
 	appPrefs.typographicSettings.offsetBaseGrid = 0.0;
-	appPrefs.GUI = "Default";
+	appPrefs.GUI = "";
 	appPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
 	appPrefs.showToolTips = true;
 	appPrefs.moveTimeout = 150;
@@ -1084,6 +1084,11 @@ const QString& PrefsManager::guiLanguage() const
 const QString& PrefsManager::guiStyle() const
 {
 	return appPrefs.GUI;
+}
+
+const QString& PrefsManager::guiSystemStyle() const
+{
+	return appPrefs.GUIsystem;
 }
 
 const int& PrefsManager::guiFontSize() const
@@ -2187,7 +2192,8 @@ bool PrefsManager::ReadPref(QString ho)
 		DOC=DOC.nextSibling();
 	}
 	appPrefs.DColors.ensureBlackAndWhite();
-	if (appPrefs.GUI != "Default")
+	appPrefs.GUIsystem = qApp->style()->objectName();
+	if (appPrefs.GUI != "")
 	{
 		qApp->setStyle(QStyleFactory::create(appPrefs.GUI));
 		qApp->setPalette(qApp->style()->standardPalette());
