@@ -1237,17 +1237,18 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					for (int ww2 = 32; ww2 < 256; ++ww2)
 					{
 						uint glyph = 224 * Fc + ww2 - 32;
-						if (gl[glyph].second != "")
+						QMap<uint,std::pair<QChar,QString> >::Iterator glIt = gl.find(glyph);
+						if (glIt != gl.end() && !glIt.value().second.isEmpty())
 						{
 							if (startOfSeq)
 							{
 								PutDoc(QString::number(ww2)+" ");
 								startOfSeq = false;
 							}
-							PutDoc("/"+gl[glyph].second+" ");
+							PutDoc("/"+glIt.value().second+" ");
 							QString tmp, tmp2;
 							tmp.sprintf("%02X", ww2);
-							tmp2.sprintf("%04X", gl[glyph].first.unicode());
+							tmp2.sprintf("%04X", glIt.value().first.unicode());
 							toUnicodeMap += QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
 							toUnicodeMapCounter++;
 							if (toUnicodeMapCounter == 100)
