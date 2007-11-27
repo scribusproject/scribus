@@ -8693,7 +8693,7 @@ void ScribusMainWindow::initHyphenator()
 	}
 
 	//For each qm file existing, load the file and find the translations of the names
-	QString pfad = ScPaths::instance().libDir();
+	QString pfad = ScPaths::instance().translationDir();
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{
