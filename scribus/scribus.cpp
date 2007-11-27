@@ -8676,7 +8676,7 @@ void ScribusMainWindow::initHyphenator()
 	//Build our list of hyphenation dictionaries we have in the install dir
 	//Grab the language abbreviation from it, get the full language text
 	//Insert the name as key and a new string list into the map
-	QString hyphDirName = QDir::convertSeparators(ScPaths::instance().libDir() + "dicts/");
+	QString hyphDirName = QDir::convertSeparators(ScPaths::instance().dictDir());
 	QDir hyphDir(hyphDirName, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 	{

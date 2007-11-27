@@ -51,7 +51,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 	AutoCheck(doc->AutoCheck)
 {
 		//FIXME:av pick up language from charstyle
- 	QString pfad = ScPaths::instance().libDir();
+	QString pfad = ScPaths::instance().dictDir();
 	if (ScCore->primaryMainWindow()->Sprachen.contains(doc->Language))
 		Language = doc->Language;
 	else
@@ -59,7 +59,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 		Language = PrefsManager::instance()->appPrefs.Language;
 		doc->Language = Language;
 	}
-	pfad += "dicts/" + ScCore->primaryMainWindow()->Sprachen[Language];
+	pfad += ScCore->primaryMainWindow()->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(QIODevice::ReadOnly))
 	{
@@ -100,12 +100,12 @@ void Hyphenator::NewDict(const QString& name)
 		Language = name;
 
 		char *filename = NULL;
-		QString pfad = ScPaths::instance().libDir();
+		QString pfad = ScPaths::instance().dictDir();
 		
 		if (hdict != NULL)
 			hnj_hyphen_free(hdict);
 
-		pfad += "dicts/" + ScCore->primaryMainWindow()->Sprachen[Language];
+		pfad += ScCore->primaryMainWindow()->Sprachen[Language];
 		QFile f(pfad);
 		if (f.open(QIODevice::ReadOnly))
 		{
