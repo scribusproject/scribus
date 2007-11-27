@@ -51,6 +51,8 @@ public:
 
 	/** @brief Return path to the translations directory */
 	QString translationDir() const;
+	/** @brief Return path to the dictionaries directory */
+	QString dictDir() const;
 
 	/** @brief Return paths to system font directories*/
 	static QStringList getSystemFontDirs(void);

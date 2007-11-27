@@ -48,7 +48,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 	useAble(false),
 	codec(0)
 {
- 	QString pfad = ScPaths::instance().libDir();
+ 	QString pfad = ScPaths::instance().dictDir();
 	if (ScMW->Sprachen.contains(doc->Language))
 		Language = doc->Language;
 	else
@@ -56,7 +56,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 		Language = PrefsManager::instance()->appPrefs.Language;
 		doc->Language = Language;
 	}
-	pfad += "dicts/" + ScMW->Sprachen[Language];
+	pfad += ScMW->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -90,10 +90,10 @@ void Hyphenator::slotNewDict(QString name)
 	char *filename = NULL;
 	if (hdict != NULL)
 		hnj_hyphen_free(hdict);
- 	QString pfad = ScPaths::instance().libDir();
+ 	QString pfad = ScPaths::instance().dictDir();
 	Language = name;
 	doc->Language = name;
-	pfad += "dicts/" + ScMW->Sprachen[Language];
+	pfad += ScMW->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
