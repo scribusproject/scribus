@@ -648,20 +648,12 @@ void ScribusView::leaveEvent(QEvent *e)
 void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 {
 	QString text;
-//	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
 	if (e->mimeData()->hasText())
 	{
 		e->acceptProposedAction();
 		text = e->mimeData()->text();
 		double gx, gy, gw, gh;
-		/*<< #3524
-		setActiveWindow();
-		raise();
-		m_ScMW->newActWin(Doc->WinHan);
-		updateContents();
-		>>*/
-//		SeleItemPos(e->pos());
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		ScriXmlDoc *ss = new ScriXmlDoc();
@@ -676,13 +668,11 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 			DraggedGroup = true;
 			DraggedGroupFirst = true;
 			getDragRectScreen(&gx, &gy, &gw, &gh);
-//			gx += Doc->minCanvasCoordinate.x();
-//			gy += Doc->minCanvasCoordinate.y();
-			QPoint evP = viewport()->mapToGlobal(e->pos());
-			evP -= QPoint(contentsX(), contentsY());
-			redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
-			if (!redrawMarker->isVisible())
-				redrawMarker->show();
+//			QPoint evP = viewport()->mapToGlobal(e->pos());
+//			evP -= QPoint(contentsX(), contentsY());
+//			redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
+//			if (!redrawMarker->isVisible())
+//				redrawMarker->show();
 			emit ItemGeom(gw, gh);
 		}
 		delete ss;
@@ -693,9 +683,6 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 {
 	QString text;
-//	PageItem *currItem;
-//	bool img;
-//	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
 	if (e->mimeData()->hasText())
 	{
@@ -703,17 +690,15 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		text = e->mimeData()->text();
 		if (DraggedGroup)
 		{
-			double gx, gy, gw, gh;
+//			double gx, gy, gw, gh;
 			dragX = e->pos().x() / m_canvas->scale();
 			dragY = e->pos().y() / m_canvas->scale();
-			getDragRectScreen(&gx, &gy, &gw, &gh);
-//			gx += Doc->minCanvasCoordinate.x();
-//			gy += Doc->minCanvasCoordinate.y();
-			QPoint evP = viewport()->mapToGlobal(e->pos());
-			evP -= QPoint(contentsX(), contentsY());
-			redrawMarker->setGeometry(QRect(evP.x() + 2, evP.y() + 2, qRound(gw - 2), qRound(gh - 2)).normalized());
-			if (!redrawMarker->isVisible())
-				redrawMarker->show();
+//			getDragRectScreen(&gx, &gy, &gw, &gh);
+//			QPoint evP = viewport()->mapToGlobal(e->pos());
+//			evP -= QPoint(contentsX(), contentsY());
+//			redrawMarker->setGeometry(QRect(evP.x() + 2, evP.y() + 2, qRound(gw - 2), qRound(gh - 2)).normalized());
+//			if (!redrawMarker->isVisible())
+//				redrawMarker->show();
 			DraggedGroupFirst = false;
 			emit MousePos(dragX, dragY); //+Doc->minCanvasCoordinate.x(), dragY+Doc->minCanvasCoordinate.y());
 			horizRuler->Draw(e->pos().x());
@@ -756,7 +741,7 @@ void ScribusView::contentsDragLeaveEvent(QDragLeaveEvent *)
 		DraggedGroup = false;
 		DraggedGroupFirst = false;
 		m_canvas->resetRenderMode();
-		redrawMarker->hide();
+//		redrawMarker->hide();
 		updateContents();
 	}
 }
@@ -768,7 +753,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	bool img = false;
 	m_canvas->resetRenderMode();
 	redrawMode = 0;
-	redrawMarker->hide();
+//	redrawMarker->hide();
 //	struct ScText *hg;
 //	uint a;
 	int re = 0;
