@@ -80,8 +80,10 @@ public:
 	\retval int The Value
 	*/
 	int mapTextToValue(bool *ok);
+	void setTabAdvance(bool enable);
 	int Decimals;
 	int Width;
+	bool tabAdvance;
 	QLineEdit *ed;
 	void setDecimals( int deci );
 	bool isReadOnly() const;
