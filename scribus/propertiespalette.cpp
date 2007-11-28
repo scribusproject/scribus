@@ -385,11 +385,11 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	ShapeGroupLayout->addWidget( SRect );
 	SCustom = new Autoforms( ShapeGroup );
 	ShapeGroupLayout->addWidget( SCustom );
-	pageLayout_2->addWidget( ShapeGroup );
 
-	EditShape = new QToolButton( page_2 );
-	EditShape->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	pageLayout_2->addWidget( EditShape );
+	EditShape = new QToolButton( ShapeGroup );
+//	EditShape->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	ShapeGroupLayout->addWidget( EditShape );
+	pageLayout_2->addWidget( ShapeGroup );
 
 	Layout13 = new QHBoxLayout;
 	Layout13->setSpacing( 2 );
@@ -588,10 +588,10 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	ShapeGroupLayout2->addWidget( SRect2 );
 	SCustom2 = new Autoforms( ShapeGroup2 );
 	ShapeGroupLayout2->addWidget( SCustom2 );
+	EditShape2 = new QToolButton( ShapeGroup2 );
+//	EditShape2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	ShapeGroupLayout2->addWidget( EditShape2 );
 	page_group_layout->addWidget( ShapeGroup2 );
-	EditShape2 = new QToolButton( page_group );
-	EditShape2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
-	page_group_layout->addWidget( EditShape2 );
 
 	textFlowOptions2 = new QGroupBox( page_group );
 	textFlowOptionsLayout2 = new QVBoxLayout( textFlowOptions2 );
@@ -4363,9 +4363,11 @@ void PropertiesPalette::languageChange()
 	basepointLabel->setText( tr("Basepoint:"));
 	LayerGroup->setTitle( tr("Level"));
 	SRect->setText( tr("Shape:"));
-	EditShape->setText( tr("&Edit Shape..."));
+//	EditShape->setText( tr("&Edit Shape..."));
+//	EditShape2->setText( tr("&Edit Shape..."));
+	EditShape->setText( tr("&Edit..."));
+	EditShape2->setText( tr("&Edit..."));
 	SRect2->setText( tr("Shape:"));
-	EditShape2->setText( tr("&Edit Shape..."));
 	TransGroup->setTitle( tr( "Transparency Settings" ));
 	TransTxt->setText( tr( "Opacity:" ) );
 	TransTxt2->setText( tr( "Blend Mode:" ) );
