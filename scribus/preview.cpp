@@ -302,8 +302,9 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	setValues();
 	Anz = new QLabel(this);
 	Anz->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-	APage = doc->currentPage()->pageNr();
-	Anz->setPixmap(CreatePreview(APage, 72));
+//	APage = doc->currentPage()->pageNr();
+	Anz->setPixmap(CreatePreview(doc->currentPage()->pageNr(), 72));
+	Anz->resize(Anz->pixmap()->size());
 	Anzeige->setWidget(Anz);
 	int w = Anz->width() + tbWidth + 50;
 	resize(qMin(QApplication::desktop()->width()-30,w), 500);
@@ -319,7 +320,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 			EnableCMYK_K->setEnabled(false);
 		}
 	}
-	PGSel->GotoPg(APage);
+	PGSel->GotoPg(doc->currentPage()->pageNr());
 	// tooltips
 	AntiAlias->setToolTip( "<qt>" + tr( "Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
 	AliasTr->setToolTip( "<qt>" + tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later" ) + "</qt>");
@@ -407,11 +408,13 @@ void PPreview::ToSeite(int num)
 	if (n == APage)
 		return;
 	Anz->setPixmap(CreatePreview(n, qRound(72 * scaleFactor)));
+	Anz->resize(Anz->pixmap()->size());
 }
 
 void PPreview::redisplay()
 {
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+	Anz->resize(Anz->pixmap()->size());
 }
 
 void PPreview::ToggleCMYK()
@@ -428,12 +431,14 @@ void PPreview::ToggleCMYK()
 	}
 		
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+	Anz->resize(Anz->pixmap()->size());
 }
 
 void PPreview::ToggleCMYK_Colour()
 {
 	if (EnableCMYK->isChecked())
 		Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+	Anz->resize(Anz->pixmap()->size());
 }
 
 void PPreview::scaleBox_valueChanged(int value)
@@ -466,6 +471,7 @@ void PPreview::scaleBox_valueChanged(int value)
 			break;
 	}
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+	Anz->resize(Anz->pixmap()->size());
 }
 
 int PPreview::RenderPreview(int Seite, int Res)
@@ -797,7 +803,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		if (!EnableCMYK->isChecked() || (!HaveTiffSep))
 		{
 			ret = RenderPreview(Seite, Res);
-			if (ret != 0)
+			if (ret > 0)
 			{
 				imageLoadError(Bild, Seite);
 				return Bild;
@@ -818,7 +824,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	       	 || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
 			{
 				ret = RenderPreviewSep(Seite, Res);
-				if (ret != 0)
+				if (ret > 0)
 				{
 					imageLoadError(Bild, Seite);
 					return Bild;
