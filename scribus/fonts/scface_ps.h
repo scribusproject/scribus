@@ -38,6 +38,10 @@ class ScFace_postscript : public FtFace
 			typeCode = ScFace::TYPE1;
 		}
 
+		virtual QStringList findFontMetrics(const QString& fontPath) const;
+		virtual QStringList findFontMetrics(const QString& baseDir, const QString& baseName) const;
+		virtual bool        loadFontMetrics(FT_Face face, const QString& fontPath) const;
+
 		virtual void load()  const // routine by Franz Schmid - modified by Alastair M. Robinson
 		{
 			FtFace::load();
@@ -49,36 +53,12 @@ class ScFace_postscript : public FtFace
 				qDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontFile).toLatin1().constData());
 				return;
 			}
-			QString afnm = fontFile.left(fontFile.length()-3);
-			QFile afm(afnm+"afm");
-			if(!(afm.exists()))
+			if (loadFontMetrics(face, fontFile))
 			{
-				afm.setFileName(afnm+"Afm");
-			}
-			if(!(afm.exists()))
-			{
-				afm.setFileName(afnm+"AFM");
-			}
-			if(!(afm.exists()))
-			{
-				afm.setFileName(afnm+"pfm");
-			}
-			if(!(afm.exists()))
-			{
-				afm.setFileName(afnm+"Pfm");
-			}
-			if(!(afm.exists())) {
-				afm.setFileName(afnm+"PFM");
-			}
-			if (afm.exists())
-			{
-				if (FT_Attach_File(face, afm.fileName().toLocal8Bit().constData()))
-					qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontFile).arg(afm.fileName()).toLatin1().constData());
-				else
-					// re-initialize: ScFaceData::load() just clears caches,
-					// FtFace::load() skips FT_New_Face if m_face is already defined.
-					// dont mind checking glyphs again for now (PS files have only 255 glyphs max, anyway)
-					FtFace::load();
+				// re-initialize: ScFaceData::load() just clears caches,
+				// FtFace::load() skips FT_New_Face if m_face is already defined.
+				// dont mind checking glyphs again for now (PS files have only 255 glyphs max, anyway)
+				FtFace::load();
 			}
 //			Ascent = tmp.setNum(face->ascender);
 //			Descender = tmp.setNum(face->descender);
