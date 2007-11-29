@@ -57,7 +57,8 @@ void CharTableView::keyPressEvent(QKeyEvent *k)
 			emit delChar();
 			break;
 		case Qt::Key_Insert:
-			emit selectChar(model()->characters()[currentValue()]);
+			// safely emit selectChar(model()->characters()[currenCharactersIndex()]);
+			viewDoubleClicked(QModelIndex());
 			break;
 	}
 	QTableView::keyPressEvent(k);
@@ -67,7 +68,7 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 {
 	QTableView::mousePressEvent(e);
 
-	int index = currentValue();
+	int index = currenCharactersIndex();
 	int currentChar = -1;
 
 	if (index < model()->characters().count())
@@ -103,12 +104,13 @@ void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 	QTableView::mouseReleaseEvent(e);
 }
 
-void CharTableView::viewDoubleClicked(const QModelIndex & index)
+void CharTableView::viewDoubleClicked(const QModelIndex & /*index*/)
 {
-	emit selectChar(model()->characters()[currentValue()]);
+	if (model()->characters().count() > currenCharactersIndex())
+		emit selectChar(model()->characters()[currenCharactersIndex()]);
 }
 
-int CharTableView::currentValue()
+int CharTableView::currenCharactersIndex()
 {
 	return currentIndex().row() * model()->columnCount() + currentIndex().column();
 }

@@ -51,7 +51,9 @@ class CharTableView : public QTableView
 		void mousePressEvent(QMouseEvent* e);
 		void mouseMoveEvent(QMouseEvent* e);
 
-		int currentValue();
+		//! \brief Map current QModelIndex into CharClassDef index/position
+		int currenCharactersIndex();
+
 		void hideZoomedChar();
 		
 
