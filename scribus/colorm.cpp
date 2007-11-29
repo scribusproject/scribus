@@ -126,7 +126,9 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 				QFileInfo cfi(Cpfad);
 				if (cfi.exists())
 				{
-					LoadColSet->addItem(custColSet[m]);
+					QString setName = cfi.baseName();
+					setName.replace("_", " ");
+					LoadColSet->addItem(setName);
 					realEx.append(custColSet[m]);
 				}
 			}
@@ -193,7 +195,8 @@ void ColorManager::saveDefaults()
 	if (dia->exec())
 	{
 		QString Fname = Cpfad+dia->getEditText();
-		setCurrentComboItem(LoadColSet, dia->getEditText());
+		Fname.replace(" ", "_");
+		Fname += ".xml";
 		QFile fx(Fname);
 		if (fx.open(QIODevice::WriteOnly))
 		{
@@ -239,8 +242,12 @@ void ColorManager::saveDefaults()
 			fx.close();
 			if (dia->getEditText() != Name)
 			{
-				customColSet.append(dia->getEditText());
+				QString nameC = dia->getEditText();
+				nameC.replace(" ", "_");
+				nameC += ".xml";
+				customColSet.append(nameC);
 				LoadColSet->addItem(dia->getEditText());
+				setCurrentComboItem(LoadColSet, dia->getEditText());
 			}
 		}
 	}
@@ -249,8 +256,8 @@ void ColorManager::saveDefaults()
 
 void ColorManager::loadDefaults(const QString &txt)
 {
-	int c = 0;
-	QList<QAction*> cAct = LoadColSet->actions();
+	int c = LoadColSet->currentIndex();
+/*	QList<QAction*> cAct = LoadColSet->actions();
 	int a = 0;
 	for (a = 0; a < cAct.count(); a++)
 	{
@@ -259,7 +266,7 @@ void ColorManager::loadDefaults(const QString &txt)
 			c = a;
 			break;
 		}
-	}
+	} */
 	bool cus = false;
 	setCurrentComboItem(LoadColSet, txt);
 	EditColors.clear();
@@ -292,7 +299,10 @@ void ColorManager::loadDefaults(const QString &txt)
 		}
 		else
 		{
-			pfadC2 = Cpfad;
+			QString Fname = txt;
+			Fname.replace(" ", "_");
+			Fname += ".xml";
+			pfadC2 = QDir::convertSeparators(ScPaths::getApplicationDataDir()+Fname);
 			cus = true;
 		}
 	}
