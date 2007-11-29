@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Scribus Xfig" >
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff" />
+ <COLOR Spot="0" RGB="#0000ff" Register="0" NAME="Blue" />
+ <COLOR Spot="0" RGB="#0000d0" Register="0" NAME="Blue2" />
+ <COLOR Spot="0" RGB="#0000b0" Register="0" NAME="Blue3" />
+ <COLOR Spot="0" RGB="#000090" Register="0" NAME="Blue4" />
+ <COLOR Spot="0" RGB="#c06000" Register="0" NAME="Brown2" />
+ <COLOR Spot="0" RGB="#a04000" Register="0" NAME="Brown3" />
+ <COLOR Spot="0" RGB="#803000" Register="0" NAME="Brown4" />
+ <COLOR Spot="0" RGB="#00ffff" Register="0" NAME="Cyan" />
+ <COLOR Spot="0" RGB="#00d0d0" Register="0" NAME="Cyan2" />
+ <COLOR Spot="0" RGB="#00b0b0" Register="0" NAME="Cyan3" />
+ <COLOR Spot="0" RGB="#009090" Register="0" NAME="Cyan4" />
+ <COLOR Spot="0" RGB="#ffd700" Register="0" NAME="Gold" />
+ <COLOR Spot="0" RGB="#00ff00" Register="0" NAME="Green" />
+ <COLOR Spot="0" RGB="#00d000" Register="0" NAME="Green2" />
+ <COLOR Spot="0" RGB="#00b000" Register="0" NAME="Green3" />
+ <COLOR Spot="0" RGB="#009000" Register="0" NAME="Green4" />
+ <COLOR Spot="0" RGB="#87ceff" Register="0" NAME="LtBlue" />
+ <COLOR Spot="0" RGB="#ff00ff" Register="0" NAME="Magenta" />
+ <COLOR Spot="0" RGB="#d000d0" Register="0" NAME="Magenta2" />
+ <COLOR Spot="0" RGB="#b000b0" Register="0" NAME="Magenta3" />
+ <COLOR Spot="0" RGB="#900090" Register="0" NAME="Magenta4" />
+ <COLOR Spot="0" RGB="#ffe0e0" Register="0" NAME="Pink" />
+ <COLOR Spot="0" RGB="#ffc0c0" Register="0" NAME="Pink2" />
+ <COLOR Spot="0" RGB="#ffa0a0" Register="0" NAME="Pink3" />
+ <COLOR Spot="0" RGB="#ff8080" Register="0" NAME="Pink4" />
+ <COLOR Spot="0" RGB="#ff0000" Register="0" NAME="Red" />
+ <COLOR Spot="0" RGB="#d00000" Register="0" NAME="Red2" />
+ <COLOR Spot="0" RGB="#b00000" Register="0" NAME="Red3" />
+ <COLOR Spot="0" RGB="#900000" Register="0" NAME="Red4" />
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff" />
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000" />
+ <COLOR Spot="0" RGB="#ffff00" Register="0" NAME="Yellow" />
+</SCRIBUSCOLORS>

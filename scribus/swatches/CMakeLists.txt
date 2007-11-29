@@ -9,5 +9,6 @@ Scribus_OpenOffice.txt
 Scribus_SVG.txt
 Scribus_X11Grey.txt
 Scribus_X11.txt
+Scribus_Xfig.txt
   DESTINATION ${LIBDIR}swatches
 )
