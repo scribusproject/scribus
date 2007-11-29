@@ -269,6 +269,8 @@ public slots:
 	bool DoFileClose();
 	//bool DoSaveClose();
 	void windowsMenuAboutToShow();
+	//! \brief Handle the Extras menu for its items availability.
+	void extrasMenuAboutToShow();
 	void newActWin(QWidget *w);
 	void closeActiveWindowMasterPageEditor();
 	void updateActiveWindowCaption(const QString &newCaption);

@@ -139,6 +139,12 @@ void PicStatus::fillTable()
 	imageViewArea->setCurrentItem(firstItem);
 	if (firstItem!=0)
 		imageSelected(firstItem);
+
+	// Disable all features when there is no image in the document.
+	// It should never be used (see ScribusMainWindow::extrasMenuAboutToShow())
+	// but who knows if it can be configured for shortcut or macro...
+	imageViewArea->setEnabled(imageViewArea->count() > 0);
+	workTab->setEnabled(imageViewArea->count() > 0);
 }
 
 void PicStatus::imageSelected(QListWidgetItem *ite)
@@ -271,18 +277,18 @@ void PicStatus::GotoPic()
 
 void PicStatus::SelectPic()
 {
-	if (currItem != NULL)
+	if (currItem == NULL)
+		return;
+
+	ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
+	if (currItem->Groups.count() == 0)
+		emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
+	else
 	{
-		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-		if (currItem->Groups.count() == 0)
+		if (currItem->isGroupControl)
 			emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
 		else
-		{
-			if (currItem->isGroupControl)
-				emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
-			else
-				emit selectElement(currItem->OwnPage, currItem->ItemNr, true);
-		}
+			emit selectElement(currItem->OwnPage, currItem->ItemNr, true);
 	}
 }
 
@@ -296,6 +302,10 @@ bool PicStatus::loadPict(const QString & newFilePath)
 
 void PicStatus::SearchPic()
 {
+	// no action where is no item selected. It should never happen.
+	if (currItem == NULL)
+		return;
+
 	PicSearchOptions *dia = new PicSearchOptions(this, displayName->text(), displayPath->text());
 	if (dia->exec())
 	{
@@ -326,18 +336,18 @@ void PicStatus::SearchPic()
 
 void PicStatus::doImageEffects()
 {
-	if (currItem != NULL)
+	if (currItem == NULL)
+		return;
+
+	EffectsDialog* dia = new EffectsDialog(this, currItem, m_Doc);
+	if (dia->exec())
 	{
-		EffectsDialog* dia = new EffectsDialog(this, currItem, m_Doc);
-		if (dia->exec())
-		{
-			currItem->effectsInUse = dia->effectsList;
-			loadPict(currItem->Pfile);
-			refreshItem(currItem);
-			imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
-		}
-		delete dia;
+		currItem->effectsInUse = dia->effectsList;
+		loadPict(currItem->Pfile);
+		refreshItem(currItem);
+		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 	}
+	delete dia;
 }
 
 void PicStatus::doImageExtProp()

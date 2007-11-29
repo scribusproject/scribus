@@ -899,6 +899,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrActions["extrasHyphenateText"]->setEnabled(false);
 	scrActions["extrasDeHyphenateText"]->setEnabled(false);
+	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
 
 	//Window menu
 	 scrMenuMgr->createMenu("Windows", tr("&Windows"), QString::null, true);
@@ -2273,6 +2274,24 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 			scrWindowsActions[docInWindow]->setChecked(wsp->activeWindow() == windows.at(i));
 		}
 	}
+}
+
+void ScribusMainWindow::extrasMenuAboutToShow()
+{
+	// There is only Picture Manager handled now.
+	// As it can be opened all the time of the document life.
+	// This is only check for availability of any ImageFrame
+	// in the doc.
+	bool enablePicManager = false;
+	for (int i = 0; i < doc->Items->count(); ++i)
+	{
+		if (doc->Items->at(i)->itemType() == PageItem::ImageFrame)
+		{
+			enablePicManager = true;
+			break;
+		}
+	}
+	scrActions["extrasManagePictures"]->setEnabled(enablePicManager);
 }
 
 void ScribusMainWindow::newActWin(QWidget *w)
