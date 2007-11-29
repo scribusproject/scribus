@@ -1511,7 +1511,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if (clRe != 0)
+										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
 										{
 											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);
@@ -1577,7 +1577,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if (clRe != 0)
+										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
 										{
 											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);
@@ -1643,7 +1643,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if (clRe != 0)
+										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
 										{
 											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);
@@ -1709,7 +1709,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if (clRe != 0)
+										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
 										{
 											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);

@@ -5147,6 +5147,18 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		m_canvasMode->mouseDoubleClickEvent(m);
 		return true;
 	}
+	else if (/* obj == widget() && */ event->type() == QEvent::KeyPress)
+	{
+		QKeyEvent* m = static_cast<QKeyEvent*> (event);
+		m_ScMW->keyPressEvent(m);
+		return true;
+	}
+	else if (/* obj == widget() && */ event->type() == QEvent::KeyRelease)
+	{
+		QKeyEvent* m = static_cast<QKeyEvent*> (event);
+		m_ScMW->keyReleaseEvent(m);
+		return true;
+	}
 	else if (obj == widget() && event->type() == QEvent::DragEnter)
 	{
 		QDragEnterEvent* d = static_cast<QDragEnterEvent*> (event);
