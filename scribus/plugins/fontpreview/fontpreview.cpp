@@ -107,13 +107,15 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 	proxyModel->setSourceModel(fontModel);
 	proxyModel->setFilterKeyColumn(0);
+	proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
 	fontList->setModel(proxyModel);
 
 	// scribus config
 	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
-	sortColumn = prefs->getUInt("sortColumn", 0);
-	fontModel->sort(sortColumn);
+
+	proxyModel->sort(prefs->getUInt("sortColumn", 0));
+
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);
 	sizeSpin->setValue(prefs->getUInt("fontSize", 18));

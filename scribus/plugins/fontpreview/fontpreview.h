@@ -47,8 +47,6 @@ protected:
 	QString defaultStr;
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
-	/*! \brief Column for sorting. */
-	uint sortColumn;
 	/*! \brief window size */
 	uint xsize;
 	uint ysize;
