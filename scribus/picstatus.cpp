@@ -214,6 +214,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			buttonEdit->setEnabled(currItem->isRaster);
 			effectsButton->setEnabled(currItem->isRaster);
 			buttonLayers->setEnabled(currItem->pixm.imgInfo.valid);
+			searchButton->setEnabled(true);
 		}
 		else
 		{
@@ -223,11 +224,13 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				displayName->setText(fi.fileName());
 				displayPath->setText(QDir::convertSeparators(fi.path()));
+				searchButton->setEnabled(true);
 			}
 			else
 			{
 				displayName->setText(trNA);
 				displayPath->setText(trNA);
+				searchButton->setEnabled(false);
 			}
 			displayFormat->setText(trNA);
 			displayColorspace->setText(trNA);
