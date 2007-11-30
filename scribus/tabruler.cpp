@@ -457,7 +457,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	TypeCombo->clear();
 	TypeCombo->insertItem( tr( "Left" ) );
 	TypeCombo->insertItem( tr( "Right" ) );
-	TypeCombo->insertItem( tr( "Full Stop" ) );
+	TypeCombo->insertItem( tr( "Period" ) );
 	TypeCombo->insertItem( tr( "Comma" ) );
 	TypeCombo->insertItem( tr( "Center" ) );
 	layout2->addWidget( TypeCombo );
