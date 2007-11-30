@@ -262,6 +262,106 @@ class Foi_postscript : public Foi
 			return(Foi::RealName());
 		}
 
+		QStringList findFontMetrics(const QString& fontPath) const
+		{
+			QStringList metricsFiles;
+			QFileInfo fi(fontPath);
+
+			QString fontDir  = fi.absFilePath();
+			QString fontFile = fi.fileName();
+
+			metricsFiles += findFontMetrics(fontDir, fontFile);
+
+			//if no metrics found look in afm and pfm subdirs
+			if ( metricsFiles.size() <= 0 )
+			{
+				QDir dir;
+				if (dir.exists(fontDir + "/AFMs"))
+					metricsFiles += findFontMetrics(fontDir + "/AFMs", fontFile);
+				if (metricsFiles.size() <= 0 && dir.exists(fontDir + "/afm"))
+					metricsFiles += findFontMetrics(fontDir + "/afm", fontFile);
+				if (metricsFiles.size() <= 0 && dir.exists(fontDir + "/Pfm"))
+					metricsFiles += findFontMetrics(fontDir + "/Pfm", fontFile);
+				if (metricsFiles.size() <= 0 && dir.exists(fontDir + "/pfm"))
+					metricsFiles += findFontMetrics(fontDir + "/pfm", fontFile);
+			}
+
+			return metricsFiles;
+		}
+
+		QStringList findFontMetrics(const QString& baseDir, const QString& baseName) const
+		{
+			QStringList metricsFiles;
+			QString     basePath = baseDir + "/" + baseName;
+			QString     afnm = basePath.left(basePath.length()-3);
+
+			// Look for afm files
+			QString afmName(afnm+"afm");
+			if(QFile::exists(afmName))
+				metricsFiles.append(afmName);
+			else
+			{
+				afmName = afnm+"Afm";
+				if(QFile::exists(afmName))
+					metricsFiles.append(afmName);
+				else
+				{
+					afmName = afnm+"AFM";
+					if(QFile::exists(afmName))
+						metricsFiles.append(afmName);
+				}
+			}
+
+			// Look for pfm files
+			QString pfmName(afnm+"pfm");
+			if(QFile::exists(pfmName))
+				metricsFiles.append(pfmName);
+			else
+			{
+				pfmName = afnm+"Pfm";
+				if(QFile::exists(pfmName))
+					metricsFiles.append(pfmName);
+				else
+				{
+					afmName = afnm+"PFM";
+					if(QFile::exists(pfmName))
+						metricsFiles.append(pfmName);
+				}
+			}
+
+			return metricsFiles;
+		}
+
+		bool loadFontMetrics(FT_Face face, const QString& fontPath) const
+		{
+			bool metricsFound = false;
+			QStringList fontMetrics = findFontMetrics(fontPath);
+			if (fontMetrics.size() > 0)
+			{
+				bool brokenMetric = false;
+				QString metricsFile;
+				for (uint i = 0; i < fontMetrics.size(); ++i)
+				{
+					metricsFile = fontMetrics[i];
+					if (FT_Attach_File(face, metricsFile.local8Bit().data()))
+					{
+						qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath).arg(metricsFile).latin1());
+						brokenMetric = true;
+					}
+					else
+					{
+						if (brokenMetric)
+							qDebug(QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFilePath()).arg(metricsFile).latin1());
+						metricsFound = true;
+						break;
+					}
+				}
+			}
+			/*else
+				qDebug(QObject::tr("No metrics found for font %1, ignoring font").arg(fontPath).latin1());*/
+			return metricsFound;
+		}
+
 		virtual bool ReadMetrics()  // routine by Franz Schmid - modified by Alastair M. Robinson
 		{
 			if(metricsread)
@@ -295,15 +395,7 @@ class Foi_postscript : public Foi
 			}
 			uniEM = static_cast<double>(face->units_per_EM);
 			QString afnm = fontFilePath().left(fontFilePath().length()-3);
-			QFile afm(afnm+"afm");
-			if(!(afm.exists()))
-			{
-				afm.setName(afnm+"Afm");
-				if(!(afm.exists()))
-					afm.setName(afnm+"AFM");
-			}
-			if (afm.exists())
-				error = FT_Attach_File(face, afm.name());
+			error = loadFontMetrics(face, fontFilePath()) ? 0 : 1;
 			HasKern = FT_HAS_KERNING(face);
 			Ascent = tmp.setNum(face->ascender);
 			Descender = tmp.setNum(face->descender);

@@ -900,7 +900,7 @@ bool ScribusDoc::AddFont(QString name, int fsize)
 		(*AllFonts)[name]->CharWidth[28] = 0;
 		(*AllFonts)[name]->CharWidth[26] = 0;
 		(*AllFonts)[name]->CharWidth[9] = 1;
-		QString afnm = (*AllFonts)[name]->fontFilePath().left((*AllFonts)[name]->fontFilePath().length()-3);
+		/*QString afnm = (*AllFonts)[name]->fontFilePath().left((*AllFonts)[name]->fontFilePath().length()-3);
 		QFile afm(afnm+"afm");
 		if(!(afm.exists()))
 		{
@@ -909,7 +909,7 @@ bool ScribusDoc::AddFont(QString name, int fsize)
 				afm.setName(afnm+"AFM");
 		}
 		if (afm.exists())
-			FT_Attach_File(face, afm.name());
+			FT_Attach_File(face, afm.name());*/
 		FFonts[name] = face;
 		UsedFonts[name] = fsize;
 		ret = true;
