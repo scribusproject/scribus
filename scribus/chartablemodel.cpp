@@ -17,6 +17,7 @@ CharTableModel::CharTableModel(QObject *parent, int cols, ScribusDoc * doc, cons
     : QAbstractTableModel(parent),
 	m_doc(doc),
 	m_cols(cols),
+	m_viewWidth(0),
 	m_fontInUse(font)
 {
 	m_selectionModel = new QItemSelectionModel(this);
@@ -49,22 +50,23 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 	if (role == Qt::AccessibleTextRole)
 		return m_characters[ix];
 
-	// 	pixmap
+	// pixmap
 	if (role == Qt::DecorationRole)
 	{
+		// m_cols should not become 0. Never.
+		int baseSize = m_viewWidth  / m_cols;
 		QMatrix chma;
-		chma.scale(2.0, 2.0);
+		chma.scale(baseSize/10, baseSize/10);
 
 		ScFace face = (*m_doc->AllFonts)[m_fontInUse];
 		uint gl = face.char2CMap(currentChar);
-		int size = 20 + qRound(-face.descent() * 20)+4;
-		double ww = 20 - face.glyphWidth(gl, 20);
-		QPixmap pixm(20, size);
-		QImage pix(20, size, QImage::Format_ARGB32);
-		ScPainter *p = new ScPainter(&pix, 20, size);
+		int size = baseSize + qRound(-face.descent() * baseSize) + 1;
+		double ww = baseSize - face.glyphWidth(gl, baseSize);
+
+		QImage pix(baseSize, size, QImage::Format_ARGB32);
+		ScPainter *p = new ScPainter(&pix, baseSize, size);
 		p->clear();
-		pixm.fill(Qt::white);
-		FPointArray gly = face.glyphOutline(gl);
+		FPointArray gly = face.glyphOutline(gl, 1);
 		if (gly.size() > 4)
 		{
 			gly.map(chma);
@@ -76,8 +78,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 			p->end();
 		}
 		delete p;
-		pixm=QPixmap::fromImage(pix);
-		return QVariant(pixm);
+		return QVariant(QPixmap::fromImage(pix));
 	}
 	// trash
 	return QVariant();

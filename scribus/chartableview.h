@@ -18,6 +18,7 @@ setAcceptDrops() note:
 It sets the right-button behaviour too. It enables delete popup
 menu when e is true instead of larger preview dialog. The idea:
 When user can drop items into it, he could want to delete it too.
+\warning: CharTableModel and CharTableView are designed for 1:1 relations!
 \author Petr Vanek <petr@scribus.info>
 */
 class CharTableView : public QTableView
@@ -55,7 +56,9 @@ class CharTableView : public QTableView
 		int currenCharactersIndex();
 
 		void hideZoomedChar();
-		
+
+		//! \brief Used for computing the items' pixmap size in the model.
+		void resizeEvent(QResizeEvent *e);
 
 	private slots:
 		void removeCharacter();

@@ -130,3 +130,18 @@ void CharTableView::hideEvent(QHideEvent * e)
 	hideZoomedChar();
 	QTableView::hideEvent(e);
 }
+
+void CharTableView::resizeEvent(QResizeEvent *e)
+{
+	QTableView::resizeEvent(e);
+	if (model())
+	{
+		model()->setViewWidth(e->size().width());
+		resizeRowsToContents();
+		// The resizeColumnsToContents() method won't work here.
+		// It doesn't handle cells without any content. And it creates
+		// larger columns than required. Dunno why.
+		for (int i = 0; i < model()->columnCount(); ++i)
+			setColumnWidth(i, e->size().width() / model()->columnCount());
+	}
+}

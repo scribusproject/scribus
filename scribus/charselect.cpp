@@ -38,20 +38,16 @@ CharSelect::CharSelect(QWidget* parent)
 	m_charTableModel = new CharTableModel(m_bigPalette, 26, m_doc,
 										  PrefsManager::instance()->appPrefs.toolSettings.defFont);
 	m_charTable->setModel(m_charTableModel);
-	m_charTable->resizeColumnsToContents();
-	m_charTable->resizeRowsToContents();
 	m_charTable->setDragEnabled(true);
 
 	uniLoadButton->setIcon(loadIcon("22/document-open.png"));
 	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
 	uniClearButton->setIcon(loadIcon("22/document-new.png"));
 	
-	m_userTableModel = new CharTableModel(m_quickPalette, 8, m_doc,
+	m_userTableModel = new CharTableModel(m_quickPalette, 6, m_doc,
 										  PrefsManager::instance()->appPrefs.toolSettings.defFont);
 	m_userTable->setModel(m_userTableModel);
 	m_userTable->setAcceptDrops(true);
-	m_userTable->resizeColumnsToContents();
-	m_userTable->resizeRowsToContents();
 
 	// signals and slots connections
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
@@ -422,8 +418,6 @@ void CharSelect::generatePreview(int charClass)
 	if (charClass>=0 && charClass<allClasses.count())
 		characters = allClasses[charClass];
 	m_charTableModel->setCharacters(characters);
-	m_charTable->resizeColumnsToContents();
-	m_charTable->resizeRowsToContents();
 }
 
 void CharSelect::newCharClass(int c)
@@ -543,15 +537,15 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 
 void CharSelect::hideCheck_clicked()
 {
-	// megahact #1 to keep user palette unchanged after rasizing
+	// megahact #1 to keep user palette unchanged after resizing
 	QSize sz(m_quickPalette->size());
-// 
+
 	m_bigPalette->setShown(!hideCheck->isChecked());
-	resize(sz); // megahack #2 to keep palette small
+	if (hideCheck->isChecked())
+		resize(sz); // megahack #2 to keep palette small
 	m_quickPalette->resize(sz);
 	updateGeometry();
 	adjustSize();
-	
 }
 
 void CharSelect::show()

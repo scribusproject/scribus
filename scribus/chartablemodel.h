@@ -22,6 +22,7 @@ typedef QList<uint> CharClassDef;
 
 /*! \brief A model (MVC) to handle unicode characters map.
 It's a backend for CharTableView - its GUI representation.
+\warning: CharTableModel and CharTableView are designed for 1:1 relations!
 \author Petr Vanek <petr@scribus.info>
 */
 class SCRIBUS_API CharTableModel : public QAbstractTableModel
@@ -50,6 +51,8 @@ class SCRIBUS_API CharTableModel : public QAbstractTableModel
 
 		void setDoc(ScribusDoc *doc);
 
+		void setViewWidth(int w) { m_viewWidth = w; };
+
 	public slots:
 		/*! \brief appends an unicode char into m_characters list.
 		\param s a QString with numerical representation of the character.
@@ -70,6 +73,8 @@ class SCRIBUS_API CharTableModel : public QAbstractTableModel
 		ScribusDoc *m_doc;
 		//! \brief Number of the columns for model
 		int m_cols;
+		//! \brief View's width to compute pixmap sizes.
+		int m_viewWidth;
 
 		QString m_fontInUse;
 		CharClassDef m_characters;

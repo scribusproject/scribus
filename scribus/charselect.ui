@@ -15,12 +15,6 @@
   <layout class="QGridLayout" >
    <item row="0" column="0" >
     <widget class="QGroupBox" name="m_quickPalette" >
-     <property name="maximumSize" >
-      <size>
-       <width>200</width>
-       <height>16777215</height>
-      </size>
-     </property>
      <property name="title" >
       <string>Quick Palette</string>
      </property>
@@ -103,6 +97,12 @@
    </item>
    <item row="0" column="1" >
     <widget class="QGroupBox" name="m_bigPalette" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title" >
       <string>Enhanced Palette</string>
      </property>
