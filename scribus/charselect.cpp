@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
 #include "chartableview.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
 
 #include "charselect.h"
 
@@ -551,11 +553,20 @@ void CharSelect::hideCheck_clicked()
 void CharSelect::show()
 {
 	ScrPaletteBase::show();
-	if (m_userTableModel->characters().count() > 0)
-	{
-		hideCheck->setChecked(true);
-		hideCheck_clicked();
-	}
+	PrefsContext* p = PrefsManager::instance()->prefsFile->getContext("charpalette");
+	bool state = p->getBool("hideCheck", true);
+	// always open big palette when there is no glyph in the custom one
+	if (state && m_userTableModel->characters().count() == 0)
+		state = false;
+	hideCheck->setChecked(state);
+	hideCheck_clicked();
+}
+
+void CharSelect::hide()
+{
+	ScrPaletteBase::hide();
+	PrefsContext* p = PrefsManager::instance()->prefsFile->getContext("charpalette");
+	p->set("hideCheck", hideCheck->isChecked());
 }
 
 void CharSelect::setEnabled(bool state, PageItem* item)

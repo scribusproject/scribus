@@ -25,6 +25,7 @@ class SCRIBUS_API CharSelect : public ScrPaletteBase, public Ui::CharSelect
 		~CharSelect();
 	
 		void show();
+		void hide();
 		void setDoc(ScribusDoc* doc);
 		void setEnabled(bool state, PageItem* item=0);
 	
