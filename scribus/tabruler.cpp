@@ -487,7 +487,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	TypeCombo->clear();
 	TypeCombo->addItem( tr( "Left" ) );
 	TypeCombo->addItem( tr( "Right" ) );
-	TypeCombo->addItem( tr( "Full Stop" ) );
+	TypeCombo->addItem( tr( "Period" ) );
 	TypeCombo->addItem( tr( "Comma" ) );
 	TypeCombo->addItem( tr( "Center" ) );
 	layout1->addWidget( TypeCombo );
