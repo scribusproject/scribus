@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QSpinBox>
 #include <QToolButton>
+#include <QGroupBox>
+#include <QRadioButton>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QCloseEvent>
@@ -58,7 +60,9 @@ public:
 	QToolButton* Shrink;
 	QToolButton* Enlarge;
 	QToolButton* Reduce;
-	QCheckBox* AbsMode;
+	QGroupBox* AbsMode;
+	QRadioButton* absToCanvas;
+	QRadioButton* absToPage;
 	QCheckBox* EditCont;
 	QLabel* TextLabel1;
 	ScrSpinBox* YSpin;
@@ -118,6 +122,7 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 	QVBoxLayout *vboxLayout;
+	QVBoxLayout *vboxLayout1;
 	QGridLayout *gridLayout;
 	QGridLayout *gridLayout1;
 	QGridLayout *gridLayout2;
