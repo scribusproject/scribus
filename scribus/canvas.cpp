@@ -912,11 +912,8 @@ void Canvas::drawControlsBezierCurve(QPainter* pp, PageItem* currItem)
 {
 	pp->setBrush(Qt::NoBrush);
 	pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-//	pp->resetMatrix();
-//	QPoint out = contentsToViewport(QPoint(0, 0));
-//	pp->translate(out.x(), out.y());
-//	pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
-	Transform(currItem, pp);
+	pp->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+	pp->rotate(currItem->rotation());
 	QPainterPath Bez;
 	if (currItem->PoLine.size() > 1)
 	{
