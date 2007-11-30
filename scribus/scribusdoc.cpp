@@ -3867,12 +3867,16 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 int ScribusDoc::OnPage(double x2, double  y2)
 {
 	int retw = -1;
+	double bleedRight = 0.0;
+	double bleedLeft = 0.0;
+	double bleedBottom = 0.0;
+	double bleedTop = 0.0;
 	if (masterPageMode())
 	{
-		int x = static_cast<int>(currentPage()->xOffset());
-		int y = static_cast<int>(currentPage()->yOffset());
-		int w = static_cast<int>(currentPage()->width());
-		int h = static_cast<int>(currentPage()->height());
+		int x = static_cast<int>(currentPage()->xOffset() - bleeds.Left);
+		int y = static_cast<int>(currentPage()->yOffset() - bleeds.Top);
+		int w = static_cast<int>(currentPage()->width() + bleeds.Left + bleeds.Right);
+		int h = static_cast<int>(currentPage()->height() + bleeds.Bottom + bleeds.Top);
 		if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			retw = currentPage()->pageNr();
 	}
@@ -3881,10 +3885,11 @@ int ScribusDoc::OnPage(double x2, double  y2)
 		uint docPageCount = Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			int x = static_cast<int>(Pages->at(a)->xOffset());
-			int y = static_cast<int>(Pages->at(a)->yOffset());
-			int w = static_cast<int>(Pages->at(a)->width());
-			int h = static_cast<int>(Pages->at(a)->height());
+			getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+			int x = static_cast<int>(Pages->at(a)->xOffset() - bleedLeft);
+			int y = static_cast<int>(Pages->at(a)->yOffset() - bleedTop);
+			int w = static_cast<int>(Pages->at(a)->width() + bleedLeft + bleedRight);
+			int h = static_cast<int>(Pages->at(a)->height() + bleedBottom + bleedTop);
 			if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			{
 				retw = static_cast<int>(a);
@@ -3907,10 +3912,10 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		int h = static_cast<int>(currentPage()->height());
 		QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
 		if (QRect(x, y, w, h).intersects(itemRect)) */
-		double x = currentPage()->xOffset();
-		double y = currentPage()->yOffset();
-		double w = currentPage()->width();
-		double h1 = currentPage()->height();
+		double x = currentPage()->xOffset() - bleeds.Left;
+		double y = currentPage()->yOffset() - bleeds.Top;
+		double w = currentPage()->width() + bleeds.Left + bleeds.Right;
+		double h1 = currentPage()->height() + bleeds.Bottom + bleeds.Top;
 		double x2 = currItem->BoundingX;
 		double y2 = currItem->BoundingY;
 		double w2 = currItem->BoundingW;
@@ -3920,13 +3925,18 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	}
 	else
 	{
+		double bleedRight = 0.0;
+		double bleedLeft = 0.0;
+		double bleedBottom = 0.0;
+		double bleedTop = 0.0;
 		uint docPageCount = Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			double x = Pages->at(a)->xOffset();
-			double y = Pages->at(a)->yOffset();
-			double w = Pages->at(a)->width();
-			double h1 = Pages->at(a)->height();
+			getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+			double x = Pages->at(a)->xOffset() - bleedLeft;
+			double y = Pages->at(a)->yOffset() - bleedTop;
+			double w = Pages->at(a)->width() + bleedLeft + bleedRight;
+			double h1 = Pages->at(a)->height() + bleedBottom + bleedTop;
 			double x2 = currItem->BoundingX;
 			double y2 = currItem->BoundingY;
 			double w2 = currItem->BoundingW;
