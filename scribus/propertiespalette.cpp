@@ -2823,6 +2823,8 @@ void PropertiesPalette::NewW()
 		}
 		else
 		{
+			bool oldS = CurItem->Sizing;
+			CurItem->Sizing = false;
 			CurItem->OldB2 = CurItem->width();
 			CurItem->OldH2 = CurItem->height();
 			if (CurItem->asLine())
@@ -2833,7 +2835,7 @@ void PropertiesPalette::NewW()
 					CurItem->setRotation(r, true);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
 			}
 			else
 			{
@@ -2881,12 +2883,13 @@ void PropertiesPalette::NewW()
 					if (keepFrameWHRatioButton->isChecked())
 					{
 						setBH(w, (w / oldW) * CurItem->height());
-						doc->SizeItem(w, (w / oldW) * CurItem->height(), CurItem->ItemNr, true);
+						doc->SizeItem(w, (w / oldW) * CurItem->height(), CurItem->ItemNr, true, true, false);
 					}
 					else
-						doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+						doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
 				}
 			}
+			CurItem->Sizing = oldS;
 		}
 		emit DocChanged();
 		doc->regionsChanged()->update(QRect());
@@ -2928,6 +2931,8 @@ void PropertiesPalette::NewH()
 		}
 		else
 		{
+			bool oldS = CurItem->Sizing;
+			CurItem->Sizing = false;
 			CurItem->OldB2 = CurItem->width();
 			CurItem->OldH2 = CurItem->height();
 			if (CurItem->asLine())
@@ -2938,7 +2943,7 @@ void PropertiesPalette::NewH()
 					CurItem->setRotation(r, true);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true, true, false);
 			}
 			else
 			{
@@ -2986,12 +2991,13 @@ void PropertiesPalette::NewH()
 					if (keepFrameWHRatioButton->isChecked())
 					{
 						setBH((h / oldH) * CurItem->width(), h);
-						doc->SizeItem((h / oldH) * CurItem->width(), h, CurItem->ItemNr, true);
+						doc->SizeItem((h / oldH) * CurItem->width(), h, CurItem->ItemNr, true, true, false);
 					}
 					else
-						doc->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
+						doc->SizeItem(CurItem->width(), h, CurItem->ItemNr, true, true, false);
 				}
 			}
+			CurItem->Sizing = oldS;
 		}
 		emit DocChanged();
 		doc->regionsChanged()->update(QRect());
@@ -3033,6 +3039,7 @@ void PropertiesPalette::NewRR()
 		CurItem->setCornerRadius(RoundRect->value() / m_unitRatio);
 		m_ScMW->view->SetFrameRounded();
 		emit DocChanged();
+		doc->regionsChanged()->update(QRect());
 	}
 }
 
