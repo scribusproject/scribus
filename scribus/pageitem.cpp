@@ -4442,6 +4442,8 @@ void PageItem::updateClip()
 {
 	if (m_Doc->appMode == modeDrawBezierLine)
 		return;
+	if (ContourLine.size() == 0)
+		ContourLine = PoLine.copy();
 	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
 	switch (itemType())
 	{
