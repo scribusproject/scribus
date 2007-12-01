@@ -56,6 +56,8 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	qDebug() << "NodeEdit::drawControls";
 //	void Canvas::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
 	double x, y;
+	if (m_doc->m_Selection->count() == 0)
+		return;
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	FPointArray cli;
 	
@@ -589,7 +591,8 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->AdjustItemSize(currItem);
 		if (!m_doc->nodeEdit.isContourLine)
 			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
-		currItem->update();
+//		currItem->update();
+		m_doc->regionsChanged()->update(QRectF());
 //		emit DocChanged();
 //		m_view->updateContents();
 		if (state)
@@ -1396,6 +1399,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		Myp = newY;
 	}
 	m_canvas->m_viewMode.operItemMoving = false;
-	m_view->updateContents();
+//	m_view->updateContents();
+	m_doc->regionsChanged()->update(QRectF());
 }
 

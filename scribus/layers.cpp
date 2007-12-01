@@ -149,6 +149,7 @@ void LayerPalette::ClearInhalt()
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(cellActivated(int, int)), this, SLOT(setActiveLayer(int)));
+	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	Table->clearContents();
 	Table->setRowCount(0);
 	newLayerButton->setEnabled(false);
@@ -163,6 +164,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	if (!m_Doc)
 	{
 		layers=0;
@@ -180,6 +182,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	newLayerButton->setEnabled(true);
 	duplicateLayerButton->setEnabled(true);
 
+	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -190,6 +193,7 @@ void LayerPalette::rebuildList()
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
+	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	QString tmp;
 	ScLayers::iterator it;
 	int layerCount = m_Doc->layerCount();
@@ -237,6 +241,7 @@ void LayerPalette::rebuildList()
 		Table->setCellWidget(row, 5, cp5);
 		Table->setItem(row, 6, new QTableWidgetItem(m_Doc->layerName(layerNumber)));
 	}
+	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
