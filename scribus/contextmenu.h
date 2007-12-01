@@ -36,7 +36,7 @@ public:
 protected:
 	void processSelection();
 	void createMenuItems_Selection();
-	void createMenuItems_NoSelection(double my, double my);
+	void createMenuItems_NoSelection(double mx, double my);
 	
 	Selection m_Sel;
 	QStringList m_actionList;
