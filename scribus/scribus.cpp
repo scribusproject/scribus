@@ -1313,7 +1313,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	{
 		//Show our context menu
 		QKeySequence currKeySeq = QKeySequence(kk | keyMod);
-		if (currKeySeq == scrActions["viewShowContextMenu"]->shortcut());
+		if (currKeySeq.matches(scrActions["viewShowContextMenu"]->shortcut()) == QKeySequence::ExactMatch)
 		{
 			ContextMenu* cmen=NULL;
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
