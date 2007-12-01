@@ -172,14 +172,19 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	ButtonGroup1Layout->addMultiCellWidget( scaleDistance, 6, 6, 2, 3 );
 	NodePaletteLayout->addWidget( ButtonGroup1 );
 
-	QSpacerItem* spacer = new QSpacerItem( 3, 3, QSizePolicy::Fixed, QSizePolicy::Fixed );
-	NodePaletteLayout->addItem(spacer);
+//	QSpacerItem* spacer = new QSpacerItem( 3, 3, QSizePolicy::Fixed, QSizePolicy::Fixed );
+//	NodePaletteLayout->addItem(spacer);
 	AbsMode = new QButtonGroup( "&Absolute Coordinates", this );
 	AbsMode->setCheckable(true);
 	AbsMode->setChecked(false);
-	vboxLayout1 = new QVBoxLayout(AbsMode);
+	AbsMode->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)5, 0, 0, AbsMode->sizePolicy().hasHeightForWidth() ) );
+	AbsMode->setColumnLayout(0, Qt::Vertical );
+	AbsMode->layout()->setSpacing( 2 );
+	AbsMode->layout()->setMargin( 5 );
+	vboxLayout1 = new QVBoxLayout(AbsMode->layout());
 	vboxLayout1->setSpacing(2);
 	vboxLayout1->setMargin(5);
+	vboxLayout1->setAlignment( Qt::AlignTop );
 	absToCanvas = new QRadioButton( tr("to Canvas"), AbsMode);
 	vboxLayout1->addWidget(absToCanvas);
 	absToPage = new QRadioButton( tr("to Page"), AbsMode);
