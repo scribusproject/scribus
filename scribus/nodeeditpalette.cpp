@@ -625,16 +625,13 @@ void NodePalette::ToggleAbsMode()
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	FPointArray Clip;
-	FPoint np;
+	FPoint np(0.0, 0.0);
 	if (EditCont->isChecked())
 		Clip = doc->m_Selection->itemAt(0)->ContourLine;
 	else
 		Clip = doc->m_Selection->itemAt(0)->PoLine;
 	if (doc->nodeEdit.SelNode.count() != 0)
-	{
-		np.setX(Clip.point(doc->nodeEdit.SelNode.at(0)).x() + np.x());
-		np.setY(Clip.point(doc->nodeEdit.SelNode.at(0)).y() + np.y());
-	}
+		np = Clip.point(doc->nodeEdit.SelNode.at(0));
 	if (AbsMode->isChecked())
 	{
 		XSpin->setMinimum(-3000);
