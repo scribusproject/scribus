@@ -13,6 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
+#include <QDebug>
 #include <QFrame>
 #include <QGridLayout>
 #include <QLabel>
@@ -21,19 +22,32 @@
 #include <QWidgetAction>
 
 #include "contextmenu.h"
+#include "prefsmanager.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
 
-ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, QWidget * parent) :
+ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, ScribusDoc* doc, QWidget * parent) :
 	QMenu(parent),
 	m_Sel(sel),
-	m_AP(actionsParent)
+	m_AP(actionsParent),
+	m_doc(doc)
 {
-	processSelection();
-	
-	createMenuItems();
+	if (m_Sel.count()>0)
+	{
+		processSelection();
+		createMenuItems_Selection();
+	}
+}
+
+ContextMenu::ContextMenu(ScribusMainWindow *actionsParent, ScribusDoc* doc, double mx, double my, QWidget * parent) :
+	QMenu(parent),
+	m_Sel(Selection(this)),
+	m_AP(actionsParent),
+	m_doc(doc)
+{
+	createMenuItems_NoSelection(mx, my);
 }
 
 void ContextMenu::processSelection()
@@ -53,19 +67,15 @@ void ContextMenu::processSelection()
 	}
 }
 
-void ContextMenu::createMenuItems()
+void ContextMenu::createMenuItems_Selection()
 {
 	//CB TODO clean
 	int selectedItemCount=m_Sel.count();
-	//Handle 0 items in selection
 	if (selectedItemCount==0)
 		return;
 	bool itemsAreSameType=m_Sel.itemsAreSameType();
 	//Find our doc from first item in selection if we have an item
 	PageItem *currItem = m_Sel.itemAt(0);
-	ScribusDoc* m_doc = 0;
-	if (currItem)
-		m_doc=currItem->doc();
 	assert(m_doc!=0 && currItem!=0);
 	
 	QMenu *menuConvertTo = new QMenu(this);
@@ -338,3 +348,50 @@ void ContextMenu::createMenuItems()
 	//-->
 }
 
+void ContextMenu::createMenuItems_NoSelection(double mx, double my)
+{
+	int selectedItemCount=m_Sel.count();
+	if (selectedItemCount!=0)
+		return;
+	
+	if ((m_AP->Buffer2.startsWith("<SCRIBUSELEM")) || (m_AP->Buffer2.contains("<SCRIBUSFRAGMENT")))
+		addAction( ScribusView::tr("&Paste") , m_doc->view(), SLOT(PasteToPage()));
+	if (m_AP->scrRecentPasteActions.count()>0)
+	{
+		QMenu* menuPasteRecent = new QMenu(this);
+		QAction *act = addMenu(menuPasteRecent);
+		act->setText( ScribusView::tr("Paste Recent"));
+		
+		QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
+		ScrAction *recentPasteAction;
+		foreach (recentPasteAction, m_AP->scrRecentPasteActions)
+			menuPasteRecent->addAction(recentPasteAction);
+		addSeparator();
+	}
+
+	addAction(m_AP->scrActions["editUndoAction"]);
+	addAction(m_AP->scrActions["editRedoAction"]);
+	addSeparator();
+	addAction(m_AP->scrActions["viewShowMargins"]);
+	addAction(m_AP->scrActions["viewShowFrames"]);
+	addAction(m_AP->scrActions["viewShowLayerMarkers"]);
+	addAction(m_AP->scrActions["viewShowImages"]);
+	addAction(m_AP->scrActions["viewShowGrid"]);
+	addAction(m_AP->scrActions["viewShowGuides"]);
+	addAction(m_AP->scrActions["viewShowBaseline"]);
+	addAction(m_AP->scrActions["viewShowTextChain"]);
+	addAction(m_AP->scrActions["viewRulerMode"]);
+	addSeparator();
+	addAction(m_AP->scrActions["viewSnapToGrid"]);
+	addAction(m_AP->scrActions["viewSnapToGuides"]);
+	
+	if (m_doc->OnPage(mx, my) != -1)
+	{
+		addSeparator();
+		addAction(m_AP->scrActions["pageApplyMasterPage"]);
+		addAction(m_AP->scrActions["pageManageGuides"]);
+		addAction(m_AP->scrActions["pageManageMargins"]);
+		addSeparator();
+		addAction(m_AP->scrActions["pageDelete"]);
+	}
+}

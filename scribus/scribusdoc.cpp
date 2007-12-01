@@ -3867,10 +3867,6 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 int ScribusDoc::OnPage(double x2, double  y2)
 {
 	int retw = -1;
-	double bleedRight = 0.0;
-	double bleedLeft = 0.0;
-	double bleedBottom = 0.0;
-	double bleedTop = 0.0;
 	if (masterPageMode())
 	{
 		int x = static_cast<int>(currentPage()->xOffset() - bleeds.Left);
@@ -3883,6 +3879,10 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	else
 	{
 		uint docPageCount = Pages->count();
+		double bleedRight = 0.0;
+		double bleedLeft = 0.0;
+		double bleedBottom = 0.0;
+		double bleedTop = 0.0;
 		for (uint a = 0; a < docPageCount; ++a)
 		{
 			getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);

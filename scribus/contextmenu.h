@@ -20,21 +20,26 @@
 
 class QWidget;
 
+
 #include "selection.h"
 
+class ScribusDoc;
 class ScribusMainWindow;
 
 class ContextMenu : public QMenu
 {
 	Q_OBJECT
 public:
-	ContextMenu(Selection &sel, ScribusMainWindow *actionsParent, QWidget* parent=0);
+	ContextMenu(Selection &sel, ScribusMainWindow *actionsParent, ScribusDoc* doc, QWidget* parent=0);
+	ContextMenu(ScribusMainWindow *actionsParent, ScribusDoc* doc, double mx, double my, QWidget* parent=0);
 	
 protected:
 	void processSelection();
-	void createMenuItems();
+	void createMenuItems_Selection();
+	void createMenuItems_NoSelection(double my, double my);
 	
 	Selection m_Sel;
 	QStringList m_actionList;
 	ScribusMainWindow *m_AP;
+	ScribusDoc *m_doc;
 };

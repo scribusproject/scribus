@@ -562,6 +562,8 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	name="viewSnapToGuides";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
+	name="viewShowContextMenu";
+	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 //	scrActions->insert("viewNewView", new ScrAction("", defKeys[name], mainWindow));
 
 	(*scrActions)["viewFitPreview"]->setToggleAction(true);
@@ -1371,6 +1373,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewRulerMode"]->setTexts( tr("Rulers relative to Page"));
 	(*scrActions)["viewSnapToGrid"]->setTexts( tr("Sn&ap to Grid"));
 	(*scrActions)["viewSnapToGuides"]->setTexts( tr("Sna&p to Guides"));
+	(*scrActions)["viewShowContextMenu"]->setTexts( tr("Show Context Menu"));
 //	(*scrActions)["viewNewView"]->setTexts( tr("New View"));
 
 	//Tool menu
@@ -1678,6 +1681,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("viewRulerMode", QKeySequence());
 	defKeys.insert("viewSnapToGrid", QKeySequence());
 	defKeys.insert("viewSnapToGuides", QKeySequence());
+	defKeys.insert("viewShowContextMenu", Qt::Key_Menu); //Context menu key on Windows. Do we have one to use on Linux/OSX? Super_L ?
 //	defKeys.insert("viewNewView", QKeySequence());
 
 	//Tool menu
@@ -1748,7 +1752,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpCheckUpdates", QKeySequence());
 
 	//GUI
-	defKeys.insert("specialToggleAllPalettes", Qt::Key_F10);
+	defKeys.insert("specialToggleAllPalettes", Qt::Key_F12);
 	defKeys.insert("specialToggleAllGuides", Qt::Key_F11);
 
 	//typography
@@ -1973,8 +1977,8 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "ExportAsImage";
 	itnmenua->second << "NewFromDocumentTemplate";
 	itnmenua->second << "SaveAsDocumentTemplate";
-
-	//Toolbars etc
+	
+	//Others
 	++itnmenua;
 	itnmenua->second << "toolsSelect";
 	itnmenua->second << "toolsRotate";
@@ -1994,6 +1998,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "toolsPDFAnnotLink";
 	itnmenua->second << "specialToggleAllPalettes";
 	itnmenua->second << "specialToggleAllGuides";
+	itnmenua->second << "viewShowContextMenu";
 
 	//Unicode
 	++itnmenua;

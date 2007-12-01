@@ -54,7 +54,7 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
-	void createContextMenu(PageItem *);
+	void createContextMenu(PageItem *currItem, double mx, double my);
 	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 
 	int Cp, oldCp;

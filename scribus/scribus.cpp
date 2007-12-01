@@ -91,6 +91,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "colorm.h"
 #include "commonstrings.h"
+#include "contextmenu.h"
 #include "cpalette.h"
 #include "customfdialog.h"
 #include "delpages.h"
@@ -1223,7 +1224,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	QWidget* w = NULL;
 	int kk = k->key();
 	QString uc = k->text();
-	QString cr, Tcha, Twort;
+// 	QString cr, Tcha, Twort;
 	if (HaveDoc)
 	{
 		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
@@ -1310,6 +1311,32 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	/**If we have a doc and we are not changing the page or zoom level in the status bar */
 	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 	{
+		//Show our context menu
+		QKeySequence currKeySeq = QKeySequence(kk | keyMod);
+		if (currKeySeq == scrActions["viewShowContextMenu"]->shortcut());
+		{
+			ContextMenu* cmen=NULL;
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			if (doc->m_Selection->count() == 0)
+			{
+				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
+				QPoint p(QCursor::pos() - mapToGlobal(QPoint(0,0)));
+				FPoint fp(p.x() / view->scale() + doc->minCanvasCoordinate.x(),
+				p.y() / view->scale() + doc->minCanvasCoordinate.y());	
+				cmen = new ContextMenu(this, doc, fp.x(), fp.y());
+			}
+			else
+				cmen = new ContextMenu(*(doc->m_Selection), this, doc);
+			if (cmen)
+			{
+				setUndoMode(true);
+				cmen->exec(QCursor::pos());
+				setUndoMode(false);
+			}
+			delete cmen;
+		}
+		
+		
 		/**
 		 * With no item selected we can:
 		 * - With space, get into panning mode (modePanning)

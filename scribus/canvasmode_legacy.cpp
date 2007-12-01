@@ -46,7 +46,6 @@
 #include "prefsmanager.h"
 #include "propertiespalette.h"
 #include "scraction.h"
-#include "scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -266,8 +265,8 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 
 void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 {
-	const double mouseX = m->globalX();
-	const double mouseY = m->globalY();
+// 	const double mouseX = m->globalX();
+// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	double newX, newY;
@@ -1190,8 +1189,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 
 void LegacyMode::mousePressEvent(QMouseEvent *m)
 {
-	const double mouseX = m->globalX();
-	const double mouseY = m->globalY();
+// 	const double mouseX = m->globalX();
+// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	bool inText;
@@ -2044,11 +2043,11 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 
 void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 {
-	const double mouseX = m->globalX();
-	const double mouseY = m->globalY();
+// 	const double mouseX = m->globalX();
+// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
-	QMenu* pmen3 = NULL;
+// 	QMenu* pmen3 = NULL;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -2270,6 +2269,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) 
 		&& (m_doc->appMode == modeNormal))
 	{
+#if 0
 		QMenu *pmen = new QMenu();
 		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
 		{
@@ -2372,12 +2372,15 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			pmen3=NULL;
 		}
 		return;
+#endif
+		createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
+		return;
 	}
 	if ((m_doc->appMode != modeMagnifier) && (m_doc->appMode != modeDrawBezierLine))
 	{
 		if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 		{
-			createContextMenu(currItem);
+			createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
 			return;
 		}
 		if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
@@ -3886,7 +3889,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
-	int a;
+// 	int a;
 	if (!m_doc->masterPageMode())
 	{
 		int pgNum = -1;
@@ -4510,167 +4513,18 @@ void LegacyMode::setResizeCursor(int how)
 	}
 }
 
-void LegacyMode::createContextMenu(PageItem* currItem)
+void LegacyMode::createContextMenu(PageItem* currItem, double mx, double my)
 {
-#if 0
-	QMenu *pmen = new QMenu();
-	QMenu *menuConvertTo = new QMenu();
-	QMenu *menuLayer = new QMenu();
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	QMenu *menuInfo = new QMenu();
-	QMenu *menuEditContents = new QMenu();
-	QMenu *menuLevel = new QMenu();
-	m_view->setObjectUndoMode();
-			
-	QFrame *infoGroup = new QFrame( m_view );
-	infoGroup->setFrameShape( QFrame::NoFrame );
-	QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
-	infoGroupLayout->setAlignment( Qt::AlignTop );
-	infoGroupLayout->setSpacing( 2 );
-	infoGroupLayout->setMargin( 0 );
-	if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) {
-		int row = infoGroupLayout->rowCount(); // <a.l.e>
-
-		QLabel *printCT = new QLabel(infoGroup);
-		QLabel *printT = new QLabel(infoGroup);
-		printCT->setText( ScribusView::tr("Print: "));
-		infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
-		if (currItem->printEnabled())
-			printT->setText( ScribusView::tr("Enabled"));
-		else
-			printT->setText( ScribusView::tr("Disabled"));
-		infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
-				
-		QWidgetAction* MenAct = new QWidgetAction(m_view);
-		MenAct->setDefaultWidget(infoGroup);
-		menuInfo->addAction(MenAct);
-
-// Qt4				menuInfo->insertItem(infoGroup);
-		currItem->createContextMenu(menuInfo, 5);
-		QAction *act = pmen->addMenu(menuInfo);
-		act->setText( ScribusView::tr("In&fo"));
-	} else	{
-		delete infoGroupLayout;
-		delete infoGroup;
-	}
-	pmen->addSeparator();
-	pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
-	pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
-	currItem->createContextMenu(pmen, 10);
-	if (m_doc->m_Selection->count() == 1)
-	{
-		pmen->addSeparator();
-		pmen->addAction(m_ScMW->scrActions["itemAttributes"]);
-	}
-	currItem->createContextMenu(pmen, 20);
-	pmen->addSeparator();
-	pmen->addAction(m_ScMW->scrActions["itemLock"]);
-	pmen->addAction(m_ScMW->scrActions["itemLockSize"]);
-	if (!currItem->isSingleSel)
-	{
-		pmen->addAction(m_ScMW->scrActions["itemSendToScrapbook"]);
-		pmen->addAction(m_ScMW->scrActions["itemSendToPattern"]);
-		if (m_doc->layerCount() > 1)
-		{
-			QMap<int,int> layerMap;
-			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
-				layerMap.insert((*it).Level, (*it).LNr);
-			int i=layerMap.count()-1;
-			while (i>=0)
-			{
-				if (m_doc->layerLocked(layerMap[i]))
-					m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
-				else
-					m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
-				menuLayer->addAction(m_ScMW->scrLayersActions[QString::number(layerMap[i--])]);
-			}
-			QAction *act = pmen->addMenu(menuLayer);
-			act->setText( ScribusView::tr("Send to La&yer"));
-		}
-	}
-	if (m_doc->m_Selection->count() > 1)
-	{
-		bool isGroup = true;
-		int firstElem = -1;
-		if (currItem->Groups.count() != 0)
-			firstElem = currItem->Groups.top();
-		for (int bx = 0; bx < m_doc->m_Selection->count(); ++bx)
-		{
-			if (m_doc->m_Selection->itemAt(bx)->Groups.count() != 0)
-			{
-				if (m_doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
-					isGroup = false;
-			}
-			else
-				isGroup = false;
-		}
-		if (!isGroup)
-			pmen->addAction(m_ScMW->scrActions["itemGroup"]);
-	}
-	if (currItem->Groups.count() != 0)
-		pmen->addAction(m_ScMW->scrActions["itemUngroup"]);
-	if (!currItem->locked())
-	{
-		if ((!currItem->isTableItem) && (!currItem->isSingleSel))
-		{
-			QAction *act = pmen->addMenu(menuLevel);
-			act->setText( ScribusView::tr("Le&vel"));
-			menuLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
-			menuLevel->addAction(m_ScMW->scrActions["itemRaise"]);
-			menuLevel->addAction(m_ScMW->scrActions["itemLower"]);
-			menuLevel->addAction(m_ScMW->scrActions["itemLowerToBottom"]);
-		}
-	}
-	if (m_doc->appMode != modeEdit && (m_doc->m_Selection->itemsAreSameType() || currItem->isSingleSel)) //Create convertTo Menu
-	{
-		bool insertConvertToMenu = currItem->createContextMenu(menuConvertTo, 30);
-		bool insertedMenusEnabled = false;
-		QList<QAction*> actList = menuConvertTo->actions();
-		for (int pc = 0; pc < actList.count(); pc++)
-		{
-			if (actList[pc]->isEnabled())
-				insertedMenusEnabled = true;
-		}
-		if ((insertConvertToMenu) && (insertedMenusEnabled))
-		{
-			QAction *act = pmen->addMenu(menuConvertTo);
-			act->setText( ScribusView::tr("Conve&rt to"));
-		}
-	}
-	pmen->addSeparator();
-	if (!currItem->locked() && !(currItem->isSingleSel))
-		pmen->addAction(m_ScMW->scrActions["editCut"]);
-	if (!(currItem->isSingleSel))
-		pmen->addAction(m_ScMW->scrActions["editCopy"]);
-	if ((m_doc->appMode == modeEdit) && (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
-		pmen->addAction(m_ScMW->scrActions["editPaste"]);
-	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
-		pmen->addAction( ScribusView::tr("&Delete"), m_doc, SLOT(itemSelection_DeleteItem()));
-	
-	if (currItem->createContextMenu(menuEditContents, 40))
-	{
-		QAction *act = pmen->addMenu(menuEditContents);
-		act->setText( ScribusView::tr("Contents"));
-	}
-	
-	pmen->addSeparator();
-	pmen->addAction(m_ScMW->scrActions["toolsProperties"]);
-
-	pmen->exec(QCursor::pos());
-	m_view->setGlobalUndoMode();
-	delete pmen;
-	delete menuConvertTo;
-	delete menuLayer;
-	delete menuInfo;
-	delete menuEditContents;
-	delete menuLevel;
-	currItem->createContextMenu(0, 0); //Free memory
-#else
+	ContextMenu* cmen=NULL;
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
-	ContextMenu* cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW);
-	cmen->exec(QCursor::pos());
+	if(currItem!=NULL)
+		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
+	else
+		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);
+	if (cmen)
+		cmen->exec(QCursor::pos());
 	m_view->setGlobalUndoMode();
 	delete cmen;
-#endif
+
 }
