@@ -647,9 +647,11 @@ void StyleManager::slotDoubleClick(QTreeWidgetItem *item, /*const QPoint &point,
 	}
 	else if (sitem && sitem->isRoot())
 	{
+		//slotOk will recreate all items so sitem is invalid after that call
+		QString itext = sitem->text(0);
 		if (!isEditMode_)
-			slotOk();
-		createNewStyle(sitem->text(0));
+			slotOk(); 
+		createNewStyle(itext);
 	}
 	rcStyle_ = QString::null;
 	rcType_ = QString::null;
