@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+#include <qradiobutton.h>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -54,7 +55,9 @@ public:
 	QToolButton* Shrink;
 	QToolButton* Enlarge;
 	QToolButton* Reduce;
-	QCheckBox* AbsMode;
+	QButtonGroup* AbsMode;
+	QRadioButton* absToCanvas;
+	QRadioButton* absToPage;
 	QCheckBox* EditCont;
 	QLabel* TextLabel1;
 	MSpinBox* YSpin;
@@ -112,6 +115,7 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 	QVBoxLayout* NodePaletteLayout;
+	QVBoxLayout* vboxLayout1;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* Layout2;
 	

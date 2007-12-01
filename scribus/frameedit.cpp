@@ -170,13 +170,21 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	scaleDistance->setValue(10);
 	scaleDistance->setSuffix("");
 	ButtonGroup1Layout->addMultiCellWidget( scaleDistance, 6, 6, 2, 3 );
-
-	/*    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	    ButtonGroup4Layout->addItem( spacer_2 );  */
 	NodePaletteLayout->addWidget( ButtonGroup1 );
 
-	AbsMode = new QCheckBox( "&Absolute Coordinates", this, "Textflow" );
+	QSpacerItem* spacer = new QSpacerItem( 3, 3, QSizePolicy::Fixed, QSizePolicy::Fixed );
+	NodePaletteLayout->addItem(spacer);
+	AbsMode = new QButtonGroup( "&Absolute Coordinates", this );
+	AbsMode->setCheckable(true);
 	AbsMode->setChecked(false);
+	vboxLayout1 = new QVBoxLayout(AbsMode);
+	vboxLayout1->setSpacing(2);
+	vboxLayout1->setMargin(5);
+	absToCanvas = new QRadioButton( tr("to Canvas"), AbsMode);
+	vboxLayout1->addWidget(absToCanvas);
+	absToPage = new QRadioButton( tr("to Page"), AbsMode);
+	vboxLayout1->addWidget(absToPage);
+	absToCanvas->setChecked(true);
 	NodePaletteLayout->addWidget( AbsMode );
 
 	Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
@@ -237,7 +245,9 @@ void NodePalette::connectSignals()
 	connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	connect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	connect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));	
-	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	connect(AbsMode, SIGNAL(toggled(bool)), this, SLOT(ToggleAbsMode()));
+	connect(absToCanvas, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	connect(absToPage, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 }
@@ -281,7 +291,7 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	view = vi;
 	unitChange();
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
-	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	disconnect(AbsMode, SIGNAL(toggled(bool)), this, SLOT(ToggleAbsMode()));
 	if (doc!=0)
 	{
 		YSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
@@ -463,7 +473,13 @@ void NodePalette::MovePoint()
 		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
 		FPoint zp(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
 		if (AbsMode->isChecked())
+		{
+			if (absToCanvas->isChecked())
+				zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+			else
+				zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage->yOffset());
 			np -= zp;
+		}
 		view->MoveClipPoint(doc->m_Selection->itemAt(0), np);
 		view->AdjustItemSize(doc->m_Selection->itemAt(0));
 		emit DocChanged();
@@ -490,8 +506,12 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
-		//zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
-		zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+	{
+		if (absToCanvas->isChecked())
+			zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+		else
+			zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage->yOffset());
+	}
 	XSpin->setValue((x + zp.x())*doc->unitRatio());
 	YSpin->setValue((y + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -501,19 +521,34 @@ void NodePalette::SetXY(double x, double y)
 void NodePalette::ToggleAbsMode()
 {
 	if (doc==0)
-		return;	
-	//FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
-	FPoint zp(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+		return;
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	double unitRatio=doc->unitRatio();
-	FPoint np(XSpin->value()/unitRatio, YSpin->value()/unitRatio);
-	if (AbsMode->isChecked())
-		np += zp;
+	FPoint zp(0.0, 0.0);
+	FPointArray Clip;
+	FPoint np(0.0, 0.0);
+	if (EditCont->isChecked())
+		Clip = doc->m_Selection->itemAt(0)->ContourLine;
 	else
-		np -= zp;
-	XSpin->setValue(np.x()*unitRatio);
-	YSpin->setValue(np.y()*unitRatio);
+		Clip = doc->m_Selection->itemAt(0)->PoLine;
+	if (view->ClRe != -1)
+		np = Clip.point(view->ClRe);
+	if (AbsMode->isChecked())
+	{
+		XSpin->setMinValue(-3000);
+		YSpin->setMinValue(-3000);
+		if (absToCanvas->isChecked())
+			zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+		else
+			zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage->yOffset());
+	}
+	else
+	{
+		XSpin->setMinValue(0);
+		YSpin->setMinValue(0);
+	}
+	XSpin->setValue((np.x() + zp.x())*doc->unitRatio());
+	YSpin->setValue((np.y() + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }
@@ -709,7 +744,9 @@ void NodePalette::languageChange()
 	setCaption( tr( "Nodes" ) );
 	scalePercentage->setSuffix( tr(" %"));
 	
-	AbsMode->setText( tr("&Absolute Coordinates"));
+	AbsMode->setTitle( tr("&Absolute Coordinates"));
+	absToCanvas->setText( tr("to Canvas"));
+	absToPage->setText( tr("to Page"));
 	TextLabel1->setText( tr("&X-Pos:"));
 	TextLabel2->setText( tr("&Y-Pos:"));
 	EditCont->setText( tr("Edit &Contour Line"));
