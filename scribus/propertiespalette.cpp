@@ -1787,14 +1787,14 @@ void PropertiesPalette::NewSel(int nr)
 			i=doc->m_Selection->itemAt(0);
 			HaveItem=true;
 			EditShape->setEnabled(!i->locked());
-			ShapeGroup->setEnabled(nr!=5 && nr!=7 && nr!=8 && !i->locked());
+			SCustom->setEnabled(nr!=5 && nr!=7 && nr!=8 && !i->locked());
 		}
 		else
 		{
 			DoGroup->setEnabled(false);
 			DoUnGroup->setEnabled(false);
 			EditShape->setEnabled(false);
-			ShapeGroup->setEnabled(false);
+			SCustom->setEnabled(false);
 		}
 		NameEdit->setEnabled(true);
 // 		ShapeGroup->setEnabled(false);
@@ -4841,7 +4841,7 @@ void PropertiesPalette::setLocked(bool isLocked)
 	Locked->setChecked(isLocked);
 	if ((HaveDoc) && (HaveItem))
 	{
-		ShapeGroup->setEnabled(!CurItem->asLine() && !CurItem->asPolyLine() && !CurItem->asPathText() && !isLocked);
+		SCustom->setEnabled(!CurItem->asLine() && !CurItem->asPolyLine() && !CurItem->asPathText() && !isLocked);
 		if (((CurItem->asTextFrame()) || (CurItem->asImageFrame()) || (CurItem->asPolygon())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
 			RoundRect->setEnabled(!isLocked);
 		else
