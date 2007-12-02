@@ -1459,7 +1459,7 @@ void ActionManager::languageChange()
 
 	//Help Menu
 	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Scribus"));
-	(*scrActions)["helpAboutPlugins"]->setTexts( tr("&About Plug-ins"));
+	(*scrActions)["helpAboutPlugins"]->setTexts( tr("&About Plugins"));
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));

@@ -119,7 +119,7 @@ void PluginManager::savePreferences()
 
 QString PluginManager::getPluginName(QString fileName)
 {
-	// Must return plug-in name. Note that this may be platform dependent;
+	// Must return plugin name. Note that this may be platform dependent;
 	// it's likely to need some adjustment for platform naming schemes.
 	// It currently handles:
 	//    (lib)?pluginname(\.pluginext)?
@@ -233,7 +233,7 @@ void PluginManager::initPlugs()
 	}
 }
 
-// After a plug-in has been initialized, this method calls its setup
+// After a plugin has been initialized, this method calls its setup
 // routines and connects it to the application.
 void PluginManager::enablePlugin(PluginData & pda)
 {

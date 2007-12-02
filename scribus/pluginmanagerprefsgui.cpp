@@ -35,7 +35,7 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 		pluginTable->setItem(i, 0, i0);
 
 		PluginManagerTableItem *i1 = new PluginManagerTableItem("");
-		// Resident plug-ins don't have predefined actions
+		// Resident plugins don't have predefined actions
 		if (plugin->inherits("ScActionPlugin"))
 		{
 			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
