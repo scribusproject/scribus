@@ -89,6 +89,8 @@ bool FontPreviewPlugin::run(ScribusDoc* doc, QString target)
 
 bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
 {
+	if (doc==NULL)
+		return false;
 	// I don't know how many fonts user has...
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	FontPreview *dlg = new FontPreview(target, parent, doc);

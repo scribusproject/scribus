@@ -5,19 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-    begin                : Jun 2007
-    copyright            : (C) 2007 by Mateusz Haligowski
-    email                : halish@kofeina.org
- ***************************************************************************/
+	begin                : Jun 2007
+	copyright            : (C) 2007 by Mateusz Haligowski
+	email                : halish@kofeina.org
+***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 #include "impositionplugin.h"
 //#include "impositionplugin.moc"
 #include "imposition.h"
@@ -26,26 +26,28 @@ for which a new license (GPL+exception) is in place.
 
 ImpositionPlugin::ImpositionPlugin() : ScActionPlugin()
 {
-  languageChange();
+	languageChange();
 }
 
 ImpositionPlugin::~ImpositionPlugin() {};
 
 void ImpositionPlugin::languageChange()
 {
-  m_actionInfo.name = "Imposition";
-  m_actionInfo.text = tr("&Imposition...");
-  m_actionInfo.menu = "Extras";
-  m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.name = "Imposition";
+	m_actionInfo.text = tr("&Imposition...");
+	m_actionInfo.menu = "Extras";
+	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.needsNumObjects = -1;
 }
 
 bool ImpositionPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
 {
-  Imposition *imp = new Imposition(parent,doc);
-  imp->exec();
-
-  return true;
+	if (doc==NULL)
+		return false;
+	Imposition *imp = new Imposition(parent,doc);
+	imp->exec();
+	
+	return true;
 }
 
 bool ImpositionPlugin::run(ScribusDoc* doc, QString target)
@@ -56,7 +58,7 @@ bool ImpositionPlugin::run(ScribusDoc* doc, QString target)
 
 const QString ImpositionPlugin::fullTrName() const
 {
-  return QObject::tr("Imposition");
+	return QObject::tr("Imposition");
 }
 
 const ScActionPlugin::AboutData* ImpositionPlugin::getAboutData() const

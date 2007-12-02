@@ -2325,12 +2325,15 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 	// This is only check for availability of any ImageFrame
 	// in the doc.
 	bool enablePicManager = false;
-	for (int i = 0; i < doc->Items->count(); ++i)
+	if (HaveDoc)
 	{
-		if (doc->Items->at(i)->itemType() == PageItem::ImageFrame)
+		for (int i = 0; i < doc->Items->count(); ++i)
 		{
-			enablePicManager = true;
-			break;
+			if (doc->Items->at(i)->itemType() == PageItem::ImageFrame)
+			{
+				enablePicManager = true;
+				break;
+			}
 		}
 	}
 	scrActions["extrasManagePictures"]->setEnabled(enablePicManager);

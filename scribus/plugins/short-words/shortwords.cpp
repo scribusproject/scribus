@@ -112,6 +112,8 @@ void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
 
 bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 {
+	if (doc==NULL)
+		return false;
 	Q_ASSERT(target.isEmpty());
 
 	uint originalPage = doc->currentPage()->pageNr();
