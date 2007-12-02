@@ -153,6 +153,8 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTra
 const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTranslated, bool useInstalled)
 {
 	QMap<QString, langPair>::Iterator it;
+	if (lang == "English" || lang == QObject::tr( "English"))
+		useInstalled = false;
 	if (useInstalled)
 	{
 		for (it=langList.begin();it!=langList.end();++it)
