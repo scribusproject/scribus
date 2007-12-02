@@ -195,7 +195,6 @@ public:
 // 	void RotateItem(double win, PageItem *currItem);
 // 	void AdjustItemSize(PageItem *currItem);
 	bool slotSetCurs(int x, int y);
-	void slotDoCurs(bool draw);
 	void HandleCurs(PageItem *currItem, QRect mpo);
 //	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
@@ -298,7 +297,6 @@ public slots: // Public slots
 //	void PasteToPage();
 //	void PasteRecentToPage(int id);
 	void TextToPath();
-	void blinkCursor();
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 	
 private: // Private attributes
@@ -366,7 +364,6 @@ protected: // Protected methods
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;
-	bool m_cursorVisible;
 	ScribusMainWindow* m_ScMW;
 
 signals:

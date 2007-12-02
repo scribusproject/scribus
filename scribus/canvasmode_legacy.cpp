@@ -322,7 +322,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 					if (!inText)
 					{
 						m_view->Deselect(true);
-						m_view->slotDoCurs(true);
+//						m_view->slotDoCurs(true);
 						m_view->requestMode(modeNormal);
 						return;
 					}
@@ -345,7 +345,7 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 					oldCp = a;
 					cItem->CPos=b;
 					cItem->ExpandSel(1, oldCp);
-					m_view->slotDoCurs(true);
+//					m_view->slotDoCurs(true);
 				}
 			}
 	}
@@ -1641,7 +1641,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				int oldP=0;
 				if (GetItem(&currItem))
 				{
-					m_view->slotDoCurs(false);
+//					m_view->slotDoCurs(false);
 					if (!currItem->locked())
 					{
 						frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo, m);
@@ -1654,7 +1654,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						else if (frameResizeHandle > 0)
 						{
 							m_canvas->m_viewMode.operItemResizeInEditMode = true;
-							m_view->slotDoCurs(true);
+//							m_view->slotDoCurs(true);
 							return;
 						}
 					}
@@ -1680,7 +1680,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					}
 					//>>
 					m_view->Deselect(true);
-					m_view->slotDoCurs(true);
+//					m_view->slotDoCurs(true);
 					m_view->requestMode(modeNormal);
 					return;
 				}
@@ -1697,7 +1697,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				else //>>CB
 					oldCp = currItem->CPos;
 				currItem = m_doc->m_Selection->itemAt(0);
-				m_view->slotDoCurs(true);
+//				m_view->slotDoCurs(true);
 				if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
 				{
 					m_view->Deselect(true);
@@ -4039,8 +4039,28 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
-				qDebug() << "select item: found BENEATH" << currItem;
-				m_doc->m_Selection->removeItem(currItem);
+				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
+				if (currItem->Groups.count() > 0)
+				{
+					for (int ga=0; ga<m_doc->Items->count(); ++ga)
+					{
+						PageItem* item = m_doc->Items->at(ga);
+						if (item->Groups.count() != 0)
+						{
+							if (item->Groups.top() == currItem->Groups.top())
+							{
+								if (m_doc->m_Selection->findItem(item) >= 0)
+								{
+									m_doc->m_Selection->removeItem(item);
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					m_doc->m_Selection->removeItem(currItem);
+				}
 				break;
 			}
 			else

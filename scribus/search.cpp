@@ -330,12 +330,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 
 void SearchReplace::slotSearch()
 {
-	if (SMode)
-		Doc->view()->slotDoCurs(false);
+//	if (SMode)
+//		Doc->view()->slotDoCurs(false);
 	slotDoSearch();
 	if (SMode)
 	{
-		Doc->view()->slotDoCurs(true);
+//		Doc->view()->slotDoCurs(true);
 		Item->update();
 	}
 }
@@ -651,12 +651,12 @@ void SearchReplace::slotDoSearch()
 
 void SearchReplace::slotReplace()
 {
-	if (SMode)
-		Doc->view()->slotDoCurs(false);
+//	if (SMode)
+//		Doc->view()->slotDoCurs(false);
 	slotDoReplace();
 	if (SMode)
 	{
-		Doc->view()->slotDoCurs(true);
+//		Doc->view()->slotDoCurs(true);
 		Item->update();
 	}
 }
@@ -827,7 +827,7 @@ void SearchReplace::slotReplaceAll()
 {
 	if (SMode)
 	{
-		Doc->view()->slotDoCurs(false);
+//		Doc->view()->slotDoCurs(false);
 		Doc->DoDrawing = false;
 	}
 	do
@@ -839,7 +839,7 @@ void SearchReplace::slotReplaceAll()
 	if (SMode)
 	{
 		Doc->DoDrawing = true;
-		Doc->view()->slotDoCurs(true);
+//		Doc->view()->slotDoCurs(true);
 		Item->update();
 	}
 }

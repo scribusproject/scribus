@@ -6219,7 +6219,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			view->pageSelector->focusPolicy(Qt::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
 			charPalette->setEnabled(false, 0);
-			view->slotDoCurs(false);
+//			view->slotDoCurs(false);
 			if (currItem != 0)
 			{
 				currItem->update();
@@ -6256,7 +6256,7 @@ void ScribusMainWindow::setAppMode(int mode)
 					scrActions["editPaste"]->setEnabled(true);
 //				}
 			}
-			view->slotDoCurs(true);
+//			view->slotDoCurs(true);
 			scrMenuMgr->setMenuEnabled("Item", false);
 			scrMenuMgr->setMenuEnabled("Style", false);
 /*			doc->CurTimer = new QTimer(view);

@@ -2576,7 +2576,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			break;
 	}
 	ScribusView* view = m_Doc->view();	
-	view->slotDoCurs(false);
+//	view->slotDoCurs(false);
 	switch (kk)
 	{
 	case Qt::Key_PageDown:
