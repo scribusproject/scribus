@@ -156,11 +156,14 @@ void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 	p->translate(textframe->xPos(), textframe->yPos());
 	p->rotate(textframe->rotation());
 	p->setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	if (m_blinkTime.elapsed() > 500)
+	if (m_blinkTime.elapsed() > 400)
 	{
+//		qDebug() << "blink";
 		m_cursorVisible = !m_cursorVisible;
 		m_blinkTime.restart();
-	}		
+	}
+//	else
+//		qDebug() << "no blink" << m_blinkTime.elapsed() ;
 	if (m_cursorVisible)
 	{
 		p->drawLine(x, qMin(qMax(y,0),static_cast<int>(textframe->height())), 
@@ -207,7 +210,11 @@ void LegacyMode::activate(bool fromGesture)
 	FirstPoly = true;
 	setModeCursor();
 	if (m_doc->appMode == modeEdit)
+	{
 		m_blinker->start(500);
+		m_blinkTime.start();
+		m_cursorVisible = true;
+	}
 }
 
 void LegacyMode::deactivate(bool forGesture)
