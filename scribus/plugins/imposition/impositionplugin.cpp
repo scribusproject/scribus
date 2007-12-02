@@ -36,7 +36,7 @@ void ImpositionPlugin::languageChange()
 	m_actionInfo.name = "Imposition";
 	m_actionInfo.text = tr("&Imposition...");
 	m_actionInfo.menu = "Extras";
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 

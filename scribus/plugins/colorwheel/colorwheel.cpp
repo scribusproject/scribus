@@ -47,7 +47,7 @@ void ColorWheelPlugin::languageChange()
 	m_actionInfo.text = tr("&Color Wheel...");
 	// Menu
 	m_actionInfo.menu = "Extras";
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 

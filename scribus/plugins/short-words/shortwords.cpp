@@ -75,7 +75,7 @@ void ShortWordsPlugin::languageChange()
 	m_actionInfo.text = tr("Short &Words...", "short words plugin");
 	// Menu
 	m_actionInfo.menu = "Extras";
-	m_actionInfo.enabledOnStartup = true;
+	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.needsNumObjects = -1;
 }
 
