@@ -394,7 +394,9 @@ void Canvas::adjustBuffer()
 							   qRound((m_oldMinCanvasCoordinate.y() - minCanvasCoordinate.y())*m_viewMode.scale));
 		m_oldMinCanvasCoordinate = minCanvasCoordinate;
 	}
+#if DRAW_DEBUG_LINES
 	qDebug() << "adjust buffer" << m_bufferRect << "for viewport" << viewport;
+#endif
 	if (!m_bufferRect.isValid())
 	{
 		m_bufferRect = viewport;
@@ -562,7 +564,9 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	{
 		case RENDER_NORMAL:
 		{
+#if DRAW_DEBUG_LINES
 			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << m_viewMode.forceRedraw;
+#endif
 			if (m_viewMode.forceRedraw)
 			{
 				fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());

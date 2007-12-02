@@ -95,11 +95,13 @@ void ScrPaletteBase::setPaletteShown(bool visible)
 {
 	storeVisibility(visible);
 //	setShown(visible);
-	if (visible)
-		show();
-	else
+	if (!visible)
 		hide();
-	activateWindow();
+	else if (!isVisible())
+	{
+		show();
+		activateWindow();
+	}
 }
 
 void ScrPaletteBase::setFontSize()

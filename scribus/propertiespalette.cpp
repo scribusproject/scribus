@@ -126,6 +126,7 @@ QString LineFormatItemDelegate::text(const QVariant& data) const
 
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 {
+	setObjectName("namewidget");
 	QRegExp rx( "\\w+" );
 	QValidator* validator = new QRegExpValidator( rx, this );
 	setValidator( validator );

@@ -18,10 +18,15 @@
 #ifndef CANVAS_MODE_LEGACY_H
 #define CANVAS_MODE_LEGACY_H
 
+#include <QObject>
+#include <QTime>
+
 #include "canvasmode.h"
 #include "fpointarray.h"
 
 class PageItem;
+class PageItem_TextFrame;
+class QTimer;
 class ResizeGesture;
 class ScribusMainWindow;
 class ScribusView;
@@ -29,8 +34,10 @@ class ScribusView;
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
 
-class LegacyMode : public CanvasMode
+class LegacyMode : public QObject, public CanvasMode
 {
+	Q_OBJECT
+	
 public:
 	LegacyMode(ScribusView* view);
 
@@ -49,7 +56,8 @@ protected:
 	void setResizeCursor(int);
 	
 private:
-	inline bool GetItem(PageItem** pi); 
+	inline bool GetItem(PageItem** pi);
+	void drawTextCursor(QPainter* p, PageItem_TextFrame* textframe);
 	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
@@ -69,6 +77,12 @@ private:
 	FPointArray RecordP;
 	ScribusMainWindow* m_ScMW;
 	ResizeGesture* resizeGesture;
+	bool m_cursorVisible;
+	QTime m_blinkTime;
+	QTimer* m_blinker;
+
+private slots:
+	void blinkTextCursor();
 };
 
 

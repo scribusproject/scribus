@@ -90,6 +90,7 @@ void ActionManager::createActions()
 	initUnicodeActions(scrActions, mainWindow, unicodeCharActionNames);
 	enableUnicodeActions(scrActions, false);
 	initSpecialActions();
+	
 }
 
 void ActionManager::initFileMenuActions()
@@ -132,12 +133,14 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defKeys[name], mainWindow));
 	name="filePreferences";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
+	(*scrActions)[name]->setMenuRole(QAction::PreferencesRole);
 	name="filePrint";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-print.png"), loadIcon("22/document-print.png"), "", defKeys[name], mainWindow));
 	name="PrintPreview";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-print-preview.png"), loadIcon("22/document-print-preview.png"), "", defKeys[name], mainWindow));
 	name="fileQuit";
 	scrActions->insert(name, new ScrAction(loadIcon("exit.png"), QPixmap(), "", defKeys[name], mainWindow));
+	(*scrActions)[name]->setMenuRole(QAction::QuitRole);
 
 	//Connect our signals and slots
 	//File Menu
@@ -811,10 +814,13 @@ void ActionManager::initHelpMenuActions()
 	QString name;
 	name="helpAboutScribus";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
+	(*scrActions)[name]->setMenuRole(QAction::ApplicationSpecificRole);
 	name="helpAboutPlugins";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
+	(*scrActions)[name]->setMenuRole(QAction::ApplicationSpecificRole);
 	name="helpAboutQt";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
+	(*scrActions)[name]->setMenuRole(QAction::AboutQtRole);
 	name="helpTooltips";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	name="helpManual";
@@ -829,6 +835,7 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, ""));
 	name="helpCheckUpdates";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
+	(*scrActions)[name]->setMenuRole(QAction::ApplicationSpecificRole);
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setChecked(true);
@@ -1114,18 +1121,36 @@ void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, Scribu
 void ActionManager::saveActionShortcutsPreEditMode()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	{
+		(*scrActions)[*it]->setShortcutContext(Qt::WidgetShortcut);  // in theory, this should be enough, but...
 		(*scrActions)[*it]->saveShortcut();
+#ifdef Q_WS_MAC
+		if ((*scrActions)[*it]->menu() != NULL)
+			(*scrActions)[*it]->setEnabled(false);
+#endif		
+	}
 	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
+	{
+		(*scrActions)[*it]->setShortcutContext(Qt::WidgetShortcut);  // in theory, this should be enough, but...
 		(*scrActions)[*it]->saveShortcut();
-
+	}
 }
 
 void ActionManager::restoreActionShortcutsPostEditMode()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
+	{
+		(*scrActions)[*it]->setShortcutContext(Qt::WindowShortcut);  // see above
 		(*scrActions)[*it]->restoreShortcut();
+#ifdef Q_WS_MAC
+		(*scrActions)[*it]->setEnabled(true);
+#endif		
+	}
 	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
+	{
+		(*scrActions)[*it]->setShortcutContext(Qt::WindowShortcut);  // see above
 		(*scrActions)[*it]->restoreShortcut();
+	}
 }
 
 void ActionManager::enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode, const QString& fontName)

@@ -228,6 +228,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	Inhalt->setChecked(true);
 	InnenButton();
 	GradientMode = false;
+	
+	setFocusPolicy(Qt::NoFocus);
 
 	languageChange();
 	setActGradient(0);
@@ -658,7 +660,7 @@ void Cpalette::ChooseGrad(int number)
 		updateBoxS(Color);
 		break;
 	}
-	setFocus();
+//	setFocus();
 	repaint();
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 }
@@ -712,7 +714,7 @@ void Cpalette::slotTrans(int val)
 			emit gradientChanged();
 		}
 	}
-	setFocus();
+//	setFocus();
 }
 
 void Cpalette::setActGradient(int typ)

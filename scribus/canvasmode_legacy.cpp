@@ -26,6 +26,7 @@
 #include <QPainterPath>
 #include <QPoint>
 #include <QRect>
+#include <QTimer>
 #include <QWidgetAction>
 
 
@@ -59,7 +60,7 @@
 
 
 
-LegacyMode::LegacyMode(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+LegacyMode::LegacyMode(ScribusView* view) : QObject(), CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	GxM = GyM = -1;
 	Mxp = Myp = -1;
@@ -72,6 +73,8 @@ LegacyMode::LegacyMode(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScM
 	shiftSelItems = false;
 	FirstPoly = true;
 	resizeGesture = NULL;
+	m_blinker = new QTimer(view);
+	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
 }
 
 inline bool LegacyMode::GetItem(PageItem** pi)
@@ -81,14 +84,89 @@ inline bool LegacyMode::GetItem(PageItem** pi)
 }
 
 
+void LegacyMode::blinkTextCursor()
+{
+	PageItem* currItem;
+	if (m_doc->appMode == modeEdit && GetItem(&currItem))
+	{
+		QRectF brect = currItem->getBoundingRect();
+//		qDebug() << "update cursor" << brect;
+		m_canvas->update(QRect(m_canvas->canvasToLocal(brect.topLeft()), QSize(brect.width(),brect.height())*m_canvas->scale()));
+	}
+}
 
 
-// the following code was moved from scribusview.cpp:
 
 void LegacyMode::drawControls(QPainter* p)
 {
 //	qDebug() << "LegacyMode::drawControls";
 	drawSelection(p);
+	
+	PageItem* currItem;
+	if (m_doc->appMode == modeEdit && GetItem(&currItem))
+	{
+		PageItem_TextFrame* textframe = currItem->asTextFrame();
+		if (textframe)
+			drawTextCursor(p, textframe);
+	}
+}
+
+
+void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
+{
+	int x, y, y1;
+	if (textframe->CPos > textframe->itemText.length())
+	{
+		textframe->CPos = textframe->itemText.length();
+	}
+	if (textframe->lastInFrame() >= signed(textframe->itemText.nrOfItems()) 
+		|| textframe->itemText.length() == 0)
+	{
+		x = 0;
+		y = 0;
+		y1 = static_cast<int>(textframe->itemText.defaultStyle().charStyle().fontSize() / 10);
+	}
+	else if ( textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
+			  || (textframe->CPos >= textframe->itemText.length() && textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP) )
+	{
+		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)));
+		x = static_cast<int>(bbox.x() + textframe->itemText.item(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
+		y = static_cast<int>(bbox.y());
+		if (bbox.height() <= 2)
+			y1 = static_cast<int>(bbox.y() + textframe->itemText.defaultStyle().charStyle().fontSize() / 30);
+		else
+			y1 = static_cast<int>(bbox.y() + bbox.height());
+	}
+	else
+	{
+		FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->CPos, textframe->itemText.length())));
+		x = static_cast<int>(bbox.x());
+		y = static_cast<int>(bbox.y());
+		if (bbox.height() <= 2) 
+			y1 = static_cast<int>(bbox.y() + textframe->itemText.charStyle(textframe->CPos).fontSize() / 30);
+		else
+			y1 = static_cast<int>(bbox.y() + bbox.height());
+	}
+
+	// avoid displaying the cursor on the frameborder
+	if (x < 1)
+		x = 1;
+				
+	p->save();
+	p->translate(textframe->xPos(), textframe->yPos());
+	p->rotate(textframe->rotation());
+	p->setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	if (m_blinkTime.elapsed() > 500)
+	{
+		m_cursorVisible = !m_cursorVisible;
+		m_blinkTime.restart();
+	}		
+	if (m_cursorVisible)
+	{
+		p->drawLine(x, qMin(qMax(y,0),static_cast<int>(textframe->height())), 
+				   x, qMin(qMax(y1,0),static_cast<int>(textframe->height())));
+	}
+	p->restore();
 }
 
 void LegacyMode::enterEvent(QEvent *)
@@ -107,9 +185,9 @@ void LegacyMode::leaveEvent(QEvent *e)
 }
 
 
-void LegacyMode::activate(bool flag)
+void LegacyMode::activate(bool fromGesture)
 {
-	qDebug() << "LegacyMode::activate" << flag;
+	qDebug() << "LegacyMode::activate" << fromGesture;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -128,12 +206,16 @@ void LegacyMode::activate(bool flag)
 	shiftSelItems = false;
 	FirstPoly = true;
 	setModeCursor();
+	if (m_doc->appMode == modeEdit)
+		m_blinker->start(500);
 }
 
-void LegacyMode::deactivate(bool flag)
+void LegacyMode::deactivate(bool forGesture)
 {
-	qDebug() << "LegacyMode::deactivate" << flag;
+	qDebug() << "LegacyMode::deactivate" << forGesture;
 	m_view->redrawMarker->hide();
+	if (!forGesture)
+		m_blinker->stop();
 }
 
 void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)

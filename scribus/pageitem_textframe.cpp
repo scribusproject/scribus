@@ -2359,11 +2359,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
 					}
 					// FIXME temporary solution to have at least something like a cursor
-					if ((a == CPos-1) && (m_Doc->appMode == modeEdit))
+		/*			if ((a == CPos-1) && (m_Doc->appMode == modeEdit))
 					{
 						p->setPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 						p->drawLine(FPoint(xcoZli+hl->glyph.xadvance+1, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), FPoint(xcoZli+hl->glyph.xadvance+1, ls.y + hl->glyph.yoffset));
 					}
+		*/
 					actStroke = charStyle.strokeColor();
 					actStrokeShade = charStyle.strokeShade();
 					if (actStroke != CommonStrings::None)

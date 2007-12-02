@@ -80,6 +80,7 @@ SET(SCRIBUS_MOC_CLASSES
   bookmwin.h
   buttonicon.h
   canvas.h
+  canvasmode_legacy.h
   charselect.h
   chartablemodel.h
   chartableview.h

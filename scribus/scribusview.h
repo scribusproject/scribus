@@ -336,6 +336,9 @@ public:
 	virtual void contentsWheelEvent ( QWheelEvent *ev );
 	virtual void changeEvent(QEvent *e);
 
+	void keyPressEvent(QKeyEvent *k);
+	void keyReleaseEvent(QKeyEvent *k);
+
 	inline void registerMousePress(QPoint p);
 	inline QPoint mousePressLocation();
 	inline bool moveTimerElapsed();

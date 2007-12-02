@@ -242,6 +242,19 @@ ScribusMainWindow::ScribusMainWindow()
 #endif
 }
 
+/*
+static QCoreApplication::EventFilter origEventFilter = 0;
+
+bool reportFocusChanges(void *message, long *result)
+{
+	unsigned* data = static_cast<unsigned*>(message);
+	if (QApplication::focusWidget())
+		qDebug() << QApplication::applicationFilePath() << reinterpret_cast<void*>(QApplication::focusWidget()) << typeid(*QApplication::focusWidget()).name() << QApplication::focusWidget()->objectName() << message << data[0] << data[1] << data[2] << data[3] << data[4] << data[5] << data[6] << data[7];
+	else
+		qDebug() << QApplication::applicationFilePath() << "no focus" << message << data[0] << data[1] << data[2] << data[3] << data[4] << data[5] << data[6] << data[7];
+	return origEventFilter && origEventFilter(message, result);
+}
+*/
 
 /*
  * retval 0 - ok, 1 - no fonts, ...
@@ -256,6 +269,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		qApp->setStyleSheet(QString(stylesheet));
 	}
 
+//	origEventFilter = qApp->setEventFilter(reportFocusChanges);
+	
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
@@ -2392,7 +2407,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		//	ActWin->setMasterPagesPaletteShown(true);
 		view->requestMode(doc->appMode);
 	}
-	w->setFocus();
+	view->setFocus();
 	wsp->setScrollBarsEnabled(!(w->isMaximized()));
 	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);

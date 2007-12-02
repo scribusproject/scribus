@@ -186,6 +186,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	//already done by QScrollArea: widget()->installEventFilter(this);
 	installEventFilter(this); // FIXME:av
 //	viewport()->setBackgroundMode(Qt::PaletteBackground);
+	setFocusPolicy(Qt::ClickFocus);
 	QFont fo = QFont(font());
 	int posi = fo.pointSize()-2;
 	fo.setPointSize(posi);
@@ -528,6 +529,10 @@ void ScribusView::requestMode(int appMode)
 	}
 	else
 		m_ScMW->setAppMode(appMode);
+//	if (appMode == modeEdit)
+//	{
+//		m_ScMW->activateWindow();
+//	}
 	if (updateNecessary)
 		updateCanvas();
 }
@@ -3386,7 +3391,7 @@ void ScribusView::setZoom()
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
 	slotDoZoom();
-	m_ScMW->setFocus();
+	setFocus();
 }
 
 void ScribusView::slotZoom100()
@@ -3550,7 +3555,7 @@ void ScribusView::GotoPa(int Seite)
 {
 	Deselect();
 	GotoPage(Seite-1);
-	m_ScMW->setFocus();
+	setFocus();
 }
 
 void ScribusView::GotoPage(int Seite)
@@ -4996,6 +5001,16 @@ void ScribusView::TextToPath()
 		undoManager->commit();
 	}
 #endif
+}
+
+void ScribusView::keyPressEvent(QKeyEvent *k)
+{
+	m_ScMW->keyPressEvent(k);
+}
+
+void ScribusView::keyReleaseEvent(QKeyEvent *k)
+{
+	m_ScMW->keyReleaseEvent(k);
 }
 
 void ScribusView::contentsWheelEvent(QWheelEvent *w)
