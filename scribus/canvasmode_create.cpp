@@ -71,6 +71,7 @@ CreateMode::CreateMode(ScribusView* view) : CanvasMode(view)
 	inItemCreation = false;
 	shiftSelItems = false;
 	FirstPoly = true;
+	resizeGesture = NULL;
 }
 
 
@@ -959,7 +960,7 @@ void CreateMode::SetupDraw(int nr)
 	m_doc->m_Selection->addItem(currItem);
 	m_doc->m_Selection->connectItemToGUI();
 	currItem->update();
-	if (resizeGesture)
+	if (!resizeGesture)
 		resizeGesture = new ResizeGesture(this);
 	m_view->startGesture(resizeGesture);
 //	emit DocChanged();
