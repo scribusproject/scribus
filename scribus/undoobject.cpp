@@ -39,6 +39,14 @@ UndoObject::UndoObject()
 	m_upixmap = NULL;
 }
 
+UndoObject::UndoObject(const UndoObject& other)
+		  : m_objectPtr(this)
+{
+	m_id      = other.m_id;
+	m_uname   = other.m_uname;
+	m_upixmap = other.m_upixmap;
+}
+
 UndoObject::UndoObject(const QString &objectName, QPixmap *objectIcon) 
 		  : m_objectPtr(this)
 {

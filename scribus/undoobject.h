@@ -62,6 +62,9 @@ public:
 	/** @brief Creates a new anonymous UndoObject instance  */
 	UndoObject();
 
+	/** @brief Creates a copy of an UndoObject instance  */
+	UndoObject(const UndoObject& other);
+
 	/** 
 	 * @brief Creates a new UndoObject instance with the name <code>objectName</code>
 	 * @param objectName Name of the UndoObject
