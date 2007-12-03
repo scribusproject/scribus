@@ -454,12 +454,14 @@ void ScribusView::requestMode(int appMode)
 	switch(appMode) // filter submodes
 	{
 		case submodePaintingDone:   // return to normal mode
-			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
+//			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
+			appMode = modeNormal;
 			m_previousMode = -1;
 			updateNecessary = true;
 			break;			
 		case submodeEndNodeEdit:     // return from node/shape editing
-			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
+//			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
+			appMode = modeNormal;
 			m_previousMode = -1;
 			updateNecessary = true;
 			break;
