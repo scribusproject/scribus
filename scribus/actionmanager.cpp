@@ -814,7 +814,7 @@ void ActionManager::initHelpMenuActions()
 	QString name;
 	name="helpAboutScribus";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
-	(*scrActions)[name]->setMenuRole(QAction::ApplicationSpecificRole);
+	(*scrActions)[name]->setMenuRole(QAction::AboutRole);
 	name="helpAboutPlugins";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	(*scrActions)[name]->setMenuRole(QAction::ApplicationSpecificRole);
@@ -835,7 +835,6 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, ""));
 	name="helpCheckUpdates";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
-	(*scrActions)[name]->setMenuRole(QAction::ApplicationSpecificRole);
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setChecked(true);
