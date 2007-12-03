@@ -308,11 +308,12 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 				else if (m_doc->appMode != modeEdit)
 				{
 					m_view->requestMode(modeEdit);
+					m_view->slotSetCurs(m->x(), m->y());
 					//CB ignore the double click and go with a single one
 					//if we werent in mode edit before.
 					//unsure if this is correct, but its ok given we had no
 					//double click select until now.
-					mousePressEvent(m);
+//					mousePressEvent(m);
 				}
 				//otherwise, select between the whitespace
 				else
