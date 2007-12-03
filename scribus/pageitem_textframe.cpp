@@ -2513,7 +2513,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.colBordersShown) && (!view->m_canvas->isPreviewMode()))
 			drawColumnBorders(p);
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && (!view->m_canvas->isPreviewMode()))
 		{
 			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
