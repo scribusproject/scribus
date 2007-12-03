@@ -31,7 +31,9 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "scribusapi.h"
-#include "undostate.h"
+#include "scguardedptr.h"
+
+class UndoState;
 
 /**
  * @brief Superclass for all objects that are wanted to have undoable actions.
@@ -67,7 +69,7 @@ public:
 	UndoObject(const QString &objectName, QPixmap *objectIcon = 0);
 
 	/** @brief Destroys the object. */
-	virtual ~UndoObject() {};
+	virtual ~UndoObject();
 
 	/**
 	 * @brief Returns the name of the UndoObject.
@@ -100,6 +102,11 @@ public:
 	ulong getUId() const;
 
 	/**
+	 * @brief Returns a guarded pointer
+	 */
+	const ScGuardedPtr<UndoObject>& undoObjectPtr();
+
+	/**
 	 * @brief Method used when an undo/redo is requested.
 	 * 
 	 * UndoObject must know how to handle the UndoState object given as a 
@@ -111,17 +118,17 @@ public:
 	virtual void restore(UndoState* state, bool isUndo) = 0;
 private:
 	/** @brief id number to be used with the next UndoObject */
-	static ulong nextId_;
+	static ulong m_nextId;
 	
 	/** @brief unique id number */
-	ulong id_;
+	ulong m_id;
 	
 	/**
 	 * @brief Name of the UndoObject
 	 *
 	 * This name will be used in UndoGui implementations
 	 */
-	QString uname_;
+	QString m_uname;
 	
 	/**
 	 * @brief Icon presenting the object.
@@ -129,8 +136,16 @@ private:
 	 * When used together with an UndoAction that has an image is this image
 	 * drawn first then the action image is drawn on top of this.
 	 */
-	QPixmap *upixmap_;
+	QPixmap *m_upixmap;
+
+	/**
+	 * @brief Guarded pointer
+	 *
+	 * Allows to warn undo system of an object deletion
+	 */
+	ScGuardedObject<UndoObject> m_objectPtr;
 };
+typedef ScGuardedPtr<UndoObject> UndoObjectPtr;
 
 class SCRIBUS_API DummyUndoObject : public UndoObject
 {

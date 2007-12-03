@@ -25,47 +25,60 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "undoobject.h"
+#include "undostate.h"
 
-ulong UndoObject::nextId_ = 1;
+ulong UndoObject::m_nextId = 1;
 
 
-UndoObject::UndoObject()
+UndoObject::UndoObject() 
+		  : m_objectPtr(this)
 {
-	id_ = nextId_;
-	++nextId_;
-	uname_ = "";
-	upixmap_ = NULL;
+	m_id = m_nextId;
+	++m_nextId;
+	m_uname = "";
+	m_upixmap = NULL;
 }
 
-UndoObject::UndoObject(const QString &objectName, QPixmap *objectIcon)
+UndoObject::UndoObject(const QString &objectName, QPixmap *objectIcon) 
+		  : m_objectPtr(this)
 {
-	id_ = nextId_;
-	++nextId_;
-	uname_ = objectName;
-	upixmap_ = objectIcon;
+	m_id = m_nextId;
+	++m_nextId;
+	m_uname = objectName;
+	m_upixmap = objectIcon;
+}
+
+UndoObject::~UndoObject()
+{
+	m_objectPtr.nullify();
 }
 
 ulong UndoObject::getUId() const
 {
-	return id_;
+	return m_id;
 }
 
 QString UndoObject::getUName()
 {
-	return uname_;	
+	return m_uname;	
 }
 
 void UndoObject::setUName(QString newUName)
 {
-	uname_ = newUName;
+	m_uname = newUName;
 }
 
 QPixmap* UndoObject::getUPixmap()
 {
-	return upixmap_;
+	return m_upixmap;
 }
 
 void UndoObject::setUPixmap(QPixmap *newUPixmap)
 {
-	upixmap_ = newUPixmap;
+	m_upixmap = newUPixmap;
+}
+
+const ScGuardedPtr<UndoObject>& UndoObject::undoObjectPtr()
+{
+	return m_objectPtr;
 }

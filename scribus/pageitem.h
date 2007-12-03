@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScPainter;
 class ScribusDoc;
+class SimpleState;
 class UndoManager;
 class UndoState;
 class ResourceCollection;

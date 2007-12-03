@@ -80,7 +80,7 @@ void UndoState::redo()
 
 void UndoState::setUndoObject(UndoObject *object)
 {
-	undoObject_ = object;
+	undoObject_ = object->undoObjectPtr();
 }
 
 UndoObject* UndoState::undoObject()

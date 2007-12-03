@@ -31,10 +31,10 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 
 #include "scribusapi.h"
+#include "undoobject.h"
 
 class QString;
 class PageItem;
-class UndoObject;
 
 /**
  * @brief UndoState describes an undoable state (action).
@@ -121,7 +121,7 @@ private:
 	/** @brief Icon related to the state (operation) */
 	QPixmap *actionPixmap_;
 	/** @brief UndoObject this state belongs to */
-	UndoObject *undoObject_;
+	UndoObjectPtr undoObject_;
 };
 
 /*** SimpleState **************************************************************************/

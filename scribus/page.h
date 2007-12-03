@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribusapi.h"
-#include "undoobject.h"
+#include "undostate.h"
 #include "scribusstructs.h"
 #include "guidemanagercore.h"
 

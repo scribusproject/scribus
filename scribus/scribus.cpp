@@ -5084,6 +5084,11 @@ void ScribusMainWindow::slotEditPaste()
 				FPoint maxSize = doc->maxCanvasCoordinate;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
+				// HACK #6541 : undo does not handle text modification => do not record embedded item creation
+				// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
+				bool undoEnabled = undoManager->undoEnabled();
+				undoManager->setUndoEnabled(false);
+
 				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 					slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				else
@@ -5141,6 +5146,7 @@ void ScribusMainWindow::slotEditPaste()
 					outlinePalette->BuildTree();
 				currItem->itemText.insertObject(currItem->CPos, currItem3);
 				currItem->CPos += 1;
+				undoManager->setUndoEnabled(undoEnabled);
 			}
 			else
 			{
