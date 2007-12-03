@@ -816,7 +816,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 //				pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
 				pp->save();
 //				Transform(currItem, pp);
-				pp->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+				pp->translate(currItem->xPos(), currItem->yPos());
 				pp->rotate(currItem->rotation());							
 				pp->setBrush(Qt::NoBrush);
 				pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
@@ -866,8 +866,8 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 //			pp->translate(out.x(), out.y());
 //			pp->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
 //			pp->scale(m_viewMode.scale, m_viewMode.scale);
-			pp->translate(qRound(gx), qRound(gy));
-			pp->drawRect(QRect(0, 0, qRound(gw), qRound(gh)));
+			pp->translate(gx, gy);
+			pp->drawRect(QRectF(0.0, 0.0, gw, gh));
 		}
 	}
 }
@@ -1846,14 +1846,14 @@ void Canvas::getGroupRectScreen(double *x, double *y, double *w, double *h)
 
 void Canvas::Transform(PageItem *currItem, QPainter *p)
 {
-	p->translate(static_cast<int>(currItem->xPos()*m_viewMode.scale), static_cast<int>(currItem->yPos()*m_viewMode.scale));
+	p->translate(currItem->xPos()*m_viewMode.scale, currItem->yPos()*m_viewMode.scale);
 	p->scale(m_viewMode.scale, m_viewMode.scale);
 	p->rotate(currItem->rotation());
 }
 
 void Canvas::Transform(PageItem *currItem, QMatrix& m)
 {
-	m.translate(static_cast<int>(currItem->xPos()*m_viewMode.scale), static_cast<int>(currItem->yPos()*m_viewMode.scale));
+	m.translate(currItem->xPos()*m_viewMode.scale, currItem->yPos()*m_viewMode.scale);
 	m.scale(m_viewMode.scale, m_viewMode.scale);
 	m.rotate(currItem->rotation());
 }

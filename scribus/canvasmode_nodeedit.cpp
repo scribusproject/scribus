@@ -63,9 +63,8 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	
 	p->save();
 	p->scale(m_canvas->scale(), m_canvas->scale());
-	p->translate(-m_doc->minCanvasCoordinate.x(),
-				   -m_doc->minCanvasCoordinate.y());
-	p->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	p->translate(currItem->xPos(), currItem->yPos());
 	p->rotate(currItem->rotation());			
 	p->setPen(QPen(Qt::blue, 1 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
