@@ -1998,9 +1998,9 @@ void ActionManager::createDefaultNonMenuActions()
 
 	QVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions.begin();
 	//Plugins
-	itnmenua->second << "ExportAsImage";
-	itnmenua->second << "NewFromDocumentTemplate";
-	itnmenua->second << "SaveAsDocumentTemplate";
+//	itnmenua->second << "ExportAsImage";
+//	itnmenua->second << "NewFromDocumentTemplate";
+//	itnmenua->second << "SaveAsDocumentTemplate";
 	
 	//Others
 	++itnmenua;
