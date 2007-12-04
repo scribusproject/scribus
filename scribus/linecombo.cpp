@@ -37,7 +37,7 @@ LineCombo::LineCombo(QWidget* pa) : QComboBox(pa)
 {
 	setEditable(false);
 	setIconSize(QSize(73, 7));
-	for (int a = 0; a < 5; a++)
+	for (int a = 0; a < 37; a++)
 	{
 		addItem(QIcon(createIcon(a)), "");
 	}

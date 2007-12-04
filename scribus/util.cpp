@@ -904,7 +904,7 @@ QString getDashString(int dashtype, double linewidth)
 			tmp += Da+" "+Sp+" "+Dt+" "+Sp+" "+Dt+" "+Sp;
 			break;
 // Additional line styles taken from Inkscape
-/*		case 6:
+		case 6:
 			tmp += QString("%1 %2").arg(qMax(1.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
 			break;
 		case 7:
@@ -999,7 +999,7 @@ QString getDashString(int dashtype, double linewidth)
 			break;
 		case 37:
 			tmp += QString("%1 %2").arg(qMax(0.1 * linewidth, 0.01)).arg(qMax(0.1 * linewidth, 0.01));
-			break; */
+			break;
 		default:
 			break;
 	}
