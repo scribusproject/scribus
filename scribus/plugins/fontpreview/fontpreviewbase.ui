@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Fonts Preview</string>
+        <string>Font Preview</string>
     </property>
     <grid>
         <property name="name">
@@ -337,9 +337,6 @@
         <slot>sizeSpin_valueChanged(int)</slot>
     </connection>
 </connections>
-<includes>
-    <include location="local" impldecl="in implementation">fontpreviewbase.ui.h</include>
-</includes>
 <slots>
     <slot>displayButton_clicked()</slot>
     <slot>searchEdit_textChanged( const QString &amp; )</slot>
