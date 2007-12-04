@@ -516,6 +516,8 @@ void PrefsManager::initArrowStyles()
 	FPointArray points;
 	QMatrix arrowScaling;
 	arrowScaling.scale(0.5, 0.5);
+	QMatrix arrowRotate;
+	arrowRotate.rotate(180);
 	arrow.name = "Arrow1L";
 	arrow.userArrow = false;
 	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
@@ -579,6 +581,103 @@ void PrefsManager::initArrowStyles()
 	arrow.points = points.copy();
 	appPrefs.arrowStyles.append(arrow);
 	arrow.name = "TriangleOutS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "DiamondL";
+	points.resize(0);
+	points.parseSVG("M 0, -7.0710768 L -7.0710894, 0 L 0, 7.0710589 L 7.0710462, 0 L 0,-7.0710768 z");
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "DiamondM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "DiamondS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	points.resize(0);
+	arrow.name = "DotL";
+	points.parseSVG("M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z");
+	points.translate(7.4, 1.0);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "DotM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "DotS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	points.resize(0);
+	arrow.name = "SemiCircleInL";
+	points.parseSVG("M -0.37450702,-0.045692580 C -0.37450702,2.7143074 1.8654930,4.9543074 4.6254930,4.9543074 L 4.6254930,-5.0456926 C 1.8654930,-5.0456926 -0.37450702,-2.8056926 -0.37450702,-0.045692580 z");
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "SemiCircleInM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "SemiCircleInS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	points.resize(0);
+	arrow.name = "SemiCircleOutL";
+	points.parseSVG("M -2.5,-0.80913858 C -2.5,1.9508614 -4.7400000,4.1908614 -7.5,4.1908614 L -7.5,-5.8091386 C -4.7400000,-5.8091386 -2.5,-3.5691386 -2.5,-0.80913858 z");
+	points.translate(7.125493, 0.763446);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "SemiCircleOutM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "SemiCircleOutS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	points.resize(0);
+	arrow.name = "Arrow2L";
+	points.parseSVG("M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z");
+	points.translate(1, 0);
+	points.map(arrowRotate);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "Arrow2M";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "Arrow2S";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	points.resize(0);
+	arrow.name = "ScissorsL";
+	points.parseSVG("M 9.0898857,-3.6061018 C 8.1198849,-4.7769976 6.3697607,-4.7358294 5.0623558,-4.2327734 L -3.1500488,-1.1548705 C -5.5383421,-2.4615840 -7.8983361,-2.0874077 -7.8983361,-2.7236578 C -7.8983361,-3.2209742 -7.4416699,-3.1119800 -7.5100293,-4.4068519 C -7.5756648,-5.6501286 -8.8736064,-6.5699315 -10.100428,-6.4884954 C -11.327699,-6.4958500 -12.599867,-5.5553341 -12.610769,-4.2584343 C -12.702194,-2.9520479 -11.603560,-1.7387447 -10.304005,-1.6532027 C -8.7816644,-1.4265411 -6.0857470,-2.3487593 -4.8210600,-0.082342643 C -5.7633447,1.6559151 -7.4350844,1.6607341 -8.9465707,1.5737277 C -10.201445,1.5014928 -11.708664,1.8611256 -12.307219,3.0945882 C -12.885586,4.2766744 -12.318421,5.9591904 -10.990470,6.3210002 C -9.6502788,6.8128279 -7.8098011,6.1912892 -7.4910978,4.6502760 C -7.2454393,3.4624530 -8.0864637,2.9043186 -7.7636052,2.4731223 C -7.5199917,2.1477623 -5.9728246,2.3362771 -3.2164999,1.0982979 L 5.6763468,4.2330688 C 6.8000164,4.5467672 8.1730685,4.5362646 9.1684433,3.4313614 L -0.051640930,-0.053722219 L 9.0898857,-3.6061018 z M -9.2179159,-5.5066058 C -7.9233569,-4.7838060 -8.0290767,-2.8230356 -9.3743431,-2.4433169 C -10.590861,-2.0196559 -12.145370,-3.2022863 -11.757521,-4.5207817 C -11.530373,-5.6026336 -10.104134,-6.0014137 -9.2179159,-5.5066058 z M -9.1616516,2.5107591 C -7.8108215,3.0096239 -8.0402087,5.2951947 -9.4138723,5.6023681 C -10.324932,5.9187072 -11.627422,5.4635705 -11.719569,4.3902287 C -11.897178,3.0851737 -10.363484,1.9060805 -9.1616516,2.5107591 z");
+	points.map(arrowRotate);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "ScissorsM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "ScissorsS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	points.resize(0);
+	arrow.name = "ClubL";
+	points.parseSVG("M -1.5971367,-7.0977635 C -3.4863874,-7.0977635 -5.0235187,-5.5606321 -5.0235187,-3.6713813 C -5.0235187,-3.0147015 -4.7851656,-2.4444556 -4.4641095,-1.9232271 C -4.5028609,-1.8911157 -4.5437814,-1.8647646 -4.5806531,-1.8299921 C -5.2030765,-2.6849849 -6.1700514,-3.2751330 -7.3077730,-3.2751330 C -9.1970245,-3.2751331 -10.734155,-1.7380016 -10.734155,0.15124914 C -10.734155,2.0404999 -9.1970245,3.5776313 -7.3077730,3.5776313 C -6.3143268,3.5776313 -5.4391540,3.1355702 -4.8137404,2.4588126 C -4.9384274,2.8137041 -5.0235187,3.1803000 -5.0235187,3.5776313 C -5.0235187,5.4668819 -3.4863874,7.0040135 -1.5971367,7.0040135 C 0.29211394,7.0040135 1.8292454,5.4668819 1.8292454,3.5776313 C 1.8292454,2.7842354 1.5136868,2.0838028 1.0600576,1.5031550 C 2.4152718,1.7663868 3.7718375,2.2973711 4.7661444,3.8340272 C 4.0279463,3.0958289 3.5540908,1.7534117 3.5540908,-0.058529361 L 2.9247554,-0.10514681 L 3.5074733,-0.12845553 C 3.5074733,-1.9403966 3.9580199,-3.2828138 4.6962183,-4.0210121 C 3.7371277,-2.5387813 2.4390549,-1.9946496 1.1299838,-1.7134486 C 1.5341802,-2.2753578 1.8292454,-2.9268556 1.8292454,-3.6713813 C 1.8292454,-5.5606319 0.29211394,-7.0977635 -1.5971367,-7.0977635 z");
+	points.map(arrowRotate);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "ClubM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	appPrefs.arrowStyles.append(arrow);
+	arrow.name = "ClubS";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
 	appPrefs.arrowStyles.append(arrow);
@@ -1898,12 +1997,12 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (!importingFrom12 && dc.tagName()=="SHORTCUT")
 		{
-			if (appPrefs.KeyActions.contains(dc.attribute("ACTION")))
-			{
+//			if (appPrefs.KeyActions.contains(dc.attribute("ACTION")))
+//			{
 				appPrefs.KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
 				QKeySequence newKeySequence = QKeySequence(dc.attribute("SEQUENCE"));
 				appPrefs.KeyActions[dc.attribute("ACTION")].keySequence = newKeySequence;
-			}
+//			}
 		}
 		if (dc.tagName()=="RECENT")
 			appPrefs.RecentDocs.append(dc.attribute("NAME"));
