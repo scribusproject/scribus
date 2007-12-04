@@ -44,6 +44,12 @@ public:
 	QToolButton* toolButton16;
 	QToolButton* toolButton17;
 	QToolButton* toolButton18;
+	QToolButton* toolButton19;
+	QToolButton* toolButton20;
+	QToolButton* toolButton21;
+	QToolButton* toolButton22;
+	QToolButton* toolButton23;
+	QToolButton* toolButton24;
 	
 public slots:
 	void selForm(int a);
