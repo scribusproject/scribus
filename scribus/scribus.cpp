@@ -305,14 +305,18 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	actionManager = new ActionManager(this);
 	actionManager->init(this);
-	if (primaryMainWindow)
-		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
-	prefsManager->applyLoadedShortCuts();
-	initKeyboardShortcuts();
+//	if (primaryMainWindow)
+//		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
+//	prefsManager->applyLoadedShortCuts();
+//	initKeyboardShortcuts();
 	initMenuBar();
 	initToolBars();
  	ScCore->pluginManager->setupPluginActions(this);
  	ScCore->pluginManager->languageChange();
+	if (primaryMainWindow)
+		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
+	prefsManager->applyLoadedShortCuts();
+	initKeyboardShortcuts();
 	
 	resize(610, 600);
 	wsp = new QWorkspace( this );

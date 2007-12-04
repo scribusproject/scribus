@@ -186,8 +186,8 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		prefsManager->ReadPrefs();
 	else
 		prefsManager->ReadPrefs(prefsUserFile);
-	setSplashStatus( tr("Applying User Shortcuts") );
-	prefsManager->applyLoadedShortCuts();
+//	setSplashStatus( tr("Applying User Shortcuts") );
+//	prefsManager->applyLoadedShortCuts();
 		
 	m_HaveGS = testGSAvailability();
 	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");

@@ -45,10 +45,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "actionmanager.h"
 #include "commonstrings.h"
+#include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "scpaths.h"
+#include "scplugin.h"
 #include "scraction.h"
 #include "util.h"
 #include "util_icon.h"
@@ -62,6 +64,27 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	ActionManager::createDefaultNonMenuActions();
 	defMenus=ActionManager::defaultMenus();
 	defNonMenuActions=ActionManager::defaultNonMenuActions();
+
+	QVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions->begin();
+	PluginManager& pluginManager(PluginManager::instance());
+	QStringList pluginNames(pluginManager.pluginNames(false));
+	ScPlugin* plugin;
+	ScActionPlugin* ixplug;
+	QString pName;
+	for (int i = 0; i < pluginNames.count(); ++i)
+	{
+		pName = pluginNames.at(i);
+		plugin = pluginManager.getPlugin(pName, true);
+		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		if (plugin->inherits("ScActionPlugin"))
+		{
+			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+			Q_ASSERT(ixplug);
+			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
+			itnmenua->second << ai.name;
+		}
+	}
+
 	Q_CHECK_PTR(defMenus);
 	lviToActionMap.clear();
 	lviToMenuMap.clear();
