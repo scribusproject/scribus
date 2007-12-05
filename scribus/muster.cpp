@@ -129,6 +129,7 @@ void MasterPagesPalette::duplicateMasterPage()
 	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc, tr("Copy of %1").arg(sMuster));
 	if (dia->exec())
 	{
+		ScMW->NoFrameEdit();
 		MasterPageName = dia->Answer->text();
 		while (currentDoc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
 		{
@@ -268,6 +269,7 @@ void MasterPagesPalette::newMasterPage()
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc, tr("New Master Page %1").arg(nr));
 	if (dia->exec())
 	{
+		ScMW->NoFrameEdit();
 		MasterPageName = dia->Answer->text();
 		while (currentDoc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
 		{
@@ -314,6 +316,7 @@ void MasterPagesPalette::appendPage()
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
 	{
+		ScMW->NoFrameEdit();
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		int nr = currentDoc->Pages->count();
 		//currentDoc->pageCount = 0;
@@ -368,6 +371,7 @@ void MasterPagesPalette::selectMasterPage(QListBoxItem *item)
 	}
 	else
 		deleteButton->setEnabled(true);
+	ScMW->NoFrameEdit();
 	currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 }
 
@@ -382,6 +386,7 @@ void MasterPagesPalette::selectMasterPage(QString name)
 	}
 	else
 		deleteButton->setEnabled(true);
+	ScMW->NoFrameEdit();
 	currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 }
 
