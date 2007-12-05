@@ -3635,7 +3635,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			{
 				int chs = hl->csize;
 				double wtr = Cwidth(&doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
-				tmp += "1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
+				tmp += "1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
 				chx = "-";
 				cc = chx[0].unicode();
 				idx = 0;
