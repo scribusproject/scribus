@@ -3,7 +3,7 @@
 
 EXTRA_DIST = boilerplate.py Sample1.py Calender.py trait_de_coupe.py pochette_cd.py 3columnUSLTR.py 3columnA4.py \
 legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py wordcount.py quote.py golden-mean.py ReadMe \
-sample_db_usage.py CMakeLists.txt
+sample_db_usage.py CMakeLists.txt extract_text.py
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/samples/
@@ -22,6 +22,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/plus_10_pourcent_group.py $(prefix)/share/scribus/samples/plus_10_pourcent_group.py
 	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/share/scribus/samples/ReadMe
 	$(INSTALL_DATA) $(srcdir)/sample_db_usage.py $(prefix)/share/scribus/samples/sample_db_usage.py
+	$(INSTALL_DATA) $(srcdir)/extract_text.py $(prefix)/share/scribus/samples/extract_text.py
 
 uninstall-local:
 	-rm -f $(prefix)/share/scribus/samples/boilerplate.py
@@ -39,5 +40,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/samples/golden-mean.py
 	-rm -f $(prefix)/share/scribus/samples/ReadMe
 	-rm -f $(prefix)/share/scribus/samples/sample_db_usage.py
+	-rm -f $(prefix)/share/scribus/samples/extract_text.py
 
 ####### kdevelop will overwrite this part!!! (end)############

@@ -17,5 +17,6 @@ wordcount.py
 quote.py
 golden-mean.py
 sample_db_usage.py
+extract_text.py
   DESTINATION ${SAMPLESDIR}
 )
