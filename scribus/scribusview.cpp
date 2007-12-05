@@ -421,6 +421,10 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 								if (y21<y12 && y21>y11) { b1 = y1mid; b2 = y2mid; }
 								if (y21<y11 && y22>y11) { b1 = y1mid; b2 = y2mid; }
 
+								//When our points (in pt) are exactly the same, cover this too. #3634
+								if (x11==x21) { a1 = x1mid; a2 = x2mid; }
+								if (y11==y21) { b1 = y1mid; b2 = y2mid; }
+
 							}
 							//Draw the link frame lines
 							FPoint Start(a1-nextItem->xPos(), b1-nextItem->yPos(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
