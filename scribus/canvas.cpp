@@ -1933,6 +1933,11 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 					
 	if (y21<y12 && y21>y11) { b1 = y1mid; b2 = y2mid; }
 	if (y21<y11 && y22>y11) { b1 = y1mid; b2 = y2mid; }
+	
+	//When our points (in pt) are exactly the same, cover this too. #3634
+	if (x11==x21) { a1 = x1mid; a2 = x2mid; }
+	if (y11==y21) { b1 = y1mid; b2 = y2mid; }
+	
 	//Set the link frame lines' endpoints
 	start.setXY(a1-pi1->xPos(), b1-pi1->yPos());
 	start.transform(pi1->xPos(), pi1->yPos(), pi1->rotation(), 1, 1, false);
