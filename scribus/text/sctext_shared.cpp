@@ -1,10 +1,12 @@
 #include <cassert>  //added to make Fedora-5 happy
+
+#include <QDebug>
+
 #include "fpoint.h"
 #include "scfonts.h"
+#include "scribus.h"
 #include "scribusdoc.h"
 #include "sctext_shared.h"
-// #include "storytext.moc"
-#include "scribus.h"
 #include "util.h"
 
 ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QList<ScText*>(), 
@@ -94,31 +96,23 @@ ScText_Shared::~ScText_Shared()
 	*/
 void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleContext* newContext)
 {
-	QMutableListIterator<ScText*> it( *this );
-	for (int i = 0; (i <= pos) && it.hasNext(); ++i)
-		it.next();
-	//it += pos;
-	ScText* elem = it.value();
-	if (elem)
-		elem->setContext(newContext);
-	/*it.previous();
-	while ( (elem = it.value()) != NULL ) {
-		if (elem->ch == SpecialChars::PARSEP)
+	assert (pos >= 0);
+	assert (pos < size());
+	
+	value(pos)->setContext(newContext);
+	for (int i=pos-1; i >=0 ; --i ) 
+	{
+		if ( (at(i)->ch) == SpecialChars::PARSEP)
 			break;
-		elem->setContext(newContext);
-		it.previous();
-	}*/
-	while ( it.hasPrevious() ) {
-		elem = it.previous();
-		if (elem->ch == SpecialChars::PARSEP)
-			break;
-		elem->setContext(newContext);
+		value(i)->setContext(newContext);
 	}
+	// we are done here but will do a sanity check:
 	// assert that all chars point to the following parstyle
-	QListIterator<ScText*> test( *this );
+	QListIterator<ScText*> it( *this );
 	const StyleContext* lastContext = NULL;
 	while ( it.hasNext() ) {
-		elem = it.next();
+		ScText* elem = it.next();
+		assert( elem );
 		if ( elem->ch.isNull() ) 
 		{
 			// nothing, see code in removeParSep
@@ -127,7 +121,9 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 		{
 			assert( elem->parstyle );
 			if ( lastContext )
+			{
 				assert( lastContext == elem->parstyle->charStyleContext() );
+			}
 			lastContext = NULL;
 		}
 		else if (lastContext == NULL)
