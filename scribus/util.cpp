@@ -1009,7 +1009,7 @@ QString getDashString(int dashtype, double linewidth)
 void getDashArray(int dashtype, double linewidth, QList<double> &m_array)
 {
 	m_array.clear();
-	if (dashtype == 1)
+	if ((dashtype == 1) || (dashtype == 0))
 		return;
 	QString tmp = getDashString(dashtype, linewidth);
 	QStringList dashes = tmp.split(" ");

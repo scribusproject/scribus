@@ -1147,7 +1147,7 @@ QPixmap StencilReader::createPreview(QString data)
 					stroke.setNamedColor("#"+colnam.right(6));
 					strokewidth = pt.attribute("width", "1").toDouble();
 					LineJoin = Qt::PenJoinStyle(pt.attribute("joinStyle", "0").toInt());
-					Dash = Qt::PenStyle(pt.attribute("pattern").toInt());
+					Dash = Qt::PenStyle(pt.attribute("pattern", "1").toInt());
 					LineEnd = Qt::PenCapStyle(pt.attribute("capStyle", "0").toInt());
 				}
 				if(pt.tagName()=="KivioPoint")
@@ -1654,7 +1654,7 @@ QString StencilReader::createObjects(QString datain)
 						StrokeCol = "FromKivio"+stroke.name();
 					strokewidth = pt.attribute("width", "1").toDouble();
 					LineJoin = Qt::PenJoinStyle(pt.attribute("joinStyle", "0").toInt());
-					Dash = Qt::PenStyle(pt.attribute("pattern").toInt());
+					Dash = Qt::PenStyle(pt.attribute("pattern", "1").toInt());
 					LineEnd = Qt::PenCapStyle(pt.attribute("capStyle", "0").toInt());
 				}
 				if(pt.tagName()=="KivioPoint")
