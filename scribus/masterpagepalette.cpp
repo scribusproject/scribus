@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "mergedoc.h"
 #include "page.h"
 #include "pagestructs.h"
+#include "canvasmode.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "util_icon.h"
@@ -110,6 +111,8 @@ void MasterPagesPalette::deleteMasterPage()
 	                              QMessageBox::Yes | QMessageBox::No);
 	if (exit == QMessageBox::Yes)
 	{
+		if (currentDoc->appMode == modeEditClip)
+			currentView->requestMode(submodeEndNodeEdit);
 		currentDoc->scMW()->DeletePage2(currentDoc->MasterNames[sMuster]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
 		//This must happen after the pages have been reformed (view/doc)
@@ -134,6 +137,8 @@ void MasterPagesPalette::duplicateMasterPage()
 	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc, potentialMasterPageName);
 	if (dia->exec())
 	{
+		if (currentDoc->appMode == modeEditClip)
+			currentView->requestMode(submodeEndNodeEdit);
 		QString MasterPageName = dia->Answer->text();
 		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == CommonStrings::masterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormalLeft) || (MasterPageName == CommonStrings::trMasterPageNormalMiddle) || (MasterPageName == CommonStrings::trMasterPageNormalRight)))
 		{
@@ -231,6 +236,8 @@ void MasterPagesPalette::newMasterPage()
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc, tr("New Master Page %1").arg(nr));
 	if (dia->exec())
 	{
+		if (currentDoc->appMode == modeEditClip)
+			currentView->requestMode(submodeEndNodeEdit);
 		MasterPageName = dia->Answer->text();
 		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == CommonStrings::masterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormalLeft) || (MasterPageName == CommonStrings::trMasterPageNormalMiddle) || (MasterPageName == CommonStrings::trMasterPageNormalRight)))
 		{
@@ -266,6 +273,8 @@ void MasterPagesPalette::appendPage()
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
 	{
+		if (currentDoc->appMode == modeEditClip)
+			currentView->requestMode(submodeEndNodeEdit);
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		int nr = currentDoc->Pages->count();
 		//currentDoc->pageCount = 0;
@@ -319,6 +328,8 @@ void MasterPagesPalette::selectMasterPage(QListWidgetItem *item)
 	}
 	else
 		deleteButton->setEnabled(true);
+	if (currentDoc->appMode == modeEditClip)
+		currentView->requestMode(submodeEndNodeEdit);
 	currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 }
 
@@ -333,6 +344,8 @@ void MasterPagesPalette::selectMasterPage(QString name)
 	}
 	else
 		deleteButton->setEnabled(true);
+	if (currentDoc->appMode == modeEditClip)
+		currentView->requestMode(submodeEndNodeEdit);
 	currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 }
 
