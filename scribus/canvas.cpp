@@ -308,7 +308,10 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	{
 		currItem = m_doc->Items->at(currNr);
 		if ((m_doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(m_doc->currentPage()->pageNr())))))
+		{
+			--currNr;
 			continue;
+		}
 		if ((currItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerNr)))
 		{
 			QMatrix itemPos = currItem->getTransform();
