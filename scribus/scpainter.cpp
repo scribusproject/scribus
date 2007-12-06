@@ -673,7 +673,7 @@ void ScPainter::setZoomFactor( double zoomFactor )
 {
 	m_zoomFactor = zoomFactor;
 #ifdef HAVE_CAIRO
-	cairo_scale (m_cr, m_zoomFactor, m_zoomFactor);
+//	cairo_scale (m_cr, m_zoomFactor, m_zoomFactor);
 #else
 	painter.scale(m_zoomFactor, m_zoomFactor);
 #endif
@@ -709,7 +709,7 @@ void ScPainter::scale( double x, double y )
 void ScPainter::moveTo( const double &x, const double &y )
 {
 #ifdef HAVE_CAIRO
-	cairo_move_to( m_cr, x, y);
+	cairo_move_to( m_cr, x * m_zoomFactor, y * m_zoomFactor);
 #else
 	m_path.moveTo(x, y);
 #endif
@@ -719,7 +719,7 @@ void
 ScPainter::lineTo( const double &x, const double &y )
 {
 #ifdef HAVE_CAIRO
-	cairo_line_to( m_cr, x, y);
+	cairo_line_to( m_cr, x * m_zoomFactor, y * m_zoomFactor);
 #else
 	m_path.lineTo(x, y);
 #endif
@@ -728,7 +728,7 @@ ScPainter::lineTo( const double &x, const double &y )
 void ScPainter::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 {
 #ifdef HAVE_CAIRO
-	cairo_curve_to(m_cr, p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+	cairo_curve_to(m_cr, p1.x() * m_zoomFactor, p1.y() * m_zoomFactor, p2.x() * m_zoomFactor, p2.y() * m_zoomFactor, p3.x() * m_zoomFactor, p3.y() * m_zoomFactor);
 #else
 	m_path.cubicTo(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 #endif
@@ -953,10 +953,10 @@ void ScPainter::drawVPath( int mode )
 		else if (fillMode == 2)
 		{
 			cairo_pattern_t *pat;
-			double x1 = fill_gradient.origin().x();
-			double y1 = fill_gradient.origin().y();
-			double x2 = fill_gradient.vector().x();
-			double y2 = fill_gradient.vector().y();
+			double x1 = fill_gradient.origin().x() * m_zoomFactor;
+			double y1 = fill_gradient.origin().y() * m_zoomFactor;
+			double x2 = fill_gradient.vector().x() * m_zoomFactor;
+			double y2 = fill_gradient.vector().y() * m_zoomFactor;
 			if (fill_gradient.type() == VGradient::linear)
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
@@ -1014,7 +1014,7 @@ void ScPainter::drawVPath( int mode )
 				image3 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_matrix_t matrix;
 			QMatrix qmatrix;
-//			qmatrix.scale(m_zoomFactor, m_zoomFactor);
+			qmatrix.scale(m_zoomFactor, m_zoomFactor); // ?
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
 			qmatrix.scale(patternScaleX, patternScaleY);
@@ -1036,15 +1036,15 @@ void ScPainter::drawVPath( int mode )
 	else
 	{
 		double *dashes = NULL;
-		cairo_set_line_width( m_cr, LineWidth );
+		cairo_set_line_width( m_cr, LineWidth * m_zoomFactor );
 		if( m_array.count() > 0 )
 		{
 			dashes = new double[ m_array.count() ];
 			for( int i = 0; i < m_array.count();++ i )
 			{
-				dashes[i] = static_cast<double>(m_array[i]);
+				dashes[i] = static_cast<double>(m_array[i]) * m_zoomFactor;
 			}
-			cairo_set_dash( m_cr, dashes, m_array.count(), static_cast<double>(m_offset));
+			cairo_set_dash( m_cr, dashes, m_array.count(), static_cast<double>(m_offset) * m_zoomFactor);
 		}
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
@@ -1169,6 +1169,7 @@ void ScPainter::drawImage( QImage *image )
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
 	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
 	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
     cairo_mask_surface (m_cr, image3, 0, 0);
 	cairo_surface_destroy (image2);
@@ -1202,7 +1203,7 @@ void ScPainter::drawImage( QImage *image )
 	}
 	else
 		image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
-//	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
+	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
 	cairo_mask_surface (m_cr, image3, 0, 0);
 	cairo_surface_destroy (image2);
@@ -1235,7 +1236,7 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 				np = points->point(poi);
 				if ((!first) && (closed))
 					cairo_close_path( m_cr );
-    			cairo_move_to( m_cr, np.x(), np.y());
+    			cairo_move_to( m_cr, np.x() * m_zoomFactor, np.y() * m_zoomFactor);
 				nPath = false;
 				first = false;
 			}
@@ -1244,9 +1245,9 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			np2 = points->point(poi+3);
 			np3 = points->point(poi+2);
 			if ((np == np1) && (np2 == np3))
-				cairo_line_to( m_cr, np3.x(), np3.y());
+				cairo_line_to( m_cr, np3.x() * m_zoomFactor, np3.y() * m_zoomFactor);
 			else
-				cairo_curve_to(m_cr, np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
+				cairo_curve_to(m_cr, np1.x() * m_zoomFactor, np1.y() * m_zoomFactor, np2.x() * m_zoomFactor, np2.y() * m_zoomFactor, np3.x() * m_zoomFactor, np3.y() * m_zoomFactor);
 		}
 		if (closed)
     		cairo_close_path( m_cr );
