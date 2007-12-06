@@ -97,9 +97,10 @@ ScText_Shared::~ScText_Shared()
 void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleContext* newContext)
 {
 	assert (pos >= 0);
-	assert (pos < size());
+	assert (pos <= size());
 	
-	value(pos)->setContext(newContext);
+	if (pos < size())
+		value(pos)->setContext(newContext);
 	for (int i=pos-1; i >=0 ; --i ) 
 	{
 		if ( (at(i)->ch) == SpecialChars::PARSEP)
