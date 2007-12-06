@@ -30,13 +30,16 @@ FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 	watchTimer->start(m_timeOut);
 	blockAddRemove = false;
 	stopped = false;
+	dying = false; 
 }
 
 FileWatcher::~FileWatcher()
 {
+	dying = true;
 	watchTimer->stop();
 	disconnect(watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
-	watchedFiles.clear();
+	if (!blockAddRemove)
+		watchedFiles.clear();
 	delete watchTimer;
 }
 
@@ -124,11 +127,13 @@ void FileWatcher::checkFiles()
 	QStringList toRemove;
 	
 	QMap<QString, fileMod>::Iterator it;
-	for ( it = watchedFiles.begin(); it != watchedFiles.end(); ++it )
+	for ( it = watchedFiles.begin(); !dying && it != watchedFiles.end(); ++it )
 	{
 		it.value().info.refresh();
 		if (!it.value().info.exists())
 		{
+			if (dying)
+				break;
 			if (!it.value().pending)
 			{
 				it.value().pendingCount = 5;
@@ -150,6 +155,8 @@ void FileWatcher::checkFiles()
 						emit dirDeleted(it.key());
 					else
 						emit fileDeleted(it.key());
+					if (dying)
+						break;
 					toRemove.append(it.key());
 					continue;
 				}
@@ -162,7 +169,10 @@ void FileWatcher::checkFiles()
 			if (time != it.value().timeInfo)
 			{
 				if (it.value().info.isDir())
-					emit dirChanged(it.key());
+				{
+					if (!dying)
+						emit dirChanged(it.key());
+				}
 				else
 				{
 					uint sizeo = it.value().info.size();
@@ -185,15 +195,22 @@ void FileWatcher::checkFiles()
 						sizen = it.value().info.size();
 					}
 					it.value().timeInfo = time;
+					if (dying)
+						break;
 					emit fileChanged(it.key());
 				}
 			}
 		}
 	}
-	for( int i=0; i<toRemove.count(); ++i)
-		watchedFiles.remove(toRemove[i]);
-	blockAddRemove = false;
-	stopped = false;
-	watchTimer->start(m_timeOut);
+	if (dying)
+		watchedFiles.clear();
+	else
+	{
+		for( int i=0; i<toRemove.count(); ++i)
+			watchedFiles.remove(toRemove[i]);
+		blockAddRemove = false;
+		stopped = false;
+		watchTimer->start(m_timeOut);
+	}
 }
 

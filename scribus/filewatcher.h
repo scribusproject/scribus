@@ -58,6 +58,7 @@ private:
 	QTimer* watchTimer;
 	bool blockAddRemove;
 	bool stopped;
+	bool dying;
 	int m_timeOut; // milliseconds
 
 private slots:
