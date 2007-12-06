@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <QGridLayout>
 #include <QPixmap>
 #include <QButtonGroup>
+#include <QCheckBox>
+#include <QEvent>
 #include "scribusapi.h"
 
 
@@ -25,6 +27,7 @@ public:
 	~AutoformButtonGroup() {};
 	double* getShapeData(int a, int *n);
 	QPixmap getIconPixmap(int nr, int pixmapSize=22);
+	virtual void changeEvent(QEvent *e);
 	QButtonGroup* buttonGroup;
 	QToolButton* toolButton1;
 	QToolButton* toolButton2;
@@ -46,13 +49,45 @@ public:
 	QToolButton* toolButton18;
 	QToolButton* toolButton19;
 	QToolButton* toolButton20;
+	QCheckBox* checkDoubleArrows;
 	QToolButton* toolButton21;
 	QToolButton* toolButton22;
 	QToolButton* toolButton23;
+	QCheckBox* checkFlowChart;
+	QToolButton* toolButton25;
+	QToolButton* toolButton26;
+	QToolButton* toolButton27;
+	QToolButton* toolButton28;
+	QToolButton* toolButton29;
+	QToolButton* toolButton30;
+	QToolButton* toolButton31;
+	QToolButton* toolButton32;
+	QCheckBox* checkJigSaw;
+	QToolButton* toolButton33;
+	QToolButton* toolButton34;
+	QToolButton* toolButton35;
+	QToolButton* toolButton36;
+	QToolButton* toolButton37;
+	QToolButton* toolButton38;
+	QToolButton* toolButton39;
+	QToolButton* toolButton40;
+	QToolButton* toolButton41;
+	QToolButton* toolButton42;
+	QToolButton* toolButton43;
+	QToolButton* toolButton44;
+	QCheckBox* checkSpecials;
 	QToolButton* toolButton24;
+	QToolButton* toolButton45;
 	
 public slots:
 	void selForm(int a);
+	void languageChange();
+
+private slots:
+	void toggleDoubleArrows(bool visible);
+	void toggleSpecials(bool visible);
+	void toggleFlowChart(bool visible);
+	void toggleJigSaw(bool visible);
 
 signals:
 	void FormSel(int, int, double *);
