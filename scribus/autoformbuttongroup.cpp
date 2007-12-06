@@ -1028,7 +1028,7 @@ double* AutoformButtonGroup::getShapeData(int a, int *n)
 			vals = AutoShapes26;
 			break;
 		case 27:
-			*n = 56;
+			*n = 48;
 			vals = AutoShapes27;
 			break;
 		case 28:
