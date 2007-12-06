@@ -125,7 +125,7 @@ for which a new license (GPL+exception) is in place.
 #include "marginwidget.h"
 #include "margindialog.h"
 #include "masterpagepalette.h"
-#include "measurements.h"
+//#include "measurements.h"
 #include "menumanager.h"
 #include "mergedoc.h"
 #include "movepage.h"
@@ -482,12 +482,12 @@ void ScribusMainWindow::initPalettes()
 	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(setPaletteShown(bool)) );
 	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setChecked(bool)));
 	bookmarkPalette->installEventFilter(this);
-	measurementPalette = new Measurements(this);
-	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , measurementPalette, SLOT(setPaletteShown(bool)) );
+//	measurementPalette = new Measurements(this);
+//	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , measurementPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( measurementPalette, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setChecked(bool)));
-	measurementPalette->installEventFilter(this);
-	measurementPalette->hide();
+//	connect( measurementPalette, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setChecked(bool)));
+//	measurementPalette->installEventFilter(this);
+//	measurementPalette->hide();
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(docCheckToggle(bool)) );
@@ -1943,7 +1943,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	bookmarkPalette->hide();
 	layerPalette->hide();
 	pagePalette->hide();
-	measurementPalette->hide();
+//	measurementPalette->hide();
 	docCheckerPalette->hide();
 	undoPalette->hide();
 	alignDistributePalette->hide();
@@ -5643,8 +5643,8 @@ void ScribusMainWindow::ToggleAllPalettes()
 			pagePalette->show();
 		if (palettesStatus[6])
 			bookmarkPalette->show();
-		if (palettesStatus[7])
-			measurementPalette->show();
+//		if (palettesStatus[7])
+//			measurementPalette->show();
 		if (palettesStatus[9])
 			docCheckerPalette->show();
 		setPagePalette(palettesStatus[5]);
@@ -5658,7 +5658,7 @@ void ScribusMainWindow::ToggleAllPalettes()
 		palettesStatus[4] = layerPalette->isVisible();
 		palettesStatus[5] = pagePalette->isVisible();
 		palettesStatus[6] = bookmarkPalette->isVisible();
-		palettesStatus[7] = measurementPalette->isVisible();
+//		palettesStatus[7] = measurementPalette->isVisible();
 		palettesStatus[8] = undoPalette->isVisible();
 		palettesStatus[9] = docCheckerPalette->isVisible();
 		propertiesPalette->hide();
@@ -5667,7 +5667,7 @@ void ScribusMainWindow::ToggleAllPalettes()
 		bookmarkPalette->hide();
 		pagePalette->hide();
 		layerPalette->hide();
-		measurementPalette->hide();
+//		measurementPalette->hide();
 		docCheckerPalette->hide();
 		setPagePalette(false);
 		setUndoPalette(false);
@@ -6192,6 +6192,7 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsLinkTextFrame"]->setChecked(mode==modeLinkFrames);
 	scrActions["toolsUnlinkTextFrame"]->setChecked(mode==modeUnlinkFrames);
 	scrActions["toolsEyeDropper"]->setChecked(mode==modeEyeDropper);
+	scrActions["toolsMeasurements"]->setChecked(mode==modeMeasurementTool);
 	scrActions["toolsCopyProperties"]->setChecked(mode==modeCopyProperties);
 	scrActions["toolsPDFPushButton"]->setChecked(mode==modeInsertPDFButton);
 	scrActions["toolsPDFTextField"]->setChecked(mode==modeInsertPDFTextfield);
@@ -6212,8 +6213,8 @@ void ScribusMainWindow::setAppMode(int mode)
 		else if (oldMode != modeEditClip && mode == modeEditClip)
 			ToggleFrameEdit();
 		doc->appMode = mode;
-		if (oldMode == modeMeasurementTool)
-			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
+//		if (oldMode == modeMeasurementTool)
+//			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
 /*		if (mode != modeEdit && doc->CurTimer!=NULL)
 		{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
@@ -6297,11 +6298,11 @@ void ScribusMainWindow::setAppMode(int mode)
 		}
 		if (mode == modeEditGradientVectors)
 			propertiesPalette->setGradientEditMode(true);
-		if (mode == modeMeasurementTool)
-		{
-			measurementPalette->show();
-			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
-		}
+//		if (mode == modeMeasurementTool)
+//		{
+//			measurementPalette->show();
+//			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
+//		}
 		switch (mode)
 		{
 			case modeDrawShapes:
@@ -7608,7 +7609,7 @@ void ScribusMainWindow::ShowSubs()
 	bookmarkPalette->startup();
 	pagePalette->startup();
 	layerPalette->startup();
-	measurementPalette->startup();
+//	measurementPalette->startup();
 	docCheckerPalette->startup();
 	alignDistributePalette->startup();
 	undoPalette->startup();

@@ -446,8 +446,8 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		double nx = np.x();
 		double ny = np.y();
 		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
-		if (m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
-			|| m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
+		if (0 <= m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
+			|| 0 <= m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
 			foundGuide = true;
 		if ((foundGuide) && (m->button() == Qt::RightButton) && (!GetItem(&currItem)))
 		{

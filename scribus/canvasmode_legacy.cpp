@@ -1232,7 +1232,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) && (!GetItem(&currItem)))
 		{
 			double grabRadScale=m_doc->guidesSettings.grabRad / m_canvas->scale();
-			if (m_doc->currentPage()->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard))
+			if (0 <= m_doc->currentPage()->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard))
 			{
 				if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
 					MoveGY = true;
@@ -1242,7 +1242,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
 				return;
 			}
-			if (m_doc->currentPage()->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard))
+			if (0 <= m_doc->currentPage()->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard))
 			{
 				if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
 					MoveGX = true;
@@ -2151,8 +2151,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		double nx = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
 		double ny = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 		double grabRadScale=m_doc->guidesSettings.grabRad / m_canvas->scale();
-		if (m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
-			|| m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
+		if (0 <= m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
+			|| 0 <= m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
 			foundGuide = true;
 		if ((foundGuide) && (m->button() == Qt::RightButton) && (!GetItem(&currItem)))
 		{

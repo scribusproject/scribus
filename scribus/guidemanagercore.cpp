@@ -416,7 +416,7 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 }
 
-bool GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType type)
+int GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType type)
 {
 	Guides tmp;
 	Guides::iterator it;
@@ -434,12 +434,12 @@ bool GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType ty
 	{
 		double guideOffset = (*it) + m_page->yOffset();
 		if (guideOffset < low && guideOffset > high)
-			return true;
+			return it - tmp.begin();
 	}
-	return false;
+	return -1;
 }
 
-bool GuideManagerCore::isMouseOnVertical(double low, double high, GuideType type)
+int GuideManagerCore::isMouseOnVertical(double low, double high, GuideType type)
 {
 	Guides tmp;
 	Guides::iterator it;
@@ -457,9 +457,9 @@ bool GuideManagerCore::isMouseOnVertical(double low, double high, GuideType type
 	{
 		double guideOffset = (*it) + m_page->xOffset();
 		if (guideOffset < low && guideOffset > high)
-			return true;
+			return it - tmp.begin();
 	}
-	return false;
+	return -1;
 }
 
 QPair<double, double> GuideManagerCore::topLeft(double x, double y)// const

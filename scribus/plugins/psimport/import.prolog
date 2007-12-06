@@ -935,6 +935,7 @@ currentpagedevice /HWResolution get aload pop
 
 /i_image			% <dict> i_image -
 {
+%dup { == == } forall
 /i_image =
 	begin 
 		/i_left Width Height mul Decode length 2 idiv mul BitsPerComponent mul 8 idiv dup /i_size exch store store 

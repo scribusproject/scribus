@@ -90,7 +90,7 @@ class SCRIBUS_API ScribusView : public QScrollArea, public Observer<QRectF>
 
 public:
     ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
-    ~ScribusView() {};
+    ~ScribusView();
 	
 	friend class LegacyMode;
 	friend class CanvasMode_NodeEdit;

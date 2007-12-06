@@ -64,8 +64,8 @@ public:
 
 	void drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth);
 
-	bool isMouseOnHorizontal(double low, double high, GuideType type);
-	bool isMouseOnVertical(double low, double high, GuideType type);
+	int isMouseOnHorizontal(double low, double high, GuideType type);
+	int isMouseOnVertical(double low, double high, GuideType type);
 
 	void setPage(Page *p);
 

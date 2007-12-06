@@ -319,6 +319,15 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_dragTimerFired = false;
 }
 
+ScribusView::~ScribusView()
+{
+	while (m_canvasMode)
+	{
+		m_canvasMode->deactivate(false);
+		m_canvasMode = m_canvasMode->delegate();
+	}
+}
+
 void ScribusView::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)

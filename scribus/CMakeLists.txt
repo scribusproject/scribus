@@ -80,6 +80,7 @@ SET(SCRIBUS_MOC_CLASSES
   bookmwin.h
   buttonicon.h
   canvas.h
+  canvasmode_measurements.h
   canvasmode_legacy.h
   charselect.h
   chartablemodel.h
@@ -294,6 +295,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_drawbezier.cpp
   canvasmode_drawfreehand.cpp
   canvasmode_legacy.cpp
+  canvasmode_measurements.cpp
   canvasmode_nodeedit.cpp
   charselect.cpp
   chartablemodel.cpp

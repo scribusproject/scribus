@@ -20,6 +20,7 @@
 #include "canvasmode_create.h"
 #include "canvasmode_drawbezier.h"
 #include "canvasmode_legacy.h"
+#include "canvasmode_measurements.h"
 #include "canvasmode_nodeedit.h"
 #include "canvasmode_drawfreehand.h"
 #include "selection.h"
@@ -71,7 +72,10 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 		case modeInsertPDFLinkAnnotation:
 			result = new CreateMode(view);
 			break;
-			
+		case modeMeasurementTool:
+			result = new MeasurementsMode(view);
+			break;
+	
 			// more modes as they are defined...
 			
 		default:
