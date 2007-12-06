@@ -214,11 +214,23 @@ void CreateMode::activate(bool fromGesture)
 				currItem->update();
 			}
 			inItemCreation = false;
-		}			
+		}
+		else
+		{
+			m_doc->AdjustItemSize(currItem);
+//			currItem->OldB2 = currItem->width();
+//			currItem->OldH2 = currItem->height();
+//			currItem->updateClip();
+			m_doc->setRedrawBounding(currItem);
+			currItem->OwnPage = m_doc->OnPage(currItem);
+			currItem->Sizing = false;
+			currItem->update();
+			inItemCreation = false;
+		}
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
 			m_view->requestMode(modeNormal);
-		}			
+		}
 	}
 	else
 	{
