@@ -667,7 +667,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	painter->setClipPath();
 	painter->translate(-clipx, -clipy);
 	painter->setZoomFactor(m_viewMode.scale);
-	painter->translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+	painter->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	painter->setLineWidth(1);
 	painter->setFillMode(ScPainter::Solid);
 	if (!m_doc->masterPageMode())
@@ -1176,7 +1176,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if (cullingArea.intersects(currItem->getBoundingRect()))
 						{
 							painter->save();
-							painter->translate(currItem->xPos() * m_viewMode.scale, currItem->yPos() * m_viewMode.scale);
+							painter->translate(currItem->xPos(), currItem->yPos());
 							painter->rotate(currItem->rotation());
 							if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 							{
@@ -1374,7 +1374,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 					if (cullingArea.intersects(currItem->getBoundingRect()))
 					{
 						painter->save();
-						painter->translate(currItem->xPos() * m_viewMode.scale, currItem->yPos() * m_viewMode.scale);
+						painter->translate(currItem->xPos(), currItem->yPos());
 						painter->rotate(currItem->rotation());
 						if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 						{
@@ -1415,7 +1415,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 	double w = m_doc->currentPage()->width() * m_viewMode.scale;
 	double h = m_doc->currentPage()->height() * m_viewMode.scale;
 	QRectF drawRect = QRectF(x, y, w+5, h+5);
-	drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+	drawRect.translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 	{
 		painter->setFillMode(ScPainter::Solid);
@@ -1612,7 +1612,7 @@ void Canvas::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 {
 	p->save();
 	p->setAntialiasing(false);
-	p->translate(page->xOffset() * m_viewMode.scale, page->yOffset() * m_viewMode.scale);
+	p->translate(page->xOffset(), page->yOffset());
 	double lineWidth = 1.0 / m_viewMode.scale;
 	double pageHeight=page->height();
 	double pageWidth=page->width();

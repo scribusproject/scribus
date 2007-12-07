@@ -2284,7 +2284,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
 		LineSpec ls;
-		for (uint ll=0; ll < itemText.lines(); ++ll) {
+		for (uint ll=0; ll < itemText.lines(); ++ll)
+		{
 			ls = itemText.line(ll);
 			tabDist = ls.x;
 			double CurX = ls.x;

@@ -929,7 +929,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	sc = view->scale();
 	p->save();
 	if (!isEmbedded)
-		p->translate(Xpos*sc, Ypos*sc);
+		p->translate(Xpos, Ypos);
 	p->rotate(Rot);
 	if (m_Doc->layerOutline(LayerNr))
 	{
