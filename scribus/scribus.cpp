@@ -5579,7 +5579,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		if (oldMode == modeEdit)
 		{
 			view->zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
-			view->pageSelector->focusPolicy(QWidget::ClickFocus);
+			view->pageSelector->setFocusPolicy(QWidget::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(false);
 			view->slotDoCurs(false);
@@ -5595,7 +5595,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		if (mode == modeEdit)
 		{
 			//view->zoomSpinBox->setFocusPolicy(QWidget::NoFocus);
-			view->pageSelector->focusPolicy(QWidget::NoFocus);
+			//view->pageSelector->setFocusPolicy(QWidget::NoFocus);
 			if (currItem != 0)
 			{
 				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))
