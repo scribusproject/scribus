@@ -8,15 +8,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPixmap>
 #include <QRegExp>
-#include "sccolor.h"
-#include "scribus.h"
-#include "splash.h"
-#include "util_math.h"
-#include "prefsmanager.h"
-#include "scpainter.h"
 #include "commonstrings.h"
 #include "pageitem.h"
+#include "prefsmanager.h"
+#include "sccolor.h"
+#include "scpainter.h"
+#include "scribus.h"
 #include "scribusdoc.h"
+#include "splash.h"
+#include "units.h"
+#include "util_math.h"
 
 
 StencilReader::StencilReader()
@@ -662,39 +663,45 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 
 double StencilReader::parseUnit(const QString &unit)
 {
+	QString sCM(unitGetUntranslatedStrFromIndex(SC_CM));
+	QString sMM(unitGetUntranslatedStrFromIndex(SC_MM));
+	QString sIN(unitGetUntranslatedStrFromIndex(SC_IN));
+	QString sPT(unitGetUntranslatedStrFromIndex(SC_PT));
+	QString sPX("px");
+	
 	bool noUnit = false;
-	QString unitval=unit;
-	if( unit.right( 2 ) == "pt" )
-		unitval.replace( "pt", "" );
-	else if( unit.right( 2 ) == "cm" )
-		unitval.replace( "cm", "" );
-	else if( unit.right( 2 ) == "mm" )
-		unitval.replace( "mm" , "" );
-	else if( unit.right( 2 ) == "in" )
-		unitval.replace( "in", "" );
-	else if( unit.right( 2 ) == "px" )
-		unitval.replace( "px", "" );
+	QString unitval(unit);
+	if( unit.right( 2 ) == sPT )
+		unitval.replace( sPT, "" );
+	else if( unit.right( 2 ) == sCM )
+		unitval.replace( sCM, "" );
+	else if( unit.right( 2 ) == sMM )
+		unitval.replace( sMM , "" );
+	else if( unit.right( 2 ) == sIN )
+		unitval.replace( sIN, "" );
+	else if( unit.right( 2 ) == sPX )
+		unitval.replace( sPX, "" );
 	if (unitval == unit)
 		noUnit = true;
 	double value = unitval.toDouble();
-	if( unit.right( 2 ) == "pt" )
+	if( unit.right( 2 ) == sPT )
 		value = value;
-	else if( unit.right( 2 ) == "cm" )
+	else if( unit.right( 2 ) == sCM )
 	{
-		value = ( value / 2.54 ) * 72;
-		Conversion = 72.0 / 2.54;
+		value = cm2pts(value);
+		Conversion = 1/unitGetRatioFromIndex(SC_CM);
 	}
-	else if( unit.right( 2 ) == "mm" )
+	else if( unit.right( 2 ) == sMM )
 	{
-		value = ( value / 25.4 ) * 72;
-		Conversion = 72.0 / 25.4;
+		value = mm2pts(value);
+		Conversion = 1/unitGetRatioFromIndex(SC_MM);
 	}
-	else if( unit.right( 2 ) == "in" )
+	else if( unit.right( 2 ) == sIN )
 	{
-		value = value * 72;
-		Conversion = 72.0;
+		value = in2pts(value);
+		Conversion = 1/unitGetRatioFromIndex(SC_IN);
 	}
-	else if( unit.right( 2 ) == "px" )
+	else if( unit.right( 2 ) == sPX )
 	{
 		value = value * 0.8;
 		Conversion = 0.8;
