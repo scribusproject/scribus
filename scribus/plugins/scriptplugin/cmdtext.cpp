@@ -842,6 +842,9 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 	// number of overrunning letters
 	return PyInt_FromLong(static_cast<long>(chars - maxchars));
 	 */
+	// refresh overflow information
+	item->invalidateLayout();
+	item->layout();
 	return PyInt_FromLong(static_cast<long>(item->frameOverflows()));
 }
 
@@ -906,13 +909,13 @@ PV */
 void cmdtextdocwarnings()
 {
     QStringList s;
-    s << scribus_getfontsize__doc__    << scribus_getfont__doc__ 
+    s << scribus_getfontsize__doc__    << scribus_getfont__doc__
 	  << scribus_gettextlines__doc__   << scribus_gettextsize__doc__
 	  << scribus_getframetext__doc__   << scribus_gettext__doc__
 	  << scribus_getlinespace__doc__   << scribus_getcolumngap__doc__
 	  << scribus_getcolumns__doc__     << scribus_setboxtext__doc__
 	  << scribus_inserttext__doc__     << scribus_setfont__doc__
-	  << scribus_setfontsize__doc__    << scribus_setlinespace__doc__ 
+	  << scribus_setfontsize__doc__    << scribus_setlinespace__doc__
 	  << scribus_setcolumngap__doc__   << scribus_setcolumns__doc__
 	  << scribus_setalign__doc__       << scribus_selecttext__doc__
 	  << scribus_deletetext__doc__     << scribus_settextfill__doc__
