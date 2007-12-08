@@ -115,7 +115,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  						default:
  							break;
  					}
-					QToolTip::showText(helpEvent->globalPos(), tipText);
+					QToolTip::showText(helpEvent->globalPos(), tipText, this);
 					return true;
 				}
 			}
