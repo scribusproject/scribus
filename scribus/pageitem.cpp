@@ -2085,7 +2085,28 @@ void  PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX
 
 void PageItem::setFillColor(const QString &newColor)
 {
-	if (fillColorVal == newColor)
+	QString tmp = newColor;
+	if (!m_Doc->PageColors.contains(newColor))
+	{
+		switch(itemType())
+		{
+			case ImageFrame:
+			case LatexFrame:
+				tmp = m_Doc->toolSettings.dBrushPict;
+			case TextFrame:
+			case PathText:
+				tmp = m_Doc->toolSettings.dTextBackGround;
+				break;
+			case Line:
+			case PolyLine:
+			case Polygon:
+				tmp = m_Doc->toolSettings.dBrush;
+				break;
+			default:
+				break;
+		}
+	}
+	if (fillColorVal == tmp)
 	{
 		setFillQColor();
 		return;
@@ -2093,14 +2114,14 @@ void PageItem::setFillColor(const QString &newColor)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFill,
-										  QString(Um::ColorFromTo).arg(fillColorVal).arg(newColor),
+										  QString(Um::ColorFromTo).arg(fillColorVal).arg(tmp),
                                           Um::IFill);
 		ss->set("FILL", "fill");
 		ss->set("OLD_FILL", fillColorVal);
-		ss->set("NEW_FILL", newColor);
+		ss->set("NEW_FILL", tmp);
 		undoManager->action(this, ss);
 	}
-	fillColorVal = newColor;
+	fillColorVal = tmp;
 	if (GrType == 0)
 	{
 		fill_gradient = VGradient(VGradient::linear);
@@ -2164,7 +2185,30 @@ void PageItem::setFillBlendmode(int newBlendmode)
 
 void PageItem::setLineColor(const QString &newColor)
 {
-	if (lineColorVal == newColor)
+	QString tmp;
+	tmp = newColor;
+	if (!m_Doc->PageColors.contains(newColor))
+	{
+		switch(itemType())
+		{
+			case TextFrame:
+			case PathText:
+				tmp = m_Doc->toolSettings.dTextLineColor;
+				break;
+			case Line:
+				tmp = m_Doc->toolSettings.dPenLine;
+				break;
+			case PolyLine:
+			case Polygon:
+			case ImageFrame:
+			case LatexFrame:
+				tmp = m_Doc->toolSettings.dPen;
+				break;
+			default:
+				break;
+		}
+	}
+	if (lineColorVal == tmp)
 	{
 		setLineQColor();
 		return;
@@ -2172,14 +2216,14 @@ void PageItem::setLineColor(const QString &newColor)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineColor,
-										  QString(Um::ColorFromTo).arg(lineColorVal).arg(newColor),
+										  QString(Um::ColorFromTo).arg(lineColorVal).arg(tmp),
 										  Um::IFill);
 		ss->set("LINE_COLOR", "line_color");
 		ss->set("OLD_COLOR", lineColorVal);
-		ss->set("NEW_COLOR", newColor);
+		ss->set("NEW_COLOR", tmp);
 		undoManager->action(this, ss);
 	}
-	lineColorVal = newColor;
+	lineColorVal = tmp;
 	setLineQColor();
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
@@ -2210,6 +2254,29 @@ void PageItem::setLineQColor()
 {
 	if (lineColorVal != CommonStrings::None)
 	{
+		if (!m_Doc->PageColors.contains(lineColorVal))
+		{
+			switch(itemType())
+			{
+				case TextFrame:
+				case PathText:
+					lineColorVal = m_Doc->toolSettings.dTextLineColor;
+					break;
+				case Line:
+					lineColorVal = m_Doc->toolSettings.dPenLine;
+					break;
+				case PolyLine:
+				case Polygon:
+				case ImageFrame:
+				case LatexFrame:
+					lineColorVal = m_Doc->toolSettings.dPen;
+					break;
+				default:
+					break;
+			}
+		}
+		if (!m_Doc->PageColors.contains(lineColorVal))
+			lineColorVal = m_Doc->toolSettings.dPen;
 		const ScColor& col = m_Doc->PageColors[lineColorVal];
 		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
 	}
@@ -2225,6 +2292,26 @@ void PageItem::setFillQColor()
 {
 	if (fillColorVal != CommonStrings::None)
 	{
+		if (!m_Doc->PageColors.contains(fillColorVal))
+		{
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+					fillColorVal = m_Doc->toolSettings.dBrushPict;
+				case TextFrame:
+				case PathText:
+					fillColorVal = m_Doc->toolSettings.dTextBackGround;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					fillColorVal = m_Doc->toolSettings.dBrush;
+					break;
+				default:
+					break;
+			}
+		}
 		const ScColor& col = m_Doc->PageColors[fillColorVal];
 		fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, fillShadeVal);
 	}
@@ -3432,7 +3519,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 
 	it = newNames.colors().find(lineColor());
 	if (it != newNames.colors().end())
-		setFillColor(*it);
+		setLineColor(*it);
 
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
@@ -3457,12 +3544,16 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 
 void PageItem::getNamedResources(ResourceCollection& lists) const
 {
-	lists.collectColor(fillColor());
 	lists.collectColor(lineColor());
-	QList<VColorStop*> cstops = fill_gradient.colorStops();
-	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+	if (GrType == 0)
+		lists.collectColor(fillColor());
+	else
 	{
-		lists.collectColor(cstops.at(cst)->name);
+		QList<VColorStop*> cstops = fill_gradient.colorStops();
+		for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+		{
+			lists.collectColor(cstops.at(cst)->name);
+		}
 	}
 	lists.collectPattern(pattern());
 	lists.collectLineStyle(customLineStyle());
