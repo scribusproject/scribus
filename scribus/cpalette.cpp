@@ -316,10 +316,11 @@ void Cpalette::InhaltButton()
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		patternFrame->hide();
 		patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		colorListQLBox->show();
 		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+		colorListQLBox->show();
 		displayAllColors->show();
 		GradientMode = false;
+		GradLayout->activate();
 		layout()->activate();
 //		updateCList();
 //		repaint();
@@ -355,6 +356,7 @@ void Cpalette::InnenButton()
 				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			}
 		}
+		GradLayout->activate();
 		layout()->activate();
 //		updateCList();
 //		repaint();
@@ -607,29 +609,29 @@ void Cpalette::ChooseGrad(int number)
 			colorListQLBox->hide();
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			displayAllColors->hide();
-			patternFrame->show();
 			patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+			patternFrame->show();
 		}
 		else
 		{
 			PM1->setEnabled(true);
 			patternFrame->hide();
 			patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-			colorListQLBox->show();
-			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-			displayAllColors->show();
-			gradEdit->show();
 			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
+			gradEdit->show();
 			if (gradientQCombo->currentIndex() > 5)
 			{
-				freeGradientQFrame->show();
 				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+				freeGradientQFrame->show();
 			}
 			else
 			{
 				freeGradientQFrame->hide();
 				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			}
+			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+			colorListQLBox->show();
+			displayAllColors->show();
 		}
 	}
 	else
@@ -641,10 +643,11 @@ void Cpalette::ChooseGrad(int number)
 		gradEdit->hide();
 		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		colorListQLBox->show();
 		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+		colorListQLBox->show();
 		displayAllColors->show();
 	}
+	GradLayout->activate();
 	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	// JG probably not needed at all and should probably not be here
