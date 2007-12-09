@@ -2086,24 +2086,27 @@ void  PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX
 void PageItem::setFillColor(const QString &newColor)
 {
 	QString tmp = newColor;
-	if (!m_Doc->PageColors.contains(newColor))
+	if (tmp != CommonStrings::None)
 	{
-		switch(itemType())
+		if (!m_Doc->PageColors.contains(newColor))
 		{
-			case ImageFrame:
-			case LatexFrame:
-				tmp = m_Doc->toolSettings.dBrushPict;
-			case TextFrame:
-			case PathText:
-				tmp = m_Doc->toolSettings.dTextBackGround;
-				break;
-			case Line:
-			case PolyLine:
-			case Polygon:
-				tmp = m_Doc->toolSettings.dBrush;
-				break;
-			default:
-				break;
+			switch(itemType())
+			{
+				case ImageFrame:
+				case LatexFrame:
+					tmp = m_Doc->toolSettings.dBrushPict;
+				case TextFrame:
+				case PathText:
+					tmp = m_Doc->toolSettings.dTextBackGround;
+					break;
+				case Line:
+				case PolyLine:
+				case Polygon:
+					tmp = m_Doc->toolSettings.dBrush;
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	if (fillColorVal == tmp)
@@ -2185,27 +2188,29 @@ void PageItem::setFillBlendmode(int newBlendmode)
 
 void PageItem::setLineColor(const QString &newColor)
 {
-	QString tmp;
-	tmp = newColor;
-	if (!m_Doc->PageColors.contains(newColor))
+	QString tmp = newColor;
+	if (tmp != CommonStrings::None)
 	{
-		switch(itemType())
+		if (!m_Doc->PageColors.contains(newColor))
 		{
-			case TextFrame:
-			case PathText:
-				tmp = m_Doc->toolSettings.dTextLineColor;
-				break;
-			case Line:
-				tmp = m_Doc->toolSettings.dPenLine;
-				break;
-			case PolyLine:
-			case Polygon:
-			case ImageFrame:
-			case LatexFrame:
-				tmp = m_Doc->toolSettings.dPen;
-				break;
-			default:
-				break;
+			switch(itemType())
+			{
+				case TextFrame:
+				case PathText:
+					tmp = m_Doc->toolSettings.dTextLineColor;
+					break;
+				case Line:
+					tmp = m_Doc->toolSettings.dPenLine;
+					break;
+				case PolyLine:
+				case Polygon:
+				case ImageFrame:
+				case LatexFrame:
+					tmp = m_Doc->toolSettings.dPen;
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	if (lineColorVal == tmp)

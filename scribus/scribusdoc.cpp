@@ -5421,24 +5421,27 @@ void ScribusDoc::ItemGradFill(int typ)
 			switch (currItem->GrType)
 			{
 				case 0:
-					if (!PageColors.contains(currItem->fillColor()))
+					if (currItem->fillColor() != CommonStrings::None)
 					{
-						switch(currItem->itemType())
+						if (!PageColors.contains(currItem->fillColor()))
 						{
-							case PageItem::ImageFrame:
-							case PageItem::LatexFrame:
-								currItem->setFillColor(toolSettings.dBrushPict);
-							case PageItem::TextFrame:
-							case PageItem::PathText:
-								currItem->setFillColor(toolSettings.dTextBackGround);
-								break;
-							case PageItem::Line:
-							case PageItem::PolyLine:
-							case PageItem::Polygon:
-								currItem->setFillColor(toolSettings.dBrush);
-								break;
-							default:
-								break;
+							switch(currItem->itemType())
+							{
+								case PageItem::ImageFrame:
+								case PageItem::LatexFrame:
+									currItem->setFillColor(toolSettings.dBrushPict);
+								case PageItem::TextFrame:
+								case PageItem::PathText:
+									currItem->setFillColor(toolSettings.dTextBackGround);
+									break;
+								case PageItem::Line:
+								case PageItem::PolyLine:
+								case PageItem::Polygon:
+									currItem->setFillColor(toolSettings.dBrush);
+									break;
+								default:
+									break;
+							}
 						}
 					}
 				case 1:
