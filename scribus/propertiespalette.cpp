@@ -65,6 +65,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 #include "text/nlsconfig.h"
+#include "dasheditor.h"
 
 using namespace std;
 
@@ -1000,6 +1001,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	Layout12_2->setSpacing( 3 );
 	Layout12_2->setMargin( 0 );
 	LStyle = new LineCombo(page_5);
+	LStyle->addItem( tr("Custom"));
 	LineMode = new ScComboBox( page_5 );
 	LineModeT = new QLabel( "&Basepoint:", page_5 );
 	LineModeT->setBuddy(LineMode);
@@ -1009,31 +1011,35 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	linetypeLabel->setBuddy(LStyle);
 	Layout12_2->addWidget( linetypeLabel, 1, 0 );
 	Layout12_2->addWidget( LStyle, 1, 1 );
+
+	dashEditor = new DashEditor(page_5);
+	Layout12_2->addWidget(dashEditor, 2, 0, 1, 2);
+
 	startArrow = new ArrowChooser(page_5, true);
-	Layout12_2->addWidget( startArrow, 3, 0 );
+	Layout12_2->addWidget( startArrow, 4, 0 );
 	endArrow = new ArrowChooser(page_5, false);
-	Layout12_2->addWidget( endArrow, 3, 1 );
+	Layout12_2->addWidget( endArrow, 4, 1 );
 	startArrowText = new QLabel( "Start Arrow:", page_5 );
 	startArrowText->setBuddy(startArrow);
-	Layout12_2->addWidget( startArrowText, 2, 0 );
+	Layout12_2->addWidget( startArrowText, 3, 0 );
 	endArrowText = new QLabel( "End Arrow:", page_5 );
 	endArrowText->setBuddy(endArrow);
-	Layout12_2->addWidget( endArrowText, 2, 1 );
+	Layout12_2->addWidget( endArrowText, 3, 1 );
 	LSize = new ScrSpinBox( page_5, 0 );
 	linewidthLabel = new QLabel( "Line &Width:", page_5 );
 	linewidthLabel->setBuddy(LSize);
-	Layout12_2->addWidget( linewidthLabel, 4, 0 );
-	Layout12_2->addWidget( LSize, 4, 1 );
+	Layout12_2->addWidget( linewidthLabel, 5, 0 );
+	Layout12_2->addWidget( LSize, 5, 1 );
 	LJoinStyle = new ScComboBox( page_5 );
 	edgesLabel = new QLabel( "Ed&ges:", page_5 );
 	edgesLabel->setBuddy(LJoinStyle);
-	Layout12_2->addWidget( edgesLabel, 5, 0 );
-	Layout12_2->addWidget( LJoinStyle, 5, 1 );
+	Layout12_2->addWidget( edgesLabel, 6, 0 );
+	Layout12_2->addWidget( LJoinStyle, 6, 1 );
 	LEndStyle = new ScComboBox( page_5 );
 	endingsLabel = new QLabel( "&Endings:", page_5 );
 	endingsLabel->setBuddy(LEndStyle);
-	Layout12_2->addWidget( endingsLabel, 6, 0 );
-	Layout12_2->addWidget( LEndStyle, 6, 1 );
+	Layout12_2->addWidget( endingsLabel, 7, 0 );
+	Layout12_2->addWidget( LEndStyle, 7, 1 );
 	pageLayout_5->addLayout( Layout12_2 );
 
 	TabStack3 = new QStackedWidget( page_5 );
@@ -1120,6 +1126,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScrPaletteBase( parent,
 	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
 	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLMode()));
+	connect(dashEditor, SIGNAL(dashChanged()), this, SLOT(dashChange()));
 	connect(keepImageWHRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 	connect(keepImageDPIRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
@@ -1414,6 +1421,7 @@ void PropertiesPalette::unsetItem()
 	HaveItem=false;
 	CurItem = NULL;
 	Cpal->setCurrentItem(NULL);
+	dashEditor->hide();
 	NewSel(-1);
 }
 
@@ -1557,6 +1565,14 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
+	if (CurItem->dashes().count() == 0)
+		dashEditor->hide();
+	else
+	{
+		LStyle->setCurrentIndex(37);
+		dashEditor->setDashValues(CurItem->dashes(), qMax(CurItem->lineWidth(), 0.001), CurItem->dashOffset());
+		dashEditor->show();
+	}
 	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
@@ -2379,6 +2395,19 @@ void PropertiesPalette::setSvalue(double s)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	LSize->setValue(s*m_unitRatio);
+	if (tmp)
+	{
+		if (CurItem->dashes().count() != 0)
+		{
+			if (CurItem->lineWidth() != 0.0)
+			{
+				dashEditor->setDashValues(CurItem->dashes(), CurItem->lineWidth(), CurItem->dashOffset());
+				dashEditor->setEnabled(true);
+			}
+			else
+				dashEditor->setEnabled(false);
+		}
+	}
 	HaveItem = tmp;
 }
 
@@ -2388,28 +2417,18 @@ void PropertiesPalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJo
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LStyle->setCurrentIndex(static_cast<int>(p) - 1);
-/*	switch (p)
+	if (tmp)
 	{
-	case Qt::SolidLine:
-		LStyle->setCurrentIndex(0);
-		break;
-	case Qt::DashLine:
-		LStyle->setCurrentIndex(1);
-		break;
-	case Qt::DotLine:
-		LStyle->setCurrentIndex(2);
-		break;
-	case Qt::DashDotLine:
-		LStyle->setCurrentIndex(3);
-		break;
-	case Qt::DashDotDotLine:
-		LStyle->setCurrentIndex(4);
-		break;
-	default:
-		LStyle->setCurrentIndex(0);
-		break;
-	} */
+		if (CurItem->dashes().count() != 0)
+		{
+			LStyle->setCurrentIndex(37);
+			dashEditor->setDashValues(CurItem->dashes(), qMax(CurItem->lineWidth(), 0.001), CurItem->dashOffset());
+		}
+		else
+			LStyle->setCurrentIndex(static_cast<int>(p) - 1);
+	}
+	else
+		LStyle->setCurrentIndex(static_cast<int>(p) - 1);
 	switch (pc)
 	{
 	case Qt::FlatCap:
@@ -3205,7 +3224,26 @@ void PropertiesPalette::NewLS()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
+		double oldL = CurItem->lineWidth();
 		doc->ChLineWidth(LSize->value() / m_unitRatio);
+		if (CurItem->dashes().count() != 0)
+		{
+			if ((oldL != 0.0) && (CurItem->lineWidth() != 0.0))
+			{
+				for (int a = 0; a < CurItem->DashValues.count(); a++)
+				{
+					CurItem->DashValues[a] = CurItem->DashValues[a] / oldL * CurItem->lineWidth();
+				}
+				CurItem->setDashOffset(CurItem->dashOffset() / oldL * CurItem->lineWidth());
+			}
+			if (CurItem->lineWidth() != 0.0)
+			{
+				dashEditor->setDashValues(CurItem->dashes(), CurItem->lineWidth(), CurItem->dashOffset());
+				dashEditor->setEnabled(true);
+			}
+			else
+				dashEditor->setEnabled(false);
+		}
 // 		emit DocChanged();
 	}
 }
@@ -3231,7 +3269,52 @@ void PropertiesPalette::NewLSty()
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		doc->ChLineArt(static_cast<Qt::PenStyle>(LStyle->currentIndex()+1));
+	{
+		if (LStyle->currentIndex() == 37)
+		{
+			if (CurItem->dashes().count() == 0)
+			{
+				if ((CurItem->lineStyle() == 0) || (CurItem->lineStyle() == 1))
+				{
+					CurItem->DashValues.append(4.0 * qMax(CurItem->lineWidth(), 1.0));
+					CurItem->DashValues.append(2.0 * qMax(CurItem->lineWidth(), 1.0));
+				}
+				else
+					getDashArray(CurItem->lineStyle(), qMax(CurItem->lineWidth(), 1.0), CurItem->DashValues);
+			}
+			if (CurItem->lineWidth() != 0.0)
+				dashEditor->setDashValues(CurItem->dashes(), CurItem->lineWidth(), CurItem->dashOffset());
+			else
+			{
+				dashEditor->setEnabled(false);
+				dashEditor->setDashValues(CurItem->dashes(), 1.0, CurItem->dashOffset());
+			}
+			dashEditor->show();
+			CurItem->update();
+		}
+		else
+		{
+			CurItem->DashValues.clear();
+			dashEditor->hide();
+			doc->ChLineArt(static_cast<Qt::PenStyle>(LStyle->currentIndex()+1));
+		}
+	}
+}
+
+void PropertiesPalette::dashChange()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		if (CurItem->lineWidth() != 0.0)
+		{
+			CurItem->setDashes(dashEditor->getDashValues(CurItem->lineWidth()));
+			CurItem->setDashOffset(dashEditor->Offset->value() * CurItem->lineWidth());
+		}
+		CurItem->update();
+		emit DocChanged();
+	}
 }
 
 void PropertiesPalette::NewLMode()
@@ -4477,6 +4560,11 @@ void PropertiesPalette::languageChange()
 	MonitorI->addItem( tr("Saturation"));
 	MonitorI->addItem( tr("Absolute Colorimetric"));
 	MonitorI->setCurrentIndex(oldMonitorI);
+	int oldLineStyle = LStyle->currentIndex();
+	LStyle->clear();
+	LStyle->updateList();
+	LStyle->addItem( tr("Custom"));
+	LStyle->setCurrentIndex(oldLineStyle);
 	int oldLineMode=LineMode->currentIndex();
 	LineMode->clear();
 	LineMode->addItem( tr("Left Point"));
@@ -4528,6 +4616,8 @@ void PropertiesPalette::languageChange()
 	ChScaleV->setSuffix(pctSuffix);
 	imageXScaleSpinBox->setSuffix(pctSuffix);
 	imageYScaleSpinBox->setSuffix(pctSuffix);
+	imgDpiX->setSuffix("");
+	imgDpiY->setSuffix("");
 	Extra->setSuffix(pctSuffix);
 	minWordTrackingSpinBox->setSuffix(pctSuffix);
 	normWordTrackingSpinBox->setSuffix(pctSuffix);

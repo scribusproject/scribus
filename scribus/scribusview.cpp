@@ -2490,8 +2490,8 @@ void ScribusView::updateCanvas(QRectF box)
 void ScribusView::setCanvasOrigin(double x, double y)
 {
 	double scale = m_canvas->scale();
-	horizontalScrollBar()->setValue(x * scale);
-	verticalScrollBar()->setValue(y * scale);	
+	horizontalScrollBar()->setValue(qRound(x * scale));
+	verticalScrollBar()->setValue(qRound(y * scale));	
 	// fix ranges
 	QSize maxViewport = maximumViewportSize();
 	horizontalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.x() * scale), 
@@ -2517,8 +2517,8 @@ void ScribusView::setCanvasCenter(double x, double y)
 void ScribusView::scrollCanvasBy(double deltaX, double deltaY)
 {
 	double scale = m_canvas->scale();
-	horizontalScrollBar()->setValue(horizontalScrollBar()->value() + deltaX * scale);
-	verticalScrollBar()->setValue(verticalScrollBar()->value() + deltaX * scale);
+	horizontalScrollBar()->setValue(qRound(horizontalScrollBar()->value() + deltaX * scale));
+	verticalScrollBar()->setValue(qRound(verticalScrollBar()->value() + deltaX * scale));
 }
 
 
@@ -2529,8 +2529,7 @@ void ScribusView::scrollCanvasBy(double deltaX, double deltaY)
 FPoint ScribusView::canvasOrigin() const
 {
 	double scale = m_canvas->scale();
-	return FPoint(horizontalScrollBar()->value() / scale, 
-				  verticalScrollBar()->value() / scale);				  
+	return FPoint(horizontalScrollBar()->value() / scale, verticalScrollBar()->value() / scale);
 }
 
 

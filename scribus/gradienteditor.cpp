@@ -26,8 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QCursor>
 #include <QEvent>
-#include <QFrame>
-#include <QLabel>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPainter>
@@ -40,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "util_icon.h"
 
-GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
+GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
 {
 	setFrameShape( QFrame::Panel );
 	setFrameShadow( QFrame::Sunken );
@@ -106,7 +104,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 		pw.drawPolygon(cr);
 	}
 	pw.end();
-	QLabel::paintEvent(e);
+	QFrame::paintEvent(e);
 }
 
 void GradientPreview::mousePressEvent(QMouseEvent *m)
@@ -271,11 +269,14 @@ void GradientPreview::setActStep(double t)
 	repaint();
 }
 
-GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
+GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 {
+	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum));
+	setFrameShape( QFrame::Panel );
+	setLineWidth( 1 );
 	QGridLayout *gridLayout = new QGridLayout(this);
-	gridLayout->setSpacing(4);
-	gridLayout->setMargin(0);
+	gridLayout->setSpacing(2);
+	gridLayout->setMargin(2);
 
 	Preview = new GradientPreview(this);
 	gridLayout->addWidget(Preview, 0, 0, 1, 2);

@@ -3854,8 +3854,8 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	{
 		*x1 = Xpos;
 		*y1 = Ypos;
-		*x2 = Xpos + Width;
-		*y2 = Ypos + Height;
+		*x2 = Xpos + qMax(Width, m_lineWidth);
+		*y2 = Ypos + qMax(Height, m_lineWidth);
 	}
 }
 

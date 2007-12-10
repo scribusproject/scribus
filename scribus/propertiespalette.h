@@ -56,6 +56,7 @@ class ArrowChooser;
 class ScComboBox;
 class ScribusMainWindow;
 class UserActionSniffer;
+class DashEditor;
 
 
 struct SCRIBUS_API LineFormatValue
@@ -169,6 +170,7 @@ public:
 	QGroupBox* textFlowOptions2;
 	QButtonGroup* textFlowOptionsB;
 	QButtonGroup* textFlowOptionsB2;
+	DashEditor* dashEditor;
 	
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
@@ -305,6 +307,7 @@ private slots:
 	void setGroupTransparency(int trans);
 	void setGroupBlending(int blend);
 	void doGrouping();
+	void dashChange();
 
 protected slots:
 	//virtual void reject();

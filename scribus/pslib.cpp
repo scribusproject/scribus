@@ -893,9 +893,9 @@ void PSLib::PS_setdash(Qt::PenStyle st, double offset, QList<double> dash)
 		QList<double>::iterator it;
 		for ( it = dash.begin(); it != dash.end(); ++it )
 		{
-			PutPage(IToStr(static_cast<int>(*it))+" ");
+			PutPage(ToStr(*it)+" ");
 		}
-		PutPage("] "+IToStr(static_cast<int>(offset))+" setdash\n");
+		PutPage("] "+ToStr(offset)+" setdash\n");
 	}
 	else
 		PutPage("["+getDashString(st, LineW)+"] 0 setdash\n");

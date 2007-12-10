@@ -101,6 +101,7 @@ SET(SCRIBUS_MOC_CLASSES
   cupsoptions.h
   curvewidget.h
   customfdialog.h
+  dasheditor.h
   dcolor.h
   deferredtask.h
   delpages.h
@@ -319,6 +320,7 @@ SET(SCRIBUS_SOURCES
   cupsoptions.cpp
   curvewidget.cpp
   customfdialog.cpp
+  dasheditor.cpp
   dcolor.cpp
   deferredtask.cpp
   delpages.cpp

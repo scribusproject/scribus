@@ -21,79 +21,79 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#ifndef GRADEDITOR_H
-#define GRADEDITOR_H
+#ifndef DASHEDITOR_H
+#define DASHEDITOR_H
 
 #include <QLabel>
-#include <QSpinBox>
+#include <QFrame>
+#include <QDoubleSpinBox>
 #include <QLayout>
 #include <QList>
-#include <QFrame>
 #include <QPaintEvent>
 #include <QMouseEvent>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QTime>
 
 class QEvent;
 
 #include "scribusapi.h"
 #include "vgradient.h"
 
-class SCRIBUS_API GradientPreview : public QFrame
+class SCRIBUS_API DashPreview : public QFrame
 {
 	Q_OBJECT
 
 public:
-	GradientPreview(QWidget *pa);
-	~GradientPreview() {};
+	DashPreview(QWidget *pa);
+	~DashPreview() {};
 	void paintEvent(QPaintEvent *e);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);
 	void leaveEvent(QEvent*);
 	void enterEvent(QEvent*);
-	void updateDisplay();
-	void setActColor(QColor c, QString n, int s);
-	void setActTrans(double t);
-	void setActStep(double t);
-	VGradient fill_gradient;
-	QList<int> StopM;
+	void setDashValues(QList<double> vals);
+	QList<double> DashValues;
+	QList<double> StopM;
 	bool Mpressed;
 	bool outside;
 	bool onlyselect;
 	int ActStop;
+	QTime m_moveTimer;
+
+public slots:
+	void setActStep(double t);
 
 signals:
-	void selectedColor(QString, int);
-	void currTrans(double);
 	void currStep(double);
-	void gradientChanged();
+	void dashChanged();
 };
 
-class SCRIBUS_API GradientEditor : public QFrame
+class SCRIBUS_API DashEditor : public QFrame
 {
 	Q_OBJECT
 
 public:
-	GradientEditor(QWidget *pa);
-	~GradientEditor() {};
+	DashEditor(QWidget *pa);
+	~DashEditor() {};
 	
 	virtual void changeEvent(QEvent *e);
+	void setDashValues(QList<double> vals, double linewidth, double offset);
+	QList<double> getDashValues(double linewidth);
 	
-	GradientPreview *Preview;
+	DashPreview *Preview;
 	QLabel *Desc;
-	QSpinBox *Position;
+	QDoubleSpinBox *Position;
+	QLabel *Desc2;
+	QDoubleSpinBox *Offset;
 
 public slots:
 	void setPos(double);
-	void changePos(int);
 	void languageChange();
 
 signals:
-	void gradientChanged();
-
-protected:
-	virtual bool event ( QEvent * event );
+	void dashChanged();
 };
 
 #endif

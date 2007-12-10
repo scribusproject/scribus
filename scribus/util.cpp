@@ -944,10 +944,10 @@ QString getDashString(int dashtype, double linewidth)
 			tmp += QString("%1 %2").arg(qMax(8.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
 			break;
 		case 19:
-			tmp += QString("%1 %2").arg(qMax(12.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			tmp += QString("%1 %2").arg(qMax(10.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
 			break;
 		case 20:
-			tmp += QString("%1 %2").arg(qMax(24.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
+			tmp += QString("%1 %2").arg(qMax(12.0 * linewidth, 0.01)).arg(qMax(1.0 * linewidth, 0.01));
 			break;
 		case 21:
 			tmp += QString("%1 %2").arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(2.0 * linewidth, 0.01));
@@ -965,10 +965,10 @@ QString getDashString(int dashtype, double linewidth)
 			tmp += QString("%1 %2").arg(qMax(8.0 * linewidth, 0.01)).arg(qMax(8.0 * linewidth, 0.01));
 			break;
 		case 26:
-			tmp += QString("%1 %2").arg(qMax(12.0 * linewidth, 0.01)).arg(qMax(12.0 * linewidth, 0.01));
+			tmp += QString("%1 %2").arg(qMax(10.0 * linewidth, 0.01)).arg(qMax(10.0 * linewidth, 0.01));
 			break;
 		case 27:
-			tmp += QString("%1 %2").arg(qMax(24.0 * linewidth, 0.01)).arg(qMax(24.0 * linewidth, 0.01));
+			tmp += QString("%1 %2").arg(qMax(12.0 * linewidth, 0.01)).arg(qMax(12.0 * linewidth, 0.01));
 			break;
 		case 28:
 			tmp += QString("%1 %2").arg(qMax(2.0 * linewidth, 0.01)).arg(qMax(4.0 * linewidth, 0.01));

@@ -39,6 +39,7 @@ class SCRIBUS_API LineCombo : public QComboBox
 public: 
 	LineCombo(QWidget* pa);
 	~LineCombo() {};
+	void updateList();
 	QPixmap createIcon(int type);
 };
 

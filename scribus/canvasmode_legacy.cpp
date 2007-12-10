@@ -91,7 +91,7 @@ void LegacyMode::blinkTextCursor()
 	{
 		QRectF brect = currItem->getBoundingRect();
 //		qDebug() << "update cursor" << brect;
-		m_canvas->update(QRect(m_canvas->canvasToLocal(brect.topLeft()), QSize(brect.width(),brect.height())*m_canvas->scale()));
+		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());
 	}
 }
 
