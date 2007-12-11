@@ -49,6 +49,9 @@ public:
 	void fillTable();
 
 private slots:
+	void sortByName();
+	void sortByPage();
+	void slotRightClick();
 	void imageSelected(QListWidgetItem *ite);
 	/*!
 	\author Franz Schmid
@@ -94,6 +97,7 @@ protected:
 private:
 	ScribusDoc *m_Doc;
 	PageItem *currItem;
+	int sortOrder;
 
 };
 #endif

@@ -31,6 +31,8 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QFileInfo>
 #include <QPainter>
+#include <QAction>
+#include <QMenu>
 #include <cstdio>
 
 #include "commonstrings.h"
@@ -59,6 +61,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	setupUi(this);
 	setModal(true);
 	imageViewArea->setIconSize(QSize(128, 128));
+	imageViewArea->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_Doc = docu;
 	currItem = NULL;
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
@@ -74,6 +77,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	connect(effectsButton, SIGNAL(clicked()), this, SLOT(doImageEffects()));
 	connect(buttonLayers, SIGNAL(clicked()), this, SLOT(doImageExtProp()));
 	connect(buttonEdit, SIGNAL(clicked()), this, SLOT(doEditImage()));
+	connect(imageViewArea, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
 }
 
 QPixmap PicStatus::createImgIcon(PageItem* item)
@@ -145,6 +149,84 @@ void PicStatus::fillTable()
 	// but who knows if it can be configured for shortcut or macro...
 	imageViewArea->setEnabled(imageViewArea->count() > 0);
 	workTab->setEnabled(imageViewArea->count() > 0);
+	sortByName();
+}
+
+void PicStatus::sortByName()
+{
+	QListWidgetItem *firstItem = 0;
+	QMap<QString, PicItem*> sorted;
+	int num = imageViewArea->count();
+	if (num != 0)
+	{
+		firstItem = imageViewArea->currentItem();
+		for (int a = num-1; a > -1; --a)
+		{
+			QListWidgetItem *ite = imageViewArea->takeItem(a);
+			PicItem *item = (PicItem*)ite;
+			QFileInfo fi = QFileInfo(item->PageItemObject->Pfile);
+			sorted.insertMulti(fi.fileName(), item);
+		}
+		int counter = 0;
+		foreach (QString i, sorted.uniqueKeys())
+		{
+			foreach (PicItem* val, sorted.values(i))
+			{
+				imageViewArea->insertItem(counter, val);
+				counter++;
+			}
+		}
+		imageViewArea->setCurrentItem(firstItem);
+		imageSelected(firstItem);
+		sortOrder = 0;
+	}
+}
+
+void PicStatus::sortByPage()
+{
+	QListWidgetItem *firstItem = 0;
+	QMap<int, PicItem*> sorted;
+	int num = imageViewArea->count();
+	if (num != 0)
+	{
+		firstItem = imageViewArea->currentItem();
+		for (int a = num-1; a > -1; --a)
+		{
+			QListWidgetItem *ite = imageViewArea->takeItem(a);
+			PicItem *item = (PicItem*)ite;
+			sorted.insertMulti(item->PageItemObject->OwnPage, item);
+		}
+		int counter = 0;
+		foreach (int i, sorted.uniqueKeys())
+		{
+			foreach (PicItem* val, sorted.values(i))
+			{
+				imageViewArea->insertItem(counter, val);
+				counter++;
+			}
+		}
+		imageViewArea->setCurrentItem(firstItem);
+		imageSelected(firstItem);
+		sortOrder = 1;
+	}
+}
+
+void PicStatus::slotRightClick()
+{
+	QMenu *pmen = new QMenu();
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QAction* Act1 = pmen->addAction( tr("Sort by Name"));
+	Act1->setCheckable(true);
+	QAction* Act2 = pmen->addAction( tr("Sort by Page"));
+	Act2->setCheckable(true);
+	if (sortOrder == 0)
+		Act1->setChecked(true);
+	else if (sortOrder == 1)
+		Act2->setChecked(true);
+	connect(Act1, SIGNAL(triggered()), this, SLOT(sortByName()));
+	connect(Act2, SIGNAL(triggered()), this, SLOT(sortByPage()));
+	pmen->exec(QCursor::pos());
+	delete pmen;
 }
 
 void PicStatus::imageSelected(QListWidgetItem *ite)
