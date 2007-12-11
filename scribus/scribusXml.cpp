@@ -3551,7 +3551,7 @@ bool ScriXmlDoc::WriteDoc(const QString& fileName, ScribusDoc *doc, QProgressBar
 	QString  tmpFileName  = QString("%1.%2").arg(fileName).arg(randn);
 	while (QFile::exists(tmpFileName) && (randt < 100))
 	{
-		randn = 1 + (int)((double)rand() / ((double) RAND_MAX + 1)) * 10000;
+		randn = 1 + (int) (((double)rand() / ((double) RAND_MAX + 1)) * 10000);
 		tmpFileName = QString("%1.%2").arg(fileName).arg(randn);
 		++randt;
 	}
