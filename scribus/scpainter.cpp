@@ -819,40 +819,6 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 #ifdef HAVE_CAIRO
 	m_offset = 0;
 	getDashArray(st, w, m_array);
-/*	double Dt = qMax(1*w, 1.0);
-	double Sp = qMax(2*w, 1.0);
-	double Da = qMax(4*w, 1.0);
-	m_array.clear();
-	m_offset = 0;
-	switch (st)
-		{
-		case Qt::SolidLine:
-			break;
-		case Qt::DashLine:
-			m_array.append(Da);
-			m_array.append(Sp);
-			break;
-		case Qt::DotLine:
-			m_array.append(Dt);
-			m_array.append(Sp);
-			break;
-		case Qt::DashDotLine:
-			m_array.append(Da);
-			m_array.append(Sp);
-			m_array.append(Dt);
-			m_array.append(Sp);
-			break;
-		case Qt::DashDotDotLine:
-			m_array.append(Da);
-			m_array.append(Sp);
-			m_array.append(Dt);
-			m_array.append(Sp);
-			m_array.append(Dt);
-			m_array.append(Sp);
-			break;
-		default:
-			break;
-		} */
 #else
 	PLineStyle = st;
 #endif
@@ -1132,14 +1098,31 @@ void ScPainter::drawVPath(int mode)
 		QColor paint = m_stroke;
 		paint.setAlphaF(stroke_trans);
 		QPen pen;
-		if (PLineStyle == Qt::SolidLine)
-			pen = QPen(paint, LineWidth, PLineStyle, PLineEnd, PLineJoin);
+		if( m_array.count() == 0 )
+		{
+			if (PLineStyle == Qt::SolidLine)
+				pen = QPen(paint, LineWidth, PLineStyle, PLineEnd, PLineJoin);
+			else
+			{
+				getDashArray(PLineStyle, 1, m_array);
+				pen.setDashPattern(m_array.toVector());
+				pen.setColor(paint);
+				pen.setWidthF(LineWidth);
+				pen.setCapStyle(PLineEnd);
+				pen.setJoinStyle(PLineJoin);
+			}
+		}
 		else
 		{
-			getDashArray(PLineStyle, 1, m_array);
-			pen.setDashPattern(m_array.toVector());
+			QVector<qreal> dashes;
+			for (int a = 0; a < m_array.count(); a++)
+			{
+				dashes.append(m_array[a] / LineWidth);
+			}
+			pen.setDashPattern(dashes);
+			pen.setDashOffset(m_offset / LineWidth);
 			pen.setColor(paint);
-			pen.setWidth(LineWidth);
+			pen.setWidthF(LineWidth);
 			pen.setCapStyle(PLineEnd);
 			pen.setJoinStyle(PLineJoin);
 		}
