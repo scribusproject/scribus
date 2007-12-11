@@ -3848,9 +3848,11 @@ bool ScribusMainWindow::slotFileSave()
 		if (doc->is12doc && !warningVersion(this))
 				return false;
 
-		QString fn(doc->DocName);
-		ret = DoFileSave(fn);
-		if (!ret)
+		QString fn(doc->DocName), savedFileName;
+		ret = DoFileSave(fn, &savedFileName);
+		if (!ret && !savedFileName.isEmpty())
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg(savedFileName), CommonStrings::tr_OK);
+		else if (!ret)
 			QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 	}
 	else
@@ -3907,8 +3909,11 @@ bool ScribusMainWindow::slotFileSaveAs()
 			fna = fn+".sla";
 		if (overwrite(this, fna))
 		{
-			ret = DoFileSave(fna);
-			if (!ret)
+			QString savedFileName;
+			ret = DoFileSave(fna, &savedFileName);
+			if (!ret && !savedFileName.isEmpty())
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg(savedFileName), CommonStrings::tr_OK);
+			else if (!ret)
 				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 			else
 				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
@@ -3918,14 +3923,14 @@ bool ScribusMainWindow::slotFileSaveAs()
 	return ret;
 }
 
-bool ScribusMainWindow::DoFileSave(QString fn)
+bool ScribusMainWindow::DoFileSave(const QString& fn, QString* savedFile)
 {
 	fileWatcher->forceScan();
 	fileWatcher->stop();
 	ReorgFonts();
 	mainWindowStatusLabel->setText( tr("Saving..."));
 	mainWindowProgressBar->reset();
-	bool ret=doc->save(fn);
+	bool ret=doc->save(fn, savedFile);
 	qApp->processEvents();
 	if (ret)
 	{

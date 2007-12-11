@@ -2204,8 +2204,9 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 }
 
 //TODO: Handle saving to versions of SLA, and other formats
-bool ScribusDoc::save(const QString& fileName)
+bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 {
+	bool saved = false;
 	QFileInfo fi(fileName);
 	QProgressBar* mainWindowProgressBar=NULL;
 	if (ScQApp->usingGUI())
@@ -2214,15 +2215,18 @@ bool ScribusDoc::save(const QString& fileName)
 		mainWindowProgressBar->reset();
 	}
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool ret = ss->WriteDoc(fileName, this, mainWindowProgressBar);
-	delete ss;
-	if (ret)
+	if (ss)
 	{
-		setModified(false);
-		setName(fileName);
-		hasName = true;
+		saved = ss->WriteDoc(fileName, this, mainWindowProgressBar, savedFile);
+		if (saved)
+		{
+			setModified(false);
+			setName(fileName);
+			hasName = true;
+		}
+		delete ss;
 	}
-	return ret;
+	return saved;
 }
 
 bool ScribusDoc::changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int pageNumber, const int pageType)

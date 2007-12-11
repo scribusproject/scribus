@@ -142,7 +142,7 @@ public:
 
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 					bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString&, int pageCount=1, bool showView=true);
-	bool DoFileSave(QString fn);
+	bool DoFileSave(const QString& fn, QString* savedFile = NULL);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);

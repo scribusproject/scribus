@@ -63,7 +63,7 @@ public:
 	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
 	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, const QString& baseDir, uint maxC, int master);
-	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
+	bool WriteDoc(const QString& fileName, ScribusDoc *docu, QProgressBar *dia2, QString* savedFileName = NULL);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;
 	struct Linked 

@@ -3036,9 +3036,11 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 	}
 }
 
-bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
+bool ScriXmlDoc::WriteDoc(const QString& fileName, ScribusDoc *doc, QProgressBar *dia2, QString* savedFileName)
 {
 	QString text, tf, tf2, tc, tc2;
+	if (savedFileName)
+		savedFileName->setLength(0);
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
 	docu.setContent(st);
@@ -3542,35 +3544,68 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
  * 2.7.2002 C.Toepp
  * <c.toepp@gmx.de>
 */
- #ifdef HAVE_LIBZ
+
+	// Create a random temporary file name
+	srand(time(NULL)); // initialize random sequence each time
+	long     randt = 0, randn = 1 + (int) (((double) rand() / ((double) RAND_MAX + 1)) * 10000);
+	QString  tmpFileName  = QString("%1.%2").arg(fileName).arg(randn);
+	while (QFile::exists(tmpFileName) && (randt < 100))
+	{
+		randn = 1 + (int)((double)rand() / ((double) RAND_MAX + 1)) * 10000;
+		tmpFileName = QString("%1.%2").arg(fileName).arg(randn);
+		++randt;
+	}
+	if (QFile::exists(tmpFileName))
+		return false;
+
+	bool     writeSucceed = false;
 	QCString cs = docu.toCString(); // UTF-8 QCString
+#ifdef HAVE_LIBZ
 	if(fileName.right(2) == "gz")
 	{
 		// zipped saving
-		// XXX: latin1() should probably be local8Bit()
-		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
-		if(gzDoc == NULL)
-			return false;
-		gzputs(gzDoc, cs.data());
-		gzclose(gzDoc);
+		gzFile gzDoc = gzopen(tmpFileName.local8Bit(),"wb");
+		if(gzDoc)
+		{
+			int res = gzputs(gzDoc, cs.data());
+			gzclose(gzDoc);
+			writeSucceed = (res > 0 && (res == cs.length()));
+		}
 	}
 	else
 	{
-		QFile f(fileName);
-		if(!f.open(IO_WriteOnly))
-			return false;
-		QTextStream s(&f);
-		s.writeRawBytes(cs, cs.length());
-		f.close();
+		QFile f(tmpFileName);
+		if(f.open(IO_WriteOnly))
+		{
+			QTextStream s(&f);
+			s.writeRawBytes(cs, cs.length());
+			writeSucceed = (cs.length() > 0 && f.status() == IO_Ok);
+			f.close();
+		}
 	}
 #else
-	QFile f(fileName);
-	if(!f.open(IO_WriteOnly))
-		return false;
-	QTextStream s(&f);
-	QCString cs = docu.toCString();
-	s.writeRawBytes(cs, cs.length());
-	f.close();
+	QFile f(tmpFileName);
+	if(f.open(IO_WriteOnly))
+	{
+		QTextStream s(&f);
+		s.writeRawBytes(cs, cs.length());
+		writeSucceed = (cs.length() > 0 && f.status() == IO_Ok);
+		f.close();
+	}
 #endif
-	return true;
+	if (writeSucceed)
+	{
+		QDir fnDir;
+		if (QFile::exists(fileName))
+			writeSucceed = fnDir.remove(fileName) ? fnDir.rename(tmpFileName, fileName, true) : false;
+		else
+			writeSucceed = fnDir.rename(tmpFileName, fileName, true);
+		if (savedFileName)
+			*savedFileName = writeSucceed ? fileName : tmpFileName;
+	}
+	else if (QFile::exists(tmpFileName))
+		QFile::remove(tmpFileName);
+	if (writeSucceed) 
+		QFile::remove(tmpFileName);
+	return writeSucceed;
 }

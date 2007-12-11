@@ -375,7 +375,7 @@ public:
 	/**
 	 * @brief Save function
 	 */
-	bool save(const QString&);
+	bool save(const QString& fileName, QString* savedFile = NULL);
 	/**
 	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
 	 */
