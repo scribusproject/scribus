@@ -99,9 +99,14 @@ QString LoremParser::createLorem(uint parCount)
 		return QString::null;
 	// first paragraph is always the same
 	QString lorem(loremIpsum[0]);
-	if (!loremIpsum.isEmpty())
-		for (uint i = 1; i < parCount + 1; ++i)
-			lorem += SpecialChars::PARSEP + loremIpsum[rand()%loremIpsum.count()];
+	if (parCount > 1)
+	{
+		if (!loremIpsum.isEmpty())
+		{
+			for (uint i = 1; i < parCount; ++i)
+				lorem += SpecialChars::PARSEP + loremIpsum[rand()%loremIpsum.count()];
+		}
+	}
 	return lorem.trimmed();
 }
 
