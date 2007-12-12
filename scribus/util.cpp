@@ -130,7 +130,7 @@ QString getShortPathName(QString longPath)
 
 int copyFile(QString source, QString target)
 {
-	int bytesread;
+	int bytesread, error = -1;
 	if ((source.isNull()) || (target.isNull()))
 		return -1;
 	if (source == target)
@@ -140,6 +140,8 @@ int copyFile(QString source, QString target)
 		return -1;
 	QFile t(target);
 	QByteArray bb( 65536, ' ' );
+	if (bb.size() <= 0) // Check for memory allocation failure
+		return -1;
 	if (s.open(QIODevice::ReadOnly))
 	{
 		if (t.open(QIODevice::WriteOnly))
@@ -150,11 +152,13 @@ int copyFile(QString source, QString target)
 				t.write( bb.data(), bytesread );
 				bytesread = s.read( bb.data(), bb.size() );
 			}
+			if (s.error() == QFile::NoError && t.error() == QFile::NoError)
+				error = 0;
 			t.close();
 		}
 		s.close();
 	}
-	return 0;
+	return error;
 }
 
 int moveFile(QString source, QString target)
