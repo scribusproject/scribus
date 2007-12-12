@@ -7694,7 +7694,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Font visning</translation>
+        <translation type="obsolete">Font visning</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7767,6 +7767,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source>Alt+C</source>
         <translation>Alt+L</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Font forhåndsvisning</translation>
     </message>
 </context>
 <context>
@@ -10089,6 +10093,14 @@ hjørner:</translation>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Værdi til at forøge eller reducere med</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13492,6 +13504,18 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14741,6 +14765,11 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tur</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17207,7 +17236,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Punktum</translation>
+        <translation type="obsolete">Punktum</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -17273,6 +17302,10 @@ når PDF dokument åbnes:</translation>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

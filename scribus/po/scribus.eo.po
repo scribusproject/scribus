@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.eo8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-08 23:18+0200\n"
+"POT-Creation-Date: 2007-12-12 22:37+0100\n"
 "PO-Revision-Date: 2007-02-21 17:21+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -1333,9 +1333,6 @@ msgstr "Portugala (BR)"
 msgid "Russian"
 msgstr "Rusa"
 
-msgid "Swedish"
-msgstr "Sveda"
-
 msgid "Spanish"
 msgstr "Hispana"
 
@@ -1350,6 +1347,9 @@ msgstr "Slovena"
 
 msgid "Serbian"
 msgstr "Serba"
+
+msgid "Swedish"
+msgstr "Sveda"
 
 msgid "Thai"
 msgstr "Taja"
@@ -5203,6 +5203,13 @@ msgstr "Akceptu"
 msgid "Skip"
 msgstr "Saltu"
 
+msgid "to Canvas"
+msgstr ""
+
+#, fuzzy
+msgid "to Page"
+msgstr "Maldekstra paĝo"
+
 msgid "Nodes"
 msgstr "Nodoj"
 
@@ -5306,6 +5313,78 @@ msgid ""
 msgstr ""
 "Kiam markita ĝi uzas koordinatojn relativajn al la paĝo,\n"
 "alie koordinatojn relativajn al la objekto."
+
+msgid "Preset Layouts:"
+msgstr "Aprioraj aranĝoj:"
+
+msgid "Apply margin settings to all pages"
+msgstr "Apliku la marĝenajn agordojn al ĉiuj paĝoj"
+
+msgid "Apply the margin changes to all existing pages in the document"
+msgstr "Apliku la marĝenajn ŝanĝojn al ĉiuj paĝoj en la dokumento"
+
+msgid "Printer Margins..."
+msgstr "Printilmarĝenoj..."
+
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+"Importu la marĝenojn por la elektita paĝogrando el la disponeblaj printiloj."
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr "Distanco inter la supra marĝeno kaj la rando de la paĝo"
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr "Distanco inter la malsupra marĝeno kaj la rando de la paĝo"
+
+msgid ""
+"Distance between the left margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"Distanco inter la maldekstra marĝeno kaj la rando de la paĝo. Se oni markis "
+"la opcion Vidalvidaj Paĝoj, oni povas utiligi ĉi tiun marĝenon por kalkuli "
+"la ĝustajn marĝenojn por bindado"
+
+msgid ""
+"Distance between the right margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"Distanco inter la dekstra marĝeno kaj la rando de la paĝo. Se oni markis la "
+"opcion Vidalvidaj Paĝoj, oni povas utiligi ĉi tiun marĝenon por kalkuli la "
+"ĝustajn marĝenojn por bindado"
+
+msgid "&Inside:"
+msgstr "I&nterna:"
+
+msgid "O&utside:"
+msgstr "&Ekstera:"
+
+msgid "Gutenberg"
+msgstr "Gutenberg"
+
+msgid "Magazine"
+msgstr "Magazino"
+
+msgid "Fibonacci"
+msgstr "Fibonacci"
+
+msgid "Golden Mean"
+msgstr "Ora proporcio"
+
+msgid "Nine Parts"
+msgstr "Naŭ partoj"
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
+"value. Leading is Left/Inside value."
+msgstr ""
+"Ĉi tie eblas elekti la aprioran aranĝon de la paĝaspekto. 'Nenio' lasas la "
+"marĝenojn nemodifitaj. Gutenberg aranĝas la marĝenojn klasike. 'Magazino' "
+"donas la saman mezuron al ĉiuj marĝenoj. Gvido estas la mezuro Maldekstra/"
+"Interna."
 
 msgid "Exporting PostScript File"
 msgstr "Eksportado de Postskriptdosiero"
@@ -5783,6 +5862,12 @@ msgstr "Biblioteko Freetype2 ne disponebla"
 msgid "Font %1 is broken, no embedding"
 msgstr "La tiparo %1 estas damaĝita, ĝi ne estos inkludita"
 
+msgid "Font %1 has broken metrics in file %2, ignoring metrics"
+msgstr ""
+
+msgid "Valid metrics were found for font %1, using metrics in file %2"
+msgstr ""
+
 msgid "Font %1 is broken (FreeType2), discarding it"
 msgstr "La tiparo %1 estas damaĝita (Freetype2), ĝi ne estos utiligita"
 
@@ -5929,8 +6014,8 @@ msgstr "Aldonu novan nivelon"
 msgid "Scribus crashes due to the following exception : %1"
 msgstr "Scribus mortis pro la sekva escepto: %1"
 
-msgid "Full Stop"
-msgstr "Punkto"
+msgid "Period"
+msgstr ""
 
 msgid "Comma"
 msgstr "Komo"
@@ -7358,78 +7443,6 @@ msgstr "Kromaj dosier&indikoj"
 msgid "Copy #%1 of "
 msgstr "Kopio de #%1 de"
 
-msgid "Preset Layouts:"
-msgstr "Aprioraj aranĝoj:"
-
-msgid "Apply margin settings to all pages"
-msgstr "Apliku la marĝenajn agordojn al ĉiuj paĝoj"
-
-msgid "Apply the margin changes to all existing pages in the document"
-msgstr "Apliku la marĝenajn ŝanĝojn al ĉiuj paĝoj en la dokumento"
-
-msgid "Printer Margins..."
-msgstr "Printilmarĝenoj..."
-
-msgid ""
-"Import the margins for the selected page size from the available printers."
-msgstr ""
-"Importu la marĝenojn por la elektita paĝogrando el la disponeblaj printiloj."
-
-msgid "Distance between the top margin guide and the edge of the page"
-msgstr "Distanco inter la supra marĝeno kaj la rando de la paĝo"
-
-msgid "Distance between the bottom margin guide and the edge of the page"
-msgstr "Distanco inter la malsupra marĝeno kaj la rando de la paĝo"
-
-msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"Distanco inter la maldekstra marĝeno kaj la rando de la paĝo. Se oni markis "
-"la opcion Vidalvidaj Paĝoj, oni povas utiligi ĉi tiun marĝenon por kalkuli "
-"la ĝustajn marĝenojn por bindado"
-
-msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"Distanco inter la dekstra marĝeno kaj la rando de la paĝo. Se oni markis la "
-"opcion Vidalvidaj Paĝoj, oni povas utiligi ĉi tiun marĝenon por kalkuli la "
-"ĝustajn marĝenojn por bindado"
-
-msgid "&Inside:"
-msgstr "I&nterna:"
-
-msgid "O&utside:"
-msgstr "&Ekstera:"
-
-msgid "Gutenberg"
-msgstr "Gutenberg"
-
-msgid "Magazine"
-msgstr "Magazino"
-
-msgid "Fibonacci"
-msgstr "Fibonacci"
-
-msgid "Golden Mean"
-msgstr "Ora proporcio"
-
-msgid "Nine Parts"
-msgstr "Naŭ partoj"
-
-msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
-"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
-"value. Leading is Left/Inside value."
-msgstr ""
-"Ĉi tie eblas elekti la aprioran aranĝon de la paĝaspekto. 'Nenio' lasas la "
-"marĝenojn nemodifitaj. Gutenberg aranĝas la marĝenojn klasike. 'Magazino' "
-"donas la saman mezuron al ĉiuj marĝenoj. Gvido estas la mezuro Maldekstra/"
-"Interna."
-
 msgid "Show Page Previews"
 msgstr "Montru paĝ-antaŭrigardojn"
 
@@ -7830,6 +7843,11 @@ msgid ""
 msgstr ""
 "La modifoj al via dokumentoj ne estis konservitaj kaj oni demandis al vi ĉu "
 "vi volas rezigni pri ili. Ĉi vi volas daŭrigi?"
+
+msgid ""
+"Your document was saved to a temporary file and could not be moved: \n"
+"%1"
+msgstr ""
 
 msgid ""
 "Cannot write the file: \n"
@@ -8917,14 +8935,14 @@ msgstr "Eksportu kiel bildon"
 msgid "Exports selected pages as bitmap images."
 msgstr "Eksportas la elektitajn paĝojn kiel rastrum-bildojn."
 
+msgid "Export successful."
+msgstr "Eksporto sukcesinta."
+
 msgid "Save as Image"
 msgstr "Konservu kiel bildon"
 
-msgid "Error writing the output file(s)."
-msgstr "Eraro dum skribado de la eligodosiero(j)."
-
-msgid "Export successful."
-msgstr "Eksporto sukcesinta."
+msgid "Insufficient memory for this image size."
+msgstr ""
 
 msgid "File exists. Overwrite?"
 msgstr "La dosiero ekzistas. Ĉu superskribi ĝin?"
@@ -8934,6 +8952,9 @@ msgstr "jam ekzistas. Ĉu superskribi ĝin?"
 
 msgid "Yes all"
 msgstr "Jes ĉiujn"
+
+msgid "Error writing the output file(s)."
+msgstr "Eraro dum skribado de la eligodosiero(j)."
 
 msgid "Choose a Export Directory"
 msgstr "Elektu eksportdosierujon"
@@ -9647,6 +9668,9 @@ msgstr ""
 "\n"
 "Detalojn pri tio, kio povas rifuzi ĉiu esceptofunkcio oni povas legi en la "
 "funkcio-dokumentaro\n"
+
+#~ msgid "Full Stop"
+#~ msgstr "Punkto"
 
 #~ msgid "Print: "
 #~ msgstr "Printado: "

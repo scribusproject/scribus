@@ -7793,7 +7793,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Преглед фонтова</translation>
+        <translation type="obsolete">Преглед фонтова</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7866,6 +7866,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10903,6 +10907,14 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16288,6 +16300,18 @@ is not exhaustive due to exceptions from called functions.
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -18938,6 +18962,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22023,7 +22052,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Тачка</translation>
+        <translation type="obsolete">Тачка</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -22113,6 +22142,10 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Ниједан</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

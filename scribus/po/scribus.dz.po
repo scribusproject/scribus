@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-08 23:18+0200\n"
+"POT-Creation-Date: 2007-12-12 22:37+0100\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -1400,9 +1400,6 @@ msgstr "པོར་ཊུ་གིསི།  (བི་ཨར་)"
 msgid "Russian"
 msgstr "ར་ཤི་ཡཱན།"
 
-msgid "Swedish"
-msgstr "སུའི་ཌིཤི།"
-
 msgid "Spanish"
 msgstr "སིཔེ་ནིཤི།"
 
@@ -1417,6 +1414,9 @@ msgstr "སོལོ་བི་ནི་ཡཱན།"
 
 msgid "Serbian"
 msgstr "སར་བི་ཡཱན།"
+
+msgid "Swedish"
+msgstr "སུའི་ཌིཤི།"
 
 #, fuzzy
 msgid "Thai"
@@ -5584,6 +5584,13 @@ msgstr "དང་ལེན།"
 msgid "Skip"
 msgstr "གོམ་འགྱོ།"
 
+msgid "to Canvas"
+msgstr ""
+
+#, fuzzy
+msgid "to Page"
+msgstr "ཤོག་ལེབ་གཡོན།"
+
 msgid "Nodes"
 msgstr "མཐུད་མཚམས་ཚུ།"
 
@@ -5692,6 +5699,81 @@ msgid ""
 msgstr ""
 "ཞིབ་དཔྱད་འབད་འདི་ཤོག་ལེབ་ལུ་ལག་ལེན་འཐབ་པའི་ཆ་སྙོམས་འབྲེལ་བ། \n"
 "འདི་མེན་པ་ཅིན་ བུར་གཞོང་ཚུ་དངོས་པོ་ལུ་འབྲེལ་བ་ཡོད།"
+
+#, fuzzy
+msgid "Preset Layouts:"
+msgstr "སྒྲིག་བཀོད:"
+
+#, fuzzy
+msgid "Apply margin settings to all pages"
+msgstr "ཤོག་ལེབ་ཆ་མཉམ་ལུ་སེལ་འཐུ་འབད་ཡོད་པའི་ནེས་པ་འདི་འཇུག་སྤྱོད་འབད།"
+
+#, fuzzy
+msgid "Apply the margin changes to all existing pages in the document"
+msgstr "ཤོག་ལེབ་དང་པ་འདི་ ཡིག་ཆ་གི་ཤོག་ལེབ་གཡོན་བཟོ།"
+
+#, fuzzy
+msgid "Printer Margins..."
+msgstr "དཔར་བསྐྲུན་འབད་དོ..."
+
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr "མགོའི་ས་སྟོང་གི་ལམ་སྟོན་པ་དང་ ཤོག་ལེབ་ཀྱི་མཐའམ་གཉིས་ཀྱི་བར་ན་ཡོད་པའི་གྱང་ཚད།"
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr "མཇུག་གི་ས་སྟོང་ལམ་སྟོན་པ་དང་ ཤོག་ལེབ་ཀྱི་མཐའམ་གཉིས་ཀྱི་བར་ན་ཡོད་པའི་གྱང་ཚད།"
+
+#, fuzzy
+msgid ""
+"Distance between the left margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"གཡོན་གྱི་ས་སྟོང་གི་ལམ་སྟོན་པ་དང་ཤོག་ལེབ་མཐའམ་གྱི་བར་ནའི་གྱང་ཚད།\n"
+"ག་དེམ་ཅི་འབད་ཤོག་ལེབ་གདོང་བསྐོར་འདི་སེལ་འཐུ་འབད་ཡོད་པ་ཅིན་  འ་ནི་བར་སྟོང་གི་ས་སྟོང་འདི་  སྡམ་ཐག་"
+"གི་དོན་ལུ་ས་སྟོང་ངེས་བདེན་སྒྲུབ་ནི་ལུ་ལག་ལོན་འཐབ་བཏུབ།"
+
+#, fuzzy
+msgid ""
+"Distance between the right margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"གཡས་ཀྱི་ས་སྟོང་ལམ་སྟོན་པ་དང་ཤོག་ལེབ་མཐའམ་གྱི་བར་ནའི་གྱང་ཚད།\n"
+"ག་དེམ་ཅིག་འབད་ཤོག་ལེབ་གདོང་བསྐོར་ཚུ་སེར་འཐུ་འབད་ཡོད་པ་ཅིན་  འ་ནི་བར་སྟོང་གི་ས་སྟོང་འདི་ སྡམ་ཐག་གི་"
+"དོན་ལུ་ས་སྟོང་ཚུ་ངེས་བདེན་འབད་སྒྲུབ་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ།"
+
+msgid "&Inside:"
+msgstr "ནང་ན:(&I)"
+
+msgid "O&utside:"
+msgstr "ཕྱི་ཁར:(&u)"
+
+#, fuzzy
+msgid "Gutenberg"
+msgstr "ཡོངས་ཁྱབ།"
+
+#, fuzzy
+msgid "Magazine"
+msgstr "དུས་དེབ་ཚུ།"
+
+msgid "Fibonacci"
+msgstr ""
+
+msgid "Golden Mean"
+msgstr ""
+
+msgid "Nine Parts"
+msgstr ""
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
+"value. Leading is Left/Inside value."
+msgstr ""
 
 msgid "Exporting PostScript File"
 msgstr ""
@@ -6185,6 +6267,12 @@ msgstr ""
 msgid "Font %1 is broken, no embedding"
 msgstr "བཏོན་བཀོག་འབདཝ་ལས་ཡིག་གཟུགས་ཀྱི %1འདི་ཆད་སོང་ནུག"
 
+msgid "Font %1 has broken metrics in file %2, ignoring metrics"
+msgstr ""
+
+msgid "Valid metrics were found for font %1, using metrics in file %2"
+msgstr ""
+
 #, fuzzy
 msgid "Font %1 is broken (FreeType2), discarding it"
 msgstr "བཏོན་བཀོག་འབདཝ་ལས་ཡིག་གཟུགས་ཀྱི %1འདི་ཆད་སོང་ནུག"
@@ -6338,8 +6426,8 @@ msgstr "བང་རམ་གསརཔ་ཅིག་བསྡོམས།"
 msgid "Scribus crashes due to the following exception : %1"
 msgstr "བརྡ་རྟགས་#%1ལས་བརྟེན་འདི་སི་ཀིརི་བསི་བརྡབ་འཁྲུག་བྱུང་ཡོད།"
 
-msgid "Full Stop"
-msgstr "ཤད།"
+msgid "Period"
+msgstr ""
 
 msgid "Comma"
 msgstr "ལྷོད་རྟགས།"
@@ -7867,81 +7955,6 @@ msgstr "གྲུལ་ལམ་ཚུ་ཁ་སྐོང་རྐྱབས།
 msgid "Copy #%1 of "
 msgstr "#%1 གི་འདྲ་བཤུས།"
 
-#, fuzzy
-msgid "Preset Layouts:"
-msgstr "སྒྲིག་བཀོད:"
-
-#, fuzzy
-msgid "Apply margin settings to all pages"
-msgstr "ཤོག་ལེབ་ཆ་མཉམ་ལུ་སེལ་འཐུ་འབད་ཡོད་པའི་ནེས་པ་འདི་འཇུག་སྤྱོད་འབད།"
-
-#, fuzzy
-msgid "Apply the margin changes to all existing pages in the document"
-msgstr "ཤོག་ལེབ་དང་པ་འདི་ ཡིག་ཆ་གི་ཤོག་ལེབ་གཡོན་བཟོ།"
-
-#, fuzzy
-msgid "Printer Margins..."
-msgstr "དཔར་བསྐྲུན་འབད་དོ..."
-
-msgid ""
-"Import the margins for the selected page size from the available printers."
-msgstr ""
-
-msgid "Distance between the top margin guide and the edge of the page"
-msgstr "མགོའི་ས་སྟོང་གི་ལམ་སྟོན་པ་དང་ ཤོག་ལེབ་ཀྱི་མཐའམ་གཉིས་ཀྱི་བར་ན་ཡོད་པའི་གྱང་ཚད།"
-
-msgid "Distance between the bottom margin guide and the edge of the page"
-msgstr "མཇུག་གི་ས་སྟོང་ལམ་སྟོན་པ་དང་ ཤོག་ལེབ་ཀྱི་མཐའམ་གཉིས་ཀྱི་བར་ན་ཡོད་པའི་གྱང་ཚད།"
-
-#, fuzzy
-msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"གཡོན་གྱི་ས་སྟོང་གི་ལམ་སྟོན་པ་དང་ཤོག་ལེབ་མཐའམ་གྱི་བར་ནའི་གྱང་ཚད།\n"
-"ག་དེམ་ཅི་འབད་ཤོག་ལེབ་གདོང་བསྐོར་འདི་སེལ་འཐུ་འབད་ཡོད་པ་ཅིན་  འ་ནི་བར་སྟོང་གི་ས་སྟོང་འདི་  སྡམ་ཐག་"
-"གི་དོན་ལུ་ས་སྟོང་ངེས་བདེན་སྒྲུབ་ནི་ལུ་ལག་ལོན་འཐབ་བཏུབ།"
-
-#, fuzzy
-msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"གཡས་ཀྱི་ས་སྟོང་ལམ་སྟོན་པ་དང་ཤོག་ལེབ་མཐའམ་གྱི་བར་ནའི་གྱང་ཚད།\n"
-"ག་དེམ་ཅིག་འབད་ཤོག་ལེབ་གདོང་བསྐོར་ཚུ་སེར་འཐུ་འབད་ཡོད་པ་ཅིན་  འ་ནི་བར་སྟོང་གི་ས་སྟོང་འདི་ སྡམ་ཐག་གི་"
-"དོན་ལུ་ས་སྟོང་ཚུ་ངེས་བདེན་འབད་སྒྲུབ་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ།"
-
-msgid "&Inside:"
-msgstr "ནང་ན:(&I)"
-
-msgid "O&utside:"
-msgstr "ཕྱི་ཁར:(&u)"
-
-#, fuzzy
-msgid "Gutenberg"
-msgstr "ཡོངས་ཁྱབ།"
-
-#, fuzzy
-msgid "Magazine"
-msgstr "དུས་དེབ་ཚུ།"
-
-msgid "Fibonacci"
-msgstr ""
-
-msgid "Golden Mean"
-msgstr ""
-
-msgid "Nine Parts"
-msgstr ""
-
-msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
-"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
-"value. Leading is Left/Inside value."
-msgstr ""
-
 msgid "Show Page Previews"
 msgstr "ཤོག་ལེབ་ཀྱི་སྔོན་ལྟ་ཚུ་སྟོན།"
 
@@ -8366,6 +8379,11 @@ msgid ""
 msgstr ""
 "ཁྱོད་ཀྱ྄ི་ཡིག་ཆའི་བསྒྱུར་བཅོས་འདི་མ་སྲུངམ་ལས་ ཁྱོད་ཀྱིས་ དེ་ཚུ་རྒྱབ་ལོག་གཏང་དགོ་ཟེར་ཞུབ་འབདཝ་ཨིན་མས། ཁྱོད་"
 "འཕྲོ་མཐུད་ནི་ཨིན་ན?"
+
+msgid ""
+"Your document was saved to a temporary file and could not be moved: \n"
+"%1"
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -9491,14 +9509,14 @@ msgstr "གཟུགས་བརྙན་ཚུ་བཟུམ་སྦེ་ཕ
 msgid "Exports selected pages as bitmap images."
 msgstr ""
 
+msgid "Export successful."
+msgstr "ཕྱིར་འདྲེན་མཐར་འཁྱོལ་ཡོདཔ།"
+
 msgid "Save as Image"
 msgstr "གཟུགས་བརྙན་སྦེ་སྲུངས།"
 
-msgid "Error writing the output file(s)."
-msgstr "ཨའུཊི་པུཊི་ ཡིག་སྣོད་ཚུ་འབྲིཝ་ད་འཛོལ་བ།"
-
-msgid "Export successful."
-msgstr "ཕྱིར་འདྲེན་མཐར་འཁྱོལ་ཡོདཔ།"
+msgid "Insufficient memory for this image size."
+msgstr ""
 
 msgid "File exists. Overwrite?"
 msgstr "ཡིག་སྣོད་གནས་ཏེ་ཡོད།ཚབ་སྲུང་འབད་ག?"
@@ -9508,6 +9526,9 @@ msgstr "ཧེ་མ་ལས་རང་གནས་ཏེ་ཡོད།ཚབ
 
 msgid "Yes all"
 msgstr "ཆ་མཉམ་རང་བཏུབ།"
+
+msgid "Error writing the output file(s)."
+msgstr "ཨའུཊི་པུཊི་ ཡིག་སྣོད་ཚུ་འབྲིཝ་ད་འཛོལ་བ།"
 
 msgid "Choose a Export Directory"
 msgstr "ཕྱིར་འདྲེན་སྣོད་ཐོ་གཅིག་གདམ།"
@@ -10254,6 +10275,9 @@ msgstr ""
 "\n"
 "ལས་འགན་རེ་གིས་དམིགས་བསལ་ག་ཅི་འདི་འབོར་ནི་ཨིན་ནའི་རྒྱས་བཤད་ཚུ་ \n"
 "ལས་འགན་གྱི་ཡིག་ཐོ་བཀོད་པའི་གུ་ བྱིན་ཏེ་ཡོད།"
+
+#~ msgid "Full Stop"
+#~ msgstr "ཤད།"
 
 #~ msgid "Print: "
 #~ msgstr "དཔར་བསྐྲུན་འབད།"

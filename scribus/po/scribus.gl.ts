@@ -11226,7 +11226,7 @@ antevisión da fonte</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Antevisión das Fontes</translation>
+        <translation type="obsolete">Antevisión das Fontes</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -11299,6 +11299,10 @@ antevisión da fonte</translation>
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Antevisión das Fontes</translation>
     </message>
 </context>
 <context>
@@ -15490,6 +15494,14 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Valor no que Aumentar ou Reducir</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21915,6 +21927,18 @@ Polo tanto a imaxe pode non ser correcta</translation>
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -25370,6 +25394,11 @@ Desprazamento vertical: %3</translation>
     <message>
         <source>Do you really want to clear all your text?</source>
         <translation type="obsolete">Realmente pretende eliminar todo o texto?</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30035,7 +30064,7 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Punto</translation>
+        <translation type="obsolete">Punto</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -30129,6 +30158,10 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <source>Indentation from the right for the whole paragraph</source>
         <translation type="obsolete">Indentación á dereita para todo o parágrafo</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

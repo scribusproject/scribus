@@ -7202,7 +7202,7 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Ukážka písma</translation>
+        <translation type="obsolete">Ukážka písma</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7275,6 +7275,10 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
     <message>
         <source>Alt+C</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Náhľad na písmo</translation>
     </message>
 </context>
 <context>
@@ -9731,6 +9735,14 @@ Vyberte si, prosím, iný.</translation>
     </message>
     <message>
         <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13538,6 +13550,18 @@ Externé odkazy
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15395,6 +15419,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18227,7 +18256,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Bodka</translation>
+        <translation type="obsolete">Bodka</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -18292,6 +18321,10 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Period</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -7620,7 +7620,7 @@ joita on tarkoitus katsella näytöltä</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Fonttien esikatselu</translation>
+        <translation type="obsolete">Fonttien esikatselu</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7693,6 +7693,10 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Fonttien esikatselu</translation>
     </message>
 </context>
 <context>
@@ -9992,6 +9996,14 @@ Corners:</source>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Koon muutoksen arvo</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13371,6 +13383,18 @@ is not exhaustive due to exceptions from called functions.
         <source>Chinese (Trad.)</source>
         <translation>kiina (trad.)</translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14609,6 +14633,11 @@ pystysuora siirtyminen: %3</translation>
     <message>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tuurit</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17075,7 +17104,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Piste</translation>
+        <translation type="obsolete">Piste</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -17140,6 +17169,10 @@ yhteydessä suoritettava JavaScript:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Period</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -7772,7 +7772,7 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Rhagolwg Wynebfathau</translation>
+        <translation type="obsolete">Rhagolwg Wynebfathau</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7845,6 +7845,10 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
     <message>
         <source>Alt+C</source>
         <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10872,6 +10876,14 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16178,6 +16190,18 @@ is not exhaustive due to exceptions from called functions.
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -18806,6 +18830,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21859,7 +21888,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Atalnod Llawn</translation>
+        <translation type="obsolete">Atalnod Llawn</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -21949,6 +21978,10 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Dim</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

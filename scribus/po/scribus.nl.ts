@@ -6701,7 +6701,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Fontvoorbeeld</translation>
+        <translation type="obsolete">Fontvoorbeeld</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -6774,6 +6774,10 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Alt+C</source>
         <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Fontvoorbeeld</translation>
     </message>
 </context>
 <context>
@@ -9084,6 +9088,14 @@ hoeken:</translation>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Waarde om te vergroten of te verkleinen</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12470,6 +12482,18 @@ aangeroepen functies.
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13713,6 +13737,11 @@ Verticaal shift: %3</translation>
     <message>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tuur</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16180,7 +16209,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Volledige stop</translation>
+        <translation type="obsolete">Volledige stop</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -16246,6 +16275,10 @@ als PDF document wordt geopend:</translation>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

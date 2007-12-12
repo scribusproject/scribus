@@ -7104,7 +7104,7 @@ font preview</comment>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Forhåndsvisning av skrifttyper</translation>
+        <translation type="obsolete">Forhåndsvisning av skrifttyper</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7177,6 +7177,10 @@ font preview</comment>
     <message>
         <source>Alt+C</source>
         <translation>Alt + C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Forhåndsvisning av skrifttyper</translation>
     </message>
 </context>
 <context>
@@ -9483,6 +9487,14 @@ Corners:</source>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Forstørrelses- eller forminskelsesgrad</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12936,6 +12948,18 @@ PDB Importer</comment>
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14177,6 +14201,11 @@ Loddrett forskyvning: %3</translation>
 %1</source>
         <translation>Kan ikke skrive til fila: 
 %1</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16645,7 +16674,7 @@ når pdf-dokument åpnes:</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Punktum</translation>
+        <translation type="obsolete">Punktum</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -16711,6 +16740,10 @@ når pdf-dokument åpnes:</translation>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -486,7 +486,7 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
@@ -2608,11 +2608,11 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Windows Port:</source>
-        <translation>Windows 移植: </translation>
+        <translation type="obsolete">Windows 移植: </translation>
     </message>
     <message>
         <source>Mac OSX Aqua Port:</source>
-        <translation>Mac OSX Aqua 移植: </translation>
+        <translation type="obsolete">Mac OSX Aqua 移植: </translation>
     </message>
     <message>
         <source>Wiki</source>
@@ -2645,7 +2645,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. 
         The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>這個面板顯示Scribus版本, 編譯日期, 並且已經編譯到 Scribus 的支援的函式庫中,
+        <translation type="obsolete">這個面板顯示Scribus版本, 編譯日期, 並且已經編譯到 Scribus 的支援的函式庫中,
         這裡 C-C-T-F 指的是 C=littlecms C=CUPS T=TIFF 支援 F=Fontconfig, 最後一個字母是渲染器(?) 
         C=cairo 或者 A=libart。不存在的支援函式庫以*號表示. 這個也註明瞭Scribus檢測到的Ghostscript版本號碼
         </translation>
@@ -2722,35 +2722,35 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>File Name:</source>
-        <translation>檔案名:</translation>
+        <translation type="obsolete">檔案名:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation>版本:</translation>
+        <translation type="obsolete">版本:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation>啓用:</translation>
+        <translation type="obsolete">啓用:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation>發佈日期:</translation>
+        <translation type="obsolete">發佈日期:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation>版權:</translation>
+        <translation type="obsolete">版權:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation>作者:</translation>
+        <translation type="obsolete">作者:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>描述:</translation>
+        <translation type="obsolete">描述:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation>授權:</translation>
+        <translation type="obsolete">授權:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -2861,7 +2861,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>&amp;L 清除內容</translation>
+        <translation type="obsolete">&amp;L 清除內容</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -2961,7 +2961,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>&amp;O 檔案結構樹</translation>
+        <translation type="obsolete">&amp;O 檔案結構樹</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -3065,7 +3065,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;O 輪廓</translation>
+        <translation type="obsolete">&amp;O 輪廓</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -4537,7 +4537,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Apply the selected template to even, odd or all pages within the following range</source>
-        <translation>在以下的範圍內套用所選的模板到偶數頁, 奇數頁或者全部頁面</translation>
+        <translation type="obsolete">在以下的範圍內套用所選的模板到偶數頁, 奇數頁或者全部頁面</translation>
     </message>
     <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
@@ -4570,7 +4570,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Error creating preview</source>
-        <translation>產生預覽錯誤</translation>
+        <translation type="obsolete">產生預覽錯誤</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
@@ -4649,7 +4649,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>C&amp;ode:</source>
-        <translation>編碼 (&amp;O):</translation>
+        <translation type="obsolete">編碼 (&amp;O):</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -4772,7 +4772,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>寄存本 (*.scs);;全部文件 (*)</translation>
+        <translation type="obsolete">寄存本 (*.scs);;全部文件 (*)</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -4800,7 +4800,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>儲存 (&amp;S)</translation>
+        <translation type="obsolete">儲存 (&amp;S)</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -4812,15 +4812,15 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Small</source>
-        <translation>小 (&amp;S)</translation>
+        <translation type="obsolete">小 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Medium</source>
-        <translation>中 (&amp;M)</translation>
+        <translation type="obsolete">中 (&amp;M)</translation>
     </message>
     <message>
         <source>&amp;Large</source>
-        <translation>大 (&amp;L)</translation>
+        <translation type="obsolete">大 (&amp;L)</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -5183,7 +5183,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
@@ -5255,7 +5255,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation>關閉對話框並返回到文字編輯。</translation>
+        <translation type="obsolete">關閉對話框並返回到文字編輯。</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -5887,7 +5887,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -6080,7 +6080,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -6175,7 +6175,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>None</source>
@@ -6362,7 +6362,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Delete Color:</source>
@@ -6587,7 +6587,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
-        <translation>名稱：區域的可選名稱，例如：Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
+        <translation type="obsolete">名稱：區域的可選名稱，例如：Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
@@ -6653,7 +6653,7 @@ This can be set in the Preferences.</source>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -6977,7 +6977,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation>Do not show objects outside the margins on the printed page or exported file</translation>
+        <translation type="obsolete">Do not show objects outside the margins on the printed page or exported file</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
@@ -7035,7 +7035,7 @@ failed!</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -7139,7 +7139,7 @@ failed!</source>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">手動追蹤</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
@@ -7684,11 +7684,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>字體搜索路徑只能在偏好設定中設定，而且要在沒有打開任何檔案的情況下。關閉所有檔案，然後用編輯－設置來更改字體搜索路徑。</translation>
+        <translation type="obsolete">字體搜索路徑只能在偏好設定中設定，而且要在沒有打開任何檔案的情況下。關閉所有檔案，然後用編輯－設置來更改字體搜索路徑。</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -7700,59 +7700,59 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>字體名稱</translation>
+        <translation type="obsolete">字體名稱</translation>
     </message>
     <message>
         <source>Doc</source>
         <comment>font preview</comment>
-        <translation>文件</translation>
+        <translation type="obsolete">文件</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>font preview</comment>
-        <translation>類型</translation>
+        <translation type="obsolete">類型</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation>子集</translation>
+        <translation type="obsolete">子集</translation>
     </message>
     <message>
         <source>Access</source>
         <comment>font preview</comment>
-        <translation>Access</translation>
+        <translation type="obsolete">Access</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>字體尺寸:</translation>
+        <translation type="obsolete">字體尺寸:</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation>字體預覽</translation>
+        <translation type="obsolete">字體預覽</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <comment>font preview</comment>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>Quick Search: </source>
-        <translation>快速尋找: </translation>
+        <translation type="obsolete">快速尋找: </translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>尋找 (&amp;S)</translation>
+        <translation type="obsolete">尋找 (&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <comment>font preview</comment>
-        <translation>關閉 (&amp;C)</translation>
+        <translation type="obsolete">關閉 (&amp;C)</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <comment>font preview</comment>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
@@ -7766,7 +7766,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation>在此輸入字以便快速尋找字體名稱。例如&apos;粗體&apos;顯示所帶有粗體的名稱。尋找大小寫有別</translation>
+        <translation type="obsolete">在此輸入字以便快速尋找字體名稱。例如&apos;粗體&apos;顯示所帶有粗體的名稱。尋找大小寫有別</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7793,7 +7793,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>追加 (&amp;A)</translation>
+        <translation type="obsolete">追加 (&amp;A)</translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
@@ -7808,7 +7808,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>字體預覽</translation>
+        <translation type="obsolete">字體預覽</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7882,6 +7882,10 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">字體預覽</translation>
+    </message>
 </context>
 <context>
     <name>FontPreviewPlugin</name>
@@ -7945,7 +7949,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>這裡你可以增加, 更改或者刪除顔色節點。</translation>
+        <translation type="obsolete">這裡你可以增加, 更改或者刪除顔色節點。</translation>
     </message>
     <message>
         <source>Add, change or remove color stops here</source>
@@ -8094,7 +8098,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>unknown</source>
-        <translation>未知</translation>
+        <translation type="obsolete">未知</translation>
     </message>
     <message>
         <source>Find</source>
@@ -8338,7 +8342,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -8706,7 +8710,7 @@ converting their vector data into Scribus objects.</source>
     <name>LineStyleWidget</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> pt</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -9303,7 +9307,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -9387,7 +9391,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>啓用或者禁用物件的列印</translation>
+        <translation type="obsolete">啓用或者禁用物件的列印</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -9547,7 +9551,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Make text in lower frames flow around the object shape</translation>
+        <translation type="obsolete">Make text in lower frames flow around the object shape</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -9717,11 +9721,11 @@ Corners:</source>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
+        <translation type="obsolete">Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Use a second line originally based on the frame&apos;s shape for text flow</translation>
+        <translation type="obsolete">Use a second line originally based on the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -9777,11 +9781,11 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9876,7 +9880,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -9904,7 +9908,7 @@ Corners:</source>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -9984,7 +9988,7 @@ Corners:</source>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>檔案的起始頁碼</translation>
+        <translation type="obsolete">檔案的起始頁碼</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -10020,7 +10024,7 @@ Corners:</source>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation>起始頁碼 (&amp;I):</translation>
+        <translation type="obsolete">起始頁碼 (&amp;I):</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
@@ -10186,7 +10190,7 @@ Corners:</source>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation>按所示減少路徑尺寸 %</translation>
+        <translation type="obsolete">按所示減少路徑尺寸 %</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
@@ -10198,7 +10202,7 @@ Corners:</source>
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation>% 來增加或減少</translation>
+        <translation type="obsolete">% 來增加或減少</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -10238,6 +10242,14 @@ Corners:</source>
     </message>
     <message>
         <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10440,11 +10452,11 @@ Corners:</source>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>&amp;T 反鋸齒文本</translation>
+        <translation type="obsolete">&amp;T 反鋸齒文本</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>&amp;T 反鋸齒圖像</translation>
+        <translation type="obsolete">&amp;T 反鋸齒圖像</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -10504,11 +10516,11 @@ Corners:</source>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>在閱讀器中提供更加悅目的文本顯示，代價是預覽稍微緩慢。這只影響Type 1字體</translation>
+        <translation type="obsolete">在閱讀器中提供更加悅目的文本顯示，代價是預覽稍微緩慢。這只影響Type 1字體</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>在預覽中提供了對TrueType字體，OpenType字體，EPS，PDF和向量圖更加悅目的顯示，代價是預覽速度輕微的緩慢。</translation>
+        <translation type="obsolete">在預覽中提供了對TrueType字體，OpenType字體，EPS，PDF和向量圖更加悅目的顯示，代價是預覽速度輕微的緩慢。</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -10581,7 +10593,7 @@ Corners:</source>
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -10676,7 +10688,7 @@ Corners:</source>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>頁面排版</translation>
+        <translation type="obsolete">頁面排版</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -11093,7 +11105,7 @@ Corners:</source>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation>寄存本</translation>
+        <translation type="obsolete">寄存本</translation>
     </message>
     <message>
         <source>Display</source>
@@ -11141,19 +11153,19 @@ Corners:</source>
     </message>
     <message>
         <source>Other Options</source>
-        <translation>其他選項</translation>
+        <translation type="obsolete">其他選項</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>預覽</translation>
+        <translation type="obsolete">預覽</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>小</translation>
+        <translation type="obsolete">小</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>中</translation>
+        <translation type="obsolete">中</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -11169,7 +11181,7 @@ Corners:</source>
     </message>
     <message>
         <source>Printing</source>
-        <translation>列印</translation>
+        <translation type="obsolete">列印</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -11217,7 +11229,7 @@ Corners:</source>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation>Choose the size of the preview in the scrapbook palette</translation>
+        <translation type="obsolete">Choose the size of the preview in the scrapbook palette</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -11241,11 +11253,11 @@ Corners:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation>Do not show objects outside the margins on the printed page or exported file</translation>
+        <translation type="obsolete">Do not show objects outside the margins on the printed page or exported file</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
-        <translation>Save the scrapbook contents everytime after a change</translation>
+        <translation type="obsolete">Save the scrapbook contents everytime after a change</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
@@ -11321,11 +11333,11 @@ Corners:</source>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
-        <translation>&amp;V 更改時儲存內容</translation>
+        <translation type="obsolete">&amp;V 更改時儲存內容</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation>大</translation>
+        <translation type="obsolete">大</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -11353,11 +11365,11 @@ Corners:</source>
     </message>
     <message>
         <source>Clip to Page &amp;Margins</source>
-        <translation>&amp;M 按頁邊距線裁剪</translation>
+        <translation type="obsolete">&amp;M 按頁邊距線裁剪</translation>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation>&amp;U 應用底色清除</translation>
+        <translation type="obsolete">&amp;U 應用底色清除</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
@@ -11461,7 +11473,7 @@ Corners:</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Ghostscript解析器在文件系統裏的位置</translation>
+        <translation type="obsolete">Ghostscript解析器在文件系統裏的位置</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -11601,7 +11613,7 @@ Corners:</source>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
+        <translation type="obsolete">A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
@@ -11631,15 +11643,15 @@ Corners:</source>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -11653,39 +11665,39 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>單頁</translation>
+        <translation type="obsolete">單頁</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation>雙頁</translation>
+        <translation type="obsolete">雙頁</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation>左頁</translation>
+        <translation type="obsolete">左頁</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>右頁</translation>
+        <translation type="obsolete">右頁</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>3折</translation>
+        <translation type="obsolete">3折</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation>中間</translation>
+        <translation type="obsolete">中間</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>4折</translation>
+        <translation type="obsolete">4折</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation>中左</translation>
+        <translation type="obsolete">中左</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation>中右</translation>
+        <translation type="obsolete">中右</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -11729,7 +11741,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Magazine</source>
@@ -12468,7 +12480,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>External Links</source>
-        <translation>外部鏈結</translation>
+        <translation type="obsolete">外部鏈結</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -12492,7 +12504,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>巴西語</translation>
+        <translation type="obsolete">巴西語</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -12504,7 +12516,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Traditional Chinese</source>
-        <translation>中文(繁體中文)</translation>
+        <translation type="obsolete">中文(繁體中文)</translation>
     </message>
     <message>
         <source>Czech</source>
@@ -12711,7 +12723,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Draw (*.sxd);;All Files (*)</translation>
+        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;All Files (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -13070,7 +13082,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
+        <translation type="obsolete">Font %1 (found using fontconfig) is broken, discarding it</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -13160,7 +13172,7 @@ Check path and filename.</source>
     <message>
         <source>Failed to save document.</source>
         <comment>python ??</comment>
-        <translation>Failed to save document.</translation>
+        <translation type="obsolete">Failed to save document.</translation>
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
@@ -13777,6 +13789,18 @@ External Links
 外部連結
 </translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14215,7 +14239,7 @@ External Links
     <name>SToolBColorF</name>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -14234,7 +14258,7 @@ External Links
     <name>SToolBColorS</name>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -14568,7 +14592,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
@@ -14776,7 +14800,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -14882,7 +14906,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation>新建主頁</translation>
+        <translation type="obsolete">新建主頁</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -15035,6 +15059,11 @@ Vertical shift: %3</source>
     <message>
         <source>Liga&amp;ture</source>
         <translation>連字 (&amp;T)</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15204,7 +15233,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Print: </source>
-        <translation>列印：</translation>
+        <translation type="obsolete">列印：</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -15244,11 +15273,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation>不能刪除正在使用的專案</translation>
+        <translation type="obsolete">不能刪除正在使用的專案</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation>專案 %1 正被故事編輯器使用中。刪除操作將被取消。</translation>
+        <translation type="obsolete">專案 %1 正被故事編輯器使用中。刪除操作將被取消。</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -15260,7 +15289,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>你真的要清除所有的文本嗎？</translation>
+        <translation type="obsolete">你真的要清除所有的文本嗎？</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -15521,7 +15550,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -15810,27 +15839,27 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Load Text from File</source>
-        <translation>從文件載入文本</translation>
+        <translation type="obsolete">從文件載入文本</translation>
     </message>
     <message>
         <source>Save Text to File</source>
-        <translation>把文本另存到文件</translation>
+        <translation type="obsolete">把文本另存到文件</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>更新文本框並退出</translation>
+        <translation type="obsolete">更新文本框並退出</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>退出而不更新文本框</translation>
+        <translation type="obsolete">退出而不更新文本框</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation>從框重新載入文本</translation>
+        <translation type="obsolete">從框重新載入文本</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>更新文本框</translation>
+        <translation type="obsolete">更新文本框</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
@@ -15854,7 +15883,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Search/Replace</source>
-        <translation>尋找/替代</translation>
+        <translation type="obsolete">尋找/替代</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -15935,7 +15964,7 @@ Vertical shift: %3</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>底線</translation>
+        <translation type="obsolete">底線</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -15951,7 +15980,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>刪除線</translation>
+        <translation type="obsolete">刪除線</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -15959,15 +15988,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Outline</source>
-        <translation>輪廓</translation>
+        <translation type="obsolete">輪廓</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>陰影</translation>
+        <translation type="obsolete">陰影</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>只文字底線</translation>
+        <translation type="obsolete">只文字底線</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
@@ -16121,7 +16150,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;X 索引</translation>
+        <translation type="obsolete">&amp;X 索引</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
@@ -16196,7 +16225,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -16476,7 +16505,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation>圖像設置</translation>
+        <translation type="obsolete">圖像設置</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -16484,11 +16513,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>JPEG</source>
-        <translation>JPEG</translation>
+        <translation type="obsolete">JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation>Zip</translation>
+        <translation type="obsolete">Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -16520,11 +16549,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>&amp;E 嵌入全部字體</translation>
+        <translation type="obsolete">&amp;E 嵌入全部字體</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>&amp;S 子集所有字體</translation>
+        <translation type="obsolete">&amp;S 子集所有字體</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -16548,7 +16577,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>子集的字體：</translation>
+        <translation type="obsolete">子集的字體：</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -16836,7 +16865,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>在選中的頁裏開始報告前頁面顯示時間長度。</translation>
+        <translation type="obsolete">在選中的頁裏開始報告前頁面顯示時間長度。</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -16944,7 +16973,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</translation>
+        <translation type="obsolete">Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
@@ -16956,7 +16985,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
+        <translation type="obsolete">Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
@@ -16964,7 +16993,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</translation>
+        <translation type="obsolete">Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -16992,7 +17021,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>嵌入字體到PDF。嵌入字體將保持你的檔案的版面外觀。</translation>
+        <translation type="obsolete">嵌入字體到PDF。嵌入字體將保持你的檔案的版面外觀。</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -17012,7 +17041,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</translation>
+        <translation type="obsolete">Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -17028,7 +17057,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
+        <translation type="obsolete">Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -17040,7 +17069,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
+        <translation type="obsolete">Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -17056,7 +17085,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>頁面排版</translation>
+        <translation type="obsolete">頁面排版</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -17117,7 +17146,7 @@ Vertical shift: %3</source>
     <message>
         <source>Javascript to be executed
 when Document is opened:</source>
-        <translation>檔案被打開時執行的Javascript</translation>
+        <translation type="obsolete">檔案被打開時執行的Javascript</translation>
     </message>
     <message>
         <source>No Script</source>
@@ -17129,7 +17158,7 @@ when Document is opened:</source>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">裁切到頁邊</translation>
     </message>
     <message>
         <source>Lossy - JPEG</source>
@@ -17637,7 +17666,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>句號</translation>
+        <translation type="obsolete">句號</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -17669,7 +17698,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation>無</translation>
+        <translation type="obsolete">無</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -17703,6 +17732,10 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>無</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

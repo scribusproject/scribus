@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-08 23:18+0200\n"
+"POT-Creation-Date: 2007-12-12 22:37+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -1394,9 +1394,6 @@ msgstr "Ukrainos:"
 msgid "Russian"
 msgstr ""
 
-msgid "Swedish"
-msgstr ""
-
 msgid "Spanish"
 msgstr ""
 
@@ -1415,6 +1412,9 @@ msgstr "Slovakø:"
 #, fuzzy
 msgid "Serbian"
 msgstr "Slovakø:"
+
+msgid "Swedish"
+msgstr ""
 
 #, fuzzy
 msgid "Thai"
@@ -5764,6 +5764,13 @@ msgstr ""
 msgid "Skip"
 msgstr ""
 
+msgid "to Canvas"
+msgstr ""
+
+#, fuzzy
+msgid "to Page"
+msgstr "Kairysis puslapis"
+
 msgid "Nodes"
 msgstr "Mazgai"
 
@@ -5878,6 +5885,75 @@ msgstr ""
 msgid ""
 "When checked use coordinates relative to the page, otherwise coordinates are "
 "relative to the Object."
+msgstr ""
+
+#, fuzzy
+msgid "Preset Layouts:"
+msgstr "Iðvaizda:"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply margin settings to all pages"
+msgstr "Pritaikyti efektus visuose puslapiuose"
+
+msgid "Apply the margin changes to all existing pages in the document"
+msgstr ""
+
+#, fuzzy
+msgid "Printer Margins..."
+msgstr "Spausdinu..."
+
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr ""
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr ""
+
+msgid ""
+"Distance between the left margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+
+msgid ""
+"Distance between the right margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+
+#, fuzzy
+msgid "&Inside:"
+msgstr "Vidinë paraðtë:"
+
+#, fuzzy
+msgid "O&utside:"
+msgstr "Iðorinë paraðtë:"
+
+#, fuzzy
+msgid "Gutenberg"
+msgstr "Pagrindinis"
+
+#, fuzzy
+msgid "Magazine"
+msgstr "Paraðtë:"
+
+msgid "Fibonacci"
+msgstr ""
+
+msgid "Golden Mean"
+msgstr ""
+
+msgid "Nine Parts"
+msgstr ""
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
+"value. Leading is Left/Inside value."
 msgstr ""
 
 #, fuzzy
@@ -6386,6 +6462,12 @@ msgstr ""
 msgid "Font %1 is broken, no embedding"
 msgstr ""
 
+msgid "Font %1 has broken metrics in file %2, ignoring metrics"
+msgstr ""
+
+msgid "Valid metrics were found for font %1, using metrics in file %2"
+msgstr ""
+
 msgid "Font %1 is broken (FreeType2), discarding it"
 msgstr ""
 
@@ -6543,7 +6625,7 @@ msgstr "Pridëti naujà sluoksná"
 msgid "Scribus crashes due to the following exception : %1"
 msgstr ""
 
-msgid "Full Stop"
+msgid "Period"
 msgstr ""
 
 #, fuzzy
@@ -8086,75 +8168,6 @@ msgstr ""
 msgid "Copy #%1 of "
 msgstr "Kopijuoti "
 
-#, fuzzy
-msgid "Preset Layouts:"
-msgstr "Iðvaizda:"
-
-# New in Version 0.8
-#, fuzzy
-msgid "Apply margin settings to all pages"
-msgstr "Pritaikyti efektus visuose puslapiuose"
-
-msgid "Apply the margin changes to all existing pages in the document"
-msgstr ""
-
-#, fuzzy
-msgid "Printer Margins..."
-msgstr "Spausdinu..."
-
-msgid ""
-"Import the margins for the selected page size from the available printers."
-msgstr ""
-
-msgid "Distance between the top margin guide and the edge of the page"
-msgstr ""
-
-msgid "Distance between the bottom margin guide and the edge of the page"
-msgstr ""
-
-msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-
-msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-
-#, fuzzy
-msgid "&Inside:"
-msgstr "Vidinë paraðtë:"
-
-#, fuzzy
-msgid "O&utside:"
-msgstr "Iðorinë paraðtë:"
-
-#, fuzzy
-msgid "Gutenberg"
-msgstr "Pagrindinis"
-
-#, fuzzy
-msgid "Magazine"
-msgstr "Paraðtë:"
-
-msgid "Fibonacci"
-msgstr ""
-
-msgid "Golden Mean"
-msgstr ""
-
-msgid "Nine Parts"
-msgstr ""
-
-msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
-"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
-"value. Leading is Left/Inside value."
-msgstr ""
-
 msgid "Show Page Previews"
 msgstr "Parodyti spausdinto puslapio iðvaizdà"
 
@@ -8592,6 +8605,11 @@ msgstr ""
 msgid ""
 "The changes to your document have not been saved and you have requested to "
 "revert them. Do you wish to continue?"
+msgstr ""
+
+msgid ""
+"Your document was saved to a temporary file and could not be moved: \n"
+"%1"
 msgstr ""
 
 #, fuzzy
@@ -9749,14 +9767,14 @@ msgstr "Eksporto grupë"
 msgid "Exports selected pages as bitmap images."
 msgstr ""
 
+msgid "Export successful."
+msgstr ""
+
 #, fuzzy
 msgid "Save as Image"
 msgstr "Iðsaugoti kitu vardu"
 
-msgid "Error writing the output file(s)."
-msgstr ""
-
-msgid "Export successful."
+msgid "Insufficient memory for this image size."
 msgstr ""
 
 msgid "File exists. Overwrite?"
@@ -9768,6 +9786,9 @@ msgstr ""
 #, fuzzy
 msgid "Yes all"
 msgstr "Nuimti þymëjimà"
+
+msgid "Error writing the output file(s)."
+msgstr ""
 
 msgid "Choose a Export Directory"
 msgstr ""

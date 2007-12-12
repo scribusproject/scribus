@@ -8296,7 +8296,7 @@ uporabite ločljivost 72 dpi</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Predogled pisav</translation>
+        <translation type="obsolete">Predogled pisav</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -8369,6 +8369,10 @@ uporabite ločljivost 72 dpi</translation>
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Predogled pisav</translation>
     </message>
 </context>
 <context>
@@ -11536,6 +11540,14 @@ sicer glede na predmet.</translation>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Vrednost, za katero naj se poveča ali pomanjša</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17336,6 +17348,18 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -20420,6 +20444,11 @@ Navpični zamik: %3</translation>
     <message>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tura</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23717,7 +23746,7 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Pika</translation>
+        <translation type="obsolete">Pika</translation>
     </message>
     <message>
         <source>Center</source>
@@ -23791,6 +23820,10 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Brez</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

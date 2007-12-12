@@ -6977,7 +6977,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Просмотр шрифтов</translation>
+        <translation type="obsolete">Просмотр шрифтов</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7050,6 +7050,10 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Alt+C</source>
         <translation>Alt+З</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Просмотр шрифтов</translation>
     </message>
 </context>
 <context>
@@ -9380,6 +9384,14 @@ Corners:</source>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Значение, на которое увеличить или уменьшить</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12748,6 +12760,18 @@ is not exhaustive due to exceptions from called functions.
         <source>Chinese (Trad.)</source>
         <translation>Китайский (Традиционный)</translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13990,6 +14014,11 @@ Vertical shift: %3</source>
     <message>
         <source>Liga&amp;ture</source>
         <translation>&amp;Лигатура</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16494,7 +16523,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>По точке</translation>
+        <translation type="obsolete">По точке</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -16559,6 +16588,10 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Period</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

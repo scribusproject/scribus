@@ -6843,7 +6843,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Fontide eelvaatlus</translation>
+        <translation type="obsolete">Fontide eelvaatlus</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -6916,6 +6916,10 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Fontide eelvaatlus</translation>
     </message>
 </context>
 <context>
@@ -9461,6 +9465,14 @@ n&amp;urgad:</translation>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Sisselülitamisel kasutatakse leheküljega, vastasel juhul objektiga seotud koordinaate.</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12954,6 +12966,18 @@ Välised lingid
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14298,6 +14322,11 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>Ligature</source>
         <translation type="unfinished">Ligatuur</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17096,7 +17125,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Punkt</translation>
+        <translation type="obsolete">Punkt</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -17162,6 +17191,10 @@ käivitatav JavaScript:</translation>
     <message>
         <source>None</source>
         <translation type="obsolete">Puudub</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

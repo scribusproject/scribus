@@ -6714,7 +6714,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Aperçu des polices disponibles</translation>
+        <translation type="obsolete">Aperçu des polices disponibles</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -6787,6 +6787,10 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Aperçu des polices disponibles</translation>
     </message>
 </context>
 <context>
@@ -9100,6 +9104,14 @@ arr&amp;ondis :</translation>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Lorsque cochée, on utilise les coordonnées relatives à la page, sinon celles relatives à l&apos;objet.</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12492,6 +12504,18 @@ Liens externes
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13734,6 +13758,11 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;ture</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16230,7 +16259,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Arrêt complet</translation>
+        <translation type="obsolete">Arrêt complet</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -16296,6 +16325,10 @@ when PDF document is opened:</source>
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Aucune</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -7969,7 +7969,7 @@ adibidez bolder.</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Letra-tipoen aurrebista</translation>
+        <translation type="obsolete">Letra-tipoen aurrebista</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -8042,6 +8042,10 @@ adibidez bolder.</translation>
     <message>
         <source>Alt+C</source>
         <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Letra-tipoen aurrebista</translation>
     </message>
 </context>
 <context>
@@ -10395,6 +10399,14 @@ txantiloitik (adib. estilo konstanteko dokumentuentzako).</translation>
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Balioa handitzeko edo txikitzeko</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13881,6 +13893,18 @@ motakoa dela, eskertuko genizuke arazo honen berri emango bazenu.</translation>
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15130,6 +15154,11 @@ Despl-bertikala: %3</translation>
     <message>
         <source>Liga&amp;ture</source>
         <translation>&amp;Lokailua</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17656,7 +17685,7 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Puntua</translation>
+        <translation type="obsolete">Puntua</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -17722,6 +17751,10 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Bat ere ez</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

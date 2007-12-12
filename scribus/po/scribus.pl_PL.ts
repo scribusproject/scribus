@@ -8464,7 +8464,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Podgląd fontów</translation>
+        <translation type="obsolete">Podgląd fontów</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -8537,6 +8537,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished">Podgląd fontów</translation>
     </message>
 </context>
 <context>
@@ -11235,6 +11239,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Wartość, do której należy powiększyć lub pomniejszyć</translation>
+    </message>
+    <message>
+        <source>to Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15341,6 +15353,18 @@ is not exhaustive due to exceptions from called functions.
         <source>Chinese (Trad.)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid metrics were found for font %1, using metrics in file %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insufficient memory for this image size.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17413,6 +17437,11 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Liga&amp;ture</source>
         <translation>L&amp;igatury</translation>
+    </message>
+    <message>
+        <source>Your document was saved to a temporary file and could not be moved: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20382,7 +20411,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Kropka</translation>
+        <translation type="obsolete">Kropka</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -20456,6 +20485,10 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <source>None</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Brak</translation>
+    </message>
+    <message>
+        <source>Period</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

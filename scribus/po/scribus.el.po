@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-08 23:18+0200\n"
+"POT-Creation-Date: 2007-12-12 22:37+0100\n"
 "PO-Revision-Date: 2007-02-25 15:54+0200\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -1339,9 +1339,6 @@ msgstr "Πορτογαλική (Βραζ)"
 msgid "Russian"
 msgstr "Ρωσική"
 
-msgid "Swedish"
-msgstr "Σουηδική"
-
 msgid "Spanish"
 msgstr "Ισπανική"
 
@@ -1356,6 +1353,9 @@ msgstr "Σλοβενική"
 
 msgid "Serbian"
 msgstr "Σερβική"
+
+msgid "Swedish"
+msgstr "Σουηδική"
 
 msgid "Thai"
 msgstr "Ταϊλανδική"
@@ -5252,6 +5252,13 @@ msgstr "Αποδοχή"
 msgid "Skip"
 msgstr "Παράλειψη"
 
+msgid "to Canvas"
+msgstr ""
+
+#, fuzzy
+msgid "to Page"
+msgstr "Αριστερή σελίδα"
+
 msgid "Nodes"
 msgstr "Κόμβοι"
 
@@ -5355,6 +5362,80 @@ msgid ""
 msgstr ""
 "Αν ενεργοποιηθεί αυτή η επιλογή γίνεται χρήση συντεταγμένων σχετικών με τη "
 "σελίδα, ενώ σε άλλη περίπτωση είναι σχετικές με το αντικείμενο."
+
+msgid "Preset Layouts:"
+msgstr "Προκαθορισμένες διατάξεις:"
+
+msgid "Apply margin settings to all pages"
+msgstr "Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις σελίδες"
+
+msgid "Apply the margin changes to all existing pages in the document"
+msgstr ""
+"Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις υπάρχουσες σελίδες του εγγράφου"
+
+msgid "Printer Margins..."
+msgstr "Περιθώρια εκτυπωτή..."
+
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+"Εισαγωγή των περιθωρίων της επιλεγμένης σελίδας από τους διαθέσιμους "
+"εκτυπωτές."
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr "Απόσταση μεταξύ του οδηγού πάνω περιθωρίου και το άκρο της σελίδας"
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr "Απόσταση μεταξύ του οδηγού κάτω περιθωρίου και το άκρο της σελίδας"
+
+msgid ""
+"Distance between the left margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"Απόσταση μεταξύ του οδηγού αριστερού περιθωρίου και το άκρο της σελίδας. Αν "
+"είναι επιλεγμένη η εκτύπωση δύο αντικριστών σελίδων, αυτό το περιθώριο "
+"μπορεί να χρησιμοποιηθεί για την επίτευξη σωστών περιθωρίων για το δέσιμο"
+
+msgid ""
+"Distance between the right margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"Απόσταση μεταξύ του οδηγού δεξιού περιθωρίου και το άκρο της σελίδας. Αν "
+"είναι επιλεγμένη η εκτύπωση δύο αντικριστών σελίδων, αυτό το περιθώριο "
+"μπορεί να χρησιμοποιηθεί για την επίτευξη σωστών περιθωρίων για το δέσιμο"
+
+msgid "&Inside:"
+msgstr "&Εσωτερικά:"
+
+msgid "O&utside:"
+msgstr "Ε&ξωτερικά:"
+
+msgid "Gutenberg"
+msgstr "Βιβλιοδεσία"
+
+msgid "Magazine"
+msgstr "Περιοδικό"
+
+msgid "Fibonacci"
+msgstr "Fibonacci"
+
+msgid "Golden Mean"
+msgstr "Χρυσός μέσος"
+
+msgid "Nine Parts"
+msgstr "Εννέα μέλη"
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
+"value. Leading is Left/Inside value."
+msgstr ""
+"Εδώ μπορείτε να επιλέξετε προκαθορισμένη διάταξη σελίδας. Το 'Καμία αφήνει "
+"τα περιθώρια όπως είναι, η βιβλιοδεσία ορίζει τα κλασικά περιθώρια. Το "
+"'περιοδικό' ορίζει περιθώρια με κοινή τιμή. Η κύρια τιμή είναι η αριστερή/"
+"εσωτερική τιμή."
 
 msgid "Exporting PostScript File"
 msgstr "Εξαγωγή αρχείου PostScript"
@@ -5844,6 +5925,12 @@ msgstr "Η βιβλιοθήκη Freetype2 δεν είναι διαθέσιμη"
 msgid "Font %1 is broken, no embedding"
 msgstr "Η γραμματοσειρά %1 είναι κατεστραμμένη, δε γίνεται ενσωμάτωση"
 
+msgid "Font %1 has broken metrics in file %2, ignoring metrics"
+msgstr ""
+
+msgid "Valid metrics were found for font %1, using metrics in file %2"
+msgstr ""
+
 msgid "Font %1 is broken (FreeType2), discarding it"
 msgstr "Η γραμματοσειρά %1 είναι κατεστραμμένη (FreeType2), απορρίπτεται"
 
@@ -5993,8 +6080,8 @@ msgstr "Προσθήκη ενός νέου στρώματος"
 msgid "Scribus crashes due to the following exception : %1"
 msgstr "Το Scribus κατέρρευσε λόγω της παρακάτω εξαίρεσης: %1"
 
-msgid "Full Stop"
-msgstr "Τελεία"
+msgid "Period"
+msgstr ""
 
 msgid "Comma"
 msgstr "Κόμμα"
@@ -7450,80 +7537,6 @@ msgstr "Πρόσθετες &διαδρομές"
 msgid "Copy #%1 of "
 msgstr "Αντιγραφή #%1 από "
 
-msgid "Preset Layouts:"
-msgstr "Προκαθορισμένες διατάξεις:"
-
-msgid "Apply margin settings to all pages"
-msgstr "Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις σελίδες"
-
-msgid "Apply the margin changes to all existing pages in the document"
-msgstr ""
-"Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις υπάρχουσες σελίδες του εγγράφου"
-
-msgid "Printer Margins..."
-msgstr "Περιθώρια εκτυπωτή..."
-
-msgid ""
-"Import the margins for the selected page size from the available printers."
-msgstr ""
-"Εισαγωγή των περιθωρίων της επιλεγμένης σελίδας από τους διαθέσιμους "
-"εκτυπωτές."
-
-msgid "Distance between the top margin guide and the edge of the page"
-msgstr "Απόσταση μεταξύ του οδηγού πάνω περιθωρίου και το άκρο της σελίδας"
-
-msgid "Distance between the bottom margin guide and the edge of the page"
-msgstr "Απόσταση μεταξύ του οδηγού κάτω περιθωρίου και το άκρο της σελίδας"
-
-msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"Απόσταση μεταξύ του οδηγού αριστερού περιθωρίου και το άκρο της σελίδας. Αν "
-"είναι επιλεγμένη η εκτύπωση δύο αντικριστών σελίδων, αυτό το περιθώριο "
-"μπορεί να χρησιμοποιηθεί για την επίτευξη σωστών περιθωρίων για το δέσιμο"
-
-msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"Απόσταση μεταξύ του οδηγού δεξιού περιθωρίου και το άκρο της σελίδας. Αν "
-"είναι επιλεγμένη η εκτύπωση δύο αντικριστών σελίδων, αυτό το περιθώριο "
-"μπορεί να χρησιμοποιηθεί για την επίτευξη σωστών περιθωρίων για το δέσιμο"
-
-msgid "&Inside:"
-msgstr "&Εσωτερικά:"
-
-msgid "O&utside:"
-msgstr "Ε&ξωτερικά:"
-
-msgid "Gutenberg"
-msgstr "Βιβλιοδεσία"
-
-msgid "Magazine"
-msgstr "Περιοδικό"
-
-msgid "Fibonacci"
-msgstr "Fibonacci"
-
-msgid "Golden Mean"
-msgstr "Χρυσός μέσος"
-
-msgid "Nine Parts"
-msgstr "Εννέα μέλη"
-
-msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
-"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
-"value. Leading is Left/Inside value."
-msgstr ""
-"Εδώ μπορείτε να επιλέξετε προκαθορισμένη διάταξη σελίδας. Το 'Καμία αφήνει "
-"τα περιθώρια όπως είναι, η βιβλιοδεσία ορίζει τα κλασικά περιθώρια. Το "
-"'περιοδικό' ορίζει περιθώρια με κοινή τιμή. Η κύρια τιμή είναι η αριστερή/"
-"εσωτερική τιμή."
-
 msgid "Show Page Previews"
 msgstr "Εμφάνιση προεπισκόπησης σελίδων"
 
@@ -7932,6 +7945,11 @@ msgid ""
 msgstr ""
 "Οι τροποποιήσεις στο έγγραφό σας δεν έχουν αποθηκευτεί και ζητήσατε την "
 "επαναφορά τους. Επιθυμείτε τη συνέχεια;"
+
+msgid ""
+"Your document was saved to a temporary file and could not be moved: \n"
+"%1"
+msgstr ""
 
 msgid ""
 "Cannot write the file: \n"
@@ -9030,14 +9048,14 @@ msgstr "Εξαγωγή ως εικόνα"
 msgid "Exports selected pages as bitmap images."
 msgstr "Εξαγωγή των επιλεγμένων σελίδων ως ψηφιακές εικόνες."
 
+msgid "Export successful."
+msgstr "Επιτυχής εξαγωγή."
+
 msgid "Save as Image"
 msgstr "Αποθήκευση ως εικόνα"
 
-msgid "Error writing the output file(s)."
-msgstr "Σφάλμα εγγραφής του αρχείου(ων) εξόδου."
-
-msgid "Export successful."
-msgstr "Επιτυχής εξαγωγή."
+msgid "Insufficient memory for this image size."
+msgstr ""
 
 msgid "File exists. Overwrite?"
 msgstr "Το αρχείο υπάρχει. Αντικατάσταση;"
@@ -9047,6 +9065,9 @@ msgstr "υπάρχει ήδη. Αντικατάσταση;"
 
 msgid "Yes all"
 msgstr "Ναι σε όλα"
+
+msgid "Error writing the output file(s)."
+msgstr "Σφάλμα εγγραφής του αρχείου(ων) εξόδου."
 
 msgid "Choose a Export Directory"
 msgstr "Επιλέξτε έναν κατάλογο εξαγωγής"
@@ -9798,6 +9819,9 @@ msgstr ""
 ",ωστόσο όπως συμβαίνει και με τον περισσότερο κώδικα Python δε θα \n"
 "μπορούσαν να συμπεριληφθούν όλες οι εξαιρέσεις εξαιτίας αυτών που "
 "προέρχονται από τις καλούμενες συναρτήσεις.\n"
+
+#~ msgid "Full Stop"
+#~ msgstr "Τελεία"
 
 #~ msgid "Print: "
 #~ msgstr "Εκτύπωση: "

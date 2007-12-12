@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.it8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-08 23:18+0200\n"
+"POT-Creation-Date: 2007-12-12 22:37+0100\n"
 "PO-Revision-Date: 2007-02-20 20:14+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -1356,9 +1356,6 @@ msgstr "Portoghese (BR)"
 msgid "Russian"
 msgstr "Russo"
 
-msgid "Swedish"
-msgstr "Svedese"
-
 msgid "Spanish"
 msgstr "Spagnolo"
 
@@ -1373,6 +1370,9 @@ msgstr "Sloveno"
 
 msgid "Serbian"
 msgstr "Serbo"
+
+msgid "Swedish"
+msgstr "Svedese"
 
 msgid "Thai"
 msgstr "Thailandese"
@@ -5245,6 +5245,13 @@ msgstr "Accetta"
 msgid "Skip"
 msgstr "Salta"
 
+msgid "to Canvas"
+msgstr ""
+
+#, fuzzy
+msgid "to Page"
+msgstr "Pagina sinistra"
+
 msgid "Nodes"
 msgstr "Nodi"
 
@@ -5348,6 +5355,79 @@ msgid ""
 msgstr ""
 "Quando è selezionata usa le coordinate relative alla pagina,\n"
 "altrimenti le coordinate relative all'oggetto."
+
+msgid "Preset Layouts:"
+msgstr "Formati predefiniti:"
+
+msgid "Apply margin settings to all pages"
+msgstr "Applica le impostazioni margini a tutte le pagine"
+
+msgid "Apply the margin changes to all existing pages in the document"
+msgstr "Applica le modifiche dei margini a tutte le pagine del documento"
+
+msgid "Printer Margins..."
+msgstr "Margini stampante..."
+
+msgid ""
+"Import the margins for the selected page size from the available printers."
+msgstr ""
+"Importa i margini, per la dimensione della pagina selezionata, dalle "
+"stampanti disponibili."
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr "Distanza tra la guida del margine superiore e il bordo della pagina"
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr "Distanza tra la guida del margine inferiore e il bordo della pagina"
+
+msgid ""
+"Distance between the left margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"Distanza tra il margine sinistro della guida e il bordo della pagina. Se è "
+"selezionata la modalità Pagine Affiancate, questo margine può essere usato "
+"per calcolare i margini corretti per la rilegatura"
+
+msgid ""
+"Distance between the right margin guide and the edge of the page. If Facing "
+"Pages is selected, this margin space can be used to achieve the correct "
+"margins for binding"
+msgstr ""
+"Distanza tra il margine destro della guida e il bordo della pagina. Se è "
+"selezionata la modalità Pagine Affiancate, questo margine può essere usato "
+"per calcolare i margini corretti per la rilegatura"
+
+msgid "&Inside:"
+msgstr "In&terno:"
+
+msgid "O&utside:"
+msgstr "E&sterno:"
+
+msgid "Gutenberg"
+msgstr "Gutenberg"
+
+msgid "Magazine"
+msgstr "Rivista"
+
+msgid "Fibonacci"
+msgstr "Fibonacci"
+
+msgid "Golden Mean"
+msgstr "Sezione aurea"
+
+msgid "Nine Parts"
+msgstr "Nove parti"
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
+"value. Leading is Left/Inside value."
+msgstr ""
+"Qui è possibile scegliere un formato di pagina predefinito. 'Nessuno' lascia "
+"i margini invariati, Gutenberg imposta i margini classicamente. 'Rivista' "
+"imposta gli stessi valori a tutti i margini. La guida è il valore Sinistro/"
+"Interno."
 
 msgid "Exporting PostScript File"
 msgstr "Esportazione file Postscript"
@@ -5833,6 +5913,12 @@ msgstr "Libreria Freetype2 non disponibile"
 msgid "Font %1 is broken, no embedding"
 msgstr "Il font %1 è danneggiato, non verrà incorporato"
 
+msgid "Font %1 has broken metrics in file %2, ignoring metrics"
+msgstr ""
+
+msgid "Valid metrics were found for font %1, using metrics in file %2"
+msgstr ""
+
 msgid "Font %1 is broken (FreeType2), discarding it"
 msgstr "Il font %1 è danneggiato (Free Type2), viene scartato"
 
@@ -5981,8 +6067,8 @@ msgstr "Aggiungi nuovo livello"
 msgid "Scribus crashes due to the following exception : %1"
 msgstr "Scribus è andato in crash a causa dell'eccezione: %1"
 
-msgid "Full Stop"
-msgstr "Punto"
+msgid "Period"
+msgstr ""
 
 msgid "Comma"
 msgstr "Virgola"
@@ -7439,79 +7525,6 @@ msgstr "&Percorsi aggiuntivi"
 msgid "Copy #%1 of "
 msgstr "Copia #%1 di "
 
-msgid "Preset Layouts:"
-msgstr "Formati predefiniti:"
-
-msgid "Apply margin settings to all pages"
-msgstr "Applica le impostazioni margini a tutte le pagine"
-
-msgid "Apply the margin changes to all existing pages in the document"
-msgstr "Applica le modifiche dei margini a tutte le pagine del documento"
-
-msgid "Printer Margins..."
-msgstr "Margini stampante..."
-
-msgid ""
-"Import the margins for the selected page size from the available printers."
-msgstr ""
-"Importa i margini, per la dimensione della pagina selezionata, dalle "
-"stampanti disponibili."
-
-msgid "Distance between the top margin guide and the edge of the page"
-msgstr "Distanza tra la guida del margine superiore e il bordo della pagina"
-
-msgid "Distance between the bottom margin guide and the edge of the page"
-msgstr "Distanza tra la guida del margine inferiore e il bordo della pagina"
-
-msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"Distanza tra il margine sinistro della guida e il bordo della pagina. Se è "
-"selezionata la modalità Pagine Affiancate, questo margine può essere usato "
-"per calcolare i margini corretti per la rilegatura"
-
-msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
-msgstr ""
-"Distanza tra il margine destro della guida e il bordo della pagina. Se è "
-"selezionata la modalità Pagine Affiancate, questo margine può essere usato "
-"per calcolare i margini corretti per la rilegatura"
-
-msgid "&Inside:"
-msgstr "In&terno:"
-
-msgid "O&utside:"
-msgstr "E&sterno:"
-
-msgid "Gutenberg"
-msgstr "Gutenberg"
-
-msgid "Magazine"
-msgstr "Rivista"
-
-msgid "Fibonacci"
-msgstr "Fibonacci"
-
-msgid "Golden Mean"
-msgstr "Sezione aurea"
-
-msgid "Nine Parts"
-msgstr "Nove parti"
-
-msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
-"Gutenberg sets margins classically. 'Magazine' sets all margins for same "
-"value. Leading is Left/Inside value."
-msgstr ""
-"Qui è possibile scegliere un formato di pagina predefinito. 'Nessuno' lascia "
-"i margini invariati, Gutenberg imposta i margini classicamente. 'Rivista' "
-"imposta gli stessi valori a tutti i margini. La guida è il valore Sinistro/"
-"Interno."
-
 msgid "Show Page Previews"
 msgstr "Mostra anteprime pagine"
 
@@ -7913,6 +7926,11 @@ msgid ""
 msgstr ""
 "Le modifiche del documento non sono state salvate ed è stato richiesto di "
 "rinunciarvi. Vuoi continuare?"
+
+msgid ""
+"Your document was saved to a temporary file and could not be moved: \n"
+"%1"
+msgstr ""
 
 msgid ""
 "Cannot write the file: \n"
@@ -9002,14 +9020,14 @@ msgstr "Esporta come immagine/i"
 msgid "Exports selected pages as bitmap images."
 msgstr "Esporta le pagine selezionate come immagini bitmap."
 
+msgid "Export successful."
+msgstr "Esportazione riuscita."
+
 msgid "Save as Image"
 msgstr "Salva come immagine"
 
-msgid "Error writing the output file(s)."
-msgstr "Errore di salvataggio del file di output."
-
-msgid "Export successful."
-msgstr "Esportazione riuscita."
+msgid "Insufficient memory for this image size."
+msgstr ""
 
 msgid "File exists. Overwrite?"
 msgstr "Il file esiste. Sovrascriverlo?"
@@ -9019,6 +9037,9 @@ msgstr "già esiste. Sovrascriverlo?"
 
 msgid "Yes all"
 msgstr "Sì tutti"
+
+msgid "Error writing the output file(s)."
+msgstr "Errore di salvataggio del file di output."
 
 msgid "Choose a Export Directory"
 msgstr "Scegli una directory per l'esportazione"
@@ -9753,6 +9774,9 @@ msgstr ""
 "I dettagli di che cosa possa rifiutare ogni funzione delle eccezioni sono "
 "forniti nella\n"
 "documentazione delle funzioni.\n"
+
+#~ msgid "Full Stop"
+#~ msgstr "Punto"
 
 #~ msgid "Print: "
 #~ msgstr "Stampa: "
