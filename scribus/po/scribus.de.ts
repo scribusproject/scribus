@@ -3801,7 +3801,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
+        <translation>&amp;400%</translation>
     </message>
 </context>
 <context>
@@ -5856,7 +5856,7 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>Anmerkung verwendet keine TrueType Scrift</translation>
     </message>
 </context>
 <context>
@@ -6521,7 +6521,7 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -8734,7 +8734,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished">Schriftenvorschau</translation>
+        <translation>Schriftenvorschau</translation>
     </message>
 </context>
 <context>
@@ -10886,7 +10886,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Export des Objektes aktivieren oder deaktivieren</translation>
     </message>
 </context>
 <context>
@@ -11400,11 +11400,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ zur Arbeitsfläche</translation>
     </message>
     <message>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ zur Seite</translation>
     </message>
 </context>
 <context>
@@ -15534,23 +15534,23 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsch (Schweiz)</translation>
     </message>
     <message>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chinesisch (Trad.)</translation>
     </message>
     <message>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
+        <translation>Bei der Schrift %1 sind die Fontmetriken in Datei %2 beschädigt. Metriken werden ignoriert</translation>
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Es wurden gültige Fontmetriken für Schrift %1 gefunden. Verwende die Metriken in Datei %2</translation>
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist nicht genügend Arbeitsspeicher für ein Bild dieser Größe vorhanden.</translation>
     </message>
 </context>
 <context>
@@ -17581,7 +17581,8 @@ Vertikaler Versatz: %3</translation>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihr Dokument wurde in einer temporären Datei gespeichert and kann nicht verschoben werden
+%1</translation>
     </message>
 </context>
 <context>
@@ -17680,7 +17681,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Informationen über den Speicherort von ICC-Profilen in der Konsole an</translation>
     </message>
 </context>
 <context>
@@ -17868,7 +17869,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Export:</translation>
     </message>
 </context>
 <context>
@@ -20420,7 +20421,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
 </context>
 <context>
@@ -20603,11 +20604,11 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkte</translation>
     </message>
 </context>
 <context>

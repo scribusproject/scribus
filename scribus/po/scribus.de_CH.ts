@@ -123,6 +123,70 @@ Schreibt &quot;string&quot; in die Statuszeile von Scribus. Der Text muss
 UTF8-kodiert oder ein &apos;unicode&apos;-String sein (empfohlen).</translation>
     </message>
     <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumer = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber, unit facingPages, firstSideLeft) -&gt; bool
+
+Erstellt eine neue Datei und gibt, falls erfolgreich, true zurück. Die Parameter haben
+folgende Bedeutung:
+
+size = Ein Zahlenpaar (Breite, Höhe), das die Grösse des Dokuments beschreibt. Sie können
+vordefinierte Konstanten wie PAPER_&lt;paper_type&gt;, z. B.  PAPER_A4 etc. verwenden.
+
+margins=margins = Eine Zahlenkombination, welche die Seitenränder beschreibt (links, rechts, oben, unten).
+
+orientation = Ausrichtung der Seite. Konstanten sind PORTRAIT und LANDSCAPE.
+
+firstPageNumer = Ist die Nummer der ersten Seite, auf welcher die Seitennumerierung beginnt. Während Sie
+normalerweise mit &quot;1&quot; beginnen werden, ist es nützlich mit anderen Seitennummern zu beginnen, wenn Sie ein 
+Dokument in mehrere Dateien aufteilen.
+
+unit: Dieser Wert legt die im Dokument verwendete Masseinheit fest. Wählen Sie eine der folgenden 
+vordefinierten Konstanten aus: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+facingPages = FACINGPAGES, NOFACINGPAGES
+
+firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Die Werte für Breite, Höhe und die Ränder werden in der für das Dokument gewählten Masseinheit angegeben,
+die Werte für PAPER_*-Konstanten jedoch immer in Punkt. Wenn die gewählte Masseinheit nicht Punkt ist, sollten
+Sie dies beachten.
+
+Beispiel: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                              FACINGPAGES, FIRSTPAGERIGHT)</translation>
+    </message>
+    <message>
         <source>newPage(where [,&quot;masterpage&quot;])
 
 Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
@@ -148,6 +212,84 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
         <translation>&quot;string&quot; muss ein gültiger Dateiname einer SVG-Datei sein. Der Text
 muss UTF8-kodiert oder ein Unicode-String (empfohlen) sein.</translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</translation>
     </message>
     <message>
         <source>newDocument(size, margins, orientation, firstPageNumber,
@@ -451,6 +593,17 @@ Speichert das aktuelle Dokument unter dem neuen Namen &quot;name&quot;. Die Pfad
 relativ oder absolut sein.
 
 Schlägt das Sichern fehl, tritt der Fehler ScribusError auf.</translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="obsolete">saveDocAs(&quot;Autor&quot;, &quot;Info&quot;, &quot;Beschreibung&quot;) -&gt; bool
+
+Speichert die Dokumenteigenschaften Autor, Informationen und Beschreibung.
+Angabe als Strings.</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -2444,6 +2597,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
 <context>
     <name>About</name>
     <message>
+        <source>Build-ID:</source>
+        <translation type="obsolete">Build-ID:</translation>
+    </message>
+    <message>
         <source>Contributions from:</source>
         <translation>Beiträge von:</translation>
     </message>
@@ -2508,8 +2665,43 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Über Scribus %1</translation>
     </message>
     <message>
+        <source>%1 %2 %3 </source>
+        <translation type="obsolete">%1 %2 %3</translation>
+    </message>
+    <message>
+        <source>Windows Port:</source>
+        <translation type="obsolete">Windows-Portierung:</translation>
+    </message>
+    <message>
+        <source>Mac OSX Aqua Port:</source>
+        <translation type="obsolete">Portierung auf Mac OS/X Aqua:</translation>
+    </message>
+    <message>
         <source>Wiki</source>
         <translation>Wiki</translation>
+    </message>
+    <message>
+        <source>Using GhostScript version %1</source>
+        <translation type="obsolete">Ghostscript-Version %1</translation>
+    </message>
+    <message>
+        <source>No GS version available</source>
+        <translation type="obsolete">Keine Ghostscript-Version verfügbar</translation>
+    </message>
+    <message>
+        <source>Scribus Version %1
+%2 %3 (%4)</source>
+        <translation type="obsolete">Scribus-Version %1
+%2 %3 (%4)</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <translation type="obsolete">Diese Leiste zeigt die Version, das Build-Datum und die kompilierte Unterstützung für Programmbibliotheken. C-C-T-F bedeutet im einzelnen: 
+C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zusätzliche Buchstabe am Ende bezeichnet den Renderer, nämlich entweder C (Cairo) oder A (libart). Wird eine der Bibliotheken nicht unterstützt, steht statt dessen ein *. Hier wird auch die von Scribus gefundene Ghostscript-Version angezeigt.</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="obsolete">November</translation>
     </message>
     <message>
         <source>%1 %2 %3</source>
@@ -2540,12 +2732,36 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Dieser Dialog zeigt die Version, das Datum der Kompilierung und die auf Ihrem System vorhandenen Bibliotheken in Scribus an. C-C-T-F steht für C=CUPS, T=TIFF, F=Fontconfig. Der letzte Buchstabe steht für die Rendering-Engine, nämlich C=Cairo oder A=libart. Fehlende Bibliotheken sind mit * markiert. Auch die Ghostscript-Version wird angezeigt.</translation>
     </message>
     <message>
+        <source>December</source>
+        <translation type="obsolete">Dezember</translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="obsolete">Januar</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="obsolete">Februar</translation>
+    </message>
+    <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
         <translation>Mac OS&amp;#174; X Aqua-Portierung:</translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
         <translation>Windows&amp;#174;-Portierung:</translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="obsolete">März</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="obsolete">April</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="obsolete">Mai</translation>
     </message>
     <message>
         <source>Tango Project Icons:</source>
@@ -2604,6 +2820,38 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>Scribus: About Plug-ins</source>
         <translation>Scribus: Über die Plug-Ins</translation>
+    </message>
+    <message>
+        <source>File Name:</source>
+        <translation type="obsolete">Dateiname:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="obsolete">Version:</translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation type="obsolete">Aktiviert:</translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation type="obsolete">Datum der Veröffentlichung:</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="obsolete">Urheberrecht:</translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation type="obsolete">Autor(en):</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="obsolete">Beschreibung:</translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation type="obsolete">Lizenz:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -2705,6 +2953,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Einf&amp;ügen</translation>
     </message>
     <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="obsolete">Inhalt lösc&amp;hen</translation>
+    </message>
+    <message>
         <source>Select &amp;All</source>
         <translation>Alles aus&amp;wählen</translation>
     </message>
@@ -2735,6 +2987,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Musterseiten...</translation>
+    </message>
+    <message>
+        <source>&amp;Javascripts...</source>
+        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
@@ -2803,6 +3059,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>Su&amp;bscript</source>
         <translation>&amp;Tiefgestellt</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <translation type="obsolete">D&amp;okumentstruktur</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -2939,6 +3199,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>&amp;Image Frame</source>
         <translation>B&amp;ildrahmen</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="obsolete">&amp;Umrisse</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3329,6 +3593,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Doppeltes Anführungszeichen links</translation>
     </message>
     <message>
+        <source>Double Turned Comma</source>
+        <translation type="obsolete">Double Turned Comma</translation>
+    </message>
+    <message>
         <source>CJK Single Left</source>
         <translation>Einfaches Anführungszeichen links (CJK)</translation>
     </message>
@@ -3395,6 +3663,14 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>More Info...</source>
         <translation>Erweitert...</translation>
+    </message>
+    <message>
+        <source>Copy Contents</source>
+        <translation type="obsolete">Inhalt kopieren</translation>
+    </message>
+    <message>
+        <source>Paste Contents</source>
+        <translation type="obsolete">Inhalt einfügen</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
@@ -3494,6 +3770,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>st</translation>
     </message>
     <message>
+        <source>Paste Contents (Absolute)</source>
+        <translation type="obsolete">Inhalt einfügen (absolut)</translation>
+    </message>
+    <message>
         <source>S&amp;tyles...</source>
         <translation>&amp;Stile...</translation>
     </message>
@@ -3521,7 +3801,176 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
+        <translation>&amp;400%</translation>
+    </message>
+</context>
+<context>
+    <name>AdvOptions</name>
+    <message>
+        <source>Advanced Options</source>
+        <translation type="obsolete">Weitere Optionen</translation>
+    </message>
+    <message>
+        <source>Creates PostScript Level 3</source>
+        <translation type="obsolete">Erstellt eine PostScript-Level 3 Datei</translation>
+    </message>
+    <message>
+        <source>Creates PostScript Level 2 only, beware,
+this can create huge files</source>
+        <translation type="obsolete">Erstellt eine PostScript-Level 2 Datei. Vorsicht:
+hierbei können sehr grosse Dateien entstehen</translation>
+    </message>
+    <message>
+        <source>Creates PostScript Level 1 only, beware,
+this can create huge files</source>
+        <translation type="obsolete">Erstellt eine PostScript-Level 1 Datei. Vorsicht:
+hierbei können sehr grosse Dateien entstehen</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontal</source>
+        <translation type="obsolete">Seiten &amp;horizontal spiegeln</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Vertical</source>
+        <translation type="obsolete">Seiten &amp;vertikal spiegeln</translation>
+    </message>
+    <message>
+        <source>Apply &amp;ICC Profiles</source>
+        <translation type="obsolete">&amp;ICC-Profile anwenden</translation>
+    </message>
+    <message>
+        <source>PostScript Level &amp;1</source>
+        <translation type="obsolete">PostScript-Level &amp;1</translation>
+    </message>
+    <message>
+        <source>PostScript Level &amp;2</source>
+        <translation type="obsolete">PostScript-Level &amp;2</translation>
+    </message>
+    <message>
+        <source>PostScript Level &amp;3</source>
+        <translation type="obsolete">PostScript-Level &amp;3</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>Apply Under Color &amp;Removal</source>
+        <translation type="obsolete">Unterfarben&amp;reduktion durchführen</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">Mit dieser Option werden ein paar Grautöne, die entstehen,
+wenn Black aus Cyan, Magenta und Yellow gemischt wird, durch Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+die Grau sehr nahe stehen. Diese Option kann zu besseren Bildern führen,
+allerdings müssen Sie von Fall zu Fall entscheiden, wie Sie bessere Ergebnisse
+bekommen. Ausserdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
+</translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="obsolete">Mediengrösse festlegen</translation>
+    </message>
+</context>
+<context>
+    <name>Align</name>
+    <message>
+        <source>Distribute/Align</source>
+        <translation type="obsolete">Abstand/Ausrichtung</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="obsolete">Ausrichten</translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="obsolete">Waagrecht</translation>
+    </message>
+    <message>
+        <source>Left Sides</source>
+        <translation type="obsolete">Linken Kanten</translation>
+    </message>
+    <message>
+        <source>Middles</source>
+        <translation type="obsolete">Mitten</translation>
+    </message>
+    <message>
+        <source>Right Sides</source>
+        <translation type="obsolete">Rechten Kanten</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="obsolete">Vertikal</translation>
+    </message>
+    <message>
+        <source>Top Sides</source>
+        <translation type="obsolete">Oberen Kanten</translation>
+    </message>
+    <message>
+        <source>Bottom Sides</source>
+        <translation type="obsolete">Unteren Kanten</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="obsolete">An&amp;wenden</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Between:</source>
+        <translation type="obsolete">&amp;zwischen:</translation>
+    </message>
+    <message>
+        <source>A&amp;lign</source>
+        <translation type="obsolete">&amp;Ausrichten</translation>
+    </message>
+    <message>
+        <source>Di&amp;splacement</source>
+        <translation type="obsolete">&amp;Versatz</translation>
+    </message>
+    <message>
+        <source>Distribute &amp;Evenly</source>
+        <translation type="obsolete">&amp;Gleichmässig verteilen</translation>
+    </message>
+    <message>
+        <source>Bet&amp;ween:</source>
+        <translation type="obsolete">zwi&amp;schen:</translation>
+    </message>
+    <message>
+        <source>Do &amp;Not Change</source>
+        <translation type="obsolete">&amp;Nicht verändern</translation>
+    </message>
+    <message>
+        <source>Al&amp;ign</source>
+        <translation type="obsolete">A&amp;usrichten</translation>
+    </message>
+    <message>
+        <source>Dis&amp;placement</source>
+        <translation type="obsolete">Ve&amp;rsatz</translation>
+    </message>
+    <message>
+        <source>Distribute E&amp;venly</source>
+        <translation type="obsolete">Gleich&amp;mässig verteilen</translation>
+    </message>
+    <message>
+        <source>&amp;Do Not Change</source>
+        <translation type="obsolete">N&amp;icht verändern</translation>
     </message>
 </context>
 <context>
@@ -3663,8 +4112,16 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Nichts ausgewählt</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
         <source>Some objects are locked.</source>
         <translation>Einige Objekte sind gesperrt.</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
@@ -4101,12 +4558,20 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Öffnen</translation>
     </message>
     <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
+        <translation type="obsolete">Bilder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle Dateien (*)</translation>
+    </message>
+    <message>
         <source>Example:</source>
         <translation>Beispiel:</translation>
     </message>
     <message>
         <source>Selection Change</source>
         <translation>Auswahl geändert</translation>
+    </message>
+    <message>
+        <source>Java Script</source>
+        <translation type="obsolete">JavaScript</translation>
     </message>
     <message>
         <source>Button</source>
@@ -4305,6 +4770,14 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Position:</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
 </context>
 <context>
     <name>ApplyMasterPageDialog</name>
@@ -4365,16 +4838,32 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Alt+W</translation>
     </message>
     <message>
+        <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
+        <translation type="obsolete">&lt;qt&gt;Wendet die ausgewählte Vorlage auf die geraden, ungeraden oder alle Seiten innerhalb des definierten Bereichs an&lt;/qt&gt;</translation>
+    </message>
+    <message>
         <source>to</source>
         <translation>bis</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Apply the selected template to even, odd or all pages within the following range</source>
+        <translation type="obsolete">Vorlage auf gerade, ungerade oder alle Seiten im definierten Bereich anwenden</translation>
     </message>
     <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
@@ -4406,6 +4895,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Fehler beim Öffnen der Datei: %1</translation>
     </message>
     <message>
+        <source>Error creating preview</source>
+        <translation type="obsolete">Fehler beim Erstellen der Vorschau</translation>
+    </message>
+    <message>
         <source>12 or 13 digits</source>
         <translation>12 oder 13 Ziffern</translation>
     </message>
@@ -4428,6 +4921,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>2 digits</source>
         <translation>2 Ziffern</translation>
+    </message>
+    <message>
+        <source>9 or 10 digits separated appropriately with dashes</source>
+        <translation type="obsolete">9 oder 10 Ziffern mit Bindestrichen korrekt getrennt</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
@@ -4479,6 +4976,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>&amp;Type:</source>
         <translation>&amp;Typ:</translation>
+    </message>
+    <message>
+        <source>C&amp;ode:</source>
+        <translation type="obsolete">Co&amp;de:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
@@ -4565,6 +5066,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Vorschau des Ergebnisses in 72dpi.</translation>
     </message>
     <message>
+        <source>Make check digit visible in text</source>
+        <translation type="obsolete">Checksumme sichtbar machen</translation>
+    </message>
+    <message>
         <source>Co&amp;de:</source>
         <translation>&amp;Code:</translation>
     </message>
@@ -4600,6 +5105,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Bibliothek</translation>
     </message>
     <message>
+        <source>Scrapbooks (*.scs);;All Files (*)</source>
+        <translation type="obsolete">Bibliotheken (*.scs);;Alle Dateien (*)</translation>
+    </message>
+    <message>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
@@ -4616,6 +5125,16 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>Umbenennen</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation type="obsolete">Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
+    </message>
+    <message>
         <source>&amp;New</source>
         <translation>&amp;Neu</translation>
     </message>
@@ -4624,12 +5143,28 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
         <translation>&amp;Laden...</translation>
     </message>
     <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Speichern</translation>
+    </message>
+    <message>
         <source>Save &amp;As...</source>
         <translation>Speichern &amp;unter...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <translation>Sch&amp;liessen</translation>
+    </message>
+    <message>
+        <source>&amp;Small</source>
+        <translation type="obsolete">&amp;Klein</translation>
+    </message>
+    <message>
+        <source>&amp;Medium</source>
+        <translation type="obsolete">&amp;Mittel</translation>
+    </message>
+    <message>
+        <source>&amp;Large</source>
+        <translation type="obsolete">&amp;Gross</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -4642,6 +5177,10 @@ Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; is not unique.
@@ -4814,6 +5353,10 @@ Bitte wählen Sie eine andere.</translation>
         <translation>Absolut farbmetrisch</translation>
     </message>
     <message>
+        <source>Default color profile for imported images</source>
+        <translation type="obsolete">Farbprofil für Bilder</translation>
+    </message>
+    <message>
         <source>Default color profile for solid colors on the page</source>
         <translation>Farbprofil für Füllfarben</translation>
     </message>
@@ -4870,6 +5413,10 @@ dass dies sehr genaue Geräteprofile erfordert.</translation>
     <message>
         <source>&amp;Activate Color Management</source>
         <translation>Farbmanagement &amp;aktivieren</translation>
+    </message>
+    <message>
+        <source>&amp;Pictures:</source>
+        <translation type="obsolete">&amp;Bilder:</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
@@ -4987,6 +5534,14 @@ dass dies sehr genaue Geräteprofile erfordert.</translation>
         <translation> %</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Name of the Color is not unique</source>
+        <translation type="obsolete">Der Name der Farbe ist nicht eindeutig</translation>
+    </message>
+    <message>
         <source>HSV-Colormap</source>
         <translation>HSV-Farbwähler</translation>
     </message>
@@ -4997,6 +5552,24 @@ dass dies sehr genaue Geräteprofile erfordert.</translation>
     <message>
         <source>Color &amp;Model</source>
         <translation>Farb&amp;modell</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="obsolete">Sie können keine Farbe mit dem Namen &quot;%1&quot; erstellen.
+Dieser Name ist für die transparente Farbe reserviert</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
@@ -5027,6 +5600,18 @@ It is a reserved name for transparent color</source>
 </context>
 <context>
     <name>ChTable</name>
+    <message>
+        <source>You can see a thumbnail if you press
+and hold down the right mouse button
+
+The Insert key inserts a Glyph into the Selection below
+and the Delete key removes the last inserted one</source>
+        <translation type="obsolete">Wenn Sie die rechte Maustaste drücken und gedrückt halten,
+sehen Sie ein Vorschaubild.
+
+Die Taste Einfügen fügt ein Zeichen in die Markierung unten ein
+und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
+    </message>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
         <translation>Wenn Sie die rechte Maustaste drücken und gedrückt halten, sehen Sie ein Vorschaubild. Die Taste Einfügen fügt ein Zeichen in die Markierung unten ein, und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
@@ -5065,6 +5650,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Delete the current selection(s).</source>
         <translation>Markierung(en) löschen.</translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation type="obsolete">Diesen Dialog schliessen und den Text weiter bearbeiten.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -5267,7 +5856,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>Anmerkung verwendet keine TrueType Scrift</translation>
     </message>
 </context>
 <context>
@@ -5279,6 +5868,14 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Available Styles</source>
         <translation>Verfügbare Stile</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -5306,6 +5903,13 @@ zusammengestellt werden</translation>
 %1</source>
         <translation>Fehler beim Zusammenstellen der Datei
 %1</translation>
+    </message>
+</context>
+<context>
+    <name>ColorListBox</name>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
     </message>
 </context>
 <context>
@@ -5549,6 +6153,10 @@ zusammengestellt werden</translation>
         <translation>Farben er&amp;setzen</translation>
     </message>
     <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
         <source>Merge created colors into the document colors</source>
         <translation>Farben zu den Dokumentfarben hinzufügen</translation>
     </message>
@@ -5559,6 +6167,26 @@ zusammengestellt werden</translation>
     <message>
         <source>Leave colors untouched</source>
         <translation>Farben unverändert lassen</translation>
+    </message>
+    <message>
+        <source>Difference between selected value and counted ones. See documentation for more info</source>
+        <translation type="obsolete">Differenz zwischen der gewählten und berechneten Farbe. Mehr Infos gibts in der Hilfe</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get base color</source>
+        <translation type="obsolete">Klicken Sie auf das Farbrad, um die Ausgangsfarbe zu wählen</translation>
+    </message>
+    <message>
+        <source>Here you have the sample color schema</source>
+        <translation type="obsolete">Ein Beispielschema, basierend auf den aktuellen Einstellungen</translation>
+    </message>
+    <message>
+        <source>Select one of the method to create color schema. See documentation for more info</source>
+        <translation type="obsolete">Wählen Sie eine Methode, nach der Sie das Schema erstellen wollen. Weitere Informationen im Handbuch</translation>
+    </message>
+    <message>
+        <source>Here you have the color of your chosen color schema</source>
+        <translation type="obsolete">Hier sehen Sie alle Farben für Ihr Farbschema</translation>
     </message>
     <message>
         <source>Merging colors</source>
@@ -5581,12 +6209,36 @@ zusammengestellt werden</translation>
         <translation>Normales Sehvermögen</translation>
     </message>
     <message>
+        <source>Protanopy</source>
+        <translation type="obsolete">Rotblindheit</translation>
+    </message>
+    <message>
+        <source>Deuteranopy</source>
+        <translation type="obsolete">Rotgrünblindheit</translation>
+    </message>
+    <message>
         <source>Full Color Blindness</source>
         <translation>Komplett Farbenblind</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
         <translation>Sehschwäche:</translation>
+    </message>
+    <message>
+        <source>You can simulate common vision defects here. Just select type of the defect</source>
+        <translation type="obsolete">Sie können hier bekannte Sehschwächen simulieren. Wählen Sie einfach die Krankheit aus</translation>
+    </message>
+    <message>
+        <source>Protanopia (red)</source>
+        <translation type="obsolete">Protanopie (Rotblindheit)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (green)</source>
+        <translation type="obsolete">Deuteranopie (Grünblindheit)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (blue)</source>
+        <translation type="obsolete">Tritanopie (Blaublindheit)</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
@@ -5613,8 +6265,24 @@ zusammengestellt werden</translation>
         <translation>&amp;Farbe</translation>
     </message>
     <message>
+        <source>Saturation:</source>
+        <translation type="obsolete">Sättigung:</translation>
+    </message>
+    <message>
+        <source>Value:</source>
+        <translation type="obsolete">Wert:</translation>
+    </message>
+    <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
         <translation>Der Unterschied zwischen dem ausgewählten und den gezählten Werten. Weitere Informationen finden Sie in der Hilfe.</translation>
+    </message>
+    <message>
+        <source>Saturation component in HSV mode</source>
+        <translation type="obsolete">Sättigungskomponente im HSV-Modus</translation>
+    </message>
+    <message>
+        <source>Value component in HSV mode</source>
+        <translation type="obsolete">Wertkomponente im HSV-Modus</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
@@ -5696,6 +6364,10 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5849,7 +6521,7 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">Postscript</translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -5887,6 +6559,10 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
         <translation> %</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
         <source>Shade:</source>
         <translation>Tonwert:</translation>
     </message>
@@ -5909,6 +6585,10 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     <message>
         <source>Set the transparency for the color selected</source>
         <translation>Transparenz für Farbe auswählen</translation>
+    </message>
+    <message>
+        <source>Color of selected object</source>
+        <translation type="obsolete">Farbe des selektierten Objekts</translation>
     </message>
     <message>
         <source>Free linear Gradient</source>
@@ -5964,6 +6644,10 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     <message>
         <source>Value delimiter:</source>
         <translation>Werttrenner:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keiner</translation>
     </message>
     <message>
         <source>First row is a header</source>
@@ -6048,6 +6732,26 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     <message>
         <source>Pages per Sheet</source>
         <translation>Seiten pro Blatt</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help &gt; About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation type="obsolete">Dieser Dialog zeigt verschiedene CUPS-Optionen zum Drucken an.
+Die verfügbaren Einstellungen sind von Ihrem Drucker anhängig.
+Hlife -&gt; Über zeigt Ihnen an, ob Ihre Scribus-Version CUPS unterstützt.
+Dabei stehen die Zeichen für C=CUPS, C=LittleCMS und T=TIFF-Unterstützung.
+Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
@@ -6160,6 +6864,18 @@ Dieses können Sie in unter Allgemeine Einstellungen festlegen.</translation>
         <translation>Farbe löschen</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
         <source>Delete Color:</source>
         <translation>Farbe löschen:</translation>
     </message>
@@ -6177,6 +6893,14 @@ Dieses können Sie in unter Allgemeine Einstellungen festlegen.</translation>
     <message>
         <source>to:</source>
         <translation>bis:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>Delete From:</source>
@@ -6394,6 +7118,10 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
         <translation>A, B, C, ...</translation>
     </message>
     <message>
+        <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
+        <translation type="obsolete">Name: Optionaler Name für den Abschnitt, z. B. Index&lt;br/&gt;angezeigt: Seitenzahlen anzeigen für diesen Abschnitt, wenn diese Einstellung für einen oder mehrere Textrahmen gewählt ist.&lt;br/&gt;Von: Die Seitenzahl für diesen Abschnitt endet auf dieser Seite.&lt;br/&gt;Bis: Die Seitenzahl für diesen Abschnitt endet auf dieser Seite.&lt;br/&gt;Stil: Stil für die Seitenzahlen wählen.&lt;br/&gt;Start: Die Seitenzahlen beginnen bei der Zahl, entsprechend den möglichen Werten für den Stil, bei Style=a,b,c beginnt die Nummerierung bei b.</translation>
+    </message>
+    <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
         <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Sil:&lt;/b&gt; Wählen Sie den Numerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
     </message>
@@ -6413,8 +7141,16 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
         <translation>Dokumentabschnitte</translation>
     </message>
     <message>
+        <source>Sections</source>
+        <translation type="obsolete">Abschnitte</translation>
+    </message>
+    <message>
         <source>Name</source>
         <translation>Name</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation type="obsolete">aktiv</translation>
     </message>
     <message>
         <source>From</source>
@@ -6431,6 +7167,10 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     <message>
         <source>Start</source>
         <translation>Beginn</translation>
+    </message>
+    <message>
+        <source>End</source>
+        <translation type="obsolete">Ende</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -6455,6 +7195,10 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
 </context>
 <context>
     <name>DocumentItemAttributes</name>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
     <message>
         <source>Relates To</source>
         <translation>Verweist auf</translation>
@@ -6486,6 +7230,70 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     <message>
         <source>String</source>
         <translation>String</translation>
+    </message>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation type="obsolete">Eigenschaften des Dokumentobjekts</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="obsolete">Name</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="obsolete">Typ</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="obsolete">Wert</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="obsolete">Parameter</translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation type="obsolete">Beziehung</translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation type="obsolete">Beziehung zu</translation>
+    </message>
+    <message>
+        <source>Auto Add To</source>
+        <translation type="obsolete">Automatisch hinzufügen zu</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="obsolete">&amp;Hinzufügen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="obsolete">Alt+H</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="obsolete">&amp;Kopieren</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="obsolete">Alt+K</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="obsolete">&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="obsolete">Alt+L</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="obsolete">&amp;Inhalt löschen</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
         <source>None</source>
@@ -6665,8 +7473,42 @@ Seiten importiert werden sollen, zum Beispiel
         <translation>Anzahl der &amp;Kopien:</translation>
     </message>
     <message>
+        <source>Print &amp;Normal</source>
+        <translation type="obsolete">&amp;Normal drucken</translation>
+    </message>
+    <message>
+        <source>Print &amp;Separations</source>
+        <translation type="obsolete">&amp;Farbauszüge drucken</translation>
+    </message>
+    <message>
+        <source>Pr&amp;int In Color If Available</source>
+        <translation type="obsolete">In Fa&amp;rbe drucken, falls verfügbar</translation>
+    </message>
+    <message>
+        <source>Print In Gra&amp;yscale</source>
+        <translation type="obsolete">In &amp;Graustufen drucken</translation>
+    </message>
+    <message>
+        <source>Ad&amp;vanced Options...</source>
+        <translation type="obsolete">Er&amp;weiterte Optionen...</translation>
+    </message>
+    <message>
         <source>&amp;Print</source>
         <translation>&amp;Drucken</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp,
+to utilize additional printing options</source>
+        <translation type="obsolete">Einen anderen Druckmanager benutzen, zum Beispiel kprinter oder gtklp,
+um zusätzliche Optionen einstellen zu können</translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.ps);;All Files (*)</source>
+        <translation type="obsolete">Postscript-Dateien (*.ps);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Print Normal</source>
@@ -6743,6 +7585,20 @@ Seiten importiert werden sollen, zum Beispiel
 Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translation>
     </message>
     <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+durch reine Abstufungen von Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
+Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
+erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
+    </message>
+    <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Postscript-Dateien (*.ps);;All Files (*)</translation>
     </message>
@@ -6771,6 +7627,10 @@ Postscript Level 1 und 2 haben häufig sehr grosse Dateien zur Folge</translatio
         <translation>Auf Seitenränder beschneiden</translation>
     </message>
     <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation type="obsolete">Objekte ausserhalb der Seitenränder auf den gedruckten oder exportierten Seiten nicht zeigen</translation>
+    </message>
+    <message>
         <source>Failed to retrieve printer settings</source>
         <translation>Abfragen der Druckereinstellungen fehlgeschlagen</translation>
     </message>
@@ -6792,6 +7652,13 @@ der Datei
     <message>
         <source>Fatal Error</source>
         <translation>Fataler Fehler</translation>
+    </message>
+    <message>
+        <source>Converting Image:
+%1
+failed!</source>
+        <translation type="obsolete">Fehler beim Konvertieren von:
+%1!</translation>
     </message>
     <message>
         <source>Error</source>
@@ -6829,8 +7696,20 @@ der Datei
         <translation> pt</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
         <source>Line Spacing</source>
         <translation>Zeilenabstand</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Name of the Style is not unique</source>
+        <translation type="obsolete">Der Name der Stilvorlage ist nicht eindeutig</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -6875,6 +7754,14 @@ der Datei
     <message>
         <source>&amp;Lines:</source>
         <translation>&amp;Zeilen:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source> %</source>
@@ -6937,6 +7824,10 @@ der Datei
         <translation>Abstand der Zeichen von der Grundlinie</translation>
     </message>
     <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="obsolete">Klicken Sie hier, um den Zeilenabstand zu ändern</translation>
+    </message>
+    <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Halten Sie die Maustaste gedrückt, um die Art des Zeilenabstandes  auszuwählen.</translation>
     </message>
@@ -6950,6 +7841,10 @@ der Datei
     <message>
         <source>Editor</source>
         <translation>Editor</translation>
+    </message>
+    <message>
+        <source>Javascripts (*.js);;All Files (*)</source>
+        <translation type="obsolete">Javascripte (*.js);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -7112,6 +8007,14 @@ der Datei
     <message>
         <source>&amp;All pages</source>
         <translation>Alle &amp;Seiten</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>Change the output directory</source>
@@ -7386,6 +8289,140 @@ Bildschirm betrachten wollen</translation>
     </message>
 </context>
 <context>
+    <name>Farbmanager</name>
+    <message>
+        <source>Colors</source>
+        <translation type="obsolete">Farben</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation type="obsolete">Farbpaletten</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation type="obsolete">Aktive Palette:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation type="obsolete">Namen wählen</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="obsolete">Öffnen</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation type="obsolete">Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation type="obsolete">Neue Farbe</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation type="obsolete">Kopie von %1</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation type="obsolete">Farbpalette auswählen</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation type="obsolete">Farbpalette speichern</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="obsolete">Unbenutzte Farben löschen</translation>
+    </message>
+    <message>
+        <source>Append colors to the current set from an existing document</source>
+        <translation type="obsolete">Farben aus anderem Dokument nachladen</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation type="obsolete">Neue Farbe anlegen</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation type="obsolete">Farbe bearbeiten</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="obsolete">Kopie der ausgewählen Farbe anlegen</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation type="obsolete">Ausgewählte Farbe löschen</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation type="obsolete">Aktuelle Palette zur Voreinstellung machen</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="obsolete">An&amp;fügen</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="obsolete">&amp;Neu</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="obsolete">&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="obsolete">&amp;Duplizieren</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="obsolete">&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation type="obsolete">Unbenutzte &amp;entfernen</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation type="obsolete">Farbset &amp;speichern</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="obsolete">&amp;Name:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">setHGuides(list)
+
+Legt horizontale Hilfslinien fest, list muss eine Liste der Linien sein, angegeben in der Masseinheit
+des Dokuments, siehe UNIT-Konstanten.
+
+Beispiel:
+setHGuides(getHGuides() + [200.0, 210.0] # fügt eine neue Hilfslinie hinzu
+setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="obsolete">&amp;Importieren</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="obsolete">Importiert Farben in die Liste eines existierenden Dokumentes</translation>
+    </message>
+</context>
+<context>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
@@ -7394,6 +8431,13 @@ Bildschirm betrachten wollen</translation>
     <message>
         <source> was replaced by: </source>
         <translation> wurde ersetzt durch: </translation>
+    </message>
+</context>
+<context>
+    <name>FileSearch</name>
+    <message>
+        <source>Search cancelled</source>
+        <translation type="obsolete">Suche abgebrochen</translation>
     </message>
 </context>
 <context>
@@ -7409,6 +8453,10 @@ Bildschirm betrachten wollen</translation>
     <message>
         <source>Additional Paths</source>
         <translation>Zusätzliche Pfade</translation>
+    </message>
+    <message>
+        <source>Postscript</source>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -7476,8 +8524,16 @@ Bildschirm betrachten wollen</translation>
         <translation>Pfad zur Schriftdatei</translation>
     </message>
     <message>
+        <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
+        <translation type="obsolete">&lt;qt&gt;Pfade, die in die Suche nach Schriftarten einbezogen werden sollen, können nur in den Voreinstellungen festgelegt werden, wenn kein Dokument geöffnet ist. Schliessen Sie alle Dokumente und ändern Sie die Pfad-Einstellungen über Bearbeiten-&gt;Voreinstellungen.&lt;/qt&gt;</translation>
+    </message>
+    <message>
         <source>PostScript</source>
         <translation type="obsolete">Postscript</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <translation type="obsolete">Der Pfad, in dem nach Schriften gesucht wird, kann nur in den Grundeinstellungen geändert werden, wenn gerade kein Dokument geöffnet ist. Schliessen Sie alle Dokumente und ändern Sie den Pfad unter Datei &gt; Allgemeine Einstellungen.</translation>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
@@ -7487,6 +8543,68 @@ Bildschirm betrachten wollen</translation>
 <context>
     <name>FontPreview</name>
     <message>
+        <source>Font Name</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Name der Schriftart</translation>
+    </message>
+    <message>
+        <source>Doc</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Doc</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Typ</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Unterteilen</translation>
+    </message>
+    <message>
+        <source>Access</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Zugriff</translation>
+    </message>
+    <message>
+        <source>Font Size:</source>
+        <translation type="obsolete">Zeichengrösse:</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Schriftartenvorschau</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Alt+O</translation>
+    </message>
+    <message>
+        <source>Quick Search: </source>
+        <translation type="obsolete">Suche:</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="obsolete">&amp;Suchen</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Sch&amp;liessen</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">Alt+I</translation>
+    </message>
+    <message>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
         <translation>Gewählte Schrift dem Stil zuweisen</translation>
@@ -7495,6 +8613,10 @@ Bildschirm betrachten wollen</translation>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Vorschau verlassen</translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
+        <translation type="obsolete">Hier können Sie den Namen einer Schriftart oder auch nur einen Teil eingeben. Wenn Sie z.B. &quot;bold&quot; eingeben, erscheinen alle Schriftarten, in denen diese Zeichenfolge vorkommt. Die Suche berücksichtigt Gross- und Kleinschreibung.</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7518,6 +8640,10 @@ Bildschirm betrachten wollen</translation>
         <source>System</source>
         <comment>font preview</comment>
         <translation>System</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="obsolete">&amp;Hinzufügen</translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
@@ -7608,7 +8734,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished">Schriftenvorschau</translation>
+        <translation>Schriftenvorschau</translation>
     </message>
 </context>
 <context>
@@ -7633,6 +8759,12 @@ Bildschirm betrachten wollen</translation>
         <translation>Ersetzung von Schriften</translation>
     </message>
     <message>
+        <source>This document contains some fonts that are not installed on your system,
+please choose a suitable replacement for them.</source>
+        <translation type="obsolete">In diesem Dokument werden einige Schriftarten verwendet, die auf Ihrem System nicht installiert sind,
+bitte wählen Sie dafür geeignete Ersatz-Schriften.</translation>
+    </message>
+    <message>
         <source>Original Font</source>
         <translation>Originalschrift</translation>
     </message>
@@ -7643,6 +8775,10 @@ Bildschirm betrachten wollen</translation>
     <message>
         <source>Make these substitutions permanent</source>
         <translation>Schrift dauerhaft ersetzen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
@@ -7674,6 +8810,10 @@ im Dokument gespeichert.</translation>
     <message>
         <source> %</source>
         <translation> %</translation>
+    </message>
+    <message>
+        <source>Here you can add, change or remove Color-Stops.</source>
+        <translation type="obsolete">Hier können Sie Farben hinzufügen, ändern oder löschen.</translation>
     </message>
     <message>
         <source>Add, change or remove color stops here</source>
@@ -7721,6 +8861,10 @@ im Dokument gespeichert.</translation>
     <message>
         <source>&amp;Lock Guides</source>
         <translation>Hilfslinien &amp;sperren</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
@@ -7818,6 +8962,10 @@ and www.scribus.net for downloads.</source>
     <message>
         <source>&amp;Search</source>
         <translation>&amp;Suchen</translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation type="obsolete">unbekannt</translation>
     </message>
     <message>
         <source>Find</source>
@@ -8095,12 +9243,28 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <translation>Seite(n)</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
         <source>&amp;Insert</source>
         <translation>Ein&amp;fügen</translation>
     </message>
     <message>
+        <source>Master Page (&amp;Left Page):</source>
+        <translation type="obsolete">Musterseite (&amp;Linke Seite):</translation>
+    </message>
+    <message>
         <source>&amp;Master Page:</source>
         <translation>&amp;Musterseite:</translation>
+    </message>
+    <message>
+        <source>Master Page (&amp;Right Page):</source>
+        <translation type="obsolete">Musterseite (&amp;Rechte Seite):</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -8157,6 +9321,14 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <source>Number of columns:</source>
         <translation>Anzahl der Spalten:</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
 </context>
 <context>
     <name>JavaDocs</name>
@@ -8167,6 +9339,10 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <source>Edit JavaScripts</source>
         <translation>JavaScripts bearbeiten</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -8195,6 +9371,10 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="obsolete">Wollen Sie dieses Script wirklich löschen?</translation>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
@@ -8248,6 +9428,10 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <translation>Strg+</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
         <source>&amp;No Key</source>
         <translation>&amp;Keine Taste</translation>
     </message>
@@ -8258,6 +9442,14 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <source>Set &amp;Key</source>
         <translation>Taste &amp;definieren</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>This Key Sequence is already in use</source>
+        <translation type="obsolete">Diese Tastenkombination wird bereits verwendet</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
@@ -8323,8 +9515,24 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <translation>Ebenen</translation>
     </message>
     <message>
+        <source>Add a new Layer</source>
+        <translation type="obsolete">Neue Ebene hinzufügen</translation>
+    </message>
+    <message>
         <source>Delete Layer</source>
         <translation>Ebene löschen</translation>
+    </message>
+    <message>
+        <source>Raise Layer</source>
+        <translation type="obsolete">Ebene nach oben verschieben</translation>
+    </message>
+    <message>
+        <source>Lower Layer</source>
+        <translation type="obsolete">Ebene nach unten verschieben</translation>
+    </message>
+    <message>
+        <source>New Layer</source>
+        <translation type="obsolete">Neue Ebene</translation>
     </message>
     <message>
         <source>Name</source>
@@ -8366,6 +9574,10 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <translation>Neuer Stil</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -8376,6 +9588,10 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="obsolete">&amp;Anfügen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -8398,12 +9614,24 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
         <source>&amp;No</source>
         <translation>N&amp;ein</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="obsolete">Wollen Sie diesen Absatzstil wirklich löschen?</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -8416,6 +9644,10 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
 </context>
 <context>
     <name>LineStyleWBase</name>
+    <message>
+        <source>LineStyleWBase</source>
+        <translation type="obsolete">LinienStileWBase</translation>
+    </message>
     <message>
         <source>%</source>
         <translation>%</translation>
@@ -8510,8 +9742,16 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <translation>Absätze:</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -8565,6 +9805,14 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <translation>Ränder</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
@@ -8594,6 +9842,20 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fusssteg)</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="obsolete">Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand (Bundsteg) eingestellt werden</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="obsolete">Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
@@ -8637,6 +9899,26 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <source>Edit Master Pages</source>
         <translation>Musterseiten bearbeiten</translation>
+    </message>
+    <message>
+        <source>Duplicates the selected master page</source>
+        <translation type="obsolete">Dupliziert die aktuelle Musterseite</translation>
+    </message>
+    <message>
+        <source>Deletes the selected master page</source>
+        <translation type="obsolete">Löscht die aktuelle Musterseite</translation>
+    </message>
+    <message>
+        <source>Adds a new master page</source>
+        <translation type="obsolete">Fügt eine neue Musterseite hinzu</translation>
+    </message>
+    <message>
+        <source>Imports master pages from another document</source>
+        <translation type="obsolete">Importiert eine Musterseite aus einem anderen Dokument</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -8732,6 +10014,14 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <message>
         <source>&amp;Vertical Shift:</source>
         <translation>&amp;Vertikaler Versatz:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
 </context>
 <context>
@@ -8849,6 +10139,10 @@ Seiten importiert werden sollen, zum Beispiel
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
     </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
 </context>
 <context>
     <name>MissingFont</name>
@@ -8868,6 +10162,10 @@ Seiten importiert werden sollen, zum Beispiel
         <source>instead</source>
         <translation>anstatt</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
 </context>
 <context>
     <name>MovePages</name>
@@ -8882,6 +10180,18 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <source>Move Page(s):</source>
         <translation>Seite(n) verschieben von:</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation type="obsolete">bis:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>Move Page(s)</source>
@@ -9027,6 +10337,20 @@ Seiten importiert werden sollen, zum Beispiel
         <translation>Zeilenabstand</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation type="obsolete">Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
+    </message>
+    <message>
         <source>Name of selected object</source>
         <translation>Name des markierten Objekts</translation>
     </message>
@@ -9117,6 +10441,14 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <source>Scaling width of characters</source>
         <translation>Zeichenbreiten skalieren</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation type="obsolete">Textumrissfarbe</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation type="obsolete">Textfarbe</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -9269,6 +10601,10 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <source>Path Text Properties</source>
         <translation>Eigenschaften des Pfadtextes</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation type="obsolete">Text in untergeordneten Textrahmen um die Objektform fliessen lassen</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -9433,6 +10769,14 @@ ab&amp;runden:</translation>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Für den Textumfluss wird das umgebende Rechteck statt der Form genutzt</translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="obsolete">Für den Textumfluss wird eine zweite Linie benutzt, die auf der ursprünglichen Form basiert</translation>
+    </message>
+    <message>
         <source>Hyphenation language of frame</source>
         <translation>Spracheinstellung für die Silbentrennung</translation>
     </message>
@@ -9455,6 +10799,10 @@ ab&amp;runden:</translation>
     <message>
         <source>Align to Baseline Grid</source>
         <translation>Am Grundlinienraster ausrichten</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
@@ -9485,6 +10833,14 @@ ab&amp;runden:</translation>
         <translation>Der Name &quot;%1&quot; ist nicht eindeutig.&lt;br/&gt; Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
+        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="obsolete">Farbe der Textumrandung. Nur möglich, wenn als Textoption &quot;Umriss&quot; gewählt ist.</translation>
+    </message>
+    <message>
+        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="obsolete">Farbe der Textfüllung. Nur möglich, wenn als Textoption &quot;Umriss&quot; gewählt ist.</translation>
+    </message>
+    <message>
         <source>Fill Rule</source>
         <translation>Fülloption</translation>
     </message>
@@ -9495,6 +10851,10 @@ ab&amp;runden:</translation>
     <message>
         <source>Non Zero</source>
         <translation>Nicht Null</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="obsolete">Klicken Sie hier, um den Zeilenabstand zu ändern</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
@@ -9526,7 +10886,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Export des Objektes aktivieren oder deaktivieren</translation>
     </message>
 </context>
 <context>
@@ -9576,6 +10936,10 @@ ab&amp;runden:</translation>
         <translation>OK</translation>
     </message>
     <message>
+        <source> pt </source>
+        <translation type="obsolete"> pt</translation>
+    </message>
+    <message>
         <source>Solid Line</source>
         <translation>Durchgehend</translation>
     </message>
@@ -9594,6 +10958,24 @@ ab&amp;runden:</translation>
     <message>
         <source>Dash Dot Dot Line</source>
         <translation>Strich-Punkt-Punkt</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation type="obsolete">Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
@@ -9680,6 +11062,18 @@ ab&amp;runden:</translation>
         <translation>Höhe der Seite, veränderbar, wenn &quot;Benutzerdefiniert&quot; ausgewählt ist</translation>
     </message>
     <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="obsolete">Aktiviert doppelseitiges Layout</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation type="obsolete">Macht die erste Seite zu der linken Seite des Dokuments</translation>
+    </message>
+    <message>
+        <source>First page number of the document</source>
+        <translation type="obsolete">Nummer der ersten Seite des Dokuments</translation>
+    </message>
+    <message>
         <source>Default unit of measurement for document editing</source>
         <translation>Standardmasseinheit für das Dokument</translation>
     </message>
@@ -9712,6 +11106,18 @@ ab&amp;runden:</translation>
         <translation>&amp;Höhe:</translation>
     </message>
     <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="obsolete">&amp;Doppelseiten</translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="obsolete">Linke Seite &amp;zuerst</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="obsolete">Nummer der &amp;ersten Seite:</translation>
+    </message>
+    <message>
         <source>&amp;Default Unit:</source>
         <translation>Standard&amp;masseinheit:</translation>
     </message>
@@ -9728,6 +11134,18 @@ ab&amp;runden:</translation>
         <translation>Spa&amp;lten:</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>Open Document</source>
+        <translation type="obsolete">Dokument öffnen</translation>
+    </message>
+    <message>
         <source>Initial number of pages of the document</source>
         <translation>Anzahl der Seiten, die erstellt werden sollen</translation>
     </message>
@@ -9736,12 +11154,44 @@ ab&amp;runden:</translation>
         <translation>&amp;Anzahl der Seiten:</translation>
     </message>
     <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation type="obsolete">Dokumente (*.sla *.scd);;</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="obsolete">Alle Dateien (*)</translation>
+    </message>
+    <message>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
+        <source>Recent Documents</source>
+        <translation type="obsolete">Zuletzt verwendete Dokumente</translation>
+    </message>
+    <message>
         <source>Do not show this dialog again</source>
         <translation>Diesen Dialog nicht mehr zeigen</translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="obsolete">Postscript-Dateien (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="obsolete">SVG-Bilder (*.svg *.svgz);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="obsolete">SVG-Bilder (*.svg);;</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="obsolete">OpenOffice.org Zeichnung (*.sxd);;</translation>
     </message>
     <message>
         <source>&amp;New Document</source>
@@ -9773,6 +11223,25 @@ ab&amp;runden:</translation>
     <message>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation>Beginnt ein neues Dokument aus einer Vorlage, die Sie oder andere erstellt haben (z. B. für Dokumente mit gleichbleibendem Stil).</translation>
+    </message>
+</context>
+<context>
+    <name>NewTm</name>
+    <message>
+        <source>Left Page</source>
+        <translation type="obsolete">Linke Seite</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="obsolete">Rechte Seite</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
 </context>
 <context>
@@ -9874,12 +11343,20 @@ ab&amp;runden:</translation>
         <translation>Pfad mit dem Uhrzeigersinn drehen</translation>
     </message>
     <message>
+        <source>Reduce the Size of the Path by shown %</source>
+        <translation type="obsolete">Pfad verkleinern um x %</translation>
+    </message>
+    <message>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Pfad vergrössern um x %</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
         <translation>Grad der Drehung</translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Reduce By</source>
+        <translation type="obsolete">% vergrössern oder verkleinern</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -9923,11 +11400,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ zur Arbeitsfläche</translation>
     </message>
     <message>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ zur Seite</translation>
     </message>
 </context>
 <context>
@@ -9942,6 +11419,14 @@ ab&amp;runden:</translation>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>&amp;OpenOffice.org-Zeichnung importieren...</translation>
+    </message>
+    <message>
+        <source>Imports OpenOffice Draw Files</source>
+        <translation type="obsolete">Importiert OpenOffice.org Draw-Dateien</translation>
+    </message>
+    <message>
+        <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <translation type="obsolete">Importiert die meisten OpenOffice.org Draw-Dateien in das aktuelle Dokument und wandelt deren Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Imports OpenOffice.org Draw Files</source>
@@ -10058,6 +11543,11 @@ ab&amp;runden:</translation>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Diese Funktion ermöglicht den Export genau einer PDF-Datei pro Seite. Seitennummern werden automatisch eingefügt.
+Dies ist ausserordentlich nützlich für das Ausschiessen von PDF-Dateien im professionellen Druck.</translation>
+    </message>
+    <message>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
@@ -10072,6 +11562,46 @@ ab&amp;runden:</translation>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation>Sie können die PDF-Datei erst speichern, wenn Sie einen Infotext im PDF/X-3-Register angegeben haben.</translation>
+    </message>
+</context>
+<context>
+    <name>PDF_Opts</name>
+    <message>
+        <source>Save as</source>
+        <translation type="obsolete">Speichern unter</translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="obsolete">Ausgabe in &amp;Datei:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="obsolete">Ä&amp;ndern...</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Speichern</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="obsolete">PDF-Dateien (*.pdf);;Alle Dateien (*.*)</translation>
+    </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="obsolete">Als PDF speichern</translation>
+    </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="obsolete">Ausgabe in eine Datei &amp;pro Seite</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="obsolete">Diese Funktion ermöglicht den Export genau einer PDF-Datei pro Seite. Seitennummern werden automatisch eingefügt.
+Dies ist ausserordentlich nützlich für das Ausschiessen von PDF-Dateien im professionellen Druck.</translation>
     </message>
 </context>
 <context>
@@ -10104,6 +11634,12 @@ ab&amp;runden:</translation>
         <translation>Alle</translation>
     </message>
     <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense
+of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation type="obsolete">Stellt den Text auf Kosten der Render-Geschwindigkeit glatter dar.
+Funktioniert nur mit Type-1-Schriftarten</translation>
+    </message>
+    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Aktiviert Transparenzen und transparente Objekt im Dokument. Erfordert Ghostscript 7.07 oder höher</translation>
     </message>
@@ -10126,6 +11662,14 @@ ab&amp;runden:</translation>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Aktiviert/deaktiviert den Schwarz-Auszug</translation>
+    </message>
+    <message>
+        <source>Anti-alias &amp;Text</source>
+        <translation type="obsolete">Text &amp;weichzeichnen</translation>
+    </message>
+    <message>
+        <source>Anti-alias &amp;Graphics</source>
+        <translation type="obsolete">Bil&amp;der weichzeichnen</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -10156,6 +11700,43 @@ ab&amp;runden:</translation>
         <translation>&amp;Unterfarbenreduktion</translation>
     </message>
     <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">Unterfarbenreduktion ersetzt einige Grautöne, die beim Mischen von Cyan, Magenta und
+Yellow entstehen, durch Schwarz. Dadurch kann sich die Qualität von Bilder, die vor allem
+neutrale Farbtöne oder Grautöne enthalten, verbessern. Allerdings sollte Sie da immer ein
+bisschen experimentieren, wie Sie die besten Ergebnisse erhalten.
+UFR reduziert auch die Gefahr einer Übersättigung durch die CMY-Farben.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="obsolete">Schriftarten (TrueType &amp;&amp; OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt,
+dafür erhöht sich benötigte Renderingzeit gerinfügig</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Detected some Errors.
+Consider using the Preflight Checker to correct them</source>
+        <translation type="obsolete">Es sind Fehler aufgetreten.
+Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation type="obsolete">Ignorieren</translation>
+    </message>
+    <message>
         <source>Separation Name</source>
         <translation>Separationsbezeichnung</translation>
     </message>
@@ -10182,6 +11763,16 @@ ab&amp;runden:</translation>
     <message>
         <source>Print...</source>
         <translation>Drucken...</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation type="obsolete">Stellt den Text auf Kosten der Rendergeschwindigkeit glatter dar.
+Funktioniert nur mit Type-1-Schriften</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="obsolete">Schriften (TrueType und OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt.
+Dafür erhöht sich benötigte Renderzeit geringfügig</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -10258,6 +11849,10 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 <context>
     <name>PageItemAttributes</name>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
         <source>Relates To</source>
         <translation>Verweist auf</translation>
     </message>
@@ -10268,6 +11863,74 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <source>Is Child Of</source>
         <translation>Ist Kindobjekt von</translation>
+    </message>
+    <message>
+        <source>Page Item Attributes</source>
+        <translation type="obsolete">Eigenschaften des Seitenobjekts</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="obsolete">Name</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="obsolete">Typ</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="obsolete">Wert</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="obsolete">Parameter</translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation type="obsolete">Beziehung</translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation type="obsolete">Beziehung zu</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="obsolete">&amp;Hinzufügen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="obsolete">Alt+H</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="obsolete">&amp;Kopieren</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="obsolete">Alt+K</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="obsolete">&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="obsolete">Alt+L</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="obsolete">&amp;Inhalt löschen</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="obsolete">Alt+I</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>None</source>
@@ -10349,6 +12012,34 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 <context>
     <name>PageLayouts</name>
     <message>
+        <source>Page Layout</source>
+        <translation type="obsolete">Seitenlayout</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="obsolete">Einzelne Seite</translation>
+    </message>
+    <message>
+        <source>Double sided</source>
+        <translation type="obsolete">Doppelseiten</translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="obsolete">3-fach gefaltet</translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="obsolete">4-fach gefaltet</translation>
+    </message>
+    <message>
+        <source>Page #</source>
+        <translation type="obsolete">Seite #</translation>
+    </message>
+    <message>
+        <source>is the first Page.</source>
+        <translation type="obsolete">ist die erste Seite.</translation>
+    </message>
+    <message>
         <source>First Page is:</source>
         <translation>Erste Seite:</translation>
     </message>
@@ -10394,6 +12085,14 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 </context>
 <context>
     <name>PageSelector</name>
+    <message>
+        <source>Page </source>
+        <translation type="obsolete">Seite </translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation type="obsolete"> von %1</translation>
+    </message>
     <message>
         <source>%1 of %1</source>
         <translation>%1 von %1</translation>
@@ -10602,6 +12301,26 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
 <context>
     <name>PluginManager</name>
     <message>
+        <source>Persistent</source>
+        <comment>plugin manager</comment>
+        <translation type="obsolete">fest</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <comment>plugin manager</comment>
+        <translation type="obsolete">Importieren</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <comment>plugin manager</comment>
+        <translation type="obsolete">Standard</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <comment>plugin manager</comment>
+        <translation type="obsolete">Unbekannt</translation>
+    </message>
+    <message>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
         <translation>PlugIn ist nicht vorhanden</translation>
@@ -10640,6 +12359,22 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>PlugIn: %1 konnte geladen werden: %2</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="obsolete">Postscript-Dateien (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="obsolete">SVG-Bilder (*.svg *.svgz);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="obsolete">SVG-Bilder (*.svg);;</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="obsolete">OpenOffice.org-Zeichnung (*.sxd);;</translation>
     </message>
 </context>
 <context>
@@ -10691,6 +12426,14 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <source>Polygon Properties</source>
         <translation>Polygon-Eigenschaften</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
 </context>
 <context>
     <name>PolygonWidget</name>
@@ -10731,6 +12474,12 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Vorschau der gewählten Eigenschaften</translation>
     </message>
     <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="obsolete">Ein negativer Wert steht für eine konkave (sternförmige) Figur,
+ein positiver Wert für eine konvexe Form</translation>
+    </message>
+    <message>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
         <translation>Ein negativer Wert steht für eine konkave (sternförmige) Figur, ein positiver Wert für eine konvexe Form</translation>
     </message>
@@ -10748,6 +12497,10 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <source>Tools</source>
         <translation>Werkzeuge</translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation type="obsolete">Bibliothek</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -10790,6 +12543,26 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation> pt</translation>
     </message>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
+        <source>Other Options</source>
+        <translation type="obsolete">Andere Optionen</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="obsolete">Vorschau</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="obsolete">Klein</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="obsolete">Mittel</translation>
+    </message>
+    <message>
         <source>Choose a Directory</source>
         <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
@@ -10814,8 +12587,22 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Externe Tools</translation>
     </message>
     <message>
+        <source>Postscript Interpreter</source>
+        <translation type="obsolete">Postscript-Interpreter</translation>
+    </message>
+    <message>
         <source>Image Processing Tool</source>
         <translation>Bildbearbeitungsprogramm</translation>
+    </message>
+    <message>
+        <source>Printing</source>
+        <translation type="obsolete">Drucken</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks.
+Scribus inherits any available KDE or Qt themes</source>
+        <translation type="obsolete">Auswahl der Standard-Fensterdekoration.
+Scribus stellt alle verfügbaren KDE und QT-Themen zur Verfügung</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -10858,8 +12645,26 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Höhe der Seite, veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
     </message>
     <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="obsolete">Aktiviert doppelseitiges Layout</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of a document</source>
+        <translation type="obsolete">Die erste Seite im Dokument soll eine linke Seite sein</translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+each time the time period elapses</source>
+        <translation type="obsolete">Scribus speichert im angegebenen Intervall selbstständig eine Sicherungskopie 
+des Dokuments mit der Erweiterung .bak</translation>
+    </message>
+    <message>
         <source>Time period between saving automatically</source>
         <translation>Intervall zwischen zwei automatischen Sicherungen</translation>
+    </message>
+    <message>
+        <source>Choose the size of the preview in the scrapbook palette</source>
+        <translation type="obsolete">Ändert die Grösse der Vorschau im Bibliotheksfenster</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -10874,6 +12679,10 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Legt die Standard-Vergrösserungseinstellung fest</translation>
     </message>
     <message>
+        <source>Filesystem location for the Ghostscript interpreter</source>
+        <translation type="obsolete">Pfad zum Ghostscript-Interpreter</translation>
+    </message>
+    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Text bei EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
@@ -10882,8 +12691,20 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Grafiken bei EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
     <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation type="obsolete">Objekte ausserhalb der Seitenränder auf den gedruckten oder exportierten Seiten nicht zeigen</translation>
+    </message>
+    <message>
+        <source>Save the scrapbook contents everytime after a change</source>
+        <translation type="obsolete">Bibliothek nach jeder Veränderung erneut speichern</translation>
+    </message>
+    <message>
         <source>&amp;Theme:</source>
         <translation>&amp;Thema:</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="obsolete">Schrift&amp;grösse:</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
@@ -10934,6 +12755,14 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>&amp;Höhe:</translation>
     </message>
     <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="obsolete">&amp;Doppelseiten</translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="obsolete">Linke Seite &amp;zuerst</translation>
+    </message>
+    <message>
         <source>&amp;Bottom:</source>
         <translation>&amp;Unten:</translation>
     </message>
@@ -10950,8 +12779,20 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>&amp;Links:</translation>
     </message>
     <message>
+        <source>&amp;Enabled</source>
+        <translation type="obsolete">&amp;Aktiviert</translation>
+    </message>
+    <message>
         <source>&amp;Interval:</source>
         <translation>&amp;Intervall:</translation>
+    </message>
+    <message>
+        <source>Sa&amp;ve Contents on Changes</source>
+        <translation type="obsolete">Änderungen beim &amp;Verlassen speichern</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="obsolete">Gross</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -10978,8 +12819,39 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Name der &amp;ausführbaren Datei:</translation>
     </message>
     <message>
+        <source>Clip to Page &amp;Margins</source>
+        <translation type="obsolete">Auf Sei&amp;tenränder beschneiden</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Under Color Removal</source>
+        <translation type="obsolete">Unterfarben&amp;reduktion anwenden</translation>
+    </message>
+    <message>
         <source>Cha&amp;nge...</source>
         <translation>Auswäh&amp;len...</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+durch reine Abstufungen von Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
+Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
+erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp
+and your distro includes it, we recommend &apos;gimp-remote&apos;,
+as it allows you to edit the image in an already running
+instance of gimp.</source>
+        <translation type="obsolete">Pfad zum Bildbearbeitungsprogramm. Wenn Sie GIMP benutzen möchten
+und es in Ihrer Distro enthalten ist, ist der Befehl gimp-remote empfehlenswert,
+weil Sie Bilder in bereits laufenden Instanzen von GIMP bearbeiten können.</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -11074,8 +12946,52 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Verschiedenes</translation>
     </message>
     <message>
+        <source>Plugin Manager</source>
+        <translation type="obsolete">Plugin-Manager</translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation type="obsolete">Plugin</translation>
+    </message>
+    <message>
+        <source>How to run</source>
+        <translation type="obsolete">Aufruf</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="obsolete">Typ</translation>
+    </message>
+    <message>
+        <source>Load it?</source>
+        <translation type="obsolete">Laden?</translation>
+    </message>
+    <message>
+        <source>Plugin ID</source>
+        <translation type="obsolete">Plugin-ID</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="obsolete">Datei</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="obsolete">Ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="obsolete">Nein</translation>
+    </message>
+    <message>
+        <source>You need to restart the application to apply the changes.</source>
+        <translation type="obsolete">Sie müssen Scribus neu starten, damit die Änderungen wirksam werden.</translation>
+    </message>
+    <message>
         <source>Plugins</source>
         <translation>Plug-Ins</translation>
+    </message>
+    <message>
+        <source>Turns the display of linked frames on or off</source>
+        <translation type="obsolete">Schaltet die Anzeige von verketteten Textrahmen an oder ab</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
@@ -11086,8 +13002,29 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Schaltet die Anzeige von Bildern an oder aus</translation>
     </message>
     <message>
+        <source>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="obsolete">Wählen Sie die Sprache, in der Scribus starten soll.
+Ist das Feld leer, liest Scribus die entsprechende Umgebungsvariable aus.
+Sie können auch eine Kommandozeilenoption beim Start von Scribus angeben,
+die diese Einstellung überschreibt</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot
+be changed with a document open.</source>
+        <translation type="obsolete">Verzeichnis für die ICC-Profile. Diese Einstellung kann
+nur geändert werden, wenn kein Dokument geöffnet ist.</translation>
+    </message>
+    <message>
         <source>Additional directory for document templates</source>
         <translation>Zusätzliches Verzeichnis für Dokumentvorlagen</translation>
+    </message>
+    <message>
+        <source>Set the length of the action history in steps.
+If set to 0 infinite amount of actions will be stored.</source>
+        <translation type="obsolete">Legt die Grösse des Bearbeitungsverlaufes in Schritten fest.
+0 bedeutet unendlich.</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -11182,6 +13119,14 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Wählen Sie die Standardsprache für Scribus aus. Tragen Sie hier nichts ein, wenn Sie die Umgebungsvariable Ihres Systems verwenden möchten. Sie können diese auch jederzeit umgehen, wenn Sie Scribus mit dem entsprechenden Parameter starten</translation>
     </message>
     <message>
+        <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes</source>
+        <translation type="obsolete">Wählen Sie die Fensterdekoration für Scribus. Alle verfügbaren KDE- oder Qt-Themen können Sie hier wählen</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open.</source>
+        <translation type="obsolete">Standardverzeichnis für ICC-Profile. Kann nur geändern werden, wenn alle Dokumenten geschlossen sind.</translation>
+    </message>
+    <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
         <translation>Ist diese Option aktiviert, speichert Scribus eine Sicherungskopie ihres Dokuments mit der Erweiterung .bak im angegebenen Zeitintervall</translation>
     </message>
@@ -11192,6 +13137,10 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation>Pfad und Dateiname Ihrer Bildbearbeitung. Wenn Sie GIMP verwenden und Ihre Distribution es unterstützt, sollten Sie &apos;gimp-remote&apos; bzw. &apos;gimp-win-remote&apos; (Windows) verwenden, weil Sie Bilder dann in einer vorhandenen Instanz von GIMP bearbeiten können.</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, durch reine Abstufungen von Schwarz ersetzt. Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst, die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen. Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
@@ -11214,12 +13163,24 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Verzeichnis für ICC-Profile. Kann nur geändert werden, wenn alle Dokumente geschlossen sind. Scribus sucht automatisch in den Systemverzeichnissen von Mac OSX und Windows. Unter Linux und Unix sucht Scribus in $home/.color/icc,/usr/share/color/icc und /usr/local/share/color/icc </translation>
     </message>
     <message>
+        <source>Filesystem location for the Ghostscript interpreter.</source>
+        <translation type="obsolete">Pfad zum Ghostscript-Interpreter.</translation>
+    </message>
+    <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation>Fügen Sie hier den Pfad zu Ghostscript ein. Achten Sie unter Windows darauf, dass Sie das Programm gswin32c.exe benötigen, NICHT gswin32.exe. Ansonsten könnte es Probleme beim Programmstart geben.</translation>
     </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
     <message>
         <source>&amp;Defaults</source>
         <translation>&amp;Standards laden</translation>
@@ -11262,6 +13223,42 @@ Do you want to migrate them to the new Scribus version?</source>
 Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     </message>
     <message>
+        <source>Single Page</source>
+        <translation type="obsolete">Einzelne Seite</translation>
+    </message>
+    <message>
+        <source>Double sided</source>
+        <translation type="obsolete">Doppelseiten</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation type="obsolete">Linke Seite</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="obsolete">Rechte Seite</translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="obsolete">3fach gefaltet</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="obsolete">Mitte</translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="obsolete">4fach gefaltet</translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation type="obsolete">Mitte links</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="obsolete">Mitte rechts</translation>
+    </message>
+    <message>
         <source>PostScript</source>
         <translation>Postscript</translation>
     </message>
@@ -11302,8 +13299,28 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
 <context>
     <name>PresetLayout</name>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keines</translation>
+    </message>
+    <message>
+        <source>Book</source>
+        <translation type="obsolete">Buch</translation>
+    </message>
+    <message>
         <source>Magazine</source>
         <translation>Zeitschrift</translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation type="obsolete">Hier können Sie ein Standard-Layout auswählen.
+&quot;Keines&quot; belässt die Stege wie gehabt.
+&quot;Buch&quot; setzt die Stege im klassischen Buchformat.
+&quot;Zeitschrift&quot; setzt alle Stege auf identische Werte.
+Der ausschlaggebende Wert ist der Bundsteg.</translation>
+    </message>
+    <message>
+        <source>Guttenberg</source>
+        <translation type="obsolete">Gutenberg</translation>
     </message>
     <message>
         <source>Fibonacci</source>
@@ -11316,6 +13333,10 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <source>Nine Parts</source>
         <translation>Neunerteilung</translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation type="obsolete">Sie können festgelegte Seitenlayouts hier auswählen. &quot;Kein&quot; verändert die Ränder nicht, Gutenberg bedeutet klassische Ränder, Magazin setzt alle Ränder auf gleiche Werte. Massgeblich ist der Wert für Links/Innen.</translation>
     </message>
     <message>
         <source>Gutenberg</source>
@@ -11340,6 +13361,10 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation type="obsolete">Speichern &amp;unter...</translation>
     </message>
     <message>
         <source>&amp;Exit</source>
@@ -11378,6 +13403,10 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
         <translation>Python-Scripte (*.py)</translation>
     </message>
     <message>
+        <source>Open File With Python Commands</source>
+        <translation type="obsolete">Datei mit Python-Befehlen öffnen</translation>
+    </message>
+    <message>
         <source>Save the Python Commands in File</source>
         <translation>Python-Befehle in Datei schreiben</translation>
     </message>
@@ -11392,6 +13421,10 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <source>Save Current Output</source>
         <translation>Aktuelle Ausgabe speichern</translation>
+    </message>
+    <message>
+        <source>&amp;Run As Console</source>
+        <translation type="obsolete">In der &amp;Konsole ausführen</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -11844,6 +13877,10 @@ Datei wurde nicht gefunden.
         <translation>Initialisierung...</translation>
     </message>
     <message>
+        <source>Document</source>
+        <translation type="obsolete">Dokument</translation>
+    </message>
+    <message>
         <source>Background</source>
         <translation>Hintergrund</translation>
     </message>
@@ -11857,6 +13894,10 @@ Datei wurde nicht gefunden.
         <translation>Wollen sie die Datei
 %1
 wirklich überschreiben?</translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="obsolete">Onlinereferenz</translation>
     </message>
     <message>
         <source>Open</source>
@@ -11991,8 +14032,28 @@ wirklich überschreiben?</translation>
         <translation>Eigene Vorlagen</translation>
     </message>
     <message>
+        <source>New &amp;from Template...</source>
+        <translation type="obsolete">Neu von &amp;Vorlage...</translation>
+    </message>
+    <message>
         <source>PDF Presentations</source>
         <translation>PDF-Präsentationen</translation>
+    </message>
+    <message>
+        <source>Save as &amp;Template...</source>
+        <translation type="obsolete">&amp;Als Vorlage speichern...</translation>
+    </message>
+    <message>
+        <source>Save as &amp;Image...</source>
+        <translation type="obsolete">Als &amp;Bild speichern...</translation>
+    </message>
+    <message>
+        <source>Print Previe&amp;w</source>
+        <translation type="obsolete">D&amp;ruckvorschau</translation>
+    </message>
+    <message>
+        <source>S&amp;cripter Manual...</source>
+        <translation type="obsolete">Handbuch für den &amp;Scripter...</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
@@ -12009,6 +14070,18 @@ wirklich überschreiben?</translation>
     <message>
         <source>Show &amp;Console</source>
         <translation>&amp;Konsole zeigen</translation>
+    </message>
+    <message>
+        <source>Save Page as &amp;SVG...</source>
+        <translation type="obsolete">Seite als &amp;SVG speichern...</translation>
+    </message>
+    <message>
+        <source>Import &amp;SVG...</source>
+        <translation type="obsolete">&amp;SVG importieren...</translation>
+    </message>
+    <message>
+        <source>Import &amp;EPS/PS...</source>
+        <translation type="obsolete">&amp;EPS/PS importieren...</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
@@ -12080,6 +14153,10 @@ Externe Links</translation>
     <message>
         <source>Bulgarian</source>
         <translation>Bulgarisch</translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="obsolete">Brasilianisch</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -12311,6 +14388,14 @@ Externe Links</translation>
         <translation>Kann den letzten Rahmen einer Kette nicht abtrennen. Lösen Sie erst die Verkettung der anderen Rahmen.</translation>
     </message>
     <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="obsolete">&amp;OpenOffice.org Zeichnung importieren...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="obsolete">OpenOffice.org-Zeichnung (*.sxd);;Alle Dateien (*)</translation>
+    </message>
+    <message>
         <source>OpenOffice.org Writer Documents</source>
         <translation>OpenOffice.org Writer-Dokumente</translation>
     </message>
@@ -12328,6 +14413,11 @@ Externe Links</translation>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
         <translation>Standardkonfiguration:</translation>
+    </message>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Short &amp;Words...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
@@ -12734,6 +14824,10 @@ Externe Links</translation>
         <translation>Schrift %1 wird geladen (erkannt von fontconfig)</translation>
     </message>
     <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="obsolete">Die Schriftart %1 (erkannt von fontconfig) ist fehlerhaft und wird ignoriert</translation>
+    </message>
+    <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation>Fehler beim Laden einer Schrift - FreeType2 konnte die Datei nicht finden</translation>
     </message>
@@ -12768,6 +14862,94 @@ Externe Links</translation>
     <message>
         <source>Scribus Development Version</source>
         <translation>Scribus Entwickerversion</translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
+        <translation type="obsolete">Sie benutzen eine Entwicklungsversion von Scribus 1.3.x. Das Dokument, das Sie gerade bearbeiten, wurde mit Scribus 1.2.2 oder niedriger erstellt. Wenn Sie die Datei abspeichern, können Sie sie nicht mehr in Scribus 1.2.2 verwenden, es sei denn, Sie speichern das Dokument über Datei-&gt;Speichern unter. Wollen Sie wirklich fortfahren?</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Proceed</source>
+        <translation type="obsolete">&amp;Fortfahren</translation>
+    </message>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="obsolete">Ungültiges Argument:</translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="obsolete">Die Datei %1 existiert nicht - Abbruch.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="obsolete">Benutzung: scribus [Optionen...] [Datei]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="obsolete">Optionen:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="obsolete">Hilfe anzeigen (dieser Text) und beenden</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language</source>
+        <translation type="obsolete">Benutzt xx als Kürzel für eine Sprache</translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="obsolete">Installierte Sprachen auflisten</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="obsolete">Zeigt Informationen auf der Konsole, wenn Schriftarten geladen werden</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="obsolete">Splash-Screen beim Start nicht anzeigen</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="obsolete">Version ausgeben und beenden</translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="obsolete">Folgende Sprachen sind für Scribus installiert:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="obsolete">Um die Standardsprache ausser Kraft zu setzen:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="obsolete">scribus -l xx oder scribus --lang xx; xx steht für den entsprechenden Ländercode.</translation>
+    </message>
+    <message>
+        <source>Scribus Version </source>
+        <translation type="obsolete">Scribus-Version</translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="obsolete">Scribus, Open Source Desktop-Publishing</translation>
+    </message>
+    <message>
+        <source>---------------------------------------</source>
+        <translation type="obsolete">---------------------------------------</translation>
+    </message>
+    <message>
+        <source>Homepage:       http://www.scribus.net </source>
+        <translation type="obsolete">Homepage:      http://www.scribus.net </translation>
+    </message>
+    <message>
+        <source>Documentation:  http://docs.scribus.net</source>
+        <translation type="obsolete">Dokumentation:  http://docs.scribus.net</translation>
+    </message>
+    <message>
+        <source>Issues:         http://bugs.scribus.net</source>
+        <translation type="obsolete">Fehler: http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12834,12 +15016,26 @@ Externe Links</translation>
         <translation>Datei existiert bereits</translation>
     </message>
     <message>
+        <source>A file named &apos;%1&apos; already exists.
+Do you want to replace it with the file you are saving?</source>
+        <translation type="obsolete">Eine Datei mit dem Namen &apos;%1&apos; existiert bereits.
+Wollen Sie diese Datei mit der Datei, die Sie speichern wollen, überschreiben?</translation>
+    </message>
+    <message>
         <source>&amp;Replace</source>
         <translation>&amp;Ersetzen</translation>
     </message>
     <message>
         <source>All</source>
         <translation>Alle</translation>
+    </message>
+    <message>
+        <source>&amp;Color Wheel...</source>
+        <translation type="obsolete">Farb&amp;rad...</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview...</source>
+        <translation type="obsolete">Schriftarten&amp;vorschau...</translation>
     </message>
     <message>
         <source>Document Template: </source>
@@ -13067,6 +15263,14 @@ is not exhaustive due to exceptions from called functions.
 </translation>
     </message>
     <message>
+        <source>Short Words Manual</source>
+        <translation type="obsolete">Handbuch für die Umbruchkontrolle</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="obsolete">Normal</translation>
+    </message>
+    <message>
         <source> c</source>
         <translation>c</translation>
     </message>
@@ -13082,6 +15286,10 @@ is not exhaustive due to exceptions from called functions.
         <source>The filename should not be empty string.</source>
         <comment>python error</comment>
         <translation>Der Dateiname darf nicht leer sein.</translation>
+    </message>
+    <message>
+        <source>Wiki:           http://wiki.scribus.net</source>
+        <translation type="obsolete">Wiki: http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>page</source>
@@ -13193,6 +15401,10 @@ is not exhaustive due to exceptions from called functions.
         <translation>Die Änderungen am Dokument wurden nicht gesichert und Sie möchten zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
     </message>
     <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="obsolete">Rechts-nach-links Anordnung der Buttons verwenden (z.B. Abbrechen/Nein/Ja statt Ja/Nein/Abbrechen)</translation>
+    </message>
+    <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Eine Datei mit dem Namen &apos;%1&apos; ist schon vorhanden.&lt;br/&gt;Wollen Sie diese Datei mit dem aktuellen Dokument ersetzen?</translation>
     </message>
@@ -13266,6 +15478,11 @@ is not exhaustive due to exceptions from called functions.
         <translation>Fehler beim Öffnen der Datei %1</translation>
     </message>
     <message>
+        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="obsolete">Diese Datei wird nicht als PDB-Dokument erkannt. Falls es doch eins ist, melden Sie uns bitte einen Fehler.</translation>
+    </message>
+    <message>
         <source>Luxembourgish</source>
         <translation>Luxemburgisch</translation>
     </message>
@@ -13317,23 +15534,23 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsch (Schweiz)</translation>
     </message>
     <message>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chinesisch (Trad.)</translation>
     </message>
     <message>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
+        <translation>Bei der Schrift %1 sind die Fontmetriken in Datei %2 beschädigt. Metriken werden ignoriert</translation>
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Es wurden gültige Fontmetriken für Schrift %1 gefunden. Verwende die Metriken in Datei %2</translation>
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist nicht genügend Arbeitsspeicher für ein Bild dieser Grösse vorhanden.</translation>
     </message>
 </context>
 <context>
@@ -13454,6 +15671,17 @@ is not exhaustive due to exceptions from called functions.
     </message>
 </context>
 <context>
+    <name>Query</name>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+</context>
+<context>
     <name>ReformDoc</name>
     <message>
         <source>Document Setup</source>
@@ -13462,6 +15690,14 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Margin Guides</source>
         <translation>Seitenränder</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="obsolete">Aktiviert das doppelseitige Layout</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation type="obsolete">Macht die erste Seite des Dokuments zu einer linken Seite</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
@@ -13480,6 +15716,14 @@ is not exhaustive due to exceptions from called functions.
         <translation>&amp;Rechts:</translation>
     </message>
     <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="obsolete">&amp;Doppelseiten</translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="obsolete">Linke Seite &amp;zuerst</translation>
+    </message>
+    <message>
         <source>Page Size</source>
         <translation>Seitenformat</translation>
     </message>
@@ -13494,6 +15738,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Landscape</source>
         <translation>Querformat</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="obsolete">Nummer der &amp;ersten Seite:</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -13514,6 +15762,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>&amp;Unit:</source>
         <translation>&amp;Einheit:</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation type="obsolete">Layout</translation>
     </message>
     <message>
         <source>Autosave</source>
@@ -13608,6 +15860,10 @@ is not exhaustive due to exceptions from called functions.
         <translation>Farbmanagement</translation>
     </message>
     <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="obsolete">Schaltet die Anzeige von verketteten Textrahmen an oder ab</translation>
+    </message>
+    <message>
         <source>Turns the display of frames on or off</source>
         <translation>Schaltet die Anzeige von Textrahmen an oder aus</translation>
     </message>
@@ -13632,6 +15888,14 @@ is not exhaustive due to exceptions from called functions.
         <translation>Nicht druckende Zeichen wie Absatzmarken in den Textrahmen anzeigen</translation>
     </message>
     <message>
+        <source>Apply size settings to all Pages</source>
+        <translation type="obsolete">Seitengrösse auf alle Seiten anwenden</translation>
+    </message>
+    <message>
+        <source>Apply margin settings to all Pages</source>
+        <translation type="obsolete">Seitenränder für alle Seiten übernehmen</translation>
+    </message>
+    <message>
         <source>Rulers relative to Page</source>
         <translation>Lineal relativ zur Seite</translation>
     </message>
@@ -13650,6 +15914,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Vertical:</source>
         <translation>Vertikal:</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="obsolete">Optionen</translation>
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
@@ -13772,6 +16040,10 @@ is not exhaustive due to exceptions from called functions.
 <context>
     <name>SToolBColorF</name>
     <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
         <source>Color of text fill</source>
         <translation>Textfarbe</translation>
     </message>
@@ -13786,6 +16058,10 @@ is not exhaustive due to exceptions from called functions.
 </context>
 <context>
     <name>SToolBColorS</name>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
     <message>
         <source>Color of text stroke</source>
         <translation>Textumrissfarbe</translation>
@@ -14000,11 +16276,34 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     </message>
 </context>
 <context>
+    <name>ScActionPlugin</name>
+    <message>
+        <source>Could not find target file %1: %2</source>
+        <comment>plugins</comment>
+        <translation type="obsolete">Zieldatei %1 nicht gefunden %2</translation>
+    </message>
+    <message>
+        <source>Could not open target file %1: %2</source>
+        <comment>plugins</comment>
+        <translation type="obsolete">Konnte Zieldatei %1 nicht öffnen: %2</translation>
+    </message>
+</context>
+<context>
     <name>ScPlugin</name>
     <message>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
         <translation>fest</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="obsolete">Import</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="obsolete">Export</translation>
     </message>
     <message>
         <source>Action</source>
@@ -14072,9 +16371,696 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
         <source>Background</source>
         <translation>Hintergrund</translation>
     </message>
+    <message>
+        <source>Postscript</source>
+        <translation type="obsolete">Postscript</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusApp</name>
+    <message>
+        <source>File</source>
+        <translation type="obsolete">Datei</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="obsolete">Suche nach Schriftarten</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation type="obsolete">Schwerwiegender Fehler</translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="obsolete">Voreinstellungen werden geladen</translation>
+    </message>
+    <message>
+        <source>Setting up Shortcuts</source>
+        <translation type="obsolete">Tastaturkürzel werden gelesen</translation>
+    </message>
+    <message>
+        <source>Reading Scrapbook</source>
+        <translation type="obsolete">Bibliothek wird geladen</translation>
+    </message>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="obsolete">Plug-Ins werden geladen</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation type="obsolete">Über Qt</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="obsolete">Normal</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation type="obsolete">X-Pos:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation type="obsolete">Y-Pos:</translation>
+    </message>
+    <message>
+        <source>Ready</source>
+        <translation type="obsolete">Fertig</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="obsolete">Grösse</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation type="obsolete">Tonwert</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="obsolete">Öffnen</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation type="obsolete">Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Loading...</source>
+        <translation type="obsolete">Lade...</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="obsolete">Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files(*)</source>
+        <translation type="obsolete">Textdateien (*.txt);;Alle Dateien(*)</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="obsolete">Speichern unter</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
+        <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Saving...</source>
+        <translation type="obsolete">Speichere...</translation>
+    </message>
+    <message>
+        <source>Printing...</source>
+        <translation type="obsolete">Drucke...</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="obsolete">Dokument</translation>
+    </message>
+    <message>
+        <source>Printing failed!</source>
+        <translation type="obsolete">Drucken fehlgeschlagen!</translation>
+    </message>
+    <message>
+        <source>Scribus Manual</source>
+        <translation type="obsolete">Scribus-Handbuch</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="obsolete">Alle</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation type="obsolete">Passe Farben an</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="obsolete">Englisch</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="obsolete">Deutsch</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="obsolete">Spanisch</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="obsolete">Italienisch</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="obsolete">Französisch</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="obsolete">Russisch</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="obsolete">Dänisch</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="obsolete">Slowakisch</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="obsolete">Ungarisch</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="obsolete">Tschechisch</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="obsolete">Niederländisch</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="obsolete">Portugiesisch</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation type="obsolete">Ukrainisch</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="obsolete">Polnisch</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="obsolete">Griechisch</translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="obsolete">Katalanisch</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="obsolete">Finnisch</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="obsolete">Wählen Sie ein Verzeichnis</translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="obsolete">Alle unterstützten Formate</translation>
+    </message>
+    <message>
+        <source>Irish</source>
+        <translation type="obsolete">Irisch</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="obsolete">&amp;Datei</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="obsolete">&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation type="obsolete">&amp;Objekt</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="obsolete">&amp;Seite</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation type="obsolete">&amp;Ansicht</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation type="obsolete">&amp;Werkzeuge</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation type="obsolete">E&amp;xtras</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation type="obsolete">&amp;Fenster</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="obsolete">&amp;Hilfe</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation type="obsolete">Einige Objekte sind gesperrt.</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="obsolete">Litauisch</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="obsolete">Schwedisch</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="obsolete">Slovenisch</translation>
+    </message>
+    <message>
+        <source>Open &amp;Recent</source>
+        <translation type="obsolete">&amp;Zuletzt verwendete öffnen</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="obsolete">&amp;Importieren</translation>
+    </message>
+    <message>
+        <source>&amp;Export</source>
+        <translation type="obsolete">E&amp;xportieren</translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation type="obsolete">&amp;Form</translation>
+    </message>
+    <message>
+        <source>St&amp;yle</source>
+        <translation type="obsolete">S&amp;til</translation>
+    </message>
+    <message>
+        <source>&amp;Cascade</source>
+        <translation type="obsolete">&amp;Hintereinander</translation>
+    </message>
+    <message>
+        <source>&amp;Tile</source>
+        <translation type="obsolete">&amp;Nebeneinander</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="obsolete">&amp;Farben</translation>
+    </message>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="obsolete">Schrift&amp;art</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="obsolete">&amp;Grösse</translation>
+    </message>
+    <message>
+        <source>&amp;Effects</source>
+        <translation type="obsolete">&amp;Effekte</translation>
+    </message>
+    <message>
+        <source>&amp;Alignment</source>
+        <translation type="obsolete">Aus&amp;richtung</translation>
+    </message>
+    <message>
+        <source>&amp;Shade</source>
+        <translation type="obsolete">Ton&amp;wert</translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation type="obsolete">Seiten werden importiert...</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation type="obsolete">Seiten importieren</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
+        <translation type="obsolete">&lt;p&gt;Sie versuchen, mehr Seiten zu importieren als im aktiven Dokument vorhanden sind.&lt;/p&gt;Wählen Sie bitte aus:&lt;br&gt;&lt;ul&gt;&lt;li&gt;fehlende Seiten &lt;b&gt;erstellen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Bis zur letzten vorhandenen Seite &lt;b&gt;einfügen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation type="obsolete">Erstellen</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="obsolete">Importieren</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation type="obsolete">Importvorgang erfolgreich abgeschlossen</translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
+        <translation type="obsolete">Nichts zum Importieren gefunden</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="obsolete">&amp;Grösse:</translation>
+    </message>
+    <message>
+        <source>&amp;Shade:</source>
+        <translation type="obsolete">Ton&amp;wert:</translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation type="obsolete">Afrikaans</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="obsolete">Fontsystem initialisiert...</translation>
+    </message>
+    <message>
+        <source>Portuguese (BR)</source>
+        <translation type="obsolete">Portugiesisch (BR)</translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="obsolete">Kroatisch</translation>
+    </message>
+    <message>
+        <source>Initializing Story Editor</source>
+        <translation type="obsolete">Story Editor wird initialisiert</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="obsolete">ICC-Profile werden gelesen</translation>
+    </message>
+    <message>
+        <source>Initializing Hyphenator</source>
+        <translation type="obsolete">Silbentrennung wird initialisiert</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="obsolete">Bearbeiten</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="obsolete">Auf Ihrem System sind keine Schriftarten vorhanden.</translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="obsolete">Scribus wird nun beendet.</translation>
+    </message>
+    <message>
+        <source>Postscript</source>
+        <translation type="obsolete">Postscript</translation>
+    </message>
+    <message>
+        <source>PDF 1.3</source>
+        <translation type="obsolete">PDF 1.3</translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation type="obsolete">PDF 1.4</translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation type="obsolete">PDF/X-3</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="obsolete">&amp;PDF-Optionen</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert To</source>
+        <translation type="obsolete">Um&amp;wandeln in</translation>
+    </message>
+    <message>
+        <source>I&amp;nsert</source>
+        <translation type="obsolete">&amp;Einfügen</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="obsolete">Zeichen</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="obsolete">Anführungszeichen</translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="obsolete">Leerzeichen</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation type="obsolete">Dokumente (*.sla *.scd);;</translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="obsolete">Postscript-Dateien (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="obsolete">SVG-Bilder (*.svg *.svgz);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="obsolete">SVG-Bilder (*.svg);;</translation>
+    </message>
+    <message>
+        <source>File %1 
+is not in an acceptable format</source>
+        <translation type="obsolete">Scribus kann das Format der Datei %1 nicht lesen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Some fonts used by this document have been substituted:</source>
+        <translation type="obsolete">Einige Schriftarten in diesem Dokument wurden ersetzt:</translation>
+    </message>
+    <message>
+        <source> was replaced by: </source>
+        <translation type="obsolete"> wurde ersetzt durch: </translation>
+    </message>
+    <message>
+        <source>Some ICC profiles used by this document are not installed:</source>
+        <translation type="obsolete">Einige ICC-Profile in dem Dokument sind auf Ihrem System nicht vorhanden:</translation>
+    </message>
+    <message>
+        <source>(converted)</source>
+        <translation type="obsolete">(konvertiert)</translation>
+    </message>
+    <message>
+        <source>Cannot write the file: 
+%1</source>
+        <translation type="obsolete">Die Datei %1 kann nicht geschrieben werden</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation type="obsolete">Speichern unter</translation>
+    </message>
+    <message>
+        <source>Detected some Errors.
+Consider using the Preflight Checker to correct them</source>
+        <translation type="obsolete">Es wurden einige Fehler festgestellt.
+Benutzen Sie bitte den Druckvorstufen-Check, 
+um die Fehler zu beheben</translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation type="obsolete">Ignorieren</translation>
+    </message>
+    <message>
+        <source>Cannot Cut In-Use Item</source>
+        <translation type="obsolete">Objekte in Benutzung können nicht ausgeschnitten werden</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
+        <translation type="obsolete">Das Objekt %1 wird gerade im Story Editor bearbeitet, deswegen kann es nicht ausgeschnitten werden</translation>
+    </message>
+    <message>
+        <source>The following programs are missing:</source>
+        <translation type="obsolete">Die folgenden Programme fehlen:</translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
+        <translation type="obsolete">Ghostscript: Sie können weder EPS-Dateien noch die Druckvorschau verwenden</translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="obsolete">EPS-Dateien (*.eps);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Detected some Errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation type="obsolete">Es sind Fehler aufgetreten.
+Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Lock All</source>
+        <translation type="obsolete">Alle &amp;sperren</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="obsolete">Alle &amp;entsperren</translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="obsolete">Bulgarisch</translation>
+    </message>
+    <message>
+        <source>The program</source>
+        <translation type="obsolete">Das Programm</translation>
+    </message>
+    <message>
+        <source>is already running!</source>
+        <translation type="obsolete">läuft bereits!</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="obsolete">Information</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation type="obsolete">fehlt!</translation>
+    </message>
+    <message>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation type="obsolete">Die gewählte Farbe existiert im Farbset des Dokuments noch nicht. Bitte geben Sie einen Namen für die neue Farbe ein.</translation>
+    </message>
+    <message>
+        <source>Color Not Found</source>
+        <translation type="obsolete">Farbe nicht gefunden</translation>
+    </message>
+    <message>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation type="obsolete">Eine Farbe mit diesem Namen existiert schon. Bitte geben Sie einen anderen Namen ein.</translation>
+    </message>
+    <message>
+        <source>&amp;Level</source>
+        <translation type="obsolete">&amp;Anordnung</translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation type="obsolete">Auf andere Ebene verschieben</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="obsolete">OpenOffice.org Zeichnung (*.sxd);;</translation>
+    </message>
+    <message>
+        <source>Previe&amp;w Settings</source>
+        <translation type="obsolete">&amp;Vorschau</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="obsolete">Tastenkürzel einlesen</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="obsolete">Vorschau</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="obsolete">Anordnung</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="obsolete">Auf andere &amp;Ebene verschieben</translation>
+    </message>
+    <message>
+        <source>File %1 is not in an acceptable format</source>
+        <translation type="obsolete">Das Format der Datei %1 kann nicht verwendet werden</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="obsolete">PostScript</translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors.
+Consider using the Pre-flight Checker to correct them</source>
+        <translation type="obsolete">Scribus hat Fehler entdeckt.
+Bitte verwenden Sie die Druckvorstufenüberprüfung, um
+diese zu finden und zu korrigieren</translation>
+    </message>
+    <message>
+        <source>&amp;Abort</source>
+        <translation type="obsolete">A&amp;bbruch</translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="obsolete">&amp;Ignorieren</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="obsolete">Name:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation type="obsolete">Neue Musterseite</translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="obsolete">Neue Musterseite</translation>
+    </message>
+    <message>
+        <source>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</source>
+        <translation type="obsolete">Scribus hat Fehler entdeckt.
+Bitte verwenden Sie die Druckvorstufenüberprüfung, um
+diese zu finden und zu korrigieren.</translation>
+    </message>
+    <message>
+        <source>Detected some errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation type="obsolete">Scribus hat Fehler entdeckt.
+Bitte verwenden Sie die Druckvorstufenüberprüfung, um
+diese zu finden und zu korrigieren</translation>
+    </message>
+    <message>
+        <source>-Page%1</source>
+        <translation type="obsolete">-Seite %1</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="obsolete">Einige Objekte sind gesperrt.</translation>
+    </message>
+    <message>
+        <source>The program %1 is already running!</source>
+        <translation type="obsolete">Das Programm %1 läuft schon!</translation>
+    </message>
+    <message>
+        <source>The program %1 is missing!</source>
+        <translation type="obsolete">Das Programm %1 fehlt!</translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation type="obsolete">In Musterseite umwandeln</translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
+        <translation type="obsolete">Scribus hat einige Fehler festgestellt. Sie sollten die Druckvorstufenüberprüfung verwenden, um sie zu korrigieren</translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="obsolete">Kein Stil</translation>
+    </message>
 </context>
 <context>
     <name>ScribusColorList</name>
+    <message>
+        <source>Sample</source>
+        <translation type="obsolete">Vorschau</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="obsolete">Farbe</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
     <message>
         <source>Document Colors</source>
         <translation>Dokumentfarben</translation>
@@ -14111,12 +17097,20 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
         <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet und kann deswegen nicht gelöscht werden</translation>
     </message>
     <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="obsolete">Es ist ein Fehler beim Öffnen der ICC-Profile aufgetreten: Das Farbmanagement ist nicht aktiviert.</translation>
+    </message>
+    <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Fehler beim Öffnen der ICC-Profile. Das Farbmanagement ist nicht aktiviert.</translation>
     </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
+    </message>
     <message>
         <source>Initializing Plugins</source>
         <translation>Plug-Ins werden geladen</translation>
@@ -14427,6 +17421,10 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
         <translation>In Musterseite umwandeln</translation>
     </message>
     <message>
+        <source>New Master Page</source>
+        <translation type="obsolete">Neue Musterseite</translation>
+    </message>
+    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Grösse:</translation>
     </message>
@@ -14583,7 +17581,8 @@ Vertikaler Versatz: %3</translation>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihr Dokument wurde in einer temporären Datei gespeichert and kann nicht verschoben werden
+%1</translation>
     </message>
 </context>
 <context>
@@ -14682,7 +17681,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Informationen über den Speicherort von ICC-Profilen in der Konsole an</translation>
     </message>
 </context>
 <context>
@@ -14792,12 +17791,44 @@ Vertikaler Versatz: %3</translation>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="obsolete">Wollen Sie wirklich den gesamten Text löschen?</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="obsolete">Gerade verwendete Objekte können nicht gelöscht werden</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="obsolete">Das Objekt %1 wird gerade im Story Editor bearbeitet und kann deswegen nicht gelöscht werden</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Kein</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="obsolete">Einheit</translation>
+    </message>
+    <message>
         <source>Linking Text Frames</source>
         <translation>Textrahmen verketten</translation>
     </message>
     <message>
+        <source>There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself</source>
+        <translation type="obsolete">Beim Verketten der Textrahmen ist ein Fehler aufgetreten. Sie versuchen, volle Textrahmen oder den gleichen Rahmen mit sich selbst zu verbinden</translation>
+    </message>
+    <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
         <translation>Sie versuchen, einen Rahmen mit sich selbst zu verketten.</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="obsolete">Wollen Sie wirklich den gesamten Text löschen?</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -14838,11 +17869,15 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Export:</translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
+    <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
     <message>
         <source>Document:</source>
         <translation>Datei:</translation>
@@ -14850,6 +17885,22 @@ umgewandelt werden</translation>
     <message>
         <source>has been changed since the last save.</source>
         <translation>wurde seit dem letzten Speichern verändert.</translation>
+    </message>
+    <message>
+        <source>&amp;Leave Anyway</source>
+        <translation type="obsolete">&amp;Ignorieren</translation>
+    </message>
+    <message>
+        <source>C&amp;lose Anyway</source>
+        <translation type="obsolete">Trotzdem sch&amp;liessen</translation>
+    </message>
+    <message>
+        <source>&amp;Save Now</source>
+        <translation type="obsolete">&amp;Jetzt speichern</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>&amp;Discard</source>
@@ -14886,6 +17937,10 @@ umgewandelt werden</translation>
         <translation>Script untersuchen</translation>
     </message>
     <message>
+        <source>Python Scripts (*.py)</source>
+        <translation type="obsolete">Python-Scripte (*.py)</translation>
+    </message>
+    <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Ihr Befehl konnte auf Grund eines internen Fehlers nicht ausgeführt werden. Weitere Hinweise finden Sie auf stderr.</translation>
     </message>
@@ -14917,8 +17972,16 @@ umgewandelt werden</translation>
         <translation>Einstellungen für den Scripter</translation>
     </message>
     <message>
+        <source>Extension Scripts</source>
+        <translation type="obsolete">Erweiterungsscripte</translation>
+    </message>
+    <message>
         <source>Enable Extension Scripts</source>
         <translation>Erweiterungsscripte aktivieren</translation>
+    </message>
+    <message>
+        <source>Startup Script</source>
+        <translation type="obsolete">Autostart-Script</translation>
     </message>
     <message>
         <source>Extensions</source>
@@ -14988,6 +18051,13 @@ umgewandelt werden</translation>
     </message>
 </context>
 <context>
+    <name>SeView</name>
+    <message>
+        <source>Show Master Page Names</source>
+        <translation type="obsolete">Namen der Musterseiten anzeigen</translation>
+    </message>
+</context>
+<context>
     <name>SearchReplace</name>
     <message>
         <source>Search/Replace</source>
@@ -15036,6 +18106,10 @@ umgewandelt werden</translation>
     <message>
         <source> pt</source>
         <translation> pt</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="obsolete">Keine</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -15094,8 +18168,51 @@ umgewandelt werden</translation>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
         <source>Search finished, found %1 matches</source>
         <translation>Suche beendet, %1 Übereinstimmungen gefunden</translation>
+    </message>
+</context>
+<context>
+    <name>SeitenPal</name>
+    <message>
+        <source>Arrange Pages</source>
+        <translation type="obsolete">Seiten anordnen</translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation type="obsolete">Seiten des Dokuments:</translation>
+    </message>
+    <message>
+        <source>Facing Pages</source>
+        <translation type="obsolete">Doppelseiten</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="obsolete">Normal</translation>
+    </message>
+    <message>
+        <source>Drag pages or master pages onto the trashbin to delete them</source>
+        <translation type="obsolete">Ziehen Sie einzelne Seiten oder Musterseiten auf den Papierkorb, um sie zu löschen</translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document</source>
+        <translation type="obsolete">Anzeige aller vorhandenen Seiten im Dokument</translation>
+    </message>
+    <message>
+        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
+        <translation type="obsolete">Dies sind alle vorhandenen Musterseiten. Ziehen Sie eine Musterseite in das Fenster mit den Seitensymbolen, um eine neue Seite zu erstellen</translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation type="obsolete">Verfügbare Musterseiten:</translation>
+    </message>
+    <message>
+        <source>Left Page First</source>
+        <translation type="obsolete">Linke Seite zuerst</translation>
     </message>
 </context>
 <context>
@@ -15119,6 +18236,14 @@ umgewandelt werden</translation>
     <message>
         <source>&amp;&lt;&lt;</source>
         <translation>&amp;&lt;&lt;</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
 </context>
 <context>
@@ -15163,6 +18288,10 @@ umgewandelt werden</translation>
         <translation>Umbruchkontrolle</translation>
     </message>
     <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
+        <translation type="obsolete">Ein spezielles Plug-In, um ein geschütztes Leerzeichen vor oder hinter Abkürzungen einzufügen.</translation>
+    </message>
+    <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
         <translation>Plug-In, um geschützte Leerzeichen vor oder nach bestimmten Abkürzungen (z. B. Dr.) einzufügen. Verfügbar in den folgenden Sprachen:</translation>
     </message>
@@ -15200,6 +18329,18 @@ umgewandelt werden</translation>
         <translation>Neue Stilvorlage</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="obsolete">Nein</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="obsolete">Ja</translation>
+    </message>
+    <message>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -15210,6 +18351,10 @@ umgewandelt werden</translation>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="obsolete">An&amp;fügen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -15228,8 +18373,28 @@ umgewandelt werden</translation>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
+        <source>&amp;Save</source>
+        <translation type="obsolete">&amp;Speichern</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="obsolete">Wollen Sie diesen Absatzstil wirklich löschen?</translation>
+    </message>
+    <message>
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this style?</source>
+        <translation type="obsolete">Möchten Sie diesen Stil wirklich löschen?</translation>
     </message>
 </context>
 <context>
@@ -15263,6 +18428,10 @@ umgewandelt werden</translation>
         <translation>Absätze:</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Warnung</translation>
+    </message>
+    <message>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -15275,8 +18444,20 @@ umgewandelt werden</translation>
         <translation>Speichern unter</translation>
     </message>
     <message>
+        <source>Update Text Frame</source>
+        <translation type="obsolete">Textrahmen auffrischen</translation>
+    </message>
+    <message>
         <source>Do you want to save your changes?</source>
         <translation>Wollen Sie die Änderungen speichern?</translation>
+    </message>
+    <message>
+        <source>Update Text Frame and Exit</source>
+        <translation type="obsolete">Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>Exit Without Updating Text Frame</source>
+        <translation type="obsolete">Änderungen ignorieren</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -15339,6 +18520,18 @@ umgewandelt werden</translation>
         <translation>Alles aus&amp;wählen</translation>
     </message>
     <message>
+        <source>Load Text from File</source>
+        <translation type="obsolete">Text von Datei laden</translation>
+    </message>
+    <message>
+        <source>Save Text to File</source>
+        <translation type="obsolete">Text in Datei speichern</translation>
+    </message>
+    <message>
+        <source>Reload Text from Frame</source>
+        <translation type="obsolete">Text aus Textrahmen neu laden</translation>
+    </message>
+    <message>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Suchen &amp;&amp; Ersetzen...</translation>
     </message>
@@ -15361,6 +18554,10 @@ umgewandelt werden</translation>
     <message>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
+    </message>
+    <message>
+        <source>Search/Replace</source>
+        <translation type="obsolete">Suchen und Ersetzen</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -15440,6 +18637,10 @@ umgewandelt werden</translation>
 <context>
     <name>StyleSelect</name>
     <message>
+        <source>Underline</source>
+        <translation type="obsolete">Unterstrichen</translation>
+    </message>
+    <message>
         <source>Small Caps</source>
         <translation>Kapitälchen</translation>
     </message>
@@ -15452,8 +18653,29 @@ umgewandelt werden</translation>
         <translation>Hochgestellt</translation>
     </message>
     <message>
+        <source>Strike Out</source>
+        <translation type="obsolete">Durchgestrichen</translation>
+    </message>
+    <message>
+        <source>Underline Words Only</source>
+        <translation type="obsolete">Nur Wörter unterstreichen</translation>
+    </message>
+    <message>
         <source>All Caps</source>
         <translation>Grossbuchstaben</translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <translation type="obsolete">Umriss</translation>
+    </message>
+    <message>
+        <source>Shadow</source>
+        <translation type="obsolete">Schatten</translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <comment>Text Style Selector</comment>
+        <translation type="obsolete">Umriss</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
@@ -15606,6 +18828,10 @@ umgewandelt werden</translation>
         <translation>Zielrahmen:</translation>
     </message>
     <message>
+        <source>Inde&amp;x</source>
+        <translation type="obsolete">Inde&amp;x</translation>
+    </message>
+    <message>
         <source>Table of Contents %1</source>
         <translation>Inhaltsverzeichnis %1</translation>
     </message>
@@ -15675,6 +18901,10 @@ umgewandelt werden</translation>
     <message>
         <source>Destination Frame:</source>
         <translation>Zielrahmen:</translation>
+    </message>
+    <message>
+        <source>Inde&amp;x</source>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -15890,6 +19120,14 @@ umgewandelt werden</translation>
         <source>Manage Tabulators</source>
         <translation>Tabulatoren bearbeiten</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
 </context>
 <context>
     <name>TabPDFOptions</name>
@@ -15942,6 +19180,10 @@ umgewandelt werden</translation>
         <translation>Lesezeichen &amp;integrieren</translation>
     </message>
     <message>
+        <source>Include Layers</source>
+        <translation type="obsolete">Ebenen exportieren</translation>
+    </message>
+    <message>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
@@ -15954,12 +19196,32 @@ umgewandelt werden</translation>
         <translation>&amp;Text und Vektorgrafik komprimieren</translation>
     </message>
     <message>
+        <source>Image Settings</source>
+        <translation type="obsolete">Optionen für Bilder</translation>
+    </message>
+    <message>
         <source>Automatic</source>
         <translation>Automatisch</translation>
     </message>
     <message>
+        <source>JPEG</source>
+        <translation type="obsolete">JPEG</translation>
+    </message>
+    <message>
+        <source>Zip</source>
+        <translation type="obsolete">Zip</translation>
+    </message>
+    <message>
         <source>None</source>
         <translation>Keine</translation>
+    </message>
+    <message>
+        <source>&amp;Method:</source>
+        <translation type="obsolete">&amp;Methode:</translation>
+    </message>
+    <message>
+        <source>&amp;Quality:</source>
+        <translation type="obsolete">&amp;Qualität:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -15982,8 +19244,20 @@ umgewandelt werden</translation>
         <translation>Minimal</translation>
     </message>
     <message>
+        <source>Resample Images to:</source>
+        <translation type="obsolete">Auflösung ändern auf:</translation>
+    </message>
+    <message>
         <source>&amp;General</source>
         <translation>&amp;Allgemein</translation>
+    </message>
+    <message>
+        <source>&amp;Embed all Fonts</source>
+        <translation type="obsolete">Alle Schriften vollständig ein&amp;betten</translation>
+    </message>
+    <message>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="obsolete">Von allen Schriften nur &amp;benutzte Schriftzeichen einbetten</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -16004,6 +19278,10 @@ umgewandelt werden</translation>
     <message>
         <source>Fonts to embed:</source>
         <translation>Schriften vollständig einbetten:</translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="obsolete">Nur benutzte Schriftzeichen einbetten:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -16286,8 +19564,27 @@ umgewandelt werden</translation>
         <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation type="obsolete">Schriftarten in PDFs einbetten. Das schützt das
+Layout und Erscheinungsbild des Dokuments vor Veränderungen.</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
+        <translation type="obsolete">Präsentationseffekte aktivieren im Adobe&amp;#174; Reader&amp;#174;. Nur im Vollbildmodus sichtbar.</translation>
+    </message>
+    <message>
         <source>Show page previews of each page listed above.</source>
         <translation>Vorschau für aufgeführte Seiten anzeigen.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation type="obsolete">Zeit bis die nächste Seite angezeigt wird.</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation type="obsolete">Länge des Effekts in Sekunden.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -16318,12 +19615,91 @@ umgewandelt werden</translation>
         <translation>Einen Seitenbereich als PDF exportieren</translation>
     </message>
     <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="obsolete">Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
+Seiten importiert werden sollen, zum Beispiel
+1-5 oder 3,4. * steht  für alle Seiten.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation type="obsolete">Legt die Art des Bundes in der PDF-Datei fest. Verwenden Sie die 
+Standardeinstellung (links), solange Sie nicht genau wissen, dass 
+Sie diese ändern müssen.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation type="obsolete">Erzeugt Vorschaubilder für jede Seite der PDF-Datei.
+Einige Programme nutzen diese Bilder zur Navigation.</translation>
+    </message>
+    <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Erzeugt PDF-Artikel, die für die Navigation in verketteten Textrahmen nützlich sind.</translation>
     </message>
     <message>
+        <source>Layers in your document are exported to the PDF
+Only available if PDF 1.5 is choosen.</source>
+        <translation type="obsolete">Die Ebenen Ihres Dokuments werden in die PDF-Datei exportiert.
+Nur in PDF 1.5 verfügbar.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation type="obsolete">Lesezeichen im Dokument in die PDF-Datei einbetten.
+Nützlich zur Navigation in langen PDF-Dateien.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="obsolete">Ausgabe-Auflösung für Text und Vektorgrafiken.
+Dies beeinflusst nicht die Auflösung der Bitmap-Grafiken.</translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="obsolete">Kompression von Text und Grafiken reduziert die Dateigrösse.
+Nicht ohne Grund deaktivieren.
+</translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation type="obsolete">Kompressions-Methode für Bitmap-Bilder.
+Automatisch - Scribus wählt die beste Methode.
+ZIP - Gut für Bilder mit Farbflächen.
+JPEG - erzeugt kleinere PDF&apos;s bei Dokumenten mit viel Bildern ohne grosse Kompressionsverluste.
+Diese Einstellung muss normalerweise nicht geändert werden.</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation type="obsolete">Kompressionsgrad: Minimal (25%), Niedrig (50%), Mittel (75%), Hoch (80%), Maximal (95%)</translation>
+    </message>
+    <message>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (Punkte pro Zoll) für den Export von Bildern.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
+If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="obsolete">Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei.
+Wenn Acrobat 4.0 ausgewählt ist, wird die PDF-Datei mit 40 Bit verschlüsselt.
+Wenn Acrobat 5.0 ausgewählt ist, wird die PDF-Datei mit 128 Bit verschlüsselt.
+Hinweis: Die Verschlüsselung ist nicht so zuverlässig wie GPG oder PGP und 
+besitzt einige Einschränkungen.</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation type="obsolete">Wählen Sie ein Masterpasswort, das alle Sicherheitsfunktionen
+in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
@@ -16336,6 +19712,34 @@ umgewandelt werden</translation>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Veränderung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Veränderung verhindert.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation type="obsolete">Kopieren von Text oder Bildern gestatten.
+Wenn nicht ausgewählt, können weder Text von Bilder kopiert werden.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation type="obsolete">Hinzufügen von Anmerkungen gestatten.
+Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="obsolete">Farbmodell für die Ausgabe der PDF-Datei.
+Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
+Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled
+when specifically requested by your printer and they have given you the exact details needed.
+Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation type="obsolete">Diese erweiterte Option ist normalerweise deaktiviert und sollte nur aktiviert werden,
+wenn Ihre Druckerei es verlangt und sie die notwendigen Informationen haben.
+Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt und nicht plattformübergreifend verwendet werden.</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
@@ -16370,6 +19774,12 @@ umgewandelt werden</translation>
         <translation>Ausgabeprofil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
     </message>
     <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Erforderliche Eingabe für PDF/X-3, ohne die 
+das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z.B. den Titel des Dokuments.</translation>
+    </message>
+    <message>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Abzug für Anschnitt oben</translation>
     </message>
@@ -16394,12 +19804,50 @@ umgewandelt werden</translation>
         <translation>Dokument vertikal spiegeln</translation>
     </message>
     <message>
+        <source>Determines the PDF compatibility.
+The default is PDF 1.3 which gives the widest compatibility.
+Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing
+ and is selectable when you have activated color management. 
+Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="obsolete">Legt die PDF-Kompatiblität fest. Standard ist PDF 1.3, weil das die grösste Kompatiblität ermöglicht.
+Wählen Sie PDF 1.4, wenn Sie Funktionen wie Transparenz oder 128 bit-Verschlüsselung benötigen.
+PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farbmanagement aktiviert haben.</translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.
+This can increase memory usage and slow down export.</source>
+        <translation type="obsolete">Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
+Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser 
+Option kann den Speicherbedarf erhöhen und die Ausgabe verlangsamen.</translation>
+    </message>
+    <message>
+        <source>Enable lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="obsolete">Verlustfreie Kompression von Text und Grafiken. 
+Ohne guten Grund sollten Sie diese Option nicht deaktivieren. 
+Sie reduziert die Dateigrösse.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
+        <translation type="obsolete">Kompressionsmethode für Bilddateien. Automatisch überlässt Scribus die Wahl der besten Methode. ZIP ist verlustfrei und sinnvoll für Bilder mit Füllfarben. JPEG ist besser geeignet zur Erstellung kleinerer PDF-Dateien, die viele Fotos enthalten, auch wenn damit unter Umständen ein geringer Qualitätsverlust einhergeht. Belassen Sie die Einstellung bei Automatisch, solange Sie keine spezielle Kompressionsmethode benötigen.</translation>
+    </message>
+    <message>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Konvertiert Schmuckfarben zu Prozessfarben</translation>
     </message>
     <message>
+        <source>Compression &amp;Method:</source>
+        <translation type="obsolete">Kompressions&amp;methode:</translation>
+    </message>
+    <message>
         <source>Compression &amp;Quality:</source>
         <translation>Kompressions&amp;qualität:</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
+        <translation type="obsolete">Schriften in PDF einbetten. Dadurch bleiben das Layout und das Aussehen des Dokuments erhalten.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -16410,12 +19858,20 @@ umgewandelt werden</translation>
         <translation>Geben Sie mit Kommata getrennt die Seiten ein, die verarbeitet werden sollen. * steht für alle Seiten, 1-5 für einen Bereich oder eine einzelne Seite. </translation>
     </message>
     <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="obsolete">Legt die Kompatibilität der PDF-Datei fest. Standard ist PDF 1.3 mit der grössten Kompatibilität. Mit PDF 1.4 können Sie Transparenz und 128bit-Verschlüsselung verwenden. PDF/X-3 ist vorgesehen für kommerziellen RGB-Druck mit Farbprofilen. Es ist nur verfügbar, wenn Farbprofile aktiviert sind - verwenden Sie PDX/X-3 nur, wenn Ihre Druckerei das wünscht oder beim Druck auf einem Vierfarb-Laserdrucker.</translation>
+    </message>
+    <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Legt die Bindung für PDF-Dateien fest. Nur verändern, wenn Sie es wirklich brauchen. Standard: Links.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Erzeugt kleine Vorschaubilder von jeder Seite. Einige PDF-Betrachter nutzen diese Vorschaubilder zur Navigation.</translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
+        <translation type="obsolete">Exportiert auch Ebenen in die PDF-Datei. Erst ab PDF 1.5 unterstützt.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -16434,6 +19890,14 @@ umgewandelt werden</translation>
         <translation>Methode für die Komprimierung von Bitmapdateien. Automatisch bedeutet, dass Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
     </message>
     <message>
+        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
+        <translation type="obsolete">Komprimierungsqualität für verlustbehaftete Komprimierung: Minimum (25%), Niedrig (50%), Mittel (75%) und Maximum (95%). Diese Einstellung wirkt sich nicht direkt auf die Grösse der Bilder aus, weil Grösse und Qualitätsverlust von Bild zu Bild variieren.</translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
+        <translation type="obsolete">Berechnet die Bilder neu auf die angegebene Auflösung. Ist die Option nicht aktiviert, wird die Originalauflösung verwendet. Dadurch wird mehr Speicher benötigt und der Export verlangsamt.</translation>
+    </message>
+    <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei. Wenn Sie PDF 1.3 gewählt haben, wird die Datei mit 40-Bit-Verschlüsselung geschützt, bei PDF 1.4 wird 128-Bit-Verschlüsselung verwendet. Warnung: PDF-Verschlüsselung ist nicht so verlässlich wie GPG- oder PGP-Verschlüsselung und besitzt einige Einschränkungen.</translation>
     </message>
@@ -16448,6 +19912,10 @@ umgewandelt werden</translation>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
         <translation>Erlaubt das Hinzufügen von Anmerkungen. Falls nicht aktiviert, können keine Anmerkungen eingefügt werden.</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="obsolete">Farbmodell für die Ausgabe der PDF-Datei. Wählen Sie Monitor / Internet für die Ausgabe auf einem Monitor oder das Drucken mit einem durchschnittlichen Tintenstrahldrucker. Wählen Sie Drucker, wenn auf einer echten Vierfarb-Maschine gedruckt werden soll.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -16476,6 +19944,10 @@ umgewandelt werden</translation>
     <message>
         <source>Display Settings</source>
         <translation>Anzeigeeinstellungen</translation>
+    </message>
+    <message>
+        <source>Page Layout</source>
+        <translation type="obsolete">Seitenlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -16534,6 +20006,12 @@ umgewandelt werden</translation>
         <translation>Erweiterte Aktionen</translation>
     </message>
     <message>
+        <source>Javascript to be executed
+when Document is opened:</source>
+        <translation type="obsolete">Javascript, das beim Öffnen 
+des Dokuments ausgeführt wird:</translation>
+    </message>
+    <message>
         <source>No Script</source>
         <translation>Kein Script</translation>
     </message>
@@ -16584,6 +20062,10 @@ der PDF-Datei ausgeführt wird:</translation>
         <translation>Legt die PDF-Kompatiblität fest. Standard ist PDF 1.3, weil das die grösste Kompatiblität ermöglicht.
 Wählen Sie PDF 1.4, wenn Sie Funktionen wie Transparenz oder 128-Bit-Verschlüsselung benötigen. PDF 1.5 ist notwendig, um Objekte in verschiedenen Ebenen in der PDF-Datei zu erhalten.
 PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farbmanagement aktiviert haben. Verwenden Sie es nur, wenn Ihr Drucker dies verlangt oder in einigen Fällen zum Ausdruck auf einem Vierfarb-Digital-Laserdrucker.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
+        <translation type="obsolete">Kompressionsmethode für Bilddateien. Automatisch überlässt Scribus die Wahl der besten Methode. ZIP ist verlustfrei und sinnvoll für Bilder mit Füllfarben. JPEG ist besser geeignet zur Erstellung kleinerer PDF-Dateien, die viele Fotos enthalten, auch wenn damit unter Umständen ein geringer Qualitätsverlust einhergeht. Belassen Sie die Einstellung bei Automatisch, solange Sie keine spezielle Kompressionsmethode benötigen. Diese Einstellung betrifft nur JPEG-Bilder</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -16939,7 +20421,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
 </context>
 <context>
@@ -17122,11 +20604,11 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkte</translation>
     </message>
 </context>
 <context>
@@ -17800,12 +21282,150 @@ Fehler: %2 in Zeile: %3, Zeile: %4</translation>
         <translation>Geben Sie einen Wert ein und klicken Sie auf OK</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
         <source>Alt+O</source>
         <translation>Alt+O</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
         <translation>Wert an das Script senden</translation>
+    </message>
+</context>
+<context>
+    <name>VlnaDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Umbruchkontrolle für Abkürzungen</translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Geschütztes Leerzeichen anwenden auf:</translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">&amp;Markierte Textrahmen</translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Aktive &amp;Seite</translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">&amp;Alle Objekte</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">A&amp;bbrechen</translation>
+    </message>
+    <message>
+        <source>Replace defaults by user config</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Standardeinstellungen durch Benutzereinstellungen überschreiben</translation>
+    </message>
+    <message>
+        <source>When the user config file exists 
+(%1)
+you can choose if you want to append your config
+to the global configuration by unchecked button.
+
+You can replace predefined values by yours
+with checked button too.</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Wenn die Datei mit den benutzerdefinierten Einstellungen existiert
+(%1), können Sie wählen, ob Sie Ihre Einstellungen an die globale 
+Konfiguration anhängen wollen.
+
+Sie können mit dieser Einstellung auch vordefinierte Werte mit ihren 
+eigenen Einstellungen ersetzen.</translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Die markierten Rahmen wurden verarbeitet.</translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Aktuelle Seite wurde verarbeitet.</translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Alle Objekte wurden verarbeitet.</translation>
+    </message>
+    <message>
+        <source>Short Words for Scribus</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Umbruchkontrolle für Abkürzungen</translation>
+    </message>
+    <message>
+        <source>Available in the following languages</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">In folgenden Sprachen verfügbar</translation>
+    </message>
+    <message>
+        <source>About Short Words</source>
+        <comment>short words plugin</comment>
+        <translation type="obsolete">Über die Umbruchkontrolle</translation>
+    </message>
+    <message>
+        <source>Edit &amp;system configuration...</source>
+        <translation type="obsolete">&amp;Systemkonfiguration bearbeiten...</translation>
+    </message>
+    <message>
+        <source>Edit &amp;user configuration...</source>
+        <translation type="obsolete">&amp;Benutzerkonfiguration bearbeiten...</translation>
+    </message>
+    <message>
+        <source>S&amp;etup editor...</source>
+        <translation type="obsolete">&amp;Editor einstellen...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="obsolete">&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;Info and Languages...</source>
+        <translation type="obsolete">&amp;Informationen und Sprachen...</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="obsolete">&amp;Hilfe</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="obsolete">Umbruchkontrolle für Abkürzungen</translation>
+    </message>
+    <message>
+        <source>You are starting to edit read-only file.
+%1</source>
+        <translation type="obsolete">Sie bearbeiten die Datei %1 im Read-only Modus</translation>
+    </message>
+    <message>
+        <source>Application &apos;%1&apos; error. Cannot be started.</source>
+        <translation type="obsolete">Fehler: Die Anwendung &quot;%1&quot; kann nicht gestartet werden.</translation>
+    </message>
+    <message>
+        <source>Short Words setup</source>
+        <translation type="obsolete">Umbruchkontrolle einrichten</translation>
+    </message>
+    <message>
+        <source>Enter name of the plain text editor executable:</source>
+        <translation type="obsolete">Geben Sie den Pfad zu Ihrem Texteditor ein:</translation>
     </message>
 </context>
 <context>
@@ -17904,6 +21524,10 @@ Fehler: %2 in Zeile: %3, Zeile: %4</translation>
         <translation>Verknüpfung mit Importfilter speichern</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
         <translation>Die Verknüpfung von Dateityp und Importfilter speichern und nicht mehr nachfragen.</translation>
     </message>
@@ -17953,6 +21577,14 @@ Fehler: %2 in Zeile: %3, Zeile: %4</translation>
     <message>
         <source>&amp;Open</source>
         <translation>&amp;Öffnen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>Downloading Templates</source>
@@ -18103,6 +21735,14 @@ Fehler: %2 in Zeile: %3, Zeile: %4</translation>
     <message>
         <source>Give a name for saving</source>
         <translation>Name des Filters</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
 </context>
 <context>
