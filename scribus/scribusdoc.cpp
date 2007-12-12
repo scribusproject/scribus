@@ -3147,7 +3147,7 @@ void ScribusDoc::restorePageCopy(SimpleState *state, bool isUndo)
 
 
 //TODO: Handle saving to versions of SLA, and other formats
-bool ScribusDoc::save(const QString& fileName)
+bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 {
 	QProgressBar* mainWindowProgressBar=NULL;
 	if (ScCore->usingGUI())
@@ -3156,7 +3156,7 @@ bool ScribusDoc::save(const QString& fileName)
 		mainWindowProgressBar->reset();
 	}
 	FileLoader fl(fileName);
-	bool ret = fl.SaveFile(fileName, this, mainWindowProgressBar);
+	bool ret = fl.SaveFile(fileName, this, savedFile);
 	if (ret)
 	{
 		setName(fileName);

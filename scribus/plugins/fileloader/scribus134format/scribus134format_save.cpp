@@ -34,6 +34,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 {
 	QString text, tf, tf2, tc, tc2;
 	QString fileDir = QFileInfo(fileName).absolutePath();
+	m_lastSavedFile = "";
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
 	docu.setContent(st);
@@ -216,27 +217,56 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	 * 2.7.2002 C.Toepp
 	 * <c.toepp@gmx.de>
 	 */
-	static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+
+	// Create a random temporary file name
+	srand(time(NULL)); // initialize random sequence each time
+	long     randt = 0, randn = 1 + (int) (((double) rand() / ((double) RAND_MAX + 1)) * 10000);
+	QString  tmpFileName  = QString("%1.%2").arg(fileName).arg(randn);
+	while (QFile::exists(tmpFileName) && (randt < 100))
+	{
+		randn = 1 + (int) (((double) rand() / ((double) RAND_MAX + 1)) * 10000);
+		tmpFileName = QString("%1.%2").arg(fileName).arg(randn);
+		++randt;
+	}
+	if (QFile::exists(tmpFileName))
+		return false;
+
+	bool   writeSucceed = false;
+	static const char xmlpi[] = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QByteArray cs = docu.toByteArray(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
-		// zipped saving
-		// XXX: latin1() should probably be local8Bit()
-		ScGzFile gzf(fileName, cs);
-		if (!gzf.write(xmlpi))
-			return false;
+		ScGzFile gzf(tmpFileName, cs);
+		writeSucceed = gzf.write(xmlpi);
 	}
 	else
 	{
-		QFile f(fileName);
-		if(!f.open(QIODevice::WriteOnly))
-			return false;
-		QDataStream s(&f);
-		s.writeRawData(xmlpi, strlen(xmlpi));
-		s.writeRawData(cs, cs.length());
-		f.close();
+		QFile f(tmpFileName);
+		if(f.open(QIODevice::WriteOnly))
+		{
+			QDataStream s(&f);
+			int  xmlpilen = strlen(xmlpi);
+			int  bytesWritten1 = s.writeRawData(xmlpi, xmlpilen);
+			int  bytesWritten2 = s.writeRawData(cs, cs.length());
+			bool writeSuccess1 = (bytesWritten1 > 0 && (bytesWritten1 == xmlpilen));
+			bool writeSuccess2 = (bytesWritten2 > 0 && (bytesWritten2 == cs.length()));
+			writeSucceed = (writeSuccess1 && writeSuccess2 && f.error() == QFile::NoError);
+			f.close();
+		}
 	}
-	return true;
+	if (writeSucceed)
+	{
+		if (QFile::exists(fileName))
+			writeSucceed = QFile::remove(fileName) ? QFile::rename(tmpFileName, fileName) : false;
+		else
+			writeSucceed = QFile::rename(tmpFileName, fileName);
+		m_lastSavedFile = writeSucceed ? fileName : tmpFileName;
+	}
+	else if (QFile::exists(tmpFileName))
+		QFile::remove(tmpFileName);
+	if (writeSucceed) 
+		QFile::remove(tmpFileName);
+	return writeSucceed;
 }
 
 void Scribus134Format::writeCheckerProfiles(QDomDocument & docu) 

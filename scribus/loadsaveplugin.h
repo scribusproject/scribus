@@ -72,6 +72,11 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Save the requested format to the requested path.
 		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
 
+		// Return last file saved, this may be the last fileName argument passed to saveFile(),
+		// a temporary file name or an empty string if last call to saveFile() could not create
+		// a valid file
+		virtual const QString& lastSavedFile(void);
+
 		// Examine the passed file and test to see whether it appears to be
 		// loadable with this plugin. This test must be quick and simple.
 		// It need not verify a file, just confirm that it looks like a supported
@@ -107,11 +112,12 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		/// Unregister all formats owned by the calling plugin
 		void unregisterAll();
 		
-		ScribusDoc* m_Doc;
-		ScribusView* m_View; //For 1.2.x loader at the moment
+		ScribusDoc*        m_Doc;
+		ScribusView*       m_View; //For 1.2.x loader at the moment
 		ScribusMainWindow* m_ScMW; //For plugins when required
-		QProgressBar* m_mwProgressBar;
-		SCFonts* m_AvailableFonts;
+		QProgressBar*      m_mwProgressBar;
+		SCFonts*           m_AvailableFonts;
+		QString            m_lastSavedFile;
 
 	private:
 		// A list of all supported formats. This is maintained by plugins
@@ -167,7 +173,8 @@ class SCRIBUS_API FileFormat
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
 		// Save a file with this format
 		bool saveFile(const QString & fileName) const;
-		
+		// Get last saved file
+		QString lastSavedFile(void) const;
 		
 		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
 		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) const;

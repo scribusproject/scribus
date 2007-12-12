@@ -4235,10 +4235,12 @@ bool ScribusMainWindow::slotFileSave()
 		if (doc->is12doc && !warningVersion(this))
 			return false;
 
-		QString fn(doc->DocName);
-		ret = DoFileSave(fn);
-		if (!ret)
-			QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+		QString fn(doc->DocName), savedFileName;
+		ret = DoFileSave(fn, &savedFileName);
+		if (!ret && !savedFileName.isEmpty())
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg( QDir::toNativeSeparators(savedFileName) ), CommonStrings::tr_OK);
+		else if (!ret)
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg( QDir::toNativeSeparators(fn) ), CommonStrings::tr_OK);
 	}
 	else
 		ret = slotFileSaveAs();
@@ -4261,8 +4263,8 @@ bool ScribusMainWindow::slotFileSaveAs()
 	if (doc->hasName)
 	{
 		QFileInfo fi(doc->DocName);
-		wdir = fi.path();
-		fna = fi.path()+"/"+fi.baseName()+".sla";
+		wdir = QDir::fromNativeSeparators( fi.path() );
+		fna  = QDir::fromNativeSeparators( fi.path()+"/"+fi.baseName()+".sla" );
 	}
 	else
 	{
@@ -4271,6 +4273,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 			wdir = docContext->get("save_as", prefsDocDir);
 		else
 			wdir = docContext->get("save_as", ".");
+		wdir = QDir::fromNativeSeparators( wdir );
 		if (wdir.right(1) != "/")
 			fna = wdir + "/";
 		else
@@ -4290,9 +4293,12 @@ bool ScribusMainWindow::slotFileSaveAs()
 			fna = fn+".sla";
 		if (overwrite(this, fna))
 		{
-			ret = DoFileSave(fna);
-			if (!ret)
-				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+			QString savedFileName;
+			ret = DoFileSave(fna, &savedFileName);
+			if (!ret && !savedFileName.isEmpty())
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg( QDir::toNativeSeparators(savedFileName) ), CommonStrings::tr_OK);
+			else if (!ret)
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg( QDir::toNativeSeparators(fn) ), CommonStrings::tr_OK);
 			else
 				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
 		}
@@ -4301,22 +4307,22 @@ bool ScribusMainWindow::slotFileSaveAs()
 	return ret;
 }
 
-bool ScribusMainWindow::DoFileSave(QString fn)
+bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileName)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
 	doc->reorganiseFonts();
 	mainWindowStatusLabel->setText( tr("Saving..."));
 	mainWindowProgressBar->reset();
-	bool ret=doc->save(fn);
+	bool ret=doc->save(fileName, savedFileName);
 	qApp->processEvents();
 	if (ret)
 	{
-		updateActiveWindowCaption(fn);
-		undoManager->renameStack(fn);
+		updateActiveWindowCaption(fileName);
+		undoManager->renameStack(fileName);
 // 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
-		updateRecent(fn);
+		updateRecent(fileName);
 	}
 	mainWindowStatusLabel->setText("");
 	mainWindowProgressBar->reset();

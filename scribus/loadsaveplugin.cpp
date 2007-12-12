@@ -88,6 +88,11 @@ bool LoadSavePlugin::saveFile(const QString & /* fileName */,
 	return false;
 }
 
+const QString& LoadSavePlugin::lastSavedFile(void)
+{
+	return m_lastSavedFile;
+}
+
 bool LoadSavePlugin::loadFile(const QString & /* fileName */,
 							  const FileFormat & /* fmt */,
 							  int /* flags */,
@@ -256,6 +261,13 @@ bool FileFormat::saveFile(const QString & fileName) const
 	return (plug && save) ? plug->saveFile(fileName, *this) : false;
 }
 
+QString FileFormat::lastSavedFile(void) const
+{
+	if (plug)
+		return plug->lastSavedFile();
+	return QString();
+}
+
 void FileFormat::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const
 {
 	if (plug)
@@ -297,4 +309,6 @@ bool FileFormat::readPageCount(const QString& fileName, int *num1, int *num2, QS
 {
 	return (plug && load) ? plug->readPageCount(fileName, num1, num2, masterPageNames) : false;
 }
+
+
 

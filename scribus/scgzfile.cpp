@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <zlib.h>
+#include <QDir>
 #include <QFileInfo>
 
 #include "scconfig.h"
@@ -72,24 +73,32 @@ bool ScGzFile::read(uint maxBytes)
 bool ScGzFile::write(void)
 {
 	gzFile gzDoc = NULL;
-	QByteArray fn(fname.toLocal8Bit());
+	QString localPath = QDir::toNativeSeparators(fname);
+	QByteArray fn(localPath.toLocal8Bit());
 	gzDoc = gzopen(fn.data(),"wb");
-	if(gzDoc == NULL)
-		return false;
-	gzputs(gzDoc, barray.data());
-	gzclose(gzDoc);
-	return true;
+	if(gzDoc)
+	{
+		int res = gzputs(gzDoc, barray.data());
+		gzclose(gzDoc);
+		return (res > 0 && (res == barray.size()));
+	}
+	return false;
 }
 
 bool ScGzFile::write(const char* header)
 {
 	gzFile gzDoc = NULL;
-	QByteArray fn(fname.toLocal8Bit());
+	QString localPath = QDir::toNativeSeparators(fname);
+	QByteArray fn(localPath.toLocal8Bit());
 	gzDoc = gzopen(fn.data(),"wb");
-	if(gzDoc == NULL)
-		return false;
-	gzputs(gzDoc, header);
-	gzputs(gzDoc, barray.data());
-	gzclose(gzDoc);
-	return true;
+	if(gzDoc)
+	{
+		int res1 = gzputs(gzDoc, header);
+		int res2 = gzputs(gzDoc, barray.data());
+		gzclose(gzDoc);
+		bool done1 = (res1 > 0 && (res1 == strlen(header)));
+		bool done2 = (res2 > 0 && (res2 == barray.size()));
+		return (done1 && done2);
+	}
+	return false;
 }

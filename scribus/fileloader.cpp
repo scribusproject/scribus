@@ -299,24 +299,17 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	return ret;
 }
 
-bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar * /*dia2*/)
+bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QString *savedFile)
 {
 	bool ret = false;
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(FORMATID_SLA134EXPORT, it))
-// 		switch (FileType)
-// 		{
-// 			case FORMATID_SLA12XIMPORT:
-// 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
-// 				break;
-// 			case FORMATID_SLA13XIMPORT:
-					(*it).setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
-					ret=(*it).saveFile(fileName);
-// 				break;
-// 			default:
-// 				ret = (*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
-// 				break;
-// 		}
+	{
+		it->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+		ret = it->saveFile(fileName);
+		if (savedFile)
+			*savedFile = it->lastSavedFile();
+	}
 	return ret;
 }
 
