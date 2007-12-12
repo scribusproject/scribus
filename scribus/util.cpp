@@ -244,8 +244,9 @@ int copyFile(QString source, QString target)
 				t.writeBlock( bb.data(), bytesread );
 				bytesread = s.readBlock( bb.data(), bb.size() );
 			}
+			if (s.status() == IO_Ok && t.status() == IO_Ok)
+				error = 0;
 			t.close();
-			error = 0;
 		}
 		s.close();
 	}
