@@ -43,7 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 #include <QCheckBox>
 
-
 #include "colorlistbox.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
@@ -232,6 +231,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	setFocusPolicy(Qt::NoFocus);
 
 	languageChange();
+	Mode = 2;
 	setActGradient(0);
 
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
@@ -280,6 +280,11 @@ void Cpalette::updateFromItem()
 		return;
 	if (!currentDoc)
 		return;
+	freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+	patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+	gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Color = currentItem->lineColor();
 	Shade = qRound(currentItem->lineShade());
 	Color3 = currentItem->fillColor();
@@ -300,6 +305,22 @@ void Cpalette::updateFromItem()
 		double dur = currentDoc->unitRatio();
 		setSpecialGradient(currentItem->GrStartX * dur, currentItem->GrStartY * dur, currentItem->GrEndX * dur, currentItem->GrEndY * dur);
 	}
+	if (patternList->count() == 0)
+	{
+		if (gradientQCombo->count() == 9)		// remove Pattern entry, as there are no Patterns available
+			gradientQCombo->removeItem(8);
+	}
+	else
+	{
+		if (gradientQCombo->count() < 9)		// readd the Pattern entry
+			gradientQCombo->addItem( tr("Pattern"));
+	}
+	freeGradientLayout->activate();
+	GradLayout->activate();
+	Form1Layout->activate();
+	layout()->activate();
+	updateGeometry();
+	repaint();
 }
 
 void Cpalette::InhaltButton()
@@ -320,8 +341,13 @@ void Cpalette::InhaltButton()
 		colorListQLBox->show();
 		displayAllColors->show();
 		GradientMode = false;
+		freeGradientLayout->activate();
 		GradLayout->activate();
+		Form1Layout->activate();
 		layout()->activate();
+		freeGradientQFrame->updateGeometry();
+		gradEdit->updateGeometry();
+		colorListQLBox->updateGeometry();
 //		updateCList();
 //		repaint();
 	}
@@ -356,8 +382,14 @@ void Cpalette::InnenButton()
 				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			}
 		}
+		freeGradientLayout->activate();
 		GradLayout->activate();
+		Form1Layout->activate();
 		layout()->activate();
+		freeGradientQFrame->updateGeometry();
+		gradEdit->updateGeometry();
+		colorListQLBox->updateGeometry();
+		updateGeometry();
 //		updateCList();
 //		repaint();
 	}
@@ -385,6 +417,16 @@ void Cpalette::updatePatternList()
 		p.end();
 		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), patternBox);
 		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	}
+	if (patternList->count() == 0)
+	{
+		if (gradientQCombo->count() == 9)		// remove Pattern entry, as there are no Patterns available
+			gradientQCombo->removeItem(8);
+	}
+	else
+	{
+		if (gradientQCombo->count() < 9)		// readd the Pattern entry
+			gradientQCombo->addItem( tr("Pattern"));
 	}
 	// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(patternList->count() != 0);
 	/* qt4 FIXME
@@ -597,7 +639,7 @@ void Cpalette::ChooseGrad(int number)
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
 	GradientMode = number == 0 ? false : number == 8 ? false : true;
 
-	if (number != 0)
+	if (number > 0)
 	{
 		if (number == 8)
 		{
@@ -647,8 +689,14 @@ void Cpalette::ChooseGrad(int number)
 		colorListQLBox->show();
 		displayAllColors->show();
 	}
+	freeGradientLayout->activate();
 	GradLayout->activate();
+	Form1Layout->activate();
 	layout()->activate();
+	freeGradientQFrame->updateGeometry();
+	gradEdit->updateGeometry();
+	colorListQLBox->updateGeometry();
+	updateGeometry();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	// JG probably not needed at all and should probably not be here
 	updateCList();
