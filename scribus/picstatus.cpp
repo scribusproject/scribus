@@ -123,7 +123,7 @@ void PicStatus::fillTable()
 	{
 		item = m_Doc->MasterItems.at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
-		if (item->itemType() == PageItem::ImageFrame)
+		if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
 			tempItem = new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
 		if (firstItem == 0)
 			firstItem = tempItem;
@@ -133,7 +133,7 @@ void PicStatus::fillTable()
 	{
 		item = m_Doc->Items->at(i);
 		QFileInfo fi = QFileInfo(item->Pfile);
-		if (item->itemType() == PageItem::ImageFrame)
+		if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
 			tempItem = new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
 		// if an image is selected in a doc, Manage Pictures should
 		// display the selected image and its values
