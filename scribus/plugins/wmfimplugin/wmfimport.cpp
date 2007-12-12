@@ -721,7 +721,7 @@ bool WMFImport::importWMF(int flags)
 			m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
 			m_Doc->view()->setCanvasOrigin(cOrigin.x(), cOrigin.y());
 			m_Doc->view()->updatesOn(true);
-			dr->setPixmap(loadIcon("DragPix.xpm"));
+		//	dr->setPixmap(loadIcon("DragPix.xpm"));
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
 			dr->setDragCursor(dragCursor, Qt::CopyAction);
 			dr->setDragCursor(dragCursor, Qt::MoveAction);
