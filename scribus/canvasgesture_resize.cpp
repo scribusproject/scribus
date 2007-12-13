@@ -38,17 +38,17 @@ void ResizeGesture::activate(bool flag)
 	{
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		m_bounds = QRect(m_canvas->canvasToGlobal(QPointF(gx,gy)), 
-						 QSize(gw * m_canvas->scale(), 
-							   gh * m_canvas->scale()));
+		m_bounds = QRect(QRectF(m_canvas->canvasToGlobal(QPointF(gx,gy)), 
+						 QSizeF(gw * m_canvas->scale(), 
+							   gh * m_canvas->scale())).toRect());
 		m_rotation = 0.0;
 	}
 	else // we keep m_bounds non-rotated
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		m_bounds = QRect(m_canvas->canvasToGlobal(currItem->xyPos()), 
-						 QSize(currItem->width() * m_canvas->scale(), 
-							   currItem->height() * m_canvas->scale()));
+		m_bounds = QRect(QRectF(m_canvas->canvasToGlobal(currItem->xyPos()), 
+						 QSizeF(currItem->width() * m_canvas->scale(), 
+							   currItem->height() * m_canvas->scale())).toRect());
 		m_rotation = currItem->rotation();
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();

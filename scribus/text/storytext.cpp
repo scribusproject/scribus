@@ -727,7 +727,7 @@ int StoryText::nrOfParagraph(uint index) const
 	int result = 0;
 	StoryText* that = const_cast<StoryText *>(this);
 	bool lastWasPARSEP = true;
-	for (int i=0; i < index; ++i) {
+	for (uint i=0; i < index; ++i) {
 		lastWasPARSEP = that->d->at(i)->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;

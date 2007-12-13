@@ -1136,14 +1136,14 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		actFillShade = itemText.charStyle(a).fillShade();
 		if (actFill != CommonStrings::None)
 		{
-			ScColorShade tmp(m_doc->PageColors[actFill], actFillShade);
+			ScColorShade tmp(m_doc->PageColors[actFill], qRound(actFillShade));
 			painter->setBrush(tmp);
 		}
 		actStroke = itemText.charStyle(a).strokeColor();
 		actStrokeShade = itemText.charStyle(a).strokeShade();
 		if (actStroke != CommonStrings::None)
 		{
-			ScColorShade tmp(m_doc->PageColors[actStroke], actStrokeShade);
+			ScColorShade tmp(m_doc->PageColors[actStroke], qRound(actStrokeShade));
 			painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		}
 		if (hl->ch == SpecialChars::OBJECT)

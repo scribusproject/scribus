@@ -118,6 +118,7 @@ class SCRIBUS_API XmlWidget
 	public:
 		static XmlWidget *fromXml(QXmlStreamReader *xml);
 		XmlWidget(QXmlStreamReader *xml, bool readDescription=true);
+		virtual ~XmlWidget() {};
 		QString name() const { return m_name; }
 		QString description() const { return m_description; }
 		QString defaultValue() const { return m_defaultValue; }

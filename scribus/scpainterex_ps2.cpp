@@ -807,7 +807,6 @@ void ScPainterEx_Ps2::writeRGBImageToStream_AsciiHex ( ScImage* image )
 
 void ScPainterEx_Ps2::writeCMYKImageToStream_Ascii85( ScImage* image )
 {
-	int  pending = 0;
 	int  written = 0;
 	bool allZero  = true;
 	unsigned char  four_tuple[4];

@@ -96,7 +96,7 @@ bool ScGzFile::write(const char* header)
 		int res1 = gzputs(gzDoc, header);
 		int res2 = gzputs(gzDoc, barray.data());
 		gzclose(gzDoc);
-		bool done1 = (res1 > 0 && (res1 == strlen(header)));
+		bool done1 = (res1 > 0 && (res1 == static_cast<int>(strlen(header))));
 		bool done2 = (res2 > 0 && (res2 == barray.size()));
 		return (done1 && done2);
 	}

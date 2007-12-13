@@ -2458,7 +2458,7 @@ void PDFLibCore::PDF_End_Page()
 
 bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
-	bool errorOccured = false;
+//	bool errorOccured = false;
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStackS;
 	QStack<QString>      groupDataStack;

@@ -255,13 +255,10 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 void FreehandMode::mousePressEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
-	int z;
 	double Rxp = 0;
 	double Ryp = 0;
 	double Rxpd = 0;
 	double Rypd = 0;
-	PageItem *currItem;
 	QPainter p;
 //	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;

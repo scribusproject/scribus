@@ -697,7 +697,7 @@ QIcon IconBuffer::readData()
 	QByteArray data = file->read(len);
 	QPixmap pixmap;
 	pixmap.loadFromData(data);
-	basePos += ceil(len/512.0) * 512;
+	basePos += static_cast<int>(ceil(len/512.0) * 512);
 	return QIcon(pixmap);
 }
 
