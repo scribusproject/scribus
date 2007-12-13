@@ -27,9 +27,9 @@ won't automatically notice when you change the document using a script.</p></dd>
 <dd><code>haveDoc() -&gt; bool</code>
 <p>Returns true if there is a document open.</p></dd>
 
-<dt><a name="-importSVG"><strong>importSVG</strong>(...)</a></dt>
+<!--<dt><a name="-importSVG"><strong>importSVG</strong>(...)</a></dt>
 <dd><code>importSVG("string")</code>
-<p>The "string" must be a valid filename for a SVG image. The text must be UTF8 encoded or 'unicode' string(recommended).</p></dd>
+<p>The "string" must be a valid filename for a SVG image. The text must be UTF8 encoded or 'unicode' string(recommended).</p></dd> -->
 
 <dt><a name="-loadStylesFromFile"><strong>loadStylesFromFile</strong></a>(...)</dt>
 <dd><code>loadStylesFromFile("filename")</code>
@@ -92,7 +92,35 @@ PAGE_4, 3, 1)</p>
 <dd><code>openDoc("name")</code>
 <p>Opens the document "name".</p>
 <p>May raise ScribusError if the document could not be opened.</p></dd>
-	
+
+<dt><a name="-placeEPS"><strong>placeEPS</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeEPS("filename", x, y) Places the EPS "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the EPS
+placed on the page If loading was successful, the selection contains
+the imported EPS</p></dd>
+
+<dt><a name="-placeODG"><strong>placeODG</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeODG("filename", x, y) Places the ODG "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the ODG
+placed on the page If loading was successful, the selection contains
+the imported ODG</p></dd>
+
+<dt><a name="-placeSVG"><strong>placeSVG</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeSVG("filename", x, y) Places the SVG "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the SVG
+placed on the page If loading was successful, the selection contains
+the imported SVG</p></dd>
+
+<dt><a name="-placeSXD"><strong>placeSXD</strong>(...)</a></dt>
+<dd><code></code>
+<p>placeSXD("filename", x, y) Places the SXD "filename" onto the current
+page, x and y specify the coordinate of the topleft corner of the SXD
+placed on the page If loading was successful, the selection contains
+the imported SXD</p></dd>
+
 <dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
 <dd><code>saveDoc()</code>
 <p>Saves the current document with its current name, returns true if successful. If the document has not already been saved, this may bring up an interactive save file dialog. If the save fails, there is currently no way to tell.</p></dd>
