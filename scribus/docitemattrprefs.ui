@@ -16,7 +16,7 @@
    <item>
     <widget class="QGroupBox" name="attributesGroupBox" >
      <property name="title" >
-      <string>Document Item Attributes</string>
+      <string/>
      </property>
      <layout class="QVBoxLayout" >
       <item>

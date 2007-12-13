@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Page Item Attributes</string>
+   <string>Attributes</string>
   </property>
   <property name="sizeGripEnabled" >
    <bool>true</bool>
