@@ -8,6 +8,11 @@
 
 <dl>
 
+<dt><a name="-dehyphenateText"><strong>dehyphenateText</strong></a>(...)</dt>
+<dd><code>dehyphenateText(["name"]) -&gt; bool</code>
+<p>Does dehyphenation on text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
 <dt><a name="-deleteText"><strong>deleteText</strong></a>(...)</dt>
 <dd><code>deleteText(["name"])</code>
 <p>Deletes any text in the text frame "name". If there is some text selected, only the selected text will be deleted. If "name" is not given the currently selected item is used.</p></dd>
@@ -55,6 +60,11 @@
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
 <dd><code>getLineShade(["name"]) -&gt; integer</code>
 <p>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-hyphenateText"><strong>hyphenateText</strong></a>(...)</dt>
+<dd><code>hyphenateText(["name"]) -&gt; bool</code>
+<p>Does hyphenation on text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
 
 <dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
 <dd><code>insertText("text", pos, ["name"])</code>

@@ -12,6 +12,8 @@ import re
 import os
 import pydoc
 import difflib
+import traceback
+
 from pysqlite2 import dbapi2 as sqlite
 from scribus import *
 
@@ -108,6 +110,10 @@ class CPPDocs:
                 self.currentDocs[i[0]] = tmp
             except NameError, e:
                 self.currentDocs[i[0]] = e
+            except:
+                print 'Unhandled exception for: ', i[0]
+                traceback.print_exc(file=sys.stdout)
+
 
     def getAllProcedures(self):
         f = open(os.path.join(self.path, 'scriptplugin.cpp'), 'r')
