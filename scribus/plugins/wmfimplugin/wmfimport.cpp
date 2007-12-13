@@ -1196,6 +1196,13 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 
+	if (params[3] & 0x0010) // ETO_GLYPH_INDEX
+	{
+		cerr << "WMFImport::extTextOut: ETO_GLYPH_INDEX option not supported " << endl;
+		unsupported = true;
+		return;
+	}
+
 	// ETO_CLIPPED flag add 4 parameters
 	char* ptStr = (params[3] != 0) ? ((char*)&params[8]) : ((char*)&params[4]);
     QByteArray textArray( ptStr, params[2] );
@@ -1227,20 +1234,20 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 	// top down in some wmfs (see cell.wmf sample from libwmf)
 	if ( m_context.worldMatrix().m22() < 0.0)
 	{
-		m_context.translate(params[1], params[0]);
+		m_context.translate(startX, startY);
         m_context.scale (1.0, -1.0);
-        m_context.translate( -params[1], -params[0]);
+        m_context.translate( -startX, -startY);
 	}
 	if ( textRotation != 0.0) {
-        m_context.translate(params[1], params[0]);
+        m_context.translate(startX, startY);
         m_context.rotate ( textRotation );
-        m_context.translate( -params[1], -params[0]);
+        m_context.translate( -startX, -startY);
     }
 
-    if ( textAlign & 0x06 )
+    if ( (textAlign & 0x04) && (textAlign & 0x02) ) // TA_CENTER 0x06
         startX -= (width / 2);
-    /*if ( textAlign & 0x08 )
-        startY -= (height - fm.descent());*/
+	else if ( textAlign & 0x02 ) // TA_RIGHT 0x02
+        startX -= width;
 	if ( textAlign == 0 ) // TA_TOP                       
 		startY += fm.ascent();
 
@@ -1251,7 +1258,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 		double lineWidth = 0.0;
 		FPointArray textPath;
 		QString textColor = importColor( m_context.textColor() );
-		for (int i = 0; i < params[2] ; i++) 
+		for (int i = 0; (i < params[2] && i < textString.length()); ++i) 
 		{
 			QPainterPath painterPath;
 			if (i > 0)
