@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "util.h"
 #include "scribuscore.h"
+#include "hyphenator.h"
 
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
@@ -848,6 +849,52 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 	return PyInt_FromLong(static_cast<long>(item->frameOverflows()));
 }
 
+/*
+ * Does hyphenation on the given text frame.
+ * 08.12.2007: Joachim Neu
+ */
+PyObject *scribus_hyphenatetext(PyObject*, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only hyphenate text frame", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	ScCore->primaryMainWindow()->doc->docHyphenator->slotHyphenate(i);
+	return PyBool_FromLong(1);
+}
+
+/*
+ * Does dehyphenation on the given text frame.
+ * 13.12.2007: Joachim Neu
+ */
+PyObject *scribus_dehyphenatetext(PyObject*, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only dehyphenate text frame", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	ScCore->primaryMainWindow()->doc->docHyphenator->slotDeHyphenate(i);
+	return PyBool_FromLong(1);
+}
+
 PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
@@ -922,5 +969,6 @@ void cmdtextdocwarnings()
 	  << scribus_settextstroke__doc__  << scribus_settextshade__doc__
 	  << scribus_linktextframes__doc__ << scribus_unlinktextframes__doc__
 	  << scribus_tracetext__doc__      << scribus_istextoverflowing__doc__
-	  << scribus_setpdfbookmark__doc__ << scribus_ispdfbookmark__doc__;
+	  << scribus_setpdfbookmark__doc__ << scribus_ispdfbookmark__doc__
+	<< scribus_hyphenatetext__doc__ << scribus_dehyphenatetext__doc__;
 }

@@ -331,6 +331,34 @@ May raise WrongFrameTypeError if the target frame is not an text frame\n"));
  */
 PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* kw);
 
+PyDoc_STRVAR(scribus_hyphenatetext__doc__,
+QT_TR_NOOP("hyphenateText([\"name\"]) -> bool\n\
+\n\
+Does hyphenation on text frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not a text frame\n\
+"));
+/*
+	Does hyphenation on the given text frame
+	08.12.2007: Joachim Neu
+*/
+PyObject *scribus_hyphenatetext(PyObject *, PyObject* args);
+
+PyDoc_STRVAR(scribus_dehyphenatetext__doc__,
+QT_TR_NOOP("dehyphenateText([\"name\"]) -> bool\n\
+\n\
+Does dehyphenation on text frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not a text frame\n\
+"));
+/*
+	Does dehyphenation on the given text frame
+	13.12.2007: Joachim Neu
+*/
+PyObject *scribus_dehyphenatetext(PyObject *, PyObject* args);
+
 /*! docstring */
 PyDoc_STRVAR(scribus_setpdfbookmark__doc__,
 QT_TR_NOOP("setPDFBookmark(\"toggle\", [\"name\"])\n\
