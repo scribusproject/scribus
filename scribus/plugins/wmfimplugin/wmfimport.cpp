@@ -1204,7 +1204,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 	}
 
 	// ETO_CLIPPED flag add 4 parameters
-	char* ptStr = (params[3] != 0) ? ((char*)&params[8]) : ((char*)&params[4]);
+	char* ptStr = (params[3] & 0x0004) ? ((char*)&params[8]) : ((char*)&params[4]);
     QByteArray textArray( ptStr, params[2] );
 	
 	QTextCodec* codec = codecFromCharset( m_context.textCharSet() );
@@ -1251,19 +1251,31 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 	if ( textAlign == 0 ) // TA_TOP                       
 		startY += fm.ascent();
 
-	int idxOffset = (params[ 2 ] / 2) + 4 + (params[ 2 ] & 1);
-    if ( ( params[2] > 1 ) && ( num >= (idxOffset + params[2]) ) && ( params[3] == 0 ) ) 
+	bool eto_empty = (params[3] == 0);
+	bool eto_clipped_set = (params[3] & 0x0004);
+	bool eto_pdy_set     = (params[3] & 0x2000);
+
+	int  idxOffset = (params[ 2 ] / 2) + 4 + (params[ 2 ] & 1) + (eto_clipped_set ? 4 : 0);
+	int  minParams = eto_pdy_set ? (idxOffset + 2 * (params[2] - 1)) : (idxOffset + params[2]);
+	bool useCharInterdistances = (num >= minParams) && (eto_empty || eto_pdy_set);
+    if ((params[2] > 1) && useCharInterdistances) 
 	{
-		double left = startX;
+		double xpos  = startX;
+		double ypos  = startY;
 		double lineWidth = 0.0;
 		FPointArray textPath;
 		QString textColor = importColor( m_context.textColor() );
-		for (int i = 0; (i < params[2] && i < textString.length()); ++i) 
+		for (int index = 0; (index < params[2] && index < textString.length()); ++index) 
 		{
 			QPainterPath painterPath;
-			if (i > 0)
-				left += params[idxOffset + i - 1];
-			painterPath.addText(left, startY, m_context.font(), textString.at(i));
+			if (index > 0 && eto_pdy_set)
+			{
+				xpos += params[idxOffset + index * 2 - 1];
+				ypos += params[idxOffset + index * 2];
+			}
+			else if (index > 0)
+				xpos += params[idxOffset + index - 1];
+			painterPath.addText(xpos, ypos, m_context.font(), textString.at(index));
 			textPath.fromQPainterPath(painterPath);
 			if (textPath.size() > 0)
 			{
