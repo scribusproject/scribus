@@ -101,6 +101,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	useSamples = true;
 	guiColor = ui.codeEdit->palette().color(QPalette::Window);
+	ui.bcCombo->addItem(tr("Select Type")); // to prevent 1st gs call
 	ui.bcCombo->addItems(map.keys());
 	ui.okButton->setText(CommonStrings::tr_OK);
 	ui.cancelButton->setText(CommonStrings::tr_Cancel);
@@ -137,6 +138,15 @@ BarcodeGenerator::~BarcodeGenerator()
 
 void BarcodeGenerator::bcComboChanged()
 {
+	if (ui.bcCombo->currentIndex() == 0)
+	{
+		ui.okButton->setEnabled(false);
+		ui.sampleLabel->setText(tr("Select Barcode Type"));
+		return;
+	}
+	else
+		ui.okButton->setEnabled(true);
+
 	QString s = ui.bcCombo->currentText();
 	ui.commentEdit->setText(map[s].comment);
 	if (useSamples)
@@ -300,10 +310,12 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	gargs.append( QString("-r%1").arg(dpi) );
 	gargs.append( QString("-sOutputFile=%1").arg(fileName) );
 	gargs.append( psFile );
+	qApp->changeOverrideCursor(Qt::WaitCursor);
 	int gs = callGS(gargs);
 	bool retval = true;
 	if (gs != 0)
 		retval = false;
+	qApp->restoreOverrideCursor();
 	// setup only preview
 	if (fileName != tmpFile)
 		return retval;

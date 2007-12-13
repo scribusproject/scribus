@@ -18,200 +18,7 @@
    <string/>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
-    <number>9</number>
-   </property>
-   <property name="topMargin" >
-    <number>9</number>
-   </property>
-   <property name="rightMargin" >
-    <number>9</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>9</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>6</number>
-   </property>
-   <property name="verticalSpacing" >
-    <number>6</number>
-   </property>
-   <item row="0" column="2" colspan="2" >
-    <widget class="QGroupBox" name="colorBox" >
-     <property name="title" >
-      <string>Colors</string>
-     </property>
-     <layout class="QGridLayout" >
-      <property name="leftMargin" >
-       <number>9</number>
-      </property>
-      <property name="topMargin" >
-       <number>9</number>
-      </property>
-      <property name="rightMargin" >
-       <number>9</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>9</number>
-      </property>
-      <property name="horizontalSpacing" >
-       <number>6</number>
-      </property>
-      <property name="verticalSpacing" >
-       <number>6</number>
-      </property>
-      <item row="3" column="0" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QPushButton" name="bgColorButton" >
-        <property name="toolTip" >
-         <string>Background color - under the code lines</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Background</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+B</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QLabel" name="bgLabel" >
-        <property name="minimumSize" >
-         <size>
-          <width>10</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="frameShape" >
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="scaledContents" >
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="QPushButton" name="lnColorButton" >
-        <property name="toolTip" >
-         <string>Color of the lines in barcode</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Lines</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+L</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QLabel" name="linesLabel" >
-        <property name="minimumSize" >
-         <size>
-          <width>10</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="frameShape" >
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="scaledContents" >
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="QPushButton" name="txtColorButton" >
-        <property name="toolTip" >
-         <string>Color of the text and numbers</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Text</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+T</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QLabel" name="txtLabel" >
-        <property name="minimumSize" >
-         <size>
-          <width>10</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="frameShape" >
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="scaledContents" >
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="3" >
-    <widget class="QTextEdit" name="commentEdit" >
-     <property name="toolTip" >
-      <string>Hints and help is shown here</string>
-     </property>
-     <property name="readOnly" >
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3" >
-    <widget class="QLabel" name="sampleLabel" >
-     <property name="toolTip" >
-      <string>Preview of the result. 72dpi sample.</string>
-     </property>
-     <property name="frameShape" >
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="alignment" >
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="wordWrap" >
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="0" colspan="2" >
+   <item row="0" column="0" >
     <widget class="QGroupBox" name="bcodeBox" >
      <property name="title" >
       <string>Format</string>
@@ -355,19 +162,198 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QPushButton" name="okButton" >
-     <property name="text" >
-      <string/>
+   <item row="0" column="1" colspan="2" >
+    <widget class="QGroupBox" name="colorBox" >
+     <property name="title" >
+      <string>Colors</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>6</number>
+      </property>
+      <property name="verticalSpacing" >
+       <number>6</number>
+      </property>
+      <item row="3" column="0" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QPushButton" name="bgColorButton" >
+        <property name="toolTip" >
+         <string>Background color - under the code lines</string>
+        </property>
+        <property name="text" >
+         <string>&amp;Background</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+B</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLabel" name="bgLabel" >
+        <property name="minimumSize" >
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="frameShape" >
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="scaledContents" >
+         <bool>true</bool>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QPushButton" name="lnColorButton" >
+        <property name="toolTip" >
+         <string>Color of the lines in barcode</string>
+        </property>
+        <property name="text" >
+         <string>&amp;Lines</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+L</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLabel" name="linesLabel" >
+        <property name="minimumSize" >
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="frameShape" >
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="scaledContents" >
+         <bool>true</bool>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QPushButton" name="txtColorButton" >
+        <property name="toolTip" >
+         <string>Color of the text and numbers</string>
+        </property>
+        <property name="text" >
+         <string>&amp;Text</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+T</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLabel" name="txtLabel" >
+        <property name="minimumSize" >
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="frameShape" >
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="scaledContents" >
+         <bool>true</bool>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QTextEdit" name="commentEdit" >
+     <property name="toolTip" >
+      <string>Hints and help is shown here</string>
+     </property>
+     <property name="readOnly" >
+      <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="2" column="2" colspan="2" >
-    <widget class="QPushButton" name="cancelButton" >
-     <property name="text" >
-      <string/>
+   <item row="1" column="2" >
+    <widget class="QLabel" name="sampleLabel" >
+     <property name="toolTip" >
+      <string>Preview of the result. 72dpi sample.</string>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="alignment" >
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap" >
+      <bool>false</bool>
      </property>
     </widget>
+   </item>
+   <item row="2" column="0" colspan="3" >
+    <layout class="QHBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton" >
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton" >
+       <property name="text" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
