@@ -2333,7 +2333,7 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 	{
 		for (int i = 0; i < doc->Items->count(); ++i)
 		{
-			if ((doc->Items->at(i)->itemType() == PageItem::ImageFrame) && (doc->Items->at(i)->asLatexFrame()))
+			if ((doc->Items->at(i)->itemType() == PageItem::ImageFrame) && (!doc->Items->at(i)->asLatexFrame()))
 			{
 				enablePicManager = true;
 				break;
