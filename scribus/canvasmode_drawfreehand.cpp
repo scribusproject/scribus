@@ -429,6 +429,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 					doCreate = true;
 				else
 				{
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
 					if (dia->exec())
 					{

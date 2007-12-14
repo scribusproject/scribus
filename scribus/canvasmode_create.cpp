@@ -130,6 +130,7 @@ void CreateMode::activate(bool fromGesture)
 //				doCreate = true;
 //			else
 			{
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, 0);
 				if (dia->exec())
 				{
@@ -157,36 +158,9 @@ void CreateMode::activate(bool fromGesture)
 			{
 				bool oldSnap = m_doc->SnapGuides;
 				m_doc->SnapGuides = false;
-				/*
-				if (m_doc->appMode == modeDrawRegularPolygon)
-				{
-					currItem->setWidthHeight(xSize, ySize);
-					FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR);
-					FPoint np(cli.point(0));
-					currItem->PoLine.resize(2);
-					currItem->PoLine.setPoint(0, np);
-					currItem->PoLine.setPoint(1, np);
-					for (uint ax = 1; ax < cli.size(); ++ax)
-					{
-						np = FPoint(cli.point(ax));
-						currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
-					}
-					np = FPoint(cli.point(0));
-					currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
-					FPoint tp2(getMinClipF(&currItem->PoLine));
-					if ((tp2.x() > -1) || (tp2.y() > -1))
-						m_doc->SizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem->ItemNr, false, false, false);
-					FPoint tp(getMaxClipF(&currItem->PoLine));
-					m_doc->SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
-					//						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-					m_doc->AdjustItemSize(currItem);
-				}
-				else */
-				{
-					m_doc->SizeItem(xSize, ySize, currItem->ItemNr, false, false, false);
-					m_doc->AdjustItemSize(currItem);
-					currItem->updateClip();
-				}
+				currItem->Sizing = false;
+				m_doc->SizeItem(xSize, ySize, currItem->ItemNr, false, true, false);
+				m_doc->AdjustItemSize(currItem);
 				currItem->ContourLine = currItem->PoLine.copy();
 				switch (originPoint)
 				{
@@ -775,6 +749,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 					doCreate = true;
 				else
 				{
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, 0);
 					if (dia->exec())
 					{

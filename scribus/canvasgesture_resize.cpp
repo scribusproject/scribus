@@ -94,38 +94,41 @@ void ResizeGesture::drawControls(QPainter* p)
 void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 {
 	adjustBounds(m);
-	PageItem* currItem = m_doc->m_Selection->itemAt(0);
-	QRectF newBounds = m_canvas->globalToCanvas(m_bounds.normalized());
-	
-	qDebug() << "ResizeGesture::release: new bounds" << newBounds;	
-	if (m_doc->m_Selection->isMultipleSelection())
+	if (m_doc->m_Selection->count() != 0)
 	{
-		double gx, gy, gh, gw;
-		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		QRectF oldBounds(gx, gy, gw, gh);
-		double scx = oldBounds.width() == 0? 1.0 : newBounds.width() / oldBounds.width();
-		double scy = oldBounds.height() == 0? 1.0 : newBounds.height() / oldBounds.height();
-		//CB #3012 only scale text in a group if alt is pressed
-		if ((currItem->itemType() == PageItem::TextFrame) && (m->modifiers() & Qt::AltModifier))
-			m_view->scaleGroup(scx, scy, true);
+		PageItem* currItem = m_doc->m_Selection->itemAt(0);
+		QRectF newBounds = m_canvas->globalToCanvas(m_bounds.normalized());
+		
+		qDebug() << "ResizeGesture::release: new bounds" << newBounds;	
+		if (m_doc->m_Selection->isMultipleSelection())
+		{
+			double gx, gy, gh, gw;
+			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			QRectF oldBounds(gx, gy, gw, gh);
+			double scx = oldBounds.width() == 0? 1.0 : newBounds.width() / oldBounds.width();
+			double scy = oldBounds.height() == 0? 1.0 : newBounds.height() / oldBounds.height();
+			//CB #3012 only scale text in a group if alt is pressed
+			if ((currItem->itemType() == PageItem::TextFrame) && (m->modifiers() & Qt::AltModifier))
+				m_view->scaleGroup(scx, scy, true);
+			else
+				m_view->scaleGroup(scx, scy, false);
+			double dx = newBounds.x() - oldBounds.x();
+			double dy = newBounds.y() - oldBounds.y();
+			if (dx != 0 || dy != 0)
+				m_view->moveGroup(dx, dy);
+		}
 		else
-			m_view->scaleGroup(scx, scy, false);
-		double dx = newBounds.x() - oldBounds.x();
-		double dy = newBounds.y() - oldBounds.y();
-		if (dx != 0 || dy != 0)
-			m_view->moveGroup(dx, dy);
+		{
+			currItem->setXYPos(newBounds.x(), newBounds.y());
+			currItem->setWidth(newBounds.width());
+			currItem->setHeight(newBounds.height());
+			// rotation does not change
+		}
+		currItem->updateClip();
+		m_doc->setRedrawBounding(currItem);
+		currItem->invalidateLayout();
+		currItem->update();
 	}
-	else
-	{
-		currItem->setXYPos(newBounds.x(), newBounds.y());
-		currItem->setWidth(newBounds.width());
-		currItem->setHeight(newBounds.height());
-		// rotation does not change
-	}
-	currItem->updateClip();
-	m_doc->setRedrawBounding(currItem);
-	currItem->invalidateLayout();
-	currItem->update();
 	m_canvas->update();
 	m_view->stopGesture();
 }
