@@ -95,7 +95,7 @@ void TOCIndexPrefs::languageChange()
 	tocDeleteButton->setText( tr( "&Delete" ) );
 	tocDeleteButton->setShortcut( QKeySequence( tr( "Alt+D" ) ) );
 	itemDestFrameComboBox->setToolTip( tr( "The frame the table of contents will be placed into" ) );
-	tocNumberPlacementLabel->setText( tr( "Page Numbers Placed:" ) );
+	tocNumberPlacementLabel->setText( tr( "Page Number Placement:" ) );
 	tocItemAttrLabel->setText( tr( "Item Attribute Name:" ) );
 	itemAttrComboBox->setToolTip( tr( "The Item Attribute that will be set on frames used as a basis for creation of the entries" ) );
 	itemNumberPlacementComboBox->setToolTip( tr( "Place page numbers of the entries at the beginning or the end of the line, or not at all" ) );
@@ -113,10 +113,10 @@ void TOCIndexPrefs::init()
 	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	trStrNone=tr("None");
 	strNone=CommonStrings::None;
-	trStrPNBeginning=tr("At the beginning");
-	strPNBeginning="At the beginning";
-	trStrPNEnd=tr("At the end");
-	strPNEnd="At the end";
+	trStrPNBeginning=tr("Beginning");
+	strPNBeginning="Beginning";
+	trStrPNEnd=tr("End");
+	strPNEnd="End";
 	trStrPNNotShown=tr("Not Shown");
 	strPNNotShown="Not Shown";
 
