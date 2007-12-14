@@ -5213,7 +5213,7 @@ QString PDFLibCore::PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, Q
 						oneSpot2 = false;
 						twoSpot = true;
 					}
-					if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!Options.UseSpotColors)) 
+					if (((!oneSpot1) && (!oneSpot2) && (!twoSpot)) || (!Options.UseSpotColors)) 
 						PutDoc("/ColorSpace /DeviceCMYK\n");
 					else
 					{
@@ -6357,7 +6357,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				if (Options.CompressMethod == 1)
 				{
 					QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
-					if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
+					if (((Options.UseRGB) || (Options.UseProfiles2)) && (!realCMYK))
 						img.Convert2JPG(tmpFile, Options.Quality, false, false);
 					else
 					{
@@ -6383,7 +6383,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			if ((Options.CompressMethod == 1) || (Options.CompressMethod == 0))
 			{
 				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
-				if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
+				if (((Options.UseRGB) || (Options.UseProfiles2)) && (!realCMYK))
 					img.Convert2JPG(tmpFile, Options.Quality, false, false);
 				else
 				{
