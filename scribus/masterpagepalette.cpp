@@ -18,18 +18,18 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QInputDialog>
 
-#include "newtemp.h"
+#include "canvasmode.h"
+#include "commonstrings.h"
 #include "mergedoc.h"
+#include "newtemp.h"
 #include "page.h"
 #include "pagestructs.h"
-#include "canvasmode.h"
+#include "prefsmanager.h"
+#include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "util_icon.h"
-#include "commonstrings.h"
-#include "scribus.h"
-#include "scribusXml.h"
-#include "prefsmanager.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
 		: QDialog(parent)
@@ -84,7 +84,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateMasterPage()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newMasterPage()));
-	connect(importButton, SIGNAL(clicked()), this, SLOT(appendPage()));
+	connect(importButton, SIGNAL(clicked()), this, SLOT(importPage()));
 	connect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectMasterPage(QListWidgetItem*)));
 	connect(masterPageListBox, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(renameMasterPage( QListWidgetItem*)));
 }
@@ -267,7 +267,7 @@ void MasterPagesPalette::newMasterPage()
 	delete dia;
 }
 
-void MasterPagesPalette::appendPage()
+void MasterPagesPalette::importPage()
 {
 	//bool atf;
 	MergeDoc *dia = new MergeDoc(this, true);
