@@ -253,9 +253,12 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 		OB->ExtraV = qRound( attrAsDbl(attrs, "EXTRAV", 0.0) / attrAsDbl(attrs, "ISIZE", 12.0) * 1000.0);
 	else
 		OB->ExtraV = attrAsInt(attrs, "TXTKERN");
-	OB->Pfile      = Relative2Path( attrAsString(attrs, "PFILE" ,""), baseDir);
+/*	OB->Pfile      = Relative2Path( attrAsString(attrs, "PFILE" ,""), baseDir);
 	OB->Pfile2     = Relative2Path( attrAsString(attrs, "PFILE2",""), baseDir);
-	OB->Pfile3     = Relative2Path( attrAsString(attrs, "PFILE3",""), baseDir);
+	OB->Pfile3     = Relative2Path( attrAsString(attrs, "PFILE3",""), baseDir); */
+	OB->Pfile      = attrAsString(attrs, "PFILE" ,"");
+	OB->Pfile2     = attrAsString(attrs, "PFILE2","");
+	OB->Pfile3     = attrAsString(attrs, "PFILE3","");
 	OB->IProfile   = attrAsString(attrs, "PRFILE","");
 	OB->EmProfile  = attrAsString(attrs, "EPROF","");
 	OB->IRender    = attrAsInt (attrs, "IRENDER", 1);

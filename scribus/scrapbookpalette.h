@@ -94,6 +94,7 @@ private slots:
 	bool copyObj(int id);
 	void moveObj(int id);
 	void deleteObj();
+	void deleteAllObj();
 	void renameObj();
 	void NewLib();
 	void Load();

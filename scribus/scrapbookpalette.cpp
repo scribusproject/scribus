@@ -565,8 +565,8 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	connect(saveAsButton, SIGNAL(clicked()), this, SLOT(SaveAs()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
-	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+//	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
+//	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 }
 
@@ -574,6 +574,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 {
 	disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 	for (int rd = 0; rd < fileNames.count(); ++rd)
 	{
 		QString fileName = fileNames[rd];
@@ -595,6 +596,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 	}
 	activeBView = (BibView*)Frame3->widget(0);
 	Frame3->setCurrentIndex(0);
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 }
@@ -668,6 +670,7 @@ void Biblio::NewLib()
 		}
 		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		QDir d(fileName);
 		activeBView = new BibView(this);
 		Frame3->addItem(activeBView, d.dirName());
@@ -675,6 +678,7 @@ void Biblio::NewLib()
 		Frame3->setCurrentWidget(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
+		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	}
@@ -694,6 +698,7 @@ void Biblio::Load()
 		}
 		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		QDir d(fileName);
 		activeBView = new BibView(this);
 		QFileInfo fd(fileName);
@@ -709,6 +714,7 @@ void Biblio::Load()
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
 		activeBView->scrollToTop();
+		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	}
@@ -742,12 +748,12 @@ void Biblio::SaveAs()
 	QString fn = QFileDialog::getExistingDirectory(this, dirs->get("scrap_saveas", "."), tr("Choose a Directory"));
 	if (!fn.isEmpty())
 	{
-		for (int a = 0; a < Frame3->count(); a++)
-		{
-			BibView* bv = (BibView*)Frame3->widget(a);
-			if (fn == bv->ScFilename)
-				return;
-		}
+//		for (int a = 0; a < Frame3->count(); a++)
+//		{
+//			BibView* bv = (BibView*)Frame3->widget(a);
+//			if (fn == bv->ScFilename)
+//				return;
+//		}
 		QDir d(fn);
 		dirs->set("scrap_saveas", fn);
 		activeBView->SaveContents(fn, activeBView->ScFilename);
@@ -766,10 +772,12 @@ void Biblio::closeLib()
 	{
 		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		Frame3->removeItem(Frame3->indexOf(activeBView));
 //		delete activeBView;   currently disabled as the whole TabWidget vanishes when executing that delete?????
 		activeBView = (BibView*)Frame3->widget(0);
 		Frame3->setCurrentIndex(0);
+		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	}
@@ -838,6 +846,28 @@ void Biblio::HandleMouse(QPoint p)
 			delete pmenu3;
 			delete signalMapper2;
 		}
+	}
+	else
+	{
+		QMenu *pmenu = new QMenu();
+		QAction* delAct;
+		QAction* saveAct;
+		QAction* closeAct;
+		if (activeBView->objectMap.count() != 0)
+		{
+			saveAct = pmenu->addAction( tr("Save as..."));
+			connect(saveAct, SIGNAL(triggered()), this, SLOT(SaveAs()));
+		}
+		closeAct = pmenu->addAction( tr("Close"));
+		if ((activeBView->canWrite) && (activeBView->objectMap.count() != 0))
+		{
+			delAct = pmenu->addAction( tr("Delete Contents"));
+			connect(delAct, SIGNAL(triggered()), this, SLOT(deleteAllObj()));
+		}
+		connect(closeAct, SIGNAL(triggered()), this, SLOT(closeLib()));
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		pmenu->exec(QCursor::pos());
+		delete pmenu;
 	}
 	activeBView->clearSelection();
 	actItem = 0;
@@ -995,6 +1025,46 @@ void Biblio::deleteObj()
 	activeBView->objectMap.remove(name);
 	delete activeBView->takeItem(activeBView->row(ite));
 	activeBView->sortItems();
+	if (activeBView == tempBView)
+		emit updateRecentMenue();
+	actItem = 0;
+}
+
+void Biblio::deleteAllObj()
+{
+	if (!activeBView->canWrite)
+		return;
+	int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to delete all entries?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+	if (t == QMessageBox::No)
+		return;
+	QMap<QString,BibView::Elem>::Iterator it;
+	for (it = activeBView->objectMap.begin(); it != activeBView->objectMap.end(); ++it)
+	{
+		QFile f(it.value().Data);
+		f.remove();
+		QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key() + ".png"));
+		if (fi.exists())
+		{
+			QFile f2(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key() + ".png"));
+			f2.remove();
+		}
+		QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key()));
+		if ((fiD.exists()) && (fiD.isDir()))
+		{
+			QDir dd = QDir(QDir::convertSeparators(activeBView->ScFilename));
+			QDir d(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key()), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+			if ((d.exists()) && (d.count() != 0))
+			{
+				for (uint dc = 0; dc < d.count(); ++dc)
+				{
+					QFile::remove(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key() + "/" + d[dc]));
+				}
+			}
+			dd.rmdir(QDir::convertSeparators(activeBView->ScFilename + "/" + it.key()));
+		}
+	}
+	activeBView->clear();
+	activeBView->objectMap.clear();
 	if (activeBView == tempBView)
 		emit updateRecentMenue();
 	actItem = 0;
