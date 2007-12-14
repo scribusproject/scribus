@@ -319,7 +319,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	endArrowText = new QLabel(tr( "End:" ), subTabLine);
 	endArrowText->setBuddy(endArrow);
 	subTabLineLayout->addWidget( endArrowText, 4, 2 );
-	lineWidthLine = new ScrSpinBox( 1, 36, subTabLine, 1 );
+	lineWidthLine = new ScrSpinBox( 0, 36, subTabLine, 1 );
 	lineWidthLine->setDecimals(1);
 	lineWidthLine->setSuffix( tr( " pt" ) );
 
