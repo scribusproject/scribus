@@ -486,13 +486,13 @@ void ReformDoc::updateDocumentSettings()
 		}
 	}
 	PrefsManager* prefsManager=PrefsManager::instance();
-	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-	for ( ; it.hasNext() ; it.next())
-	{
-		it.current().embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
-		it.current().usable(tabFonts->fontFlags[it.currentKey()].FlagUse);
-		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
-	}
+// 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
+// 	for ( ; it.hasNext() ; it.next())
+// 	{
+// 		it.current().embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
+// 		it.current().usable(tabFonts->fontFlags[it.currentKey()].FlagUse);
+// 		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
+// 	}
 	uint a = 0;
 	prefsManager->appPrefs.GFontSub.clear();
 	QMap<QString,QString>::Iterator itfsu;

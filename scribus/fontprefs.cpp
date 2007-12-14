@@ -33,6 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_icon.h"
 #include "scpaths.h"
+#include "fontlistmodel.h"
+#include "fontlistview.h"
 
 
 FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent )
@@ -49,31 +51,15 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	tab1Layout->setMargin(10);
 	tab1Layout->setSpacing(5);
 
-	fontList = new QTreeWidget(tab1);
-	fontList->setRootIsDecorated( false );
-	fontList->setColumnCount(5);
+	fontList = new FontListView(tab1);
+	fontList->setModel(new FontListModel(fontList));
+
 	QStringList HLabels;
 	HLabels.append( tr("Font Name"));
 	HLabels.append( tr("Use Font"));
 	HLabels.append( tr("Embed in PostScript"));
 	HLabels.append( tr("Subset"));
 	HLabels.append( tr("Path to Font File"));
-	fontList->setHeaderLabels(HLabels);
-	fontList->setAllColumnsShowFocus(true);
-	fontList->setSortingEnabled(true);
-	fontList->header()->setSortIndicatorShown(true);
-	fontList->header()->setResizeMode( QHeaderView::Interactive );
-	fontList->setSelectionMode(QAbstractItemView::SingleSelection);
-	fontList->setSelectionBehavior(QAbstractItemView::SelectRows);
-	fontList->setIconSize(QSize(16,16));
-
-	ttfFont = loadIcon("font_truetype16.png");
-	otfFont = loadIcon("font_otf16.png");
-	psFont = loadIcon("font_type1_16.png");
-	substFont = loadIcon("font_subst16.png");
-
-	checkOn = getQCheckBoxPixmap(true, fontList->palette().color(QPalette::Window));
-	checkOff = getQCheckBoxPixmap(false, fontList->palette().color(QPalette::Window));
 
 	tab1Layout->addWidget( fontList );
 	addTab( tab1, tr( "&Available Fonts" ) );
@@ -158,44 +144,11 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	// signals and slots connections
 	connect(Table3, SIGNAL(cellClicked(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
-	connect(fontList, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotClick(QTreeWidgetItem*, int)));
 }
 
 void FontPrefs::restoreDefaults()
 {
 	rebuildDialog();
-}
-
-void FontPrefs::slotClick(QTreeWidgetItem* ite, int col)
-{
-	if (ite == NULL || ite == 0)
-		return;
-	QString tmp = ite->text(0);
-	if ((col == 1) && (!DocAvail))
-	{
-		fontFlags[tmp].FlagUse = !fontFlags[tmp].FlagUse;
-		if (fontFlags[tmp].FlagUse)
-			ite->setIcon(1, checkOn);
-		else
-			ite->setIcon(1, checkOff);
-	}
-	if (col == 2)
-	{
-		fontFlags[tmp].FlagPS = !fontFlags[tmp].FlagPS;
-		if (fontFlags[tmp].FlagPS)
-			ite->setIcon(2, checkOn);
-		else
-			ite->setIcon(2, checkOff);
-	}
-	if ((col == 3) && (!fontFlags[tmp].FlagOTF) && (fontFlags[tmp].FlagNames))
-	{
-		fontFlags[tmp].FlagSub = !fontFlags[tmp].FlagSub;
-		if (fontFlags[tmp].FlagSub)
-			ite->setIcon(3, checkOn);
-		else
-			ite->setIcon(3, checkOff);
-	}
-	UpdateFliste();
 }
 
 void FontPrefs::ReplaceSel(int, int)
@@ -207,13 +160,15 @@ void FontPrefs::UpdateFliste()
 {
 	QString tmp;
 	UsedFonts.clear();
-	SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
+	SCFonts fonts = PrefsManager::instance()->appPrefs.AvailFonts;
+	SCFontsIterator it(fonts);
 	for ( ; it.hasNext() ; it.next())
 	{
-		if (fontFlags[it.currentKey()].FlagUse)
+		if (fonts[it.currentKey()].usable())
 			UsedFonts.append(it.currentKey());
 	}
 	UsedFonts.sort();
+
 	for (int b = 0; b < FlagsRepl.count(); ++b)
 	{
 		tmp = FlagsRepl.at(b)->currentText();
@@ -361,8 +316,8 @@ void FontPrefs::DelPath()
 
 void FontPrefs::rebuildDialog()
 {
-	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
-
+// 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+	fontList->setFonts(PrefsManager::instance()->appPrefs.AvailFonts);
 	/*
 	DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
 	It's just a performance vs. functionality test.
@@ -381,48 +336,48 @@ void FontPrefs::rebuildDialog()
 			availFonts->updateFontMap();
 		}
 	} */
-	UsedFonts.clear();
-	fontFlags.clear();
-	fontList->clear();
-	SCFontsIterator it(*availFonts);
-	for ( ; it.hasNext(); it.next())
-	{
-		if (it.current().isNone())
-			continue;
-		fontSet foS;
-		QTreeWidgetItem *row = new QTreeWidgetItem(fontList);
-		row->setText(0, it.currentKey());
+// 	UsedFonts.clear();
+// 	fontFlags.clear();
+// 	fontList->clear();
+// 	SCFontsIterator it(*availFonts);
+// 	for ( ; it.hasNext(); it.next())
+// 	{
+// 		if (it.current().isNone())
+// 			continue;
+// 		fontSet foS;
+// 		QTreeWidgetItem *row = new QTreeWidgetItem(fontList);
+// 		row->setText(0, it.currentKey());
 
-		foS.FlagUse = it.current().usable();
-		row->setIcon(1, foS.FlagUse ? checkOn : checkOff);
-		if (foS.FlagUse)
-			UsedFonts.append(it.currentKey());
+// 		foS.FlagUse = it.current().usable();
+// 		row->setIcon(1, foS.FlagUse ? checkOn : checkOff);
+// 		if (foS.FlagUse)
+// 			UsedFonts.append(it.currentKey());
 
-		foS.FlagPS = it.current().embedPs();
-		row->setIcon(2, foS.FlagPS ? checkOn : checkOff);
+// 		foS.FlagPS = it.current().embedPs();
+// 		row->setIcon(2, foS.FlagPS ? checkOn : checkOff);
 
-		foS.FlagSub = it.current().subset();
-		row->setIcon(3, foS.FlagSub ? checkOn : checkOff);
+// 		foS.FlagSub = it.current().subset();
+// 		row->setIcon(3, foS.FlagSub ? checkOn : checkOff);
 
-		ScFace::FontType type = it.current().type();
-		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
-		if (it.current().isReplacement())
-			row->setIcon(0, substFont);
-		else if (type == ScFace::TYPE1)
-			row->setIcon(0, psFont);
-		else if (type == ScFace::TTF)
-			row->setIcon(0, ttfFont);
-		else if (type == ScFace::OTF)
-			row->setIcon(0, otfFont);
+// 		ScFace::FontType type = it.current().type();
+// 		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
+// 		if (it.current().isReplacement())
+// 			row->setIcon(0, substFont);
+// 		else if (type == ScFace::TYPE1)
+// 			row->setIcon(0, psFont);
+// 		else if (type == ScFace::TTF)
+// 			row->setIcon(0, ttfFont);
+// 		else if (type == ScFace::OTF)
+// 			row->setIcon(0, otfFont);
 
-		foS.FlagNames = it.current().hasNames();
-		row->setText(4, it.current().fontPath());
-		fontFlags.insert(it.currentKey(), foS);
-	}
-	fontList->sortByColumn(0, Qt::AscendingOrder);
-	fontList->resizeColumnToContents(0);
-	fontList->resizeColumnToContents(4);
-	UsedFonts.sort();
+// 		foS.FlagNames = it.current().hasNames();
+// 		row->setText(4, it.current().fontPath());
+// 		fontFlags.insert(it.currentKey(), foS);
+// 	}
+// 	fontList->sortByColumn(0, Qt::AscendingOrder);
+// 	fontList->resizeColumnToContents(0);
+// 	fontList->resizeColumnToContents(4);
+// 	UsedFonts.sort();
 	FlagsRepl.clear();
 	Table3->clearContents();
 	Table3->setRowCount(PrefsManager::instance()->appPrefs.GFontSub.count());

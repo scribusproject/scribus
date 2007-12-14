@@ -13,14 +13,26 @@
    <string>Fonts Preview</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
+   <property name="leftMargin" >
     <number>9</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin" >
+    <number>9</number>
+   </property>
+   <property name="rightMargin" >
+    <number>9</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>9</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>6</number>
+   </property>
+   <property name="verticalSpacing" >
     <number>6</number>
    </property>
    <item row="1" column="0" colspan="8" >
-    <widget class="QTableView" name="fontList" >
+    <widget class="FontListView" name="fontList" >
      <property name="alternatingRowColors" >
       <bool>true</bool>
      </property>
@@ -63,11 +75,20 @@
    </item>
    <item row="2" column="0" colspan="8" >
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>11</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>11</number>
+     </property>
+     <property name="topMargin" >
+      <number>11</number>
+     </property>
+     <property name="rightMargin" >
+      <number>11</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>11</number>
      </property>
      <item>
       <spacer>
@@ -134,11 +155,11 @@
    </item>
    <item row="3" column="1" colspan="2" >
     <widget class="QSpinBox" name="sizeSpin" >
-     <property name="maximum" >
-      <number>72</number>
-     </property>
      <property name="minimum" >
       <number>10</number>
+     </property>
+     <property name="maximum" >
+      <number>72</number>
      </property>
     </widget>
    </item>
@@ -181,11 +202,20 @@
    </item>
    <item row="4" column="0" colspan="8" >
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <spacer>
@@ -218,6 +248,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
+ <customwidgets>
+  <customwidget>
+   <class>FontListView</class>
+   <extends>QTableView</extends>
+   <header>fontlistview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 class PrefsContext;
 class SampleItem;
 class ScribusDoc;
-class QStandardItemModel;
+class FontListModel;
 class QSortFilterProxyModel;
 
 
@@ -55,7 +55,7 @@ protected:
 	SampleItem *sampleItem;
 
 	//! \brief Store fonts in the Qt4 MVC model part.
-	QStandardItemModel * fontModel;
+	FontListModel * fontModel;
 
 	/*! \brief A model for searching in the font set.
 	see searchButton_clicked() for more. */

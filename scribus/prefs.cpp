@@ -550,15 +550,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.specialWords = tabHyphenator->getExceptionList();
 	if (ScCore->haveCMS())
 		tabColorManagement->setValues();
+	// not required propably as it's done already in the dialog prefsManager->appPrefs.AvailFonts == get fonts from fontprefs
 	uint a = 0;
-	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-	for ( ; it.hasNext() ; it.next())
-	{
-		it.current().embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
-		it.current().usable(tabFonts->fontFlags[it.currentKey()].FlagUse);
-		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
-	}
-	a = 0;
 	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();
 	prefsManager->appPrefs.GFontSub.clear();
 	for (QMap<QString,QString>::Iterator itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)

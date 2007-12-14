@@ -18,8 +18,7 @@ class QListWidgetItem;
 class QTreeWidget;
 class QTreeWidgetItem;
 class QTableWidget;
-class QWidget;
-class QPixmap;
+class FontListView;
 
 #include "scribusapi.h"
 #include "prefsmanager.h"
@@ -37,15 +36,6 @@ public:
 	~FontPrefs() {};
 	void restoreDefaults();
 
-	struct fontSet
-	{
-		bool FlagPS;
-		bool FlagUse;
-		bool FlagSub;
-		bool FlagOTF;
-		bool FlagNames;
-	};
-	QMap<QString, fontSet> fontFlags;
 	QMap<QString,QString> RList;
 	QList<ScComboBox*> FlagsRepl;
 
@@ -54,27 +44,23 @@ private:
 	QWidget* tab;
 	QWidget* tab3;
 	QListWidget* PathList;
-	QTreeWidget* fontList;
+
+	//! All fonts view
+	FontListView * fontList;
 	QTableWidget* Table3;
 	QPushButton* DelB;
 	QPushButton* ChangeB;
 	QPushButton* AddB;
 	QPushButton* RemoveB;
 
+	//! List of font names of allowed fonts for substitutions
 	QStringList UsedFonts;
 	QString HomeP;
 	QString CurrentPath;
 	bool DocAvail;
 	ScribusDoc* docc;
-	QPixmap ttfFont;
-	QPixmap otfFont;
-	QPixmap psFont;
-	QPixmap substFont;
-	QPixmap checkOn;
-	QPixmap checkOff;
 
 public slots:
-	void slotClick(QTreeWidgetItem* ite, int col);
 	void ReplaceSel(int r, int c);
 	void UpdateFliste();
 	void DelEntry();

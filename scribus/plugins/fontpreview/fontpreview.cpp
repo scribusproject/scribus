@@ -5,9 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <QStandardItemModel>
 #include <QSortFilterProxyModel>
-#include <QHeaderView>
 
 #include "fontpreview.h"
 #include "scribus.h"
@@ -16,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "selection.h"
 #include "sampleitem.h"
+#include "fontlistmodel.h"
 #include "util_icon.h"
 
 
@@ -33,88 +32,23 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 
 	resetDisplayButton->setIcon(QIcon(loadIcon("u_undo16.png")));
 
-	ttfFont = loadIcon("font_truetype16.png");
-	otfFont = loadIcon("font_otf16.png");
-	psFont = loadIcon("font_type1_16.png");
-	okIcon = loadIcon("ok.png");
+	fontModel = new FontListModel(this);
+	fontList->setModel(fontModel);
 
-	fontModel = new QStandardItemModel(0, 5, this);
-	fontModel->setHeaderData(0, Qt::Horizontal, tr("Font Name"), Qt::DisplayRole);
-	fontModel->setHeaderData(1, Qt::Horizontal, tr("Doc"), Qt::DisplayRole);
-	fontModel->setHeaderData(2, Qt::Horizontal, tr("Type"), Qt::DisplayRole);
-	fontModel->setHeaderData(3, Qt::Horizontal, tr("Subset"), Qt::DisplayRole);
-	fontModel->setHeaderData(4, Qt::Horizontal, tr("Access"), Qt::DisplayRole);
-
-	QList<QStandardItem *> fontRow;
-	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts);
-			fontIter.hasNext(); fontIter.next())
-	{
-		if (!fontIter.current().usable())
-			continue;
-
-		fontRow.clear();
-		QStandardItem * col0 = new QStandardItem();
-		QStandardItem * col1 = new QStandardItem();
-		QStandardItem * col2 = new QStandardItem();
-		QStandardItem * col3 = new QStandardItem();
-		QStandardItem * col4 = new QStandardItem();
-
-		col0->setEditable(false);
-		col1->setEditable(false);
-		col2->setEditable(false);
-		col3->setEditable(false);
-		col4->setEditable(false);
-
-		col0->setText(fontIter.current().scName());
-
-		if (m_Doc->UsedFonts.contains(fontIter.current().scName()))
-			col1->setIcon(okIcon);
-
-		ScFace::FontType type = fontIter.current().type();
-		if (type == ScFace::OTF)
-		{
-			col2->setIcon(otfFont);
-			col2->setText("OpenType");
-		}
-		else
-			if (fontIter.current().subset())
-				col3->setIcon(okIcon);
-
-		if (type == ScFace::TYPE1) // type1
-		{
-			col2->setIcon(psFont);
-			col2->setText("Type1");
-		}
-
-		if (type == ScFace::TTF)
-		{
-			col2->setIcon(ttfFont);
-			col2->setText("TrueType");
-		}
-
-		QFileInfo fi(fontIter.current().fontFilePath());
-		fi.absoluteFilePath().contains(QDir::homePath()) ?
-				col4->setText(tr("User", "font preview")):
-				col4->setText(tr("System", "font preview"));
-
-		fontRow << col0 << col1 << col2 << col3 << col4;
-		fontModel->appendRow(fontRow);
-	}
-// 	fontList->setModel(fontModel); // displaying is handled by proxyModel
-
-	proxyModel = new QSortFilterProxyModel();
-	proxyModel->setDynamicSortFilter(true);
-	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-	proxyModel->setSourceModel(fontModel);
-	proxyModel->setFilterKeyColumn(0);
-	proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-	fontList->setModel(proxyModel);
+// TODO
+// 	proxyModel = new QSortFilterProxyModel();
+// 	proxyModel->setDynamicSortFilter(true);
+// 	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+// 	proxyModel->setSourceModel(fontModel);
+// 	proxyModel->setFilterKeyColumn(0);
+// 	proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+// 	fontList->setModel(proxyModel);
 
 	// scribus config
 	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
 
-	proxyModel->sort(prefs->getUInt("sortColumn", 0));
+// 	proxyModel->sort(prefs->getUInt("sortColumn", 0));
 
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);
@@ -133,29 +67,31 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	connect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
 			this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
 
-	QString searchName;
-	if (!fontName.isEmpty())
-		searchName = fontName;
-	else
-	{
-		Q_ASSERT(m_Doc!=0);
-		if (m_Doc->m_Selection->count() != 0)
-			searchName = m_Doc->currentStyle.charStyle().font().scName();
-		else
-			searchName = PrefsManager::instance()->appPrefs.toolSettings.defFont;
-	}
-	QList<QStandardItem *> found = fontModel->findItems(searchName);
-	if (found.size() > 0)
-	{
-		fontList->scrollTo(found.at(0)->index(), QAbstractItemView::PositionAtCenter);
-		fontList->selectRow(found.at(0)->index().row());
-	}
+// TODO QSortFilterProxyModel
+// 	QString searchName;
+// 	if (!fontName.isEmpty())
+// 		searchName = fontName;
+// 	else
+// 	{
+// 		Q_ASSERT(m_Doc!=0);
+// 		if (m_Doc->m_Selection->count() != 0)
+// 			searchName = m_Doc->currentStyle.charStyle().font().scName();
+// 		else
+// 			searchName = PrefsManager::instance()->appPrefs.toolSettings.defFont;
+// 	}
+// 	QList<QStandardItem *> found = fontModel->findItems(searchName);
+// 	if (found.size() > 0)
+// 	{
+// 		fontList->scrollTo(found.at(0)->index(), QAbstractItemView::PositionAtCenter);
+// 		fontList->selectRow(found.at(0)->index().row());
+// 	}
 	fontList->resizeColumnsToContents();
 }
 
 FontPreview::~FontPreview()
 {
-	prefs->set("sortColumn", fontList->horizontalHeader()->sortIndicatorSection());
+	// TODO
+// 	prefs->set("sortColumn", fontList->horizontalHeader()->sortIndicatorSection());
 	prefs->set("xsize", width());
 	prefs->set("ysize", height());
 	prefs->set("fontSize", sizeSpin->value());
@@ -204,20 +140,21 @@ void FontPreview::searchEdit_textChanged(const QString &/*s*/)
 
 void FontPreview::searchButton_clicked()
 {
-	disconnect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
-			   this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
-	QString s(searchEdit->text());
-	if (s.isEmpty())
-		fontList->setModel(fontModel);
-	else
-	{
-		QRegExp regExp(QString("*%1*").arg(s), Qt::CaseInsensitive, QRegExp::Wildcard);
-		proxyModel->setFilterRegExp(regExp);
-		fontList->setModel(proxyModel);
-	}
-	fontList->resizeColumnsToContents();
-	connect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
-			this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
+	// TODO
+// 	disconnect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
+// 			   this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
+// 	QString s(searchEdit->text());
+// 	if (s.isEmpty())
+// 		fontList->setModel(fontModel);
+// 	else
+// 	{
+// 		QRegExp regExp(QString("*%1*").arg(s), Qt::CaseInsensitive, QRegExp::Wildcard);
+// 		proxyModel->setFilterRegExp(regExp);
+// 		fontList->setModel(proxyModel);
+// 	}
+// 	fontList->resizeColumnsToContents();
+// 	connect(fontList->selectionModel(), SIGNAL(currentChanged(const QModelIndex&,const QModelIndex&)),
+// 			this, SLOT(fontList_currentChanged(const QModelIndex &, const QModelIndex &)));
 }
 
 QString FontPreview::getCurrentFont()
@@ -225,7 +162,8 @@ QString FontPreview::getCurrentFont()
 	QModelIndex ix(fontList->currentIndex());
 	if (!ix.isValid())
 		return QString();
-	return fontModel->item(ix.row(), 0)->text();
+// 	return fontModel->item(ix.row(), 0)->text();
+	return fontModel->nameForIndex(fontList->currentIndex());
 }
 
 void FontPreview::displayButton_clicked()

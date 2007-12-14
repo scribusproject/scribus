@@ -115,6 +115,8 @@ SET(SCRIBUS_MOC_CLASSES
   filesearch.h
   filewatcher.h
   fontcombo.h
+  fontlistmodel.h
+  fontlistview.h
   fontprefs.h
   fontreplacedialog.h
   gradienteditor.h
@@ -338,6 +340,8 @@ SET(SCRIBUS_SOURCES
   fileunzip.cpp
   filewatcher.cpp
   fontcombo.cpp
+  fontlistmodel.cpp
+  fontlistview.cpp
   fontprefs.cpp
   fontreplacedialog.cpp
   fparser.cpp
