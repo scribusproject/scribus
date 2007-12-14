@@ -5,26 +5,26 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include "charselect.h"
+#include "chartableview.h"
+#include "commonstrings.h"
+#include "fontcombo.h"
+#include "fonts/scfontmetrics.h"
+#include "pageitem_textframe.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "sccombobox.h"
+#include "scpaths.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "fontcombo.h"
-#include "sccombobox.h"
 #include "unicodesearch.h"
-#include "commonstrings.h"
-#include "fonts/scfontmetrics.h"
 #include "util.h"
 #include "util_icon.h"
-#include "scpaths.h"
-#include "chartableview.h"
-#include "pageitem_textframe.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
-
-#include "charselect.h"
 
 
 CharSelect::CharSelect(QWidget* parent)
@@ -648,12 +648,27 @@ void CharSelect::uniClearButton_clicked()
 {
 	if (m_userTableModel->characters().count() > 0
 		&&
-		!QMessageBox::question(this, tr("Clean the Palette?"),
-					 "<qt>" + tr("You will clean all characters from this palette. Are you sure?") + "</qt>",
+		!QMessageBox::question(this, tr("Empty the Palette?"),
+					 "<qt>" + tr("You will remove all characters from this palette. Are you sure?") + "</qt>",
 					 CommonStrings::trYesKey, CommonStrings::trNoKey,
 					 QString::null, 0, 1 )
 	   )
 	{
 		m_userTableModel->setCharacters(CharClassDef());
 	}
+}
+
+void CharSelect::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		Ui::CharSelect::retranslateUi(this);
+		int i=rangeSelector->currentIndex();
+		setupRangeCombo();
+		disconnect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
+		rangeSelector->setCurrentIndex(i);
+		connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
+	}
+	else
+		QWidget::changeEvent(e);
 }

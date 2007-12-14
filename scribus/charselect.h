@@ -42,6 +42,8 @@ class SCRIBUS_API CharSelect : public ScrPaletteBase, public Ui::CharSelect
 		void generatePreview(int charClass);
 	
 		CharTableModel * userTableModel() { return m_userTableModel; };
+		
+		virtual void changeEvent(QEvent *e);
 
 	private:
 		ScribusDoc* m_doc;
