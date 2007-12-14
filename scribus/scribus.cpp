@@ -7367,6 +7367,8 @@ void ScribusMainWindow::slotEditColors()
 			doc->recalculateColors();
 			doc->recalcPicturesRes();
 			propertiesPalette->updateColorList();
+			//3102: update the line styles in PP too
+			propertiesPalette->SetLineFormats(doc);
 			styleManager->updateColorList();
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
