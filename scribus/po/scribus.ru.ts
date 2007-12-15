@@ -9,7 +9,7 @@ If no document is open, returns a list of the default document colors.
 </source>
         <translation>getColorNames() -&gt; list
 
-Возвращает список имён цветов, определённых для этого документа.
+Возвращает список имен цветов, определенных для этого документа.
 Если ни один документ не открыт, возвращается список стандартных 
 цветов документа.
 </translation>
@@ -23,8 +23,8 @@ Returns true if a new document was created.
 </source>
         <translation>newDocDialog() -&gt; bool
 
-Показывает диалог «Новый документ». Создаёт новый документ, если пользователь
-принимает установки. Не создаёт документ, если пользователь нажимает «Отменить».
+Показывает диалог «Новый документ». Создает новый документ, если пользователь
+принимает установки. Не создает документ, если пользователь нажимает «Отменить».
 Возвращает значение true, если документ создан.
 </translation>
     </message>
@@ -84,7 +84,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 </source>
         <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
-Создаёт новый прямоугольник на текущей странице и возвращает его имя.
+Создает новый прямоугольник на текущей странице и возвращает его имя.
 Координаты задаются в текущей единице измерения документа 
 (см. константу UNIT). &quot;name&quot; должно быть уникальным идентификатором 
 для этого объекта, поскольку в дальнейшем оно будет использоваться для 
@@ -146,7 +146,7 @@ May raise IndexError if the page number is out of range
 </source>
         <translation>newPage(where [,&quot;masterpage&quot;])
 
-Создаёт новую страницу. Если &quot;where&quot; равно -1, то новая страница добавляется к 
+Создает новую страницу. Если &quot;where&quot; равно -1, то новая страница добавляется к 
 документу, иначе новая страница вставляется перед &quot;where&quot;. Номера страниц 
 отсчитываются от 1 и далее, какая страница показывается первой — неважно.
 Опциональный параметр &quot;masterpage&quot; указывает имя шаблона для новой страницы
@@ -209,11 +209,11 @@ May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
         <translation>newDocument(size, margins, orientation, firstPageNumber, unit, pagesType, firstPageOrder) -&gt; bool
 
-Создаёт новый документ. В случае успешного создания документа возвращает true.
-Значение параметров:
+Создает новый документ. В случае успешного создания документа возвращает true.
+Значения параметров:
 
 size = набор (width, height) описывает размер страницы документа. Можно
-использовать предопределённые константы PAPER_&lt;paper_type&gt; напр. PAPER_A4 и т.п.
+использовать предопределенные константы PAPER_&lt;paper_type&gt; напр. PAPER_A4 и т.п.
 
 margins = Набор (left, right, top, bottom) описывающий поля документа.
 
@@ -276,7 +276,7 @@ May raise ValueError if an invalid color name is specified.
         <translation>changeColor(&quot;name&quot;, c, m, y, k)
 
 Изменяет значение цвета &quot;name&quot; на указанное значение CMYK. 
-Цвет задаётся через 4 компонента: c = Cyan, m = Magenta, y = Yellow 
+Цвет задается через 4 компонента: c = Cyan, m = Magenta, y = Yellow 
 и k = Black. Значение цветового компонента должно быть в пределах 0-255.
 
 Может вызвать ошибку NotFoundError, если именованный цвет не найден.
@@ -319,7 +319,7 @@ May raise ValueError if an invalid color name is specified.
 </source>
         <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
 
-Каждый случай использования цвета &quot;name&quot; будет заменён на цвет &quot;replace&quot;.
+Каждый случай использования цвета &quot;name&quot; будет заменен на цвет &quot;replace&quot;.
 
 Может вызвать ошибку NotFoundError, если именованный цвет не найден.
 Может вызвать ошибку ValueError, если задан некорректный цвет.</translation>
@@ -374,7 +374,7 @@ ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 
 Для значков и кнопок есть константы, имена которых совпадают с именами
 в документации по Qt. В модуле заданы константы BUTTON_* и ICON_*. 
-Также есть еёе две дополнительные константы, которые могут использоваться
+Также есть еее две дополнительные константы, которые могут использоваться
 в виде суммы со значениями констант кнопок:
     BUTTONOPT_DEFAULT   Enter нажимает эту кнопку.
     BUTTONOPT_ESCAPE    Escape нажимает эту кнопку.
@@ -403,7 +403,7 @@ Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;op
 </source>
         <translation>valueDialog(caption, message [,defaultvalue]) -&gt; string
 
-Вызывает диалог для ввода строки и возвращает введённую строку как результат.
+Вызывает диалог для ввода строки и возвращает введенную строку как результат.
 Параметры: заголовок окна, текст в окне и опционально значение по умолчанию.
 
 Пример: valueDialog(&apos;Проба&apos;, &apos;Введите строку:&apos;, &apos;Результат&apos;)
@@ -2083,7 +2083,7 @@ strings.
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation>&amp;Вернутьcя к сохранённому</translation>
+        <translation>&amp;Вернутьcя к сохраненному</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
@@ -2151,7 +2151,7 @@ strings.
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation>Выделить в&amp;сё</translation>
+        <translation>Выделить в&amp;се</translation>
     </message>
     <message>
         <source>&amp;Deselect All</source>
@@ -2223,7 +2223,7 @@ strings.
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation>&amp;Подчёркнутый</translation>
+        <translation>&amp;Подчеркнутый</translation>
     </message>
     <message>
         <source>Underline &amp;Words</source>
@@ -2743,11 +2743,11 @@ strings.
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation>Перевёрнутая одиночная</translation>
+        <translation>Перевернутая одиночная</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation>Перевёрнутая двойная</translation>
+        <translation>Перевернутая двойная</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
@@ -3057,15 +3057,15 @@ strings.
     </message>
     <message>
         <source>Distribute right sides equidistantly</source>
-        <translation>Равноудалённо расставить правые края объектов</translation>
+        <translation>Равноудаленно расставить правые края объектов</translation>
     </message>
     <message>
         <source>Distribute bottoms equidistantly</source>
-        <translation>Равноудалённо расставить нижние края объектов</translation>
+        <translation>Равноудаленно расставить нижние края объектов</translation>
     </message>
     <message>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation>Равноудалённо расставить центры объектов по горизонтали</translation>
+        <translation>Равноудаленно расставить центры объектов по горизонтали</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects equal</source>
@@ -3077,15 +3077,15 @@ strings.
     </message>
     <message>
         <source>Distribute left sides equidistantly</source>
-        <translation>Равноудалённо расставить левые края объектов</translation>
+        <translation>Равноудаленно расставить левые края объектов</translation>
     </message>
     <message>
         <source>Distribute centers equidistantly vertically</source>
-        <translation>Равноудалённо расставить центры объектов по вертикали</translation>
+        <translation>Равноудаленно расставить центры объектов по вертикали</translation>
     </message>
     <message>
         <source>Distribute tops equidistantly</source>
-        <translation>Равноудалённо расставить верхние края объектов</translation>
+        <translation>Равноудаленно расставить верхние края объектов</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
@@ -3235,7 +3235,7 @@ strings.
     </message>
     <message>
         <source>Underline</source>
-        <translation>Подчёркнутая</translation>
+        <translation>Подчеркнутая</translation>
     </message>
     <message>
         <source>Beveled</source>
@@ -3387,7 +3387,7 @@ strings.
     </message>
     <message>
         <source>Default is Checked</source>
-        <translation>По умолчанию включён</translation>
+        <translation>По умолчанию включен</translation>
     </message>
     <message>
         <source>Editable</source>
@@ -3407,7 +3407,7 @@ strings.
     </message>
     <message>
         <source>Reset Form</source>
-        <translation>Сбросить введённые данные</translation>
+        <translation>Сбросить введенные данные</translation>
     </message>
     <message>
         <source>Import Data</source>
@@ -3643,12 +3643,12 @@ strings.
     </message>
     <message>
         <source>Enter a comma separated list of fields here</source>
-        <translation>Введите разделённый запятыми список полей</translation>
+        <translation>Введите разделенный запятыми список полей</translation>
     </message>
     <message>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation>Для использования пиктограмм в кнопках необходима, 
-как минимум, пиктограмма для Normal</translation>
+        <translation>Для использования значков в кнопках необходим, 
+как минимум, значок для Normal</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3781,7 +3781,7 @@ strings.
     </message>
     <message>
         <source>&amp;Even pages</source>
-        <translation>&amp;Чётные страницы</translation>
+        <translation>&amp;Четные страницы</translation>
     </message>
     <message>
         <source>Alt+E</source>
@@ -3789,7 +3789,7 @@ strings.
     </message>
     <message>
         <source>O&amp;dd pages</source>
-        <translation>&amp;Нечётные страницы</translation>
+        <translation>&amp;Нечетные страницы</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -3825,7 +3825,7 @@ strings.
     </message>
     <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation>Применить выбранную мастер-страницу к чётным, нечётным или всем страницам следующего диапазона</translation>
+        <translation>Применить выбранную мастер-страницу к четным, нечетным или всем страницам следующего диапазона</translation>
     </message>
 </context>
 <context>
@@ -3878,7 +3878,7 @@ strings.
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="obsolete">9 или 10 цифр, разделённых тире</translation>
+        <translation type="obsolete">9 или 10 цифр, разделенных тире</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
@@ -3910,11 +3910,11 @@ strings.
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation>Штрих-код не завершён</translation>
+        <translation>Штрих-код не завершен</translation>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation>12 или 13 цифр, разделённых тире. Устаревший формат ISBN-10 означает 9 или 10 цифр, разделённых тире, но с 1 января 2007 года этот стандарт является устаревшим. (Примечание: для преобразования старого ISBN-10 в новый ISBN-13 введите префикс 978- к первым 9 цифрам, например, 1-56592-479-7 -&gt; 978-1-56592-479. Контрольная цифра будет рассчитана автоматически.)</translation>
+        <translation>12 или 13 цифр, разделенных тире. Устаревший формат ISBN-10 означает 9 или 10 цифр, разделенных тире, но с 1 января 2007 года этот стандарт является устаревшим. (Примечание: для преобразования старого ISBN-10 в новый ISBN-13 введите префикс 978- к первым 9 цифрам, например, 1-56592-479-7 -&gt; 978-1-56592-479. Контрольная цифра будет рассчитана автоматически.)</translation>
     </message>
 </context>
 <context>
@@ -4013,7 +4013,7 @@ strings.
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation>Предпросмотр результата с расчётом 72dpi.</translation>
+        <translation>Предпросмотр результата с расчетом из 72dpi.</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
@@ -4288,7 +4288,7 @@ This profile should be specific to your printer and not a generic profile (i.e. 
     <message>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation>Компенсация чёрной точки — это метод улучшения 
+        <translation>Компенсация черной точки — это метод улучшения 
 контрастности фотографий. Его рекомендуется 
 использовать при наличии фотографий в документе.</translation>
     </message>
@@ -4349,11 +4349,11 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
-        <translation>Пометить цвета вне &amp;гаммы</translation>
+        <translation>Помечать цвета вне &amp;цветового охвата</translation>
     </message>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
-        <translation>Использовать компенсацию &amp;чёрной точки</translation>
+        <translation>Использовать компенсацию &amp;черной точки</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
@@ -4470,11 +4470,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation>Если выбрать, то будет возможно использовать во всём макете. Цвета для приводки используются для печатных пометок, таких как метки для порезки. Их использование в общих случаях при создании макетов нетипично.</translation>
+        <translation>Если выбрать, то будет возможно использовать во всем макете. Цвета для приводки используются для печатных пометок, таких как метки для порезки. Их использование в общих случаях при создании макетов нетипично.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation>Если выбрать, цвет станет плашечным, то есть для него будет выводиться отдельная плёнка. Обычно используется при печати отдельной, спецально намешанной краской для точного воспроизведения цвета (например на логотипах), либо когда невозможно использовать четырёхкрасочную печать (в случае с металликами, флюоресцентами и т.п.).</translation>
+        <translation>Если выбрать, цвет станет плашечным, то есть для него будет выводиться отдельная пленка. Обычно используется при печати отдельной, спецально намешанной краской для точного воспроизведения цвета (например на логотипах), либо когда невозможно использовать четырехкрасочную печать (в случае с металликами, флюоресцентами и т.п.).</translation>
     </message>
 </context>
 <context>
@@ -4640,7 +4640,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Type in a four digit unicode value directly here</source>
-        <translation>Введите сюда четырёхзначный номер символа Unicode</translation>
+        <translation>Введите четырехзначный код Unicode прямо сюда</translation>
     </message>
 </context>
 <context>
@@ -4741,7 +4741,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Collecting...</source>
-        <translation>Идёт сборка...</translation>
+        <translation>Идет сборка...</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -4888,7 +4888,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation>Разделённые противоположные цвета</translation>
+        <translation>Разделенные противоположные цвета</translation>
     </message>
     <message>
         <source>Triadic</source>
@@ -4908,7 +4908,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Monochromatic Dark</source>
-        <translation>Монохромный тёмный</translation>
+        <translation>Монохромный темный</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
@@ -4932,7 +4932,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation>Четвёртое деление</translation>
+        <translation>Четвертое деление</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
@@ -5071,7 +5071,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation>Щёлкните по колесу для получения основного цвета, каковым будет тон в режиме HSV.</translation>
+        <translation>Щелкните колесо для получения основного цвета. Им будет тон в режиме HSV.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
@@ -5103,7 +5103,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Невозможно найти запрошенный цвет. Вероятно, был запрошен  чёрный, серый или белый цвет. Ни один из них невозможно обработать.</translation>
+        <translation>Невозможно найти запрошенный цвет. Вероятно, был запрошен черный, серый или белый цвет. Ни один из них невозможно обработать.</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
@@ -5115,7 +5115,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation>Дейтеронопия (зелёный)</translation>
+        <translation>Дейтеронопия (зеленый)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
@@ -5134,7 +5134,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Color selector with color theory included.</source>
-        <translation>Выбор цвета с учётом дефектов зрения</translation>
+        <translation>Выбор цвета с учетом дефектов зрения.</translation>
     </message>
 </context>
 <context>
@@ -5322,7 +5322,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Cross Diagonal Gradient</source>
-        <translation>Перекрёстно-диагональный градиент</translation>
+        <translation>Перекрестно-диагональный градиент</translation>
     </message>
     <message>
         <source>Radial Gradient</source>
@@ -5457,11 +5457,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Even Pages only</source>
-        <translation>Только чётные</translation>
+        <translation>Только четные</translation>
     </message>
     <message>
         <source>Odd Pages only</source>
-        <translation>Только нечётные</translation>
+        <translation>Только нечетные</translation>
     </message>
     <message>
         <source>Mirror</source>
@@ -5741,7 +5741,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Человек или организация, внёсшие вклад в содержимое этого документа</translation>
+        <translation>Человек или организация, внесшие вклад в содержимое этого документа</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
@@ -5836,11 +5836,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation>Введённое значение находится за допустимыми пределами для этого документа (%1-%2).</translation>
+        <translation>Введенное значение находится за допустимыми пределами для этого документа (%1-%2).</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation>&lt;b&gt;Имя:&lt;/b&gt; Необязательное имя для раздела, например, Индекс&lt;br/&gt;&lt;b&gt;Показано:&lt;/b&gt; Показывать ли номера страниц в этом разделе, если один или более текстовых блоков настроены для этого.&lt;br/&gt;&lt;b&gt;От:&lt;/b&gt; Индекс страницы, с которой начать.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; Индекс страницы, которой закончить.&lt;br/&gt;&lt;b&gt;Стиль:&lt;/b&gt; Используемый стиль нумерации.&lt;br/&gt;&lt;b&gt;Начало:&lt;/b&gt; С какого индекса в рамках стиля начать. Например, если Начало=2 и Стиль=a,b,c, ..., то нумерация начнётся с b. Для первого раздела в документе это заменит прежний номер первой страницы в новом окне файла.</translation>
+        <translation>&lt;b&gt;Имя:&lt;/b&gt; Необязательное имя для раздела, например, Индекс&lt;br/&gt;&lt;b&gt;Показано:&lt;/b&gt; Показывать ли номера страниц в этом разделе, если один или более текстовых блоков настроены для этого.&lt;br/&gt;&lt;b&gt;От:&lt;/b&gt; Индекс страницы, с которой начать.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; Индекс страницы, которой закончить.&lt;br/&gt;&lt;b&gt;Стиль:&lt;/b&gt; Используемый стиль нумерации.&lt;br/&gt;&lt;b&gt;Начало:&lt;/b&gt; С какого индекса в рамках стиля начать. Например, если Начало=2 и Стиль=a,b,c, ..., то нумерация начнется с b. Для первого раздела в документе это заменит прежний номер первой страницы в новом окне файла.</translation>
     </message>
 </context>
 <context>
@@ -6053,8 +6053,8 @@ This can be set in the Preferences.</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список 
-маркёров, где каждый маркёр может быть * для 
+        <translation>Вставить сюда разделенный запятыми список 
+маркеров, где каждый маркер может быть * для 
 всех страниц, 1-5 для диапазона страниц или 
 номером одиночной страницы.</translation>
     </message>
@@ -6156,7 +6156,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Apply Under Color Removal</source>
-        <translation>Применить вычитание из-под чёрного</translation>
+        <translation>Применить вычитание из-под черного</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
@@ -6191,15 +6191,15 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на чёрный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании этого способа также снижается вероятность избыточной яркости изображения.</translation>
+        <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на черный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании этого способа также снижается вероятность избыточной яркости изображения.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Разрешить преобразование плашечных цветов в композитные. Если вы не собираетесь печатать плашечные цвета в типографии, то лучше оставьте опцию включённой.</translation>
+        <translation>Разрешить преобразование плашечных цветов в композитные. Если вы не собираетесь печатать плашечные цвета в типографии, то лучше оставьте опцию включенной.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation>Встраивать ICC-профили в печатный поток при включённом управлении цветом</translation>
+        <translation>Встраивать ICC-профили в печатный поток при включенном управлении цветом</translation>
     </message>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
@@ -6242,7 +6242,7 @@ failed!</source>
     </message>
     <message>
         <source>Importing PostScript</source>
-        <translation>Идёт импорт PostScript</translation>
+        <translation>Идет импорт PostScript</translation>
     </message>
     <message>
         <source>Analyzing PostScript:</source>
@@ -6377,7 +6377,7 @@ failed!</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation>Щёлкните и держите нажатой для выбора межстрочного режима.</translation>
+        <translation>Щелкните и держите нажатой для выбора межстрочного режима.</translation>
     </message>
     <message>
         <source>Auto</source>
@@ -6634,8 +6634,8 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список 
-маркёров, где каждый маркёр может быть * для 
+        <translation>Вставить сюда разделенный запятыми список 
+маркеров, где каждый маркер может быть * для 
 всех страниц, 1-5 для диапазона страниц или 
 номером одиночной страницы.</translation>
     </message>
@@ -6834,7 +6834,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation> был заменён на: </translation>
+        <translation> был заменен на: </translation>
     </message>
 </context>
 <context>
@@ -6954,7 +6954,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
-        <translation>А ещё неплохо бы на зависть другим уметь красиво читать и писать</translation>
+        <translation>А еще неплохо бы на зависть другим уметь красиво читать и писать</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7053,7 +7053,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished">Просмотр шрифтов</translation>
+        <translation>Просмотр шрифтов</translation>
     </message>
 </context>
 <context>
@@ -7103,7 +7103,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Если нажать ОК, а затем сохранить, то эта замена станет постоянной для сохранённого документа.</translation>
+        <translation>Если нажать ОК, а затем сохранить, то эта замена станет постоянной для сохраненного документа.</translation>
     </message>
 </context>
 <context>
@@ -7899,7 +7899,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Скруглённое соединение</translation>
+        <translation>Скругленное соединение</translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -8291,7 +8291,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список шаблонов, где каждый шаблон может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
+        <translation>Вставить сюда разделенный запятыми список шаблонов, где каждый шаблон может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
     </message>
 </context>
 <context>
@@ -8436,7 +8436,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Скруглённое соединение</translation>
+        <translation>Скругленное соединение</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -8770,7 +8770,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation>За&amp;круглённые
+        <translation>За&amp;кругленные
 углы:</translation>
     </message>
     <message>
@@ -8936,7 +8936,7 @@ Corners:</source>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation>Чёт-нечет</translation>
+        <translation>Чет-нечет</translation>
     </message>
     <message>
         <source>Non Zero</source>
@@ -8948,7 +8948,7 @@ Corners:</source>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Цвет текста. Если включённ эффект «Контур», то это будет цвет заливки. Если включён эффект отбрасываемой тени, то это будет цвет текста.</translation>
+        <translation>Цвет текста. Если включенн эффект «Контур», то это будет цвет заливки. Если включен эффект отбрасываемой тени, то это будет цвет текста.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
@@ -8968,11 +8968,11 @@ Corners:</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation>Щёлкните и держите нажатой для выбора межстрочного режима.</translation>
+        <translation>Щелкните и держите нажатой для выбора межстрочного режима.</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить или отключить экспорт объекта</translation>
     </message>
 </context>
 <context>
@@ -9003,7 +9003,7 @@ Corners:</source>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Скруглённое соединение</translation>
+        <translation>Скругленное соединение</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -9073,14 +9073,14 @@ Corners:</source>
     <name>MyPlugin</name>
     <message>
         <source>My &amp;Plugin</source>
-        <translation>&amp;Моё расширение</translation>
+        <translation>&amp;Мое расширение</translation>
     </message>
 </context>
 <context>
     <name>MyPluginImpl</name>
     <message>
         <source>Scribus - My Plugin</source>
-        <translation>Scribus - Моё расширение</translation>
+        <translation>Scribus - Мое расширение</translation>
     </message>
     <message>
         <source>The plugin worked!</source>
@@ -9387,11 +9387,11 @@ Corners:</source>
     </message>
     <message>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>по холсту</translation>
     </message>
     <message>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>по странице</translation>
     </message>
 </context>
 <context>
@@ -9438,7 +9438,7 @@ Corners:</source>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation>Во включённом состоянии перезаписывает существующие стили текущего документа Scribus</translation>
+        <translation>Во включенном состоянии перезаписывает существующие стили текущего документа Scribus</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
@@ -9598,7 +9598,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Under Color Removal</source>
-        <translation>Вычитание из-под &amp;чёрного</translation>
+        <translation>Вычитание из-под &amp;черного</translation>
     </message>
     <message>
         <source>&amp;Display CMYK</source>
@@ -10146,7 +10146,7 @@ Corners:</source>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
-        <translation>Для учёта этих изменений программу необходимо перезапустить.</translation>
+        <translation>Для учета этих изменений программу необходимо перезапустить.</translation>
     </message>
 </context>
 <context>
@@ -10901,7 +10901,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&amp;Green:</source>
-        <translation>&amp;Зелёный:</translation>
+        <translation>&amp;Зеленый:</translation>
     </message>
     <message>
         <source>Bl&amp;ue:</source>
@@ -11219,7 +11219,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation>&amp;Подчёркнутый</translation>
+        <translation>&amp;Подчеркнутый</translation>
     </message>
     <message>
         <source>&amp;Color</source>
@@ -11262,7 +11262,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Select All</source>
-        <translation>Выделить всё</translation>
+        <translation>Выделить все</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -11369,7 +11369,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Export successful.</source>
-        <translation>Экспорт прошёл успешно</translation>
+        <translation>Экспорт прошел успешно</translation>
     </message>
     <message>
         <source>All Files (*)</source>
@@ -11505,7 +11505,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
-        <translation>Файлы со значениями, разделёнными запятой</translation>
+        <translation>Файлы со значениями, разделенными запятой</translation>
     </message>
     <message>
         <source>CSV_data</source>
@@ -11517,7 +11517,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Шрифт %1 повреждён и не будет использован</translation>
+        <translation>Шрифт %1 поврежден и не будет использован</translation>
     </message>
     <message>
         <source>
@@ -11709,7 +11709,7 @@ External Links
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Радиус угла должен быть положительным числом.</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -11729,7 +11729,7 @@ External Links
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить число столбцов от нетекстового объекта.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
@@ -11788,7 +11788,7 @@ External Links
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation>Идёт обработка типографики для коротких слов.
+        <translation>Идет обработка типографики для коротких слов.
 Подождите, пожалуйста...</translation>
     </message>
     <message>
@@ -12513,7 +12513,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно сгруппировать меньше двух объектов</translation>
     </message>
     <message>
         <source>The filename should not be empty string.</source>
@@ -12599,15 +12599,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Creating Font Cache</source>
-        <translation>Создаётся шрифтовый кэш</translation>
+        <translation>Создается шрифтовый кэш</translation>
     </message>
     <message>
         <source>New Font found, checking...</source>
-        <translation>Найден новый шрифт, идёт проверка...</translation>
+        <translation>Найден новый шрифт, идет проверка...</translation>
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation>Найден изменённый шрифт, идёт проверка...</translation>
+        <translation>Найден измененный шрифт, идет проверка...</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
@@ -12615,11 +12615,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Writing updated Font Cache</source>
-        <translation>Пишется обновлённый шрифтовый кэш</translation>
+        <translation>Пишется обновленный шрифтовый кэш</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Идёт поиск шрифтов</translation>
+        <translation>Идет поиск шрифтов</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
@@ -12627,7 +12627,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation>Вы не сохранили внесённые изменения и хотите отменить их все. Продолжить?</translation>
+        <translation>Вы не сохранили внесенные изменения и хотите отменить их все. Продолжить?</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
@@ -12648,11 +12648,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Exporting PostScript File</source>
-        <translation>Идёт экспорт в файл PostScript</translation>
+        <translation>Идет экспорт в файл PostScript</translation>
     </message>
     <message>
         <source>Printing File</source>
-        <translation>Идёт печать в файл</translation>
+        <translation>Идет печать в файл</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
@@ -12762,15 +12762,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
+        <translation>У шрифта %1 испорченные метрики в файле %2, метрики игнорируются</translation>
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Найдены корректные метрики для шрифта %1, используются метрики из файла %2</translation>
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Недостаточно памяти для изображения такого размера.</translation>
     </message>
 </context>
 <context>
@@ -12781,7 +12781,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Select All</source>
-        <translation>Выделить всё</translation>
+        <translation>Выделить все</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -13090,7 +13090,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation>Идёт подстройка цветов</translation>
+        <translation>Идет подстройка цветов</translation>
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
@@ -13495,7 +13495,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScWinPrint</name>
     <message>
         <source>Printing...</source>
-        <translation>Идёт вывод на печать...</translation>
+        <translation>Идет вывод на печать...</translation>
     </message>
 </context>
 <context>
@@ -13595,7 +13595,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Идёт поиск шрифтов</translation>
+        <translation>Идет поиск шрифтов</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
@@ -13711,7 +13711,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>&amp;Расш.</translation>
+        <translation>&amp;Расширения</translation>
     </message>
     <message>
         <source>&amp;Windows</source>
@@ -13735,7 +13735,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Importing Pages...</source>
-        <translation>Идёт импорт страниц...</translation>
+        <translation>Идет импорт страниц...</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
@@ -13743,7 +13743,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import done</source>
-        <translation>Импорт завершён</translation>
+        <translation>Импорт завершен</translation>
     </message>
     <message>
         <source>Found nothing to import</source>
@@ -13767,7 +13767,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation> был заменён на: </translation>
+        <translation> был заменен на: </translation>
     </message>
     <message>
         <source>(converted)</source>
@@ -13817,7 +13817,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Printing...</source>
-        <translation>Идёт вывод на печать...</translation>
+        <translation>Идет вывод на печать...</translation>
     </message>
     <message>
         <source>Document</source>
@@ -14018,7 +14018,8 @@ Vertical shift: %3</source>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш документ был сохранен во временный файл и не мог быть перемещен:
+%1</translation>
     </message>
 </context>
 <context>
@@ -14117,7 +14118,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать при старте расположение ICC-профилей</translation>
     </message>
 </context>
 <context>
@@ -14272,7 +14273,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт: </translation>
     </message>
 </context>
 <context>
@@ -14531,7 +14532,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
-        <translation>Поиск завершён, найденных совпадений: %1</translation>
+        <translation>Поиск завершен, найденных совпадений: %1</translation>
     </message>
 </context>
 <context>
@@ -14744,7 +14745,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation>Выделить в&amp;сё</translation>
+        <translation>Выделить в&amp;се</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -14893,11 +14894,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Подчёркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
+        <translation>Подчеркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Подчёркнуты только слова. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
+        <translation>Подчеркнуты только слова. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
@@ -14909,7 +14910,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation>Оттенённый текст. Подержите кнопку нажатой для указания смещения.</translation>
+        <translation>Оттененный текст. Подержите кнопку нажатой для указания смещения.</translation>
     </message>
 </context>
 <context>
@@ -15256,7 +15257,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Расстояние, начиная с которого объект начнёт «прилипать» к направляющим линиям</translation>
+        <translation>Расстояние, начиная с которого объект начнет «прилипать» к направляющим линиям</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
@@ -15354,7 +15355,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Binding:</source>
-        <translation>П&amp;ереплёт:</translation>
+        <translation>П&amp;ереплет:</translation>
     </message>
     <message>
         <source>Left Margin</source>
@@ -15765,7 +15766,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Если параметр включён, Scribus создаст PDF-Articles, 
+        <translation>Если параметр включен, Scribus создаст PDF-Articles, 
 что полезно для навигации по связанным статьям в PDF.</translation>
     </message>
     <message>
@@ -15869,7 +15870,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Разрешить преобразование плашечных цветов в композитные. Если вы не собираетесь печатать плашечные цвета в типографии, то лучше оставьте опцию включённой.</translation>
+        <translation>Разрешить преобразование плашечных цветов в композитные. Если вы не собираетесь печатать плашечные цвета в типографии, то лучше оставьте опцию включенной.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
@@ -15893,11 +15894,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список маркёров, где каждый маркёр может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
+        <translation>Вставить сюда разделенный запятыми список маркеров, где каждый маркер может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation>Определяет переплёт страниц документа в PDF. Если точно не знаете, что нужно изменить, оставьте значение по умолчанию - по левому полю.</translation>
+        <translation>Определяет переплет страниц документа в PDF. Если точно не знаете, что нужно изменить, оставьте значение по умолчанию - по левому полю.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
@@ -15913,7 +15914,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation>Включить сжатие текста и графики без потерь в качестве, чтобы снизить размер файла PDF. Оставьте включённым, если нет особых причин отключить.</translation>
+        <translation>Включить сжатие текста и графики без потерь в качестве, чтобы снизить размер файла PDF. Оставьте включенным, если нет особых причин отключить.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -16058,11 +16059,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
-        <translation type="obsolete">Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
+        <translation type="obsolete">Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери все равно будут.</translation>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation>Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
+        <translation>Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери все равно будут.</translation>
     </message>
     <message>
         <source>&amp;Embed All</source>
@@ -16125,7 +16126,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>А ещё неплохо бы на зависть другим уметь красиво читать и писать</translation>
+        <translation>А еще неплохо бы на зависть другим уметь красиво читать и писать</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
@@ -16396,7 +16397,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Underscore</source>
-        <translation>Подчёркивание</translation>
+        <translation>Подчеркивание</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -16405,7 +16406,7 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
 </context>
 <context>
@@ -16468,7 +16469,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Underline</source>
-        <translation>Подчёркивание</translation>
+        <translation>Подчеркивание</translation>
     </message>
     <message>
         <source>Displacement:</source>
@@ -16484,7 +16485,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Strikethru</source>
-        <translation>Зачёркнутый</translation>
+        <translation>Зачеркнутый</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
@@ -16535,7 +16536,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Delete All</source>
-        <translation>Удалить всё</translation>
+        <translation>Удалить все</translation>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
@@ -16579,7 +16580,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Underscore</source>
-        <translation>Подчёркивание</translation>
+        <translation>Подчеркивание</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -16588,11 +16589,11 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Точка</translation>
     </message>
 </context>
 <context>
@@ -16723,7 +16724,7 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation>Вовлечённые объекты</translation>
+        <translation>Вовлеченные объекты</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -16739,15 +16740,15 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Set fill color shade</source>
-        <translation>Изменён цвет заполнения тени</translation>
+        <translation>Изменен цвет заполнения тени</translation>
     </message>
     <message>
         <source>Set line color</source>
-        <translation>Изменён цвет линии</translation>
+        <translation>Изменен цвет линии</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation>Изменён цвет тени линии</translation>
+        <translation>Изменен цвет тени линии</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
@@ -16809,15 +16810,15 @@ to %2</source>
     </message>
     <message>
         <source>Set line style</source>
-        <translation>Изменён стиль линии</translation>
+        <translation>Изменен стиль линии</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
-        <translation>Изменён стиль начала линии</translation>
+        <translation>Изменен стиль начала линии</translation>
     </message>
     <message>
         <source>Set the style of line join</source>
-        <translation>Изменён стиль стыковки линий</translation>
+        <translation>Изменен стиль стыковки линий</translation>
     </message>
     <message>
         <source>Set line width</source>
@@ -16829,7 +16830,7 @@ to %2</source>
     </message>
     <message>
         <source>Set custom line style</source>
-        <translation>Применён другой стиль линии</translation>
+        <translation>Применен другой стиль линии</translation>
     </message>
     <message>
         <source>Do not use custom line style</source>
@@ -16853,11 +16854,11 @@ to %2</source>
     </message>
     <message>
         <source>Set font</source>
-        <translation>Изменён шрифт</translation>
+        <translation>Изменен шрифт</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation>Изменён кегль шрифта</translation>
+        <translation>Изменен кегль шрифта</translation>
     </message>
     <message>
         <source>Set font width</source>
@@ -16865,11 +16866,11 @@ to %2</source>
     </message>
     <message>
         <source>Set font fill color</source>
-        <translation>Изменён цвет заполнения шрифта</translation>
+        <translation>Изменен цвет заполнения шрифта</translation>
     </message>
     <message>
         <source>Set font stroke color</source>
-        <translation>Изменён цвет обводки текста</translation>
+        <translation>Изменен цвет обводки текста</translation>
     </message>
     <message>
         <source>Set font fill color shade</source>
@@ -16881,19 +16882,19 @@ to %2</source>
     </message>
     <message>
         <source>Set kerning</source>
-        <translation>Изменён кернинг</translation>
+        <translation>Изменен кернинг</translation>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation>Изменён интерлиньяж</translation>
+        <translation>Изменен интерлиньяж</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
-        <translation>Изменён стиль абзаца</translation>
+        <translation>Изменен стиль абзаца</translation>
     </message>
     <message>
         <source>Set language</source>
-        <translation>Изменён язык</translation>
+        <translation>Изменен язык</translation>
     </message>
     <message>
         <source>Align text</source>
@@ -16901,7 +16902,7 @@ to %2</source>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation>Применён эффект текста</translation>
+        <translation>Применен эффект текста</translation>
     </message>
     <message>
         <source>Image frame</source>
@@ -17033,7 +17034,7 @@ to %2</source>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation>Удалён слой</translation>
+        <translation>Удален слой</translation>
     </message>
     <message>
         <source>Rename layer</source>
@@ -17077,7 +17078,7 @@ to %2</source>
     </message>
     <message>
         <source>Change Image Scale</source>
-        <translation>Изменён масштаб изображения</translation>
+        <translation>Изменен масштаб изображения</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2
@@ -17159,7 +17160,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation>Кончилось время, отведённое на попытку получить файл обновления.</translation>
+        <translation>Кончилось время, отведенное на попытку получить файл обновления.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
@@ -17561,7 +17562,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Choose a previously saved filter</source>
-        <translation>Выбрать предыдущий сохранённый фильтр</translation>
+        <translation>Выбрать предыдущий сохраненный фильтр</translation>
     </message>
     <message>
         <source>Give a name to this filter for saving</source>

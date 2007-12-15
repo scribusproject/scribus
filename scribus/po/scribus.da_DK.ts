@@ -535,7 +535,7 @@ current document.
 </source>
         <translation>loadStylesFromFile(&quot;filnavn&quot;)
 
-Læser afsnits-typografierne fra Scribus dokumentet &quot;filnavn&quot; 
+Indlæser afsnits-typografierne fra Scribus dokumentet &quot;filnavn&quot; 
 ind i det aktive dokument.
 </translation>
     </message>
@@ -855,7 +855,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
         <translation>loadImage(&quot;filnavn&quot;, &quot;navn&quot;)
 
-Læser billedet &quot;filnavn&quot; ind i billed-rammen &quot;navn&quot;.  Hvis &quot;navn&quot; 
+Indlæser billedet &quot;filnavn&quot; ind i billed-rammen &quot;navn&quot;.  Hvis &quot;navn&quot; 
 ikke angives, så bruges det markerede element.
 
 Kan rejse WrongFrameTypeError, hvis målrammen ikke er en billed-ramme
@@ -3691,7 +3691,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
+        <translation>&amp;400%</translation>
     </message>
 </context>
 <context>
@@ -5442,7 +5442,7 @@ Navnet er reserveret for gennemsigtig farve</translation>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar bruger andet end TrueType font</translation>
     </message>
 </context>
 <context>
@@ -6021,7 +6021,7 @@ Navnet er reserveret for gennemsigtig farve</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -7683,7 +7683,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation>Indtastning af tekst her giver en hurtig søgning i fontnavne. Søgning er ufølsom for brug af Store/små bogstaver. Du kan angive almindelige erstatningstegn (*,?,[...]) i dit søgeord. Eksempler: t* viser alle fonte, der starter med t eller T.  *bold* viser alle fonte med ordet bold, bolder etc. i navnet.  </translation>
+        <translation>Indtastning af tekst her giver en hurtig søgning i fontnavne. Søgningen skelner ikke mellem store/små bogstaver. Du kan angive almindelige erstatningstegn (*,?,[...]) i dit søgeord. Eksempler: t* viser alle fonte, der starter med t eller T.  *bold* viser alle fonte med ordet bold, bolder etc. i navnet.  </translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
@@ -7770,7 +7770,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished">Font forhåndsvisning</translation>
+        <translation>Font forhåndsvisning</translation>
     </message>
 </context>
 <context>
@@ -9695,7 +9695,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Muliggør eller forhindrer eksport af objektet</translation>
     </message>
 </context>
 <context>
@@ -10096,11 +10096,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>to Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>til Dokument-området</translation>
     </message>
     <message>
         <source>to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>til Side</translation>
     </message>
 </context>
 <context>
@@ -11463,7 +11463,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation>Fejlede at læse prefs XML fra &quot;%1&quot;: %2 linie %3, kol %4</translation>
+        <translation>Fejlede at indlæse prefs XML fra &quot;%1&quot;: %2 linie %3, kol %4</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -12895,7 +12895,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation>Læser fontnavn %1 fra font %2 (forskydning=%3, nTabeller=%4)</translation>
+        <translation>Udpakker fontnavn %1 fra font %2 (forskydning=%3, nTabeller=%4)</translation>
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
@@ -13502,19 +13502,19 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kinesisk (Trad.)</translation>
     </message>
     <message>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 indeholder fejl i målene i fil %2, ignorerer målene</translation>
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Gyldige mål blev fundet for font %1, bruger målene fra fil %2</translation>
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilstrækkelig hukommelse for denne billed-størrelse.</translation>
     </message>
 </context>
 <context>
@@ -14314,7 +14314,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Læse præferencer</translation>
+        <translation>Indlæser præferencer</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
@@ -14330,7 +14330,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation>Læser scrapbog</translation>
+        <translation>Indlæser scrapbog</translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
@@ -14769,7 +14769,8 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit dokument blev gemt i en midlertidig fil og kunne ikke flyttes:
+%1</translation>
     </message>
 </context>
 <context>
@@ -14800,7 +14801,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation>Lav en liste over de aktuelle installerede brugerflade sprog</translation>
+        <translation>Lav en liste over de installerede brugerflade sprog</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
@@ -14864,11 +14865,11 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation>Åbn et konsol windue</translation>
+        <translation>Vis et konsol windue</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis information om ICC profiler i konsolen under opstart</translation>
     </message>
 </context>
 <context>
@@ -15023,7 +15024,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport: </translation>
     </message>
 </context>
 <context>
@@ -15772,7 +15773,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation>List ikke-skrivbare indgange</translation>
+        <translation>Vis indgange som ikke udskrives</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
@@ -15843,7 +15844,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation>List ikke-skrivbare indgange</translation>
+        <translation>Vis indgange som ikke udskrives</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
@@ -17118,7 +17119,7 @@ når PDF dokument åbnes:</translation>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
 </context>
 <context>
@@ -17299,13 +17300,13 @@ når PDF dokument åbnes:</translation>
         <translation>Brugerdefineret</translation>
     </message>
     <message>
-        <source>None</source>
-        <comment>tab fill</comment>
-        <translation type="unfinished">Ingen</translation>
+        <source>Period</source>
+        <translation>Punktum</translation>
     </message>
     <message>
-        <source>Period</source>
-        <translation type="unfinished"></translation>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation>Ingen</translation>
     </message>
 </context>
 <context>

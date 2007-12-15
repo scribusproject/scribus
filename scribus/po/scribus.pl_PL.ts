@@ -1,4 +1,5 @@
 <!DOCTYPE TS><TS>
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -3528,7 +3529,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
+        <translation>&amp;400%</translation>
     </message>
 </context>
 <context>
@@ -5598,7 +5599,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>Adnotacja używa innego typu fontu niż True Type Font</translation>
     </message>
 </context>
 <context>
@@ -6262,7 +6263,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6899,7 +6900,7 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Nazwa:&lt;/b&gt; Opcjonalna nazwa rodziału, np. Indeks&lt;br/&gt;&lt;b&gt;Wyświetlaj:&lt;/b&gt; Zakreśl, jeśli numery stron mają się wyświetlać w tym rozdziale i jeśli utworzyłeś co najmniej jedną ramkę tekstową w tym celu.&lt;br/&gt;&lt;b&gt;Od:&lt;/b&gt; Początkowy numer strony w tym rozdziale.&lt;br/&gt;&lt;b&gt;Do:&lt;/b&gt; Końcowy numer strony w tym rozdziale.&lt;br/&gt;&lt;b&gt;Styl:&lt;/b&gt; Wybierz styl numerowania stron.&lt;br/&gt;&lt;b&gt;Początek:&lt;/b&gt; Numer wewnątrz podanego zakresu, od którego należy zacząć wyświetlanie. Np. jeśli Początek=2 i Styl=a,b,c, ..., numery stron zaczną się od b. Ustawienie to zastępuje &quot;Numer pierwszej strony&quot; podawany w okienku dialogowym nowego dokumentu w starszych wersjach Scribusa.</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
@@ -8343,7 +8344,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ścieżki zawierające fonty można dodawać w ustawieniach tylko wtedy, kiedy nie jest otwarty żaden dokument. Zamknij wszystkie dokumenty, następnie otwórz w menu Plik&gt;Konfiguracja&gt;Fonty, aby zmienić ścieżki przeszukiwania fontów.</translation>
     </message>
 </context>
 <context>
@@ -8464,7 +8465,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="obsolete">Podgląd fontów</translation>
+        <translation>Podgląd fontów</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -8537,10 +8538,6 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
-    </message>
-    <message>
-        <source>Font Preview</source>
-        <translation type="unfinished">Podgląd fontów</translation>
     </message>
 </context>
 <context>
@@ -10684,7 +10681,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza lub wyłącza eksportowanie obiektu</translation>
     </message>
 </context>
 <context>
@@ -11239,14 +11236,6 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Wartość, do której należy powiększyć lub pomniejszyć</translation>
-    </message>
-    <message>
-        <source>to Canvas</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>to Page</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15351,19 +15340,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiński (Trad.)</translation>
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pojemność pamięci roboczej jest niewystarczająca dla obrazka tej wielkości.</translation>
     </message>
 </context>
 <context>
@@ -17439,9 +17420,8 @@ Przesunięcie w pionie: %3</translation>
         <translation>L&amp;igatury</translation>
     </message>
     <message>
-        <source>Your document was saved to a temporary file and could not be moved: 
-%1</source>
-        <translation type="unfinished"></translation>
+        <source>Scribus </source>
+        <translation>Scribus </translation>
     </message>
 </context>
 <context>
@@ -17540,7 +17520,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl informację o profilach ICC na konsoli w trakcie startu programu</translation>
     </message>
 </context>
 <context>
@@ -17747,7 +17727,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Export: </source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport: </translation>
     </message>
 </context>
 <context>
@@ -20293,7 +20273,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Brak</translation>
+        <translation>Brak</translation>
     </message>
 </context>
 <context>
@@ -20411,7 +20391,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Full Stop</source>
-        <translation type="obsolete">Kropka</translation>
+        <translation>Kropka</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -20484,11 +20464,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Brak</translation>
-    </message>
-    <message>
-        <source>Period</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak</translation>
     </message>
 </context>
 <context>
@@ -21395,10 +21371,6 @@ czy też zastąpić domyślne ustawienia własnymi, zakreślając ją.</translat
     <message>
         <source>Choose the importer to use</source>
         <translation>Wybierz jakiego importera użyć</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Remember association</source>
