@@ -443,8 +443,10 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 
 void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group, QDomNode &DOC, int &groupElemCounter, double &minXCoor, double &minYCoor, double &maxXCoor, double &maxYCoor, bool &firstCheck)
 {
-	QColor fill, stroke;
-	QString FillCol, StrokeCol;
+	QString FillCol = "White";
+	QString StrokeCol = "Black";
+	QColor stroke = Qt::black;
+	QColor fill = Qt::white;
 	while(!DOC.isNull())
 	{
 		double x1, y1, x2, y2;
