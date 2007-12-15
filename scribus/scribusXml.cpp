@@ -60,7 +60,7 @@ bool ScriXmlDoc::IsScribus(QString fileName)
 	return true;
 }
 
-void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj)
+void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, bool fromFile, PageItem* obj)
 {
 	QString tmp2, tmf, tmpf, tmp3;
 	tmp2 = it->attribute("CH");
@@ -114,7 +114,10 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	else
 		extra = it->attribute("CKERN").toInt();
 	int shade = it->attribute("CSHADE").toInt();
-	int style = it->attribute("CSTYLE").toInt() & 2047;
+	// #5693 : when loading text from memory (copy/paste), keep shadow/underline attributes
+	// However when loading from old files (1.2.x), values > 256 must be discarded. 
+	// Otherwise hyphens may appear underscored amongst other things... 
+	int style = it->attribute("CSTYLE").toInt() & (fromFile ? 255 : 2047);
 	int ab = it->attribute("CAB", "0").toInt();
 	QString stroke = it->attribute("CSTROKE",CommonStrings::None);
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
@@ -1096,7 +1099,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, VorLFound, true, Neu);
+							GetItemText(&it, doc, VorLFound, true, true, Neu);
 						IT=IT.nextSibling();
 					}
 					if (obj.attribute("NEXTPAGE").toInt() == PageToLoad)
@@ -1631,7 +1634,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, false, false, Neu);
+							GetItemText(&it, doc, false, false, true, Neu);
 						IT=IT.nextSibling();
 					}
 					Neu->isAutoText=static_cast<bool>(obj.attribute("AUTOTEXT").toInt());
@@ -2108,7 +2111,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			{
 				QDomElement it=IT.toElement();
 				if (it.tagName()=="ITEXT")
-					GetItemText(&it, doc, VorLFound, true, Neu);
+					GetItemText(&it, doc, VorLFound, true, Fi, Neu);
 				if (it.tagName()=="ImageEffect")
 				{
 					struct ScImage::imageEffect ef;
