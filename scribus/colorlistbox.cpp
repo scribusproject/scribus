@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "colorlistbox.h"
-//#include "colorlistbox.moc"
 #include <QPainter>
 #include <QPixmap>
 #include <QBitmap>
@@ -13,8 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QEvent>
 #include <QHelpEvent>
-
-#include "qdebug.h"
 
 #include "commonstrings.h"
 #include "sccolorengine.h"
@@ -70,10 +67,10 @@ public:
 	virtual int rtti() const { return 654873548; };
 };
 
-class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<60,15>
+class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<45,15>
 {
 public:
-	ColorFancyItemDelegate(): ScListBoxPixmap<60,15>() {};
+	ColorFancyItemDelegate(): ScListBoxPixmap<45,15>() {};
 	~ColorFancyItemDelegate() {};
 	
 	virtual void redraw(const QVariant&) const;
@@ -132,7 +129,7 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 		iconsInitialized = true;
 	}
 
-	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.get();
+	QPixmap* pPixmap = ScListBoxPixmap<45,15>::pmap.get();
 	pPixmap->fill(Qt::transparent);
 
 	if (data.canConvert<ColorPixmapValue>())
@@ -140,8 +137,6 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 		ColorPixmapValue item(data.value<ColorPixmapValue>());
 		
 		QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
-		//  ScColor varcol = item.m_color;
-		//	qDebug() << "redraw:" << data.typeName() << varcol.name() << item.m_name << text(data) << rgb;
 		smallPix.fill(rgb);
 		QPainter painter(&smallPix);
 		painter.setBrush(Qt::NoBrush);
@@ -154,27 +149,14 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 		bool isOutOfGamut = ScColorEngine::isOutOfGamut(item.m_color, item.m_doc);
 		if (isOutOfGamut)
 			paintAlert(alertIcon, *pPixmap, 15, 0);
-		if ((item.m_color.getColorModel() == colorModelCMYK) || (item.m_color.isSpotColor()))
+		if (item.m_color.isSpotColor())
+			paintAlert(spotIcon, *pPixmap, 30, 0);
+		else if (item.m_color.isRegistrationColor())
+			paintAlert(regIcon, *pPixmap, 30, 0);
+		else if (item.m_color.getColorModel() == colorModelCMYK)
 			paintAlert(cmykIcon, *pPixmap, 30, 0);
 		else
 			paintAlert(rgbIcon, *pPixmap, 30, 0);
-		if (item.m_color.isSpotColor())
-			paintAlert(spotIcon, *pPixmap, 45, 0);
-		if (item.m_color.isRegistrationColor())
-			paintAlert(regIcon, *pPixmap, 46, 0);
-		if (!pPixmap->mask().isNull() && ((!item.m_color.isSpotColor() && !item.m_color.isRegistrationColor()) || !isOutOfGamut))
-		{
-// Qt4 FIXME: Qt4 can use better alpha setting. see colorutil.cpp
-// 		QPainter alpha; // transparency handling
-// 		alpha.begin(pPixmap->mask()));
-// 		alpha.setBrush(Qt::color0);
-// 		alpha.setPen(Qt::color0);
-// 		if (!m_color.isSpotColor() && !m_color.isRegistrationColor())
-// 			alpha.drawRect(45, 0, 15, 15);
-// 		if (!isOutOfGamut)
-// 			alpha.drawRect(15, 0, 15, 15);
-// 		alpha.end();
-		}
 	}
 }
 
@@ -197,7 +179,6 @@ QString ColorWideItemDelegate::text(const QVariant& data) const
 
 QString ColorFancyItemDelegate::text(const QVariant& data) const
 {
-//	qDebug() << "ColorFancyItemDelegate::text" << data.typeName() << data.canConvert<ColorPixmapValue>() << data.toString();
 	if (data.canConvert<ColorPixmapValue>())
 		return data.value<ColorPixmapValue>().m_name;
 	else
@@ -216,14 +197,9 @@ ColorListBox::ColorListBox(QWidget * parent)
 QString ColorListBox::currentColor() const
 {
 	if (currentRow() >= 0)
-	{
-		qDebug() << "ColorListBox::currentColor" <<  "row" << currentRow() << item(currentRow())->data(Qt::DisplayRole).toString();
 		return item(currentRow())->data(Qt::DisplayRole).toString();
-	}
-	else {		
-		qDebug() << "ColorListBox::currentColor row" << currentRow() << "-->" << CommonStrings::tr_NoneColor;
+	else
 		return CommonStrings::tr_NoneColor;
-	}
 }
 
 
