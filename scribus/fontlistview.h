@@ -17,7 +17,7 @@ Customized QTableView to handle FontListModel in the
 unified way (look and feel).
 \author Petr Vanek <petr@scribus.info>
  */
-class FontListView : public QTableView
+class SCRIBUS_API FontListView : public QTableView
 {
 	Q_OBJECT
 

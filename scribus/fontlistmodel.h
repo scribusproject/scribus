@@ -25,7 +25,7 @@ When user edits the allowed items (see flags()) it's promoted directly
 into the doc/prefs.
 \author Petr Vanek <petr@scribus.info>
 */
-class FontListModel : public QAbstractTableModel
+class SCRIBUS_API FontListModel : public QAbstractTableModel
 {
 	Q_OBJECT
 
