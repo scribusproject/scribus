@@ -1214,14 +1214,7 @@ void Biblio::ObjFromMenu(QString text)
 	}
 	delete dia;
 	QString ff = text;
-	QFile f(QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")));
-	if(!f.open(QIODevice::WriteOnly))
-		return ;
-	QDataStream s;
-	QByteArray cs = ff.toUtf8();
-	s.setDevice(&f);
-	s.writeRawData(cs.data(), cs.length());
-	f.close();
+	activeBView->checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);
 	activeBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
@@ -1286,14 +1279,7 @@ void Biblio::ObjFromCopyAction(QString text)
 	nam = tr("Object") + tmp.setNum(tempCount);
 	tempCount++;
 	QString ff = text;
-	QFile f(QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")));
-	if(!f.open(QIODevice::WriteOnly))
-		return ;
-	QDataStream s;
-	QByteArray cs = ff.toUtf8();
-	s.setDevice(&f);
-	s.writeRawData(cs.data(), cs.length());
-	f.close();
+	tempBView->checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);
 	tempBView->AddObj(nam, QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), pm);
@@ -1381,9 +1367,7 @@ void Biblio::CleanUpTemp()
 void Biblio::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }
