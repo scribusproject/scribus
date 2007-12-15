@@ -3463,19 +3463,16 @@ void ScribusMainWindow::pasteRecent(QString fn)
 		data = pre->createShape(f);
 		delete pre;
 	}
-	else if (fi.suffix().toLower() == "sce")
-	{
-		QString f = "";
-		loadText(data, &f);
-		data = f;
-	}
 	view->Deselect(true);
 	uint ac = doc->Items->count();
 	bool savedAlignGrid = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
 	doc->useRaster = false;
 	doc->SnapGuides = false;
-	slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+	if (fi.suffix().toLower() == "sce")
+		slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
+	else
+		slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	for (int as = ac; as < doc->Items->count(); ++as)
