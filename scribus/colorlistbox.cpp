@@ -67,10 +67,10 @@ public:
 	virtual int rtti() const { return 654873548; };
 };
 
-class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<45,15>
+class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<60,15>
 {
 public:
-	ColorFancyItemDelegate(): ScListBoxPixmap<45,15>() {};
+	ColorFancyItemDelegate(): ScListBoxPixmap<60,15>() {};
 	~ColorFancyItemDelegate() {};
 	
 	virtual void redraw(const QVariant&) const;
@@ -129,7 +129,7 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 		iconsInitialized = true;
 	}
 
-	QPixmap* pPixmap = ScListBoxPixmap<45,15>::pmap.get();
+	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.get();
 	pPixmap->fill(Qt::transparent);
 
 	if (data.canConvert<ColorPixmapValue>())
@@ -149,14 +149,14 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 		bool isOutOfGamut = ScColorEngine::isOutOfGamut(item.m_color, item.m_doc);
 		if (isOutOfGamut)
 			paintAlert(alertIcon, *pPixmap, 15, 0);
-		if (item.m_color.isSpotColor())
-			paintAlert(spotIcon, *pPixmap, 30, 0);
-		else if (item.m_color.isRegistrationColor())
-			paintAlert(regIcon, *pPixmap, 30, 0);
-		else if (item.m_color.getColorModel() == colorModelCMYK)
+		if (item.m_color.getColorModel() == colorModelCMYK)
 			paintAlert(cmykIcon, *pPixmap, 30, 0);
 		else
 			paintAlert(rgbIcon, *pPixmap, 30, 0);
+		if (item.m_color.isSpotColor())
+			paintAlert(spotIcon, *pPixmap, 45, 0);
+		if (item.m_color.isRegistrationColor())
+			paintAlert(regIcon, *pPixmap, 46, 0);
 	}
 }
 
