@@ -611,6 +611,7 @@ void ColorManager::newColor()
 	delete dia;
 	colorListBox->item(newItemIndex)->setSelected(true);
 	colorListBox->setCurrentRow(newItemIndex);
+	sColor = colorListBox->item(newItemIndex)->text();
 	updateButtons();
 }
 
@@ -634,6 +635,7 @@ void ColorManager::editColor()
 	delete dia;
 	colorListBox->item(selectedIndex)->setSelected(true);
 	colorListBox->setCurrentRow(selectedIndex);
+	sColor = colorListBox->item(selectedIndex)->text();
 	updateButtons();
 }
 
@@ -665,6 +667,7 @@ void ColorManager::deleteColor()
 	{
 		colorListBox->item(selectedIndex)->setSelected(true);
 		colorListBox->setCurrentRow(selectedIndex);
+		sColor = colorListBox->item(selectedIndex)->text();
 	}
 	updateButtons();
 }
