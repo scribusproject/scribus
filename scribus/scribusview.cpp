@@ -3236,26 +3236,28 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		double sc = Scale;
 		if (HaveSelRect)
 		{
-			if((Mxp*sc) > SeRx)
+			qDebug("before rect zoom: %d %d %d %d @ %f", Mxp, Myp, SeRx, SeRy, sc);
+			if(Mxp > SeRx)
 			{
 				double tmp=SeRx;
-				SeRx=static_cast<int>(Mxp*sc);
-				Mxp=static_cast<int>(tmp/sc);
+				SeRx=static_cast<int>(Mxp);
+				Mxp=static_cast<int>(tmp);
 			}
-			if((Myp*sc) > SeRy)
+			if(Myp > SeRy)
 			{
 				double tmp=SeRy;
-				SeRy=static_cast<int>(Myp*sc);
-				Myp=static_cast<int>(tmp/sc);
+				SeRy=static_cast<int>(Myp);
+				Myp=static_cast<int>(tmp);
 			}
-			double yf = height() / (SeRy/sc-Myp);
-			double xf = width() / (SeRx/sc-Mxp);
+			double yf = double(height()) / double(SeRy-Myp);
+			double xf = double(width()) / double(SeRx-Mxp);
 			setScale(QMIN(yf, xf));
 			slotDoZoom();
+//			qDebug("Rect zoom to %d %d %d %d @ %f -> %f %s",Mxp,Myp,SeRx,SeRy,sc,Scale,sc != Scale? "change":"same");
+			SetCPo(Mxp, Myp);
+			HaveSelRect = false;
 			if (sc == Scale)
 			{
-				SetCPo(Mxp, Myp);
-				HaveSelRect = false;
 				Doc->appMode = modeNormal;
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				emit PaintingDone();
