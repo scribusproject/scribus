@@ -827,6 +827,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodePageNumber"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSmartHyphen"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingHyphen"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["unicodeApostrophe"], "InsertChar");
+//	scrMenuMgr->addMenuItem(scrActions["unicodePrime"], "InsertChar");
+//	scrMenuMgr->addMenuItem(scrActions["unicodeDoublePrime"], "InsertChar");
 	scrMenuMgr->addMenuSeparator("InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeCopyRight"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeRegdTM"], "InsertChar");
@@ -842,9 +845,10 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("Quote"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
-	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteApostrophe"], "InsertQuote");
+//	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleStraight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteApostrophe"], "InsertQuote"); // deprecated
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteStraight"], "InsertQuote");
-	scrMenuMgr->addMenuSeparator("InsertQuote");
+//	scrMenuMgr->addMenuSeparator("InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteSingleRight"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteDoubleLeft"], "InsertQuote");

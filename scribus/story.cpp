@@ -2188,6 +2188,9 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodePageNumber"], "InsertChar");
 	//seMenuMgr->addMenuItem(seActions["unicodeSmartHyphen"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingHyphen"], "InsertChar");
+	seMenuMgr->addMenuItem(seActions["unicodeApostrophe"], "InsertChar");
+//	seMenuMgr->addMenuItem(seActions["unicodePrime"], "InsertChar");
+//	seMenuMgr->addMenuItem(seActions["unicodeDoublePrime"], "InsertChar");
 	seMenuMgr->addMenuSeparator("InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeCopyRight"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeRegdTM"], "InsertChar");
@@ -2201,7 +2204,8 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeDashFigure"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeDashQuotation"], "InsertChar");
 	seMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("Quote"), "Insert");
-	seMenuMgr->addMenuItem(seActions["unicodeQuoteApostrophe"], "InsertQuote");
+//	seMenuMgr->addMenuItem(seActions["unicodeQuoteSingleStraight"], "InsertQuote");
+	seMenuMgr->addMenuItem(seActions["unicodeQuoteApostrophe"], "InsertQuote"); // deprecated, s.a.
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteStraight"], "InsertQuote");
 	seMenuMgr->addMenuSeparator("InsertQuote");
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteSingleLeft"], "InsertQuote");

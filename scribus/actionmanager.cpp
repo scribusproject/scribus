@@ -566,6 +566,9 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert("unicodeNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+ALT+Key_Minus, actionParent, "unicodeNonBreakingHyphen",24));
 	actionMap->insert("unicodeNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Space, actionParent, "unicodeNonBreakingSpace",29));
 	actionMap->insert("unicodePageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+ALT+Key_P, actionParent, "unicodePageNumber",30));
+	actionMap->insert("unicodeApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeApostrophe",0x2019));
+//	actionMap->insert("unicodePrime", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodePrime",0x2032));
+//	actionMap->insert("unicodeDoublePrime", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDoublePrime",0x2033));
 	//Spaces
 	actionMap->insert("unicodeSpaceEN", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceEN",0x2002));
 	actionMap->insert("unicodeSpaceEM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeSpaceEM",0x2003));
@@ -590,8 +593,9 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert("unicodeDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashFigure",0x2012));
 	actionMap->insert("unicodeDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeDashQuotation",0x2015));
 	//Quotes
-	actionMap->insert("unicodeQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteApostrophe",0x0027));
-	actionMap->insert("unicodeQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteStraight",0x0022));
+//	actionMap->insert("unicodeQuoteSingleStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleStraight",0x0027)); // spark
+	actionMap->insert("unicodeQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteApostrophe",0x0027)); // spark // deprecated, s.a.
+	actionMap->insert("unicodeQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteStraight",0x0022)); // rabbit-ears
 	actionMap->insert("unicodeQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleLeft",0x2018));
 	actionMap->insert("unicodeQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteSingleRight",0x2019));
 	actionMap->insert("unicodeQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), actionParent, "unicodeQuoteDoubleLeft",0x201C));
@@ -620,6 +624,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	//Spaces and special characters
 	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber";
 	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
+	*actionNamesList << "unicodeApostrophe"; // << "unicodePrime" << "unicodeDoublePrime";
 	//Breaks
 	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak";
 	//Copyrights and TMs
@@ -631,7 +636,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	//Dashes
 	*actionNamesList << "unicodeDashEm" << "unicodeDashEn" << "unicodeDashFigure" << "unicodeDashQuotation";
 	//Straight quotes
-	*actionNamesList << "unicodeQuoteApostrophe" << "unicodeQuoteStraight";
+	*actionNamesList << "unicodeQuoteApostrophe" << "unicodeQuoteStraight"; // deprecated, use "unicodeQuoteSingleStraight"
 	//Double quotes
 	*actionNamesList << "unicodeQuoteDoubleLeft" << "unicodeQuoteDoubleRight" << "unicodeQuoteSingleLeft" << "unicodeQuoteSingleRight";
 	//Alternative single quotes
@@ -1106,7 +1111,11 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAc
 	(*actionMap)["unicodeDashFigure"]->setTexts( tr("Figure Dash"));
 	(*actionMap)["unicodeDashQuotation"]->setTexts( tr("Quotation Dash"));
 
-	(*actionMap)["unicodeQuoteApostrophe"]->setTexts( tr("Apostrophe"));
+	(*actionMap)["unicodeApostrophe"]->setTexts( tr("Apostrophe"));
+//	(*actionMap)["unicodePrime"]->setTexts( tr("Prime"));
+//	(*actionMap)["unicodeDoublePrime"]->setTexts( tr("Double Prime"));
+//	(*actionMap)["unicodeQuoteSingleStraight"]->setTexts( tr("Straight Apostrophe"));
+	(*actionMap)["unicodeQuoteApostrophe"]->setTexts( tr("Apostrophe")); // deprecated
 	(*actionMap)["unicodeQuoteStraight"]->setTexts( tr("Straight Double"));
 	(*actionMap)["unicodeQuoteSingleLeft"]->setTexts( tr("Single Left"));
 	(*actionMap)["unicodeQuoteSingleRight"]->setTexts( tr("Single Right"));
