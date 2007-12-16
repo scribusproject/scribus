@@ -19,11 +19,13 @@ FontListModel::FontListModel(QObject * parent)
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
 	substFont = loadIcon("font_subst16.png");
+	m_font_keys = m_fonts.keys();
 }
 
 void FontListModel::setFonts(SCFonts f)
 {
 	m_fonts = f;
+	m_font_keys = m_fonts.keys();
 	reset();
 }
 
@@ -89,7 +91,8 @@ QVariant FontListModel::headerData(int section,
 QVariant FontListModel::data(const QModelIndex & index,
 							 int role) const
 {
-	ScFace font = m_fonts[m_fonts.keys().at(index.row())];
+//	ScFace font = m_fonts[m_fonts.keys().at(index.row())];
+	ScFace font = m_fonts[m_font_keys.at(index.row())];
 
 	if (role == Qt::DecorationRole
 		   && index.column() == FontListModel::FontType)
@@ -220,7 +223,7 @@ bool FontListModel::setData(const QModelIndex & index,
 		return false;
 	}
 
-	ScFace f = m_fonts[m_fonts.keys().at(index.row())];
+/*	ScFace f = m_fonts[m_fonts.keys().at(index.row())];
 
 	if (index.column() == FontListModel::FontUsable)
 		m_fonts[m_fonts.keys().at(index.row())].usable(!f.usable());
@@ -228,6 +231,17 @@ bool FontListModel::setData(const QModelIndex & index,
 		m_fonts[m_fonts.keys().at(index.row())].embedPs(!f.embedPs());
 	else if (index.column() == FontListModel::FontSubset)
 		m_fonts[m_fonts.keys().at(index.row())].subset(!f.subset());
+	else
+		qDebug("FontListModel::setData() out of defined editable columns"); */
+	
+	ScFace f = m_fonts[m_font_keys.at(index.row())];
+
+	if (index.column() == FontListModel::FontUsable)
+		m_fonts[m_font_keys.at(index.row())].usable(!f.usable());
+	else if (index.column() == FontListModel::FontEmbed)
+		m_fonts[m_font_keys.at(index.row())].embedPs(!f.embedPs());
+	else if (index.column() == FontListModel::FontSubset)
+		m_fonts[m_font_keys.at(index.row())].subset(!f.subset());
 	else
 		qDebug("FontListModel::setData() out of defined editable columns");
 
@@ -239,5 +253,6 @@ bool FontListModel::setData(const QModelIndex & index,
 //TODO searching
 QString FontListModel::nameForIndex(const QModelIndex & index)
 {
-	return m_fonts.keys().at(index.row());
+//	return m_fonts.keys().at(index.row());
+	return m_font_keys.at(index.row());
 }

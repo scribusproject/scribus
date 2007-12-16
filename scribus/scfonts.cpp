@@ -62,7 +62,7 @@ for which a new license (GPL+exception) is in place.
 
 SCFonts::SCFonts() : QMap<QString,ScFace>(), FontPath()
 {
-	insert("", ScFace::none());
+//	insert("", ScFace::none()); // Wtf why inserting an empty entry here ????
 	showFontInformation=false;
 	checkedFonts.clear();
 }
