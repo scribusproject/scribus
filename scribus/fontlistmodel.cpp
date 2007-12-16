@@ -19,13 +19,13 @@ FontListModel::FontListModel(QObject * parent)
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
 	substFont = loadIcon("font_subst16.png");
-	m_font_keys = m_fonts.keys();
+	m_font_values = m_fonts.values();
 }
 
 void FontListModel::setFonts(SCFonts f)
 {
 	m_fonts = f;
-	m_font_keys = m_fonts.keys();
+	m_font_values = m_fonts.values();
 	reset();
 }
 
@@ -92,10 +92,9 @@ QVariant FontListModel::data(const QModelIndex & index,
 							 int role) const
 {
 //	ScFace font = m_fonts[m_fonts.keys().at(index.row())];
-	ScFace font = m_fonts[m_font_keys.at(index.row())];
+	ScFace font = m_font_values[index.row()];
 
-	if (role == Qt::DecorationRole
-		   && index.column() == FontListModel::FontType)
+	if (role == Qt::DecorationRole && index.column() == FontListModel::FontType)
 	{
 		switch (font.type())
 		{
@@ -186,14 +185,11 @@ QVariant FontListModel::data(const QModelIndex & index,
 		return tr("Click to change the value");
 	}
 
-	if (role == Qt::CheckStateRole
-		   && index.column() == FontListModel::FontUsable)
+	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontUsable)
 		return font.usable();
-	if (role == Qt::CheckStateRole
-		   && index.column() == FontListModel::FontEmbed)
+	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontEmbed)
 		return font.embedPs();
-	if (role == Qt::CheckStateRole
-		   && index.column() == FontListModel::FontSubset)
+	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontSubset)
 		return font.subset();
 
 	return QVariant();
@@ -233,15 +229,15 @@ bool FontListModel::setData(const QModelIndex & index,
 		m_fonts[m_fonts.keys().at(index.row())].subset(!f.subset());
 	else
 		qDebug("FontListModel::setData() out of defined editable columns"); */
-	
-	ScFace f = m_fonts[m_font_keys.at(index.row())];
+
+	ScFace f = m_font_values[index.row()];
 
 	if (index.column() == FontListModel::FontUsable)
-		m_fonts[m_font_keys.at(index.row())].usable(!f.usable());
+		f.usable(!f.usable());
 	else if (index.column() == FontListModel::FontEmbed)
-		m_fonts[m_font_keys.at(index.row())].embedPs(!f.embedPs());
+		f.embedPs(!f.embedPs());
 	else if (index.column() == FontListModel::FontSubset)
-		m_fonts[m_font_keys.at(index.row())].subset(!f.subset());
+		f.subset(!f.subset());
 	else
 		qDebug("FontListModel::setData() out of defined editable columns");
 
@@ -253,6 +249,5 @@ bool FontListModel::setData(const QModelIndex & index,
 //TODO searching
 QString FontListModel::nameForIndex(const QModelIndex & index)
 {
-//	return m_fonts.keys().at(index.row());
-	return m_font_keys.at(index.row());
+	return m_fonts.keys().at(index.row());
 }

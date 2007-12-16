@@ -80,7 +80,7 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 	private:
 		//! Scribus fonts. \note: It's shared!
 		SCFonts m_fonts;
-		QStringList m_font_keys;
+		QList<ScFace> m_font_values;
 		//! Display icons by the Qt::DecorationRole
 		QPixmap ttfFont;
 		QPixmap otfFont;
