@@ -8978,6 +8978,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		Doc->minCanvasCoordinate = FPoint(0, 0);
 		bool frs = Doc->guidesSettings.framesShown;
 		Page* act = Doc->currentPage;
+		bool mMode = Doc->masterPageMode();
+		Doc->setMasterPageMode(true);
 		Doc->currentPage = Doc->MasterPages.at(Nr);
 		Doc->guidesSettings.framesShown = false;
 		setScale(1.0);
@@ -8999,8 +9001,9 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		Doc->guidesSettings.framesShown = frs;
 		setScale(sca);
-		Doc->currentPage = act;
 		painter->end();
+		Doc->setMasterPageMode(mMode);
+		Doc->currentPage = act;
 		double sx = pm.width() / static_cast<double>(maxGr);
 		double sy = pm.height() / static_cast<double>(maxGr);
 		if (sy < sx)
