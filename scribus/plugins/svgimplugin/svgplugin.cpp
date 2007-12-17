@@ -1141,7 +1141,7 @@ QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 	double y2 = e.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y2" ) );
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(4);
 	ite->PoLine.setPoint(0, FPoint(x1, y1));

@@ -858,7 +858,7 @@ void WMFImport::lineTo( QList<PageItem*>& items, long, short* params )
 		double y2 = params[0];
 		double  lineWidth = m_context.pen().width();
 		QString lineColor = importColor(m_context.pen().color());
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine.resize(4);
 		ite->PoLine.setPoint(0, FPoint(x1, y1));
