@@ -2299,6 +2299,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			m_ScMW->GroupObj();
 			if (UndoManager::undoEnabled())
 				m_view->undoManager->commit();
+			m_doc->changed();
 		}
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
@@ -2343,6 +2344,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemMoving = false;
 			m_canvas->m_viewMode.operItemResizing = false;
 			inItemCreation = false;
+			m_doc->changed();
 //			m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()).adjusted(-10, -10, 20, 20));
 		}
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
@@ -2667,6 +2669,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 						m_view->requestMode(appMode);
 					}
 					currItem->update();
+					m_doc->changed();
 //					emit DocChanged();
 				}
 				else
@@ -2707,6 +2710,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_canvas->setRenderModeUseBuffer(false);
 			m_view->updateContents();
+			m_doc->changed();
 		}
 		if ((m_doc->appMode == modeDrawRegularPolygon) && (inItemCreation))
 		{

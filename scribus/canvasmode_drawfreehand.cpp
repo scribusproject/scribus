@@ -364,6 +364,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 //FIXME	
 			m_canvas->m_viewMode.operItemResizing = false;
 			inItemCreation = false;
+			m_doc->changed();
 //			m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()).adjusted(-10, -10, 20, 20));
 		}
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
@@ -525,6 +526,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 						m_view->requestMode(appMode);
 					}
 					currItem->update();
+					m_doc->changed();
 //					emit DocChanged();
 				}
 				else

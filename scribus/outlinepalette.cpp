@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QWidgetAction>
 
 #include "actionmanager.h"
+#include "canvasmode.h"
 #include "commonstrings.h"
 #include "outlinepalette.h"
 #include "page.h"
@@ -69,7 +70,10 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  					switch (pgItem->itemType())
  					{
  						case PageItem::ImageFrame:
- 							tipText = QObject::tr("Image");
+ 							if (pgItem->asLatexFrame())
+ 								tipText = QObject::tr("LaTex Frame");
+ 							else
+ 								tipText = QObject::tr("Image");
  							break;
  						case PageItem::TextFrame:
  							switch (pgItem->annotation().Type())
@@ -140,11 +144,11 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree
 	reportDisplay->header()->setClickable( false );
 	reportDisplay->header()->setResizeMode( QHeaderView::ResizeToContents );
 	reportDisplay->setSortingEnabled(false);
-	reportDisplay->setSelectionMode(QAbstractItemView::SingleSelection);
+	reportDisplay->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	reportDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
-//	reportDisplay->setDefaultRenameAction(QTreeWidget::Accept);
 	unsetDoc();
 	imageIcon = loadIcon("22/insert-image.png");
+	latexIcon = loadIcon("22/insert-latex.png");
 	lineIcon = loadIcon("Stift.xpm");
 	textIcon = loadIcon("22/insert-text-frame.png");
 	polylineIcon = loadIcon("22/draw-path.png");
@@ -164,10 +168,9 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree
 	currentObject = NULL;
 	languageChange();
 	// signals and slots connections
-	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
-//	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
-//	connect(reportDisplay, SIGNAL(rightButtonClicked(QTreeWidgetItem *, const QPoint &, int)), this, SLOT(slotRightClick(QTreeWidgetItem*, const QPoint &, int)));
+	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
+	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 }
 
 void OutlinePalette::setMainWindow(ScribusMainWindow *mw)
@@ -207,7 +210,8 @@ void OutlinePalette::slotRightClick(QPoint point)
 	QTreeWidgetItem *ite = reportDisplay->itemAt(point);
 	if (ite == NULL)
 		return;
-	slotSelect(ite, 0);
+	if (!ite->isSelected())
+		slotMultiSelect();
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	if (item != NULL)
 	{
@@ -241,7 +245,6 @@ void OutlinePalette::slotRightClick(QPoint point)
 		else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 		{
 			currentObject = ite;
-//			currentColumn = col;
 			PageItem *currItem = item->PageItemObject;
 			QMenu *pmen = new QMenu();
 			QMenu *pmen2 = new QMenu();
@@ -485,6 +488,25 @@ void OutlinePalette::slotRightClick(QPoint point)
 					pmen->addMenu(pmen3)->setText( tr("Send to La&yer"));
 				}
 			}
+			if (currDoc->m_Selection->count() > 1)
+			{
+				bool isGroup = true;
+				int firstElem = -1;
+				if (currItem->Groups.count() != 0)
+					firstElem = currItem->Groups.top();
+				for (uint bx = 0; bx < docSelectionCount; ++bx)
+				{
+					if (currDoc->m_Selection->itemAt(bx)->Groups.count() != 0)
+					{
+						if (currDoc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
+							isGroup = false;
+					}
+					else
+						isGroup = false;
+				}
+				if (!isGroup)
+					pmen->addAction(m_MainWindow->scrActions["itemGroup"]);
+			}
 			if ((currItem->Groups.count() != 0) && (currItem->isGroupControl))
 				pmen->addAction(m_MainWindow->scrActions["itemUngroup"]);
 			if (!currItem->locked())
@@ -545,7 +567,8 @@ void OutlinePalette::slotRightClick(QPoint point)
 					pmen->addMenu(pmen2)->setText( tr("Conve&rt to"));
 			}
 			pmen->addSeparator();
-			pmen->addAction( tr("Rename") , this, SLOT(slotRenameItem()));
+			if (currDoc->m_Selection->count() == 1)
+				pmen->addAction( tr("Rename") , this, SLOT(slotRenameItem()));
 			if (!currItem->locked() && !(currItem->isSingleSel))
 				pmen->addAction(m_MainWindow->scrActions["editCut"]);
 			if (!(currItem->isSingleSel))
@@ -615,14 +638,16 @@ void OutlinePalette::slotRightClick(QPoint point)
 
 void OutlinePalette::slotRenameItem()
 {
-//	currentObject->startRename(currentColumn);
+	activateWindow();
+	reportDisplay->setFocus();
+	reportDisplay->editItem(currentObject);
 }
 
 void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-/*	disconnect(reportDisplay, SIGNAL(itemRenamed(QListWidgetItem*, int)), this, SLOT(slotDoRename(QListWidgetItem*, int)));
+	disconnect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	if (item != NULL)
 	{
@@ -637,7 +662,7 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 				else
 				{
 					bool found = false;
-					for (uint b = 0; b < currDoc->Items->count(); ++b)
+					for (int b = 0; b < currDoc->Items->count(); ++b)
 					{
 						if ((NameNew == currDoc->Items->at(b)->itemName()) && (currDoc->Items->at(b) != item->PageItemObject))
 						{
@@ -656,13 +681,12 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 						item->PageItemObject->AutoName = false;
 						m_MainWindow->propertiesPalette->SetCurItem(item->PageItemObject);
 						currDoc->setModified(true);
-						reportDisplay->setSelected(ite, true);
 					}
 				}
 			}
 		}
 	}
-	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QListWidgetItem*, int))); */
+	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 }
 
 QTreeWidgetItem* OutlinePalette::getListItem(int SNr, int Nr)
@@ -744,12 +768,29 @@ void OutlinePalette::slotShowSelect(uint SNr, int Nr)
 		return;
 	if (selectionTriggered)
 		return;
-	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	disconnect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	reportDisplay->clearSelection();
-	QTreeWidgetItem *retVal = getListItem(SNr, Nr);
-	if (retVal != 0)
-		retVal->setSelected(true);
-	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	if (currDoc->m_Selection->count() > 0)
+	{
+		uint docSelectionCount = currDoc->m_Selection->count();
+		for (uint a = 0; a < docSelectionCount; a++)
+		{
+			PageItem *item = currDoc->m_Selection->itemAt(a);
+			QTreeWidgetItem *retVal = getListItem(item->OwnPage, item->ItemNr);
+			if (retVal != 0)
+				retVal->setSelected(true);
+		}
+	}
+	else
+	{
+		QTreeWidgetItem *retVal = getListItem(SNr, Nr);
+		if (retVal != 0)
+			retVal->setSelected(true);
+	}
+	QList<QTreeWidgetItem *> items = reportDisplay->selectedItems();
+	if (items.count() > 0)
+		reportDisplay->scrollToItem(items[0], QAbstractItemView::EnsureVisible);
+	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 }
 
 void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
@@ -757,7 +798,10 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 	switch (pgItem->itemType())
 	{
 	case PageItem::ImageFrame:
-		item->setIcon( 0, imageIcon );
+ 		if (pgItem->asLatexFrame())
+			item->setIcon( 0, latexIcon );
+ 		else
+			item->setIcon( 0, imageIcon );
 		break;
 	case PageItem::TextFrame:
 		switch (pgItem->annotation().Type())
@@ -860,11 +904,61 @@ void OutlinePalette::buildReopenVals()
 	}
 }
 
+void OutlinePalette::slotMultiSelect()
+{
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+		return;
+	if (currDoc==NULL)
+		return;
+	disconnect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
+	selectionTriggered = true;
+	QList<QTreeWidgetItem *> items = reportDisplay->selectedItems();
+	if (items.count() != 1)
+	{
+		if (currDoc->appMode == modeEditClip)
+			currDoc->view()->requestMode(submodeEndNodeEdit);
+		currDoc->view()->Deselect(true);
+		for (int a = 0; a < items.count(); a++)
+		{
+			QTreeWidgetItem* ite = items[a];
+			OutlineTreeItem *item = (OutlineTreeItem*)ite;
+			PageItem *pgItem = NULL;
+			switch (item->type)
+			{
+				case 0:
+				case 1:
+				case 2:
+					ite->setSelected(false);
+					break;
+				case 3:
+				case 4:
+					pgItem = item->PageItemObject;
+					if (!pgItem->isSelected())
+					{
+						m_MainWindow->closeActiveWindowMasterPageEditor();
+						currDoc->m_Selection->setIsGUISelection(false);
+						currDoc->view()->SelectItemNr(pgItem->ItemNr, false, false);
+					}
+					break;
+			}
+		}
+		if (currDoc->m_Selection->count() > 0)
+		{
+			currDoc->m_Selection->setIsGUISelection(true);
+			currDoc->m_Selection->connectItemToGUI();
+		}
+		currDoc->view()->DrawNew();
+	}
+	else
+		slotSelect(items[0], 0);
+	selectionTriggered = false;
+	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
+}
+
 void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	selectionTriggered = true;
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	uint pg = 0;
@@ -910,7 +1004,6 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 			break;
 	}
 	selectionTriggered = false;
-	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
 void OutlinePalette::resizeEvent(QResizeEvent *r)
@@ -926,7 +1019,8 @@ void OutlinePalette::BuildTree(bool storeVals)
 		return;
 	if (selectionTriggered)
 		return;
-	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	disconnect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
+	disconnect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 	setUpdatesEnabled(false);
 	if (storeVals)
 		buildReopenVals();
@@ -954,7 +1048,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 		for (int b = 0; b < currDoc->MasterItems.count(); ++b)
 		{
 			pgItem = currDoc->MasterItems.at(b);
-			if ((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam))
+			if (((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam)) && (!pgItem->Dirty))
 			{
 				if (pgItem->Groups.count() == 0)
 				{
@@ -963,7 +1057,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					object->type = 1;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
-//					object->setRenameEnabled(0, true);
+					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 					pgItem->Dirty = true;
 				}
 				else
@@ -976,7 +1070,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setIcon( 0, groupIcon );
-//					object->setRenameEnabled(0, true);
+					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (int ga = 0; ga < currDoc->MasterItems.count(); ++ga)
@@ -1013,7 +1107,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					object->type = 3;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
-//					object->setRenameEnabled(0, true);
+					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 					pgItem->Dirty = true;
 				}
 				else
@@ -1026,7 +1120,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setIcon( 0, groupIcon );
-//					object->setRenameEnabled(0, true);
+					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (int ga = 0; ga < currDoc->DocItems.count(); ++ga)
@@ -1068,7 +1162,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					object->type = 4;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
-//					object->setRenameEnabled(0, true);
+					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 					pgItem->Dirty = true;
 				}
 				else
@@ -1081,7 +1175,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setIcon( 0, groupIcon );
-//					object->setRenameEnabled(0, true);
+					object->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (int ga = 0; ga < currDoc->DocItems.count(); ++ga)
@@ -1099,8 +1193,11 @@ void OutlinePalette::BuildTree(bool storeVals)
 	if (storeVals)
 		reopenTree();
 	setUpdatesEnabled(true);
+	if (currDoc->m_Selection->count() > 0)
+		slotShowSelect(0, -1);
 	repaint();
-	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
+	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 }
 
 void OutlinePalette::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
@@ -1120,7 +1217,7 @@ void OutlinePalette::parseSubGroup(int level, OutlineTreeItem* object, QList<Pag
 				grp->type = itemType;
 				grp->setText(0, pgItem->itemName());
 				setItemIcon(grp, pgItem);
-//				grp->setRenameEnabled(0, true);
+				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 				pgItem->Dirty = true;
 			}
 			else
@@ -1133,7 +1230,7 @@ void OutlinePalette::parseSubGroup(int level, OutlineTreeItem* object, QList<Pag
 				else
 				grp->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.at(pgItem->Groups.count()-level-1)));
 				grp->setIcon( 0, groupIcon );
-//				grp->setRenameEnabled(0, true);
+				grp->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 				pgItem->Dirty = true;
 				subGroup = new QList<PageItem*>;
 				subGroup->clear();
@@ -1154,9 +1251,7 @@ void OutlinePalette::parseSubGroup(int level, OutlineTreeItem* object, QList<Pag
 void OutlinePalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }

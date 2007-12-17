@@ -78,6 +78,7 @@ signals:
 protected slots:
 	void slotRenameItem();
 	void slotDoRename(QTreeWidgetItem* ite, int col);
+	void slotMultiSelect();
 	void slotSelect(QTreeWidgetItem* ite, int col);
 protected:
 	void clearPalette();
@@ -85,9 +86,9 @@ protected:
 	QTreeWidgetItem* freeObjects;
 	QTreeWidgetItem* rootObject;
 	QTreeWidgetItem* currentObject;
-	int currentColumn;
 	ScribusMainWindow* m_MainWindow;
 	QPixmap imageIcon;
+	QPixmap latexIcon;
 	QPixmap textIcon;
 	QPixmap lineIcon;
 	QPixmap polygonIcon;

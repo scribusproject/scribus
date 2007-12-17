@@ -395,6 +395,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		else
 			m_view->requestMode(m_doc->appMode);
 		currItem->update();
+		m_doc->changed();
 //		emit DocChanged();
 		FirstPoly = true;
 		m_canvas->setRenderModeUseBuffer(false);

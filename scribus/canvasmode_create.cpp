@@ -201,6 +201,7 @@ void CreateMode::activate(bool fromGesture)
 			currItem->update();
 			inItemCreation = false;
 		}
+		m_doc->changed();
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
 			m_view->requestMode(modeNormal);
