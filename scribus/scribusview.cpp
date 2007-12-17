@@ -9001,8 +9001,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		setScale(sca);
 		Doc->currentPage = act;
 		painter->end();
-		double sx = im.width() / static_cast<double>(maxGr);
-		double sy = im.height() / static_cast<double>(maxGr);
+		double sx = pm.width() / static_cast<double>(maxGr);
+		double sy = pm.height() / static_cast<double>(maxGr);
 		if (sy < sx)
 			im = pm.smoothScale(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx));
 		else
