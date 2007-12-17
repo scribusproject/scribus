@@ -1,0 +1,84 @@
+This doc is supposed to provide a global picture on Scribus's style system.
+
+Central classes are Style and its subclasses, StyleContext and StyleSet.
+
+Let's start with Style.
+A Style is basically just a structure of properties. Each property can be set to some value or be unset. In the latter case this property is said to be inherited from the Style's parent. If the Style doesn't have a parent, any unset property is undefined and will return its default value.
+
+That means for each property X of type T you have the following methods:
+
+T X() const - returns the property's value
+bool isInhX() const - returns true if the property is *not* set in this style
+bool isDefX() const - returns false if the property is neither set in this style nor in any parent
+void setX(T val) - sets the property's value to 'val'; isInhX() will return false now.
+void resetX() - sets the property to its defaulot value; isInhX() will return true now.
+
+Styles also provide methods which work on the whole style:
+
+void setStyle(const Style& other) - sets all properties to the value and inheritance status they have in 'other'
+void applyStyle(const Style& other) - sets all properties which are set in 'other' to the value they have in 'other'
+void eraseStyle(const Style& other) - resets all properties which are set in 'other' and have the same value in 'this'
+void erase() - resets all properties.
+bool equivStyle(const Style& other) const - returns true if all properties have the same value and inherited status
+bool operator==(const Style& other) const - returns true if equiv(other) returns true and also have the same name.
+
+
+Now to another aspect of Styles: name and parent. Styles are never addressed by pointer but always by name. If a style doesn't have a name, it can only be used where it is stored: this is used for direct formatting.
+
+The parent is also stored by name. To allow lookup, each Style stores a StyleContext. The class StyleContext provides one central method:
+
+const Style* resolve(const QString& name) const
+
+So a StyleContext performs the trick of converting a name to a style. A StyleContext can also delegate the lookups to other StyleContexts. StyleContexts are only consistent if there is no loop in this delegation chain.
+That's basically all you need to know about StyleContexts. StyleContexts are used in the form of StyleSets (which is a subclass of StyleContext) and ParagraphStyle (which provides a StyleContext for CharStyles).
+
+
+Now to the last and most technical aspect of Styles: updates.
+When the value of a property changes in the parent style, any child styles which inherit this property need to be informed about the changed value. For performance reasons Scribus does not look up inherited values recursively but caches the value locally. Each StyleContext stores a version, and each Style stores the version of its context when it last updated the cached values. You can call StyleContext::invalidate() to increase a StyleContext's version and Style::validate() to copy all inherited values to the local cache (this is in fact delegated to Style::update() only if the versions of Style and StyleContext don't match. Don't use update() directly).
+
+The update mechanism "pulls" the correct values from the parent styles. There's also a "push" mechanism which can be used to update styles: you can register observers on any StyleContext which will be signaled each time the StyleContext is invalidated. This is mainly used to invalidate other StyleContexts which depend on the invalidated one.
+
+
+Last not least: StyleSets.
+
+This is a container class which stores one type of styles (subclass of Style), eg. StyleSet<CharStyle>. It allows access to styles via name or index:
+
+STYLE& operator[] (int index)
+const STYLE& operator[] (int index) const
+const STYLE& get(const QString& name) const
+
+It also implements the StyleContext::resolve() method:
+
+const Style* resolve(const QString& name) const;	
+
+
+To insert a new style into a StyleSet, there are two methods:
+
+STYLE* create(const STYLE& proto)
+STYLE* append(STYLE* style)
+
+The first one is safer and should be used if possible. The second one takes ownership of the style object and stores the pointer directly in the styleset.
+
+
+StyleSets also have a default style which is returned for the empty name (""). It can be set and tested with 
+
+void makeDefault(STYLE* def) 
+bool isDefault(const STYLE& style) const
+
+The argument to makeDefault() should point to an existing Style within the StyleSet.
+
+
+Now the fun part: there are two highlevel functions which allow proper changes to StyleSet:
+
+void rename(const QMap<QString,QString>& newNames);
+void redefine(const StyleSet<STYLE>& defs, bool removeUnused=false)
+
+The first one just renames all styles in the set and also updates parent names used in this set (!).
+
+The second is used by the Stylemanager for editing styles. First, it uses redefine() to copy the existing styles into an empty StyleSet. This temporary styleset can be edited at will. If the user chooses to commit, Stylemanager uses redefine() again to merge the changed data to the original StyleSet, setting 'removeUnused' to true (that will delete any styles that where removed during the edit).
+
+When Scribus imports styles it also uses redefine(), this time with 'removeUnused' set to false. To avoid overwriting styles with the same name one has to use rename() before calling redefine().
+
+
+That concludes the global picture. There are more details related to deSaXe and the way how StyleContexts are nested, but that's for another time.
+
