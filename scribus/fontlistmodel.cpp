@@ -9,10 +9,13 @@ for which a new license (GPL+exception) is in place.
 #include "fontlistmodel.h"
 #include "prefsmanager.h"
 #include "util_icon.h"
+#include "scribusdoc.h"
+#include "commonstrings.h"
 
 
-FontListModel::FontListModel(QObject * parent)
+FontListModel::FontListModel(QObject * parent, ScribusDoc * doc)
 	: QAbstractTableModel(parent),
+	m_doc(doc),
 	m_fonts(PrefsManager::instance()->appPrefs.AvailFonts)
 {
 	ttfFont = loadIcon("font_truetype16.png");
@@ -163,9 +166,9 @@ QVariant FontListModel::data(const QModelIndex & index,
 			}
 			case FontListModel::FontInDoc:
 			{
-// 				if (m_Doc->UsedFonts.contains(fontIter.current().scName()))
-// 					col1->setIcon(okIcon);
-				return "TODO";
+				if (m_doc && m_doc->UsedFonts.contains(font.scName()))
+					return CommonStrings::trYes;
+				return QVariant();
 			}
 			case FontListModel::FontFile:
 				return font.fontFilePath();
@@ -246,7 +249,6 @@ bool FontListModel::setData(const QModelIndex & index,
 	return true;
 }
 
-//TODO searching
 QString FontListModel::nameForIndex(const QModelIndex & index)
 {
 	return m_fonts.keys().at(index.row());

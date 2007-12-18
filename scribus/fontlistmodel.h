@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "scfonts.h"
 
+class ScribusDoc;
+
 
 /*! \brief Model for font views.
 It contains quite all informations about fonts available to display
@@ -30,7 +32,7 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 	Q_OBJECT
 
 	public:
-		FontListModel(QObject * parent = 0);
+		FontListModel(QObject * parent = 0, ScribusDoc * doc = 0);
 
 		enum ColumnTypes {
 			FontName = 0,
@@ -74,10 +76,13 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		//! Sets Scribus fonts and refresh the model. TODO: is it required?
 		void setFonts(SCFonts f);
 
-		//! Get the font name for current index. TODO: It will be remove propably
+		/*! Get the font name for current index.
+		\note Remember to use the mapToSource() if you're using QSortFilterProxyModel
+		*/
 		QString nameForIndex(const QModelIndex & index);
 
 	private:
+		ScribusDoc * m_doc;
 		//! Scribus fonts. \note: It's shared!
 		SCFonts m_fonts;
 		QList<ScFace> m_font_values;
