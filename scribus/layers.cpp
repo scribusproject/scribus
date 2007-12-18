@@ -410,11 +410,14 @@ void LayerPalette::markLayer()
 	{
 		QColor neu = QColor();
 		neu = QColorDialog::getColor(m_Doc->layerMarker(layerNumber), this);
-		QPixmap pm(20,15);
-		pm.fill(neu);
-		((QToolButton*)(senderBox))->setIcon(pm);
-		m_Doc->setLayerMarker(layerNumber,neu);
-		emit LayerChanged();
+		if (neu.isValid())
+		{
+			QPixmap pm(20,15);
+			pm.fill(neu);
+			((QToolButton*)(senderBox))->setIcon(pm);
+			m_Doc->setLayerMarker(layerNumber,neu);
+			emit LayerChanged();
+		}
 	}
 }
 
