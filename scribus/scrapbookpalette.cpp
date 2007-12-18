@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QToolTip>
 #include <QPainter>
+
 #include "scpreview.h"
 #include "prefsfile.h"
 #include "util.h"
@@ -127,6 +128,7 @@ void BibView::dropEvent(QDropEvent *e)
 	if (e->mimeData()->hasText())
 	{
 		e->acceptProposedAction();
+		QApplication::restoreOverrideCursor();
 		if (e->source() == this)
 			return;
 		QString nam, tmp = "";
@@ -565,8 +567,6 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	connect(saveAsButton, SIGNAL(clicked()), this, SLOT(SaveAs()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
-//	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-//	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 }
 
@@ -659,7 +659,7 @@ void Biblio::installEventFilter(QObject *filterObj)
 void Biblio::NewLib()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fileName = QFileDialog::getExistingDirectory(this, "", tr("Choose a Scrapbook Directory"));
+	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Scrapbook Directory"), dirs->get("scrap_load", "."));
 	if (!fileName.isEmpty())
 	{
 		for (int a = 0; a < Frame3->count(); a++)
@@ -687,7 +687,7 @@ void Biblio::NewLib()
 void Biblio::Load()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fileName = QFileDialog::getExistingDirectory(this, dirs->get("scrap_load", "."), tr("Choose a Scrapbook Directory"));
+	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Scrapbook Directory"), dirs->get("scrap_load", "."));
 	if (!fileName.isEmpty())
 	{
 		for (int a = 0; a < Frame3->count(); a++)
@@ -723,9 +723,10 @@ void Biblio::Load()
 void Biblio::Import()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString s = QFileDialog::getOpenFileName(this, dirs->get("old_scrap_load", "."),
-	                                         tr("Scrapbook (*.scs *.SCS)"),
-	                                         tr("Choose a scrapbook file to import"));
+	QString s = QFileDialog::getOpenFileName(this,
+	                                         tr("Choose a scrapbook file to import"),
+	                                         dirs->get("old_scrap_load", "."),
+	                                         tr("Scrapbook (*.scs *.SCS)"));
 	
 	if (!s.isEmpty())
 	{
@@ -745,15 +746,15 @@ void Biblio::Import()
 void Biblio::SaveAs()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fn = QFileDialog::getExistingDirectory(this, dirs->get("scrap_saveas", "."), tr("Choose a Directory"));
+	QString fn = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), dirs->get("scrap_saveas", "."));
 	if (!fn.isEmpty())
 	{
-//		for (int a = 0; a < Frame3->count(); a++)
-//		{
-//			BibView* bv = (BibView*)Frame3->widget(a);
-//			if (fn == bv->ScFilename)
-//				return;
-//		}
+		for (int a = 0; a < Frame3->count(); a++)
+		{
+			BibView* bv = (BibView*)Frame3->widget(a);
+			if (fn == bv->ScFilename)
+				return;
+		}
 		QDir d(fn);
 		dirs->set("scrap_saveas", fn);
 		activeBView->SaveContents(fn, activeBView->ScFilename);
@@ -774,7 +775,7 @@ void Biblio::closeLib()
 		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 		Frame3->removeItem(Frame3->indexOf(activeBView));
-//		delete activeBView;   currently disabled as the whole TabWidget vanishes when executing that delete?????
+		delete activeBView;  // currently disabled as the whole TabWidget vanishes when executing that delete????? -> seems to be fixed in Qt-4.3.3
 		activeBView = (BibView*)Frame3->widget(0);
 		Frame3->setCurrentIndex(0);
 		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
