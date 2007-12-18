@@ -4120,8 +4120,8 @@ void ScribusMainWindow::slotFilePrint()
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
-											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
-				if (t == 1)
+											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
+				if (t == 0)
 					return;
 			}
 			else
@@ -7144,8 +7144,8 @@ void ScribusMainWindow::printPreview()
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
-											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
-				if (t == 1)
+											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
+				if (t == 0)
 					return;
 			}
 			else
