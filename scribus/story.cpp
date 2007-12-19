@@ -1616,10 +1616,8 @@ void SEditor::styledTextApplyActionDelete()
 void SEditor::removeSelectedText (int selNum)
 {
 	if (selNum == 0 && hasSelectedText())
-	{
 		deleteSel();
-		QTextEdit::removeSelectedText(selNum);
-	}
+	QTextEdit::removeSelectedText(selNum);
 }
 
 QPopupMenu* SEditor::createPopupMenu(const QPoint & pos)
