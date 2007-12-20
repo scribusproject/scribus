@@ -4,10 +4,10 @@
 %%EndComments
 %%EndProlog
 
-% Barcode Writer in Pure PostScript - Version 2007-02-25
+% Barcode Writer in Pure PostScript - Version 2007-12-03
 % http://www.terryburton.co.uk/barcodewriter/
 %
-% Copyright (c) 2006 Terry Burton - tez@terryburton.co.uk
+% Copyright (c) 2007 Terry Burton - tez@terryburton.co.uk
 %
 % Permission is hereby granted, free of charge, to any
 % person obtaining a copy of this software and associated
@@ -44,6 +44,8 @@
 % --BEGIN ENCODER ean13--
 % --DESC: EAN-13
 % --EXAM: 977147396801
+% --EXOP: includetext guardwhitespace
+% --RNDR: renlinear
 /ean13 {
 
     0 begin
@@ -55,7 +57,7 @@
     /includetext false def             % Enable/disable text
     /textfont /Helvetica def
     /textsize 12 def
-    /textpos -4 def
+    /textyoffset -4 def
     /height 1 def
     
     % Parse the input options
@@ -66,7 +68,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     /barlen barcode length def         % Length of the code
@@ -115,7 +117,7 @@
 
     % First digit - determine mirrormap by this and show before guard bars
     /mirrormap mirrormaps barcode 0 get 48 sub get def
-    txt 0 [barcode 0 1 getinterval -10 textpos textfont textsize] put
+    txt 0 [barcode 0 1 getinterval -10 textyoffset textfont textsize] put
 
     % Left side - performs mirroring
     1 1 6 {
@@ -137,7 +139,7 @@
             /enc revenc def
         } if
         sbs i 1 sub 4 mul 3 add enc putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 1 sub 7 mul 4 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 4 add textyoffset textfont textsize] put
     } for
 
     % Put the middle character
@@ -153,14 +155,15 @@
         pop pop                        % Discard seek and post
         /enc encs indx get def         % Get the indxth encoding
         sbs i 1 sub 4 mul 8 add enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 1 sub 7 mul 8 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 8 add textyoffset textfont textsize] put
     } for
 
     % Put the end character
     sbs barlen 1 sub 4 mul 8 add encs 12 get putinterval
     
     % Return the arguments
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [height height 12{height .075 sub}repeat height height 12{height .075 sub}repeat height height] put
@@ -184,6 +187,8 @@
 % --BEGIN ENCODER ean8--
 % --DESC: EAN-8
 % --EXAM: 01335583
+% --EXOP: includetext guardwhitespace height=0.5
+% --RNDR: renlinear
 /ean8 {
 
     0 begin
@@ -195,7 +200,7 @@
     /includetext false def              % Enable/disable text
     /textfont /Helvetica def
     /textsize 12 def
-    /textpos -4 def
+    /textyoffset -4 def
     /height 1 def
     
     % Parse the input options
@@ -206,7 +211,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -236,7 +241,7 @@
         pop pop                            % Discard seek and post
         /enc encs indx get def             % Get the indxth encoding
         sbs i 4 mul 3 add enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 7 mul 4 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 7 mul 4 add textyoffset textfont textsize] put
     } for
 
     % Put the middle character
@@ -252,14 +257,15 @@
         pop pop                            % Discard seek and post
         /enc encs indx get def             % Get the indxth encoding
         sbs i 4 mul 8 add enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 7 mul 8 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 7 mul 8 add textyoffset textfont textsize] put
     } for
 
     % Put the end character
     sbs barlen 4 mul 8 add encs 12 get putinterval
 
     % Return the arguments
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [height height 8{height .075 sub}repeat height height 8{height .075 sub}repeat height height] put
@@ -284,6 +290,8 @@
 % --BEGIN ENCODER upca--
 % --DESC: UPC-A
 % --EXAM: 78858101497
+% --EXOP: includetext
+% --RNDR: renlinear
 /upca {
 
     0 begin
@@ -295,7 +303,7 @@
     /includetext false def         % Enable/disable text
     /textfont /Helvetica def
     /textsize 12 def
-    /textpos -4 def
+    /textyoffset -4 def
     /height 1 def
     
     % Parse the input options
@@ -306,7 +314,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     /barlen barcode length def         % Length of the code
@@ -358,9 +366,9 @@
         /enc encs indx get def             % Get the indxth encoding
         sbs i 4 mul 3 add enc putinterval  % Put encoded digit into sbs
         i 0 eq {      % First digit is before the guard bars
-            txt 0 [barcode 0 1 getinterval -7 textpos textfont textsize 2 sub] put
+            txt 0 [barcode 0 1 getinterval -7 textyoffset textfont textsize 2 sub] put
         } {
-            txt i [barcode i 1 getinterval i 7 mul 4 add textpos textfont textsize] put
+            txt i [barcode i 1 getinterval i 7 mul 4 add textyoffset textfont textsize] put
         } ifelse
     } for
 
@@ -378,9 +386,9 @@
         /enc encs indx get def             % Get the indxth encoding
         sbs i 4 mul 8 add enc putinterval  % Put encoded digit into sbs
         i 11 eq {       % Last digit is after guard bars
-            txt 11 [barcode 11 1 getinterval 96 textpos textfont textsize 2 sub] put
+            txt 11 [barcode 11 1 getinterval 96 textyoffset textfont textsize 2 sub] put
         } {
-            txt i [barcode i 1 getinterval i 7 mul 8 add textpos textfont textsize] put
+            txt i [barcode i 1 getinterval i 7 mul 8 add textyoffset textfont textsize] put
         } ifelse
     } for
 
@@ -388,7 +396,8 @@
     sbs barlen 4 mul 8 add encs 12 get putinterval
 
     % Return the arguments
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [4{height}repeat 10{height .075 sub}repeat height height 10{height .075 sub}repeat 5{height}repeat] put      
@@ -411,6 +420,8 @@
 % --BEGIN ENCODER upce--
 % --DESC: UPC-E
 % --EXAM: 0123456
+% --EXOP: includetext height=0.4
+% --RNDR: renlinear
 /upce {
 
     0 begin
@@ -422,7 +433,7 @@
     /includetext false def               % Enable/disable text
     /textfont /Helvetica def
     /textsize 12 def
-    /textpos -4 def
+    /textyoffset -4 def
     /height 1 def
     
     % Parse the input options
@@ -433,7 +444,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     /barlen barcode length def          % Length of the code
@@ -492,7 +503,7 @@
         /barlen barlen 1 add def        % barlen++
     } if
     /txt barlen array def
-    txt 0 [barcode 0 1 getinterval -7 textpos textfont textsize 2 sub] put
+    txt 0 [barcode 0 1 getinterval -7 textyoffset textfont textsize 2 sub] put
 
     % Determine the mirror map based on checksum
     /mirrormap mirrormaps barcode barlen 1 sub get 48 sub get def
@@ -535,16 +546,17 @@
             /enc revenc def
         } if
         sbs i 1 sub 4 mul 3 add enc putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 1 sub 7 mul 4 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 1 sub 7 mul 4 add textyoffset textfont textsize] put
     } for
 
-    txt 7 [barcode 7 1 getinterval 6 7 mul 11 add textpos textfont textsize 2 sub] put
+    txt 7 [barcode 7 1 getinterval 6 7 mul 11 add textyoffset textfont textsize 2 sub] put
 
     % Put the end character
     sbs barlen 2 sub 4 mul 3 add encs 11 get putinterval
 
     % Return the arguments
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     includetext {
         retval (bhs) [height height 12{height .075 sub}repeat height height height] put      
@@ -566,7 +578,9 @@
 
 % --BEGIN ENCODER ean5--
 % --DESC: EAN-5 (5 digit addon)
-% --EXAM: 0123456
+% --EXAM: 90200
+% --EXOP: includetext guardwhitespace
+% --RNDR: renlinear
 /ean5 {
 
     0 begin
@@ -578,7 +592,7 @@
     /includetext false def              % Enable/disable text
     /textfont /Helvetica def
     /textsize 12 def
-    /textpos (unset) def
+    /textyoffset (unset) def
     /height 0.7 def    
     
     % Parse the input options
@@ -590,10 +604,10 @@
     /textfont textfont cvlit def
     /textsize textsize cvr def
     /height height cvr def
-    textpos (unset) eq {
-        /textpos height 72 mul 1 add def
+    textyoffset (unset) eq {
+        /textyoffset height 72 mul 1 add def
     } {
-        /textpos textpos cvr def
+        /textyoffset textyoffset cvr def
     } ifelse
     
     /barlen barcode length def          % Length of the code
@@ -656,11 +670,12 @@
             /enc revenc def
         } if
         sbs i 6 mul 3 add enc putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textyoffset textfont textsize] put
     } for
 
     % Return the arguments
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [16{height}repeat] put
     retval (bbs) [16{0}repeat] put
@@ -669,7 +684,7 @@
     } if
     retval (opt) useropts put
     retval (guardrightpos) 10 put
-    retval (guardrightypos) textpos 4 add put
+    retval (guardrightypos) textyoffset 4 add put
     retval (bordertop) 10 put
     retval
 
@@ -682,6 +697,8 @@
 % --BEGIN ENCODER ean2--
 % --DESC: EAN-2 (2 digit addon)
 % --EXAM: 05
+% --EXOP: includetext guardwhitespace
+% --RNDR: renlinear
 /ean2 {
 
     0 begin
@@ -693,7 +710,7 @@
     /includetext false def               % Enable/disable text
     /textfont /Helvetica def
     /textsize 12 def
-    /textpos (unset) def
+    /textyoffset (unset) def
     /height 0.7 def
     
     % Parse the input options
@@ -705,10 +722,10 @@
     /textfont textfont cvlit def
     /textsize textsize cvr def
     /height height cvr def
-    textpos (unset) eq {
-        /textpos height 72 mul 1 add def
+    textyoffset (unset) eq {
+        /textyoffset height 72 mul 1 add def
     } {
-        /textpos textpos cvr def
+        /textyoffset textyoffset cvr def
     } ifelse
     
     /barlen barcode length def          % Length of the code
@@ -756,11 +773,12 @@
             /enc revenc def
         } if
         sbs i 6 mul 3 add enc putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 1 sub 9 mul 13 add textyoffset textfont textsize] put
     } for
 
     % Return the arguments
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [12{height}repeat] put
     retval (bbs) [12{0}repeat] put
@@ -769,7 +787,7 @@
     } if
     retval (opt) useropts put
     retval (guardrightpos) 10 put
-    retval (guardrightypos) textpos 4 add put
+    retval (guardrightypos) textyoffset 4 add put
     retval (bordertop) 10 put
     retval
 
@@ -782,7 +800,9 @@
 % --BEGIN ENCODER isbn--
 % --REQUIRES ean13--
 % --DESC: ISBN
-% --EXAM: 1-86074-271
+% --EXAM: 978-1-56592-479
+% --EXOP: includetext guardwhitespace
+% --RNDR: renlinear
 /isbn {
 
     0 begin
@@ -899,6 +919,8 @@
 % --BEGIN ENCODER code128--
 % --DESC: Code 128
 % --EXAM: ^104^102Count^0990123456789^101!
+% --EXOP: includetext
+% --RNDR: renlinear
 /code128 {
 
     0 begin                  % Confine variables to local scope
@@ -910,7 +932,7 @@
     /includetext false def    % Enable/disable text
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -921,7 +943,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -959,20 +981,20 @@
         barcode i 1 getinterval (^) eq {
             % indx is given by the next three characters
             /indx barcode i 1 add 3 getinterval cvi def
-            txt j [( ) j 11 mul textpos textfont textsize] put
+            txt j [( ) j 11 mul textyoffset textfont textsize] put
             /i i 4 add def
         } {
             % indx depends on the mode
             mode 2 eq {
                 /indx barcode i 2 getinterval cvi def
-                txt j [barcode i 2 getinterval j 11 mul textpos textfont textsize] put
+                txt j [barcode i 2 getinterval j 11 mul textyoffset textfont textsize] put
                 /i i 2 add def
             } {
                 barchars barcode i 1 getinterval search
                 pop                    % Discard true leaving pre
                 length /indx exch def  % indx is the length of pre
                 pop pop                % Discard seek and post
-                txt j [barchars indx 1 getinterval j 11 mul textpos textfont textsize] put
+                txt j [barchars indx 1 getinterval j 11 mul textyoffset textfont textsize] put
                 /i i 1 add def
             } ifelse
         } ifelse
@@ -1000,7 +1022,8 @@
     /txt txt 0 j getinterval def
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -1019,6 +1042,8 @@
 % --BEGIN ENCODER code39--
 % --DESC: Code 39
 % --EXAM: THIS IS CODE 39
+% --EXOP: includetext includecheck includecheckintext
+% --RNDR: renlinear
 /code39 {
 
     0 begin                 % Confine variables to local scope
@@ -1032,7 +1057,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -1043,7 +1068,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -1076,7 +1101,7 @@
 
     % Put the start character
     sbs 0 encs 43 get putinterval
-    txt 0 [(*) 0 textpos textfont textsize] put
+    txt 0 [(*) 0 textyoffset textfont textsize] put
 
     0 1 barlen 1 sub {
         /i exch def
@@ -1087,7 +1112,7 @@
         pop pop                              % Discard seek and post
         /enc encs indx get def               % Get the indxth encoding
         sbs i 10 mul 10 add enc putinterval  % Put encoded digit into sbs
-        txt i 1 add [barcode i 1 getinterval i 1 add 16 mul textpos textfont textsize] put
+        txt i 1 add [barcode i 1 getinterval i 1 add 16 mul textyoffset textfont textsize] put
         /checksum checksum indx add def
     } for
 
@@ -1096,19 +1121,20 @@
         /checksum checksum 43 mod def
         sbs barlen 10 mul 10 add encs checksum get putinterval
         includecheckintext {
-            txt barlen 1 add [barchars checksum 1 getinterval barlen 1 add 16 mul textpos textfont textsize] put
+            txt barlen 1 add [barchars checksum 1 getinterval barlen 1 add 16 mul textyoffset textfont textsize] put
         } {
-            txt barlen 1 add [() barlen 1 add 16 mul textpos textfont textsize] put
+            txt barlen 1 add [() barlen 1 add 16 mul textyoffset textfont textsize] put
         } ifelse
         sbs barlen 10 mul 20 add encs 43 get putinterval
-        txt barlen 2 add [(*) barlen 2 add 16 mul textpos textfont textsize] put
+        txt barlen 2 add [(*) barlen 2 add 16 mul textyoffset textfont textsize] put
     } {
         sbs barlen 10 mul 10 add encs 43 get putinterval
-        txt barlen 1 add [(*) barlen 1 add 16 mul textpos textfont textsize] put
+        txt barlen 1 add [(*) barlen 1 add 16 mul textyoffset textfont textsize] put
     } ifelse
     
     % Return the arguments
-    /retval 2 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -1127,6 +1153,8 @@
 % --BEGIN ENCODER code93--
 % --DESC: Code 93
 % --EXAM: THIS IS CODE 93
+% --EXOP: includetext includecheck
+% --RNDR: renlinear
 /code93 {
 
     0 begin                 % Confine variables to local scope
@@ -1139,7 +1167,7 @@
     /includetext false def   % Enable/disable text
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -1150,7 +1178,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     /encs
@@ -1193,14 +1221,14 @@
         barcode i 1 getinterval (^) eq {
             % indx is given by the next three characters
             /indx barcode i 1 add 3 getinterval cvi def
-            txt j [( ) j 9 mul 9 add textpos textfont textsize] put
+            txt j [( ) j 9 mul 9 add textyoffset textfont textsize] put
             /i i 4 add def
         } {
             barchars barcode i 1 getinterval search
             pop                         % Discard true leaving pre
             length /indx exch def       % indx is the length of pre
             pop pop                     % Discard seek and post
-            txt j [barchars indx 1 getinterval j 9 mul 9 add textpos textfont textsize] put
+            txt j [barchars indx 1 getinterval j 9 mul 9 add textyoffset textfont textsize] put
             /i i 1 add def
         } ifelse
         /enc encs indx get def             % Get the indxth encoding
@@ -1224,7 +1252,8 @@
     } ifelse
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -1243,6 +1272,8 @@
 % --BEGIN ENCODER interleaved2of5--
 % --DESC: Interleaved 2 of 5 (ITF)
 % --EXAM: 24012345678905
+% --EXOP: showborder borderwidth=4 borderleft=15 borderright=15 height=0.5 includecheck includetext includecheckintext textyoffset=-10
+% --RNDR: renlinear
 /interleaved2of5 {
 
     0 begin         % Confine variables to local scope
@@ -1256,7 +1287,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -1267,7 +1298,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     /barlen barcode length def      % Length of the code
@@ -1343,11 +1374,11 @@
         } for
 
         sbs i 5 mul 4 add intl putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 9 mul 4 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 9 mul 4 add textyoffset textfont textsize] put
         includecheck includecheckintext not and barlen 2 sub i eq and {
-            txt i 1 add [( ) i 1 add 9 mul 4 add textpos textfont textsize] put
+            txt i 1 add [( ) i 1 add 9 mul 4 add textyoffset textfont textsize] put
         } {
-            txt i 1 add [barcode i 1 add 1 getinterval i 1 add 9 mul 4 add textpos textfont textsize] put
+            txt i 1 add [barcode i 1 add 1 getinterval i 1 add 9 mul 4 add textyoffset textfont textsize] put
         } ifelse
     } for
 
@@ -1355,7 +1386,8 @@
     sbs barlen 5 mul 4 add encs 11 get putinterval
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -1374,6 +1406,8 @@
 % --BEGIN ENCODER rss14--
 % --DESC: Reduced Space Symbology 14 (RSS-14)
 % --EXAM: 24012345678905
+% --EXOP: height=0.3
+% --RNDR: renlinear
 /rss14 {
 
     0 begin            % Confine variables to local scope
@@ -1390,7 +1424,14 @@
         token false eq {exit} if dup length string cvs (=) search
         true eq {cvlit exch pop exch def} {cvlit true def} ifelse
     } loop
-    
+   
+    % Create the human readable text
+    /txt barcode length array def
+    0 1 barcode length 1 sub {
+        /i exch def
+        txt i [barcode i 1 getinterval 0 0 () 0] put
+    } for
+ 
     /height height cvr def
 
     /getRSSwidths {     
@@ -1580,10 +1621,13 @@
     ] def
     
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) sbs put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put   
+    retval (txt) txt put
+    retval (textxalign) (center) put
     retval (opt) useropts put
     retval
 
@@ -1596,6 +1640,8 @@
 % --BEGIN ENCODER rsslimited--
 % --DESC: Reduced Space Symbology Limited (RSS-Limited)
 % --EXAM: 00978186074271
+% --EXOP: height=0.3
+% --RNDR: renlinear
 /rsslimited {
 
     0 begin            % Confine variables to local scope
@@ -1611,7 +1657,14 @@
         token false eq {exit} if dup length string cvs (=) search
         true eq {cvlit exch pop exch def} {cvlit true def} ifelse
     } loop
-    
+   
+    % Create the human readable text
+    /txt barcode length array def
+    0 1 barcode length 1 sub {
+        /i exch def
+        txt i [barcode i 1 getinterval 0 0 () 0] put
+    } for
+
     /height height cvr def
 
     /getRSSwidths {
@@ -1755,10 +1808,13 @@
     ] def
     
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) sbs put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put   
+    retval (txt) txt put
+    retval (textxalign) (center) put
     retval (opt) useropts put
     retval
 
@@ -1771,6 +1827,8 @@
 % --BEGIN ENCODER rssexpanded--
 % --DESC: Reduced Space Symbology Expanded (RSS-Expanded)
 % --EXAM: 000000010011001010100001000000010000
+% --EXOP: height=0.3
+% --RNDR: renlinear
 /rssexpanded {
 
     0 begin            % Confine variables to local scope
@@ -1959,7 +2017,8 @@
     ] def
     
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) sbs put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put   
@@ -1972,9 +2031,82 @@
 /rssexpanded load 0 1 dict put
 % --END ENCODER rssexpanded--
 
+% --BEGIN ENCODER pharmacode--
+% --DESC: Pharmaceutical Binary Code
+% --EXAM: 117480
+% --EXOP: showborder
+% --RNDR: renlinear
+/pharmacode {
+
+    0 begin                 % Confine variables to local scope
+
+    /options exch def       % We are given an option string
+    /useropts options def
+    /barcode exch def       % We are given a barcode string
+
+    /height 8 2.835 mul 72 div def
+    /nwidth 0.5 2.835 mul def
+    /wwidth 1.5 2.835 mul def
+    /swidth 1.0 2.835 mul def    
+
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+    
+    /height height cvr def
+    /nwidth nwidth cvr def
+    /wwidth wwidth cvr def
+    /swidth swidth cvr def
+
+    % Create the human readable text
+    /txt barcode length array def
+    0 1 barcode length 1 sub {
+        /i exch def
+        txt i [barcode i 1 getinterval 0 0 () 0] put
+    } for
+
+    % Convert the integer into the paramacode string 
+    /barcode barcode cvi 1 add 2 17 string cvrs def
+    /barcode barcode 1 barcode length 1 sub getinterval def
+
+    /barlen barcode length def  % Length of the code
+    /sbs barlen 2 mul array def
+
+    0 1 barlen 1 sub {
+        /i exch def
+        /enc barcode i 1 getinterval def
+        enc (0) eq {
+            sbs i 2 mul nwidth put
+        } {
+            sbs i 2 mul wwidth put
+        } ifelse
+        sbs i 2 mul 1 add swidth put
+    } for
+
+    % Return the arguments
+    /retval 8 dict def
+    retval (ren) (renlinear) put
+    retval (sbs) sbs put
+    retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
+    retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
+    retval (txt) txt put
+    retval (textxalign) (center) put
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/pharmacode load 0 1 dict put
+% --END ENCODER pharmacode--
+
 % --BEGIN ENCODER code2of5--
 % --DESC: Code 25
 % --EXAM: 01234567
+% --EXOP: includetext includecheck includecheckintext
+% --RNDR: renlinear
 /code2of5 {
 
     % Thanks to Michael Landers
@@ -1990,7 +2122,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -2001,7 +2133,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -2038,7 +2170,7 @@
         pop pop                             % Discard seek and post
         /enc encs indx get def              % Get the indxth encoding
         sbs i 10 mul 6 add enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 14 mul 10 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 14 mul 10 add textyoffset textfont textsize] put
         barlen i sub 2 mod 0 eq {
             /checksum checksum indx add def
         } {            
@@ -2052,16 +2184,17 @@
         sbs barlen 10 mul 6 add encs checksum get putinterval
         sbs barlen 10 mul 16 add encs 11 get putinterval
         includecheckintext {
-            txt barlen [barchars checksum 1 getinterval barlen 14 mul 10 add textpos textfont textsize] put
+            txt barlen [barchars checksum 1 getinterval barlen 14 mul 10 add textyoffset textfont textsize] put
         } {            
-            txt barlen [( ) barlen 14 mul 10 add textpos textfont textsize] put
+            txt barlen [( ) barlen 14 mul 10 add textyoffset textfont textsize] put
         } ifelse
     } {
         sbs barlen 10 mul 6 add encs 11 get putinterval
     } ifelse
     
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -2080,6 +2213,8 @@
 % --BEGIN ENCODER code11--
 % --DESC: Code 11
 % --EXAM: 0123456789
+% --EXOP: includetext includecheck includecheckintext
+% --RNDR: renlinear
 /code11 {
 
     0 begin            % Confine variables to local scope
@@ -2093,7 +2228,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -2104,7 +2239,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -2147,7 +2282,7 @@
         pop pop                            % Discard seek and post
         /enc encs indx get def             % Get the indxth encoding
         sbs i 6 mul 6 add enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval xpos textpos textfont textsize] put
+        txt i [barcode i 1 getinterval xpos textyoffset textfont textsize] put
         0 1 5 {       % xpos+=width of the character
             /xpos exch enc exch get 48 sub xpos add def
         } for
@@ -2163,23 +2298,23 @@
             sbs barlen 6 mul 6 add encs checksum1 get putinterval        
             sbs barlen 6 mul 12 add encs checksum2 get putinterval
             includecheckintext {
-                txt barlen [barchars checksum1 1 getinterval xpos textpos textfont textsize] put
+                txt barlen [barchars checksum1 1 getinterval xpos textyoffset textfont textsize] put
                 /enc encs checksum1 get def   
                 0 1 5 {       % xpos+=width of the character
                     /xpos exch enc exch get 48 sub xpos add def
                 } for
-                txt barlen 1 add [barchars checksum2 1 getinterval xpos textpos textfont textsize] put
+                txt barlen 1 add [barchars checksum2 1 getinterval xpos textyoffset textfont textsize] put
             } {
-                txt barlen [() xpos textpos textfont textsize] put
-                txt barlen 1 add [() xpos textpos textfont textsize] put
+                txt barlen [() xpos textyoffset textfont textsize] put
+                txt barlen 1 add [() xpos textyoffset textfont textsize] put
             } ifelse
             sbs barlen 6 mul 18 add encs 11 get putinterval
         } {
             sbs barlen 6 mul 6 add encs checksum1 get putinterval          
             includecheckintext {
-                txt barlen [barchars checksum1 1 getinterval xpos textpos textfont textsize] put
+                txt barlen [barchars checksum1 1 getinterval xpos textyoffset textfont textsize] put
             } {
-                txt barlen [() xpos textpos textfont textsize] put
+                txt barlen [() xpos textyoffset textfont textsize] put
             } ifelse
             sbs barlen 6 mul 12 add encs 11 get putinterval
         } ifelse
@@ -2188,7 +2323,8 @@
     } ifelse
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -2207,6 +2343,8 @@
 % --BEGIN ENCODER rationalizedCodabar--
 % --DESC: Rationalized Codabar
 % --EXAM: A0123456789B
+% --EXOP: includetext includecheck includecheckintext
+% --RNDR: renlinear
 /rationalizedCodabar {
 
     0 begin                    % Confine variables to local scope
@@ -2220,7 +2358,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -2231,7 +2369,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -2266,7 +2404,7 @@
         pop pop                      % Discard seek and post
         /enc encs indx get def       % Get the indxth encoding
         sbs i 8 mul enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval xpos textpos textfont textsize] put
+        txt i [barcode i 1 getinterval xpos textyoffset textfont textsize] put
         0 1 7 {       % xpos+=width of the character
             /xpos exch enc exch get 48 sub xpos add def
         } for
@@ -2285,9 +2423,9 @@
         /checksum 16 checksum 16 mod sub 16 mod def
         sbs barlen 8 mul 8 sub encs checksum get putinterval
         includecheckintext {
-            txt barlen 1 sub [barchars checksum 1 getinterval xpos textpos textfont textsize] put
+            txt barlen 1 sub [barchars checksum 1 getinterval xpos textyoffset textfont textsize] put
         } {
-            txt barlen 1 sub [( ) xpos textpos textfont textsize] put
+            txt barlen 1 sub [( ) xpos textyoffset textfont textsize] put
         } ifelse
         0 1 7 {       % xpos+=width of the character
             /xpos exch encs checksum get exch get 48 sub xpos add def
@@ -2295,16 +2433,17 @@
         % Put the end character
         /enc encs indx get def            % Get the indxth encoding
         sbs barlen 8 mul enc putinterval  % Put encoded digit into sbs
-        txt barlen [barcode barlen 1 sub 1 getinterval xpos textpos textfont textsize] put
+        txt barlen [barcode barlen 1 sub 1 getinterval xpos textyoffset textfont textsize] put
     } {
         % Put the end character
         /enc encs indx get def                  % Get the indxth encoding
         sbs barlen 8 mul 8 sub enc putinterval  % Put encoded digit into sbs
-        txt barlen 1 sub [barcode barlen 1 sub 1 getinterval xpos textpos textfont textsize] put
+        txt barlen 1 sub [barcode barlen 1 sub 1 getinterval xpos textyoffset textfont textsize] put
     } ifelse
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -2323,6 +2462,8 @@
 % --BEGIN ENCODER onecode--
 % --DESC: United States Postal Service OneCode
 % --EXAM: 0123456709498765432101234567891
+% --EXOP: barcolor=FF0000
+% --RNDR: renlinear
 /onecode {
 
     0 begin
@@ -2342,6 +2483,13 @@
     /height height cvr def
 
     /barlen barcode length def
+ 
+    % Create the human readable text
+    /txt barcode length array def
+    0 1 barcode length 1 sub {
+        /i exch def
+        txt i [barcode i 1 getinterval 0 0 () 0] put
+    } for
 
     /normalize {
         /base exch def
@@ -2573,10 +2721,13 @@
         } if
     } for
     
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (bbs) bbs put
     retval (bhs) bhs put
     retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put    
+    retval (txt) txt put
+    retval (textxalign) (center) put
     retval (opt) useropts put
     retval
 
@@ -2589,9 +2740,9 @@
 % --BEGIN ENCODER postnet--
 % --DESC: United States Postal Service Postnet
 % --EXAM: 012345
+% --EXOP: includetext includecheckintext
+% --RNDR: renlinear
 /postnet {
-
-    % Thanks to Ross McFarland
 
     0 begin
 
@@ -2603,7 +2754,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 0.125 def
     
     % Parse the input options
@@ -2614,7 +2765,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     /barlen barcode length def
@@ -2656,7 +2807,7 @@
             heights j enc j 1 getinterval cvi height mul 5 div put
         } for
         bhs i 5 mul 1 add heights putinterval   % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 5 mul 1 add 3.312 mul textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 5 mul 1 add 3.312 mul textyoffset textfont textsize] put
         /checksum checksum indx add def     % checksum+=indx
     } for
 
@@ -2671,9 +2822,9 @@
     bhs barlen 5 mul 1 add heights putinterval  
     
     includecheckintext {
-        txt barlen [barchars checksum 1 getinterval barlen 5 mul 1 add 3.312 mul textpos textfont textsize] put
+        txt barlen [barchars checksum 1 getinterval barlen 5 mul 1 add 3.312 mul textyoffset textfont textsize] put
     } {
-        txt barlen [( ) barlen 5 mul 1 add 72 mul 25 div textpos textfont textsize] put
+        txt barlen [( ) barlen 5 mul 1 add 72 mul 25 div textyoffset textfont textsize] put
     } ifelse
     
     % Put end character
@@ -2685,7 +2836,8 @@
     } for
     bhs barlen 5 mul 6 add heights putinterval  
 
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (bhs) bhs put
     retval (bbs) [bhs length {0} repeat] put
     retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
@@ -2704,6 +2856,8 @@
 % --BEGIN ENCODER royalmail--
 % --DESC: Royal Mail 4 State Customer Code (RM4SCC)
 % --EXAM: LE28HS9Z
+% --EXOP: includetext includecheckintext barcolor=FF0000
+% --RNDR: renlinear
 /royalmail {
 
     0 begin
@@ -2716,7 +2870,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 0.175 def
     
     % Parse the input options
@@ -2727,7 +2881,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -2762,7 +2916,7 @@
         pop pop                             % Discard seek and post
         /enc encs indx get def              % Get the indxth encoding
         encstr i 4 mul 1 add enc putinterval
-        txt i [barcode i 1 getinterval i 4 mul 1 add 3.312 mul textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 4 mul 1 add 3.312 mul textyoffset textfont textsize] put
         /checksumrow checksumrow indx 6 idiv add def
         /checksumcol checksumcol indx 6 mod add def 
     } for
@@ -2772,9 +2926,9 @@
     /enc encs checksum get def
     encstr barlen 4 mul 1 add enc putinterval
     includecheckintext {
-        txt barlen [barchars checksum 1 getinterval barlen 4 mul 1 add 3.312 mul textpos textfont textsize] put
+        txt barlen [barchars checksum 1 getinterval barlen 4 mul 1 add 3.312 mul textyoffset textfont textsize] put
     } {
-        txt barlen [( ) barlen 4 mul 1 add 3.312 mul textpos textfont textsize] put
+        txt barlen [( ) barlen 4 mul 1 add 3.312 mul textyoffset textfont textsize] put
     } ifelse
     
     % Put end character
@@ -2803,7 +2957,8 @@
         } if
     } for
     
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (bbs) bbs put
     retval (bhs) bhs put
     retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
@@ -2822,6 +2977,8 @@
 % --BEGIN ENCODER auspost--
 % --DESC: AusPost 4 State Customer Code
 % --EXAM: 5956439111ABA 9
+% --EXOP: includetext custinfoenc=character
+% --RNDR: renlinear
 /auspost {
 
     0 begin
@@ -2833,7 +2990,7 @@
     /includetext false def         % Enable/disable text
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 0.175 def
     /custinfoenc (character) def
     
@@ -2845,7 +3002,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
 
     % Create an array containing the character mappings
@@ -2887,7 +3044,7 @@
         /i exch def       
         encs barcode i 1 getinterval cvi 64 add get
         encstr i 2 mul 2 add 3 2 roll putinterval
-        txt i 2 sub [barcode i 1 getinterval i 2 sub 2 mul 6 add 3.312 mul textpos textfont textsize] put
+        txt i 2 sub [barcode i 1 getinterval i 2 sub 2 mul 6 add 3.312 mul textyoffset textfont textsize] put
     } for
     
     % Encode the customer information   
@@ -2896,7 +3053,7 @@
             /i exch def
             encs barcode i 10 add 1 getinterval cvi 64 add get
             encstr i 2 mul 22 add 3 2 roll putinterval
-            txt i 8 add [barcode i 10 add 1 getinterval i 2 mul 22 add 3.312 mul textpos textfont textsize] put
+            txt i 8 add [barcode i 10 add 1 getinterval i 2 mul 22 add 3.312 mul textyoffset textfont textsize] put
         } for        
         /ciflen barlen 10 sub 2 mul def
     } {
@@ -2908,7 +3065,7 @@
             pop pop                            
             /enc encs indx get def          
             encstr i 3 mul 22 add enc putinterval
-            txt i 8 add [barcode i 10 add 1 getinterval i 3 mul 22 add 3.312 mul textpos textfont textsize] put
+            txt i 8 add [barcode i 10 add 1 getinterval i 3 mul 22 add 3.312 mul textyoffset textfont textsize] put
         } for        
         /ciflen barlen 10 sub 3 mul def
     } ifelse
@@ -2993,7 +3150,8 @@
         } if
     } for   
     
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (bbs) bbs put
     retval (bhs) bhs put
     retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
@@ -3012,6 +3170,8 @@
 % --BEGIN ENCODER kix--
 % --DESC: Royal Dutch TPG Post KIX 4-State Barcode
 % --EXAM: 1231FZ13XHS
+% --EXOP: includetext includecheckintext
+% --RNDR: renlinear
 /kix {
 
     0 begin
@@ -3024,7 +3184,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 0.175 def
     
     % Parse the input options
@@ -3035,7 +3195,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -3064,7 +3224,7 @@
         pop pop                             % Discard seek and post
         /enc encs indx get def              % Get the indxth encoding
         encstr i 4 mul enc putinterval
-        txt i [barcode i 1 getinterval i 4 mul 3.312 mul textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 4 mul 3.312 mul textyoffset textfont textsize] put
     } for
 
     /bbs encstr length array def    
@@ -3090,7 +3250,8 @@
         } if
     } for
     
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (bbs) bbs put
     retval (bhs) bhs put
     retval (sbs) [bhs length 1 sub {1.44 1.872} repeat 1.44] put
@@ -3109,6 +3270,8 @@
 % --BEGIN ENCODER msi--
 % --DESC: MSI Modified Plessey
 % --EXAM: 0123456789
+% --EXOP: includetext includecheck includecheckintext
+% --RNDR: renlinear
 /msi {
 
     0 begin                 % Confine variables to local scope
@@ -3122,7 +3285,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -3133,7 +3296,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -3170,7 +3333,7 @@
         pop pop                            % Discard seek and post
         /enc encs indx get def             % Get the indxth encoding
         sbs i 8 mul 2 add enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 16 mul 4 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 16 mul 4 add textyoffset textfont textsize] put
         barlen i sub 2 mod 0 eq {
             /checksum indx checksum add def
         } {
@@ -3183,9 +3346,9 @@
         /checksum 10 checksum 10 mod sub 10 mod def
         sbs barlen 8 mul 2 add encs checksum get putinterval
         includecheckintext {
-            txt barlen [barchars checksum 1 getinterval barlen 16 mul 4 add textpos textfont textsize] put
+            txt barlen [barchars checksum 1 getinterval barlen 16 mul 4 add textyoffset textfont textsize] put
         } {
-            txt barlen [( ) barlen 16 mul 4 add textpos textfont textsize] put
+            txt barlen [( ) barlen 16 mul 4 add textyoffset textfont textsize] put
         } ifelse
         sbs barlen 8 mul 10 add encs 11 get putinterval
     } {
@@ -3193,7 +3356,8 @@
     } ifelse
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -3212,6 +3376,8 @@
 % --BEGIN ENCODER plessey--
 % --DESC: Plessey
 % --EXAM: 01234ABCD
+% --EXOP: includetext includecheckintext
+% --RNDR: renlinear
 /plessey {
 
     0 begin                  % Confine variables to local scope
@@ -3224,7 +3390,7 @@
     /includecheckintext false def
     /textfont /Courier def
     /textsize 10 def
-    /textpos -7 def
+    /textyoffset -7 def
     /height 1 def
     
     % Parse the input options
@@ -3235,7 +3401,7 @@
     
     /textfont textfont cvlit def
     /textsize textsize cvr def
-    /textpos textpos cvr def
+    /textyoffset textyoffset cvr def
     /height height cvr def
     
     % Create an array containing the character mappings
@@ -3268,7 +3434,7 @@
         pop pop                            % Discard seek and post
         /enc encs indx get def             % Get the indxth encoding
         sbs i 8 mul 8 add enc putinterval  % Put encoded digit into sbs
-        txt i [barcode i 1 getinterval i 16 mul 16 add textpos textfont textsize] put
+        txt i [barcode i 1 getinterval i 16 mul 16 add textyoffset textfont textsize] put
         checkbits i 4 mul [
                 indx 1 and
                 indx -1 bitshift 1 and
@@ -3302,18 +3468,19 @@
     sbs barlen 8 mul 8 add encs checksum1 get putinterval
     sbs barlen 8 mul 16 add encs checksum2 get putinterval
     includecheckintext {
-        txt barlen [barchars checksum1 1 getinterval barlen 16 mul 16 add textpos textfont textsize] put
-        txt barlen 1 add [barchars checksum2 1 getinterval barlen 1 add 16 mul 16 add textpos textfont textsize] put
+        txt barlen [barchars checksum1 1 getinterval barlen 16 mul 16 add textyoffset textfont textsize] put
+        txt barlen 1 add [barchars checksum2 1 getinterval barlen 1 add 16 mul 16 add textyoffset textfont textsize] put
     } {
-        txt barlen [( ) barlen 16 mul 16 add textpos textfont textsize] put
-        txt barlen 1 add [( ) barlen 1 add 16 mul 16 add textpos textfont textsize] put
+        txt barlen [( ) barlen 16 mul 16 add textyoffset textfont textsize] put
+        txt barlen 1 add [( ) barlen 1 add 16 mul 16 add textyoffset textfont textsize] put
     } ifelse
 
     % Put end character
     sbs barlen 8 mul 24 add encs 17 get putinterval
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put
@@ -3332,6 +3499,8 @@
 % --BEGIN ENCODER raw--
 % --DESC: Raw bar space succession for custom symbologies 
 % --EXAM: 331132131313411122131311333213114131131221323
+% --EXOP: height=0.5
+% --RNDR: renlinear
 /raw {
 
     0 begin                  % Confine variables to local scope
@@ -3350,7 +3519,8 @@
     /height height cvr def
 
     % Return the arguments
-    /retval 1 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) [sbs {48 sub} forall] put
     retval (bhs) [sbs length 1 add 2 idiv {height} repeat] put
     retval (bbs) [sbs length 1 add 2 idiv {0} repeat] put 
@@ -3366,6 +3536,8 @@
 % --BEGIN ENCODER symbol--
 % --DESC: Miscellaneous symbols
 % --EXAM: fima
+% --EXOP: backgroundcolor=DD000011
+% --RNDR: renlinear
 /symbol {
 
     0 begin            % Confine variables to local scope
@@ -3398,7 +3570,8 @@
     } if
     
     % Return the arguments
-    /retval 4 dict def
+    /retval 8 dict def
+    retval (ren) (renlinear) put
     retval (sbs) sbs put
     retval (bhs) bhs put
     retval (bbs) bbs put
@@ -3411,8 +3584,317 @@
 /symbol load 0 1 dict put
 % --END ENCODER symbol--
 
-% --BEGIN RENDERER--
-/barcode {
+% --BEGIN ENCODER maxicode--
+% --DESC: MaxiCode
+% --EXAM: ^059^042^041^059^040^03001^02996152382802^029840^029001^0291Z00004951^029UPSN^02906X610^029159^0291234567^0291^0471^029^029Y^029634 ALPHA DR^029PITTSBURGH^029PA^030^062^004^063
+% --EXOP: mode=2
+% --RNDR: renmaximatrix
+/maxicode {
+
+    0 begin
+
+    /options exch def        % We are given an option string
+    /useropts options def
+    /barcode exch def        % We are given a barcode string
+
+    /mode 4 def
+    /sam -1 def
+
+    % Parse the input options
+    options {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+
+    /mode mode cvi def
+    /sam sam cvi def
+
+    /txtvals (@ABCDEFGHIJKLMNOPQRSTUVWXYZ@@@@@ @@@@@@@@@@@@@@@0123456789@@@@@@) def
+
+    % Parse a given message into codewords
+    /maxiparse {
+        /txt exch def
+        /out txt length array def
+        /i 0 def /j 0 def
+        { % loop  
+            i txt length eq {exit} if
+            txt i 1 getinterval (^) eq {
+                % Codeword is given by the next three characters
+                /cw txt i 1 add 3 getinterval cvi def
+                /i i 4 add def
+            } {
+                % Codeword is the characters position in txtvals
+                txtvals txt i 1 getinterval search 
+                pop length /cw exch def pop pop
+                /i i 1 add def
+            } ifelse
+            out j cw put
+            /j j 1 add def 
+        } loop
+        out 0 j getinterval
+    } bind def
+
+    % Calcalate the structured append mode insert
+    /sami () def
+    sam -1 ne {
+        /sami (^033^000) def
+        sam 10 idiv 1 sub 8 mul sam 10 mod 1 sub add 10 2 string cvrs
+        dup length 8 exch sub sami exch 3 -1 roll putinterval 
+    } if
+
+    % Message handling for modes 2 and 3
+    mode 2 eq mode 3 eq or {
+
+        /msg barcode def
+
+        % Normalise messages that begin with a field identifier [)>RS01GSyy
+        msg (^059^042^041^059^040^03001^029) search {
+            pop
+            dup length 2 add string /fid exch def
+            fid 0 3 -1 roll putinterval
+            dup fid fid length 2 sub 3 -1 roll 0 2 getinterval putinterval
+            dup length 2 sub 2 exch getinterval /msg exch def
+        } {
+            pop
+            /fid () def
+        } ifelse
+
+        % Read the postcode, country code and service code fields
+        msg (^029) search pop /pc exch def
+        pop (^029) search pop /cc exch def
+        pop (^029) search pop /sc exch def
+        pop /msg exch def
+
+        % Calculate the fixed-width binary values for the mode, postcode, country code and service
+        /mdb (0000) dup mode cvi 2 4 string cvrs dup length 4 exch sub exch putinterval def
+        /ccb (0000000000) dup cc cvi 2 10 string cvrs dup length 10 exch sub exch putinterval def
+        /scb (0000000000) dup sc cvi 2 10 string cvrs dup length 10 exch sub exch putinterval def
+        /pcb (000000000000000000000000000000000000) def
+        mode 2 eq {
+            % For numeric postcode, first six bits represent length and remaining 30 bits the value
+            pcb pc length 2 6 string cvrs dup length 6 exch sub exch putinterval
+            pcb pc cvi 2 30 string cvrs dup length 36 exch sub exch putinterval
+        } {  % mode=3
+            % For alphanumeric postcode, trim or pad with spaces to 6 chars and encode to binary
+            /pccw (      ) dup 0 pc length 6 gt {pc 0 6 getinterval} {pc} ifelse putinterval maxiparse def
+            0 1 5 {
+                /i exch def
+                pcb pccw i get 2 6 string cvrs dup length 6 i mul 6 add exch sub exch putinterval
+            } for
+        } ifelse
+
+        % Convolute the binary values into the structured carrier message
+        /scm 60 string def
+        scm 2  mdb putinterval
+        scm 38 pcb 0  4 getinterval putinterval
+        scm 30 pcb 4  6 getinterval putinterval
+        scm 24 pcb 10 6 getinterval putinterval
+        scm 18 pcb 16 6 getinterval putinterval
+        scm 12 pcb 22 6 getinterval putinterval
+        scm 6  pcb 28 6 getinterval putinterval
+        scm 0  pcb 34 2 getinterval putinterval
+        scm 52 ccb 0  2 getinterval putinterval
+        scm 42 ccb 2  6 getinterval putinterval
+        scm 36 ccb 8  2 getinterval putinterval
+        scm 54 scb 0  6 getinterval putinterval
+        scm 48 scb 6  4 getinterval putinterval
+
+        % Evaluate the structured carrier message as codewords
+        /pri [ 0 0 0 0 0 0 0 0 0 0 ] def
+        0 1 59 { 
+            /i exch def
+            /ps i 6 idiv def
+            /ep 2 5 i 6 mod sub exp cvi scm i get 48 sub mul def
+            pri ps pri ps get ep add put
+        } for
+
+        % Encode the secondary parts, including any SAM insert and field identifier
+        /sec [ 84 {33} repeat ] def
+        sec 0 [ sami maxiparse {} forall fid maxiparse {} forall msg maxiparse {} forall ] putinterval
+
+    } if
+
+    % Message handling for modes 4, 5 and 6
+    mode 4 eq mode 5 eq or mode 6 eq or {
+
+        % Prefix the message with the structured append insert
+        /msg sami length barcode length add string def
+        msg 0 sami putinterval
+        msg sami length barcode putinterval
+
+        % First symbol is the mode and the remainder are the padded message
+        /cws [ mode 5 eq {94} {78} ifelse {33} repeat ] def
+        cws 0 mode put
+        cws 1 msg maxiparse putinterval
+
+        % Fit the message into the primary and secondary components
+        /pri cws 0 10 getinterval def
+        /sec cws 10 cws length 10 sub getinterval def
+
+    } if
+
+    % Create the 64x64 Reed-Solomon table
+    /rstable 64 64 mul array def
+    rstable 0 [ 64 {0} repeat ] putinterval
+    rstable 64 [ 0 1 63 {} for ] putinterval
+    /prev 1 def
+    64 {       
+        /next prev 1 bitshift def
+        next 64 and 0 ne {
+            /next next 67 xor def
+        } if        
+        0 1 63 {
+            /j exch def
+            /nextcell {rstable 64 next mul j add} def
+            nextcell rstable 64 prev mul j add get 1 bitshift put
+            nextcell get 64 and 0 ne {
+                nextcell nextcell get 67 xor put
+            } if
+        } for
+        /prev next def
+    } repeat
+
+    % Calculate the parity codewords for primary codewords 
+    /pgen [46 44 49 3 2 57 42 39 28 31 1] def
+    /rscodes [ 10 {0} repeat 9 -1 0 { pri exch get } for ] def
+    rscodes length 11 sub -1 0 {
+        /i exch def
+        0 1 10 {
+            /j exch def
+            rscodes i j add rscodes i j add get
+            rstable 64 pgen j get mul rscodes i 10 add get add get
+            xor put
+        } for
+    } for
+    /prichk [ 9 -1 0 { rscodes exch get } for ] def
+
+    % Split secondary codeword into odd and even elements
+    /seco [ 0 2 sec length 1 sub { sec exch get } for ] def
+    /sece [ 1 2 sec length 1 sub { sec exch get } for ] def
+
+    % Calculate the parity codewords for secondary codeword parts based on mode
+    sec length 84 eq {  % SEC mode
+        /sgen [ 59 23 19 31 33 38 17 22 48 15 36 57 37 22 8 27 33 11 44 23 1 ] def
+    } {  % EEC mode
+        /sgen [ 28 11 20 7 43 9 41 34 49 46 37 40 55 34 45 61 13 23 29 22 10 35 55 41 10 53 45 22 1 ] def
+    } ifelse
+    /scodes sgen length 1 sub def
+    /rscodes [ scodes {0} repeat seco length 1 sub -1 0 { seco exch get } for ] def
+    rscodes length scodes sub 1 sub -1 0 {
+        /i exch def
+        0 1 scodes {
+            /j exch def
+            rscodes i j add rscodes i j add get
+            rstable 64 sgen j get mul rscodes i scodes add get add get
+            xor put
+        } for
+    } for
+    /secochk [ scodes 1 sub -1 0 { rscodes exch get } for ] def
+    /rscodes [ scodes {0} repeat sece length 1 sub -1 0 { sece exch get } for ] def
+    rscodes length scodes sub 1 sub -1 0 {
+        /i exch def
+        0 1 scodes {
+            /j exch def
+            rscodes i j add rscodes i j add get
+            rstable 64 sgen j get mul rscodes i scodes add get add get
+            xor put
+        } for
+    } for
+    /secechk [ scodes 1 sub -1 0 { rscodes exch get } for ] def
+
+    % Recompose the secondary parity codewords
+    /secchk [ 0 1 scodes 1 sub { dup secochk exch get exch secechk exch get } for ] def
+
+    % Concatinate the data into final codewords
+    /codewords [
+        pri {} forall 
+        prichk {} forall
+        sec {} forall 
+        secchk {} forall
+    ] def
+
+    % Convert the codewords into module bits
+    /mods [ 864 {0} repeat ] def
+    0 1 143 {
+        /i exch def
+        /cw [ codewords i get 2 6 string cvrs {48 sub} forall ] def
+        mods 6 i mul 6 cw length sub add cw putinterval
+    } for
+
+    % Maps modules to pixels in the grid
+    /modmap [
+        469 529 286 316 347 346 673 672 703 702 647 676 283 282 313 312 370 610 618 379 
+        378 409 408 439 705 704 559 589 588 619 458 518 640 701 675 674 285 284 315 314 
+        310 340 531 289 288 319 349 348 456 486 517 516 471 470 369 368 399 398 429 428 
+        549 548 579 578 609 608 649 648 679 678 709 708 639 638 669 668 699 698 279 278 
+        309 308 339 338 381 380 411 410 441 440 561 560 591 590 621 620 547 546 577 576 
+        607 606 367 366 397 396 427 426 291 290 321 320 351 350 651 650 681 680 711 710 
+        1   0   31  30  61  60  3   2   33  32  63  62  5   4   35  34  65  64  7   6   
+        37  36  67  66  9   8   39  38  69  68  11  10  41  40  71  70  13  12  43  42  
+        73  72  15  14  45  44  75  74  17  16  47  46  77  76  19  18  49  48  79  78  
+        21  20  51  50  81  80  23  22  53  52  83  82  25  24  55  54  85  84  27  26  
+        57  56  87  86  117 116 147 146 177 176 115 114 145 144 175 174 113 112 143 142 
+        173 172 111 110 141 140 171 170 109 108 139 138 169 168 107 106 137 136 167 166 
+        105 104 135 134 165 164 103 102 133 132 163 162 101 100 131 130 161 160 99  98  
+        129 128 159 158 97  96  127 126 157 156 95  94  125 124 155 154 93  92  123 122 
+        153 152 91  90  121 120 151 150 181 180 211 210 241 240 183 182 213 212 243 242 
+        185 184 215 214 245 244 187 186 217 216 247 246 189 188 219 218 249 248 191 190 
+        221 220 251 250 193 192 223 222 253 252 195 194 225 224 255 254 197 196 227 226 
+        257 256 199 198 229 228 259 258 201 200 231 230 261 260 203 202 233 232 263 262 
+        205 204 235 234 265 264 207 206 237 236 267 266 297 296 327 326 357 356 295 294 
+        325 324 355 354 293 292 323 322 353 352 277 276 307 306 337 336 275 274 305 304 
+        335 334 273 272 303 302 333 332 271 270 301 300 331 330 361 360 391 390 421 420 
+        363 362 393 392 423 422 365 364 395 394 425 424 383 382 413 412 443 442 385 384 
+        415 414 445 444 387 386 417 416 447 446 477 476 507 506 537 536 475 474 505 504 
+        535 534 473 472 503 502 533 532 455 454 485 484 515 514 453 452 483 482 513 512 
+        451 450 481 480 511 510 541 540 571 570 601 600 543 542 573 572 603 602 545 544 
+        575 574 605 604 563 562 593 592 623 622 565 564 595 594 625 624 567 566 597 596 
+        627 626 657 656 687 686 717 716 655 654 685 684 715 714 653 652 683 682 713 712 
+        637 636 667 666 697 696 635 634 665 664 695 694 633 632 663 662 693 692 631 630 
+        661 660 691 690 721 720 751 750 781 780 723 722 753 752 783 782 725 724 755 754 
+        785 784 727 726 757 756 787 786 729 728 759 758 789 788 731 730 761 760 791 790 
+        733 732 763 762 793 792 735 734 765 764 795 794 737 736 767 766 797 796 739 738 
+        769 768 799 798 741 740 771 770 801 800 743 742 773 772 803 802 745 744 775 774 
+        805 804 747 746 777 776 807 806 837 836 867 866 897 896 835 834 865 864 895 894 
+        833 832 863 862 893 892 831 830 861 860 891 890 829 828 859 858 889 888 827 826 
+        857 856 887 886 825 824 855 854 885 884 823 822 853 852 883 882 821 820 851 850 
+        881 880 819 818 849 848 879 878 817 816 847 846 877 876 815 814 845 844 875 874 
+        813 812 843 842 873 872 811 810 841 840 871 870 901 900 931 930 961 960 903 902 
+        933 932 963 962 905 904 935 934 965 964 907 906 937 936 967 966 909 908 939 938 
+        969 968 911 910 941 940 971 970 913 912 943 942 973 972 915 914 945 944 975 974 
+        917 916 947 946 977 976 919 918 949 948 979 978 921 920 951 950 981 980 923 922 
+        953 952 983 982 925 924 955 954 985 984 927 926 957 956 987 986 58  89  88  118 
+        149 148 178 209 208 238 269 268 298 329 328 358 389 388 418 449 448 478 509 508 
+        538 569 568 598 629 628 658 689 688 718 749 748 778 809 808 838 869 868 898 929 
+        928 958 989 988
+    ] def
+
+    % Lookup pixels for enabled modules from modmap
+    /pixs 864 array def
+    /j 0 def
+    0 1 mods length 1 sub {
+        /i exch def
+        mods i get 1 eq {
+            pixs j modmap i get put
+            /j j 1 add def
+        } if
+    } for
+    /pixs [ pixs 0 j getinterval {} forall 28 29 280 281 311 457 488 500 530 670 700 677 707 ] def
+
+    /retval 3 dict def
+    retval (ren) (renmaximatrix) put
+    retval (pixs) pixs put
+    retval (opt) useropts put
+    retval
+
+    end
+
+} bind def
+/maxicode load 0 1 dict put
+% --END ENCODER maxicode--
+
+% --BEGIN RENDERER renlinear--
+/renlinear {
 
     0 begin          % Confine variables to local scope
 
@@ -3424,7 +3906,14 @@
     /bbs [] def
     /txt [] def
     /barcolor (unset) def
+    /includetext false def
     /textcolor (unset) def
+    /textxalign (unset) def
+    /textyalign (unset) def
+    /textfont (Courier) def
+    /textsize 10 def
+    /textxoffset 0 def
+    /textyoffset 0 def
     /bordercolor (unset) def
     /backgroundcolor (unset) def
     /inkspread 0.15 def
@@ -3447,7 +3936,7 @@
     
     % Apply the renderer options
     args {exch cvlit exch def} forall
-       
+ 
     % Parse the user options   
     opt {
         token false eq {exit} if dup length string cvs (=) search
@@ -3456,6 +3945,12 @@
 
     /barcolor barcolor cvlit def
     /textcolor textcolor cvlit def
+    /textxalign textxalign cvlit def
+    /textyalign textyalign cvlit def
+    /textfont textfont cvlit def
+    /textsize textsize cvr def
+    /textxoffset textxoffset cvr def
+    /textyoffset textyoffset cvr def
     /bordercolor bordercolor cvlit def
     /backgroundcolor backgroundcolor cvlit def
     /inkspread inkspread cvr def
@@ -3502,6 +3997,17 @@
         width 72 mul x div 1 scale
     } if
 
+    % Set RGB or CMYK color depending on length of given hex string
+    /setanycolor {
+        /anycolor exch def
+        anycolor length 6 eq {
+            (<      >) dup 1 anycolor putinterval cvx exec {255 div} forall setrgbcolor
+        } if
+        anycolor length 8 eq {
+            (<        >) dup 1 anycolor putinterval cvx exec {255 div} forall setcmykcolor
+        } if
+    } bind def
+
     % Display the border and background
     newpath
     borderleft neg borderbottom neg moveto
@@ -3510,26 +4016,17 @@
     x borderleft add borderright add neg 0 rlineto
     0 maxh borderbottom add bordertop add neg rlineto    
     closepath
-    backgroundcolor (unset) ne {
-        gsave
-        (<      >) dup 1 backgroundcolor putinterval cvx exec {255 div} forall setrgbcolor
-        fill
-        grestore  
-    } if     
+    backgroundcolor (unset) ne { gsave backgroundcolor setanycolor fill grestore } if     
     showborder {
         gsave
-        bordercolor (unset) ne {
-            (<      >) dup 1 bordercolor putinterval cvx exec {255 div} forall setrgbcolor
-        } if
+        bordercolor (unset) ne { bordercolor setanycolor } if
         borderwidth setlinewidth stroke
         grestore
     } if    
    
     % Display the bars for elements in the bars array
     gsave
-    barcolor (unset) ne {
-        (<      >) dup 1 barcolor putinterval cvx exec {255 div} forall setrgbcolor
-    } if
+    barcolor (unset) ne { barcolor setanycolor } if
     bars {
         {} forall
         newpath setlinewidth moveto 0 exch rlineto stroke
@@ -3537,20 +4034,35 @@
     grestore
     
     % Display the text for elements in the text array
-    textcolor (unset) ne {
-        (<      >) dup 1 textcolor putinterval cvx exec {255 div} forall setrgbcolor
-    } if
-    /s 0 def /f () def
-    txt {
-        {} forall
-        2 copy s ne exch f ne or {
-            2 copy /s exch def /f exch def            
-            exch findfont exch scalefont setfont          
-        } {
-            pop pop
-        } ifelse
-        moveto show
-    } forall
+    textcolor (unset) ne { textcolor setanycolor } if
+    includetext {
+    textxalign (unset) eq textyalign (unset) eq and {
+        /s 0 def /f () def
+        txt {
+            {} forall
+            2 copy s ne exch f ne or {
+                2 copy /s exch def /f exch def            
+                exch findfont exch scalefont setfont          
+            } {
+                pop pop
+            } ifelse
+            moveto show
+        } forall
+    } {
+        textfont findfont textsize scalefont setfont
+        /tstr txt length string def
+        0 1 txt length 1 sub { dup txt exch get 0 get tstr 3 1 roll putinterval } for
+        /textxpos textxoffset x tstr stringwidth pop sub 2 div add def
+        textxalign (left) eq { /textxpos textxoffset def } if
+        textxalign (right) eq { /textxpos x textxoffset sub tstr stringwidth pop sub def } if
+        textxalign (offleft) eq { /textxpos tstr stringwidth pop textxoffset add neg def } if
+        textxalign (offright) eq { /textxpos x textxoffset add def } if
+        /textypos textyoffset textsize add 3 sub neg def
+        textyalign (above) eq { /textypos textyoffset maxh add 1 add def } if
+        textyalign (center) eq { /textypos textyoffset maxh textsize 4 sub sub 2 div add def } if
+        textxpos textypos moveto tstr show
+    } ifelse
+    } if    
 
     % Display the guard elements
     guardwhitespace {
@@ -3576,7 +4088,72 @@
     end
 
 } bind def
+/renlinear load 0 1 dict put
+% --END RENDERER renlinear--
+
+% --BEGIN RENDERER renmaximatrix--
+/renmaximatrix {
+
+    0 begin
+
+    /args exch def   % We are given some arguments
+
+    % Apply the renderer options
+    args {exch cvlit exch def} forall
+ 
+    % Parse the user options   
+    opt {
+        token false eq {exit} if dup length string cvs (=) search
+        true eq {cvlit exch pop exch def} {cvlit true def} ifelse
+    } loop
+
+    gsave
+
+    currentpoint translate
+
+    2.4945 dup scale  % from 1pt to 1.88mm
+    0.5 0.5774 translate
+
+    pixs {
+        dup 
+        /x exch 30 mod def 
+        /y exch 30 idiv def
+        y 2 mod 0 eq {x} {x 0.5 add} ifelse
+        32 y sub 0.8661 mul
+        moveto
+        0     0.5774 rmoveto
+        -0.5 -0.2887 rlineto
+        0    -0.5774 rlineto
+        0.5  -0.2887 rlineto
+        0.5   0.2887 rlineto
+        0     0.5774 rlineto
+        -0.5  0.2887 rlineto
+        closepath fill
+    } forall
+
+    % Plot the locator symbol
+    newpath 14 13.8576 0.5774 0 360 arc closepath
+    14 13.8576 1.3359 360 0 arcn closepath fill
+    newpath 14 13.8576 2.1058 0 360 arc closepath
+    14 13.8576 2.8644 360 0 arcn closepath fill
+    newpath 14 13.8576 3.6229 0 360 arc closepath
+    14 13.8576 4.3814 360 0 arcn closepath fill
+
+    grestore
+
+    end
+
+} bind def
+/renmaximatrix load 0 1 dict put
+% --END RENDERER renmaximatrix--
+
+% --BEGIN DISPATCHER--
+/barcode {
+    0 begin
+    dup (ren) get cvx exec 
+    end
+} bind def
 /barcode load 0 1 dict put
-% --END RENDERER--
+% --END DISPATCHER--
 
 % --END TEMPLATE--
