@@ -46,7 +46,8 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 			FontSubset,
 			FontAccess,
 			FontInDoc,
-			FontFile
+			FontFile,
+			SortIndex // used for sorting by lowercased name
 		};
 
 		/*! Required inherited method. See Qt4 docs.

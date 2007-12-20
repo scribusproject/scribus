@@ -86,7 +86,7 @@ QVariant FontListModel::headerData(int section,
 		default:
 			return "Never should be shown";
 	};
-	
+
 	// dummy return
 	return QVariant();
 }
@@ -172,6 +172,8 @@ QVariant FontListModel::data(const QModelIndex & index,
 			}
 			case FontListModel::FontFile:
 				return font.fontFilePath();
+			case FontListModel::SortIndex:
+				return font.scName().toLower();
 			default:
 				return QVariant();
 		};
@@ -204,7 +206,7 @@ Qt::ItemFlags FontListModel::flags(const QModelIndex &index) const
 
 	if (!index.isValid())
 		return QAbstractTableModel::flags(index);
-	if (index.column() == FontListModel::FontUsable 
+	if (index.column() == FontListModel::FontUsable
 		   || index.column() == FontListModel::FontEmbed
 		   || index.column() == FontListModel::FontSubset)
 		return Qt::ItemIsUserCheckable | /*Qt::ItemIsEditable |*/ defaultFlags;

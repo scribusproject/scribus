@@ -13,6 +13,9 @@ FontListView::FontListView(QWidget * parent)
 {
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	setSelectionBehavior(QAbstractItemView::SelectRows);
+	sortByColumn(FontListModel::SortIndex, Qt::AscendingOrder);
+	// do not show default sorting to user
+	hideColumn(FontListModel::SortIndex);
 	setSortingEnabled(false); // TODO
 	setAlternatingRowColors(true);
 }

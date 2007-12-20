@@ -102,7 +102,7 @@ FontPreview::~FontPreview()
 void FontPreview::languageChange()
 {
 	cancelButton->setToolTip(tr("Leave preview", "font preview"));
-	searchEdit->setToolTip("<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.") + "</qt>");
+	searchEdit->setToolTip("<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. The given text is taken as substring.") + "</qt>");
 	searchButton->setToolTip(tr("Start searching"));
 	sizeSpin->setToolTip(tr("Size of the selected font"));
 }
