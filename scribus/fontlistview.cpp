@@ -16,7 +16,7 @@ FontListView::FontListView(QWidget * parent)
 	sortByColumn(FontListModel::SortIndex, Qt::AscendingOrder);
 	// do not show default sorting to user
 	hideColumn(FontListModel::SortIndex);
-	setSortingEnabled(false); // TODO
+	setSortingEnabled(false);
 	setAlternatingRowColors(true);
 }
 
@@ -29,4 +29,6 @@ void FontListView::setModel(QAbstractItemModel * model)
 void FontListView::setFonts(SCFonts f)
 {
 	qobject_cast<FontListModel*>(model())->setFonts(f);
+	if (!isSortingEnabled())
+		sortByColumn(FontListModel::SortIndex, Qt::AscendingOrder);
 }
