@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-
+#include <QApplication>
 #include <QHeaderView>
 #include <QKeyEvent>
 #include <QMenu>
@@ -94,6 +94,9 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 
 void CharTableView::mouseMoveEvent(QMouseEvent* e)
 {
+	// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
+	// It's the one and only reason why to include QApplication here.
+	QApplication::restoreOverrideCursor();
 	hideZoomedChar();
 	QTableView::mouseMoveEvent(e);
 }
