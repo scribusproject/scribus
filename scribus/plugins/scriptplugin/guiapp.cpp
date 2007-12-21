@@ -113,11 +113,29 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+/*
+ * Gives the possibility to scroll the document.
+ * 13.12.2007: Joachim Neu
+ */
+PyObject *scribus_scrolldocument(PyObject*,PyObject* args)
+{
+	int moveX = 0, moveY = 0;
+	if(!PyArg_ParseTuple(args, "ii", &moveX, &moveY))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	ScCore->primaryMainWindow()->view->scrollBy(moveX,moveY);
+	Py_RETURN_NONE;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
 void guiappdocwarnings()
 {
     QStringList s;
-    s << scribus_messagebartext__doc__ << scribus_progressreset__doc__ << scribus_progresssettotalsteps__doc__ << scribus_progresssetprogress__doc__ << scribus_setcursor__doc__ << scribus_docchanged__doc__ << scribus_zoomdocument__doc__;
+    s << scribus_messagebartext__doc__ << scribus_progressreset__doc__
+			<< scribus_progresssettotalsteps__doc__ << scribus_progresssetprogress__doc__
+			<< scribus_setcursor__doc__ << scribus_docchanged__doc__
+			<< scribus_zoomdocument__doc__ << scribus_scrolldocument__doc__;
 }

@@ -99,4 +99,15 @@ Zooming the document
 */
 PyObject *scribus_zoomdocument(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_scrolldocument__doc__,
+QT_TR_NOOP("scrollDocument(x,y)\n\
+\n\
+Scroll the document in main GUI window by x and y.\n\
+"));
+/*
+ * Gives the possibility to scroll the document.
+ * 13.12.2007: Joachim Neu
+ */
+PyObject *scribus_scrolldocument(PyObject*, PyObject* args);
+
 #endif
