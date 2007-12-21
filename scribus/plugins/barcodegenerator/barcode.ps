@@ -4,7 +4,7 @@
 %%EndComments
 %%EndProlog
 
-% Barcode Writer in Pure PostScript - Version 2007-12-03
+% Barcode Writer in Pure PostScript - Version 2007-12-21
 % http://www.terryburton.co.uk/barcodewriter/
 %
 % Copyright (c) 2007 Terry Burton - tez@terryburton.co.uk
@@ -867,12 +867,13 @@
     pad 5 isbntxt putinterval  % Add isbntxt to the pad
 
     % Add checksum digit if isbntxt length is 11 or 15
-    isbntxt length 11 eq isbntxt length 15 eq or {
-        pad isbntxt length 5 add 45 put  % Put a dash
+    isbntxt length 11 eq isbntxt length 12 eq or 
+    isbntxt length 15 eq or isbntxt length 16 eq or {
+        pad pad length 2 sub 45 put  % Put a dash
         checksum 10 eq {
-            pad isbntxt length 6 add checksum 78 add put  % Check digit for 10 is X
+            pad pad length 1 sub checksum 78 add put  % Check digit for 10 is X
         } {
-            pad isbntxt length 6 add checksum 48 add put  % Put check digit
+            pad pad length 1 sub checksum 48 add put  % Put check digit
         } ifelse
     } if
     /isbntxt pad def                    % isbntxt=pad
