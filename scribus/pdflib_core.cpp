@@ -2505,7 +2505,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				bleedLeft = Options.bleeds.Left;
 			}
 		}
-		PutPage("q 1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
+		PutPage("1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
 		bleedDisplacementX = bleedLeft+markOffs;
 		bleedDisplacementY = Options.bleeds.Bottom+markOffs;
 	}
@@ -2514,13 +2514,6 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	if ( (Options.MirrorV) && (!pag->MPageNam.isEmpty()) )
 		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->height())+" cm\n");
 	if (clip)
-/*	{
-		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(pag->Margins.Bottom) + " m\n");
-		PutPage(FToStr(ActPageP->width() - pag->Margins.Right) + " " + FToStr(pag->Margins.Bottom) + " l\n");
-		PutPage(FToStr(ActPageP->width() - pag->Margins.Right) + " " + FToStr(ActPageP->height() - pag->Margins.Top) + " l\n");
-		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(ActPageP->height() - pag->Margins.Top) + " l h W n\n");
-	}
-	else */
 	{
 		double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 		double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
@@ -2828,67 +2821,35 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				StartObj(ObjCounter);
 				ObjCounter++;
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+				double bleedRight = 0.0;
+				double bleedLeft = 0.0;
+				if (doc.pageSets[doc.currentPageLayout].Columns == 1)
+				{
+					bleedRight = Options.bleeds.Right;
+					bleedLeft = Options.bleeds.Left;
+				}
+				else
+				{
+					if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+					{
+						bleedRight = Options.bleeds.Left;
+						bleedLeft = Options.bleeds.Right;
+					}
+					else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+					{
+						bleedRight = Options.bleeds.Right;
+						bleedLeft = Options.bleeds.Left;
+					}
+					else
+					{
+						bleedRight = Options.bleeds.Left;
+						bleedLeft = Options.bleeds.Left;
+					}
+				}
+				double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
+				double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
+				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 				PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
-/*				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-				if (Seite.ImgObjects.count() != 0)
-				{
-					PutDoc("/XObject <<\n");
-					QMap<QString,int>::Iterator it;
-					for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-						PutDoc("/"+it.key()+" "+QString::number(it.data())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Seite.FObjects.count() != 0)
-				{
-					PutDoc("/Font << \n");
-					QMap<QString,int>::Iterator it2;
-					for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-						PutDoc("/"+it2.key()+" "+QString::number(it2.data())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Shadings.count() != 0)
-				{
-					PutDoc("/Shading << \n");
-					QMap<QString,int>::Iterator it3;
-					for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-						PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Patterns.count() != 0)
-				{
-					PutDoc("/Pattern << \n");
-					QMap<QString,int>::Iterator it3p;
-					for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-						PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Transpar.count() != 0)
-				{
-					PutDoc("/ExtGState << \n");
-					QMap<QString,int>::Iterator it3t;
-					for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-						PutDoc("/"+it3t.key()+" "+QString::number(it3t.data())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
-				{
-					PutDoc("/ColorSpace << \n");
-					QMap<QString,ICCD>::Iterator it3c;
-					if (ICCProfiles.count() != 0)
-					{
-						for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-							PutDoc("/"+it3c.data().ResName+" "+QString::number(it3c.data().ResNum)+" 0 R\n");
-					}
-					QMap<QString,SpotC>::Iterator it3sc;
-					if (spotMap.count() != 0)
-					{
-					for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-						PutDoc("/"+it3sc.data().ResName+" "+QString::number(it3sc.data().ResNum)+" 0 R\n");
-					}
-					PutDoc(">>\n");
-				}
-				PutDoc(">>\n"); */
 				if ((Options.Compress) && (CompAvail))
 					inh = CompressStr(&inh);
 				PutDoc("/Length "+QString::number(inh.length()+1));
@@ -2985,70 +2946,35 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	StartObj(ObjCounter);
 	ObjCounter++;
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-	PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+	double bleedRight = 0.0;
+	double bleedLeft = 0.0;
+	if (doc.pageSets[doc.currentPageLayout].Columns == 1)
+	{
+		bleedRight = Options.bleeds.Right;
+		bleedLeft = Options.bleeds.Left;
+	}
+	else
+	{
+		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Right;
+		}
+		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+		{
+			bleedRight = Options.bleeds.Right;
+			bleedLeft = Options.bleeds.Left;
+		}
+		else
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Left;
+		}
+	}
+	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
+	double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
+	PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
-/*	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-	{
-		PutDoc("/XObject <<\n");
-		QMap<QString,int>::Iterator it;
-		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-			PutDoc("/"+it.key()+" "+QString::number(it.data())+" 0 R\n");
-		QMap<QString,int>::Iterator iti;
-		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-			PutDoc("/"+iti.key()+" "+QString::number(iti.data())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Seite.FObjects.count() != 0)
-	{
-		PutDoc("/Font << \n");
-		QMap<QString,int>::Iterator it2;
-		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-			PutDoc("/"+it2.key()+" "+QString::number(it2.data())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Shadings.count() != 0)
-	{
-		PutDoc("/Shading << \n");
-		QMap<QString,int>::Iterator it3;
-		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-			PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Patterns.count() != 0)
-	{
-		PutDoc("/Pattern << \n");
-		QMap<QString,int>::Iterator it3p;
-		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-			PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Transpar.count() != 0)
-	{
-		PutDoc("/ExtGState << \n");
-		QMap<QString,int>::Iterator it3t;
-		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-			PutDoc("/"+it3t.key()+" "+QString::number(it3t.data())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
-	{
-		PutDoc("/ColorSpace << \n");
-		QMap<QString,ICCD>::Iterator it3c;
-		if (ICCProfiles.count() != 0)
-		{
-			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-				PutDoc("/"+it3c.data().ResName+" "+QString::number(it3c.data().ResNum)+" 0 R\n");
-		}
-		QMap<QString,SpotC>::Iterator it3sc;
-		if (spotMap.count() != 0)
-		{
-		for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-			PutDoc("/"+it3sc.data().ResName+" "+QString::number(it3sc.data().ResNum)+" 0 R\n");
-		}
-		PutDoc(">>\n");
-	}
-	PutDoc(">>\n"); */
 	if ((Options.Compress) && (CompAvail))
 		data = CompressStr(&data);
 	PutDoc("/Length "+QString::number(data.length()+1));
@@ -4667,19 +4593,25 @@ QString PDFLibCore::SetClipPathImage(PageItem *ite)
 				nPath = true;
 				continue;
 			}
-			FPoint np;
+			FPoint np, np1, np2, np3;
 			if (nPath)
 			{
 				np = ite->imageClip.point(poi);
 				tmp += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
 				nPath = false;
 			}
-			np = ite->imageClip.point(poi+1);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-			np = ite->imageClip.point(poi+3);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-			np = ite->imageClip.point(poi+2);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
+			np = ite->imageClip.point(poi);
+			np1 = ite->imageClip.point(poi+1);
+			np2 = ite->imageClip.point(poi+3);
+			np3 = ite->imageClip.point(poi+2);
+			if ((np == np1) && (np2 == np3))
+				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" l\n";
+			else
+			{
+				tmp += FToStr(np1.x())+" "+FToStr(-np1.y())+" ";
+				tmp += FToStr(np2.x())+" "+FToStr(-np2.y())+" ";
+				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" c\n";
+			}
 		}
 	}
 	return tmp;
@@ -4700,19 +4632,25 @@ QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 				nPath = true;
 				continue;
 			}
-			FPoint np;
+			FPoint np, np1, np2, np3;
 			if (nPath)
 			{
 				np = ite->PoLine.point(poi);
 				tmp += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
 				nPath = false;
 			}
-			np = ite->PoLine.point(poi+1);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-			np = ite->PoLine.point(poi+3);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-			np = ite->PoLine.point(poi+2);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
+			np = ite->PoLine.point(poi);
+			np1 = ite->PoLine.point(poi+1);
+			np2 = ite->PoLine.point(poi+3);
+			np3 = ite->PoLine.point(poi+2);
+			if ((np == np1) && (np2 == np3))
+				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" l\n";
+			else
+			{
+				tmp += FToStr(np1.x())+" "+FToStr(-np1.y())+" ";
+				tmp += FToStr(np2.x())+" "+FToStr(-np2.y())+" ";
+				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" c\n";
+			}
 		}
 	}
 	return tmp;
@@ -4733,19 +4671,25 @@ QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 				nPath = true;
 				continue;
 			}
-			FPoint np;
+			FPoint np, np1, np2, np3;
 			if (nPath)
 			{
 				np = ite->point(poi);
 				tmp += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
 				nPath = false;
 			}
-			np = ite->point(poi+1);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-			np = ite->point(poi+3);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-			np = ite->point(poi+2);
-			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
+			np = ite->point(poi);
+			np1 = ite->point(poi+1);
+			np2 = ite->point(poi+3);
+			np3 = ite->point(poi+2);
+			if ((np == np1) && (np2 == np3))
+				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" l\n";
+			else
+			{
+				tmp += FToStr(np1.x())+" "+FToStr(-np1.y())+" ";
+				tmp += FToStr(np2.x())+" "+FToStr(-np2.y())+" ";
+				tmp += FToStr(np3.x())+" "+FToStr(-np3.y())+" c\n";
+			}
 		}
 	}
 	return tmp;
@@ -4901,7 +4845,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				FPointArray cl = item->PoLine.copy();
 				FPointArray clb = item->PoLine.copy();
 				QMatrix mm;
-				mm.translate(item->gXpos, item->gYpos);
+				mm.translate(item->gXpos, item->gYpos - pat->height);
 				mm.rotate(item->rotation());
 				cl.map( mm );
 				item->PoLine = cl;
@@ -4912,7 +4856,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				continue;
 			}
 			tmp2 += "q\n";
-			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-item->gYpos)+" cm\n";
+			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
 			item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
 			inPattern++;
 			if (!PDF_ProcessItem(tmpOut, item, doc.Pages->at(0), 0, true, true))
@@ -4940,7 +4884,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 		PutDoc("/PatternType 1\n");
 		PutDoc("/PaintType 1\n");
 		PutDoc("/TilingType 1\n");
-		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(-pat->height)+" ]\n");
+		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(pat->height)+" ]\n");
 		QMatrix mpa;
 		if (inPattern == 0)
 		{
