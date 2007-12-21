@@ -1488,19 +1488,18 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(1.0);
 	QStack<PageItem*> groupStack;
-	QStack<PageItem*> groupClips;
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
 		if (embedded->isGroupControl)
 		{
+			painter->save();
 			FPointArray cl = embedded->PoLine.copy();
 			QMatrix mm;
 			mm.translate(embedded->gXpos, embedded->gYpos);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );
 			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-			groupClips.push(embedded);
 			groupStack.push(embedded->groupsLastItem);
 			continue;
 		}
@@ -1521,12 +1520,6 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 		{
 			while (embedded == groupStack.top())
 			{
-//				PageItem *tmpItem = groupClips.pop();
-//				FPointArray cl = tmpItem->PoLine.copy();
-//				QMatrix mm;
-//				mm.translate(tmpItem->gXpos, tmpItem->gYpos);
-//				mm.rotate(tmpItem->rotation());
-//				cl.map( mm );
 				painter->endLayer();
 				painter->restore();
 				groupStack.pop();

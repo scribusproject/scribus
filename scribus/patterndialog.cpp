@@ -32,6 +32,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "stencilreader.h"
 #include "scconfig.h"
+#include "loadsaveplugin.h"
+#include "fileloader.h"
+#include "plugins/formatidlist.h"
 #include <QPixmap>
 #include <QImage>
 #include <QDir>
@@ -41,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QImageReader>
 #include <QPainter>
+#include <QDebug>
 
 PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
@@ -92,8 +96,8 @@ void PatternDialog::updatePatternList()
 void PatternDialog::loadPatternDir()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString wdir = dirs->get("patterns", ".");
-	QString fileName = QFileDialog::getExistingDirectory(this, wdir, tr("Choose a Directory"));
+	QString wdir = dirs->get("patterndir", ".");
+	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), wdir);
 	if (!fileName.isEmpty())
 	{
 		QStringList formats;
@@ -132,7 +136,7 @@ void PatternDialog::loadPatternDir()
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
-				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
+				if ((ext == "sml") || (ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
 					loadVectors(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 			}
 			for (uint dc = 0; dc < d.count(); ++dc)
@@ -141,7 +145,7 @@ void PatternDialog::loadPatternDir()
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.suffix().toLower();
-				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
+				if ((ext == "sml") || (ext == "shape") || (ext == "sce") || (!formats.contains(ext)))
 					continue;
 				else if (formats.contains(ext))
 				{
@@ -158,7 +162,7 @@ void PatternDialog::loadPatternDir()
 					continue;
 			}
 			d.cdUp();
-			dirs->set("patterns", d.absolutePath());
+			dirs->set("patterndir", d.absolutePath());
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			mainWin->setStatusBarInfoText("");
 			mainWin->mainWindowProgressBar->reset();
@@ -170,33 +174,63 @@ void PatternDialog::loadPatternDir()
 void PatternDialog::loadPattern()
 {
 	QString fileName;
-	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
+	QString formats = "Scribus Objects (*.sce *.SCE);;";
+	formats += "Dia Shapes (*.shape *.SHAPE);;";
+	formats += "Kivio Stencils (*.sml *.SML);;";
+	int fmtCode = FORMATID_ODGIMPORT;
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
+	while (fmt != 0)
+	{
+		if (fmt->load)
+			formats += fmt->filter + ";;";
+		fmtCode++;
+		if (fmtCode == FORMATID_PSIMPORT)
+			fmtCode++;
+		fmt = LoadSavePlugin::getFormatById(fmtCode);
+	}
+	formats += "EPS (*.eps *.EPS);;";
+	formats += "EPSI (*.epsi *.EPSI);;";
+	formats += "PDF (*.pdf *.PDF);;";
 	QString form1 = "";
 	QString form2 = "";
+	QStringList imgFormats;
+	bool jpgFound = false;
 	for (int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
 	{
 		form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
 		form2 = QString(QImageReader::supportedImageFormats().at(i)).toUpper();
-		if (form1 == "jpeg")
-		{
-			form1 = "jpg";
-			form2 = "JPG";
-		}
 		if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
 		{
 			formats += form2 + " (*."+form1+" *."+form2+");;";
+			imgFormats.append(form1);
 		}
-		else if (form1 == "jpg")
+		else if ((form1 == "jpg") || (form1 == "jpeg"))
 		{
 			// JPEG is a special case because both .jpg and .jpeg
 			// are acceptable extensions.
-			formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+			if (!jpgFound)
+			{
+				formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+				imgFormats.append("jpeg");
+				imgFormats.append("jpg");
+				jpgFound = true;
+			}
 		}
+		else
+			imgFormats.append(form1);
 	}
 	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
 	formats += "PSD (*.psd *.PSD);;";
 	formats += "Gimp Patterns (*.pat *.PAT);;";
 	formats += tr("All Files (*)");
+	imgFormats.append("tif");
+	imgFormats.append("tiff");
+	imgFormats.append("pat");
+	imgFormats.append("psd");
+	imgFormats.append("pdf");
+	imgFormats.append("eps");
+	imgFormats.append("epsi");
+	imgFormats.append("ps");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), formats, fdExistingFiles);
@@ -208,7 +242,7 @@ void PatternDialog::loadPattern()
 	{
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi(fileName);
-		if ((fi.suffix().toLower() == "sml") || (fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce"))
+		if ((fi.suffix().toLower() == "sml") || (fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
 		{
 			loadVectors(fileName);
 			updatePatternList();
@@ -230,6 +264,7 @@ void PatternDialog::loadPattern()
 
 void PatternDialog::loadVectors(QString data)
 {
+	m_doc->setLoading(true);
 	QFileInfo fi(data);
 	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
 	if (fi.suffix().toLower() == "sml")
@@ -248,54 +283,69 @@ void PatternDialog::loadVectors(QString data)
 		data = pre->createShape(f);
 		delete pre;
 	}
-	else if (fi.suffix().toLower() == "sce")
-	{
-		QString f = "";
-		loadText(data, &f);
-		data = f;
-	}
 	uint ac = m_doc->Items->count();
 	bool savedAlignGrid = m_doc->useRaster;
 	bool savedAlignGuides = m_doc->SnapGuides;
 	m_doc->useRaster = false;
 	m_doc->SnapGuides = false;
-	mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), false, true, m_doc, m_doc->view());
+	if (fi.suffix().toLower() == "sce")
+		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, m_doc, m_doc->view());
+	else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
+		mainWin->slotElemRead(data, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), false, true, m_doc, m_doc->view());
+	else
+	{
+		FileLoader *fileLoader = new FileLoader(data);
+		int testResult = fileLoader->TestFile();
+		delete fileLoader;
+		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+		{
+			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+			if( fmt )
+				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+		}
+	}
 	m_doc->useRaster = savedAlignGrid;
 	m_doc->SnapGuides = savedAlignGuides;
 	uint ae = m_doc->Items->count();
-	for (uint as = ac; as < ae; ++as)
+	if (ac != ae)
 	{
-		PageItem* ite = m_doc->Items->at(ac);
-		if (ite->itemType() == PageItem::PathText)
+		for (uint as = ac; as < ae; ++as)
 		{
-			ite->Frame = true;
-			ite->updatePolyClip();
+			PageItem* ite = m_doc->Items->at(ac);
+			if (ite->itemType() == PageItem::PathText)
+			{
+				ite->Frame = true;
+				ite->updatePolyClip();
+			}
+			else if (ite->itemType() == PageItem::TextFrame)
+			{
+				if ( ite->prevInChain() == 0 )
+					ite->asTextFrame()->layout();
+			}
 		}
-		else if (ite->itemType() == PageItem::TextFrame)
+		ScPattern pat = ScPattern();
+		pat.setDoc(m_doc);
+		PageItem* currItem = m_doc->Items->at(ac);
+		pat.pattern = currItem->DrawObj_toImage();
+		pat.width = currItem->gWidth;
+		pat.height = currItem->gHeight;
+		for (uint as = ac; as < ae; ++as)
 		{
-			if ( ite->prevInChain() == 0 )
-				ite->asTextFrame()->layout();
+			pat.items.append(m_doc->Items->takeAt(ac));
+		}
+		if (!dialogPatterns.contains(patNam))
+		{
+			dialogPatterns.insert(patNam, pat);
+		}
+		for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
+		{
+			if (!origPatterns.contains(it.key()))
+				dialogPatterns.insert(it.key(), it.value());
 		}
 	}
-	ScPattern pat = ScPattern();
-	pat.setDoc(m_doc);
-	PageItem* currItem = m_doc->Items->at(ac);
-	pat.pattern = currItem->DrawObj_toImage();
-	pat.width = currItem->gWidth;
-	pat.height = currItem->gHeight;
-	for (uint as = ac; as < ae; ++as)
-	{
-		pat.items.append(m_doc->Items->takeAt(ac));
-	}
-	if (!dialogPatterns.contains(patNam))
-	{
-		dialogPatterns.insert(patNam, pat);
-	}
-	for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
-	{
-		if (!origPatterns.contains(it.key()))
-			dialogPatterns.insert(it.key(), it.value());
-	}
+	m_doc->setLoading(false);
+	m_doc->view()->Deselect(false);
+	m_doc->view()->DrawNew();
 }
 
 void PatternDialog::patternSelected(QListWidgetItem* it)

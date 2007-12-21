@@ -2576,6 +2576,8 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 
 bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 {
+	if (docPatterns.contains(name))
+		name = tr("Copy_of_")+name;
 	docPatterns.insert(name, pattern);
 	return true;
 }

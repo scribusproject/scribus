@@ -459,6 +459,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 				groupStack.push(item->groupsLastItem);
 				continue;
 			}
+			PutStream("{\n");
 			PS_save();
 			PS_translate(item->gXpos, pa.height - item->gYpos);
 			ProcessItem(m_Doc, m_Doc->Pages->at(0), item, 0, sep, farb, ic, gcr, false, true, true);
@@ -473,6 +474,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 						break;
 				}
 			}
+			PutStream("} exec\n");
 		}
 		spoolStream.setDevice(spStream);
 		PutStream(buf);
