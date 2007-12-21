@@ -2015,6 +2015,10 @@ void ScribusMainWindow::startUpDialog()
 			doc->bleeds.Right = dia->bleedRight;
 			HaveNewDoc();
 			doc->reformPages(true);
+			// Don's disturb user with "save?" dialog just after new doc
+			// doc changing should be rewritten maybe... maybe later...
+			doc->setModified(false);
+			updateActiveWindowCaption(doc->DocName);
 		}
 		else
 		{
@@ -2084,6 +2088,10 @@ bool ScribusMainWindow::slotFileNew()
 			HaveNewDoc();
 			doc->reformPages(true);
 			retVal = true;
+			// Don's disturb user with "save?" dialog just after new doc
+			// doc changing should be rewritten maybe... maybe later...
+			doc->setModified(false);
+			updateActiveWindowCaption(doc->DocName);
 		}
 	}
 	delete dia;
