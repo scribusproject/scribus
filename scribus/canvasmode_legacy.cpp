@@ -525,7 +525,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				md->setText(ss->WriteElem(m_doc, m_view, m_doc->m_Selection));
 				QDrag* dr = new QDrag(m_view);
 				dr->setMimeData(md);
-				dr->setDragCursor(loadIcon("DragPix.xpm"), Qt::ActionMask);
+				const QPixmap& pm = loadIcon("DragPix.xpm");
+				dr->setDragCursor(pm, Qt::CopyAction);
+				dr->setDragCursor(pm, Qt::MoveAction);
+				dr->setDragCursor(pm, Qt::LinkAction);
 				dr->exec();
 //				QImage drImg = currItem->DrawObj_toImage();
 //				QPixmap pm;
