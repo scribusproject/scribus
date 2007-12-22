@@ -27,6 +27,7 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
+#include "canvasmode_legacy.h"
 
 ContextMenu::ContextMenu(Selection & sel, ScribusMainWindow *actionsParent, ScribusDoc* doc, QWidget * parent) :
 	QMenu(parent),
@@ -372,6 +373,9 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 			menuPasteRecent->addAction(recentPasteAction);
 		addSeparator();
 	}
+	QAction *act = addAction( tr("Paste File..."));
+	connect(act, SIGNAL(triggered()), dynamic_cast<QObject*>(m_doc->view()->m_canvasMode), SLOT(importToPage()));
+	addSeparator();
 
 	addAction(m_AP->scrActions["editUndoAction"]);
 	addAction(m_AP->scrActions["editRedoAction"]);

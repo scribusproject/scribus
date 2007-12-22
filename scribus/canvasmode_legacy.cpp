@@ -33,6 +33,7 @@
 #include "canvas.h"
 #include "canvasgesture_resize.h"
 #include "contextmenu.h"
+#include "customfdialog.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hruler.h"
@@ -52,11 +53,15 @@
 #include "scribusview.h"
 #include "scribusXml.h"
 #include "selection.h"
+#include "stencilreader.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+#include "loadsaveplugin.h"
+#include "fileloader.h"
+#include "plugins/formatidlist.h"
 
 
 
@@ -4631,11 +4636,99 @@ void LegacyMode::setResizeCursor(int how)
 	}
 }
 
+void LegacyMode::importToPage()
+{
+	QString fileName;
+	QString formats = "Scribus Objects (*.sce *.SCE);;";
+	formats += "Dia Shapes (*.shape *.SHAPE);;";
+	formats += "Kivio Stencils (*.sml *.SML);;";
+	int fmtCode = FORMATID_ODGIMPORT;
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
+	while (fmt != 0)
+	{
+		if (fmt->load)
+			formats += fmt->filter + ";;";
+		fmtCode++;
+		fmt = LoadSavePlugin::getFormatById(fmtCode);
+	}
+	formats += tr("All Files (*)");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	QString wdir = dirs->get("pastefile", ".");
+	CustomFDialog dia(m_view, wdir, tr("Open"), formats, fdExistingFiles);
+	if (dia.exec() == QDialog::Accepted)
+		fileName = dia.selectedFile();
+	else
+		return;
+	if (!fileName.isEmpty())
+	{
+		PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
+		m_doc->setLoading(true);
+		QFileInfo fi(fileName);
+		if (fi.suffix().toLower() == "sml")
+		{
+			QString f = "";
+			loadText(fileName, &f);
+			StencilReader *pre = new StencilReader();
+			fileName = pre->createObjects(f);
+			delete pre;
+		}
+		else if (fi.suffix().toLower() == "shape")
+		{
+			QString f = "";
+			loadText(fileName, &f);
+			StencilReader *pre = new StencilReader();
+			fileName = pre->createShape(f);
+			delete pre;
+		}
+		bool savedAlignGrid = m_doc->useRaster;
+		bool savedAlignGuides = m_doc->SnapGuides;
+		m_doc->useRaster = false;
+		m_doc->SnapGuides = false;
+		if (fi.suffix().toLower() == "sce")
+			m_ScMW->slotElemRead(fileName, Mxp, Myp, true, true, m_doc, m_doc->view());
+		else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
+			m_ScMW->slotElemRead(fileName, Mxp, Myp, false, true, m_doc, m_doc->view());
+		else
+		{
+			FileLoader *fileLoader = new FileLoader(fileName);
+			int testResult = fileLoader->TestFile();
+			delete fileLoader;
+			if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+			{
+				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+				if( fmt )
+					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+			}
+			if (m_doc->m_Selection->count() > 0)
+			{
+				double x2, y2, w, h;
+				m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+				m_view->moveGroup(Mxp - x2, Myp - y2);
+				m_ScMW->propertiesPalette->updateColorList();
+				m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
+				m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
+				m_ScMW->propertiesPalette->SetLineFormats(m_doc);
+			}
+		}
+		m_doc->useRaster = savedAlignGrid;
+		m_doc->SnapGuides = savedAlignGuides;
+		m_doc->setLoading(false);
+		m_doc->view()->DrawNew();
+		if (m_doc->m_Selection->count() > 0)
+		{
+			m_doc->m_Selection->connectItemToGUI();
+			m_ScMW->HaveNewSel(m_doc->m_Selection->itemAt(0)->itemType());
+		}
+	}
+}
+
 void LegacyMode::createContextMenu(PageItem* currItem, double mx, double my)
 {
 	ContextMenu* cmen=NULL;
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
+	Mxp = mx;
+	Myp = my;
 	if(currItem!=NULL)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else

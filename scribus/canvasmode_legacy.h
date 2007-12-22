@@ -51,10 +51,10 @@ public:
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void drawControls(QPainter* p);
-	
+
 protected:
 	void setResizeCursor(int);
-	
+
 private:
 	inline bool GetItem(PageItem** pi);
 	void drawTextCursor(QPainter* p, PageItem_TextFrame* textframe);
@@ -80,6 +80,9 @@ private:
 	bool m_cursorVisible;
 	QTime m_blinkTime;
 	QTimer* m_blinker;
+
+public slots:
+	void importToPage();
 
 private slots:
 	void blinkTextCursor();
