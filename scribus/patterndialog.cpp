@@ -44,7 +44,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QImageReader>
 #include <QPainter>
-#include <QDebug>
 
 PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
