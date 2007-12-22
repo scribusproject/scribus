@@ -2113,7 +2113,7 @@ void ScribusView::RaiseItem()
 	}
 }
 
-#if 0 // FIXME:av -> CanvasMode_legacy / Doc
+ // FIXME:av -> CanvasMode_legacy / Doc
 //CB Remove emit/start pasting objects
 void ScribusView::PasteToPage()
 {
@@ -2130,11 +2130,11 @@ void ScribusView::PasteToPage()
 		pastedObjects.setGroupRect();
 		double gx, gy, gh, gw;
 		pastedObjects.getGroupRect(&gx, &gy, &gw, &gh);
-		moveGroup(Mxp / m_canvas->scale() - gx, Myp / m_canvas->scale() - gy, false, &pastedObjects);
+		moveGroup(dragX - gx, dragY - gy, false, &pastedObjects);
 		Doc->m_Selection->clear();
 	}
 	else
-		emit LoadElem(m_ScMW->Buffer2, Mxp / m_canvas->scale(), Myp / m_canvas->scale(), false, false, Doc, this);
+		emit LoadElem(m_ScMW->Buffer2, dragX, dragY, false, false, Doc, this);
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();
@@ -2196,7 +2196,7 @@ void ScribusView::PasteToPage()
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
-
+#if 0
 void ScribusView::PasteRecentToPage(int id)
 {
 	if (UndoManager::undoEnabled())

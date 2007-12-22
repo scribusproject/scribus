@@ -355,7 +355,11 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 		return;
 	
 	if ((m_AP->Buffer2.startsWith("<SCRIBUSELEM")) || (m_AP->Buffer2.contains("<SCRIBUSFRAGMENT")))
+	{
+		m_doc->view()->dragX = mx;
+		m_doc->view()->dragY = my;
 		addAction( ScribusView::tr("&Paste") , m_doc->view(), SLOT(PasteToPage()));
+	}
 	if (m_AP->scrRecentPasteActions.count()>0)
 	{
 		QMenu* menuPasteRecent = new QMenu(this);

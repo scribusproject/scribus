@@ -294,7 +294,7 @@ public slots: // Public slots
 // 	void UniteObj();
 // 	void SplitObj();
 	void Bezier2Poly();
-//	void PasteToPage();
+	void PasteToPage();
 //	void PasteRecentToPage(int id);
 	void TextToPath();
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
