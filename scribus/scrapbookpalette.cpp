@@ -128,7 +128,6 @@ void BibView::dropEvent(QDropEvent *e)
 	if (e->mimeData()->hasText())
 	{
 		e->acceptProposedAction();
-		QApplication::restoreOverrideCursor();
 		if (e->source() == this)
 			return;
 		QString nam, tmp = "";
@@ -1193,6 +1192,7 @@ void Biblio::ObjFromMenu(QString text)
 	}
 	else
 		nam = tr("Object") + tmp.setNum(activeBView->objectMap.count());
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->setEditText(nam, true);
 	if (dia->exec())
