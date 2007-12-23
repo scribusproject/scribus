@@ -4586,6 +4586,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			cc = "\\r";
 		bm += cc;
 	}
+	QString anTitle = ite->itemName().replace(".", "_" );
 	QStringList bmst = QStringList::split("\\r", bm);
 	const QString m[] = {"4", "5", "F", "l", "H", "n"};
 	QString ct(m[ite->annotation().ChkStil()]);
@@ -4628,7 +4629,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 6:
 			Seite.FormObjects.append(ObjCounter-1);
 			PutDoc("/Subtype /Widget\n");
-			PutDoc("/T "+EncString(QString("(annot_obj_%1)").arg(ite->ItemNr),ObjCounter-1)+"\n");
+			PutDoc("/T "+EncString("("+anTitle+")",ObjCounter-1)+"\n");
 			if (!ite->annotation().ToolTip().isEmpty())
 				PutDoc("/TU "+EncStringUTF16("("+PDFEncode(ite->annotation().ToolTip())+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");
@@ -4831,19 +4832,19 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					}
 					PutDoc("/AA ");
 					if (ite->annotation().Type() > 2)
-						{
+					{
 						if (!ite->annotation().Action().isEmpty())
 							PutDoc(QString::number(ObjCounter+2+IconOb));
 						else
 							PutDoc(QString::number(ObjCounter+1+IconOb));
-						}
+					}
 					else
-						{
+					{
 						if (!ite->annotation().Action().isEmpty())
 							PutDoc(QString::number(ObjCounter+1+IconOb));
 						else
 							PutDoc(QString::number(ObjCounter));
-						}
+					}
 					PutDoc(" 0 R\n");
 					if (!ite->annotation().C_act().isEmpty())
 						CalcFields.append(ObjCounter-1+IconOb);
