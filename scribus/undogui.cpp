@@ -79,12 +79,12 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	redoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("undoButtonMenu", ScCore->primaryMainWindow()->scrActions["editUndoAction"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("redoButton/*Menu*/", ScCore->primaryMainWindow()->scrActions["editRedoAction"]);
-	
+
 	parent->addAction(ScCore->primaryMainWindow()->scrActions["editCut"]);
 	parent->addAction(ScCore->primaryMainWindow()->scrActions["editCopy"]);
 	parent->addAction(ScCore->primaryMainWindow()->scrActions["editPaste"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("EditPasteRecent", ScCore->primaryMainWindow()->scrActions["editPaste"]);
-	
+
 	/* BnF Undo buttons
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
@@ -191,7 +191,7 @@ void UndoWidget::updateUndo(int steps)
 	for (int i = 0; i < steps; ++i)
 	{
 		redoItems.insert(redoItems.begin(), undoItems[0]);
-		undoItems.erase(undoItems.begin());	
+		undoItems.erase(undoItems.begin());
 	}
 	updateUndoMenu();
 	updateRedoMenu();
@@ -202,7 +202,7 @@ void UndoWidget::updateRedo(int steps)
 	for (int i = 0; i < steps; ++i)
 	{
 		undoItems.insert(undoItems.begin(), redoItems[0]);
-		redoItems.erase(redoItems.begin());	
+		redoItems.erase(redoItems.begin());
 	}
 	updateUndoMenu();
 	updateRedoMenu();
@@ -219,7 +219,7 @@ void UndoWidget::popBack()
 
 UndoWidget::~UndoWidget()
 {
-	
+
 }
 
 /*** UndoPalette **************************************************************/
@@ -240,8 +240,9 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 // 	undoList->setMultiSelection(false);
 // 	undoList->setSelectionMode(QListWidget::Single);
 	undoList->setSelectionMode(QAbstractItemView::SingleSelection);
+	undoList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 	layout->addWidget(undoList);
-	
+
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	buttonLayout->setMargin(0);
 	buttonLayout->setSpacing(5);
@@ -268,7 +269,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
 	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)),
 	        objectBox, SLOT(setChecked(bool)));
-	connect(objectBox, SIGNAL(toggled(bool)), 
+	connect(objectBox, SIGNAL(toggled(bool)),
 			ScCore->primaryMainWindow()->scrActions["editActionMode"], SLOT(setChecked(bool)));
 }
 
@@ -304,7 +305,7 @@ void UndoPalette::changeEvent(QEvent *e)
 
 void UndoPalette::languageChange()
 {
-	setWindowTitle( tr("Action History"));	
+	setWindowTitle( tr("Action History"));
 	objectBox->setText( tr("Show selected object only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));
@@ -467,7 +468,7 @@ void UndoPalette::removeToolTip()
 
 UndoPalette::~UndoPalette()
 {
-	
+
 }
 
 /*** UndoPalette::UndoItem ****************************************************/
