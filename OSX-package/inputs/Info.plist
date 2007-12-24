@@ -17,6 +17,6 @@
 	<key>IFPkgFlagBackgroundAlignment</key>
         <string>topleft</string>
         <key>IFPkgFlagBackgroundScaling</key>
-        <string>proportional</string>
+        <string>tofit</string>
 </dict>
 </plist>
