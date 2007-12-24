@@ -658,7 +658,7 @@ void ActionManager::initToolsMenuActions()
 	name="toolsInsertTextFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-text-frame.png"), loadIcon("22/insert-text-frame.png"), "", defKeys[name], mainWindow, modeDrawText));
 	name="toolsInsertImageFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-image.png"), loadIcon("22/insert-image.png"), "", defKeys[name], mainWindow, modeDrawPicture));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-image.png"), loadIcon("22/insert-image.png"), "", defKeys[name], mainWindow, modeDrawImage));
 	name="toolsInsertLatexFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-latex.png"), loadIcon("22/insert-latex.png"), "", defKeys[name], mainWindow, modeDrawLatex));
 	name="toolsInsertTableFrame";

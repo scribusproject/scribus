@@ -389,7 +389,7 @@ enum AppMode
 	modeNormal,
 	modeDrawShapes,
 	modeStoryEditor,
-	modeDrawPicture,
+	modeDrawImage,
 	modeDrawText,
 	modeMagnifier,
 	modeEdit,

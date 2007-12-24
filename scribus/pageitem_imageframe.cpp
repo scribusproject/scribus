@@ -242,7 +242,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 	infoCT = new QLabel(infoGroup);
 	fileCT = new QLabel(infoGroup);
 	
-	infoCT->setText(tr("Picture"));
+	infoCT->setText(tr("Image"));
 	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignHCenter );
 	
 	if (PicAvail)
@@ -398,7 +398,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 QString PageItem_ImageFrame::infoDescription()
 {
 	QString htmlText;
-	htmlText.append(tr("Picture") + "<br/>");
+	htmlText.append(tr("Image") + "<br/>");
 	
 	if (PicAvail)
 	{

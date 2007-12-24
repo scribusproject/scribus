@@ -574,7 +574,7 @@ void ScribusView::enterEvent(QEvent * e)
 			case modeDrawShapes:
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
 				break;
-			case modeDrawPicture:
+			case modeDrawImage:
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 				break;
 			case modeDrawLatex:

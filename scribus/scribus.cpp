@@ -6189,7 +6189,7 @@ void ScribusMainWindow::setAppMode(int mode)
 	//set the actions state based on incoming mode
 	scrActions["toolsSelect"]->setChecked(mode==modeNormal);
 	scrActions["toolsInsertTextFrame"]->setChecked(mode==modeDrawText);
-	scrActions["toolsInsertImageFrame"]->setChecked(mode==modeDrawPicture);
+	scrActions["toolsInsertImageFrame"]->setChecked(mode==modeDrawImage);
 	scrActions["toolsInsertTableFrame"]->setChecked(mode==modeDrawTable);
 	scrActions["toolsInsertShape"]->setChecked(mode==modeDrawShapes);
 	scrActions["toolsInsertPolygon"]->setChecked(mode==modeDrawRegularPolygon);
@@ -6322,7 +6322,7 @@ void ScribusMainWindow::setAppMode(int mode)
 					view->Deselect(true);
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
 				break;
-			case modeDrawPicture:
+			case modeDrawImage:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));

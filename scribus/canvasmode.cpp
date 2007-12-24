@@ -58,7 +58,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			result = new LegacyMode(view);
 			break;
 		case modeDrawShapes:
-		case modeDrawPicture:
+		case modeDrawImage:
 		case modeDrawLatex:
 		case modeDrawText:
 		case modeDrawTable:
@@ -153,7 +153,7 @@ void CanvasMode::setModeCursor()
 		case modeDrawShapes:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
 			break;
-		case modeDrawPicture:
+		case modeDrawImage:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 			break;
 		case modeDrawLatex:

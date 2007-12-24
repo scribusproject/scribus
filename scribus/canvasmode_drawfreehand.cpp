@@ -519,7 +519,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 							if (currItem->asTextFrame())
 								appMode = modeDrawText;
 							else if (currItem->asImageFrame())
-								appMode = modeDrawPicture;
+								appMode = modeDrawImage;
 							else if (m_doc->SubMode != -1)
 								appMode = modeDrawShapes;
 						}
@@ -918,7 +918,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 					if (currItem->asTextFrame())
 						appMode = modeDrawText;
 					else if (currItem->asImageFrame())
-						appMode = modeDrawPicture;
+						appMode = modeDrawImage;
 					else if (m_doc->SubMode != -1)
 						appMode = modeDrawShapes;
 				}

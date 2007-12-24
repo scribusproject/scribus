@@ -1593,7 +1593,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				SetupDraw(z);
 			}
 			break;
-		case modeDrawPicture:
+		case modeDrawImage:
 			if (m->button() != Qt::LeftButton)
 				break;
 			selectPage(m);
@@ -2670,7 +2670,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 							if (currItem->asTextFrame())
 								appMode = modeDrawText;
 							else if (currItem->asImageFrame())
-								appMode = modeDrawPicture;
+								appMode = modeDrawImage;
 							else if (m_doc->SubMode != -1)
 								appMode = modeDrawShapes;
 						}
@@ -3696,7 +3696,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					if (currItem->asTextFrame())
 						appMode = modeDrawText;
 					else if (currItem->asImageFrame())
-						appMode = modeDrawPicture;
+						appMode = modeDrawImage;
 					else if (m_doc->SubMode != -1)
 						appMode = modeDrawShapes;
 				}

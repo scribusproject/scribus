@@ -371,7 +371,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 
 	buttonGroup5 = new QGroupBox( subTabImage);
 	buttonGroup5->setCheckable( true );
-	buttonGroup5->setTitle( tr( "&Scale Picture to Frame Size" ) );
+	buttonGroup5->setTitle( tr( "&Scale Image to Frame Size" ) );
 	buttonGroup5Layout = new QHBoxLayout( buttonGroup5 );
 	buttonGroup5Layout->setMargin(10);
 	buttonGroup5Layout->setSpacing(5);
@@ -521,7 +521,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	//restoreDefaults(prefsData, unitIndex);
 
 	toolText->setToolTip( tr( "Text Frame Properties" ) );
-	toolImage->setToolTip( tr( "Picture Frame Properties" ) );
+	toolImage->setToolTip( tr( "Image Frame Properties" ) );
 	toolShape->setToolTip( tr( "Shape Drawing Properties" ) );
 	toolZoom->setToolTip( tr( "Magnification Level Defaults" ) );
 	toolLine->setToolTip( tr( "Line Drawing Properties" ) );
@@ -533,13 +533,13 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	columnsText->setToolTip( tr( "Number of columns in a text frame" ) );
 	gapText->setToolTip( tr( "Gap between text frame columns" ) );
 	previewText->setToolTip( tr( "Sample of your font" ) );
-	buttonGroup3->setToolTip( tr( "Picture frames allow pictures to scale to any size" ) );
+	buttonGroup3->setToolTip( tr( "Image frames allow images to scale to any size" ) );
 	scalingHorizontal->setToolTip( tr( "Horizontal scaling of images" ) );
 	scalingVertical->setToolTip( tr( "Vertical scaling of images" ) );
 	chainButton->setToolTip( tr( "Keep horizontal and vertical scaling the same" ) );
-	buttonGroup5->setToolTip( tr( "Pictures in picture frames are scaled to the size of the frame" ) );
-	checkRatioImage->setToolTip( tr( "Automatically scaled pictures keep their original proportions" ) );
-	comboFillImage->setToolTip( tr( "Fill color of picture frames" ) );
+	buttonGroup5->setToolTip( tr( "Images in image frames are scaled to the size of the frame" ) );
+	checkRatioImage->setToolTip( tr( "Automatically scaled images keep their original proportions" ) );
+	comboFillImage->setToolTip( tr( "Fill color of image frames" ) );
 	shadingFillImage->setToolTip( tr( "Saturation of color of fill" ) );
 	colorComboLineShape->setToolTip( tr( "Line color of shapes" ) );
 	shadingLineShape->setToolTip( tr( "Saturation of color of lines" ) );

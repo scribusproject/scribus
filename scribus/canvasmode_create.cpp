@@ -459,7 +459,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 				SetupDraw(z);
 			}
 			break;
-		case modeDrawPicture:
+		case modeDrawImage:
 			if (m->button() != Qt::LeftButton)
 				break;
 			selectPage(m);
