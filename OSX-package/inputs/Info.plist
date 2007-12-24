@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
         <key>CFBundleGetInfoString</key>
-        <string>Scribus 1.3.5</string>
+        <string>Scribus Installer 1.3.5</string>
         <key>CFBundleIdentifier</key>
-        <string>net.scribus.aqua</string>
+        <string>net.scribus.osxinstaller</string>
         <key>CFBundleName</key>
         <string>Scribus</string>
         <key>CFBundleShortVersionString</key>
