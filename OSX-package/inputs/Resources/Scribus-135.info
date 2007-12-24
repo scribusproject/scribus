@@ -1,0 +1,17 @@
+Title Scribus Installer
+Version 
+Description This will install Scribus and needed libraries on your computer.
+DefaultLocation 
+DeleteWarning 
+
+### Package Flags
+
+NeedsAuthorization NO
+Required NO
+Relocatable NO
+RequiresReboot NO
+UseUserMask NO
+OverwritePermissions NO
+InstallFat NO
+RootVolumeOnly NO
+OnlyUpdateInstalledLanguages NO
