@@ -104,7 +104,7 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 										QString::fromUtf8(message),
 										QLineEdit::Normal,
 										QString::fromUtf8(value));
-	QApplication::restoreOverrideCursor();
+//	QApplication::restoreOverrideCursor();
 	return PyString_FromString(txt.toUtf8());
 }
 

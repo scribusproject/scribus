@@ -315,7 +315,8 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	bool retval = true;
 	if (gs != 0)
 		retval = false;
-	qApp->restoreOverrideCursor();
+	qApp->changeOverrideCursor(Qt::ArrowCursor);
+//	qApp->restoreOverrideCursor();
 	// setup only preview
 	if (fileName != tmpFile)
 		return retval;

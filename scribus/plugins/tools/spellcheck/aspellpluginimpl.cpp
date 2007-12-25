@@ -217,7 +217,8 @@ void AspellPluginImpl::spellCheckDone()
 	}
 	// Redraw document
 	fdoc->view()->DrawNew();
-	QApplication::restoreOverrideCursor();
+	QApplication::changeOverrideCursor(Qt::ArrowCursor);
+//	QApplication::restoreOverrideCursor();
 	fdoc->scMW()->setStatusBarInfoText(tr("Spell-checking done." ));
 	fdoc->scMW()->mainWindowProgressBar->reset();
 	close();

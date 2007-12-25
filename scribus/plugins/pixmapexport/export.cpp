@@ -124,7 +124,8 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 			res = ex->exportInterval(doc, pageNs);
 		}
 		doc->scMW()->mainWindowProgressBar->reset();
-		QApplication::restoreOverrideCursor();
+		QApplication::changeOverrideCursor(Qt::ArrowCursor);
+//		QApplication::restoreOverrideCursor();
 		if (res)
 			doc->scMW()->setStatusBarInfoText( tr("Export successful"));
 	}
@@ -183,7 +184,8 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	{
 		doFileSave = false;
 		QString fn = QDir::convertSeparators(fileName);
-		QApplication::restoreOverrideCursor();
+//		QApplication::restoreOverrideCursor();
+		QApplication::changeOverrideCursor(Qt::ArrowCursor);
 		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
 				fn +"\n"+ tr("exists already. Overwrite?"),
 				// hack for multiple overwriting (petr) 
