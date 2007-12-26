@@ -1,5 +1,26 @@
 Scribus - 1.3.3.10svn
 =====================
+- 0006605: [Plug-ins] Barcode generator does not generate "ISBN" line correctly for 10- to 13-digit conversions (subik) - resolved.
+- 0005460: [Internal] Scribus should save to temporary file and then move atomically to avoid loss of data (jghali) - resolved.
+- 0006166: [Story Editor / Text Frames] Scribus Crashes when Copy-Delete (Shift + Delete) (jghali) - closed.
+- 0006395: [Import / Export] ODG file freezes Scribus (jghali) - closed.
+- 0006315: [PDF] EPS Images shifted in Exported PDF File (jghali) - closed.
+- 0006233: [General] Editing Polygon in Master Pages without "Ending" Editing (fschmid) - closed.
+- 0006500: [General] Printer isn't available in the page properties dialog (cbradney) - closed.
+- 0006446: [Import / Export] Hyphens misplaced in exported pdf document (fschmid) - closed.
+- 0005667: [User Interface] Frame borders are disappearing when using Page-up/down-keys (fschmid) - closed.
+- 0006412: [General] Canvas: Odd behaviour of the magnifyer. (avox) - closed.
+- 0005953: [PDF] Scribus 1.3.4 generates wrong PDF (fschmid) - closed.
+- 0006186: [User Interface] Thumbnails of master pages in the "Arrange Pages" dialog don't work (jghali) - closed.
+- 0006331: [General] Creation of external weblinks no longer works (jghali) - closed.
+- 0005817: [Story Editor / Text Frames] Problems with text flow (jghali) - closed.
+- 0006604: [Story Editor / Text Frames] Crash when deleting multiple empty paragraphs (jghali) - closed.
+- 0005444: [PDF] PDF forms: broken kerning in text fields, list boxes, buttons, etc. (jghali) - closed.
+- 0005444: [PDF] PDF forms: broken kerning in text fields, list boxes, buttons, etc. (jghali) - closed.
+- 0005408: [PDF] Generated PDF-form doesn't show/accept äöüÄÖÜ (fschmid) - closed.
+- 0005408: [PDF] Generated PDF-form doesn't show/accept äöüÄÖÜ (fschmid) - closed.
+- 0003619: [Usability] Anchor points get lost by changing the z-order (cbradney) - closed.
+- 0006598: [General] Order of Abort and Ignore buttons inconsistent (jghali) - closed.
 - 0004016: [General] Crash by editing a linked text frame (avox)
 - 0006585: [Translation] Russian translation update (plinnell)
 - 0006591: [Translation] Polish translation update for 1.3.3.10 (plinnell)
