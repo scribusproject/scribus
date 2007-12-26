@@ -78,7 +78,8 @@ public:
 								  const QString& txt);
 
 private:
-		ScribusDoc& m_Doc;
+	ScribusDoc& m_Doc;
+	ColorList backUpColors;
 	Selection importCollection();
 	void updateGradientColors(const ColorList& colors);
 };

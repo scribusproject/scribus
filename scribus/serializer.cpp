@@ -250,6 +250,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 
 Selection Serializer::deserializeObjects(const QByteArray & xml)
 {
+	backUpColors = m_Doc.PageColors;
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
 
 	parseMemory(xml, xml.length());
@@ -259,6 +260,7 @@ Selection Serializer::deserializeObjects(const QByteArray & xml)
 
 Selection Serializer::deserializeObjects(const QFile & file)
 {
+	backUpColors = m_Doc.PageColors;
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
 
 	QFileInfo fi(file);
@@ -269,7 +271,7 @@ Selection Serializer::deserializeObjects(const QFile & file)
 
 
 Selection Serializer::importCollection()
-{	
+{
 	Collection* coll = lookup<Collection>("<collection>");
 	Selection result( &m_Doc, false);
 //	qDebug(QString("deserialize: collection %1 doc %2").arg((ulong)coll).arg((ulong)&m_Doc));
@@ -352,23 +354,19 @@ Selection Serializer::importCollection()
 		//TODO: patterns
 		
 		QList<PageItem*>* objects = &(coll->items);
-		
-//		qDebug(QString("deserialize: objects %1").arg((ulong)objects));
-		
+		m_Doc.PageColors = backUpColors;
+		m_Doc.PageColors.addColors(coll->colors, false);
 		for (int i=0; i < objects->count(); ++i)
 		{
-//			qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
 			PageItem* currItem = objects->at(i);
 			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+			currItem->setFillQColor();
+			currItem->setLineQColor();
 			result.addItem(currItem);
 		}
-//		qDebug(QString("deserialize: %1 objects, colors %2 %3").arg(objects->count()).arg((ulong)&(m_Doc.PageColors)).arg((ulong)&(coll->colors)));		
-		m_Doc.PageColors.addColors(coll->colors, false);
-//		qDebug(QString("deserialize: delete collection... %1").arg(result.count()));
 		updateGradientColors(coll->colors);
 		delete coll;
 	}
-//	qDebug(QString("deserialize done: %1 items").arg(result.count()));
 	return result;
 }
 
