@@ -1,5 +1,144 @@
 
 Scribus - 1.3.5svn
+- 0006162: [Graphics / Image Frames] Grouped objects doesn't overhang onto the bleed (fschmid) - resolved.
+- 0006127: [General] Copying object with custom CMYK solid color results in object with RGB color. (jghali) - resolved.
+- 0006226: [PDF] Always clip the pdf outputs to page margins when master pages used (fschmid) - resolved.
+- 0006524: [Usability] Line thickness in document settings. (fschmid) - resolved.
+- 0005458: [User Interface] Context menu key does not work in Scribus (cbradney) - resolved.
+- 0004972: [User Interface] artifacts when starting a selection on a non active page (avox) - resolved.
+- 0006492: [PDF] "Clip to Page Margins" leaves bleed area empty (fschmid) - resolved.
+- 0006202: [Usability] Only lower case extension can be allowed in Scrapbook objects (subik) - resolved.
+- 0005673: [General] Text on path issue (fschmid) - resolved.
+- 0005677: [Printing] Too many copies printed (avox) - resolved.
+- 0005884: [Qt4 Port] Symbol font not displayed in "Insert > Glyph" dialog (subik) - closed.
+- 0006411: [General] Canvas: Magnifyer doesn't work correctly (avox) - closed.
+- 0005599: [-] 1.3.4cvs: Extras/Manages Pictures: Crash while searching for pictures (subik) - closed.
+- 0006425: [General] Canvas: Double-clicking on frame handles behaves odd sometimes (avox) - closed.
+- 0005880: [Qt4 Port] Wrong cursor behaviour in the Arrange Pages dialog (subik) - closed.
+- 0005851: [Story Editor / Text Frames] Cursor invisible in empty text frames (avox) - closed.
+- 0006389: [General] Page "jumps" on canvas if preview is enabled in the "Arrange Pages" dialog (cbradney) - closed.
+- 0005984: [User Interface] Items in the Outline Window get deselected when some actions are applied to their objects (fschmid) - closed.
+- 0005711: [General] Incorrect positioning and background artefacts when changing object size (avox) - closed.
+- 0006390: [General] Right pages, selected in the "Arrange Pages" dialog, move to the left (cbradney) - closed.
+- 0006111: [Internal] Crash when hitting application close button when in gradient vector edit mode (fschmid) - closed.
+- 0006303: [General] Drawing items on canvas is extremely slow at higher zoom levels (avox) - closed.
+- 0006053: [General] Exponent caracter at the end of text bloc turn all the bloc in exponent (avox) - closed.
+- 0006101: [General] Groups of Scribus shapes and text cannot be dragged from the scrapbook (jghali) - closed.
+- 0006144: [Story Editor / Text Frames] Tabs don't work on canvas (avox) - closed.
+- 0006114: [Qt4 Port] Qt4ize ScribusView (avox) - closed.
+- 0006128: [Story Editor / Text Frames] story editor: crash on breaking the line (avox) - closed.
+- 0005713: [Story Editor / Text Frames] Textframes dont re-layout after Insert Char (subik) - closed.
+- 0006476: [Canvas] Wrong size is displayed when resizing a shape first time (avox) - closed.
+- 0006086: [-] Print-Preview doesnt zoom correct (fschmid) - closed.
+- 0006431: [Fonts] Font list in the Font Preview takes into account uppercase letters (subik) - closed.
+- 0006116: [Qt4 Port] Qt4ize StoryEditor (fschmid) - closed.
+- 0006145: [Styles] Incorrect behaviour of the context menu in the Styles Manager (subik) - closed.
+- 0006363: [Story Editor / Text Frames] Canvas: Text frame resize does not reflow existing text (avox) - closed.
+- 0006393: [Graphics / Image Frames] Canvas: Impossible to deselect an image frame after double click (avox) - closed.
+- 0006277: [User Interface] Indicator for new frame size is wrong (avox) - closed.
+- 0006284: [Shape Drawing] LaTeX frame drawing starts to the bottom right of the mouse pointer, scale related? (avox) - closed.
+- 0006391: [General] Image data is not available in the "Manage Pictures" dialog if a doc contains a single image (subik) - closed.
+- 0006271: [User Interface] Zoom levels behave odd after change of theme (avox) - closed.
+- 0006276: [General] Canvas: Drawing a bézier curve triggers a crash (avox) - closed.
+- 0006344: [Styles] Double click in the Style Editor triggers crash (jghali) - closed.
+- 0006280: [Shape Drawing] Polygon drawing is using (or not using) canvas scale or something.. the items are huge compared to the mouse position (avox) - closed.
+- 0005961: [Story Editor / Text Frames] Cursor issues in text frames (avox) - closed.
+- 0006281: [Shape Drawing] Canvas: Freehand line drawing doesnt seem to do anything, could be scale related. (avox) - closed.
+- 0006282: [Shape Drawing] Canvas: Bezier drawing seems broken, could be scale related (avox) - closed.
+- 0005888: [Story Editor / Text Frames] Columns can only be used before inserting text (subik) - closed.
+- 0006396: [General] Selecting an item in the Document Outline doesn't result in display of the item (subik) - closed.
+- 0006297: [Shape Drawing] Canvas: Resizing of frames like text frames, rectangles from lower points resizes to the end of the canvas, scale related? (avox) - closed.
+- 0006409: [General] Copying or moving items results in line artefacts on canvas (avox) - closed.
+- 0005867: [Qt4 Port] Hitting the Return key in text frames triggers crash (avox) - closed.
+- 0006283: [General] Canvas: Measurement mode doesnt work at all (avox) - closed.
+- 0006406: [Story Editor / Text Frames] Overwriting sample text triggers a crash (fschmid) - closed.
+- 0006032: [Fonts] Can't choose black for font style colour (subik) - closed.
+- 0006400: [User Interface] Item > Shape > Edit Shape not availaible (cbradney) - closed.
+- 0005995: [User Interface] Sticky previews in Insert Glyph (cbradney) - closed.
+- 0006416: [Story Editor / Text Frames] Text flow around objects doesn't work (avox) - closed.
+- 0006420: [General] Canvas: Selecting items with Ctrl+click doesn't work (avox) - closed.
+- 0006421: [Story Editor / Text Frames] Text in frames becomes invisbile if selected in the Document Outline (subik) - closed.
+- 0006482: [Canvas] Selected items aren't indicated (fschmid) - closed.
+- 0006481: [Styles] Impossible to create a new style in the Style Manager from the context menu (subik) - closed.
+- 0006024: [User Interface] Adding a glyph to the character palette with double click doesn't work (subik) - closed.
+- 0006430: [User Interface] Windows > Tools/PDF Tools aren't indicated as "on" by default (subik) - closed.
+- 0006413: [Story Editor / Text Frames] Impossible to leave text frame (avox) - closed.
+- 0006472: [Canvas] Freehand drawing is missing preview (fschmid) - closed.
+- 0005906: [Qt4 Port] Non-breaking space displayed as a red square (avox) - closed.
+- 0006455: [User Interface] Wrong order of icon bars in default install (subik) - closed.
+- 0006435: [Story Editor / Text Frames] Styles aren't available in the Story Editor (fschmid) - closed.
+- 0006415: [Story Editor / Text Frames] Shapes don't work for text frames (fschmid) - closed.
+- 0005919: [Qt4 Port] plugin manager listing is slow (subik) - closed.
+- 0005155: [PPCOSX / Macintosh] Crash using Extras-Colorcircle (avox) - closed.
+- 0006417: [Story Editor / Text Frames] Special characters inserted via the "Insert" menu are initially displayed as red squares (subik) - closed.
+- 0006261: [General] Deleting template from new from template dialog triggers crash (jghali) - closed.
+- 0006137: [Qt4 Port] qfilewidget: check enter/escape slots (subik) - closed.
+- 0006209: [Styles] Crashes when creating a new style (subik) - closed.
+- 0006285: [General] Impossible to drag a single glyph from the character palette the small palette (subik) - closed.
+- 0006196: [Story Editor / Text Frames] sig6 crash when entering the characters TH (jghali) - closed.
+- 0006225: [General] Redraw issue with "Distribute and Align" (avox) - closed.
+- 0006263: [General] Shapes and lines remain visible on canvas after deletion (avox) - closed.
+- 0006268: [General] Trying to copy & paste a textframe results in a crash. (fschmid) - closed.
+- 0006279: [General] Colour changes to frames/items are displayed only after moving the items (fschmid) - closed.
+- 0006181: [PDF] Text stroke / drop shadow is not exported correctly to pdf (jghali) - closed.
+- 0006184: [Story Editor / Text Frames] In the storyeditor the shift key behaves like the control key (jghali) - closed.
+- 0006102: [Graphics / Image Frames] Layers & Paths available for all image files in the "Manage Pictures" dialog (fschmid) - closed.
+- 0006106: [Graphics / Image Frames] manage guides forgets the column gaps (subik) - closed.
+- 0006294: [Story Editor / Text Frames] Scribus crashes when view is diminished (cbradney) - closed.
+- 0006036: [Qt4 Port] Convert Style Manager to Qt4 (subik) - closed.
+ - 0006099: [Styles] Selecting a line colour in the Style Manager triggers crash (jghali) - closed.
+ - 0006100: [Styles] Drop down lists for fontface and font style are too smal (subik) - closed.
+- 0006286: [General] Wrong cursor after dragging a glyph from the character palette (subik) - closed.
+- 0006376: [User Interface] Undo dialog doesn't display all actions (subik) - closed.
+- 0006224: [Qt4 Port] Unicode chars not shown correctly in helpbrowser in qt4 port (cbradney) - closed.
+- 0006035: [Qt4 Port] Convert QPointArrays to Qt4 (fschmid) - closed.
+- 0006349: [Qt4 Port] Qt3 support removal stopped GUI language change working (cbradney) - closed.
+- 0006022: [User Interface] Minimising the character palette doesn't work (subik) - closed.
+- 0006342: [Import / Export] SVG import triggers crash (jghali) - closed.
+- 0005898: [Scripter] Running the font sampler crashes the scripter (fschmid) - closed.
+- 0006392: [Graphics / Image Frames] Impossible to adjust image to frame to image size without deselecting the image frame first (cbradney) - closed.
+- 0006208: [General] English is the only available UI language in the preferences (cbradney) - closed.
+- 0006292: [Internal] Scribus crashes when first page is deleted - closed.
+- 0006237: [General] Scaling a selection of several objects triggers crash (jghali) - closed.
+- 0006232: [Graphics / Image Frames] Image clipping paths are ignored at some point after loading (fschmid) - closed.
+- 0006037: [Qt4 Port] Convert text classes to Qt4 (jghali) - closed.
+- 0006299: [Styles] Style Manager is empty (fschmid) - closed.
+- 0006567: [Graphics / Image Frames] zoom problem for pictures frame (fschmid) - closed.
+- 0005699: [User Interface] Quick palette has some memory corruption issue. Resize shows it. See screenie (subik) - closed.
+- 0005712: [Story Editor / Text Frames] Textframes don't re-layout after size of frame change (fschmid) - closed.
+- 0005714: [Import / Export] Eps graphic doesnt appear after import (cbradney) - closed.
+- 0006115: [Qt4 Port] seiten.h: Se* classes (subik) - closed.
+- 0005698: [User Interface] Colour wheel angle spinbox does not affect the dots when spun. You have to click on the wheel for a refresh (subik) - closed.
+- 0006113: [Qt4 Port] bookmwin.h: BookM classes (subik) - closed.
+- 0006064: [Story Editor / Text Frames] Deleting text in text frames triggers crash (avox) - closed.
+- 0005697: [User Interface] Gradient in colour indicators for barcode generator (jghali) - closed.
+- 0005694: [Graphics / Image Frames] Images with offset are not rendered with offset. PP shows the offset (fschmid) - closed.
+- 0006110: [User Interface] Unnecessary button in the font preview (jghali) - closed.
+- 0005664: [User Interface] Add Online Documentation Links Directly to the Help Menu (cbradney) - closed.
+- 0006117: [Qt4 Port] undogui.h: port Undo classes to Qt4 (subik) - closed.
+- 0006301: [General] Paste with right click doesn't work (fschmid) - closed.
+- 0006300: [Usability] Message stating Document-1 has changed on exiting when no changes were made (subik) - closed.
+- 0005838: [User Interface] Pressing escape while the error message "this key sequence is already in use" duplicates the alert (cbradney) - closed.
+- 0006325: [Graphics / Image Frames] Grayscale JPEGs are not handeled correctly (fschmid) - closed.
+- 0005710: [User Interface] Toolbar icons have inconsistent size (cbradney) - closed.
+- 0006558: [User Interface] resizing frame does not force contents redraw (fschmid) - closed.
+- 0006581: [Scripter] there's (was) no possibility to scroll/move the view on the current document with the scripter api (subik) - closed.
+- 0005825: [User Interface] Text frame sent to scrapbook looks like being converted to outline (fschmid) - closed.
+- 0006336: [General] Enabling the preview in the "Arrange Pages" dialog moves the canvas (fschmid) - closed.
+- 0006316: [Graphics / Image Frames] Scaling images to frame size doesn't work (avox) - closed.
+- 0006588: [User Interface] Dragging a glyph in the Glyph dialog makes the dialog dysfunctional (subik) - closed.
+- 0003424: [Story Editor / Text Frames] coordinates in properties still display wrong for multiple selections/groups (fschmid) - closed.
+- 0005772: [User Interface] character palette shows unicode numbers but not glyphs (subik) - closed.
+- 0003980: [User Interface] Palettes: Inconsistent font size of palette titles (cbradney) - closed.
+- 0003913: [User Interface] Font menus aren't real menus. (cbradney) - closed.
+- 0003839: [Usability] Resize option for the properties dialog not obvious with some window managers (cbradney) - closed.
+- 0001747: [General] Naming of Object Groups? (fschmid) - closed.
+- 0006345: [General] Items in the Document Outline aren't updated (fschmid) - closed.
+- 0006498: [User Interface] Integrate Outline palette with selection (fschmid) - closed.
+- 0006583: [Color Management] small inconsistency in the colour list (fschmid) - closed.
+- 0003102: [User Interface] Deleting colors does not always update paragraph/line styles. (avox) - closed.
+- 0006589: [User Interface] Wrong colour selected for editing (fschmid) - closed.
+- 0006587: [User Interface] Opening the Preferences/DocSetup dialog takes forever (fschmid) - closed.
 - 0006401: [General] Selected Items can't be moved with arrow keys (avox)
 - 0004956: [Translation] Translated strings don't switch: (cbradney)
 - 0003102: [User Interface] Deleting colors does not always update paragraph/line styles. (avox)
