@@ -1152,7 +1152,6 @@ void ScPainter::drawImage( QImage *image )
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
 	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
 	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
-	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
     cairo_mask_surface (m_cr, image3, 0, 0);
 	cairo_surface_destroy (image2);
@@ -1186,7 +1185,6 @@ void ScPainter::drawImage( QImage *image )
 	}
 	else
 		image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
-	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
 	cairo_mask_surface (m_cr, image3, 0, 0);
 	cairo_surface_destroy (image2);
