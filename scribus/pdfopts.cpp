@@ -125,8 +125,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
 	connect( OK, SIGNAL( clicked() ), this, SLOT( DoExport() ) );
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( fileNameLineEdit, SIGNAL( lostFocus() ), this, SLOT( fileNameChanged() ) );
-	connect( fileNameLineEdit, SIGNAL( returnPressed() ), this, SLOT( fileNameChanged() ) );
+	connect( fileNameLineEdit, SIGNAL( editingFinished() ), this, SLOT( fileNameChanged() ) );
 	connect( Options, SIGNAL(noInfo()), this, SLOT(disableSave()));
 	connect( Options, SIGNAL(hasInfo()), this, SLOT(enableSave()));
 }

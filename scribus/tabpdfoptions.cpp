@@ -891,8 +891,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 		connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 		connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
-		connect(InfoString, SIGNAL(returnPressed()), this, SLOT(checkInfo()));
-		connect(InfoString, SIGNAL(lostFocus()), this, SLOT(checkInfo()));
+		connect(InfoString, SIGNAL(editingFinished()), this, SLOT(checkInfo()));
 		connect(docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
 		EmbedFonts->setToolTip( "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
 		CheckBox10->setToolTip( "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
