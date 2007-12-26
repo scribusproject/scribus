@@ -126,7 +126,10 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		}
 		currItem->updateClip();
 		m_doc->setRedrawBounding(currItem);
-		currItem->invalidateLayout();
+		if (currItem->asImageFrame())
+			currItem->AdjustPictScale();
+		else if (currItem->asTextFrame())
+			currItem->invalidateLayout();
 		currItem->update();
 	}
 	m_canvas->update();
