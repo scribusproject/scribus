@@ -122,16 +122,23 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				return result;
 			Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Dp = m_Doc->Pages->at(savedOwnPage);
+			int currentGroup = -1;
 			for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 			{
 				docItem = m_Doc->MasterItems.at(a);
 				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerNr)))
 				{
+					if (docItem->Groups.count() == 0)
+						currentGroup = -1;
+					if ((currentGroup != -1) && (docItem->Groups.count() != 0))
+						continue;
 					if (docItem->textFlowAroundObject())
 					{
 						result = result.subtract(itemShape(docItem, Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
 					}
+					if (docItem->isGroupControl)
+						currentGroup = docItem->Groups.top();
 				}
 			} // for all masterItems
 			// (JG) #6009 : disable possible interaction between master text frames and normal frames
@@ -152,14 +159,21 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 		} // if (!OnMasterPage.isEmpty())
 		else
 		{
+			int currentGroup = -1;
 			for (uint a = 0; a < docItemsCount; ++a)
 			{
 				docItem = m_Doc->Items->at(a);
 				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerNr)))
 				{
-					 if (docItem->textFlowAroundObject())
+					if (docItem->Groups.count() == 0)
+						currentGroup = -1;
+					if ((currentGroup != -1) && (docItem->Groups.count() != 0))
+						continue;
+					if (docItem->textFlowAroundObject())
 						result = result.subtract(itemShape(docItem, 0, 0));
+					if (docItem->isGroupControl)
+						currentGroup = docItem->Groups.top();
 				}
 			} // for all docItems
 			} // if(OnMasterPage.isEmpty()		
