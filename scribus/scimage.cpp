@@ -1781,6 +1781,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 		else
 		{
 			QImage iMask = rImage.createAlphaMask();
+			iMask = iMask.convertToFormat(QImage::Format_Mono);
 			hm = iMask.height();
 			wm = iMask.width();
 			w2 = wm / 8;
