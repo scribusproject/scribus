@@ -455,8 +455,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typographicSettings.scalingSubScript = tabTypo->subScaling->value();
 	prefsManager->appPrefs.typographicSettings.valueSmallCaps = tabTypo->capsScaling->value();
 	prefsManager->appPrefs.typographicSettings.autoLineSpacing = tabTypo->autoLine->value();
-	prefsManager->appPrefs.typographicSettings.valueBaseGrid = tabGuides->baseGrid->value() / prefsUnitRatio;
-	prefsManager->appPrefs.typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value() / prefsUnitRatio;
+	prefsManager->appPrefs.typographicSettings.valueBaseGrid = tabGuides->baseGrid->value(); // / prefsUnitRatio;
+	prefsManager->appPrefs.typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value(); // / prefsUnitRatio;
 	prefsManager->appPrefs.typographicSettings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);

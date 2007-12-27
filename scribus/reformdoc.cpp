@@ -320,8 +320,8 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->typographicSettings.scalingSubScript = tabTypo->subScaling->value();
 	currDoc->typographicSettings.valueSmallCaps = tabTypo->capsScaling->value();
 	currDoc->typographicSettings.autoLineSpacing = tabTypo->autoLine->value();
-	currDoc->typographicSettings.valueBaseGrid = tabGuides->baseGrid->value() / currDoc->unitRatio();
-	currDoc->typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value() / currDoc->unitRatio();
+	currDoc->typographicSettings.valueBaseGrid = tabGuides->baseGrid->value(); // / currDoc->unitRatio();
+	currDoc->typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value(); // / currDoc->unitRatio();
 	currDoc->typographicSettings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
 	currDoc->typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
 	currDoc->typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);

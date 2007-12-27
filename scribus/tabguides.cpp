@@ -200,7 +200,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel6a = new QLabel( tr( "Baseline &Grid:" ), baseGridBox);
 	textLabel6a->setBuddy(baseGrid);
 	baseGridBoxLayout->addWidget( textLabel6a, 0, 0 );
-	baseOffset = new ScrSpinBox( 1.0, 1000.0, baseGridBox, 0 );
+	baseOffset = new ScrSpinBox( 0.0, 1000.0, baseGridBox, 0 );
 	baseGridBoxLayout->addWidget( baseOffset, 1, 1 );
 	textLabel7a = new QLabel( tr( "Baseline &Offset:" ), baseGridBox );
 	textLabel7a->setBuddy(baseOffset);
