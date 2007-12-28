@@ -1946,7 +1946,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	QByteArray embeddedProfile = pDataLoader->embeddedProfile();
 	if (cmSettings.useColorManagement() && useProf)
 	{
-		if (embeddedProfile.size() > 0 )
+		if ((embeddedProfile.size() > 0 ) && (useEmbedded))
 		{
 			inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
 			inputProfisEmbedded = true;
@@ -1990,7 +1990,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			}
 		}
 	}
-	else if (useProf && embeddedProfile.size() > 0)
+	else if ((useProf && embeddedProfile.size() > 0) && (useEmbedded))
 	{
 		inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
 		inputProfisEmbedded = true;
@@ -2318,6 +2318,10 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 //		setAlphaBuffer(false);
 	setDotsPerMeterX (qMax(2834, (int) (imgInfo.xres / 0.0254)));
 	setDotsPerMeterY (qMax(2834, (int) (imgInfo.yres / 0.0254)));
+	if (imgInfo.isEmbedded && useEmbedded)
+		imgInfo.isEmbedded = true;
+	else
+		imgInfo.isEmbedded = false;
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
 	{
 		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);
