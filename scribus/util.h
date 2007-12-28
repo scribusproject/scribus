@@ -57,7 +57,7 @@ char SCRIBUS_API *toAscii85( quint32 value, bool& allZero );
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);
-QByteArray SCRIBUS_API CompressArray(QByteArray *in);
+QByteArray SCRIBUS_API CompressArray(const QByteArray& in);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!
 bool SCRIBUS_API loadText(QString nam, QString *Buffer);
 /*! \brief Replacement version of loadText that returns a QCString as an out parameter.

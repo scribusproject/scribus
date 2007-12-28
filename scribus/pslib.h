@@ -158,8 +158,7 @@ class SCRIBUS_API PSLib : public QObject
 		bool isPDF;
 		QFile Spool;
 		QTextStream spoolStream;
-		bool CompAvail;
-		int Plate;
+		int  Plate;
 		bool DoSep;
 		bool useSpotColors;
 		bool fillRule;

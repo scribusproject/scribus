@@ -81,7 +81,6 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	DoSep = false;
 	abortExport = false;
 	useSpotColors = spot;
-	CompAvail = true;
 	GrayCalc =  "/setcmykcolor {exch 0.11 mul add exch 0.59 mul add exch 0.3 mul add\n";
 	GrayCalc += "               dup 1 gt {pop 1} if 1 exch sub oldsetgray} bind def\n";
 	GrayCalc += "/setrgbcolor {0.11 mul exch 0.59 mul add exch 0.3 mul add\n";
@@ -1343,28 +1342,34 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 		PS_Error_InsufficientMemory();
 		return false;
 	}
-	if (CompAvail)
+	QByteArray compImage = CompressArray(imgArray);
+	if (compImage.size() > 0)
 	{
 		PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-		imgArray = CompressArray(&imgArray);
+		PutStream(compImage, true);
+		compImage.resize(0);
 	}
 	else
+	{
 		PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-	PutStream(imgArray, true);
+		PutStream(imgArray, true);
+	}
 	PutStream("/"+PSEncode(Name)+"Bild exch def\n");
 	imgArray.resize(0);
-	QByteArray maskArray;
-	maskArray = image.getAlpha(fn, false, false, 300);
+	QByteArray maskArray = image.getAlpha(fn, false, false, 300);
 	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))
 	{
-		if (CompAvail)
+		QByteArray compMask = CompressArray(maskArray);
+		if (compMask.size() > 0)
 		{
 			PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-			maskArray = CompressArray(&maskArray);
+			PutStream(compMask, true);
 		}
 		else
+		{
 			PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-		PutStream(maskArray, true);
+			PutStream(maskArray, true);
+		}
 		PutStream("/"+PSEncode(Name)+"Mask exch def\n");
 	}
 	return true;
@@ -1459,24 +1464,32 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			}
 			if (Name.isEmpty())
 			{
-				if (CompAvail)
+				QByteArray compImage = CompressArray(imgArray);
+				if (compImage.size() > 0)
 				{
+					imgArray.resize(0);
 					PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-					imgArray = CompressArray(&imgArray);
+					PutStream(compImage, true);
+					compImage.resize(0);
 				}
 				else
+				{
 					PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-				PutStream(imgArray, true);
-				imgArray.resize(0);
+					PutStream(imgArray, true);
+					imgArray.resize(0);
+				}
 				PutStream("/Bild exch def\n");
-				if (CompAvail)
+				QByteArray compMask = CompressArray(maskArray);
+				if (compMask.size() > 0)
 				{
 					PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-					maskArray = CompressArray(&maskArray);
+					PutStream(compMask, true);
 				}
 				else
+				{
 					PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-				PutStream(maskArray, true);
+					PutStream(maskArray, true);
+				}
 				PutStream("/Mask exch def\n");
 			}
 			PutStream("<<\n");
@@ -1514,6 +1527,29 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutStream("   /DataSource "+PSEncode(Name)+"Mask\n");
 			PutStream(">>\n");
 			PutStream("imagemask\n");
+			/* JG - Experimental code using Type3 image instead of patterns
+			PutStream("<< /ImageType 3\n");
+			PutStream("   /DataDict <<\n");
+			PutStream("      /ImageType 1\n");
+			PutStream("      /Width  " + IToStr(w) + "\n");
+			PutStream("      /Height " + IToStr(h) + "\n");
+			PutStream("      /BitsPerComponent 8\n");
+			PutStream( (GraySc || DoSep) ? "      /Decode [1 0]\n" : "      /Decode [0 1 0 1 0 1 0 1]\n");
+			PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
+			PutStream("      /DataSource "+PSEncode(Name)+"Bild\n");
+			PutStream("      >>\n");
+			PutStream("   /MaskDict <<\n");
+			PutStream("      /ImageType 1\n");
+			PutStream("      /Width  " + IToStr(w) + "\n");
+			PutStream("      /Height " + IToStr(h) + "\n");
+			PutStream("      /BitsPerComponent 1\n");
+			PutStream("      /Decode [1 0]\n");
+			PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
+			PutStream("      /DataSource "+PSEncode(Name)+"Mask\n");
+			PutStream("      >>\n");
+			PutStream("   /InterleaveType 3\n");
+			PutStream(">>\n");
+			PutStream("image\n");*/
 			if (!Name.isEmpty())
 			{
 				PutStream(PSEncode(Name)+"Bild resetfile\n");
@@ -1530,8 +1566,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 				PutStream("   /Decode [1 0]\n");
 			else
 				PutStream( GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n");
-			PutStream("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) +
-					"]\n");
+			PutStream("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
 			if (!Name.isEmpty())
 			{
 				PutStream("   /DataSource "+PSEncode(Name)+"Bild >>\n");
@@ -1540,21 +1575,28 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			}
 			else
 			{
-				PutStream ( CompAvail ? "   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n" :
-							"   /DataSource currentfile /ASCII85Decode filter >>\n");
-				PutStream("image\n");
 				if (DoSep)
 					imgArray = image.ImageToCMYK_PS(Plate, true);
 				else
 					imgArray = GraySc ? image.ImageToCMYK_PS(-2, true) : image.ImageToCMYK_PS(-1, true);
-				if (CompAvail)
-					imgArray = CompressArray(&imgArray);
 				if (imgArray.isNull())
 				{
 					PS_Error_InsufficientMemory();
 					return false;
 				}
-				PutStream(imgArray, true);
+				QByteArray compImage = CompressArray(imgArray);
+				if (compImage.size() > 0)
+				{
+					PutStream("   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n");
+					PutStream("image\n");
+					PutStream(compImage, true);
+				}
+				else
+				{
+					PutStream("   /DataSource currentfile /ASCII85Decode filter >>\n");
+					PutStream("image\n");
+					PutStream(imgArray, true);
+				}
 			}
 		}
 	}

@@ -300,21 +300,19 @@ QString CompressStr(QString *in)
 	return out;
 }
 
-QByteArray CompressArray(QByteArray *in)
+QByteArray CompressArray(const QByteArray& in)
 {
 	QByteArray out;
-	uLong exlen = uint(in->size() * 0.001 + 16) + in->size();
+	uLong exlen = uint(in.size() * 0.001 + 16) + in.size();
 	QByteArray temp(exlen, ' ');
-	int errcode = compress2((Byte *)temp.data(), &exlen, (Byte *)in->data(), uLong(in->size()), 9);
-	if (errcode != Z_OK)
+	int errcode = compress2((Byte *)temp.data(), &exlen, (Byte *)in.data(), uLong(in.size()), 9);
+	if (errcode == Z_OK)
 	{
-		qDebug("compress2 failed with code %i", errcode);
-		out = *in;
-	}
-	else {
 		temp.resize(exlen);
 		out = temp;
 	}
+	else
+		qDebug("compress2 failed with code %i", errcode);
 	return out;
 }
 
