@@ -101,6 +101,7 @@ private:
 	void       PutPage(const QString & in) { Content += in; }
 	void       StartObj(int nr);
 	void       WritePDFStream(const QString& cc);
+	void       WritePDFString(const QString& cc);
 	QString    PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
 	

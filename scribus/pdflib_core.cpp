@@ -5757,7 +5757,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == 1) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
-		WritePDFStream(ite->annotation().Action());
+		WritePDFString(ite->annotation().Action());
 	if ((ite->annotation().Type() > 1) && (ite->annotation().AAact()))
 	{
 		StartObj(ObjCounter);
@@ -5818,25 +5818,25 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		}
 		PutDoc(">>\nendobj\n");
 		if (!ite->annotation().E_act().isEmpty())
-			WritePDFStream(ite->annotation().E_act());
+			WritePDFString(ite->annotation().E_act());
 		if (!ite->annotation().X_act().isEmpty())
-			WritePDFStream(ite->annotation().X_act());
+			WritePDFString(ite->annotation().X_act());
 		if (!ite->annotation().D_act().isEmpty())
-			WritePDFStream(ite->annotation().D_act());
+			WritePDFString(ite->annotation().D_act());
 		if (!ite->annotation().Fo_act().isEmpty())
-			WritePDFStream(ite->annotation().Fo_act());
+			WritePDFString(ite->annotation().Fo_act());
 		if (!ite->annotation().Bl_act().isEmpty())
-			WritePDFStream(ite->annotation().Bl_act());
+			WritePDFString(ite->annotation().Bl_act());
 		if ((ite->annotation().Type() == 3) || (ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
 		{
 			if (!ite->annotation().K_act().isEmpty())
-				WritePDFStream(ite->annotation().K_act());
+				WritePDFString(ite->annotation().K_act());
 			if (!ite->annotation().F_act().isEmpty())
-				WritePDFStream(ite->annotation().F_act());
+				WritePDFString(ite->annotation().F_act());
 			if (!ite->annotation().V_act().isEmpty())
-				WritePDFStream(ite->annotation().V_act());
+				WritePDFString(ite->annotation().V_act());
 			if (!ite->annotation().C_act().isEmpty())
-				WritePDFStream(ite->annotation().C_act());
+				WritePDFString(ite->annotation().C_act());
 		}
 	}
 	return true;
@@ -5853,6 +5853,23 @@ void PDFLibCore::WritePDFStream(const QString& cc)
 	if ((Options.Compress) && (CompAvail))
 		PutDoc("\n/Filter /FlateDecode");
 	PutDoc(" >>\nstream\n"+EncStream(tmp, ObjCounter-1)+"\nendstream\nendobj\n");
+}
+
+void PDFLibCore::WritePDFString(const QString& cc)
+{	
+	QString tmp;
+	for (int i = 0; i < cc.length(); ++i)
+	{
+		if (cc[i].unicode() > 255)
+		{
+			tmp += "\\u";
+			tmp += toHex(cc[i].row());
+			tmp += toHex(cc[i].cell());
+		}
+		else
+			tmp += cc[i];
+	}
+	WritePDFStream(tmp);
 }
 
 void PDFLibCore::PDF_xForm(double w, double h, QString im)
@@ -6633,7 +6650,7 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		int Fjav0 = ObjCounter;
 		QMap<QString,QString>::Iterator itja0;
 		for (itja0 = doc.JavaScripts.begin(); itja0 != doc.JavaScripts.end(); ++itja0)
-			WritePDFStream(itja0.value());
+			WritePDFString(itja0.value());
 		int Fjav = ObjCounter;
 		QMap<QString,QString>::Iterator itja;
 		for (itja = doc.JavaScripts.begin(); itja != doc.JavaScripts.end(); ++itja)
