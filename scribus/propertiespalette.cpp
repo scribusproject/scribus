@@ -1787,6 +1787,8 @@ void PropertiesPalette::NewSel(int nr)
 		Height->setEnabled(true);
 		Rot->setEnabled(true);
 // 		TabStack->setCurrentIndex(0);
+		for (int ws = 1; ws < 7; ++ws)
+			TabStack->setItemEnabled(ws, false);
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		NameEdit->setEnabled(false);
@@ -1978,6 +1980,7 @@ void PropertiesPalette::setMultipleSelection(bool isMultiple)
 		}
 		i = doc->Items->at(lowestItem);
 		SetCurItem(i);
+		NewSel(i->itemType());
 	}
 }
 
