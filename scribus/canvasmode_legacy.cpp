@@ -4723,7 +4723,7 @@ void LegacyMode::importToPage()
 		m_doc->useRaster = false;
 		m_doc->SnapGuides = false;
 		if (fi.suffix().toLower() == "sce")
-			m_ScMW->slotElemRead(fileName, Mxp, Myp, true, true, m_doc, m_doc->view());
+			m_ScMW->slotElemRead(fileName, Mxp, Myp, true, false, m_doc, m_doc->view());
 		else if ((fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sml"))
 			m_ScMW->slotElemRead(fileName, Mxp, Myp, false, true, m_doc, m_doc->view());
 		else
