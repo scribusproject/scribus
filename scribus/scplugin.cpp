@@ -5,15 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scplugin.h"
-#include "qwidget.h"
-//Added by qt3to4:
-#include <QPixmap>
+
 #include "deferredtask.h"
 #include "scribus.h"
 #include "scribusapp.h"
 #include "prefspanel.h"
-
-//#include "scplugin.moc"
 
 //=====================================================//
 //                        ScPlugin                     //
