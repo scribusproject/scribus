@@ -7,15 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef _SCPLUGIN_H
 #define _SCPLUGIN_H
 
-#include "qobject.h"
-#include "qwidget.h"
-#include "qstring.h"
-#include "qpixmap.h"
-#include "qdatetime.h"
-#include "qiconset.h"
+#include <qobject.h>
+#include <qwidget.h>
+#include <qstring.h>
+#include <qpixmap.h>
+#include <qdatetime.h>
+#include <qiconset.h>
 #include "scribusapi.h"
 
-class QWidget;
 class ScribusMainWindow;
 class DeferredTask;
 class PrefsPanel;
