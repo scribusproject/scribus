@@ -63,7 +63,8 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 	}
 // 	Py_INCREF(Py_True); // return True not None for backward compat
 // 	return Py_True;
-	Py_RETURN_TRUE;
+//	Py_RETURN_TRUE;
+	return PyBool_FromLong(static_cast<long>(true));
 }
 
 PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)

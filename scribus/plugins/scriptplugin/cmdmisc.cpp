@@ -141,7 +141,8 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		// For historical reasons, we need to return true on success.
 //		Py_INCREF(Py_True);
 //		return Py_True;
-		Py_RETURN_TRUE;
+//		Py_RETURN_TRUE;
+		return PyBool_FromLong(static_cast<long>(true));
 	}
 }
 

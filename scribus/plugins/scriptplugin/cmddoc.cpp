@@ -152,9 +152,10 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
+	return PyBool_FromLong(static_cast<long>(true));
 //	Py_INCREF(Py_True); // compatibility: return true, not none, on success
 //	return Py_True;
-	Py_RETURN_TRUE;
+//	Py_RETURN_TRUE;
 }
 
 PyObject *scribus_savedoc(PyObject* /* self */)
@@ -180,9 +181,10 @@ PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
+	return PyBool_FromLong(static_cast<long>(true));
 //	Py_INCREF(Py_True); // compatibility: return true, not none, on success
 //	return Py_True;
-	Py_RETURN_TRUE;
+//	Py_RETURN_TRUE;
 }
 
 PyObject *scribus_setinfo(PyObject* /* self */, PyObject* args)
