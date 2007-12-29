@@ -1,5 +1,5 @@
 # currently a handpicked list of libraries Scribus depends on
-DEPLIBRARIES=zlib.pkg expat.pkg fontconfig.pkg jpeg.pkg tiff.pkg lcms.pkg freetype.pkg libpng.pkg render.pkg xrender.pkg cairo.pkg
+DEPLIBRARIES=zlib.pkg jpeg.pkg tiff.pkg lcms.pkg freetype.pkg cairo.pkg
 # these wil be optional packages later
 ADDITIONAL=ghostscript.mpkg antiword.pkg aspell.pkg
 # this MUST be the installed path of the Scribus.app bundle
@@ -16,8 +16,8 @@ SCRIBUSPKG=${INPUTDIR}/ScribusPkg
 DESCFILE=${INPUTDIR}/Description.plist
 RESOURCES=${INPUTDIR}/Resources
 
-all: clean ${DEPLIBRARIES} Scribus.pkg
-	@echo Packaging ${PKGNAME} from ${DEPLIBRARIES}
+all: ${DEPLIBRARIES} Scribus.pkg
+	@echo Packaging ${PKGNAME} with ${DEPLIBRARIES}
 	@/Developer/Tools/packagemaker -build -p ${DISTDIR}/${PKGNAME}.mpkg -mi ${DISTDIR}/packages -i ${INFOFILE} -r ${RESOURCES} 
 
 tmpdirs:
@@ -26,6 +26,10 @@ tmpdirs:
 %.pkg: tmpdirs
 	port -f -k pkg $*
 	@cp -Rpn /opt/local/var/macports/build/*$**/work/*.pkg ${DISTDIR}/packages/
+
+cairo.pkg: fontconfig.pkg expat.pkg libiconv.pkg libpng.pkg
+	port -f -k pkg cairo +no-x11
+	@cp -Rpn /opt/local/var/macports/build/*cairo*/work/*.pkg ${DISTDIR}/packages/
 
 %.mpkg: tmpdirs
 	#port -f -k upgrade $*
