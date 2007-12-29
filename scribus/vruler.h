@@ -26,11 +26,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QWidget>
 #include "scribusapi.h"
+
 class QPaintEvent;
 class QMouseEvent;
-class ScribusDoc;
-class ScribusView;
 class PrefsManager;
+class RulerGesture;
+class ScribusDoc;
 class ScribusView;
 
 /** \brief Vertical ruler
@@ -69,6 +70,7 @@ private:
 	bool drawMark;
 	int whereToDraw;
 	PrefsManager *prefsManager;
+	RulerGesture* rulerGesture;
 };
 
 #endif

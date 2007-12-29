@@ -256,7 +256,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 #ifdef MODEDEBUG
 	qDebug() << "nodedit move event:" << m->x() << m->y() << "canvas:" << npf.x() << npf.y() << "@" << m_canvas->scale();
 #endif
-	if (m_doc->guidesSettings.guidesShown)
+/*	if (m_doc->guidesSettings.guidesShown)
 	{
 		if (MoveGY)
 		{
@@ -269,6 +269,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			return;
 		}
 	}
+	*/
 //	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
 //	{
 //		m_ScMW->setAppMode(modePanning);
@@ -439,7 +440,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
-	if (m_doc->guidesSettings.guidesShown)
+/*	if (m_doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
 		FPoint np = m_canvas->globalToCanvas(m->globalPos());
@@ -476,7 +477,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 			GxM = -1;
 			return;
 		}
-	}
+	}*/
 	/* see activated()
 	if (!m_doc->nodeEdit.hasNodeSelected() && (m_view->HaveSelRect))
 	{

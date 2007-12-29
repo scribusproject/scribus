@@ -43,8 +43,8 @@ class SCRIBUS_API RulerGesture : public CanvasGesture
 {
 public:
 	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
-	RulerGesture (CanvasMode* parent, Mode mode, int index = -1) : 
-		CanvasGesture(parent), m_mode(mode), m_index(index), m_cursor(0), m_xy(0,0) {};
+	RulerGesture (ScribusView* view, Mode mode) : 
+		CanvasGesture(view), m_mode(mode), m_haveGuide(false), m_cursor(0), m_xy(0,0) {};
 
 	virtual void drawControls(QPainter* p);
 	virtual void activate(bool);
@@ -56,12 +56,16 @@ public:
 	 */
 	virtual void mousePressEvent(QMouseEvent *m);
 	
-	Mode getMode();
+	Mode getMode() { return m_mode; }
+	/**
+		Use this to test if there's a moveable guide near this position.
+	 */
 	bool mouseHitsGuide(FPoint mousePointDoc);
 private:
 	Mode m_mode;
-	int m_index;
+	bool m_haveGuide;
 	int m_page;
+	double m_guide;
 	QCursor* m_cursor;
 	QPoint m_xy;
 	void movePoint(QMouseEvent *m);

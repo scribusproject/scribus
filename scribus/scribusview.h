@@ -167,10 +167,10 @@ public:
 	 * @param m mouse event
 	 */
 	void setNewRulerOrigin(QMouseEvent *m);
-	void FromHRuler(QMouseEvent *m);
-	void FromVRuler(QMouseEvent *m);
-	void SetYGuide(QMouseEvent *m, int oldIndex);
-	void SetXGuide(QMouseEvent *m, int oldIndex);
+//	void FromHRuler(QMouseEvent *m);
+//	void FromVRuler(QMouseEvent *m);
+//	void SetYGuide(QMouseEvent *m, int oldIndex);
+//	void SetXGuide(QMouseEvent *m, int oldIndex);
 // 	void getClosestGuides(double xin, double yin, double *xout, double *yout);
 // 	bool ApplyGuides(double *x, double *y);
 // 	void SnapToGuides(PageItem *currItem);

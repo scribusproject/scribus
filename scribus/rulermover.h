@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 
 #include "scribusapi.h"
+class RulerGesture;
 class ScribusView;
 
 class SCRIBUS_API RulerMover : public QWidget
@@ -47,6 +48,7 @@ public:
 
 private: // Private attributes
 	ScribusView *currView;
+	RulerGesture* rulerGesture;
 };
 
 #endif

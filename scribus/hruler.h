@@ -33,10 +33,11 @@ class PageItem;
 
 class QPaintEvent;
 class QMouseEvent;
+class PrefsManager;
+class RulerGesture;
 class ScribusView;
 class ScribusDoc;
 class ScribusMainWindow;
-class PrefsManager;
 
 /** \brief Horizontal ruler
 \author Franz Schmid
@@ -87,7 +88,7 @@ private:
 
 	ScribusDoc *currDoc;
 	ScribusView *currView;
-
+	
 public slots: // Public slots
 	/** \brief draw mark
 	\param where where to draw */
@@ -104,6 +105,7 @@ private:
 	int whereToDraw;
 	bool drawMark;
 	PrefsManager *prefsManager;
+	RulerGesture* rulerGesture;
 
 	//void drawGuides();
 };

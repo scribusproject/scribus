@@ -76,7 +76,10 @@ void MeasurementsMode::drawControls(QPainter* p)
 void MeasurementsMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	if (m_active)
-		adjustPoint(m->pos());		
+	{
+		m->accept();
+		adjustPoint(m->globalPos());		
+	}
 	m_active = false;
 	showValues();
 }
@@ -85,22 +88,25 @@ void MeasurementsMode::mouseMoveEvent(QMouseEvent *m)
 {
 	if (m_active)
 	{
-		adjustPoint(m->pos());
+		m->accept();
+		adjustPoint(m->globalPos());
 		showValues();
 	}
 }
 
 void MeasurementsMode::mousePressEvent(QMouseEvent *m)
 {
+	m->accept();
 	m_active = true;
-	adjustPoint(m->pos());
+	adjustPoint(m->globalPos());
 	m_start = m_current;
 	m_startDoc = m_currentDoc;
 	showValues();
 }
 
-void MeasurementsMode::adjustPoint(QPoint point)
+void MeasurementsMode::adjustPoint(QPoint globalPoint)
 {
+	QPoint point = globalPoint - m_canvas->mapToGlobal(QPoint(0,0));
 	m_canvas->update(QRect(m_start, m_current).normalized().adjusted(-1,-1,1,1));
 	m_current = point;
 	m_currentDoc = m_canvas->localToCanvas(m_current) - FPoint(m_doc->currentPage()->xOffset(),m_doc->currentPage()->yOffset());

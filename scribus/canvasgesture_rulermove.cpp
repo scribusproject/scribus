@@ -24,19 +24,33 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "util_icon.h"
 
 void RulerGesture::drawControls(QPainter* p)
 {
-	p->setPen(Qt::red);
+	Page* page = m_doc->currentPage();
+	QColor color(m_doc->guidesSettings.guideColor);
+	p->save();
+	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(page->xOffset(), page->yOffset()));
+	QSize pageSize = QSize(page->width(), page->height()) * m_canvas->scale();
+//	qDebug() << "drawRulermoveControls" << m_xy << m_mode;
 	switch (m_mode)
 	{
 		case HORIZONTAL:
+			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->drawLine(QPoint(pageOrigin.x(), m_xy.y()), QPoint(pageOrigin.x() + pageSize.width(), m_xy.y()));
 			break;
 		case VERTICAL:
+			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->drawLine(QPoint(m_xy.x(), pageOrigin.y()), QPoint(m_xy.x(), pageOrigin.y() + pageSize.height()));
 			break;
 		case ORIGIN:
+			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->drawLine(QPoint(m_xy.x(), 0), QPoint(m_xy.x(), m_canvas->height()));
+			p->drawLine(QPoint(0, m_xy.y()), QPoint(m_canvas->width(), m_xy.y()));
 			break;
 	}
+	p->restore();
 }
 
 void RulerGesture::activate(bool fromGesture)
@@ -52,8 +66,7 @@ void RulerGesture::activate(bool fromGesture)
 			qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
 			break;
 		case ORIGIN:
-			m_index = -1;
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 	}
 }
@@ -67,24 +80,26 @@ void RulerGesture::deactivate(bool)
 
 bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
 {
-//	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
-	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock)) // page >= 0
+	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
+	if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) && page >= 0)
 	{
 		double grabRadScale = m_doc->guidesSettings.grabRad / m_canvas->scale();
-		int index = m_doc->currentPage()->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard);
-		if (index >= 0)
-		{
-			m_mode = HORIZONTAL;
-			m_index = index;
-			m_page = m_doc->currentPage()->pageNr();
-			return true;
-		}
-		index = m_doc->currentPage()->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard);
+		int index = m_doc->Pages->at(page)->guides.isMouseOnVertical(mousePointDoc.x() + grabRadScale, mousePointDoc.x() - grabRadScale, GuideManagerCore::Standard);
 		if (index >= 0)
 		{
 			m_mode = VERTICAL;
-			m_index = index;
-			m_page = m_doc->currentPage()->pageNr();
+			m_haveGuide = true;
+			m_guide = m_doc->Pages->at(page)->guides.vertical(index, GuideManagerCore::Standard);
+			m_page = page;
+			return true;
+		}
+		index = m_doc->Pages->at(page)->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard);
+		if (index >= 0)
+		{
+			m_mode = HORIZONTAL;
+			m_haveGuide = true;
+			m_guide = m_doc->Pages->at(page)->guides.horizontal(index, GuideManagerCore::Standard);
+			m_page = page;
 			return true;
 		}
 	}
@@ -96,42 +111,96 @@ void RulerGesture::movePoint(QMouseEvent* m)
 {
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	const int page = m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y());
+	QRect viewport(m_view->viewport()->mapToGlobal(QPoint(0,0)), 
+				   QSize(m_view->visibleWidth(), m_view->visibleHeight()));
+	QPoint newMousePoint = m->globalPos() - m_canvas->mapToGlobal(QPoint(0,0));
 	switch (m_mode)
 	{
 		case ORIGIN:
+			m_canvas->repaint();
 			break;
 		case HORIZONTAL:
-			break;
-		case VERTICAL:
-			if ((page != -1) && (QRect(0, 0, m_view->visibleWidth(), m_view->visibleHeight()).contains(m->pos())))
+			m_canvas->update(0, m_xy.y()-2, m_canvas->width(), 4);
+			m_canvas->update(0, newMousePoint.y()-2, m_canvas->width(), 4);
+			if ((page >= 0) && (viewport.contains(m->globalPos())))
 			{
-				if (m_index < 0)
+				if (!m_haveGuide)
 				{
-					m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
-//					emit signalGuideInformation(0, qRound((newX-m_doc->Pages->at(page)->xOffset()) * 10000.0) / 10000.0);
+					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+					m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
+					m_page = page;
+					m_haveGuide = true;
+					//					emit signalGuideInformation(0, qRound((newY-m_doc->Pages->at(page)->yOffset()) * 10000.0) / 10000.0);
 				}
 				else
 				{
-					if (page == m_doc->currentPageNumber())
+					if (page == m_page)
 					{
-						m_doc->currentPage()->guides.moveVertical( m_doc->currentPage()->guides.vertical(m_index, GuideManagerCore::Standard),
-																   mousePointDoc.x() - m_doc->currentPage()->xOffset(), GuideManagerCore::Standard);
+						m_doc->Pages->at(page)->guides.moveHorizontal( m_guide, mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
+						//						emit signalGuideInformation(0, qRound((newY-m_doc->Pages->at(page)->yOffset()) * 10000.0) / 10000.0);
+					}
+					else
+					{
+						m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
+						//						emit signalGuideInformation(-1, 0.0);
+						m_doc->Pages->at(page)->guides.addHorizontal(mousePointDoc.y() - m_doc->Pages->at(page)->yOffset(), GuideManagerCore::Standard);
+						m_page = page;
+					}
+				}
+				m_guide = mousePointDoc.y() - m_doc->Pages->at(page)->yOffset();
+				//				m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
+			}
+			else
+			{ 
+				if (m_haveGuide)
+				{
+					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
+					m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
+					m_haveGuide = false;
+					//					emit signalGuideInformation(-1, 0.0);
+					//					m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
+				}
+			}
+			//			emit DocChanged();
+			break;
+		case VERTICAL:
+			m_canvas->update(m_xy.x()-2, 0, 4, m_canvas->height());
+			m_canvas->update(newMousePoint.x()-2, 0, 4, m_canvas->height());
+			if ((page >= 0) && viewport.contains(m->globalPos()))
+			{
+				if (!m_haveGuide)
+				{
+					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+					m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
+					m_page = page;
+					m_haveGuide = true;
+					//					emit signalGuideInformation(0, qRound((newX-m_doc->Pages->at(page)->xOffset()) * 10000.0) / 10000.0);
+				}
+				else
+				{
+					if (page == m_page)
+					{
+						m_doc->Pages->at(page)->guides.moveVertical( m_guide, mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
 //						emit signalGuideInformation(0, qRound((newX-m_doc->Pages->at(page)->xOffset()) * 10000.0) / 10000.0);
 					}
 					else
 					{
-						m_doc->currentPage()->guides.deleteVertical( m_doc->currentPage()->guides.vertical(m_index, GuideManagerCore::Standard), GuideManagerCore::Standard);
+						m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
 //						emit signalGuideInformation(-1, 0.0);
 						m_doc->Pages->at(page)->guides.addVertical(mousePointDoc.x() - m_doc->Pages->at(page)->xOffset(), GuideManagerCore::Standard);
+						m_page = page;
 					}
 				}
 //				m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
+				m_guide = mousePointDoc.x() - m_doc->Pages->at(page)->xOffset();
 			}
 			else
 			{ 
-				if (m_index >= 0)
+				if (m_haveGuide)
 				{
-					m_doc->currentPage()->guides.deleteVertical( m_doc->currentPage()->guides.vertical(m_index, GuideManagerCore::Standard), GuideManagerCore::Standard);
+					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
+					m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);
+					m_haveGuide = false;
 //					emit signalGuideInformation(-1, 0.0);
 //					m_view->m_ScMW->guidePalette->clearRestoreVerticalList();
 				}
@@ -139,19 +208,24 @@ void RulerGesture::movePoint(QMouseEvent* m)
 //			emit DocChanged();
 			break;
 	}
-	m_xy = m->pos();
+	m_xy = newMousePoint;
 }
 
 
 void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 {
 	movePoint(m);
+	m->accept();
 }
 
 
 void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 {
 	movePoint(m);
+	if (m_mode == ORIGIN)
+		m_view->setNewRulerOrigin(m);
+	m->accept();
+	m_canvas->repaint();
 	m_view->stopGesture();
 }
 
@@ -160,5 +234,8 @@ void RulerGesture::mousePressEvent(QMouseEvent* m)
 {
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	if (mouseHitsGuide(mousePointDoc))
-		m_xy = m->pos();
+	{
+		m_xy = m->globalPos() - m_canvas->mapToGlobal(QPoint(0,0));
+		m->accept();
+	}
 }

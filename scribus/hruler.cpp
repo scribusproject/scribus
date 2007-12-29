@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <QRect>
 
+#include "canvasgesture_rulermove.h"
 #include "hruler.h"
 #include "page.h"
 #include "prefsmanager.h"
@@ -87,6 +88,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	drawMark = false;
 	RulerCode = rc_none;
 	setMouseTracking(true);
+	rulerGesture = new RulerGesture(currView, RulerGesture::HORIZONTAL);
 	unitChange();
 }
 
@@ -179,13 +181,10 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if (prefsManager->appPrefs.guidesSettings.guidesShown)
+		if (currDoc->guidesSettings.guidesShown)
 		{
-			QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
-			currView->DrHY = py.y();
 			qApp->changeOverrideCursor(QCursor(SPLITHC));
-			currView->redrawMarker->setGeometry(QRect(currView->viewport()->mapToGlobal(QPoint(0, 0)).x(), m->globalPos().y(), currView->viewport()->width(), 1));
-			currView->redrawMarker->show();
+			currView->startGesture(rulerGesture);
 		}
 	}
 }
@@ -256,16 +255,11 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((Mpressed) && (m->pos().y() > height()))
-		{
-			currView->DrHY = -1;
-			currView->SetYGuide(m, -1);
-		}
 		if (Mpressed)
-			currView->redrawMarker->hide();
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		emit DocChanged(false);
-		currDoc->regionsChanged()->update(QRect());
+		{
+			rulerGesture->mouseReleaseEvent(m);
+			Mpressed = false;
+		}
 	}
 	Mpressed = false;
 }
@@ -431,8 +425,10 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((Mpressed) && (m->pos().y() > height()))
-			currView->FromHRuler(m);
+		if (Mpressed)
+		{
+			rulerGesture->mouseMoveEvent(m);
+		}
 	}
 }
 

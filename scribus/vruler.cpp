@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <QCursor>
+#include <QDebug>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPainter>
@@ -30,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 #include <QRubberBand>
 
+#include "canvasgesture_rulermove.h"
 #include "page.h"
 #include "prefsmanager.h"
 #include "scribus.h"
@@ -59,40 +61,35 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	oldMark = 0;
 	Mpressed = false;
 	drawMark = false;
+	rulerGesture = new RulerGesture(currView, RulerGesture::VERTICAL);
 	unitChange();
 }
 
 void Vruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
-	if (prefsManager->appPrefs.guidesSettings.guidesShown)
+	if (currDoc->guidesSettings.guidesShown)
 	{
-		QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
-		currView->DrVX = py.x();
 		qApp->changeOverrideCursor(QCursor(SPLITVC));
-		currView->redrawMarker->setGeometry(QRect(m->globalPos().x(), currView->viewport()->mapToGlobal(QPoint(0, 0)).y(), 1, currView->visibleHeight()));
-		currView->redrawMarker->show();
+		currView->startGesture(rulerGesture);
 	}
 }
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	if ((Mpressed) && (m->pos().x() > width()))
-	{
-		currView->DrVX = -1;
-		currView->SetXGuide(m, -1);
-	}
 	if (Mpressed)
-		currView->redrawMarker->hide();
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	Mpressed = false;
-	currView->updateCanvas();
+	{
+		rulerGesture->mouseReleaseEvent(m);
+		Mpressed = false;
+	}
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)
 {
-	if ((Mpressed) && (m->pos().x() > width()))
-		currView->FromVRuler(m);
+	if (Mpressed)
+	{
+		rulerGesture->mouseMoveEvent(m);
+	}
 }
 
 void Vruler::paintEvent(QPaintEvent *e)
@@ -107,6 +104,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	setFont(ff);
 	QPainter p;
 	p.begin(this);
+	p.save();
 	p.setClipRect(e->rect());
 	p.drawLine(16, 0, 16, height());
 	p.setBrush(Qt::black);
@@ -159,11 +157,10 @@ void Vruler::paintEvent(QPaintEvent *e)
 		firstMark += iter2;
 		markC++;
 	}
-	p.end();
+	p.restore();
 	if (drawMark)
 	{
 		QPolygon cr;
-		QPainter p;
 #ifdef OPTION_SMOOTH_MARKERS
 		// draw new marker to pixmap
 		static const int SCALE = 16;
@@ -173,24 +170,24 @@ void Vruler::paintEvent(QPaintEvent *e)
 		if (initpix)
 		{
 			initpix = false;
-			p.begin( &pix );
-			p.setBrush( BACKGROUND );
-			p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
+			QPainter pp;
+			pp.begin( &pix );
+			pp.setBrush( BACKGROUND );
+			pp.drawRect( 0, 0, 16*SCALE, 4*SCALE );
 	
-			p.setPen(Qt::red);
-			p.setBrush(Qt::red);
+			pp.setPen(Qt::red);
+			pp.setBrush(Qt::red);
 			cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
-			p.drawPolygon(cr);
-			p.end();
+			pp.drawPolygon(cr);
+			pp.end();
 		}
 		// draw pixmap
-		p.begin(this);
+		p.save();
 		p.translate(0, -currView->contentsY());
 		p.scale(1.0/(SCALE+1), 1.0/SCALE);
 		p.drawPixmap(0, (where-2)*SCALE, pix);
-		p.end();
-		// restore marks
-		p.begin(this);
+		p.restore();
+		// repaint marks
 		p.setBrush(Qt::black);
 		p.setPen(Qt::black);
 		p.setFont(font());
@@ -202,18 +199,16 @@ void Vruler::paintEvent(QPaintEvent *e)
 			p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 			firstMark += iter;
 		}
-		p.end();
 #else
 		// draw slim marker
-		p.begin(this);
 		p.translate(0, -currView->contentsY());
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
 		cr.setPoints(5,  5, whereToDraw, 16, whereToDraw, 5, whereToDraw, 0, whereToDraw+2, 0, whereToDraw-2);
 		p.drawPolygon(cr);
-		p.end();
 #endif
 	}
+	p.end();
 }
 
 void Vruler::drawNumber(QString num, int starty, QPainter *p)

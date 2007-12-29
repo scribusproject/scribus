@@ -32,6 +32,7 @@
 
 #include "canvas.h"
 #include "canvasgesture_resize.h"
+#include "canvasgesture_rulermove.h"
 #include "contextmenu.h"
 #include "customfdialog.h"
 #include "fpoint.h"
@@ -78,6 +79,7 @@ LegacyMode::LegacyMode(ScribusView* view) : QObject(), CanvasMode(view), m_ScMW(
 	shiftSelItems = false;
 	FirstPoly = true;
 	resizeGesture = NULL;
+	guideMoveGesture = NULL;
 	m_blinker = new QTimer(view);
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
 }
@@ -417,7 +419,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
-	if (m_doc->guidesSettings.guidesShown)
+/*	if (false && m_doc->guidesSettings.guidesShown)
 	{
 		if (MoveGY)
 		{
@@ -429,7 +431,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			m_view->FromVRuler(m);
 			return;
 		}
-	}
+	}*/
 /*	if ((!m_doc->DragP) && (m_canvas->m_viewMode.m_MouseButtonPressed) && (SelItem.count() != 0))
 	{
 		int cx = Anz->contentsX() - Anz->childX(doku->currentPage->parentWidget());
@@ -1225,7 +1227,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					setModeCursor();
+//					setModeCursor();
 				}
 			}
 			if (GetItem(&currItem) && m_doc->appMode == modeNormal)
@@ -1277,7 +1279,24 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) && (!GetItem(&currItem)))
 		{
-			double grabRadScale=m_doc->guidesSettings.grabRad / m_canvas->scale();
+			if (!guideMoveGesture)
+				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+			if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
+			{
+				switch (guideMoveGesture->getMode())
+				{
+					case RulerGesture::HORIZONTAL:
+						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+						break;
+					case RulerGesture::VERTICAL:
+						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+						break;
+					default:
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				}
+				return;
+			}
+			/*double grabRadScale=m_doc->guidesSettings.grabRad / m_canvas->scale();
 			if (0 <= m_doc->currentPage()->guides.isMouseOnHorizontal(mousePointDoc.y() + grabRadScale, mousePointDoc.y() - grabRadScale, GuideManagerCore::Standard))
 			{
 				if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
@@ -1297,7 +1316,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				else
 					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
 				return;
-			}	
+			}*/	
 /*
 				Guides::iterator it;
 			Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
@@ -2191,7 +2210,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_view->stopDragTimer();
 	// will be executed later
 	m_canvas->update();
-	if ((m_doc->appMode == modeNormal) && m_doc->guidesSettings.guidesShown)
+/*	if ((m_doc->appMode == modeNormal) && m_doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
 		double nx = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
@@ -2227,7 +2246,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			GxM = -1;
 			return;
 		}
-	}
+	}*/
 	if (m_doc->appMode == modeEditGradientVectors)
 		return;
 	if (m_doc->appMode == modeCopyProperties)
@@ -4475,9 +4494,19 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		}
 	}
  */
-	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(MxpS, MypS) != -1) && (m_doc->m_Selection->count() == 0))
+	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(MxpS, MypS) != -1))
 	{
-		GxM = -1;
+		if (!guideMoveGesture)
+			guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+		if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
+		{
+			m_view->startGesture(guideMoveGesture);
+			guideMoveGesture->mouseMoveEvent(m);
+			m_doc->m_Selection->setIsGUISelection(true);
+			m_doc->m_Selection->connectItemToGUI();
+			return true;
+		}
+/*		GxM = -1;
 		GyM = -1;
 		QMap<double, uint> tmpGuidesSel;
 		Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
@@ -4527,6 +4556,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 //FIXME:av				emit signalGuideInformation(1, qRound(m_doc->currentPage()->guides.vertical(GxM, GuideManagerCore::Standard) * 10000.0) / 10000.0);
 			}
 		}
+		*/
 	}
 	m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();

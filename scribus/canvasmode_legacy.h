@@ -28,6 +28,7 @@ class PageItem;
 class PageItem_TextFrame;
 class QTimer;
 class ResizeGesture;
+class RulerGesture;
 class ScribusMainWindow;
 class ScribusView;
 
@@ -77,6 +78,7 @@ private:
 	FPointArray RecordP;
 	ScribusMainWindow* m_ScMW;
 	ResizeGesture* resizeGesture;
+	RulerGesture* guideMoveGesture;
 	bool m_cursorVisible;
 	QTime m_blinkTime;
 	QTimer* m_blinker;

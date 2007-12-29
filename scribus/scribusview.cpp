@@ -2999,6 +2999,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 	}
 }
 
+#if 0
 void ScribusView::FromHRuler(QMouseEvent *m)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
@@ -3042,7 +3043,9 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	else
 		qApp->changeOverrideCursor(QCursor(SPLITVC));
 }
+#endif
 
+#if 0
 // TODO: PV - guides refactoring
 void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 {
@@ -3169,6 +3172,7 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 	emit DocChanged();
 */
 }
+#endif 
 
 //CB-->Doc
 void ScribusView::SetFrameRect()

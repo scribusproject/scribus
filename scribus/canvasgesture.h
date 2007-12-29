@@ -48,6 +48,7 @@ class SCRIBUS_API CanvasGesture : public CanvasMode
 {
 protected:
 	CanvasGesture (CanvasMode* parent) : CanvasMode(parent->view()), m_delegate(parent) {};
+	CanvasGesture (ScribusView* view) : CanvasMode(view), m_delegate(NULL) {};
 	
 public:	
 	virtual void enterEvent(QEvent * e) { m_delegate->enterEvent(e); }
