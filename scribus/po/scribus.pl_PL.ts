@@ -3210,11 +3210,11 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Pojedyńczy angielski lewy</translation>
+        <translation>Pojedynczy angielski lewy</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation>Pojedyńczy angielski prawy</translation>
+        <translation>Pojedynczy angielski prawy</translation>
     </message>
     <message>
         <source>Double Left</source>
@@ -3226,7 +3226,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation>Pojedyńczy odwrócony</translation>
+        <translation>Pojedynczy odwrócony</translation>
     </message>
     <message>
         <source>Double Reversed</source>
@@ -3234,11 +3234,11 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation>Pojedyńczy francuski lewy</translation>
+        <translation>Pojedynczy francuski lewy</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation>Pojedyńczy francuski prawy</translation>
+        <translation>Pojedynczy francuski prawy</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
@@ -3262,11 +3262,11 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation>CJK pojedyńczy lewy</translation>
+        <translation>CJK pojedynczy lewy</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation>CJK pojedyńczy prawy</translation>
+        <translation>CJK pojedynczy prawy</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
@@ -6135,7 +6135,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <source>Double Sided</source>
@@ -9919,7 +9919,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Wstaw rozdzieloną przecinkami listę wartości, gdzie wartość może być znakiem * oznaczającym wszystkie strony, np. 1-5 dla zakresu stron lub pojedyńczym numerem strony.</translation>
+        <translation>Wstaw rozdzieloną przecinkami listę wartości, gdzie wartość może być znakiem * oznaczającym wszystkie strony, np. 1-5 dla zakresu stron lub pojedynczym numerem strony.</translation>
     </message>
 </context>
 <context>
@@ -11398,7 +11398,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Opcja ta włącza drukowanie pojedyńczych plików PDF dla każdej strony dokumentu. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna dla impozycji w profesjonalnym druku.</translation>
+        <translation>Opcja ta włącza drukowanie pojedynczych plików PDF dla każdej strony dokumentu. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna dla impozycji w profesjonalnym druku.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
@@ -19795,7 +19795,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <source>Continuous</source>
