@@ -55,8 +55,9 @@ void RulerGesture::drawControls(QPainter* p)
 
 void RulerGesture::activate(bool fromGesture)
 {
-	if (!fromGesture)
-		m_cursor = qApp->overrideCursor();
+//	Code below is commented out because it causes a crash on X11 after the mouse release event
+//	if (!fromGesture)
+//		m_cursor = qApp->overrideCursor();
 	switch (m_mode)
 	{
 		case HORIZONTAL:
@@ -73,8 +74,9 @@ void RulerGesture::activate(bool fromGesture)
 
 void RulerGesture::deactivate(bool)
 {
-	if (m_cursor)
-		qApp->changeOverrideCursor(*m_cursor);
+//	Code below is commented out because it causes a crash on X11 after the mouse release event
+//	if (m_cursor)
+//		qApp->changeOverrideCursor(*m_cursor);
 }
 
 
