@@ -32,7 +32,7 @@ void RulerGesture::drawControls(QPainter* p)
 	QColor color(m_doc->guidesSettings.guideColor);
 	p->save();
 	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(page->xOffset(), page->yOffset()));
-	QSize pageSize = QSize(page->width(), page->height()) * m_canvas->scale();
+	QSize pageSize = (QSizeF(page->width(), page->height()) * m_canvas->scale()).toSize();
 //	qDebug() << "drawRulermoveControls" << m_xy << m_mode;
 	switch (m_mode)
 	{
