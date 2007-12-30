@@ -58,6 +58,16 @@ void RulerGesture::activate(bool fromGesture)
 //	Code below is commented out because it causes a crash on X11 after the mouse release event
 //	if (!fromGesture)
 //		m_cursor = qApp->overrideCursor();
+	m_haveCursor = (qApp->overrideCursor() != NULL);
+	if ( (!fromGesture) && qApp->overrideCursor())
+	{
+		m_haveCursor = true;
+		m_cursor = *(qApp->overrideCursor());
+	}
+	else
+	{
+		m_haveCursor = false;
+	}
 	switch (m_mode)
 	{
 		case HORIZONTAL:
@@ -77,6 +87,8 @@ void RulerGesture::deactivate(bool)
 //	Code below is commented out because it causes a crash on X11 after the mouse release event
 //	if (m_cursor)
 //		qApp->changeOverrideCursor(*m_cursor);
+	if (m_haveCursor)
+		qApp->changeOverrideCursor(m_cursor);
 }
 
 
@@ -226,6 +238,7 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 	movePoint(m);
 	if (m_mode == ORIGIN)
 		m_view->setNewRulerOrigin(m);
+	m_haveGuide = false;
 	m->accept();
 	m_canvas->repaint();
 	m_view->stopGesture();

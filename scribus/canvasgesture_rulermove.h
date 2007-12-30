@@ -44,7 +44,7 @@ class SCRIBUS_API RulerGesture : public CanvasGesture
 public:
 	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
 	RulerGesture (ScribusView* view, Mode mode) : 
-		CanvasGesture(view), m_mode(mode), m_haveGuide(false), m_cursor(0), m_xy(0,0) {};
+		CanvasGesture(view), m_mode(mode), m_haveGuide(false), m_haveCursor(false), m_xy(0,0) {};
 
 	virtual void drawControls(QPainter* p);
 	virtual void activate(bool);
@@ -66,7 +66,8 @@ private:
 	bool m_haveGuide;
 	int m_page;
 	double m_guide;
-	QCursor* m_cursor;
+	bool m_haveCursor;
+	QCursor m_cursor;
 	QPoint m_xy;
 	void movePoint(QMouseEvent *m);
 };
