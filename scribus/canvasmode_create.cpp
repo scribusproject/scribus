@@ -329,14 +329,13 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				newY = qRound(ny);
 				GyM = -1;
 				GxM = -1;
-//			}
-			SeRx = newX;
-			SeRy = newY;
-			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
-			m_view->HaveSelRect = true;
+				SeRx = newX;
+				SeRy = newY;
+				QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
+				m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+				if (!m_view->redrawMarker->isVisible())
+					m_view->redrawMarker->show();
+				m_view->HaveSelRect = true;
 			}
 		}
 	}
@@ -629,109 +628,10 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->stopDragTimer();
-	
+	m_view->redrawMarker->hide();
+
 	if (GetItem(&currItem))
-	{	
-		if (m_doc->appMode == modeDrawTable)
-		{
-			if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
-			{
-				QRect AreaR = QRect(static_cast<int>(Mxp), static_cast<int>(Myp), static_cast<int>(SeRx-Mxp), static_cast<int>(SeRy-Myp)).normalized();
-				m_view->HaveSelRect = false;
-				double Tx, Ty, Tw, Th;
-				FPoint np2 = m_doc->ApplyGridF(FPoint(Mxp, Myp));
-				Tx = np2.x();
-				Ty = np2.y();
-				m_doc->ApplyGuides(&Tx, &Ty);
-				Mxp = qRound(Tx);
-				Myp = qRound(Ty);
-				np2 = m_doc->ApplyGridF(FPoint(SeRx, SeRy));
-				Tw = np2.x();
-				Th = np2.y();
-				m_doc->ApplyGuides(&Tw, &Th);
-				SeRx = qRound(Tw);
-				SeRy = qRound(Th);
-				Tw = Tw - Tx;
-				Th = Th - Ty;
-				int z;
-				int Cols, Rows;
-				double deltaX, deltaY, offX, offY;
-				if ((Th < 6) || (Tw < 6))
-				{
-					m_view->redrawMarker->hide();
-					m_view->requestMode(submodePaintingDone);
-					return;
-				}
-				InsertTable *dia = new InsertTable(m_view, static_cast<int>(Th / 6), static_cast<int>(Tw / 6));
-				if (!dia->exec())
-				{
-					m_view->redrawMarker->hide();
-					m_view->requestMode(submodePaintingDone);
-					delete dia;
-					dia=NULL;
-					return;
-				}
-				m_view->redrawMarker->hide();
-				Cols = dia->Cols->value();
-				Rows = dia->Rows->value();
-				delete dia;
-				dia=NULL;
-				deltaX = Tw / Cols;
-				deltaY = Th / Rows;
-				offX = 0.0;
-				offY = 0.0;
-				m_doc->m_Selection->clear();
-				if (UndoManager::undoEnabled())
-					m_view->undoManager->beginTransaction(m_doc->currentPage()->getUName(),
-														  Um::ITable, Um::CreateTable,
-														  QString(Um::RowsCols).arg(Rows).arg(Cols),
-														  Um::ICreate);
-				for (int rc = 0; rc < Rows; ++rc)
-				{
-					for (int cc = 0; cc < Cols; ++cc)
-					{
-						//z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, m_doc->toolSettings.dWidth, m_doc->toolSettings.dPenText);
-						z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_MouseButtonPressed);
-						currItem = m_doc->Items->at(z);
-						currItem->isTableItem = true;
-						//currItem->setTextFlowsAroundFrame(true);
-						//currItem->setTextFlowUsesBoundingBox(true);
-						currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-						m_doc->m_Selection->addItem(currItem);
-						offX += deltaX;
-					}
-					offY += deltaY;
-					offX = 0.0;
-				}
-				for (int rc = 0; rc < Rows; ++rc)
-				{
-				for (int cc = 0; cc < Cols; ++cc)
-				{
-					currItem = m_doc->m_Selection->itemAt((rc * Cols) + cc);
-					if (rc == 0)
-						currItem->TopLink = 0;
-					else
-						currItem->TopLink = m_doc->m_Selection->itemAt(((rc-1)*Cols)+cc);
-					if (rc == Rows-1)
-						currItem->BottomLink = 0;
-					else
-						currItem->BottomLink = m_doc->m_Selection->itemAt(((rc+1)*Cols)+cc);
-					if (cc == 0)
-						currItem->LeftLink = 0;
-					else
-						currItem->LeftLink = m_doc->m_Selection->itemAt((rc*Cols)+cc-1);
-					if (cc == Cols-1)
-						currItem->RightLink = 0;
-					else
-						currItem->RightLink = m_doc->m_Selection->itemAt((rc*Cols)+cc+1);
-				}
-				}
-				m_doc->itemSelection_GroupObjects(false, false);
-				if (UndoManager::undoEnabled())
-					m_view->undoManager->commit();
-			}
-		} // if (modeDrawTable)
-		
+	{
 		if ((m_doc->appMode == modeDrawRegularPolygon) && (inItemCreation))
 		{
 			double itemX = fabs(currItem->width());
@@ -872,6 +772,102 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 			}
 		} // if (modeDrawRegPoly)
 	} // ! GetItem()
+	else
+	{
+		if (m_doc->appMode == modeDrawTable)
+		{
+			if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
+			{
+				m_view->HaveSelRect = false;
+				double Tx, Ty, Tw, Th;
+				FPoint np2 = m_doc->ApplyGridF(FPoint(Mxp, Myp));
+				Tx = np2.x();
+				Ty = np2.y();
+				m_doc->ApplyGuides(&Tx, &Ty);
+				Mxp = qRound(Tx);
+				Myp = qRound(Ty);
+				np2 = m_doc->ApplyGridF(FPoint(SeRx, SeRy));
+				Tw = np2.x();
+				Th = np2.y();
+				m_doc->ApplyGuides(&Tw, &Th);
+				SeRx = qRound(Tw);
+				SeRy = qRound(Th);
+				Tw = Tw - Tx;
+				Th = Th - Ty;
+				int z;
+				int Cols, Rows;
+				double deltaX, deltaY, offX, offY;
+				if ((Th < 6) || (Tw < 6))
+				{
+					m_view->requestMode(submodePaintingDone);
+					return;
+				}
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				InsertTable *dia = new InsertTable(m_view, static_cast<int>(Th / 6), static_cast<int>(Tw / 6));
+				if (!dia->exec())
+				{
+					m_view->requestMode(submodePaintingDone);
+					delete dia;
+					dia=NULL;
+					return;
+				}
+				Cols = dia->Cols->value();
+				Rows = dia->Rows->value();
+				delete dia;
+				dia=NULL;
+				deltaX = Tw / Cols;
+				deltaY = Th / Rows;
+				offX = 0.0;
+				offY = 0.0;
+				m_doc->m_Selection->clear();
+				if (UndoManager::undoEnabled())
+					m_view->undoManager->beginTransaction(m_doc->currentPage()->getUName(),
+														  Um::ITable, Um::CreateTable,
+														  QString(Um::RowsCols).arg(Rows).arg(Cols),
+														  Um::ICreate);
+				for (int rc = 0; rc < Rows; ++rc)
+				{
+					for (int cc = 0; cc < Cols; ++cc)
+					{
+						z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_MouseButtonPressed);
+						currItem = m_doc->Items->at(z);
+						currItem->isTableItem = true;
+						currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+						m_doc->m_Selection->addItem(currItem);
+						offX += deltaX;
+					}
+					offY += deltaY;
+					offX = 0.0;
+				}
+				for (int rc = 0; rc < Rows; ++rc)
+				{
+					for (int cc = 0; cc < Cols; ++cc)
+					{
+						currItem = m_doc->m_Selection->itemAt((rc * Cols) + cc);
+						if (rc == 0)
+							currItem->TopLink = 0;
+						else
+							currItem->TopLink = m_doc->m_Selection->itemAt(((rc-1)*Cols)+cc);
+						if (rc == Rows-1)
+							currItem->BottomLink = 0;
+						else
+							currItem->BottomLink = m_doc->m_Selection->itemAt(((rc+1)*Cols)+cc);
+						if (cc == 0)
+							currItem->LeftLink = 0;
+						else
+							currItem->LeftLink = m_doc->m_Selection->itemAt((rc*Cols)+cc-1);
+						if (cc == Cols-1)
+							currItem->RightLink = 0;
+						else
+							currItem->RightLink = m_doc->m_Selection->itemAt((rc*Cols)+cc+1);
+					}
+				}
+				m_doc->itemSelection_GroupObjects(false, false);
+				if (UndoManager::undoEnabled())
+					m_view->undoManager->commit();
+			}
+		} // if (modeDrawTable)
+	}
 	if (!PrefsManager::instance()->appPrefs.stickyTools)
 	{
 		m_view->requestMode(modeNormal);
