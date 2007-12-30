@@ -64,6 +64,7 @@ public:
 	
 private:
 	void adjustBounds(QMouseEvent *m);
+	void doResize(bool scaleTextInGroup);
 	Canvas::FrameHandle m_handle;
 	double m_rotation;
 	double m_origRatio;

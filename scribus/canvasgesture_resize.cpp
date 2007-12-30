@@ -87,6 +87,17 @@ void ResizeGesture::drawControls(QPainter* p)
 	//	p->setPen(Qt::darkMagenta);
 	//	p->drawLine(localRect.topLeft(), localRect.bottomRight());
 	p->restore();
+	if (m_origBounds != m_bounds)
+	{
+		p->save();
+		p->translate(m_bounds.topLeft() - m_origBounds.topLeft());
+		drawOutline(p, 
+					double(qAbs(m_bounds.width())) / double(qMax(qAbs(m_origBounds.width()), 1)), 
+					double(qAbs(m_bounds.height())) / double(qMax(qAbs(m_origBounds.height()), 1)));
+//					double(m_bounds.left() - m_origBounds.left()) / m_canvas->scale(),
+//					double(m_bounds.top() - m_origBounds.top()) / m_canvas->scale());
+		p->restore();
+	}
 }
 
 
@@ -99,32 +110,8 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
 		QRectF newBounds = m_canvas->globalToCanvas(m_bounds.normalized());
 		
-		qDebug() << "ResizeGesture::release: new bounds" << newBounds;	
-		if (m_doc->m_Selection->isMultipleSelection())
-		{
-			double gx, gy, gh, gw;
-			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			QRectF oldBounds(gx, gy, gw, gh);
-			double scx = oldBounds.width() == 0? 1.0 : newBounds.width() / oldBounds.width();
-			double scy = oldBounds.height() == 0? 1.0 : newBounds.height() / oldBounds.height();
-			//CB #3012 only scale text in a group if alt is pressed
-			if ((currItem->itemType() == PageItem::TextFrame) && (m->modifiers() & Qt::AltModifier))
-				m_view->scaleGroup(scx, scy, true);
-			else
-				m_view->scaleGroup(scx, scy, false);
-			double dx = newBounds.x() - oldBounds.x();
-			double dy = newBounds.y() - oldBounds.y();
-			if (dx != 0 || dy != 0)
-				m_view->moveGroup(dx, dy);
-		}
-		else
-		{
-			currItem->setXYPos(newBounds.x(), newBounds.y());
-			currItem->setWidth(newBounds.width());
-			currItem->setHeight(newBounds.height());
-			// rotation does not change
-		}
-		currItem->updateClip();
+		qDebug() << "ResizeGesture::release: new bounds" << newBounds;
+		doResize(m->modifiers() & Qt::AltModifier);
 		m_doc->setRedrawBounding(currItem);
 		if (currItem->asImageFrame())
 			currItem->AdjustPictScale();
@@ -137,10 +124,46 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 }
 
 
+void ResizeGesture::doResize(bool scaleTextInGroup)
+{
+	PageItem* currItem = m_doc->m_Selection->itemAt(0);
+	QRectF newBounds = m_canvas->globalToCanvas(m_bounds.normalized());
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		double gx, gy, gh, gw;
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		QRectF oldBounds(gx, gy, gw, gh);
+		double scx = oldBounds.width() == 0? 1.0 : newBounds.width() / oldBounds.width();
+		double scy = oldBounds.height() == 0? 1.0 : newBounds.height() / oldBounds.height();
+		//CB #3012 only scale text in a group if alt is pressed
+		if ((currItem->itemType() == PageItem::TextFrame) && scaleTextInGroup)
+			m_view->scaleGroup(scx, scy, true);
+		else
+			m_view->scaleGroup(scx, scy, false);
+		double dx = newBounds.x() - oldBounds.x();
+		double dy = newBounds.y() - oldBounds.y();
+		if (dx != 0 || dy != 0)
+			m_view->moveGroup(dx, dy);
+	}
+	else
+	{
+		currItem->setXYPos(newBounds.x(), newBounds.y());
+		currItem->setWidth(newBounds.width());
+		currItem->setHeight(newBounds.height());
+		// rotation does not change
+	}
+	m_origBounds = m_bounds;
+	currItem->updateClip();
+}
+
 
 void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 {
 	adjustBounds(m);
+	if (m_origBounds.width() < 20 || m_origBounds.height() < 20)
+	{
+		doResize(m->modifiers() & Qt::AltModifier);
+	}
 	m_canvas->repaint();
 }
 

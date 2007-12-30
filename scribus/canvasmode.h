@@ -104,7 +104,9 @@ public:
 
 	/** Draws the regular selection marker */
 	void drawSelection(QPainter* psx);
-
+	/** Draws an outline of selected items */
+	void drawOutline(QPainter* p, double scalex=1.0, double scaley=1.0, double deltax=0.0, double deltay=0.0);
+	
 	void setModeCursor();
 	
 	/** main canvas modes dont have a delegate */

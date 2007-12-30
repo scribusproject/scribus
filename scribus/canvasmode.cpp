@@ -145,6 +145,52 @@ void CanvasMode::drawSelection(QPainter* psx)
 	}
 }
 
+
+void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double deltax, double deltay)
+{
+	p->save();
+	p->scale(m_canvas->scale(), m_canvas->scale());
+	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	if (m_doc->m_Selection->count() != 0)
+	{
+		double extraScale = (scalex + scaley) / 2;
+		p->setBrush(Qt::NoBrush);
+		p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+		uint docSelectionCount = m_doc->m_Selection->count();
+		if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
+		{
+			PageItem *currItem;
+			for (uint a=0; a<docSelectionCount; ++a)
+			{
+				currItem = m_doc->m_Selection->itemAt(a);
+				p->save();
+				p->translate(currItem->xPos(), currItem->yPos());
+				p->translate(deltax, deltay);
+				p->scale(scalex, scaley);
+				if (currItem->rotation() != 0)
+				{
+					p->setRenderHint(QPainter::Antialiasing);
+					p->rotate(currItem->rotation());
+				}
+				if (docSelectionCount < m_canvas->moveWithFullOutlinesThreshold)
+					currItem->DrawPolyL(p, currItem->Clip);
+				else
+					p->drawRect(QRectF(0.0, 0.0, currItem->width()+1.0, currItem->height()+1.0));
+				p->restore();
+			}
+		}
+		else
+		{
+			double x, y, w, h;
+			m_doc->m_Selection->setGroupRect();
+			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+			p->drawRect(QRectF(x, y, w, h));
+		}
+	}
+	p->restore();
+}
+
+
 void CanvasMode::setModeCursor()
 {
 	//NOTE: Merge with similar code in ScribusMainWindow::setAppMode()
