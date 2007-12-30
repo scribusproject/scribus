@@ -73,12 +73,11 @@ FPoint Canvas::localToCanvas(QPoint p) const
 				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
 }
 
-
-FPoint Canvas::globalToCanvas(QPoint p) const
+FPoint Canvas::localToCanvas(QPointF p) const
 {
-	return localToCanvas(p - mapToGlobal(QPoint(0,0)));
+	return FPoint(p.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() , 
+				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
 }
-
 
 QPoint Canvas::canvasToLocal(FPoint p) const
 {
@@ -102,6 +101,15 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
 }
 
+FPoint Canvas::globalToCanvas(QPoint p) const
+{
+	return localToCanvas(p - mapToGlobal(QPoint(0,0)));
+}
+
+FPoint Canvas::globalToCanvas(QPointF p) const
+{
+	return localToCanvas(p - mapToGlobal(QPoint(0, 0)));
+}
 
 QRectF Canvas::globalToCanvas(QRect p) const
 {
@@ -109,6 +117,11 @@ QRectF Canvas::globalToCanvas(QRect p) const
 	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
 }
 
+QRectF Canvas::globalToCanvas(QRectF p) const
+{
+	FPoint org = globalToCanvas(p.topLeft());
+	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
+}
 
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 {

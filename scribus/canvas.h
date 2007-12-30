@@ -129,8 +129,11 @@ public:
 	QPoint canvasToLocal(QPointF p) const;
 	QPoint canvasToGlobal(QPointF p) const;
 	FPoint localToCanvas(QPoint p) const;
+	FPoint localToCanvas(QPointF p) const;
 	FPoint globalToCanvas(QPoint p) const;
+	FPoint globalToCanvas(QPointF p) const;
 	QRectF globalToCanvas(QRect p) const;
+	QRectF globalToCanvas(QRectF p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
 	/** Returns the framehandle or INSIDE if the position falls into the frame. */

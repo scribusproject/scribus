@@ -31,29 +31,23 @@ void ResizeGesture::activate(bool flag)
 	qDebug() << "ResizeGesture::activate" << flag;
 	
 	if (m_doc->m_Selection->count() == 0)
-	{
 		m_view->stopGesture();
-	}
 	else if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		m_bounds = QRect(QRectF(m_canvas->canvasToGlobal(QPointF(gx,gy)), 
-						 QSizeF(gw * m_canvas->scale(), 
-							   gh * m_canvas->scale())).toRect());
+		m_bounds = QRectF(m_canvas->canvasToGlobal(QPointF(gx,gy)), QSizeF(gw * m_canvas->scale(), gh * m_canvas->scale()));
 		m_rotation = 0.0;
 	}
 	else // we keep m_bounds non-rotated
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		m_bounds = QRect(QRectF(m_canvas->canvasToGlobal(currItem->xyPos()), 
-						 QSizeF(currItem->width() * m_canvas->scale(), 
-							   currItem->height() * m_canvas->scale())).toRect());
+		m_bounds = QRectF(m_canvas->canvasToGlobal(currItem->xyPos()), QSizeF(currItem->width() * m_canvas->scale(), currItem->height() * m_canvas->scale()));
 		m_rotation = currItem->rotation();
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 	}
-	m_origRatio = double(m_bounds.width()) / double(m_bounds.height());
+	m_origRatio = m_bounds.width() / m_bounds.height();
 	m_origBounds = m_bounds;
 }
 
@@ -69,7 +63,7 @@ void ResizeGesture::deactivate(bool flag)
 void ResizeGesture::drawControls(QPainter* p) 
 { 
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
-	QRect localRect = m_bounds.translated(-m_canvas->mapToGlobal(QPoint(0,0)));
+	QRectF localRect = m_bounds.translated(-m_canvas->mapToGlobal(QPoint(0,0)));
 	p->save();
 //	p->setPen(QPen(Qt::black, 1, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
 //	p->drawRect(localRect);
@@ -91,9 +85,8 @@ void ResizeGesture::drawControls(QPainter* p)
 	{
 		p->save();
 		p->translate(m_bounds.topLeft() - m_origBounds.topLeft());
-		drawOutline(p, 
-					double(qAbs(m_bounds.width())) / double(qMax(qAbs(m_origBounds.width()), 1)), 
-					double(qAbs(m_bounds.height())) / double(qMax(qAbs(m_origBounds.height()), 1)));
+		drawOutline(p, qAbs(m_bounds.width()) / qMax(qAbs(m_origBounds.width()), 1.0), 
+					qAbs(m_bounds.height()) / qMax(qAbs(m_origBounds.height()), 1.0));
 //					double(m_bounds.left() - m_origBounds.left()) / m_canvas->scale(),
 //					double(m_bounds.top() - m_origBounds.top()) / m_canvas->scale());
 		p->restore();
@@ -173,7 +166,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
 	QMatrix rotation;
 	QPoint point = m->globalPos();
-	QPoint oldXY = m_bounds.topLeft();
+	QPointF oldXY = m_bounds.topLeft();
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
 	
@@ -325,7 +318,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	{
 		m_bounds.moveTo(rotation.map(m_bounds.topLeft()));
 		// fix opposite corner to avoid aggregating rounding errors
-		QPoint origFixPoint, newFixPoint;
+		QPointF origFixPoint, newFixPoint;
 		switch (m_handle)
 		{
 			case Canvas::NORTHWEST:
@@ -333,32 +326,32 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 				newFixPoint = m_bounds.bottomRight();
 				break;
 			case Canvas::WEST:
-				origFixPoint = m_origBounds.topRight() + QPoint(0, m_origBounds.height()/2);
-				newFixPoint = m_bounds.topRight() + QPoint(0, m_bounds.height()/2);
+				origFixPoint = m_origBounds.topRight() + QPointF(0, m_origBounds.height()/2);
+				newFixPoint = m_bounds.topRight() + QPointF(0, m_bounds.height()/2);
 				break;
 			case Canvas::SOUTHWEST:
 				origFixPoint = m_origBounds.topRight();
 				newFixPoint = m_bounds.topRight();
 				break;
 			case Canvas::SOUTH:
-				origFixPoint = m_origBounds.topLeft() + QPoint(m_origBounds.width()/2, 0);
-				newFixPoint = m_bounds.topLeft() + QPoint(m_bounds.width()/2, 0);
+				origFixPoint = m_origBounds.topLeft() + QPointF(m_origBounds.width()/2, 0);
+				newFixPoint = m_bounds.topLeft() + QPointF(m_bounds.width()/2, 0);
 				break;
 			case Canvas::SOUTHEAST:
 				origFixPoint = m_origBounds.topLeft();
 				newFixPoint = m_bounds.topLeft();
 				break;
 			case Canvas::EAST:
-				origFixPoint = m_origBounds.topLeft() + QPoint(0, m_origBounds.height()/2);
-				newFixPoint = m_bounds.topLeft() + QPoint(0, m_bounds.height()/2);
+				origFixPoint = m_origBounds.topLeft() + QPointF(0, m_origBounds.height()/2);
+				newFixPoint = m_bounds.topLeft() + QPointF(0, m_bounds.height()/2);
 				break;
 			case Canvas::NORTHEAST:
 				origFixPoint = m_origBounds.bottomLeft();
 				newFixPoint = m_bounds.bottomLeft();
 				break;
 			case Canvas::NORTH:
-				origFixPoint = m_origBounds.bottomLeft() + QPoint(m_origBounds.width()/2, 0);
-				newFixPoint = m_bounds.bottomLeft() + QPoint(m_bounds.width()/2, 0);
+				origFixPoint = m_origBounds.bottomLeft() + QPointF(m_origBounds.width()/2, 0);
+				newFixPoint = m_bounds.bottomLeft() + QPointF(m_bounds.width()/2, 0);
 				break;
 			default:
 				origFixPoint = m_origBounds.topLeft();
