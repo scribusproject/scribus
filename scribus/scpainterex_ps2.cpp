@@ -539,8 +539,8 @@ void ScPainterEx_Ps2::putColor( ScColorShade& colorShade, bool doFill )
 void ScPainterEx_Ps2::drawImage( ScImage *image, ScPainterExBase::ImageMode mode )
 {
 	bool rgbMode = (mode == ScPainterExBase::rgbImages || mode == ScPainterExBase::rgbProofImages);
-	bool rgbPicture = rgbMode || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == 0);
-	bool cmykPicture = (mode == ScPainterExBase::cmykImages || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == 1)); 
+	bool rgbPicture = rgbMode || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == ColorSpaceRGB);
+	bool cmykPicture = (mode == ScPainterExBase::cmykImages || (mode == ScPainterExBase::rawImages && image->imgInfo.colorspace == ColorSpaceCMYK)); 
 
 	if( rgbPicture )
 		drawRGBImage_ps2( image );

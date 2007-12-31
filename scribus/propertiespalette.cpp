@@ -3984,7 +3984,7 @@ void PropertiesPalette::updateCmsList()
 		InputP->clear();
 		if (HaveItem)
 		{
-			if (CurItem->pixm.imgInfo.colorspace == 1)
+			if (CurItem->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 			{
 				ProfilesL::Iterator itP;
 				ProfilesL::Iterator itPend=ScCore->InputProfilesCMYK.end();

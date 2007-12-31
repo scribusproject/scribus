@@ -274,7 +274,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 		infoGroupLayout->addWidget( colCT, 4, 0, Qt::AlignRight );
 		QString cSpace;
 		QString ext = fi.suffix().toLower();
-		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != 7))
+		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
 			cSpace = ScribusView::tr("Unknown");
 		else
 			cSpace=colorSpaceText(pixm.imgInfo.colorspace);
@@ -409,7 +409,7 @@ QString PageItem_ImageFrame::infoDescription()
 		htmlText.append(ScribusView::tr("Colorspace: "));
 		QString cSpace;
 		QString ext = fi.suffix().toLower();
-		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != 7))
+		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != ImageType7))
 			htmlText.append(ScribusView::tr("Unknown"));
 		else
 			htmlText.append(colorSpaceText(pixm.imgInfo.colorspace));

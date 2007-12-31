@@ -110,7 +110,7 @@ void ScImage::initialize()
 {
 	imgInfo.xres = 72;
 	imgInfo.yres = 72;
-	imgInfo.colorspace = 0;
+	imgInfo.colorspace = ColorSpaceRGB;
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.isEmbedded = false;
@@ -1737,7 +1737,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 		{
 			if (pDataLoader->imageInfoRecord().valid)
 			{
-				if ((pDataLoader->r_image.channels() == 5) || (pDataLoader->imageInfoRecord().colorspace == 1))
+				if ((pDataLoader->r_image.channels() == 5) || (pDataLoader->imageInfoRecord().colorspace == ColorSpaceCMYK))
 					rImage = pDataLoader->r_image.convertToQImage(true);
 				else
 					rImage = pDataLoader->r_image.convertToQImage(false);
@@ -1913,13 +1913,13 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			imgInfo.isEmbedded = false;
 			imgInfo.profileName = "";
 		}
-		if (imgInfo.colorspace == 1)
+		if (imgInfo.colorspace == ColorSpaceCMYK)
 		{
 			isCMYK = true;
 			if(realCMYK)
 				*realCMYK = true;
 		}
-		else if (imgInfo.colorspace == 2)
+		else if (imgInfo.colorspace == ColorSpaceGray)
 			bilevel = true;
 		pDataLoader->image() = QImage();
 	}

@@ -5993,7 +5993,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		else
 		{ */
 		bool imageLoaded = false;
-		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != 7))
+		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))
 		{
 			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 			if (Options.RecalcPic)
@@ -6115,9 +6115,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				origHeight = img.height();
 				ax = img.width() / a2;
 				ay = img.height() / a1;
-				if ((Options.UseRGB) || (Options.isGrayscale) || ((Options.UseProfiles2) && !(img.imgInfo.colorspace == 1)) )
+				if ((Options.UseRGB) || (Options.isGrayscale) || ((Options.UseProfiles2) && !(img.imgInfo.colorspace == ColorSpaceCMYK)) )
 				{
-					int colsp = img.imgInfo.colorspace;
+					ColorSpaceEnum colsp = img.imgInfo.colorspace;
 					bool prog = img.imgInfo.progressive;
 					img = img.scaled(qRound(ax), qRound(ay), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 					img.imgInfo.colorspace = colsp;
@@ -6144,7 +6144,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					img3.getEmbeddedProfile(fn, &dataP, &components);
 				if (dataP.isEmpty())
 				{
-					if (img.imgInfo.colorspace == 1)
+					if (img.imgInfo.colorspace == ColorSpaceCMYK)
 					{
 						QString profilePath;
 						if (Embedded && ScCore->InputProfilesCMYK.contains(Options.ImageProf))
@@ -6202,7 +6202,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		img2.imgInfo.layerInfo.clear();
 		img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-		if (c->pixm.imgInfo.type == 7)
+		if (c->pixm.imgInfo.type == ImageType7)
 			alphaM = false;
 		else
 		{
@@ -6218,7 +6218,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			imgE = false;
 		else
 		{
-			if ((Options.UseProfiles2) && (img.imgInfo.colorspace != 1))
+			if ((Options.UseProfiles2) && (img.imgInfo.colorspace != ColorSpaceCMYK))
 				imgE = false;
 			else
 				imgE = true;
@@ -6338,13 +6338,13 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		bool specialCMYK = false;
 		if (extensionIndicatesJPEG(ext) && (cm != 3))
 		{
-			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
+			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
 				im.resize(0);
 				loadRawBytes(fn, im);
 				cm = 1;
 			}
-			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 1) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
+			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 			{
 				im.resize(0);
 				loadRawBytes(fn, im);

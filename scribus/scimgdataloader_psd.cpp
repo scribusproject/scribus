@@ -141,7 +141,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 	initialize();
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
-	m_imageInfoRecord.type = 2;
+	m_imageInfoRecord.type = ImageTypePSD;
 	m_imageInfoRecord.exifDataValid = false;
 	m_imageInfoRecord.layerInfo.clear();
 	m_imageInfoRecord.PDSpathData.clear();
@@ -177,13 +177,13 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 		else
 			isCMYK = false;
 		if (header.color_mode == CM_CMYK)
-			m_imageInfoRecord.colorspace = 1;
+			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 		else if (header.color_mode == CM_RGB)
-			m_imageInfoRecord.colorspace = 0;
+			m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		else if (header.color_mode == CM_GRAYSCALE)
-			m_imageInfoRecord.colorspace = 2;
+			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		else if (header.color_mode == CM_DUOTONE)
-			m_imageInfoRecord.colorspace = 3;
+			m_imageInfoRecord.colorspace = ColorSpaceDuotone;
 		xres = m_imageInfoRecord.xres;
 		yres = m_imageInfoRecord.yres;
 		f.close();

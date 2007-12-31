@@ -40,7 +40,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 	float yres = gsRes;
 
 	initialize();
-	m_imageInfoRecord.type = 4;
+	m_imageInfoRecord.type = ImageTypePDF;
 	m_imageInfoRecord.exifDataValid = false;
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
@@ -69,7 +69,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 		m_imageInfoRecord.BBoxH = m_image.height();
 		m_imageInfoRecord.xres = qRound(gsRes);
 		m_imageInfoRecord.yres = qRound(gsRes);
-		m_imageInfoRecord.colorspace = 0;
+		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 		return true;

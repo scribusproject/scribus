@@ -91,24 +91,44 @@ public:
 	QImage thumbnail;
 };
 
+typedef enum
+{
+	ImageTypeJPG = 0,
+	ImageTypeTIF = 1,
+	ImageTypePSD = 2,
+	ImageTypeEPS = 3,
+	ImageTypePDF = 4,
+	ImageTypeJPG2K = 5,
+	ImageTypeOther = 6,
+	ImageType7 = 7
+} ImageTypeEnum;
+
+typedef enum
+{
+	ColorSpaceRGB  = 0,
+	ColorSpaceCMYK = 1,
+	ColorSpaceGray = 2,
+	ColorSpaceDuotone = 3
+} ColorSpaceEnum;
+
 class ImageInfoRecord
 {
 public:
 	ImageInfoRecord(void);
 	void init(void);
 
-	int type;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
-	int xres;
-	int yres;
-	int BBoxX;
-	int BBoxH;
-	int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
+	ImageTypeEnum type;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
+	int  xres;
+	int  yres;
+	int  BBoxX;
+	int  BBoxH;
+	ColorSpaceEnum colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
 	bool valid;
 	bool isRequest;
 	bool progressive;
 	bool isEmbedded;
 	bool exifDataValid;
-	int lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
+	int  lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
 	double lowResScale;
 	QMap<QString, FPointArray> PDSpathData;
 	QMap<int, ImageLoadRequest> RequestProps;

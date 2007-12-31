@@ -36,12 +36,12 @@ ImageInfoRecord::ImageInfoRecord(void)
 
 void ImageInfoRecord::init(void)
 {
-	type = 0;	/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
+	type = ImageTypeOther;	/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
 	xres = 72;
 	yres = 72;
 	BBoxX = 0;
 	BBoxH = 0;
-	colorspace = 0; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
+	colorspace = ColorSpaceRGB; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
 	valid = false;
 	isRequest = false;
 	progressive = false;

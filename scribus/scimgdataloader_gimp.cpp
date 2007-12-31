@@ -102,12 +102,12 @@ bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*res*/, bool /*th
 				}
 			}
 		}
-		m_imageInfoRecord.type = 6;
+		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;
 		m_imageInfoRecord.xres = 72;
 		m_imageInfoRecord.yres = 72;
 		m_imageInfoRecord.BBoxX = 0;
-		m_imageInfoRecord.colorspace = 0;
+		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_imageInfoRecord.BBoxH = m_image.height();
 		return true;
 	}

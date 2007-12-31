@@ -543,7 +543,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 	initialize();
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
-	m_imageInfoRecord.type = 1;
+	m_imageInfoRecord.type = ImageTypeTIF;
 	getLayers(fn);
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
@@ -621,10 +621,10 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					if (photometric == PHOTOMETRIC_SEPARATED)
 					{
 						isCMYK = true;
-						m_imageInfoRecord.colorspace = 1;
+						m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 					}
 					else
-						m_imageInfoRecord.colorspace = 0;
+						m_imageInfoRecord.colorspace = ColorSpaceRGB;
 					if (bitspersample == 1)
 						bilevel = true;
 					if (!m_imageInfoRecord.exifInfo.thumbnail.isNull())
@@ -959,11 +959,11 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			m_imageInfoRecord.yres = qRound(yres*2.54);
 		}
 		if (isCMYK)
-			m_imageInfoRecord.colorspace = 1;
+			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 		else if (bilevel)
-			m_imageInfoRecord.colorspace = 2;
+			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		else
-			m_imageInfoRecord.colorspace = 0;
+			m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.BBoxH = r_image.height();
 		if ((m_imageInfoRecord.layerInfo.isEmpty()) && (m_imageInfoRecord.PDSpathData.isEmpty()))

@@ -37,7 +37,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thum
 	initialize();
 	if (m_image.load(fn))
 	{
-		m_imageInfoRecord.type = 6;
+		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;
 		float xres = m_image.dotsPerMeterX() * 0.0254;
 		float yres = m_image.dotsPerMeterY() * 0.0254;
@@ -45,7 +45,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thum
 		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
 		m_image.setDotsPerMeterX (qMax(2834, (int) (xres / 0.0254)));
 		m_image.setDotsPerMeterY (qMax(2834, (int) (yres / 0.0254)));
-		m_imageInfoRecord.colorspace = 0;
+		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_imageInfoRecord.xres = qMax(72, qRound(xres));
 		m_imageInfoRecord.yres = qMax(72, qRound(yres));
 		m_imageInfoRecord.lowResType = resInf;

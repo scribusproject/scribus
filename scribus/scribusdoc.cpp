@@ -4944,7 +4944,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 			it = Items->at(i);
 			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
 			{
-				if (it->pixm.imgInfo.colorspace == 1)
+				if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 				{
 					if (!PrCMYK->contains(it->IProfile))
 						it->IProfile = CMSSettings.DefaultImageCMYKProfile;

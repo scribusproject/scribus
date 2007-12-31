@@ -3964,7 +3964,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	}
 	if (PicAvail)
 	{
-		if ((pixm.imgInfo.colorspace == 3) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
+		if ((pixm.imgInfo.colorspace == ColorSpaceDuotone) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
 		{
 			QString efVal = "";
 			for (int cc = 0; cc < pixm.imgInfo.duotoneColors.count(); cc++)

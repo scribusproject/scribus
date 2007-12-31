@@ -115,7 +115,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	infile = NULL;
 
 	initialize();
-	m_imageInfoRecord.type = 0;
+	m_imageInfoRecord.type = ImageTypeJPG;
 	m_imageInfoRecord.exifInfo.thumbnail = QImage();
 	if (setjmp (jerr.setjmp_buffer))
 	{
@@ -136,11 +136,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	if ((exi) && (ExifInf.exifDataValid))
 	{
 		if (cinfo.output_components == 4)
-			m_imageInfoRecord.colorspace = 1;
+			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 		else if (cinfo.output_components == 3)
-			m_imageInfoRecord.colorspace = 0;
+			m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		else if (cinfo.output_components == 1)
-			m_imageInfoRecord.colorspace = 2;
+			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		if ((!ExifInf.Thumbnail.isNull()) && thumbnail)
 		{
 			m_image = ExifInf.getThumbnail();
@@ -266,12 +266,12 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	if (cinfo.output_components == 4)
 	{
 		isCMYK = true;
-		m_imageInfoRecord.colorspace = 1;
+		m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 	}
 	else if (cinfo.output_components == 3)
-		m_imageInfoRecord.colorspace = 0;
+		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 	else if (cinfo.output_components == 1)
-		m_imageInfoRecord.colorspace = 2;
+		m_imageInfoRecord.colorspace = ColorSpaceGray;
 	m_imageInfoRecord.progressive = jpeg_has_multiple_scans(&cinfo);
 
 	if (read_jpeg_marker(PHOTOSHOP_MARKER,&cinfo, &PhotoshopBuffer, &PhotoshopLen) )
@@ -287,11 +287,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			fakeHeader.width = cinfo.output_width;
 			fakeHeader.height = cinfo.output_height;
 			if (cinfo.output_components == 4)
-				m_imageInfoRecord.colorspace = 1;
+				m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 			else if (cinfo.output_components == 3)
-				m_imageInfoRecord.colorspace = 0;
+				m_imageInfoRecord.colorspace = ColorSpaceRGB;
 			else if (cinfo.output_components == 1)
-				m_imageInfoRecord.colorspace = 2;
+				m_imageInfoRecord.colorspace = ColorSpaceGray;
 			m_imageInfoRecord.progressive = jpeg_has_multiple_scans(&cinfo);
 			parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
 			// Photoshop resolution is more accurate than jpeg header resolution

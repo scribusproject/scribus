@@ -443,7 +443,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	float yres = gsRes;
 
 	initialize();
-	m_imageInfoRecord.type = 3;
+	m_imageInfoRecord.type = ImageTypeEPS;
 	m_imageInfoRecord.exifDataValid = false;
 	doThumbnail = thumbnail;
 	colorPlates2.clear();
@@ -487,10 +487,10 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 		{
 			m_imageInfoRecord.exifInfo.width = qRound(psXSize);
 			m_imageInfoRecord.exifInfo.height = qRound(psYSize);
-			m_imageInfoRecord.type = 7;
+			m_imageInfoRecord.type = ImageType7;
 			if (psMode == 4)
 			{
-				m_imageInfoRecord.colorspace = 1;
+				m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 				QRgb *s;
 				unsigned char cc, cm, cy, ck;
 				for( int yit=0; yit < m_image.height(); ++yit )
@@ -508,10 +508,10 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				}
 			}
 			else
-				m_imageInfoRecord.colorspace = 0;
+				m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		}
 		else
-			m_imageInfoRecord.colorspace = 0;
+			m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		return true;
 	}
 	if (found)
@@ -582,8 +582,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				m_imageInfoRecord.xres = qRound(gsRes);
 				m_imageInfoRecord.yres = qRound(gsRes);
 				if ((m_imageInfoRecord.isEmbedded) && (m_profileComponents == 3))
-					m_imageInfoRecord.type = 7;
-				m_imageInfoRecord.colorspace = 0;
+					m_imageInfoRecord.type = ImageType7;
+				m_imageInfoRecord.colorspace = ColorSpaceRGB;
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 			}
@@ -645,8 +645,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				}
 				m_imageInfoRecord.xres = qRound(gsRes);
 				m_imageInfoRecord.yres = qRound(gsRes);
-				m_imageInfoRecord.colorspace = 1;
-				m_imageInfoRecord.type = 7;
+				m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+				m_imageInfoRecord.type = ImageType7;
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 			}
@@ -719,8 +719,8 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 				}
 				f.close();
 			}
-			m_imageInfoRecord.colorspace = 1;
-			m_imageInfoRecord.type = 7;
+			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+			m_imageInfoRecord.type = ImageType7;
 		}
 		else
 		{
@@ -743,8 +743,8 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 					}
 				}
 			}
-			m_imageInfoRecord.type = 7;
-			m_imageInfoRecord.colorspace = 0;
+			m_imageInfoRecord.type = ImageType7;
+			m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		}
 		QFile::remove(tmpFile);
 		if (extensionIndicatesEPS(ext))
@@ -1181,10 +1181,10 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 					}
 				}
 				if (psMode == 4)
-					m_imageInfoRecord.colorspace = 1;
+					m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 				else
-					m_imageInfoRecord.colorspace = 0;
-				m_imageInfoRecord.type = 7;
+					m_imageInfoRecord.colorspace = ColorSpaceRGB;
+				m_imageInfoRecord.type  = ImageType7;
 				m_imageInfoRecord.BBoxX = 0;
 				m_imageInfoRecord.BBoxH = m_image.height();
 				m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
@@ -1426,8 +1426,8 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	}
 	m_imageInfoRecord.xres = qRound(xres);
 	m_imageInfoRecord.yres = qRound(yres);
-	m_imageInfoRecord.colorspace = 1;
-	m_imageInfoRecord.type = 7;
+	m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+	m_imageInfoRecord.type = ImageType7;
 	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 }
@@ -1526,8 +1526,8 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	}
 	m_imageInfoRecord.xres = qRound(gsRes);
 	m_imageInfoRecord.yres = qRound(gsRes);
-	m_imageInfoRecord.colorspace = 1;
-	m_imageInfoRecord.type = 7;
+	m_imageInfoRecord.colorspace = ColorSpaceCMYK;
+	m_imageInfoRecord.type = ImageType7;
 	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 }

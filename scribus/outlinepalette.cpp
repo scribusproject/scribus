@@ -310,7 +310,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 						QString cSpace;
 						QString ext = fi.suffix().toLower();
-						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
+						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != ImageType7))
 							cSpace = tr("Unknown");
 						else
 							cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);

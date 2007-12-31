@@ -916,47 +916,46 @@ void TabTools::setSample()
 	if (!fontPreview)
 		return;
 
-	SampleItem *si = new SampleItem(docu);
-	si->setText( tr("Woven silk pyjamas exchanged for blue quartz"));
+	SampleItem si(docu);
+	si.setText( tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (colorComboTextBackground->currentText() != CommonStrings::tr_NoneColor)
 	{
 		if (docu != 0)
 		{
-			si->setBgColor(docu->PageColors[colorComboTextBackground->currentText()].getRawRGBColor());
-			si->setBgShade(shadingTextBack->value());
+			si.setBgColor(docu->PageColors[colorComboTextBackground->currentText()].getRawRGBColor());
+			si.setBgShade(shadingTextBack->value());
 		}
 		else
 		{
 			PrefsManager* prefsManager=PrefsManager::instance();
 			ColorList* colorList=prefsManager->colorSetPtr();
-			si->setBgColor((*colorList)[colorComboTextBackground->currentText()].getRawRGBColor());
-			si->setBgShade(shadingTextBack->value());
+			si.setBgColor((*colorList)[colorComboTextBackground->currentText()].getRawRGBColor());
+			si.setBgShade(shadingTextBack->value());
 		}
 	}
 	else
-		si->setBgColor(palette().color(QPalette::Window));
+		si.setBgColor(palette().color(QPalette::Window));
 
 	if (colorComboText->currentText() != CommonStrings::tr_NoneColor)
 	{
 		if (docu != 0)
 		{
-			si->setTxColor(docu->PageColors[colorComboText->currentText()].getRawRGBColor());
-			si->setTxShade(shadingText->value());
+			si.setTxColor(docu->PageColors[colorComboText->currentText()].getRawRGBColor());
+			si.setTxShade(shadingText->value());
 		}
 		else
 		{
 			PrefsManager* prefsManager=PrefsManager::instance();
 			ColorList* colorList=prefsManager->colorSetPtr();
-			si->setTxColor((*colorList)[colorComboText->currentText()].getRawRGBColor());
-			si->setTxShade(shadingText->value());
+			si.setTxColor((*colorList)[colorComboText->currentText()].getRawRGBColor());
+			si.setTxShade(shadingText->value());
 		}
 	}
 	else
-		si->setTxColor(palette().color(QPalette::Window));
-	si->setFont(fontComboText->currentText());
-	si->setFontSize(sizeComboText->currentText().left(2).toInt() * 10, true);
-	previewText->setPixmap(si->getSample(previewText->width(), previewText->height()));
-	delete si;
+		si.setTxColor(palette().color(QPalette::Window));
+	si.setFont(fontComboText->currentText());
+	si.setFontSize(sizeComboText->currentText().left(2).toInt() * 10, true);
+	previewText->setPixmap(si.getSample(previewText->width(), previewText->height()));
 }
 
 void TabTools::setTool()

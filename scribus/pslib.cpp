@@ -1299,7 +1299,7 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
-	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))
+	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != ImageType7))
 	{
 		if (loadRawText(fn, tmp))
 		{
@@ -1357,7 +1357,7 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	PutStream("/"+PSEncode(Name)+"Bild exch def\n");
 	imgArray.resize(0);
 	QByteArray maskArray = image.getAlpha(fn, false, false, 300);
-	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))
+	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
 	{
 		QByteArray compMask = CompressArray(maskArray);
 		if (compMask.size() > 0)
@@ -1383,7 +1383,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
-	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))
+	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != ImageType7))
 	{
 		if (loadRawText(fn, tmp))
 		{
@@ -1425,7 +1425,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		CMSettings cms(c->doc(), Prof, c->IRender);
-		int resolution = (c->pixm.imgInfo.type == 7) ? 72 : 300;
+		int resolution = (c->pixm.imgInfo.type == ImageType7) ? 72 : 300;
 		if ( !image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, resolution, &dummy) )
 		{
 			PS_Error_ImageLoadFailure(fn);
@@ -1449,9 +1449,9 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		img2.imgInfo.layerInfo.clear();
 		img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-		if (c->pixm.imgInfo.type != 7)
+		if (c->pixm.imgInfo.type != ImageType7)
 			maskArray = img2.getAlpha(fn, false, false, 300);
- 		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))
+ 		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
  		{
 			if (DoSep)
 				imgArray = image.ImageToCMYK_PS(Plate, true);
