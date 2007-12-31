@@ -1394,7 +1394,7 @@ void PropertiesPalette::unsetDoc()
 	DoGroup->setEnabled(false);
 	DoUnGroup->setEnabled(false);
 	EditShape->setEnabled(false);
-	ShapeGroup->setEnabled(false);
+//	ShapeGroup->setEnabled(false);
 	FlipH->setEnabled(false);
 	FlipV->setEnabled(false);
 	xposLabel->setText( tr( "&X-Pos:" ) );
@@ -1637,14 +1637,14 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		LineW->setValue(CurItem->BaseOffs * -1);
 		Dist->setValue(CurItem->textToFrameDistLeft());
 	}
-	else if (CurItem->asPolygon())
+	else if (CurItem->asTextFrame())
 	{
-		TabStack2->setCurrentIndex(2);
+		TabStack2->setCurrentIndex(0);
 		NonZero->setChecked(!CurItem->fillRule);
 		EvenOdd->setChecked(CurItem->fillRule);
 	}
 	else
-		TabStack2->setCurrentIndex(0);
+		TabStack2->setCurrentIndex(2);
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
 	if (((CurItem->asTextFrame()) || (CurItem->asImageFrame())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
@@ -1980,7 +1980,6 @@ void PropertiesPalette::setMultipleSelection(bool isMultiple)
 		}
 		i = doc->Items->at(lowestItem);
 		SetCurItem(i);
-		NewSel(i->itemType());
 	}
 }
 
