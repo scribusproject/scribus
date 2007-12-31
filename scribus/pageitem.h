@@ -315,7 +315,7 @@ public:
 	const CharStyle& currentCharStyle() const;
 	// deprecated:
 	double layoutGlyphs(const CharStyle& style, const QString chars, GlyphLayout& layout);
-	void SetFarbe(QColor *tmp, QString farbe, double shad);
+	void SetQColor(QColor *tmp, QString farbe, double shad);
 	void drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs );
 	void DrawPolyL(QPainter *p, QPolygon pts);
 	QString ExpandToken(uint base);

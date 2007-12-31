@@ -25,9 +25,9 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 	currItem->fill_gradient.clearStops();
 	QString c1 = QString::fromUtf8(Color1);
 	QString c2 = QString::fromUtf8(Color2);
-	currItem->SetFarbe(&tmp, c1, shade1);
+	currItem->SetQColor(&tmp, c1, shade1);
 	currItem->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, c1, shade1);
-	currItem->SetFarbe(&tmp, c2, shade2);
+	currItem->SetQColor(&tmp, c2, shade2);
 	currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
 	currItem->GrType = typ;
 	switch (currItem->GrType)

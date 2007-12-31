@@ -127,7 +127,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 					{
 						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 						{
-							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+							SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 							p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 							p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 						}
@@ -310,7 +310,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 			{
 				if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
 				{
-					SetFarbe(&tmp, actFill, actFillShade);
+					SetQColor(&tmp, actFill, actFillShade);
 					p->setBrush(tmp);
 					cachedFillQ = tmp;
 					cachedFill = actFill;
@@ -325,7 +325,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 			{
 				if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
 				{
-					SetFarbe(&tmp, actStroke, actStrokeShade);
+					SetQColor(&tmp, actStroke, actStrokeShade);
 					p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					cachedStrokeQ = tmp;
 					cachedStroke = actStroke;

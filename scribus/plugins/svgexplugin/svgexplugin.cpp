@@ -279,7 +279,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 					continue;
 				if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 				{
-					fill = "fill:"+SetFarbe(Item->fillColor(), Item->fillShade())+";";
+					fill = "fill:"+SetColor(Item->fillColor(), Item->fillShade())+";";
 					if (Item->GrType != 0)
 					{
 						defi = docu->createElement("defs");
@@ -338,7 +338,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							QDomElement itcl = docu->createElement("stop");
 							itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
 							itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
-							itcl.setAttribute("stop-color", SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+							itcl.setAttribute("stop-color", SetColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 							grad.appendChild(itcl);
 						}
 						defi.appendChild(grad);
@@ -356,7 +356,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 					fill = "fill:none;";
 				if (Item->lineColor() != CommonStrings::None)
 				{
-					stroke = "stroke:"+SetFarbe(Item->lineColor(), Item->lineShade())+";";
+					stroke = "stroke:"+SetColor(Item->lineColor(), Item->lineShade())+";";
 					if (Item->lineTransparency() != 0)
 						stroke += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
 				}
@@ -755,12 +755,12 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 {
 	int chst = hl->effects() & 127;
 	if (hl->fillColor() != CommonStrings::None)
-		tp->setAttribute("fill", SetFarbe(hl->fillColor(), hl->fillShade()));
+		tp->setAttribute("fill", SetColor(hl->fillColor(), hl->fillShade()));
 	else
 		tp->setAttribute("fill", "none");
 	if ((hl->strokeColor() != CommonStrings::None) && (chst & 4))
 	{
-		tp->setAttribute("stroke", SetFarbe(hl->strokeColor(), hl->strokeShade()));
+		tp->setAttribute("stroke", SetColor(hl->strokeColor(), hl->strokeShade()));
 		tp->setAttribute("stroke-width", FToStr(hl->font().strokeWidth(hl->fontSize() / 10.0)));
 	}
 	else
@@ -780,7 +780,7 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 	}
 }
 
-QString SVGExPlug::SetFarbe(QString farbe, int shad)
+QString SVGExPlug::SetColor(QString farbe, int shad)
 {
 	const ScColor& col = m_Doc->PageColors[farbe];
 	return ScColorEngine::getShadeColorProof(col, m_Doc, shad).name();
@@ -789,7 +789,7 @@ QString SVGExPlug::SetFarbe(QString farbe, int shad)
 QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 {
 	QString tmp = "fill:none; ";
-	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade)+"; ";
+	tmp += "stroke:"+SetColor(sl->Color, sl->Shade)+"; ";
 	if (Item->fillTransparency() != 0)
 		tmp += " stroke-opacity:"+FToStr(1.0 - Item->fillTransparency())+"; ";
 	tmp += "stroke-width:"+FToStr(sl->Width)+"; ";

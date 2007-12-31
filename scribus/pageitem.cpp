@@ -1107,7 +1107,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 							// Qt4 if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
 							if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
 							{
-								SetFarbe(&tmp, sl.Color, sl.Shade);
+								SetQColor(&tmp, sl.Color, sl.Shade);
 								p->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash), static_cast<Qt::PenCapStyle>(sl.LineEnd), static_cast<Qt::PenJoinStyle>(sl.LineJoin));
 								p->strokePath();
 							}
@@ -1555,7 +1555,7 @@ QString PageItem::ExpandToken(uint base)
 	return chstr;
 }
 
-void PageItem::SetFarbe(QColor *tmp, QString farbe, double shad)
+void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
 {
 	const ScColor& col = m_Doc->PageColors[farbe];
 	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
@@ -1970,7 +1970,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
 									 qMax(static_cast<int>(ml[it].Width* view->scale()), 1),
 									 static_cast<Qt::PenStyle>(ml[it].Dash),
@@ -1988,7 +1988,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
-				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
 								 qMax(static_cast<int>(ml[it].Width* view->scale()), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
@@ -2007,7 +2007,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
-				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+				SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
 								 qMax(static_cast<int>(ml[it].Width*view->scale()), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),

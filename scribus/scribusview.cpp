@@ -3657,19 +3657,19 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				if (Buffer->GrType == 5)
 				{
 					if ((Buffer->GrColor != CommonStrings::None) && (!Buffer->GrColor.isEmpty()))
-						currItem->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+						currItem->SetQColor(&tmp, Buffer->GrColor, Buffer->GrShade);
 					currItem->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, Buffer->GrColor, Buffer->GrShade);
 					if ((Buffer->GrColor2 != CommonStrings::None) && (!Buffer->GrColor2.isEmpty()))
-						currItem->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+						currItem->SetQColor(&tmp, Buffer->GrColor2, Buffer->GrShade2);
 					currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, Buffer->GrColor2, Buffer->GrShade2);
 				}
 				else
 				{
 					if ((Buffer->GrColor2 != CommonStrings::None) && (!Buffer->GrColor2.isEmpty()))
-						currItem->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+						currItem->SetQColor(&tmp, Buffer->GrColor2, Buffer->GrShade2);
 					currItem->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, Buffer->GrColor2, Buffer->GrShade2);
 					if ((Buffer->GrColor != CommonStrings::None) && (!Buffer->GrColor.isEmpty()))
-						currItem->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+						currItem->SetQColor(&tmp, Buffer->GrColor, Buffer->GrShade);
 					currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, Buffer->GrColor, Buffer->GrShade);
 				}
 			}

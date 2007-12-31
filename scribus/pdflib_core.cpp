@@ -3631,7 +3631,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 QString PDFLibCore::putColor(const QString& color, double shade, bool fill)
 {
 	QString tmp = "";
-	QString colString = SetFarbe(color, shade);
+	QString colString = SetColor(color, shade);
 	ScColor tmpC;
 	tmpC = doc.PageColors[color];
 	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
@@ -3771,7 +3771,7 @@ QString PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 		}
 		return tmpSpot;
 	}
-	QString colString(SetFarbe(color, shade));
+	QString colString(SetColor(color, shade));
 	if (Options.isGrayscale)
 	{
 		QString tmpGray("");
@@ -4479,13 +4479,13 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 #endif
 }
 
-QString PDFLibCore::SetFarbe(const QString& farbe, double Shade)
+QString PDFLibCore::SetColor(const QString& farbe, double Shade)
 {
 	const ScColor& col = doc.PageColors[farbe];
-	return SetFarbe(col, Shade);
+	return SetColor(col, Shade);
 }
 
-QString PDFLibCore::SetFarbe(const ScColor& farbe, double Shade)
+QString PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 {
 	QString tmp;
 	RGBColor rgb;
@@ -4542,7 +4542,7 @@ QString PDFLibCore::SetFarbe(const ScColor& farbe, double Shade)
 	return tmp;
 }
 
-QString PDFLibCore::SetFarbeGrad(const QString& farbe, double Shade)
+QString PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 {
 	QString tmp;
 	RGBColor rgb;
@@ -5015,7 +5015,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				lastStop = actualStop;
 				TransVec.prepend(cstops.at(cst)->opacity);
 				StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-				Gcolors.prepend(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+				Gcolors.prepend(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 				colorNames.prepend(cstops.at(cst)->name);
 				colorShades.prepend(cstops.at(cst)->shade);
 			}
@@ -5035,7 +5035,7 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 				TransVec.append(cstops.at(cst)->opacity);
 				StopVec.append(x);
 				StopVec.append(y);
-				Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+				Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 				colorNames.append(cstops.at(cst)->name);
 				colorShades.append(cstops.at(cst)->shade);
 			}
@@ -5497,14 +5497,14 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			{
 				PutDoc("/BG [ 1 1 1 ] ");
 				if (ite->annotation().borderColor() != CommonStrings::None)
-					PutDoc("/BC [ "+SetFarbe(ite->annotation().borderColor(), 100)+" ] ");
+					PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
 			}
       			else
 			{
 				if (ite->fillColor() != CommonStrings::None)
-					PutDoc("/BG [ "+SetFarbe(ite->fillColor(), ite->fillShade())+" ] ");
+					PutDoc("/BG [ "+SetColor(ite->fillColor(), ite->fillShade())+" ] ");
 				if (ite->annotation().borderColor() != CommonStrings::None)
-					PutDoc("/BC [ "+SetFarbe(ite->annotation().borderColor(), 100)+" ] ");
+					PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
 			}
 			int IconOb = 0;
 			switch (ite->annotation().Type())

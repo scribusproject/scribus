@@ -96,7 +96,7 @@ public:
 	void updateSel(const ParagraphStyle& style);
 	void deleteSel();
 	void setStyle(int Csty);
-	void setFarbe(bool marker);
+	void setColor(bool marker);
 	void insChars(QString t);
 	void insStyledText();
 	void copyStyledText();

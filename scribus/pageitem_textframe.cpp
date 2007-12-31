@@ -2325,7 +2325,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 				{
 					if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
 					{
-						SetFarbe(&tmp, actFill, actFillShade);
+						SetQColor(&tmp, actFill, actFillShade);
 						p->setBrush(tmp);
 						cachedFillQ = tmp;
 						cachedFill = actFill;
@@ -2386,7 +2386,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 					{
 						if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
 						{
-							SetFarbe(&tmp, actStroke, actStrokeShade);
+							SetQColor(&tmp, actStroke, actStrokeShade);
 							p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							cachedStrokeQ = tmp;
 							cachedStroke = actStroke;
@@ -2463,7 +2463,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 						p->setPen(tmp, ml[it].Width,
 								static_cast<Qt::PenStyle>(ml[it].Dash),
 								static_cast<Qt::PenCapStyle>(ml[it].LineEnd),

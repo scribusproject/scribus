@@ -339,7 +339,7 @@ QPixmap ScPreview::createPreview(QString data)
 					QString name = it.attribute("NAME");
 					double ramp = it.attribute("RAMP", "0.0").toDouble();
 					int shade = it.attribute("SHADE", "100").toInt();
-					SetFarbe(&tmpfa, name, shade);
+					SetQColor(&tmpfa, name, shade);
 					OB.fill_gradient.addStop(tmpfa, ramp, 0.5, 1.0, name, shade);
 				}
 				if (it.tagName()=="ITEXT")
@@ -467,7 +467,7 @@ QPixmap ScPreview::createPreview(QString data)
 			pS->rotate(static_cast<double>(OB.Rot));
 			if (OB.Pcolor != CommonStrings::None)
 			{
-				SetFarbe(&tmpfa, OB.Pcolor, OB.Shade);
+				SetQColor(&tmpfa, OB.Pcolor, OB.Shade);
 				pS->setBrush(tmpfa);
 				pS->setFillMode(1);
 			}
@@ -482,19 +482,19 @@ QPixmap ScPreview::createPreview(QString data)
 					if (OB.GrType == 5)
 					{
 						if ((OB.GrColor != CommonStrings::None) && (!OB.GrColor.isEmpty()))
-							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
+							SetQColor(&tmpfa, OB.GrColor, OB.GrShade);
 						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
 						if ((OB.GrColor2 != CommonStrings::None) && (!OB.GrColor2.isEmpty()))
-							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
+							SetQColor(&tmpfa, OB.GrColor2, OB.GrShade2);
 						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
 					}
 					else
 					{
 						if ((OB.GrColor2 != CommonStrings::None) && (!OB.GrColor2.isEmpty()))
-							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
+							SetQColor(&tmpfa, OB.GrColor2, OB.GrShade2);
 						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
 						if ((OB.GrColor != CommonStrings::None) && (!OB.GrColor.isEmpty()))
-							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
+							SetQColor(&tmpfa, OB.GrColor, OB.GrShade);
 						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
 					}
 				}
@@ -542,7 +542,7 @@ QPixmap ScPreview::createPreview(QString data)
 			}
 			if (OB.Pcolor2 != CommonStrings::None)
 			{
-				SetFarbe(&tmpfa, OB.Pcolor2, OB.Shade2);
+				SetQColor(&tmpfa, OB.Pcolor2, OB.Shade2);
 				if ((OB.Pwidth == 0) && (OB.PType != 5))
 					pS->setLineWidth(0);
 				else
@@ -640,13 +640,13 @@ QPixmap ScPreview::createPreview(QString data)
 						mode = 0;
 						if (hl->fillColor() != CommonStrings::None)
 						{
-							SetFarbe(&tmpfa, hl->fillColor(), hl->fillShade());
+							SetQColor(&tmpfa, hl->fillColor(), hl->fillShade());
 							pS->setBrush(tmpfa);
 							mode = 2;
 						}
 						if (hl->strokeColor() != CommonStrings::None)
 						{
-							SetFarbe(&tmpfa, hl->strokeColor(), hl->strokeShade());
+							SetQColor(&tmpfa, hl->strokeColor(), hl->strokeShade());
 							pS->setPen(tmpfa, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							mode += 1;
 						}
@@ -664,7 +664,7 @@ QPixmap ScPreview::createPreview(QString data)
 					multiLine ml = MLineStyles[OB.NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
+						SetQColor(&tmpfa, ml[it].Color, ml[it].Shade);
 						pS->setPen(tmpfa,
 						           qMax(static_cast<int>(ml[it].Width), 1),
 						           static_cast<Qt::PenStyle>(ml[it].Dash),
@@ -759,7 +759,7 @@ QPixmap ScPreview::createPreview(QString data)
 					multiLine ml = MLineStyles[OB.NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
+						SetQColor(&tmpfa, ml[it].Color, ml[it].Shade);
 						pS->setPen(tmpfa, ml[it].Width,
 						           static_cast<Qt::PenStyle>(ml[it].Dash),
 						           static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
@@ -844,7 +844,7 @@ QPixmap ScPreview::createPreview(QString data)
 						continue;
 					if (hl->fillColor() != CommonStrings::None)
 					{
-						SetFarbe(&tmpfa, hl->fillColor(), hl->fillShade());
+						SetQColor(&tmpfa, hl->fillColor(), hl->fillShade());
 						pS->setPen(tmpfa);
 					}
 					chs = hl->fontSize();
@@ -921,7 +921,7 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->setPenOpacity(1.0 - OB.TranspStroke);
 				if (OB.Pcolor2 != CommonStrings::None)
 				{
-					SetFarbe(&tmpfa, OB.Pcolor2, OB.Shade2);
+					SetQColor(&tmpfa, OB.Pcolor2, OB.Shade2);
 					pS->setPen(tmpfa, OB.Pwidth, Qt::PenStyle(OB.PLineArt), Qt::PenCapStyle(OB.PLineEnd), Qt::PenJoinStyle(OB.PLineJoin));
 					//					if (DashValues.count() != 0)
 					//						pS->setDash(DashValues, DashOffset);
@@ -936,7 +936,7 @@ QPixmap ScPreview::createPreview(QString data)
 					multiLine ml = MLineStyles[OB.NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
+						SetQColor(&tmpfa, ml[it].Color, ml[it].Shade);
 						pS->setPen(tmpfa, ml[it].Width,
 						           static_cast<Qt::PenStyle>(ml[it].Dash),
 						           static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
@@ -973,7 +973,7 @@ QPixmap ScPreview::createPreview(QString data)
 	return ret;
 }
 
-void ScPreview::SetFarbe(QColor *tmp, const QString& farbe, double shad)
+void ScPreview::SetQColor(QColor *tmp, const QString& farbe, double shad)
 {
 	*tmp = ScColorEngine::getShadeColorProof(Farben[farbe], NULL, shad);
 }

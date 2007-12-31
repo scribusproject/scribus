@@ -608,45 +608,45 @@ void SEditor::updateAll()
 
 			if (ch == SpecialChars::OBJECT)
 			{
-				setFarbe(true);
+				setColor(true);
 				insertPlainText("@");
-				setFarbe(false);
+				setColor(false);
 			}
 			else if (ch == SpecialChars::PAGENUMBER)
 			{
-				setFarbe(true);
+				setColor(true);
 				insertPlainText("#");
-				setFarbe(false);
+				setColor(false);
 			}
 			else if (ch == SpecialChars::NBSPACE)
 			{
-				setFarbe(true);
+				setColor(true);
 				insertPlainText("_");
-				setFarbe(false);
+				setColor(false);
 			}
 			else if (ch == SpecialChars::FRAMEBREAK)
 			{
-				setFarbe(true);
+				setColor(true);
 				insertPlainText("|");
-				setFarbe(false);
+				setColor(false);
 			}
 			else if (ch == SpecialChars::COLBREAK)
 			{
-				setFarbe(true);
+				setColor(true);
 				insertPlainText("^");
-				setFarbe(false);
+				setColor(false);
 			}
 			else if (ch == SpecialChars::NBHYPHEN)
 			{
-				setFarbe(true);
+				setColor(true);
 				insertPlainText("=");
-				setFarbe(false);
+				setColor(false);
 			}
 			else if (ch == SpecialChars::LINEBREAK)
 			{
-				setFarbe(true);
+				setColor(true);
 				insertPlainText("*");
-				setFarbe(false);
+				setColor(false);
 			}
 			else
 				Text += ch;
@@ -765,7 +765,7 @@ void SEditor::setStyle(int Csty)
 	textCursor().setCharFormat(charF);
 }
 
-void SEditor::setFarbe(bool marker)
+void SEditor::setColor(bool marker)
 {
 	QColor tmp;
 	if (marker)
@@ -1324,7 +1324,7 @@ void SToolBFont::newSizeHandler()
 // 	disconnectSignals();
 // 	connectSignals();
 // 	Editor->setFocus();
-// 	Editor->setFarbe(false);
+// 	Editor->setColor(false);
 // 	blockUpdate = false;
 // 	loadPrefs();
 // 	// hack to keep charPalette visible. See destructor too - PV
@@ -1355,7 +1355,7 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // 
 	updateStatus();
 	*/
 	Editor->setFocus();
-	Editor->setFarbe(false);
+	Editor->setColor(false);
 	loadPrefs();
 }
 
@@ -3103,10 +3103,10 @@ void StoryEditor::specialActionKeyEvent(const QString& /*actionName*/, int unico
 		guiInsertString="=";
 	}
 	if (setColor)
-		Editor->setFarbe(true);
+		Editor->setColor(true);
 	Editor->insertPlainText(guiInsertString);
 	if (setColor)
-		Editor->setFarbe(false);
+		Editor->setColor(false);
 	modifiedText();
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();

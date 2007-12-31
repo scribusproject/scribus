@@ -124,7 +124,7 @@ private:
 		\param plug ScribusMainWindow *
 		\retval QString Colour settings
 		*/
-		QString SetFarbe(QString farbe, int shad);
+		QString SetColor(QString farbe, int shad);
 		/*!
 		\author Franz Schmid
 		\param sl struct SingleLine *

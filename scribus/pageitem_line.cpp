@@ -66,7 +66,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/, double /*sc*/)
 				{
 					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 					{
-						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 						p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 						p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 					}

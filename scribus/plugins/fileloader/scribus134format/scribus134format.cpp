@@ -2482,19 +2482,19 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 			if (currItem->GrType == 5)
 			{
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor, GrShade);
+					currItem->SetQColor(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor, GrShade);
 				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
+					currItem->SetQColor(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor2, GrShade2);
 			}
 			else
 			{
 				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
+					currItem->SetQColor(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor2, GrShade2);
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor, GrShade);
+					currItem->SetQColor(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}
 		}

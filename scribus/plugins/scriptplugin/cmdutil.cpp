@@ -96,7 +96,7 @@ void ReplaceColor(QString col, QString rep)
 		{
 			if (col == cstops.at(cst)->name)
 			{
-				ite->SetFarbe(&tmpc, rep, cstops.at(cst)->shade);
+				ite->SetQColor(&tmpc, rep, cstops.at(cst)->shade);
 				cstops.at(cst)->color = tmpc;
 				cstops.at(cst)->name = rep;
 			}
@@ -125,7 +125,7 @@ void ReplaceColor(QString col, QString rep)
 		{
 			if (col == cstops.at(cst)->name)
 			{
-				ite->SetFarbe(&tmpc, rep, cstops.at(cst)->shade);
+				ite->SetQColor(&tmpc, rep, cstops.at(cst)->shade);
 				cstops.at(cst)->color = tmpc;
 				cstops.at(cst)->name = rep;
 			}

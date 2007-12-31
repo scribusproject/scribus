@@ -115,8 +115,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void putColor(const QString& color, double shade, bool fill);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
 		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
-		virtual void SetFarbe(const QString& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
-		virtual void SetFarbe(const ScColor& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
+		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
+		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
 		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
 		bool Art;

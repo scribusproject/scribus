@@ -2425,22 +2425,22 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			{
 				handleOldColorShade(doc, GrColor, GrShade);
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor, GrShade);
+					currItem->SetQColor(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor, GrShade);
 				handleOldColorShade(doc, GrColor2, GrShade2);
 				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
+					currItem->SetQColor(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor2, GrShade2);
 			}
 			else
 			{
 				handleOldColorShade(doc, GrColor2, GrShade2);
 				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
+					currItem->SetQColor(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor2, GrShade2);
 				handleOldColorShade(doc, GrColor, GrShade);
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
-					currItem->SetFarbe(&tmpc, GrColor, GrShade);
+					currItem->SetQColor(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}
 		}

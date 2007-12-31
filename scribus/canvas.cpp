@@ -1194,7 +1194,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 							{
 								QColor tmp;
-								currItem->SetFarbe(&tmp, currItem->lineColor(), currItem->lineShade());
+								currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
 								if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
 								{
 									painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
@@ -1392,7 +1392,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 						{
 							QColor tmp;
-							currItem->SetFarbe(&tmp, currItem->lineColor(), currItem->lineShade());
+							currItem->SetQColor(&tmp, currItem->lineColor(), currItem->lineShade());
 							if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
 							{
 								painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
