@@ -9513,17 +9513,21 @@ void ScribusMainWindow::PutToPatterns()
 	undoManager->setUndoEnabled(false);
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	QString objectString = ss->WriteElem(doc, view, doc->m_Selection);
 	int ac = doc->Items->count();
 	uint oldNum = doc->TotalItems;
 	bool savedAlignGrid = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
+	internalCopy = true;
 	doc->useRaster = false;
 	doc->SnapGuides = false;
-	slotElemRead(objectString, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+	Selection itemSelection(this, false);
+	itemSelection.copy(*doc->m_Selection, false, false);
+	slotEditCopy();
+	view->Deselect(true);
+	slotEditPaste();
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
+	internalCopy = false;
 	int ae = doc->Items->count();
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
@@ -9537,10 +9541,14 @@ void ScribusMainWindow::PutToPatterns()
 	}
 	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();
-	delete ss;
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	doc->TotalItems = oldNum;
+	view->Deselect(true);
+	doc->m_Selection->copy(itemSelection, false, false);
+	doc->m_Selection->setIsGUISelection(true);
+	doc->m_Selection->connectItemToGUI();
+	view->DrawNew();
 	undoManager->setUndoEnabled(true);
 }
 
