@@ -311,6 +311,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 
 ScribusDoc::~ScribusDoc()
 {
+	CloseCMSProfiles();
 	DocItems.setAutoDelete(true);
 	FrameItems.setAutoDelete(true);
 	DocItems.clear();
@@ -529,6 +530,7 @@ void ScribusDoc::ResetGlobalCMSParams()
 		stdTransImgG = NULL;
 	if (stdProofImgG == stdProofImg)
 		stdProofImgG = NULL;
+	ScMW->SetDefaultCMSParamsToGlobal();
 #endif
 }
 

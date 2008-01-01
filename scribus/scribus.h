@@ -164,6 +164,7 @@ public:
 	void GetCMSProfilesDir(QString pfad, bool showInfo);
 	void InitDefaultColorTransforms(void);
 	void TermDefaultColorTransforms(void);
+	void SetDefaultCMSParamsToGlobal(void);
 #ifdef HAVE_CMS
 	bool IsDefaultProfile(cmsHPROFILE prof);
 	bool IsDefaultTransform(cmsHTRANSFORM trans);

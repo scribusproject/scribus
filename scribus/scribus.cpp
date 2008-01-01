@@ -8240,6 +8240,29 @@ void ScribusMainWindow::TermDefaultColorTransforms(void)
 	defaultCMYKToRGBTrans = NULL;
 }
 
+void ScribusMainWindow::SetDefaultCMSParamsToGlobal(void)
+{
+#ifdef HAVE_CMS
+	BlackPoint     = true;
+	SoftProofing   = false;
+	Gamut          = false;
+	IntentPrinter  = 1; // INTENT_RELATIVE_COLORIMETRIC
+	IntentMonitor  = 1; // INTENT_RELATIVE_COLORIMETRIC
+	CMSoutputProf  = defaultRGBProfile;
+	CMSprinterProf = defaultCMYKProfile;
+	stdTransRGBDoc2CMYKG = defaultRGBToCMYKTrans;
+	stdTransCMYK2RGBDocG = defaultCMYKToRGBTrans;
+	stdTransRGBDoc2MonG  = defaultRGBToScreenTrans;
+	stdTransCMYK2MonG    = defaultCMYKToRGBTrans;
+	stdProofRGBG    = defaultRGBToScreenTrans;
+	stdProofRGBGCG  = defaultRGBToScreenTrans;
+	stdProofCMYKG   = defaultCMYKToRGBTrans;
+	stdProofCMYKGCG = defaultCMYKToRGBTrans;
+	stdTransImgG    = defaultRGBToScreenImgTrans;
+	stdProofImgG    = defaultRGBToScreenImgTrans;
+#endif
+}
+
 bool ScribusMainWindow::IsDefaultProfile(cmsHPROFILE prof)
 {
 	if (prof == defaultRGBProfile || prof == defaultCMYKProfile)
@@ -8294,6 +8317,7 @@ void ScribusMainWindow::initCMS()
 		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
 #endif
 		InitDefaultColorTransforms();
+		SetDefaultCMSParamsToGlobal();
 	}
 }
 
