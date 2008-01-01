@@ -1561,9 +1561,8 @@ void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
 	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
 	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
 	{
-		VisionDefectColor *defect = new VisionDefectColor();
-		*tmp = defect->convertDefect(*tmp, m_Doc->view()->m_canvas->previewVisual());
-		delete defect;
+		VisionDefectColor defect;
+		*tmp = defect.convertDefect(*tmp, m_Doc->view()->m_canvas->previewVisual());
 	}
 }
 
@@ -2280,9 +2279,8 @@ void PageItem::setLineQColor()
 	}
 	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
 	{
-		VisionDefectColor *defect = new VisionDefectColor();
-		strokeQColor = defect->convertDefect(strokeQColor, m_Doc->view()->m_canvas->previewVisual());
-		delete defect;
+		VisionDefectColor defect;
+		strokeQColor = defect.convertDefect(strokeQColor, m_Doc->view()->m_canvas->previewVisual());
 	}
 }
 
@@ -2315,9 +2313,8 @@ void PageItem::setFillQColor()
 	}
 	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
 	{
-		VisionDefectColor *defect = new VisionDefectColor();
-		fillQColor = defect->convertDefect(fillQColor, m_Doc->view()->m_canvas->previewVisual());
-		delete defect;
+		VisionDefectColor defect;
+		fillQColor = defect.convertDefect(fillQColor, m_Doc->view()->m_canvas->previewVisual());
 	}
 }
 
@@ -4105,7 +4102,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		}
 		if ((m_Doc->view()->m_canvas->usePreviewVisual()))
 		{
-			VisionDefectColor *defect = new VisionDefectColor();
+			VisionDefectColor defect;
 			QColor tmpC;
 			int h = pixm.qImagePtr()->height();
 			int w = pixm.qImagePtr()->width();
@@ -4119,14 +4116,13 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				{
 					rgb = *s;
 					tmpC.setRgb(rgb);
-					tmpC = defect->convertDefect(tmpC, m_Doc->view()->m_canvas->previewVisual());
+					tmpC = defect.convertDefect(tmpC, m_Doc->view()->m_canvas->previewVisual());
 					a = qAlpha(rgb);
 					tmpC.getRgb(&r, &g, &b);
 					*s = qRgba(r, g, b, a);
 					s++;
 				}
 			}
-			delete defect;
 		}
 	}
 	return true;

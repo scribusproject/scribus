@@ -284,11 +284,10 @@ QColor CWDialog::computeDefect(QColor c)
 {
 	if (defectCombo->currentIndex() == VisionDefectColor::normalVision)
 		return c;
-	VisionDefectColor *defect = new VisionDefectColor(c);
-	defect->deficiency = defectCombo->currentIndex();
-	defect->convertDefect();
-	QColor nc = defect->getColor();
-	delete defect;
+	VisionDefectColor defect(c);
+	defect.deficiency = defectCombo->currentIndex();
+	defect.convertDefect();
+	QColor nc = defect.getColor();
 	return nc;
 }
 
