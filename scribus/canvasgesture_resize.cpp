@@ -26,12 +26,17 @@
 
 
 
-void ResizeGesture::activate(bool flag)
+
+void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 {
-	qDebug() << "ResizeGesture::activate" << flag;
+	if (framehandle > 0)
+		m_handle = framehandle;
 	
 	if (m_doc->m_Selection->count() == 0)
-		m_view->stopGesture();
+	{
+		m_handle = Canvas::OUTSIDE;
+		return;
+	}
 	else if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double gx, gy, gh, gw;
@@ -52,6 +57,17 @@ void ResizeGesture::activate(bool flag)
 }
 
 
+void ResizeGesture::clear()
+{
+	m_handle = Canvas::OUTSIDE;
+}
+
+void ResizeGesture::activate(bool flag)
+{
+	qDebug() << "ResizeGesture::activate" << flag;	
+}
+
+
 
 void ResizeGesture::deactivate(bool flag)
 {
@@ -65,8 +81,8 @@ void ResizeGesture::drawControls(QPainter* p)
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
 	QRectF localRect = m_bounds.translated(-m_canvas->mapToGlobal(QPoint(0,0)));
 	p->save();
-//	p->setPen(QPen(Qt::black, 1, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
-//	p->drawRect(localRect);
+	//	p->setPen(QPen(Qt::black, 1, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
+	//	p->drawRect(localRect);
 	if (m_rotation != 0)
 	{
 		p->setRenderHint(QPainter::Antialiasing);
@@ -81,6 +97,7 @@ void ResizeGesture::drawControls(QPainter* p)
 	//	p->setPen(Qt::darkMagenta);
 	//	p->drawLine(localRect.topLeft(), localRect.bottomRight());
 	p->restore();
+
 	if (m_origBounds != m_bounds)
 	{
 		p->save();
@@ -112,6 +129,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 			currItem->invalidateLayout();
 		currItem->update();
 	}
+	m->accept();
 	m_canvas->update();
 	m_view->stopGesture();
 }
@@ -155,8 +173,10 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 	adjustBounds(m);
 	if (m_origBounds.width() < 20 || m_origBounds.height() < 20)
 	{
+		// directly after a create the shape of an item isnt really usable, so we fix here
 		doResize(m->modifiers() & Qt::AltModifier);
 	}
+	m->accept();
 	m_canvas->repaint();
 }
 
@@ -370,7 +390,11 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 void ResizeGesture::mousePressEvent(QMouseEvent *m)
 {
 	FPoint point = m_canvas->globalToCanvas(m->globalPos());
-	if (m_doc->m_Selection->isMultipleSelection())
+	if (m_doc->m_Selection->count() == 0)
+	{
+		m_handle = Canvas::OUTSIDE;
+	}
+	else if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -379,5 +403,10 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 	else
 	{
 		m_handle = m_canvas->frameHitTest(QPointF(point.x(), point.y()), m_doc->m_Selection->itemAt(0));
+	}
+	if (m_handle > 0)
+	{
+		prepare(m_handle);
+		m->accept();
 	}
 }

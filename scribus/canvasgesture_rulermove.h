@@ -46,19 +46,28 @@ public:
 	RulerGesture (ScribusView* view, Mode mode) : 
 		CanvasGesture(view), m_mode(mode), m_haveGuide(false), m_haveCursor(false), m_xy(0,0) {};
 
+	/**
+		Prepares the gesture for 'mode' without using an existing guide. If 'mode' is HORIZONTAL
+		or VERTICAL, a new guide will be created when the mouse is moved over a page.
+	 */
+	void prepare(Mode mode);
+	void clear();
+	
 	virtual void drawControls(QPainter* p);
 	virtual void activate(bool);
 	virtual void deactivate(bool);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	/**
-	  This method should be called when the mousebutton is pressed near a guide.
+	  This method should be called when the mousebutton is pressed.
+	  If there's a moveable guide near this position, it prepares the gesture for moving this guide.
 	 */
 	virtual void mousePressEvent(QMouseEvent *m);
 	
 	Mode getMode() { return m_mode; }
 	/**
 		Use this to test if there's a moveable guide near this position.
+		It prepares the gesture for moving this guide.
 	 */
 	bool mouseHitsGuide(FPoint mousePointDoc);
 private:

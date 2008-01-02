@@ -35,6 +35,7 @@ class QMouseEvent;
 class QKeyEvent;
 class QPainter;
 class QRubberBand;
+class PageItem;
 
 /**
   This class realizes resizing of selected items on behalf of its parent mode.
@@ -45,9 +46,14 @@ class QRubberBand;
 class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
 public:
-	ResizeGesture (CanvasMode* parent, Canvas::FrameHandle framehandle=Canvas::SOUTHEAST) : CanvasGesture(parent), m_handle(framehandle) {};
+	ResizeGesture (CanvasMode* parent) : CanvasGesture(parent) {};
 	
-
+	/**
+		Prepares the gesture for resizing the selection
+	 */
+	void prepare(Canvas::FrameHandle framehandle = Canvas::SOUTHEAST);
+	void clear();
+	
 	virtual void drawControls(QPainter* p);
 	virtual void activate(bool);
 	virtual void deactivate(bool);
@@ -55,7 +61,7 @@ public:
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	/**
 	  This method only sets the m_handle field.
-	  If the correct value is set by the constructor (default = SOUTHEAST), 
+	  If the correct value is set by prepare() (default = SOUTHEAST), 
 	  it's not necessary to call this method.
 	 */
 	virtual void mousePressEvent(QMouseEvent *m);

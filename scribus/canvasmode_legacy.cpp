@@ -31,6 +31,7 @@
 
 
 #include "canvas.h"
+#include "canvasgesture_linemove.h"
 #include "canvasgesture_resize.h"
 #include "canvasgesture_rulermove.h"
 #include "contextmenu.h"
@@ -79,6 +80,7 @@ LegacyMode::LegacyMode(ScribusView* view) : QObject(), CanvasMode(view), m_ScMW(
 	shiftSelItems = false;
 	FirstPoly = true;
 	resizeGesture = NULL;
+	lineMoveGesture = NULL;
 	guideMoveGesture = NULL;
 	m_blinker = new QTimer(view);
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
@@ -1374,13 +1376,29 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			if (GetItem(&currItem))
 			{
-				if (!resizeGesture)
-					resizeGesture = new ResizeGesture(this);
-				resizeGesture->mousePressEvent(m);
-				if (resizeGesture->frameHandle() > 0)
+				if (currItem->asLine())
 				{
-					m_view->startGesture(resizeGesture);
-					return;
+					if (!lineMoveGesture)
+						lineMoveGesture = new LineMove(this);
+					
+					lineMoveGesture->mousePressEvent(m);
+					if (lineMoveGesture->haveLineItem())
+					{
+						m_view->startGesture(lineMoveGesture);
+						return;
+					}
+				}
+				else
+				{
+					if (!resizeGesture)
+						resizeGesture = new ResizeGesture(this);
+					
+					resizeGesture->mousePressEvent(m);
+					if (resizeGesture->frameHandle() > 0)
+					{
+						m_view->startGesture(resizeGesture);
+						return;
+					}
 				}
 #if 1				
 				if (m_doc->m_Selection->isMultipleSelection())

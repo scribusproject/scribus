@@ -31,6 +31,7 @@
 
 #include "canvas.h"
 #include "canvasgesture_resize.h"
+#include "canvasgesture_linemove.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hruler.h"
@@ -72,6 +73,7 @@ CreateMode::CreateMode(ScribusView* view) : CanvasMode(view)
 	shiftSelItems = false;
 	FirstPoly = true;
 	resizeGesture = NULL;
+	lineMoveGesture = NULL;
 }
 
 
@@ -191,10 +193,14 @@ void CreateMode::activate(bool fromGesture)
 		}
 		else
 		{
-			m_doc->AdjustItemSize(currItem);
-//			currItem->OldB2 = currItem->width();
-//			currItem->OldH2 = currItem->height();
-//			currItem->updateClip();
+			if (!currItem->asLine())
+				m_doc->AdjustItemSize(currItem);
+			else
+			{
+				currItem->OldB2 = currItem->width();
+				currItem->OldH2 = currItem->height();
+				currItem->updateClip();
+			}
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			currItem->Sizing = false;
@@ -441,6 +447,14 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 				}
 				break;
 			}
+			break;
+		case modeDrawLine:
+			if (m->button() != Qt::LeftButton)
+				break;
+			selectPage(m);
+			m_doc->ApplyGuides(&Rxp, &Ryp);
+			z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_MouseButtonPressed);
+			SetupDraw(z);
 			break;
 		case modeDrawLatex:
 			if (m->button() != Qt::LeftButton)
@@ -944,9 +958,20 @@ void CreateMode::SetupDraw(int nr)
 	m_doc->m_Selection->addItem(currItem);
 	m_doc->m_Selection->connectItemToGUI();
 	currItem->update();
-	if (!resizeGesture)
-		resizeGesture = new ResizeGesture(this);
-	m_view->startGesture(resizeGesture);
+	if (currItem->asLine())
+	{
+		if (!lineMoveGesture)
+			lineMoveGesture = new LineMove(this);
+		lineMoveGesture->prepare(currItem->asLine());
+		m_view->startGesture(lineMoveGesture);
+	}
+	else
+	{
+		if (!resizeGesture)
+			resizeGesture = new ResizeGesture(this);
+		resizeGesture->prepare();
+		m_view->startGesture(resizeGesture);
+	}
 //	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = true;

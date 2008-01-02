@@ -34,11 +34,25 @@
 void RectSelect::enterEvent(QEvent * e){}
 void RectSelect::leaveEvent(QEvent * e){}
 
-void RectSelect::activate(bool)
+
+void RectSelect::prepare(QPoint start)
 {
 	if (!m_rectangle)
 		m_rectangle = new QRubberBand(QRubberBand::Rectangle);
+	setStart(start);
 	m_rectangle->setGeometry(m_start.x(), m_start.y(), 1, 1);
+}
+
+void RectSelect::clear()
+{
+	m_rectangle->hide();
+	m_start = QPoint(0,0);
+}
+
+
+void RectSelect::activate(bool)
+{
+	prepare(m_start);
 	m_rectangle->show();
 }
 
@@ -69,8 +83,8 @@ QRectF RectSelect::result() const
 
 void RectSelect::mousePressEvent(QMouseEvent *m)
 {
-	setStart(m->globalPos());
-	m_rectangle->setGeometry(m_start.x(), m_start.y(), 1, 1);
+	prepare(m->globalPos());
+	m->accept();
 }
 
 
@@ -78,10 +92,12 @@ void RectSelect::mouseReleaseEvent(QMouseEvent *m)
 {
 	qDebug() << "RectSelect::mouseRelease" << m->globalPos();
 	setEnd(m->globalPos());
+	m->accept();
 	m_view->stopGesture();
 }
 
 void RectSelect::mouseMoveEvent(QMouseEvent *m)
 {
 	setEnd(m->globalPos());
+	m->accept();
 }

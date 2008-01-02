@@ -55,8 +55,6 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 			result = new FreehandMode(view);
 			break;
 		case modeDrawLine:
-			result = new LegacyMode(view);
-			break;
 		case modeDrawShapes:
 		case modeDrawImage:
 		case modeDrawLatex:

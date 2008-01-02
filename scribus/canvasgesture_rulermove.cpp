@@ -53,6 +53,20 @@ void RulerGesture::drawControls(QPainter* p)
 	p->restore();
 }
 
+
+void RulerGesture::clear()
+{
+	m_haveGuide = false;
+}
+
+
+void RulerGesture::prepare(Mode mode)
+{
+	m_haveGuide = false;
+	m_mode = mode;	
+}
+
+
 void RulerGesture::activate(bool fromGesture)
 {
 //	Code below is commented out because it causes a crash on X11 after the mouse release event
@@ -89,6 +103,7 @@ void RulerGesture::deactivate(bool)
 //		qApp->changeOverrideCursor(*m_cursor);
 	if (m_haveCursor)
 		qApp->changeOverrideCursor(m_cursor);
+	m_haveGuide = false;
 }
 
 
@@ -117,6 +132,7 @@ bool RulerGesture::mouseHitsGuide(FPoint mousePointDoc)
 			return true;
 		}
 	}
+	m_haveGuide = false;
 	return false;
 }
 

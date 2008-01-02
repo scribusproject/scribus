@@ -48,7 +48,10 @@ class QRubberBand;
 class SCRIBUS_API RectSelect : public CanvasGesture
 {
 public:
-	RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_rectangle(0) {};
+	RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_rectangle(0) {};
+	
+	void prepare(QPoint globalStartPos);
+	void clear();
 	
 	virtual void enterEvent(QEvent * e);
 	virtual void leaveEvent(QEvent * e);
@@ -57,13 +60,16 @@ public:
 	virtual void deactivate(bool);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
+	/**
+		Prepares rectangle select for the position from 'm'
+	 */
 	virtual void mousePressEvent(QMouseEvent *m);
-
-	void setStart(QPoint globalPos);
-	void setEnd(QPoint globalPos);
 
 	QRectF result() const ;
 private:
+	void setStart(QPoint globalPos);
+	void setEnd(QPoint globalPos);
+	
 	QPoint m_start;
 	QRubberBand* m_rectangle;
 };

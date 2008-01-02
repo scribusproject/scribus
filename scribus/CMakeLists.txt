@@ -290,6 +290,7 @@ SET(SCRIBUS_SOURCES
   bookmwin.cpp
   buttonicon.cpp
   canvas.cpp
+  canvasgesture_linemove.cpp
   canvasgesture_rectselect.cpp
   canvasgesture_resize.cpp
   canvasgesture_rulermove.cpp

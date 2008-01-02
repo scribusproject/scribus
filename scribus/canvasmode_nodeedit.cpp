@@ -207,6 +207,12 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 
 void CanvasMode_NodeEdit::deactivate(bool forGesture)
 {
+	if (!forGesture && m_rectangleSelect)
+	{
+		m_rectangleSelect->clear();
+		delete m_rectangleSelect;
+		m_rectangleSelect = NULL;
+	}
 }
 
 
@@ -317,9 +323,9 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			if (!m_rectangleSelect)
 			{
 				m_rectangleSelect = new RectSelect(this);
-				m_rectangleSelect->setStart(m->globalPos());
-				m_view->startGesture(m_rectangleSelect);
 			}
+			m_rectangleSelect->prepare(m->globalPos());
+			m_view->startGesture(m_rectangleSelect);
 			return;
 		}
 		if ((m_doc->guidesSettings.guidesShown) && (!m_doc->GuideLock) 
@@ -1182,8 +1188,9 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		Myp = m->y();
 		Dxp = qRound(m->x()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.x());
 		Dyp = qRound(m->y()/m_canvas->scale());  // + m_doc->minCanvasCoordinate.y());
-		m_rectangleSelect = new RectSelect(this);
-		m_rectangleSelect->setStart(m->globalPos());
+		if (!m_rectangleSelect)
+			m_rectangleSelect = new RectSelect(this);
+		m_rectangleSelect->prepare(m->globalPos());
 		m_view->startGesture(m_rectangleSelect);		
 	}
 	
@@ -1307,9 +1314,9 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		if (!m_rectangleSelect)
 		{
 			m_rectangleSelect = new RectSelect(this);
-			m_rectangleSelect->setStart(m->globalPos());
-			m_view->startGesture(m_rectangleSelect);		
 		}
+		m_rectangleSelect->prepare(m->globalPos());
+		m_view->startGesture(m_rectangleSelect);		
 		return;
 	}
 	int newX = m->x();

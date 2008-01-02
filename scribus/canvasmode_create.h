@@ -21,6 +21,7 @@
 #include "canvasmode.h"
 #include "fpointarray.h"
 
+class LineMove;
 class PageItem;
 class ResizeGesture;
 class ScribusMainWindow;
@@ -67,6 +68,7 @@ private:
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;
 	ResizeGesture* resizeGesture;
+	LineMove* lineMoveGesture;
 };
 
 

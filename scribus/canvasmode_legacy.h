@@ -24,6 +24,7 @@
 #include "canvasmode.h"
 #include "fpointarray.h"
 
+class LineMove;
 class PageItem;
 class PageItem_TextFrame;
 class QTimer;
@@ -78,6 +79,7 @@ private:
 	FPointArray RecordP;
 	ScribusMainWindow* m_ScMW;
 	ResizeGesture* resizeGesture;
+	LineMove* lineMoveGesture;
 	RulerGesture* guideMoveGesture;
 	bool m_cursorVisible;
 	QTime m_blinkTime;
