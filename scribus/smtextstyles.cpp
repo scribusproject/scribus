@@ -579,7 +579,6 @@ void SMParagraphStyle::slotSpaceAbove()
 		int c;
 
 		pwidget_->spaceAbove_->getValues(&a, &b, &c, &value);
-		value = value / unitRatio_;
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setGapBefore(value);
 	}
@@ -602,7 +601,6 @@ void SMParagraphStyle::slotSpaceBelow()
 		int c;
 		
 		pwidget_->spaceBelow_->getValues(&a, &b, &c, &value);
-		value = value / unitRatio_;
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setGapAfter(value);
 	}
