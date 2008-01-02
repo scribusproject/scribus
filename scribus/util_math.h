@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define _UTIL_MATH_H
 
 #include <vector>
+#include <cmath>
 
 #include <QString>
 #include <QPolygon>
@@ -26,13 +27,15 @@ If premultiplication does not allow to store result in a long value, perform a s
 bool SCRIBUS_API compareDouble(double a, double b);
 FPoint SCRIBUS_API getMaxClipF(FPointArray* Clip);
 FPoint SCRIBUS_API getMinClipF(FPointArray* Clip);
-double SCRIBUS_API xy2Deg(double x, double y);
+inline double SCRIBUS_API xy2Deg(double x, double y);
 FPoint SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd);
 QPolygon SCRIBUS_API FlattenPath(const FPointArray& ina, QList<uint> &Segs);
 QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
 QPolygon SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 uint SCRIBUS_API getDouble(QString in, bool raw);
+inline double SCRIBUS_API sind(double);
+inline double SCRIBUS_API cosd(double);
 inline double SCRIBUS_API square(double);
 inline double SCRIBUS_API distance(double, double);
 /*! \brief Constrains an angle of rotation to 45 degree intervals
@@ -49,5 +52,33 @@ double SCRIBUS_API constrainAngle(double angle, double constrain);
    \retval double the rotation angle
  */
 double SCRIBUS_API getRotationFromMatrix(QMatrix& matrix, double def);
+
+
+// IMPLEMENTATION
+
+inline double square(double x)
+{
+	return x*x;
+}
+
+inline double distance(double x, double y)
+{
+	return sqrt(x*x + y*y);
+}
+
+inline double xy2Deg(double x, double y)
+{
+	return atan2(y,x) * (180.0/M_PI);
+}
+
+inline double sind(double alpha)
+{
+	return sin(alpha / (180.0/M_PI));
+}
+
+inline double cosd(double alpha)
+{
+	return cos(alpha / (180.0/M_PI));
+}
 
 #endif

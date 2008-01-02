@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <QImageReader>
 
-#include <cmath>
 #include <algorithm>
 #include "scconfig.h"
 
@@ -256,11 +255,6 @@ QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
 	return outa;
 }
 
-double xy2Deg(double x, double y)
-{
-	return (atan2(y,x)*(180.0/M_PI));
-}
-
 FPoint getMaxClipF(FPointArray* Clip)
 {
 	FPoint np, rp;
@@ -313,15 +307,6 @@ bool compareDouble(double a, double b)
 	return a == b;
 }
 
-inline double square(double x)
-{
-	return x*x;
-}
-
-inline double distance(double x, double y)
-{
-	return sqrt(x*x+y*y);
-}
 
 double constrainAngle(double angle, double constrain)
 {
