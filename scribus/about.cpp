@@ -238,6 +238,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 											"<tr><td>Gilbert Su</td><td>gilbert_su@yahoo.com.tw</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("cs").toLocal8Bit()  + "</b></td><td></td></tr>" +
+											"<tr><td>Vlastimil Ott</td><td>vlastimil@e-ott.info</td></tr>" +
 											"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("da").toLocal8Bit()  + "</b></td><td></td></tr>" +
