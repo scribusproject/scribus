@@ -54,13 +54,6 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	fontList = new FontListView(tab1);
 	fontList->setModel(new FontListModel(fontList));
 
-	QStringList HLabels;
-	HLabels.append( tr("Font Name"));
-	HLabels.append( tr("Use Font"));
-	HLabels.append( tr("Embed in PostScript"));
-	HLabels.append( tr("Subset"));
-	HLabels.append( tr("Path to Font File"));
-
 	tab1Layout->addWidget( fontList );
 	addTab( tab1, tr( "&Available Fonts" ) );
 
@@ -68,7 +61,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	tabLayout = new QVBoxLayout( tab );
 	tabLayout->setMargin(10);
 	tabLayout->setSpacing(5);
-	
+
 	Table3 = new QTableWidget(0, 2, tab );
 	Table3->setHorizontalHeaderItem(0, new QTableWidgetItem( tr("Font Name")));
 	Table3->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Replacement")));
