@@ -4371,7 +4371,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 					  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
-		horizRuler->Draw(m->x());
+		horizRuler->Draw(m->x() - 2 * contentsX());
 		vertRuler->Draw(m->y());
 		m_canvasMode->mouseMoveEvent(m);
 		return true;
