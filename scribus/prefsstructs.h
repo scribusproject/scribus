@@ -256,6 +256,8 @@ struct ApplicationPrefs
 	QColor STEcolor;
 	QString STEfont;
 	MarginStruct scratch;
+	double GapHorizontal;
+	double GapVertical;
 /*	double ScratchLeft;
 	double ScratchRight;
 	double ScratchTop;

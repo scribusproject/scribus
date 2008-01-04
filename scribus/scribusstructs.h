@@ -223,9 +223,9 @@ struct PageSet
 	int FirstPage;
 	int Rows;
 	int Columns;
-	double GapHorizontal;
-	double GapVertical;
-	double GapBelow;
+//	double GapHorizontal;
+//	double GapVertical;
+//	double GapBelow;
 	QStringList pageNames;
 };
 

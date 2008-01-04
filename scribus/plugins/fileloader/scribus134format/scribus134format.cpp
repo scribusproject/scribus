@@ -242,9 +242,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		if (DOC.namedItem("PageSets").isNull())
 		{
 			m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = fp;
-			m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
-			m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
-			m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
+//			m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
+//			m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
+//			m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
 		}
 		m_Doc->setUsesAutomaticTextFrames(dc.attribute("AUTOTEXT").toInt());
 		m_Doc->PageSp=dc.attribute("AUTOSPALTEN").toInt();
@@ -358,6 +358,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			m_Doc->scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
 		m_Doc->scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
 		m_Doc->scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
+		m_Doc->GapHorizontal = dc.attribute("GapHorizontal", "-1").toDouble();
+		m_Doc->GapVertical = dc.attribute("GapVertical", "-1").toDouble();
 		m_Doc->toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
 		m_Doc->toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
 		m_Doc->toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();
@@ -447,9 +449,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						pageS.FirstPage = PgsAttr.attribute("FirstPage", "0").toInt();
 						pageS.Rows = PgsAttr.attribute("Rows", "1").toInt();
 						pageS.Columns = PgsAttr.attribute("Columns", "1").toInt();
-						pageS.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
-						pageS.GapVertical = PgsAttr.attribute("GapVertical", "0").toDouble();
-						pageS.GapBelow = PgsAttr.attribute("GapBelow", "0").toDouble();
+//						pageS.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
+//						pageS.GapVertical = PgsAttr.attribute("GapVertical", "0").toDouble();
+//						pageS.GapBelow = PgsAttr.attribute("GapBelow", "0").toDouble();
 						pageS.pageNames.clear();
 						QDomNode PGSN = PGS.firstChild();
 						while(!PGSN.isNull())
@@ -460,6 +462,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							PGSN = PGSN.nextSibling();
 						}
 						m_Doc->pageSets.append(pageS);
+						if ((m_Doc->pageSets.count() == m_Doc->currentPageLayout) && ((m_Doc->GapHorizontal < 0) && (m_Doc->GapVertical < 0)))
+						{
+							m_Doc->GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
+							m_Doc->GapVertical = PgsAttr.attribute("GapBelow", "0").toDouble();
+						}
 					}
 					PGS = PGS.nextSibling();
 				}

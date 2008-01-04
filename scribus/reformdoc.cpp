@@ -142,6 +142,8 @@ void ReformDoc::restoreDefaults()
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	tabPage->restoreDefaults(currDoc);
 	tabView->restoreDefaults(prefsData, currDoc->guidesSettings, currDoc->pageSets, currDoc->currentPageLayout, currDoc->scratch);
+	tabView->gapHorizontal->setValue(currDoc->GapHorizontal * unitRatio);
+	tabView->gapVertical->setValue(currDoc->GapVertical * unitRatio);
 	tabView->setPaperColor(currDoc->papColor);
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
@@ -180,8 +182,10 @@ void ReformDoc::setDS(int layout)
 	tabPage->marginGroup->setFacingPages(!(layout == singlePage));
 	tabPage->choosenLayout = layout;
 	tabPage->docLayout->firstPage->setCurrentIndex(currDoc->pageSets[tabPage->choosenLayout].FirstPage);
-	tabView->gapHorizontal->setValue(currDoc->pageSets[tabPage->choosenLayout].GapHorizontal * unitRatio);
-	tabView->gapVertical->setValue(currDoc->pageSets[tabPage->choosenLayout].GapBelow * unitRatio);
+//	tabView->gapHorizontal->setValue(currDoc->pageSets[tabPage->choosenLayout].GapHorizontal * unitRatio);
+//	tabView->gapVertical->setValue(currDoc->pageSets[tabPage->choosenLayout].GapBelow * unitRatio);
+//	tabView->gapHorizontal->setValue(currDoc->GapHorizontal * unitRatio);
+//	tabView->gapVertical->setValue(currDoc->GapVertical * unitRatio);
 }
 
 void ReformDoc::switchCMS(bool enable)
@@ -222,8 +226,10 @@ void ReformDoc::updateDocumentSettings()
 	rr2 = tabPage->marginGroup->right();
 	int fp = tabPage->choosenLayout;
 	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentIndex();
-	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
-	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
+//	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
+	currDoc->GapVertical = tabView->gapVertical->value() / currDoc->unitRatio();
+	currDoc->GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
+//	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
 	currDoc->PageOri = tabPage->pageOrientationComboBox->currentIndex();

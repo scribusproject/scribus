@@ -201,6 +201,8 @@ void Preferences::setupGui()
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
 	tabView->restoreDefaults(prefsData, prefsData->guidesSettings, prefsData->pageSets, prefsData->FacingPages, prefsData->scratch);
+	tabView->gapHorizontal->setValue(prefsData->GapHorizontal * unitRatio);
+	tabView->gapVertical->setValue(prefsData->GapVertical * unitRatio);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
 	tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
@@ -288,8 +290,10 @@ void Preferences::setDS(int layout)
 	tabDocument->marginGroup->setFacingPages(!(layout == singlePage));
 	tabDocument->choosenLayout = layout;
 	tabDocument->docLayout->firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage);
-	tabView->gapHorizontal->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal * unitRatio);
-	tabView->gapVertical->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapVertical * unitRatio);
+//	tabView->gapHorizontal->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal * unitRatio);
+//	tabView->gapVertical->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapBelow * unitRatio);
+//	tabView->gapHorizontal->setValue(prefsManager->appPrefs.GapHorizontal * unitRatio);
+//	tabView->gapVertical->setValue(prefsManager->appPrefs.GapVertical * unitRatio);
 }
 
 void Preferences::unitChange()
@@ -353,8 +357,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.GUI = tabGeneral->GUICombo->currentText();
 	prefsManager->appPrefs.useSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
 
-	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
-	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
+//	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
+//	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapBelow = tabView->gapVertical->value() / prefsUnitRatio;
+	prefsManager->appPrefs.GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
+	prefsManager->appPrefs.GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
 	prefsManager->appPrefs.marginColored = tabView->checkUnprintable->isChecked();
 	prefsManager->appPrefs.scratch.Bottom = tabView->bottomScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.scratch.Left = tabView->leftScratch->value() / prefsUnitRatio;

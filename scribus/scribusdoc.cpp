@@ -131,6 +131,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
 	scratch(prefsData.scratch),
+	GapHorizontal(prefsData.GapHorizontal),
+	GapVertical(prefsData.GapVertical),
 // 	ScratchLeft(prefsData.ScratchLeft),
 // 	ScratchRight(prefsData.ScratchRight),
 // 	ScratchTop(prefsData.ScratchTop),
@@ -235,6 +237,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
 	scratch(prefsData.scratch),
+	GapHorizontal(prefsData.GapHorizontal),
+	GapVertical(prefsData.GapVertical),
 // 	ScratchLeft(prefsData.ScratchLeft),
 // 	ScratchRight(prefsData.ScratchRight),
 // 	ScratchTop(prefsData.ScratchTop),
@@ -4024,7 +4028,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
 	double currentXPos=scratch.Left, currentYPos=scratch.Top, lastYPos=Pages->at(0)->initialHeight();
-	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
+//	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
+	currentXPos += (pageWidth+GapHorizontal) * counter;
 
 	lastYPos = Pages->at(0)->initialHeight();
 	Page* Seite;
@@ -4065,7 +4070,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 			Seite->setYOffset(currentYPos);
 			if (counter < pageSets[currentPageLayout].Columns-1)
 			{
-				currentXPos += Seite->width() + pageSets[currentPageLayout].GapHorizontal;
+//				currentXPos += Seite->width() + pageSets[currentPageLayout].GapHorizontal;
+				currentXPos += Seite->width() + GapHorizontal;
 				lastYPos = qMax(lastYPos, Seite->height());
 				if (counter == 0)
 				{
@@ -4082,9 +4088,11 @@ void ScribusDoc::reformPages(bool moveObjects)
 			{
 				currentXPos = scratch.Left;
 				if (pageSets[currentPageLayout].Columns > 1)
-					currentYPos += qMax(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
+					currentYPos += qMax(lastYPos, Seite->height())+GapVertical;
+//					currentYPos += qMax(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
 				else
-					currentYPos += Seite->height()+pageSets[currentPageLayout].GapVertical;
+					currentYPos += Seite->height()+GapVertical;
+//					currentYPos += Seite->height()+pageSets[currentPageLayout].GapVertical;
 //				lastYPos = qMax(lastYPos, Seite->height());
 				lastYPos = 0;
 				Seite->Margins.Right = Seite->initialMargins.Right;
@@ -4097,7 +4105,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 				rowcounter++;
 				if (rowcounter > pageSets[currentPageLayout].Rows-1)
 				{
-					currentYPos += pageSets[currentPageLayout].GapBelow;
+//					currentYPos += GapVertical;
+//					currentYPos += pageSets[currentPageLayout].GapBelow;
 					rowcounter = 0;
 				}
 			}

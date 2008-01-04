@@ -521,9 +521,9 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	pageS.FirstPage = 0;
 	pageS.Rows = 1;
 	pageS.Columns = 1;
-	pageS.GapHorizontal = 0.0;
-	pageS.GapVertical = 0.0;
-	pageS.GapBelow = 40.0;
+//	pageS.GapHorizontal = 0.0;
+//	pageS.GapVertical = 0.0;
+//	pageS.GapBelow = 40.0;
 	pageS.pageNames.clear();
 	pageS.pageNames.append(CommonStrings::trPageLocMiddleRight);
 	dummy.append(pageS);

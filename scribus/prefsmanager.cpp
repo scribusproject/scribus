@@ -366,14 +366,16 @@ void PrefsManager::initDefaults()
 	appPrefs.scratch.Right = 100;
 	appPrefs.scratch.Top = 20;
 	appPrefs.scratch.Bottom = 20;
+	appPrefs.GapHorizontal = 0.0;
+	appPrefs.GapVertical = 40.0;
 	struct PageSet pageS;
 	pageS.Name = CommonStrings::pageSet1;
 	pageS.FirstPage = 0;
 	pageS.Rows = 1;
 	pageS.Columns = 1;
-	pageS.GapHorizontal = 0.0;
-	pageS.GapVertical = 0.0;
-	pageS.GapBelow = 40.0;
+//	pageS.GapHorizontal = 0.0;
+//	pageS.GapVertical = 0.0;
+//	pageS.GapBelow = 40.0;
 	pageS.pageNames.clear();
 	appPrefs.pageSets.append(pageS);
 	pageS.Name = CommonStrings::pageSet2;
@@ -1235,6 +1237,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("ScratchLeft", appPrefs.scratch.Left);
 	dc.setAttribute("ScratchRight", appPrefs.scratch.Right);
 	dc.setAttribute("ScratchTop", appPrefs.scratch.Top);
+	dc.setAttribute("GapHorizontal", appPrefs.GapHorizontal);
+	dc.setAttribute("GapVertical", appPrefs.GapVertical);
 	dc.setAttribute("STECOLOR", appPrefs.STEcolor.name());
 	dc.setAttribute("STEFONT", appPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
@@ -1392,9 +1396,9 @@ bool PrefsManager::WritePref(QString ho)
 		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
 		pgst.setAttribute("Rows", (*itpgset).Rows);
 		pgst.setAttribute("Columns", (*itpgset).Columns);
-		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
-		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
-		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+//		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
+//		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
+//		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
 		QStringList pNames = (*itpgset).pageNames;
 		QStringList::Iterator itpgsetN;
 		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
@@ -1746,6 +1750,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
 			appPrefs.scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
 			appPrefs.scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
+			appPrefs.GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
+			appPrefs.GapVertical = dc.attribute("GapVertical", "0").toDouble();
 			if (dc.hasAttribute("STECOLOR"))
 				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
@@ -1961,9 +1967,9 @@ bool PrefsManager::ReadPref(QString ho)
 						pageS.FirstPage = PgsAttr.attribute("FirstPage", "0").toInt();
 						pageS.Rows = PgsAttr.attribute("Rows", "1").toInt();
 						pageS.Columns = PgsAttr.attribute("Columns", "1").toInt();
-						pageS.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
-						pageS.GapVertical = PgsAttr.attribute("GapVertical", "0").toDouble();
-						pageS.GapBelow = PgsAttr.attribute("GapBelow", "0").toDouble();
+//						pageS.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
+//						pageS.GapVertical = PgsAttr.attribute("GapVertical", "0").toDouble();
+//						pageS.GapBelow = PgsAttr.attribute("GapBelow", "0").toDouble();
 						pageS.pageNames.clear();
 						QDomNode PGSN = PGS.firstChild();
 						while(!PGSN.isNull())
@@ -1974,6 +1980,11 @@ bool PrefsManager::ReadPref(QString ho)
 							PGSN = PGSN.nextSibling();
 						}
 						appPrefs.pageSets.append(pageS);
+						if ((appPrefs.pageSets.count() == appPrefs.FacingPages) && ((appPrefs.GapHorizontal < 0) && (appPrefs.GapVertical < 0)))
+						{
+							appPrefs.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
+							appPrefs.GapVertical = PgsAttr.attribute("GapBelow", "0").toDouble();
+						}
 					}
 					PGS = PGS.nextSibling();
 				}

@@ -908,6 +908,8 @@ public: // Public attributes
 	bool GuideLock;
 	/** \brief Scratch space around Pages */
 	MarginStruct scratch;
+	double GapHorizontal;
+	double GapVertical;
 // 	double ScratchLeft;
 // 	double ScratchRight;
 // 	double ScratchTop;

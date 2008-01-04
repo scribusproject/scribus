@@ -148,6 +148,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	dc.setAttribute("ScratchLeft", m_Doc->scratch.Left);
 	dc.setAttribute("ScratchRight", m_Doc->scratch.Right);
 	dc.setAttribute("ScratchTop", m_Doc->scratch.Top);
+	dc.setAttribute("GapHorizontal", m_Doc->GapHorizontal);
+	dc.setAttribute("GapVertical", m_Doc->GapVertical);
 	dc.setAttribute("StartArrow", m_Doc->toolSettings.dStartArrow);
 	dc.setAttribute("EndArrow", m_Doc->toolSettings.dEndArrow);
 	dc.setAttribute("PEN",m_Doc->toolSettings.dPen);
@@ -831,9 +833,9 @@ void Scribus134Format::writePageSets(QDomDocument & docu)
 		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
 		pgst.setAttribute("Rows", (*itpgset).Rows);
 		pgst.setAttribute("Columns", (*itpgset).Columns);
-		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
-		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
-		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+//		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
+//		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
+//		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
 		QStringList pNames = (*itpgset).pageNames;
 		QStringList::Iterator itpgsetN;
 		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
