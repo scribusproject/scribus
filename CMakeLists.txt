@@ -45,6 +45,38 @@ MESSAGE(STATUS "Scribus ${VERSION} will be built to install into ${CMAKE_INSTALL
 SET(PLUGIN_PERMISSIONS WORLD_EXECUTE GROUP_EXECUTE OWNER_EXECUTE WORLD_READ GROUP_READ OWNER_READ OWNER_WRITE)
 
 SET(MAIN_DIR_NAME "scribus")
+
+##############################################################################################################
+########## check for the CPU we build for                                                           ##########
+
+EXECUTE_PROCESS(
+    COMMAND ${CMAKE_C_COMPILER} -dumpmachine
+    OUTPUT_VARIABLE MACHINE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+MESSAGE(STATUS "Building for target ${MACHINE}")
+
+STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _machine_x86 "${MACHINE}")
+IF (_machine_x86)
+    MESSAGE(STATUS "Found target X86")
+    SET(ARCH_X86 1)
+ENDIF (_machine_x86)
+
+STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
+IF (_machine_x86_64)
+    MESSAGE(STATUS "Found target X86_64")
+    SET(ARCH_X86_64 1)
+ENDIF (_machine_x86_64)
+
+STRING(REGEX MATCH "(ppc-*)" _machine_ppc "${MACHINE}")
+IF (_machine_ppc)
+    MESSAGE(STATUS "Found target PPC")
+    SET(ARCH_PPC 1)
+ENDIF (_machine_ppc)
+
+##############################################################################################################
+########## Versioning Setup                                                                         ##########
+
 IF(TAG_VERSION)
   MESSAGE(STATUS "Previously selected version tag: ${TAG_VERSION}")
   SET(WANT_VERSIONING 1)
@@ -93,6 +125,7 @@ IF(WANT_LIB64)
   ENDIF(NOT ARCH_X86_64)
   SET(LIB_SUFFIX "64" CACHE TYPE STRING)
 ENDIF(WANT_LIB64)
+SET(LIB_DIR_NAME "lib${LIB_SUFFIX}")
 SET(LIBDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/")
 ADD_DEFINITIONS("-DLIBDIR=\\\"${CMAKE_INSTALL_PREFIX}/${LIBDIR}\\\"")
 
