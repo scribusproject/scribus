@@ -239,9 +239,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		if (DOC.namedItem("PageSets").isNull())
 		{
 			m_Doc->pageSets[m_Doc->currentPageLayout].FirstPage = fp;
-			m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
-			m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
-			m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
+//			m_Doc->pageSets[m_Doc->currentPageLayout].GapHorizontal = dc.attribute("GapHorizontal", "0").toDouble();
+//			m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
+//			m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
 		}
 		m_Doc->setUsesAutomaticTextFrames(dc.attribute("AUTOTEXT").toInt());
 		m_Doc->PageSp=dc.attribute("AUTOSPALTEN").toInt();
@@ -438,9 +438,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						pageS.FirstPage = PgsAttr.attribute("FirstPage", "0").toInt();
 						pageS.Rows = PgsAttr.attribute("Rows", "1").toInt();
 						pageS.Columns = PgsAttr.attribute("Columns", "1").toInt();
-						pageS.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
-						pageS.GapVertical = PgsAttr.attribute("GapVertical", "0").toDouble();
-						pageS.GapBelow = PgsAttr.attribute("GapBelow", "0").toDouble();
+				//		pageS.GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
+				//		pageS.GapVertical = PgsAttr.attribute("GapVertical", "0").toDouble();
+				//		pageS.GapBelow = PgsAttr.attribute("GapBelow", "0").toDouble();
 						pageS.pageNames.clear();
 						QDomNode PGSN = PGS.firstChild();
 						while(!PGSN.isNull())
@@ -451,6 +451,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 							PGSN = PGSN.nextSibling();
 						}
 						m_Doc->pageSets.append(pageS);
+						if (m_Doc->pageSets.count() == m_Doc->currentPageLayout)
+						{
+							m_Doc->GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
+							m_Doc->GapVertical = PgsAttr.attribute("GapBelow", "0").toDouble();
+						}
 					}
 					PGS = PGS.nextSibling();
 				}
@@ -867,7 +872,14 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				if (pg.tagName()=="MASTEROBJECT")
 					Neu->OwnPage = m_Doc->OnPage(Neu);
 				else
+				{
 					Neu->OwnPage = pg.attribute("OwnPage").toInt();
+	/*				if (Neu->OwnPage != -1)
+					{
+						double pgX = m_Doc->DocPages.at(Neu->OwnPage)->xOffset();
+						double pgY = m_Doc->DocPages.at(Neu->OwnPage)->yOffset();
+					} */
+				}
 				if (pg.tagName()=="PAGEOBJECT")
 					Neu->OnMasterPage = "";
 				m_Doc->GroupCounter = docGc;
@@ -1072,7 +1084,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
 	m_Doc->setMasterPageMode(false);
-	m_Doc->reformPages();
+	m_Doc->setLoading(false);
+	m_Doc->reformPages(true);
+	m_Doc->setLoading(true);
 
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
@@ -1600,9 +1614,9 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
 		pgst.setAttribute("Rows", (*itpgset).Rows);
 		pgst.setAttribute("Columns", (*itpgset).Columns);
-		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
-		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
-		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+//		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
+//		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
+//		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
 		QStringList pNames = (*itpgset).pageNames;
 		QStringList::Iterator itpgsetN;
 		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
