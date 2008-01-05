@@ -2714,7 +2714,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;400%</source>
-        <translation type="unfinished">&amp;400%</translation>
+        <translation>&amp;400%</translation>
     </message>
 </context>
 <context>
@@ -3660,7 +3660,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 ou 13 chiffres avec tirets. L&apos;ancien format ISBN-10 accepte 9 ou 10 caractères, mais a été remplacé depuis le 1er janvier 2007. (Remarque : pour convertir un ancien code ISBN-10 vers le nouveau format ISBN-13, ajoutez 978- devant les 9 premiers caractères, ex : 1-56592-479-7 -&gt; 978-1-56592-479. Le caractère de contrôle final sera calculé automatiquement.)</translation>
     </message>
 </context>
 <context>
@@ -4455,7 +4455,7 @@ Ce nom est réservé aux couleurs transparentes</translation>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;annotation utilise une police non TrueType</translation>
     </message>
 </context>
 <context>
@@ -4942,99 +4942,99 @@ pour la sortie du fichier %1</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal gauche</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal centre</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal droite</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Lundi</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Mardi</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Mercredi</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeudi</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>Vendredi</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Samedi</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimanche</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation>Janvier</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation>Février</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished"></translation>
+        <translation>Mars</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished"></translation>
+        <translation>Avril</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Mai</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>Juin</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>Juillet</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation>Août</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>Septembre</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation>Octobre</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation>Novembre</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished"></translation>
+        <translation>Décembre</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6114,11 +6114,11 @@ failed!</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquez et maintenez pour sélectionner le mode d&apos;interlignage.</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Automatique</translation>
+        <translation>Automatique</translation>
     </message>
 </context>
 <context>
@@ -6660,7 +6660,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les chemins additionnels de polices peuvent uniquement être configurés en l&apos;absence de documents ouverts. Fermez les documents ouverts, puis utilisez Fichier &gt; Préférences &gt; Polices pour modifier le chemin de recherche des polices.</translation>
     </message>
 </context>
 <context>
@@ -6790,7 +6790,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished">Aperçu des polices disponibles</translation>
+        <translation>Aperçu des polices disponibles</translation>
     </message>
 </context>
 <context>
@@ -7878,19 +7878,20 @@ convertissant les données vectorielles en objets Scribus.</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de renommer le gabarit
+</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le gabarit Normal ne peut être renommé.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer le gabarit</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez le nouveau nom :</translation>
     </message>
 </context>
 <context>
@@ -8698,15 +8699,15 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Automatique</translation>
+        <translation>Automatique</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquez et maintenez pour sélectionner le mode d&apos;interlignage.</translation>
     </message>
     <message>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Active ou désactive l&apos;export d&apos;un object</translation>
     </message>
 </context>
 <context>
@@ -8785,7 +8786,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -9147,7 +9148,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source>This file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce fichier contient des fonctionnalités non prises en charge</translation>
     </message>
 </context>
 <context>
@@ -12498,11 +12499,11 @@ Liens externes
     </message>
     <message>
         <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
+        <translation>Allemand (Suisse)</translation>
     </message>
     <message>
         <source>Chinese (Trad.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chinois (Trad.)</translation>
     </message>
     <message>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
@@ -12514,7 +12515,7 @@ Liens externes
     </message>
     <message>
         <source>Insufficient memory for this image size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mémoire insuffisante pour cette taille d&apos;image.</translation>
     </message>
 </context>
 <context>
@@ -13762,7 +13763,8 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre document a été sauvé dans un fichier temporaire mais n&apos;a pu être déplacé:
+%1</translation>
     </message>
 </context>
 <context>
@@ -13861,7 +13863,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Affiche les informations des profiles ICC dans la console lors du démarrage</translation>
     </message>
 </context>
 <context>
@@ -14785,7 +14787,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Table des matières %1</translation>
     </message>
 </context>
 <context>
@@ -15794,11 +15796,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Méthode de compression des images. Automatique permet à Scribus de choisir la compression la mieux appropriée. La compression ZIP est sans perte et adaptée pour les images contenant des importants aplats. La compression JPEG permet de créer de fichier de taille moins importante, une perte de qualité des images est cependant possible. Sélectionnez &quot;Automatique&quot; à moins que vous ne deviez utiliser des options spécifiques.</translation>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niveaux de qualité pour les méthodes de compression avec perte : Minimale (25%), Basse (50%), Moyenne(75%), Haute (85%), Maximale (95%). Le niveau de qualité ne permet pas de déterminer le poids final de l&apos;image - le poids et la perte de qualité varient d&apos;image à image quelque soit le niveau de qualité. La compression JPEG entraîne une réduction de la qualité, y compris lorsque le niveau de qualité maximal est sélectionné.</translation>
     </message>
     <message>
         <source>&amp;Embed All</source>
@@ -15806,7 +15808,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
+        <translation>Polices à vectoriser :</translation>
     </message>
     <message>
         <source>Outline &amp;All</source>
@@ -15818,11 +15820,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
+        <translation>Encapsule les polices dans le fichier PDF. Encapsuler les polices permet de préserver la mise en page et l&apos;apparence de votre document. Certaines polices notamment OpenType peuvent uniquement être incorporées en jeux partiels, les formats PDF antérieurs au PDF 1.6 ne permettant pas l&apos;encapsulation de ce type de polices.</translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-        <translation type="unfinished"></translation>
+        <translation>Encapsule toutes les polices en jeux partiels. L&apos;encapsulation en jeux partiels permet de n&apos;incorporer dans le fichier que les glyphes utilisés. Certaines polices notamment OpenType peuvent uniquement être incorporées en jeux partiels, les formats PDF antérieurs au PDF 1.6 ne permettant pas l&apos;encapsulation de ce type de polices.</translation>
     </message>
 </context>
 <context>
@@ -16141,7 +16143,7 @@ when PDF document is opened:</source>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Aucune</translation>
+        <translation>Aucune</translation>
     </message>
 </context>
 <context>
@@ -16887,48 +16889,49 @@ to %2</source>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentative de récupération des mises à jour disponibles en cours</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Aucune donnée située sur votre ordinateur ne sera envoyée)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le délai de récupération des mises à jour a expiré.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la tentative de récupération des mises à jour : %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier introuvable sur le serveur</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d&apos;ouvrir le fichier: %1
+Erreur : %2 ligne : %3, colonne : %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur est survenue lors de la recherche des mises à jour, veuillez vérifier votre connection internet.</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune mise à jour n&apos;est disponible pour votre version de Scribus %1</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="unfinished"></translation>
+        <translation>Une ou plusieurs mises à jour pour votre version de Scribus (%1) sont disponibles:</translation>
     </message>
     <message>
         <source>This list may contain development versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cette liste peut mentionner des versions de développement.</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez visiter www.scribus.net pour plus d&apos;informations.</translation>
     </message>
 </context>
 <context>
@@ -17090,7 +17093,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Ouvrir</translation>
+        <translation>Ouvrir</translation>
     </message>
 </context>
 <context>
