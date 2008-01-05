@@ -2720,6 +2720,7 @@ void ScribusView::DrawNew()
 	if (m_ScMW->ScriptRunning)
 		return;
 	m_canvas->m_viewMode.forceRedraw = true;
+	m_canvas->resetRenderMode();
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage()->pageNr());
