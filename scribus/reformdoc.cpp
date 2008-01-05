@@ -142,8 +142,8 @@ void ReformDoc::restoreDefaults()
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	tabPage->restoreDefaults(currDoc);
 	tabView->restoreDefaults(prefsData, currDoc->guidesSettings, currDoc->pageSets, currDoc->currentPageLayout, currDoc->scratch);
-	tabView->gapHorizontal->setValue(currDoc->GapHorizontal * unitRatio);
-	tabView->gapVertical->setValue(currDoc->GapVertical * unitRatio);
+	tabView->gapHorizontal->setValue(currDoc->GapHorizontal); // * unitRatio);
+	tabView->gapVertical->setValue(currDoc->GapVertical); // * unitRatio);
 	tabView->setPaperColor(currDoc->papColor);
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);

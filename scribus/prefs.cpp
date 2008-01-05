@@ -201,8 +201,8 @@ void Preferences::setupGui()
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
 	tabView->restoreDefaults(prefsData, prefsData->guidesSettings, prefsData->pageSets, prefsData->FacingPages, prefsData->scratch);
-	tabView->gapHorizontal->setValue(prefsData->GapHorizontal * unitRatio);
-	tabView->gapVertical->setValue(prefsData->GapVertical * unitRatio);
+	tabView->gapHorizontal->setValue(prefsData->GapHorizontal); // * unitRatio);
+	tabView->gapVertical->setValue(prefsData->GapVertical); // * unitRatio);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
 	tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
