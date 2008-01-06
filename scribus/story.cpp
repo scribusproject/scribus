@@ -81,6 +81,23 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 
+class StyledTextMimeData : public QMimeData
+{
+protected:
+	StoryText m_styledText;
+
+public:
+	const StoryText& styledText(void) const { return m_styledText; }
+	void  setStyledText(const StoryText& text)
+	{
+		QByteArray styledTextData (sizeof(void*), 0);
+		m_styledText.clear();
+		m_styledText.insert(0, text, true);
+		styledTextData.setNum((quintptr)((quintptr*) &m_styledText));
+		setData("scribus/se-styled-text", styledTextData);
+	};
+};
+
 SideBar::SideBar(QWidget *pa) : QLabel(pa)
 {
 	QPalette pal;
@@ -204,7 +221,6 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	SelCharStart = 0;
 	SelParaStart = 0;
 	StyledText.clear();
-	cBuffer.clear();
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
 	ClipData = 0;
@@ -286,9 +302,6 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			case Qt::Key_Z:
 				emit SideBarUp(true);
 				return;
-				break;
-			case Qt::Key_C:
-				copyStyledText();
 				break;
 		}
 	}
@@ -449,25 +462,14 @@ void SEditor::insChars(QString t)
 	StyledText.insertChars(pos, t, true);
 }
 
-void SEditor::insStyledText()
+void SEditor::insStyledText(const StoryText& styledText)
 {
-	if (cBuffer.length() == 0)
+	if (styledText.length() == 0)
 		return;
 	if (textCursor().hasSelection())
 		deleteSel();
 	int pos = qMin(textCursor().position(), StyledText.length());
-	StyledText.insert(pos, cBuffer);
-}
-
-void SEditor::copyStyledText()
-{
-	int start = textCursor().selectionStart();
-	int end = textCursor().selectionEnd();
-	if (start < 0 || end <= start)
-		return;
-	StyledText.select(start, end-start);
-	cBuffer.clear();
-	cBuffer.insert(0, StyledText, true);
+	StyledText.insert(pos, styledText);
 }
 
 void SEditor::saveItemText(PageItem *currItem)
@@ -781,12 +783,9 @@ void SEditor::copy()
 	if ((textCursor().hasSelection()) && (!textCursor().selectedText().isEmpty()))
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-//		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
-		copyStyledText();
-		QApplication::clipboard()->setText(tBuffer, QClipboard::Clipboard);
-		ClipData = 1;
+		QMimeData* mimeData = createMimeDataFromSelection();
+		QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-//		connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		emit PasteAvail();
 	}
 	emit SideBarUp(true);
@@ -808,24 +807,27 @@ void SEditor::cut()
 void SEditor::paste()
 {
 	emit SideBarUp(false);
-//	int currentPara, currentCharPos;
 	QString data = "";
 	int newParaCount, lengthLastPara;
 	int advanceLen = 0;
-//	bool inserted=false;
-//	getCursorPosition(&currentPara, &currentCharPos);
 	int pos = textCursor().position();
-	if (ClipData == 1)
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData(QClipboard::Clipboard);
+	if (mimeData->hasFormat("scribus/se-styled-text"))
 	{
-		advanceLen = cBuffer.length();
-		insStyledText();
+		const StyledTextMimeData* styledData = dynamic_cast<const StyledTextMimeData*>(mimeData);
+		if (mimeData)
+		{
+			const StoryText& styledText = styledData->styledText();
+			advanceLen = styledText.length();
+			insStyledText(styledText);
+		}
 	}
 	else
 	{
 //		QString data = QApplication::clipboard()->text(QClipboard::Selection);
 //		if (data.isNull())
 		data = QApplication::clipboard()->text(QClipboard::Clipboard);
-		if (!data.isNull())
+		if (!data.isEmpty())
 		{
 			data.replace(QRegExp("\r"), "");
 			newParaCount=data.count("\n");
@@ -859,6 +861,33 @@ void SEditor::paste()
 	emit SideBarUp(true);
 	emit SideBarUpdate();
 }
+
+bool SEditor::canInsertFromMimeData( const QMimeData * source ) const
+{
+	if (source->hasText() || source->hasFormat("scribus/se-styled-text"))
+		return true;
+	return false;
+}
+
+QMimeData* SEditor::createMimeDataFromSelection () const
+{
+	StyledTextMimeData* mimeData = new StyledTextMimeData();
+	int start = textCursor().selectionStart();
+	int end   = textCursor().selectionEnd();
+	if (start < 0 || end <= start)
+		return mimeData;
+	StoryText* that = const_cast<StoryText*> (&StyledText);
+	that->select(start, end-start);
+	mimeData->setText(textCursor().selectedText());
+	mimeData->setStyledText(*that);
+	return mimeData;
+}
+
+void SEditor::insertFromMimeData ( const QMimeData * source )
+{
+	paste();
+}
+
 /*
 Q_3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 {

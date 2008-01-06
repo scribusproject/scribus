@@ -77,7 +77,6 @@ class StoryEditor;
 class ColorCombo;
 class CharSelect;
 
-
 class SCRIBUS_API SEditor : public QTextEdit
 {
 	Q_OBJECT
@@ -98,8 +97,7 @@ public:
 	void setStyle(int Csty);
 	void setColor(bool marker);
 	void insChars(QString t);
-	void insStyledText();
-	void copyStyledText();
+	void insStyledText(const StoryText& styledText);
 
 	StoryText StyledText;
 	QList<PageItem*> FrameItems;
@@ -131,7 +129,6 @@ public:
 	QString CurrFont;
 	QString unicodeInputString;
 	QString tBuffer;
-	StoryText cBuffer;
 	int ClipData;
 	bool StoredSel;
 	int SelParaStart;
@@ -145,6 +142,9 @@ protected:
 	void focusOutEvent(QFocusEvent *e);
 	void focusInEvent(QFocusEvent *e);
 	void scrollContentsBy(int dx, int dy);
+	virtual bool canInsertFromMimeData( const QMimeData * source ) const;
+	virtual QMimeData * createMimeDataFromSelection () const;
+	virtual void insertFromMimeData ( const QMimeData * source );
 //	Q3PopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
 
