@@ -451,7 +451,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 							PGSN = PGSN.nextSibling();
 						}
 						m_Doc->pageSets.append(pageS);
-						if (m_Doc->pageSets.count() == m_Doc->currentPageLayout)
+						if (m_Doc->pageSets.count()-1 == m_Doc->currentPageLayout)
 						{
 							m_Doc->GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
 							m_Doc->GapVertical = PgsAttr.attribute("GapBelow", "0").toDouble();

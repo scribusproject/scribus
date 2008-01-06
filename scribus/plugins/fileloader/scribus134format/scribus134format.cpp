@@ -462,7 +462,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							PGSN = PGSN.nextSibling();
 						}
 						m_Doc->pageSets.append(pageS);
-						if ((m_Doc->pageSets.count() == m_Doc->currentPageLayout) && ((m_Doc->GapHorizontal < 0) && (m_Doc->GapVertical < 0)))
+						if ((m_Doc->pageSets.count()-1 == m_Doc->currentPageLayout) && ((m_Doc->GapHorizontal < 0) && (m_Doc->GapVertical < 0)))
 						{
 							m_Doc->GapHorizontal = PgsAttr.attribute("GapHorizontal", "0").toDouble();
 							m_Doc->GapVertical = PgsAttr.attribute("GapBelow", "0").toDouble();
