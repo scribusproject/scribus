@@ -727,12 +727,13 @@ int StoryText::nrOfParagraph(uint index) const
 	int result = 0;
 	StoryText* that = const_cast<StoryText *>(this);
 	bool lastWasPARSEP = true;
+	index = qMin(index, (uint) that->length());
 	for (uint i=0; i < index; ++i) {
 		lastWasPARSEP = that->d->at(i)->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;
 	}
-	return result;
+	return lastWasPARSEP ? result : result + 1;
 }
 
 uint StoryText::nrOfParagraphs() const
@@ -745,7 +746,7 @@ uint StoryText::nrOfParagraphs() const
 		if (lastWasPARSEP)
 			++result;
 	}
-	return lastWasPARSEP? result : result + 1;
+	return lastWasPARSEP ? result : result + 1;
 }
 
 int StoryText::startOfParagraph(uint index) const
