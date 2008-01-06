@@ -94,7 +94,7 @@ public:
 		m_styledText.clear();
 		m_styledText.insert(0, text, true);
 		styledTextData.setNum((quintptr)((quintptr*) &m_styledText));
-		setData("scribus/se-styled-text", styledTextData);
+		setData("application/x-scribus-styledtext", styledTextData);
 	};
 };
 
@@ -812,7 +812,7 @@ void SEditor::paste()
 	int advanceLen = 0;
 	int pos = textCursor().position();
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData(QClipboard::Clipboard);
-	if (mimeData->hasFormat("scribus/se-styled-text"))
+	if (mimeData->hasFormat("application/x-scribus-styledtext"))
 	{
 		const StyledTextMimeData* styledData = dynamic_cast<const StyledTextMimeData*>(mimeData);
 		if (mimeData)
@@ -864,7 +864,7 @@ void SEditor::paste()
 
 bool SEditor::canInsertFromMimeData( const QMimeData * source ) const
 {
-	if (source->hasText() || source->hasFormat("scribus/se-styled-text"))
+	if (source->hasText() || source->hasFormat("application/x-scribus-styledtext"))
 		return true;
 	return false;
 }
