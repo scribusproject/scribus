@@ -37,8 +37,8 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 PROJECT(scribus)
 SET (VERSION_MAJOR "1")
 SET (VERSION_MINOR "3")
-SET (VERSION_PATCH "3.10")
-SET (VERSION_SUFFIX "")
+SET (VERSION_PATCH "3.11")
+SET (VERSION_SUFFIX "svn")
 SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX})
 MESSAGE(STATUS "Scribus ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
 
@@ -73,6 +73,11 @@ IF (_machine_ppc)
     MESSAGE(STATUS "Found target PPC")
     SET(ARCH_PPC 1)
 ENDIF (_machine_ppc)
+
+#convert any 64 bit build into generic 64 tag for below
+IF (ARCH_X86_64) 
+  SET(ARCH64BIT 1)
+ENDIF (ARCH_X86_64)
 
 ##############################################################################################################
 ########## Versioning Setup                                                                         ##########
@@ -120,11 +125,30 @@ ADD_DEFINITIONS("-DDESKTOPDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}\\\"")
 #LIB LOCATION - lib or lib64 normally
 #LIB
 IF(WANT_LIB64)
-  IF(NOT ARCH_X86_64)
+  IF(NOT ARCH64BIT)
     MESSAGE(STATUS "WARNING: BUILDING 64 Bit build on non 64 bit architecture")
-  ENDIF(NOT ARCH_X86_64)
+  ENDIF(NOT ARCH64BIT)
   SET(LIB_SUFFIX "64" CACHE TYPE STRING)
 ENDIF(WANT_LIB64)
+#OVERRIDE WANT_LIB64 with WANT_LIB32 if both exist
+IF(WANT_LIB32)
+  IF(ARCH64BIT)
+    MESSAGE(STATUS "WARNING: FORCING 32 Bit build on 64 bit architecture")
+  ENDIF(ARCH64BIT)
+  SET(LIB_SUFFIX "" CACHE TYPE STRING)
+  SET(WANT_LIB64 "")
+ENDIF(WANT_LIB32)
+#Auto build 64 bit if user doesnt force 32 bit and we detect 64 bit
+IF(ARCH64BIT AND NOT LIB_SUFFIX)
+  IF(NOT WANT_LIB32)
+    IF(NOT WANT_LIB64)
+      MESSAGE(STATUS "Autodetected 64 bit architecture, building for 64 Bit")
+      SET(LIB_SUFFIX "64" CACHE TYPE STRING)
+    ENDIF(NOT WANT_LIB64)
+  ENDIF(NOT WANT_LIB32)
+ENDIF(ARCH64BIT AND NOT LIB_SUFFIX)
+
+
 SET(LIB_DIR_NAME "lib${LIB_SUFFIX}")
 SET(LIBDIR "${LIB_DIR_NAME}/${MAIN_DIR_NAME}${TAG_VERSION}/")
 ADD_DEFINITIONS("-DLIBDIR=\\\"${CMAKE_INSTALL_PREFIX}/${LIBDIR}\\\"")
@@ -454,6 +478,6 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}")
   SET(CPACK_SOURCE_GENERATOR TBZ2)
 ## I'll make this prettier later - ignore any tarballs in the root
-  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.3.10svn.tar.bz2 scribus-1.3.3.10svn.tar.Z scribus-1.3.3.10svn.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "^${PROJECT_SOURCE_DIR}.*/autom4te.cache/")
+  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.3.11svn.tar.bz2 scribus-1.3.3.11svn.tar.Z scribus-1.3.3.11svn.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "^${PROJECT_SOURCE_DIR}.*/autom4te.cache/")
   INCLUDE(CPack)
 ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
