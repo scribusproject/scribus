@@ -315,6 +315,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("es_ES").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Josep Febrer</td><td>josep@linuxmail.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("es_LA").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Andre Paulo Machado</td><td>andre@mandriva.com</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("sv").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Göran Bondeson</td><td>goran@bondeson.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
