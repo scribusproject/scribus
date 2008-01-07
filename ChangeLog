@@ -1,6 +1,120 @@
-Changes since 1.2 (all Changes from 1.2 to 1.2.5 at the time of 1.3.3.8 release are included in the 1.3.3.8 Version too)
+Changes since 1.2 (all Changes from 1.2 to 1.2.5 at the time of 1.3.3.8 release were included in the 1.3.3.8 Version too)
 
-
+Scribus - 1.3.3.10svn
+=====================
+- 0006638: [Translation] Updated translation for es_LA (cbradney) - closed.
+- 0006636: [Usability] Reasonable default values for Scribus - 1.3.3.x (plinnell) - closed.
+- 0005460: [Internal] Scribus should save to temporary file and then move atomically to avoid loss of data (jghali) - closed.
+- 0006605: [Plug-ins] Barcode generator does not generate "ISBN" line correctly for 10- to 13-digit conversions (subik) - resolved.
+- 0005460: [Internal] Scribus should save to temporary file and then move atomically to avoid loss of data (jghali) - resolved.
+- 0006166: [Story Editor / Text Frames] Scribus Crashes when Copy-Delete (Shift + Delete) (jghali) - closed.
+- 0006395: [Import / Export] ODG file freezes Scribus (jghali) - closed.
+- 0006315: [PDF] EPS Images shifted in Exported PDF File (jghali) - closed.
+- 0006233: [General] Editing Polygon in Master Pages without "Ending" Editing (fschmid) - closed.
+- 0006500: [General] Printer isn't available in the page properties dialog (cbradney) - closed.
+- 0006446: [Import / Export] Hyphens misplaced in exported pdf document (fschmid) - closed.
+- 0005667: [User Interface] Frame borders are disappearing when using Page-up/down-keys (fschmid) - closed.
+- 0006412: [General] Canvas: Odd behaviour of the magnifyer. (avox) - closed.
+- 0005953: [PDF] Scribus 1.3.4 generates wrong PDF (fschmid) - closed.
+- 0006186: [User Interface] Thumbnails of master pages in the "Arrange Pages" dialog don't work (jghali) - closed.
+- 0006331: [General] Creation of external weblinks no longer works (jghali) - closed.
+- 0005817: [Story Editor / Text Frames] Problems with text flow (jghali) - closed.
+- 0006604: [Story Editor / Text Frames] Crash when deleting multiple empty paragraphs (jghali) - closed.
+- 0005444: [PDF] PDF forms: broken kerning in text fields, list boxes, buttons, etc. (jghali) - closed.
+- 0005444: [PDF] PDF forms: broken kerning in text fields, list boxes, buttons, etc. (jghali) - closed.
+- 0005408: [PDF] Generated PDF-form doesn't show/accept äöüÄÖÜ (fschmid) - closed.
+- 0005408: [PDF] Generated PDF-form doesn't show/accept äöüÄÖÜ (fschmid) - closed.
+- 0003619: [Usability] Anchor points get lost by changing the z-order (cbradney) - closed.
+- 0006598: [General] Order of Abort and Ignore buttons inconsistent (jghali) - closed.
+- 0004016: [General] Crash by editing a linked text frame (avox)
+- 0006585: [Translation] Russian translation update (plinnell)
+- 0006591: [Translation] Polish translation update for 1.3.3.10 (plinnell)
+- 0006586: [Translation] Updated Danish Translation (plinnell)
+- 0003619: [Usability] Anchor points get lost by changing the z-order (cbradney)
+- 0005364: [Story Editor / Text Frames] sample text is invisible when placed in already filled frame (cbradney)
+- 0006580: [Translation] German Translation update for 1.3.3.10 (plinnell)
+- 0005460: [Internal] Scribus should save to temporary file and then move atomically to avoid loss of data (jghali)
+- 0006463: [User Interface] Jump to page: wrong input focus (cbradney)
+- 0003634: [Story Editor / Text Frames] inconsistent text flow arrows (cbradney)
+- 0003352: [Story Editor / Text Frames] Linked frame markers disapper after deleting one frame (cbradney)
+- 0006547: [User Interface] Language configuration error. (jghali)
+- 0006233: [General] Editing Polygon in Master Pages without "Ending" Editing (fschmid)
+- 0006446: [Import / Export] Hyphens misplaced in exported pdf document (fschmid)
+- 0006555: [Translation] Font Preview vs. Fonts Preview (cbradney)
+- 0006504: [Graphics / Image Frames] Crash after deleting an inline object (jghali)
+- 0006537: [Shape Drawing] Allow a page relative mode for the location spinboxes in the node edit palette (fschmid)
+- 0006478: [Translation] "Full stop" is not an American English term (cbradney)
+- 0005514: [User Interface] Broken display of cyrrillic letters in splash screen messages (cbradney)
+- 0006497: [Import / Export] Crash when importing SVG graphics with incorrect viewBox entry. (fschmid)
+- 0006505: [User Interface] Text typed in zoom factor edit box appears in text frame (cbradney)
+- 0006496: [Translation] Chinese(Traditional) Translation Update (plinnell)
+- 0005444: [PDF] PDF forms: broken kerning in text fields, list boxes, buttons, etc. (jghali)
+- 0006500: [General] Printer isn't available in the page properties dialog (cbradney)
+- 0006475: [Translation] Chinese(Traditional) Translation Update (plinnell)
+- 0006367: [Plug-ins] Content of frames positioned incorrectly in SVG Export (jghali)
+- 0006458: [Import / Export] Crashes whilst exporting a JPEG. (jghali)
+- 0006410: [Translation] New Arabic Translation (plinnell)
+- 0006422: [Graphics / Image Frames] Image effects are not copied if the content of an image frame is copied (jghali)
+- 0006195: [Build System] error in "mspinbox.cpp" (cbradney)
+- 0006395: [Import / Export] ODG file freezes Scribus (jghali)
+- 0006331: [General] Creation of external weblinks no longer works (jghali)
+- 0006166: [Story Editor / Text Frames] Scribus Crashes when Copy-Delete (Shift + Delete) (jghali)
+- 0005408: [PDF] Generated PDF-form doesn't show/accept äöüÄÖÜ (fschmid)
+- 0006246: [General] delete a template, it reappears (jghali)
+- 0006322: [Import / Export] SVG exporter doesn't draw text boders (jghali)
+- 0006314: [Translation] Updated Slovenian translation (plinnell)
+- 0006346: [Translation] Swedish translation (cbradney)
+- 0006315: [PDF] EPS Images shifted in Exported PDF File (jghali)
+- 0006322: [Import / Export] SVG exporter doesn't draw text boders (jghali)
+- 0006001: [Translation] Untranslateable string in the tab dialog (cbradney)
+- 0006195: [Build System] error in "mspinbox.cpp" (cbradney)
+- 0006318: [Documentation] Updated german manpage (plinnell)
+- 0006307: [Translation] Spelling fixes for Finnish translation (Version133x) (Tsoots)
+- 0006267: [Usability] Spaces in filenames when exporting one pdf file per page. (jghali)
+- 0005817: [Story Editor / Text Frames] Problems with text flow (jghali)
+- 0006136: [General] Crash when importing OpenOffice text with footnotes (jghali)
+- 0006278: [Color Management] Gamut warning doesn't work for vector objects (jghali)
+- 0006009: [Story Editor / Text Frames] Item on master page is displaced when moving an image on normal page (jghali)
+- 0006246: [General] delete a template, it reappears (jghali)
+- 0006218: [Documentation] No images visible in the help browser (cbradney)
+- 0006138: [Import / Export] Incorrect handling of polylines in OpenOffice Draw document (jghali)
+- 0006157: [User Interface] Clone master page doesn't clone margins (jghali)
+- 0005747: [Website] Scribus file extensions not registered in Microsoft database (plinnell)
+- 0006104: [-] Gradient properties not copied by "Copy Item Properties" tool (jghali)
+- 0005586: [Styles] line style applies only to one member of group of polylines while it is expected to apply to all (jghali)
+- 0005777: [Scripter] allPrinters method only return ['FILE'] printer (jghali)
+- 0005784: [Scripter] print method won't work correctly on windows (jghali)
+- 0003645: [Undo/Redo] Undo in connection with master pages triggers crash (Tsoots)
+- 0005489: [Undo/Redo] Undo-ing 'Adjust frame to Image' doesn't work correctly (jghali)
+- 0005988: [Undo/Redo] Bad undo after redimension (jghali)
+- 0006068: [Translation] Updated Russian translation for 1.3.3.10 (plinnell)
+- 0005701: [Internal] Bug #05696 still present in 1.3.3.10cvs (fschmid)
+- 0006051: [PDF] PDF export does not work correctly when Master Page name contains foreign letters (jghali)
+- 0006042: [General] Loading a second Scribus file fails to find images for image frames (jghali)
+- 0006009: [Story Editor / Text Frames] Item on master page is displaced when moving an image on normal page (jghali)
+- 0005817: [Story Editor / Text Frames] Problems with text flow (jghali)
+- 0005988: [Undo/Redo] Bad undo after redimension (jghali)
+- 0005982: [General] crash on close with file from 5435 (jghali)
+- 0005109: [Import / Export] Crash on getting text from a .odt doc (jghali)
+- 0005945: [-] scribus doesnt find gs 8.57 on one computer but does on another. dropped back to gs 8.56 ok (jghali)
+- 0005837: [Translation] opening and closing preferences changes GUI language (jghali)
+- 0005921: [Translation] mistranslation (plinnell)
+- 0005667: [User Interface] Frame borders are disappearing when using Page-up/down-keys (fschmid)
+- 0003616: [Internal] Submit Code for review at http://scan.coverity.com/ (plinnell)
+- 0005829: [Scripter] Add SK (Slovak) to the calendar wizard (plinnell)
+- 0005653: [Story Editor / Text Frames] Text loses shadow/underline words properties when text frame is duplicated (jghali)
+- 0005692: [General] Objects don't get deleted when the layer they're on is deleted (cbradney)
+- 0005803: [User Interface] 400% zoom not available (jghali)
+- 0005656: [General] Toggle guides crashes Scribus when no document open (jghali)
+- 0005762: [Scripter] Printer object has `print' method that's a reserved keyword in recent Python (jghali)
+- 0005784: [Scripter] print method won't work correctly on windows (jghali)
+- 0005777: [Scripter] allPrinters method only return ['FILE'] printer (jghali)
+- 0005658: [Import / Export] Export to SVG of drawing previously imported as EPS sets wrong color (jghali)
+- 0005707: [Translation] Traditional Chinese Translation Update (plinnell)
+- 0005680: [General] Preview mode crash (plinnell)
+- 0005168: [Scripter] Updated Calendar Wizard (plinnell)
+- 0005700: [Translation] Another serbian translation update (plinnell)
+- 0005701: [-] Bug #05696 still present in 1.3.3.10cvs (fschmid)
 
 
 Scribus - 1.3.3.9cvs
