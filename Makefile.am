@@ -52,7 +52,7 @@ EXTRA_DIST = AUTHORS \
 			 scribus.xml \
 			 scribus.lsm scribus.desktop Scribus.pot \
 			 configure config.h.in configure.in \
-			 configure.in.in configure.in.bot Makefile.cvs \
+			 configure.in.in configure.in.bot Makefile.svn \
 			 stamp-h1 subdirs configure.files \
 			 admin/acinclude.m4.in \
 			 admin/libtool.m4.in admin/Makefile.common \
