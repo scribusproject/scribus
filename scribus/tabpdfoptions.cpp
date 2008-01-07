@@ -650,7 +650,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		EDirection_2_2->setEditable(false);
 		TextLabel6e->setBuddy(EDirection_2_2);
 		EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
-		EonAllPg = new QPushButton( tr( "&Apply Effect on all Pages" ), Effects, "Eon" );
+		EonAllPg = new QPushButton( tr( "&Apply Effect to all Pages" ), Effects, "Eon" );
 		EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
 		tabLayout_5->addMultiCellWidget( Effects, 1, 2, 1, 1 );
 		insertTab( tabPresentation, tr( "E&xtras" ) );
