@@ -34,7 +34,11 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_CAIRO
 #include <cairo.h>
-#include <cairo-xlib.h>
+	#if defined(_WIN32)
+		#include <cairo-win32.h>
+	#else
+		#include <cairo-xlib.h>
+	#endif
 #else
 #include <libart_lgpl/art_vpath.h>
 #include <libart_lgpl/art_bpath.h>
@@ -101,8 +105,17 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	m_zoomFactor = 1;
 	imageMode = false;
 	m_matrix = QWMatrix();
-#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
-#ifdef HAVE_CAIRO
+#if defined(HAVE_CAIRO) && defined(_WIN32)
+	pixm = QPixmap(w, h, 32);
+	cairo_surface_t *img;
+	img = cairo_win32_surface_create(pixm.handle());
+	m_cr = cairo_create(img);
+	clear();
+	cairo_save( m_cr );
+	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	cairo_set_tolerance( m_cr, 0.5 );
+#elif defined(HAVE_CAIRO)
 	pixm = QPixmap(w, h);
 	Display *dpy = pixm.x11AppDisplay();
 	Drawable drw = pixm.handle();
@@ -116,12 +129,11 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 /*	Setting to 0.5 here gives a good tradeoff between speed and precision
 	the former setting of 0.2 is just too precise, and setting it to 0.9 or greater will give bad rendering */
 	cairo_set_tolerance( m_cr, 0.5 );
-#else
+#elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	resize( m_width, m_height );
 	clear();
 	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(), target->x11Screen() ), target->x11Depth() );
 	gc = XCreateGC( target->x11Display(), target->handle(), 0, 0 );
-#endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 	resize( m_width, m_height );
 	clear();
@@ -188,16 +200,14 @@ ScPainter::~ScPainter()
 	if( m_path )
 		art_free( m_path );
 #endif
-#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	cairo_surface_destroy(cairo_get_target(m_cr));
 	cairo_destroy( m_cr );
-#else
+#elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	if (imageMode)
 		return;
 	if( gc )
 		XFreeGC( m_target->x11Display(), gc );
-#endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 	if (imageMode)
 		return;
@@ -233,15 +243,13 @@ void ScPainter::end()
 	}
 	else
 	{
-#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 		cairo_surface_flush(cairo_get_target(m_cr));
 		bitBlt( m_target, m_x, m_y, &pixm, 0, 0, m_width, m_height );
 		cairo_restore( m_cr );
-#else
+#elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 		// Use the original gdk-pixbuf based bitblit on X11
 		xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
-#endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 		// Use Win32 implementation
 		BITMAPINFO bmpInfo;
