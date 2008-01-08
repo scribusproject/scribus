@@ -5418,6 +5418,7 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	pagePalette->rebuildPages();
+	view->DrawNew();
 }
 
 /** Erzeugt eine neue Seite */

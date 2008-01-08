@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 /* IconItems Code */
-SeItem::SeItem(QString text, uint nr, const QPixmap& Pix) : QTableWidgetItem(QIcon(Pix), "")
+SeItem::SeItem(QString text, uint nr, const QPixmap& Pix) : QTableWidgetItem(QIcon(Pix), "", 1002)
 {
 	pageNumber = nr;
 	pageName = text;
@@ -99,6 +99,7 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 			dr->setMimeData(mimeData);
 			dr->setPixmap(loadIcon("doc.png"));
 			dr->exec(Qt::CopyAction | Qt::MoveAction);
+			QApplication::setOverrideCursor(Qt::ArrowCursor);
 		}
 	}
 }
@@ -165,20 +166,25 @@ void SeView::mouseMoveEvent(QMouseEvent* e)
 		if ((a != -1) && (b != -1))
 		{
 			QTableWidgetItem* ite = item(a, b);
-			if (ite == 0)
-				return;
-			SeItem* it = (SeItem*)ite;
-			QString str(it->pageName);
-			bool dummy;
-			int p = GetPage(a, b, &dummy);
-			QString tmp;
-			QMimeData *mimeData = new QMimeData;
-			mimeData->setData("page/magic", "2 "+tmp.setNum(p).toLocal8Bit()+" "+str.toLocal8Bit());
-			mimeData->setText("2 "+tmp.setNum(p)+" "+str);
-			QDrag *dr = new QDrag(this);
-			dr->setMimeData(mimeData);
-			dr->setPixmap(loadIcon("doc.png"));
-			dr->exec(Qt::CopyAction | Qt::MoveAction);
+			if (ite != 0)
+			{
+				if (ite->type() == 1002)
+				{
+					SeItem* it = (SeItem*)ite;
+					QString str(it->pageName);
+					bool dummy;
+					int p = GetPage(a, b, &dummy);
+					QString tmp;
+					QMimeData *mimeData = new QMimeData;
+					mimeData->setData("page/magic", "2 "+tmp.setNum(p).toLocal8Bit()+" "+str.toLocal8Bit());
+					mimeData->setText("2 "+tmp.setNum(p)+" "+str);
+					QDrag *dr = new QDrag(this);
+					dr->setMimeData(mimeData);
+					dr->setPixmap(loadIcon("doc.png"));
+					dr->exec(Qt::CopyAction | Qt::MoveAction);
+					QApplication::setOverrideCursor(Qt::ArrowCursor);
+				}
+			}
 		}
 	}
 	QTableWidget::mouseMoveEvent(e);
@@ -194,6 +200,7 @@ void SeView::dropEvent(QDropEvent * e)
 		e->accept();
 		// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
 		// It's the one and only reason why to include QApplication here.
+		// But sadly this destroys our normal Cursors
 		QApplication::restoreOverrideCursor();
 		str = e->mimeData()->text();
 		ClearPix();
@@ -221,8 +228,11 @@ void SeView::dropEvent(QDropEvent * e)
 					QTableWidgetItem* ite = item(a, b);
 					if (ite == 0)
 						return;
-					SeItem* it = (SeItem*)ite;
-					it->pageName = tmp;
+					if (ite->type() == 1002)
+					{
+						SeItem* it = (SeItem*)ite;
+						it->pageName = tmp;
+					}
 				}
 				return;
 			}
@@ -241,8 +251,11 @@ void SeView::dropEvent(QDropEvent * e)
 					QTableWidgetItem* ite = item(a, b);
 					if (ite == 0)
 						return;
-					SeItem* it = (SeItem*)ite;
-					it->pageName = tmp;
+					if (ite->type() == 1002)
+					{
+						SeItem* it = (SeItem*)ite;
+						it->pageName = tmp;
+					}
 				}
 				return;
 			}
@@ -288,8 +301,11 @@ void SeView::dropEvent(QDropEvent * e)
 					emit UseTemp(tmp, p);
 					if (ite == 0)
 						return;
-					SeItem* it = (SeItem*)ite;
-					it->pageName = tmp;
+					if (ite->type() == 1002)
+					{
+						SeItem* it = (SeItem*)ite;
+						it->pageName = tmp;
+					}
 				}
 				return;
 			}
@@ -726,7 +742,7 @@ void PagePalette::rebuildPages()
 	{
 		for (int cc = 0; cc < pageView->columnCount(); cc++)
 		{
-			QTableWidgetItem *tW = new QTableWidgetItem("");
+			QTableWidgetItem *tW = new QTableWidgetItem(1001);
 			tW->setFlags(Qt::ItemIsEnabled);
 			pageView->setItem(rr, cc, tW);
 		}
