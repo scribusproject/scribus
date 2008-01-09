@@ -16,6 +16,8 @@ extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
 
+class QCString;
+
 class TxtIm 
 {
 public:
@@ -29,7 +31,7 @@ private:
 	gtWriter *writer;
 	bool textOnly;
 	void loadText();
-	void toUnicode();
+	QString toUnicode(const QCString& rawText);
 };
 
 #endif // TXTIM_H

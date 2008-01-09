@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "txtim.h"
 #include "scribusstructs.h"
+#include "util.h"
 
 QString FileFormatName()
 {
@@ -39,7 +40,6 @@ TxtIm::TxtIm(const QString& fname, const QString& enc, bool textO, gtWriter *w)
 	writer = w;
 	textOnly = textO;
 	loadText();
-	toUnicode();
 }
 
 void TxtIm::write()
@@ -49,31 +49,20 @@ void TxtIm::write()
 
 void TxtIm::loadText()
 {
-	text = "";
-	QFile f(filename);
-	QFileInfo fi(f);
-	if (!fi.exists())
-		return;
-	uint posi;
-	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
-	{
-		f.readBlock(bb.data(), f.size());
-		f.close();
-		for (posi = 0; posi < bb.size(); ++posi)
-			text += QChar(bb[posi]);
-	}
+	QCString rawText;
+	if (loadRawText(filename, rawText))
+		text = toUnicode(rawText);
 }
 
-void TxtIm::toUnicode()
+QString TxtIm::toUnicode(const QCString& rawText)
 {
 	QTextCodec *codec;
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);
-	QString dec = codec->toUnicode( text );
-	text = dec;
+	QString unistr = codec->toUnicode( rawText );
+	return unistr;
 }
 
 TxtIm::~TxtIm()
