@@ -733,7 +733,7 @@ int StoryText::nrOfParagraph(uint index) const
 		if (lastWasPARSEP)
 			++result;
 	}
-	return lastWasPARSEP ? result : result + 1;
+	return result;
 }
 
 uint StoryText::nrOfParagraphs() const
