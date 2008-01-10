@@ -1,40 +1,42 @@
 <editorsettings description="LaTeX">
-	<executable command="pdflatex  --interaction nonstopmode" />
+	<executable command="pdflatex --interaction nonstopmode" />
 	<imagefile extension=".pdf"/>
 	<highlighter kate="latex"/>
 	<!-- highlighter file="latex.highlighter" -->
+	<!-- WARNING: If you indent <empty-frame-text> that indention will also be visible in the editor. -->
 	<empty-frame-text>
 		<i18n>
 			<en>
-				\section*{Manual}
-				Your \LaTeX-frames setup is working when you can read this text!\\
-				Placing formulas is very easy:\\
-				Right click $\\Rightarrow$ Edit Latex Source\\
-				And replace this text with your own. Here is an example:
-				\begin{verbatim}
-				\[J = \int r^2 \mathrm{d}m\]
-				\end{verbatim}
-				becomes
-				\[J = \int r^2 \mathrm{d}m\]
+\section*{Manual}
+Your \LaTeX-frames setup is working when you can read this text!\\
+Placing formulas is very easy:\\
+Right click $\Rightarrow$ Edit Latex Source\\
+And replace this text with your own. Here is an example:
+\begin{verbatim}
+\[J = \int r^2 \mathrm{d}m\]
+\end{verbatim}
+becomes
+\[J = \int r^2 \mathrm{d}m\]
 			</en>
 			<de>
-				\section*{Einführung}
-				Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
-				Eigene Formel einzufügen ist sehr einfach:
-				Mit der rechten Maustaste auf diesen Frame klicken $\\Rightarrow$ Latex-Source bearbeiten\\
-				Danach diesen Text durch ihren eigenen ersetzen:\\
-				Ein Beispiel:
-				Aus 
-				\begin{verbatim}
-				\[J = \int r^2 \mathrm{d}m\]
-				\end{verbatim}
-				wird
-				\[J = \int r^2 \mathrm{d}m\]
+\section*{Einführung}
+Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
+Eigene Formel einzufügen ist sehr einfach:
+Mit der rechten Maustaste auf diesen Frame klicken $\Rightarrow$ Latex-Source bearbeiten\\
+Danach diesen Text durch ihren eigenen ersetzen:\\
+Ein Beispiel:
+Aus 
+\begin{verbatim}
+\[J = \int r^2 \mathrm{d}m\]
+\end{verbatim}
+wird
+\[J = \int r^2 \mathrm{d}m\]
 			</de>
 		</i18n>
 	</empty-frame-text>
 	<preamble>
-		\documentclass[a4paper,10pt]{article}
+		\documentclass[a4paper,$scribus_fontsize$]{extarticle}
+		\usepackage{extsizes}
 		\usepackage[utf8]{inputenc}
 		\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}
 		\title{Scribus-Latex-File}
@@ -48,37 +50,48 @@
 		\end{document}
 	</postamble>
 	
-	
 	<tab type="settings">
 		<title><i18n>
-				<en>Fonts/Colors</en>
-				<de>Schriften/Farben</de>
+				<en>Fonts/Headers</en>
+				<de>Schriften/Header</de>
 			</i18n>
 		</title>
-		<comment><i18n><en>Fontlist from http://www.tug.dk/FontCatalogue/anttor/</en>
-				<de>Schriftenliste von http://www.tug.dk/FontCatalogue/anttor/</de>
-			</i18n></comment>
-		<list name="font" default="lmodern">
+		<comment><i18n><en>Fonts only work when installed on your computer!</en><de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de></i18n></comment>
+		<list name="font" default="">
 			<title><i18n>
 					<en>Font:</en>
 					<de>Schrift:</de>
 				</i18n></title>
-			<option value="\usepackage[T1]{fontenc}\usepackage[math]{anttor}">Antykwa Torunska</option>
-			<option value="lmodern">Latin Modern</option>
-			<option value="test2">Testeintrag 2</option>
+			<option value="">Computer Modern</option>
+			<option value="\usepackage{ccfonts}">Concrete</option>
+			<!--<option value="\usepackage{cmbright}">CM Bright</option>-->
+			<option value="\usepackage{helvet}">Helvetica</option>
+			<option value="\usepackage{courier}">Courier</option>
 		</list>
-		<spinbox name="spin" type="int" min="8" max="20" step="1"><i18n>
-				<en>Fontsize</en>
-				<de>Schriftgröße</de>
-			</i18n></spinbox>
-		<color name="fg"><i18n>
+		<list name="fontsize" default="11pt">
+			<title><i18n>
+					<en>Fontsize:</en>
+					<de>Schriftgröße:</de>
+				</i18n></title>
+			<option value="8pt">8pt</option>
+			<option value="9pt">9pt</option>
+			<option value="10pt">10pt</option>
+			<option value="11pt">11pt</option>
+			<option value="12pt">12pt</option>
+			<option value="14pt">14pt</option>
+			<option value="17pt">17pt</option>
+			<option value="20pt">20pt</option>
+		</list>
+		<!--Not working yet! <color name="fg"><i18n>
 				<en>Fontcolor</en>
 				<de>Textfarbe</de>
 			</i18n></color>
 		<color name="bg"><i18n>
-				<en>Backgroudcolor</en>
+				<en>Backgroundcolor</en>
 				<de>Hintergrundfarbe</de>
 			</i18n></color>
+		-->
+		<text name="additionalheaders" type="long" default="">Zusätzliche Header:</text>
 	</tab>
 	<tab type="items">
 		<title><i18n>
@@ -383,8 +396,8 @@
 		<item value="\nleftrightarrow"  image="nleftrightarrow.png" />
 		<item value="\nLeftrightarrow"  image="nLeftrightarrow.png" />
 		<item value="\leadsto"  image="leadsto.png" />
-		<item value="\xleftarrow[xyz]{abc}"  image="xleftarrowxyzabc.png" />
-		<item value="\xrightarrow[xyz]{abc}"  image="xrightarrowxyzabc.png" />
+		<!--<item value="\xleftarrow[xyz]{abc}"  image="xleftarrowxyzabc.png" />
+		<item value="\xrightarrow[xyz]{abc}"  image="xrightarrowxyzabc.png" />-->
 	</tab>
 	<tab type="items">
 		<title><i18n>
@@ -461,14 +474,14 @@
 		<item value="\rceil"  image="rceil.png" />
 		<item value="\langle"  image="langle.png" />
 		<item value="\rangle"  image="rangle.png" />
-		<item value="\overbrace{xyz}"  image="overbracexyz.png" />
+		<!--<item value="\overbrace{xyz}"  image="overbracexyz.png" />
 		<item value="\underbrace{xyz}"  image="underbracexyz.png" />
 		<item value="\overline{xyz}"  image="overlinexyz.png" />
 		<item value="\underline{xyz}"  image="underlinexyz.png" />
 		<item value="\overleftarrow{xyz}"  image="overleftarrowxyz.png" />
 		<item value="\overrightarrow{xyz}"  image="overrightarrowxyz.png" />
 		<item value="\widehat{xyz}"  image="widehatxyz.png" />
-		<item value="\widetilde{xyz}"  image="widetildexyz.png" />
+		<item value="\widetilde{xyz}"  image="widetildexyz.png" />-->
 		<item value="\ulcorner"  image="ulcorner.png" />
 		<item value="\urcorner"  image="urcorner.png" />
 		<item value="\llcorner"  image="llcorner.png" />
@@ -480,9 +493,9 @@
 		<item value="\arrowvert"  image="arrowvert.png" />
 		<item value="\Arrowvert"  image="Arrowvert.png" />
 		<item value="\bracevert"  image="bracevert.png" />
-		<item value="\sqrt{xyz}"  image="sqrtxyz.png" />
+		<!--<item value="\sqrt{xyz}"  image="sqrtxyz.png" />
 		<item value="\sqrt[n]{xyz}"  image="sqrtnxyz.png" />
-		<item value="\frac{a}{b}"  image="fracab.png" />
+		<item value="\frac{a}{b}"  image="fracab.png" />-->
 	</tab>
 	<tab type="items">
 		<title>Greek Alphabet</title>
@@ -527,6 +540,7 @@
 		<item value="\Psi"  image="Psi.png" />
 		<item value="\Omega"  image="Omega.png" />
 	</tab>
+	<!-- TODO: No symbols were generated for these items!
 	<tab type="items">
 		<title>Math alphabets</title>
 		<item value="\mathcal{A}"  image="mathcalA.png" />
@@ -721,41 +735,5 @@
 		<item value="\tilde{a}"  image="tildea.png" />
 		<item value="\acute{a}"  image="acutea.png" />
 		<item value="\grave{a}"  image="gravea.png" />
-	</tab>
-	<!-- Sample tab-->
-	<tab type="settings">
-		<title>
-			<i18n>
-				<!-- The first entry is always the default, so this should be english -->
-				<en>Sample tab</en>
-				<de>Beispielstab</de>
-			</i18n>
-		</title>
-		<!-- if some text shouldn't be translated just don't put it in a i18n tag -->
-		<!-- Comments must not have a "name" parameter! -->
-		<comment>Comments are for displaying some text (This comment is not to be translated!)</comment>
-		<!-- Common parameters for all tags in this group:
-			 name		Name from which this setting will be
-			 referenced in the text (as $scribus_NAME$)
-			 default    Default value
-			 For lists this must match a "value" defined in one of the
-			 options. Not the description text!
-			 -->
-		<font name="example1"><i18n><en>OS-Fonts</en><de>Betriebssystemschriften</de></i18n></font>
-		<list name="example2" default="blubb">
-			<title>List</title>
-			<option value="abc">List item 1</option>
-			<option value="blubb">
-				<i18n><en>List item 2</en><de>Listeneintrag 2</de></i18n></option>
-			<option value="xzy">List item 3</option>
-		</list>
-		
-		<!-- Spin boxes can be of type "int" or "double", "int" is default -->
-		<spinbox name="example3a" type="int" min="5" max="17" step="3">Int Spinbox</spinbox>
-		<spinbox name="example3b" type="double" min="5.2" max="17.3" step="0.3">Double Spinbox</spinbox>
-		<color name="example4">Color chooser</color>
-		<!-- Text boxes can be of type "short" or "long", "short" is default -->
-		<text name="example5a" type="short" default="abc">Short Textfield</text>
-		<text name="example5b" type="long" default="abc">Long Textfield</text>
-	</tab>
+	</tab>-->
 </editorsettings>
