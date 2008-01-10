@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCPAGEOUTPUT_H
 
 #include <QRect>
+#include <QRectF>
 
 #include "scribusapi.h"
 #include "sccolor.h"
@@ -76,7 +77,7 @@ protected:
 	virtual void DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, const QRect& clip );
 
 	virtual void DrawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options );
-	virtual void DrawBoxMarks( ScPainterExBase* painter, const FPoint& topLeft, const FPoint& bottomRight, double offset );
+	virtual void DrawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset );
 	virtual void DrawRegistrationCross( ScPainterExBase* painter );
 
 	ScImage::RequestType translateImageModeToRequest( ScPainterExBase::ImageMode mode);

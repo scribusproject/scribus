@@ -1447,6 +1447,9 @@ void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksO
 	double height = page->height();
 	double offsetX = page->xOffset();
 	double offsetY = page->yOffset();
+	QPointF bleedTopLeft(offsetX - bleedLeft, offsetY - bleedTop);
+	QPointF bleedBottomRight(offsetX + width + bleedRight, offsetY + height + bleedBottom);
+	QRectF  bleedBox(bleedTopLeft, bleedBottomRight);
 	painter->save();
 	painter->setLineWidth(0.5);
 	painter->setPen(ScColorShade(Qt::black, 100), 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
@@ -1455,14 +1458,14 @@ void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksO
 		FPoint start, end;
 		double left = offsetX, right = offsetX + width;
 		double bottom = offsetY + height, top = offsetY;
-		DrawBoxMarks( painter, FPoint(left, top), FPoint(right, bottom), markOffs );
+		DrawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
 	}
 	if (options.bleedMarks)
 	{
 		FPoint start, end;
 		double left = offsetX - bleedLeft, right = offsetX + width + bleedRight;
 		double bottom = offsetY + height + bleedBottom, top = offsetY - bleedTop;;
-		DrawBoxMarks( painter, FPoint(left, top), FPoint(right, bottom), markOffs );
+		DrawBoxMarks( painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs );
 	}
 	if (options.registrationMarks)
 	{
@@ -1544,38 +1547,40 @@ void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksO
 	painter->restore();
 }
 
-void ScPageOutput::DrawBoxMarks( ScPainterExBase* painter, const FPoint& topLeft, const FPoint& bottomRight, double offset )
+void ScPageOutput::DrawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset )
 {
 	FPoint start, end;
-	double left = topLeft.x(), right = bottomRight.x();
-	double bottom = bottomRight.y(), top = topLeft.y();
+	double left   = box.left(), right = box.right();
+	double bottom = box.bottom(), top = box.top();
+	double bleedLeft = bleedBox.left(), bleedRight = bleedBox.right();
+	double bleedBottom = bleedBox.bottom(), bleedTop = bleedBox.top();
 	// Top Left
-	start.setXY( left - offset, top );
-	end.setXY  ( left - offset - 20, top );
+	start.setXY( bleedLeft - offset, top );
+	end.setXY  ( bleedLeft - offset - 20, top );
 	painter->drawLine(start, end);
-	start.setXY( left, top - offset );
-	end.setXY  ( left, top - offset - 20);
+	start.setXY( left, bleedTop - offset );
+	end.setXY  ( left, bleedTop - offset - 20);
 	painter->drawLine(start, end);
 	// Top Right
-	start.setXY( right + offset, top );
-	end.setXY  ( right + offset + 20, top );
+	start.setXY( bleedRight + offset, top );
+	end.setXY  ( bleedRight + offset + 20, top );
 	painter->drawLine(start, end);
-	start.setXY( right, top - offset );
-	end.setXY  ( right, top - offset - 20);
+	start.setXY( right, bleedTop - offset );
+	end.setXY  ( right, bleedTop - offset - 20);
 	painter->drawLine(start, end);
 	// Bottom Left
-	start.setXY( left - offset, bottom );
-	end.setXY  ( left - offset - 20, bottom  );
+	start.setXY( bleedLeft - offset, bottom );
+	end.setXY  ( bleedLeft - offset - 20, bottom  );
 	painter->drawLine(start, end);
-	start.setXY( left, bottom + offset );
-	end.setXY  ( left, bottom + offset + 20);
+	start.setXY( left, bleedBottom + offset );
+	end.setXY  ( left, bleedBottom + offset + 20);
 	painter->drawLine(start, end);
 	// Bottom Right
-	start.setXY( right + offset, bottom );
-	end.setXY  ( right + offset + 20, bottom  );
+	start.setXY( bleedRight + offset, bottom );
+	end.setXY  ( bleedRight + offset + 20, bottom  );
 	painter->drawLine(start, end);
-	start.setXY( right, bottom + offset );
-	end.setXY  ( right, bottom + offset + 20);
+	start.setXY( right, bleedBottom + offset );
+	end.setXY  ( right, bleedBottom + offset + 20);
 	painter->drawLine(start, end);
 }
 
@@ -1624,5 +1629,6 @@ void ScPageOutput::StrokePath( PageItem* item, ScPainterExBase* painter, const Q
 {
 	painter->strokePath();
 }
+
 
 
