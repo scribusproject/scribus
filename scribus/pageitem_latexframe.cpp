@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QImage>
 #include <QPoint>
+#include <QXmlStreamReader>
 
 #include "prefsmanager.h"
 #include "scpainter.h"
@@ -39,6 +40,39 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "filewatcher.h"
 #include "latexeditor.h"
+
+
+
+/* Local helper class */
+class LatexConfigParser
+{
+	public:
+		LatexConfigParser() {};
+		bool parseConfigFile(QString fn);
+		QString executable() const { return m_executable; }
+		QString imageExtension() const { return m_imageExtension; }
+		/** Returns the path to the highlighter definition.
+		 * The different options are handled in this function
+		 * so the caller doesn't have to care about.
+		 */
+		QString highlighter() const; //TODO
+		QString emptyFrameText() const { return m_emptyFrameText; }
+		QString preamble() const { return m_preamble; }
+		QString postamble() const { return m_postamble; }
+		QString description() const { return m_description; }
+		QString error() const { return m_error; }
+		QMap<QString,QString> properties;
+	protected:
+		QString m_error;
+		QString m_description, m_executable, m_imageExtension, m_emptyFrameText,
+   			m_preamble, m_postamble, m_highlight_kate, m_highlight_file;
+		QString filename;
+		QXmlStreamReader xml;
+		void formatError(QString message);
+		void parseElements();
+		void parseTab();
+		void ignoreList();
+};
 
 PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
@@ -51,19 +85,21 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	err = 0;
 	internalEditor = 0;
 	
-	
+	config = new LatexConfigParser();
+	if (!config->parseConfigFile(PrefsManager::instance()->latexEditorConfig())) {
+		QMessageBox::critical(0, tr("Error"), "<qt>" + 
+				tr("Parsing the configfile %1 failed! Depending on the type of the error"
+						"latexframes might not work correctly! %2").arg(
+						PrefsManager::instance()->latexEditorConfig(),
+						config->error())
+						+ "</qt>", 1, 0, 0);
+	}
+	editorProperties = config->properties; //Initialize with default values
 	
 	if (PrefsManager::instance()->latexStartWithEmptyFrames()) {
 		formulaText = "";
 	} else {
-	formulaText = tr(
-		"\\section*{Manual}\n"
-		"Your \\LaTeX-frames setup is working when you can read this text!\\\\\n"
-		"Placing formulas is very easy:\\\\\nRight click $\\Rightarrow$ Edit Latex Source\\\\\n"
-		"And replace this text with your own. Here is an example:\n"
-		"\\begin{verbatim}\\[J = \\int r^2 \\mathrm{d}m\\]\\end{verbatim}\n"
-		"becomes\n"
-		"\\[J = \\int r^2 \\mathrm{d}m\\]\n");
+		formulaText = config->emptyFrameText();
 	}
 	
 	
@@ -132,6 +168,7 @@ PageItem_LatexFrame::~PageItem_LatexFrame()
 	}
 	deleteImageFile();
 	delete latex;
+	delete config;
 }
 
 void PageItem_LatexFrame::clearContents()
@@ -289,7 +326,7 @@ void PageItem_LatexFrame::runApplication()
 		firstWarningTmpfile = true;
 	}
 	
-	QString full_command = PrefsManager::instance()->latexExecutable().replace(
+	QString full_command = config->executable().replace(
 			"%dpi", QString::number(getRealDpi()));
 	
 	if (full_command.isEmpty()) {
@@ -328,7 +365,7 @@ void PageItem_LatexFrame::runApplication()
 	args.removeAt(0);
 	
 	//deleteImageFile();
-	imageFile = tempFileBase + PrefsManager::instance()->latexExtension();
+	imageFile = tempFileBase + config->imageExtension();
 
 	writeFileContents(&tempfile);
 	tempfile.close();
@@ -407,11 +444,12 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 	int lDpi = getRealDpi();
 	static bool firstrun = true;
 	if (firstrun) {
-		//TODO: I don't know why, but the values are wrong the first time
+		//TODO: The values are wrong the first time
 		scaleX = scaleY = 1;
 		offsetX = offsetY = 0;
-		realW = Width;
-		realH = Height;
+		realW = 150; //Arbitrarily chosen
+		realH = 150;
+		firstrun = false;
 	} else {
 		scaleX = LocalScX/72.0*lDpi;
 		scaleY = LocalScY/72.0*lDpi;
@@ -421,7 +459,7 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 		realH = Height/scaleY - LocalY*72.0/lDpi;
 	}
 	if (!tmp.contains("$scribus_noprepost$") && usePreamble) {
-		tmp = PrefsManager::instance()->latexPre() + tmp + PrefsManager::instance()->latexPost();
+		tmp = config->preamble() + tmp + config->postamble();
 	}
 	tmp.replace(QString("$scribus_width$"), QString::number(Width));
 	tmp.replace(QString("$scribus_height$"), QString::number(Height));
@@ -542,25 +580,25 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 	{
 		QMessageBox::critical(0, tr("Error"), "<qt>" +
 							  tr("Running the application \"%1\" failed!").
-							  arg(PrefsManager::instance()->latexExecutable()
+							  arg(config->executable()
 							  )+ "</qt>", 1, 0, 0);
 		firstWarning = false;
 	}
 	else
 	{
-		qDebug() << "LATEX:" << tr("Running the application \"%1\" failed!").arg(PrefsManager::instance()->latexExecutable());
+		qDebug() << "LATEX:" << tr("Running the application \"%1\" failed!").arg(config->executable());
 	}
 }
 
 
 QString PageItem_LatexFrame::getApplication() const
 {
-	return PrefsManager::instance()->latexExecutable();
+	return config->executable();
 }
 
 QString PageItem_LatexFrame::getRealApplication() const
 {
-	return PrefsManager::instance()->latexExecutable();
+	return config->executable();
 }
 
 int PageItem_LatexFrame::getDpi() const
@@ -616,65 +654,6 @@ void PageItem_LatexFrame::setUsePreamble(bool useP)
 	usePreamble = useP;
 }
 
-bool PageItem_LatexFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGroupLayout)
-{
-	QLabel *infoCT = new QLabel(infoGroup);
-	QLabel *commandCT = new QLabel(infoGroup);
-	QLabel *commandT = new QLabel(infoGroup);
-	QLabel *dpiCT = new QLabel(infoGroup);
-	QLabel *dpiT = new QLabel(infoGroup);
-	QLabel *statusT = new QLabel(infoGroup);
-	QLabel *statusCT = new QLabel(infoGroup);
-	
-	infoCT->setText(tr("Latex-Frame"));
-	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignHCenter );
-	
-	commandCT->setText(tr("Command: "));
-	infoGroupLayout->addWidget( commandCT, 1, 0, Qt::AlignRight );
-	commandT->setText(getRealApplication());
-	infoGroupLayout->addWidget( commandT, 1, 1 );
-	
-	dpiCT->setText(tr("DPI: "));
-	infoGroupLayout->addWidget( dpiCT, 2, 0, Qt::AlignRight );
-	dpiT->setText(QString::number(getRealDpi()));
-	infoGroupLayout->addWidget( dpiT, 2, 1 );
-	
-	statusCT->setText(tr("Status: "));
-	infoGroupLayout->addWidget( statusCT, 3, 0, Qt::AlignRight );
-	if (imgValid) {
-		statusT->setText(tr("OK"));
-	} else if (latex->state() != QProcess::NotRunning) {
-		statusT->setText(tr("Running"));
-	} else {
-		statusT->setText(tr("Errorcode ")+QString::number(err));
-	}
-	infoGroupLayout->addWidget( statusT, 3, 1 );
-	return true;
-}
-
-bool PageItem_LatexFrame::createContextMenu(QMenu *menu, int step)
-{
-	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
-	
-	if (menu == 0) {
-		PageItem_ImageFrame::createContextMenu(0, 0);
-		return false;
-	}
-	switch(step) {
-		case 10:
-			menu->addSeparator();
-			if (PicAvail && !isTableItem)
-				menu->addAction(actions["itemAdjustFrameToImage"]);
-			menu->addAction(actions["itemUpdateImage"]);
-			menu->addAction(actions["editEditWithLatexEditor"]);
-			PageItem_ImageFrame::createContextMenu(menu, 11);
-		break;
-		default:
-			return false;
-	}
-	return true;
-}
-
 void PageItem_LatexFrame::layout()
 {
 	qDebug() << "-----------------------------------------------------------";
@@ -684,17 +663,9 @@ void PageItem_LatexFrame::layout()
 }
 
 
-const QString PageItem_LatexFrame::defaultApp = "pdflatex  --interaction nonstopmode";
-const QString PageItem_LatexFrame::defaultPre = 
-		"\\documentclass[a4paper,10pt]{article}\n"
-		"\\usepackage[utf8]{inputenc}\n"
-		"\\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}\n"
-		"\\title{Scribus-Latex-File}\n"
-		"\\author{Scribus}\n"
-		"\\pagestyle{empty}\n"
-		"\\setlength{\\textwidth}{$scribus_realwidth$ pt}\n"
-		"\\begin{document}\n";
-const QString PageItem_LatexFrame::defaultPost = "\\end{document}";
+const QString PageItem_LatexFrame::defaultApp = "Unused now";
+const QString PageItem_LatexFrame::defaultPre = "Unused now";
+const QString PageItem_LatexFrame::defaultPost = "Unused now";
 
 void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 {
@@ -707,5 +678,159 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 
 QString PageItem_LatexFrame::infoDescription()
 {
-	return QString();
+	QString htmlText;
+	htmlText.append("<h2>"+tr("Latex") + "</h2><table>");
+	htmlText.append("<tr><th align=\"right\">" + tr("Application") + ": </th><td>" + getRealApplication());
+	htmlText.append("</td></tr><tr><th align=\"right\">" + tr("DPI") + ": </th><td>" +
+			 QString::number(getRealDpi()));
+	htmlText.append("</td></tr><tr><th align=\"right\">" + tr("State") + ": </th><td>");
+	if (latex->state() == QProcess::NotRunning) {
+		if (getError()) {
+			htmlText.append(tr("Error"));
+		} else {
+			htmlText.append(tr("Finished"));
+		}
+	} else {
+		htmlText.append(tr("Running"));
+	}
+	htmlText.append("</td></tr></table><hr>");
+	htmlText.append(PageItem::infoDescription());
+	return htmlText;
+}
+
+//TODO: Pass this information to LatexEditor, so the second parser can be removed
+bool LatexConfigParser::parseConfigFile(QString fn)
+{
+	m_error = "";
+	filename = fn;
+	QFile f(fn);
+	f.open(QIODevice::ReadOnly);
+	xml.setDevice(&f);
+	
+	while (!xml.atEnd()) {
+		xml.readNext();
+		if (xml.isWhitespace() || xml.isComment() || xml.isStartDocument() || xml.isEndDocument()) continue;
+		if (xml.isStartElement() && xml.name() == "editorsettings") {
+			parseElements();
+		} else {
+			formatError("Unexpected element at root level"+xml.name().toString()+", Token String: "+
+				xml.tokenString());
+		}
+	}
+	if (xml.hasError()) {
+		formatError(xml.errorString());
+	}
+	if (!m_error.isEmpty()) {
+		return false;
+	}
+	return true;
+}
+
+void LatexConfigParser::parseElements()
+{
+	while (!xml.atEnd()) {
+		xml.readNext();
+		if (xml.isEndElement() && xml.name() == "editorsettings") break;
+		if (xml.isWhitespace() || xml.isComment() || xml.isEndElement()) continue;
+		if (!xml.isStartElement()) {
+			formatError("Unexpected element in <editorsettings>"+xml.name().toString()+", Token String: "+
+								 xml.tokenString());
+			continue;
+		}
+	
+		if (xml.name() == "executable") {
+			m_executable = xml.attributes().value("command").toString();
+		} else if (xml.name() == "imagefile") {
+			m_imageExtension = xml.attributes().value("extension").toString();
+		} else if (xml.name() == "highlighter") {
+			m_highlight_kate = xml.attributes().value("kate").toString();
+			m_highlight_file = xml.attributes().value("file").toString();
+		} else if (xml.name() == "empty-frame-text") {
+			m_emptyFrameText = XmlWidget::readI18nText(&xml);
+		} else if (xml.name() == "preamble") {
+			m_preamble = xml.readElementText();
+		} else if (xml.name() == "postamble") {
+			m_postamble = xml.readElementText();
+		} else if (xml.name() == "tab") {
+			parseTab();
+		} else {
+			formatError("Unknown tag in <editorsettings>: "+xml.name().toString());
+		}
+	}
+}
+
+void LatexConfigParser::formatError(QString message)
+{
+	QString new_error = QString::number(xml.lineNumber()) + ":" + 
+			QString::number(xml.columnNumber()) + ":" + message;
+	qDebug() << filename << new_error;
+	m_error += new_error + "\n";
+}
+
+void LatexConfigParser::parseTab()
+{
+	QString type = xml.attributes().value("type").toString();
+	bool itemstab = (type == "items");
+	QString title = "";
+	QString name, text, default_value;
+	
+	while (!xml.atEnd()) {
+		xml.readNext();
+		if (xml.isWhitespace() || xml.isComment()) continue;
+		if (xml.isEndElement() && xml.name() == "tab") break;
+		if (!xml.isStartElement()) {
+			formatError("Unexpected element in <tab>: "+xml.name().toString()+", Token String: "+
+								 xml.tokenString());
+			continue;
+		}
+		if (xml.name() == "title") {
+			if (!title.isEmpty()) {
+				formatError("Second <title> tag in <tab>");
+			}
+			title = XmlWidget::readI18nText(&xml);
+		} else if (xml.name() == "item") {
+			if (!itemstab) {
+				formatError("Found <item> in a 'settings'-tab!");
+			}
+			QString value = xml.attributes().value("value").toString();
+			QString img = xml.attributes().value("image").toString();
+			text = XmlWidget::readI18nText(&xml);
+			//qDebug() << "For future use: <item>" << value << img << text;
+		} else if (xml.name() == "comment" || xml.name() == "font" 
+			|| xml.name() == "spinbox" || xml.name() == "color" 
+			|| xml.name() == "text" || xml.name() == "list") {
+			//TODO: Store this + attributes in a list
+			QString tagname = xml.name().toString();
+			name = xml.attributes().value("name").toString();
+			default_value = xml.attributes().value("default").toString();
+			if (xml.name() != "list") {
+				text = XmlWidget::readI18nText(&xml);
+			} else {
+				ignoreList();
+			}
+			if (!name.isEmpty()) {
+				if (properties.contains(name)) {
+					formatError("Redeclared setting with name: " + name);
+				} else {
+					properties.insert(name, default_value);
+				}
+			}
+			qDebug() << "For future use:" << tagname << name << text << default_value;
+		} else {
+			formatError("Unexpected element in <tab>: " + xml.name().toString());
+		}
+	}
+	
+	if (title.isEmpty()) {
+		formatError("Tab ended here, but no title was found!");
+	}
+}
+
+void LatexConfigParser::ignoreList()
+{
+	//TODO: Quick hack to avoid real parsing
+	while (!xml.atEnd()) {
+		xml.readNext();
+		if (xml.isEndElement() && xml.name() == "list") break;
+	}
 }

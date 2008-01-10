@@ -35,6 +35,7 @@ copyright            : Scribus Team
 class FileWatcher;
 class QTemporaryFile;
 class LatexEditor;
+class LatexConfigParser;
 class QTimer;
 
 class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
@@ -80,8 +81,8 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		static const QString defaultPre;
 		static const QString defaultPost;
 		
-		virtual bool createInfoGroup(QFrame *, QGridLayout *);
-		virtual bool createContextMenu(QMenu *, int);
+		/*virtual bool createInfoGroup(QFrame *, QGridLayout *);
+		virtual bool createContextMenu(QMenu *, int);*/
 		virtual void applicableActions(QStringList& actionList);
 		virtual QString infoDescription();
 		
@@ -106,6 +107,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		QProcess *latex, *editor;
 		LatexEditor *internalEditor;
 		FileWatcher *fileWatcher;
+		LatexConfigParser *config;
 		bool imgValid;
 		bool usePreamble;
 		

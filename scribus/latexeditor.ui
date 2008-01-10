@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>477</width>
-    <height>388</height>
+    <width>551</width>
+    <height>558</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -14,100 +14,41 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <widget class="QSplitter" name="verticalSplitter" >
+    <widget class="QSplitter" name="splitter" >
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QSplitter" name="HozizontalSplitter" >
-      <property name="orientation" >
-       <enum>Qt::Vertical</enum>
-      </property>
-      <widget class="QWidget" name="layoutWidget" >
-       <layout class="QVBoxLayout" >
-        <item>
-         <widget class="QLabel" name="label_5" >
-          <property name="text" >
-           <string>Enter Code:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTextEdit" name="sourceTextEdit" />
-        </item>
-        <item>
-         <layout class="QHBoxLayout" >
-          <item>
-           <widget class="QPushButton" name="updatePushButton" >
-            <property name="text" >
-             <string>Update</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="revertPushButton" >
-            <property name="text" >
-             <string>Revert</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="layoutWidget2" >
-       <layout class="QVBoxLayout" >
-        <item>
-         <widget class="QLabel" name="label_7" >
-          <property name="text" >
-           <string>Program Messages:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTextEdit" name="messagesTextEdit" >
-          <property name="enabled" >
-           <bool>true</bool>
-          </property>
-          <property name="undoRedoEnabled" >
-           <bool>false</bool>
-          </property>
-          <property name="lineWrapMode" >
-           <enum>QTextEdit::NoWrap</enum>
-          </property>
-          <property name="readOnly" >
-           <bool>true</bool>
-          </property>
-          <property name="html" >
-           <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>&lt;/body>&lt;/html></string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" >
-          <item>
-           <widget class="QLabel" name="statusLabel" >
-            <property name="text" >
-             <string>Status: Unknown</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="killPushButton" >
-            <property name="enabled" >
-             <bool>false</bool>
-            </property>
-            <property name="text" >
-             <string>Kill Program</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
+     <widget class="QWidget" name="layoutWidget" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QLabel" name="label_5" >
+         <property name="text" >
+          <string>Enter Code:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="sourceTextEdit" />
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QPushButton" name="updatePushButton" >
+           <property name="text" >
+            <string>Update</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="revertPushButton" >
+           <property name="text" >
+            <string>Revert</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
      <widget class="QTabWidget" name="tabWidget" >
       <property name="currentIndex" >
@@ -146,26 +87,6 @@ p, li { white-space: pre-wrap; }
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" >
-          <item>
-           <widget class="QLabel" name="label_2" >
-            <property name="text" >
-             <string>Program:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="programComboBox" >
-            <item>
-             <property name="text" >
-              <string>LaTeX</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
          <widget class="QCheckBox" name="preambleCheckBox" >
           <property name="text" >
            <string>Use Preamble</string>
@@ -180,17 +101,43 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Vertical</enum>
+         <widget class="QLabel" name="label_7" >
+          <property name="text" >
+           <string>Program Messages:</string>
           </property>
-          <property name="sizeHint" >
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="messagesTextEdit" >
+          <property name="enabled" >
+           <bool>true</bool>
           </property>
-         </spacer>
+          <property name="undoRedoEnabled" >
+           <bool>false</bool>
+          </property>
+          <property name="lineWrapMode" >
+           <enum>QTextEdit::NoWrap</enum>
+          </property>
+          <property name="readOnly" >
+           <bool>true</bool>
+          </property>
+          <property name="html" >
+           <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>&lt;/body>&lt;/html></string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="killPushButton" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="text" >
+           <string>Kill Program</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -198,14 +145,38 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QLabel" name="statusLabel" >
+       <property name="text" >
+        <string>Status: Unknown</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons" >
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -216,7 +187,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>buttonBox</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>dpiSpinBox</tabstop>
-  <tabstop>programComboBox</tabstop>
   <tabstop>updateAppSettingsPushButton</tabstop>
   <tabstop>messagesTextEdit</tabstop>
   <tabstop>killPushButton</tabstop>

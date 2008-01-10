@@ -87,9 +87,10 @@ void LatexEditor::initialize()
 	preambleCheckBox->setChecked(frame->getUsePreamble());
 	dpiSpinBox->setValue(frame->getDpi());
 	stateChanged(frame->getState());
+	messagesTextEdit->setPlainText(frame->getOutput());
 }
 
-void LatexEditor::apply()
+void LatexEditor::apply(bool force)
 {
 	bool changed = false;
 	
@@ -108,7 +109,7 @@ void LatexEditor::apply()
 	}
 	
 	
-	if (frame->setFormula(sourceTextEdit->toPlainText()) || changed) {
+	if (frame->setFormula(sourceTextEdit->toPlainText()) || changed || force) {
 		frame->rerunApplication(true);
 	}
 }
@@ -137,7 +138,7 @@ void LatexEditor::revertClicked(bool unused)
 
 void LatexEditor::updateClicked(bool unused)
 {
-	apply();
+	apply(true);
 }
 
 void LatexEditor::latexFinished()
@@ -155,7 +156,7 @@ void LatexEditor::stateChanged(QProcess::ProcessState state)
 		if (frame->getError()) {
 			text += tr("Error");
 		} else {
-			text += tr("Finished!");
+			text += tr("Finished");
 		}
 	} else {
 		text += tr("Running");
@@ -254,6 +255,7 @@ void LatexEditor::createNewSettingsTab(QXmlStreamReader *xml)
 		if (tagname == "comment") {
 			QLabel *label = new QLabel(XmlWidget::readI18nText(xml));
 			int row = layout->rowCount();
+			label->setWordWrap(true);
 			layout->addWidget(label, row, 0, 1, 3);
 		} else if (tagname == "title") {
 			title = XmlWidget::readI18nText(xml);
@@ -261,17 +263,21 @@ void LatexEditor::createNewSettingsTab(QXmlStreamReader *xml)
 			XmlWidget *widget = XmlWidget::fromXml(xml);
 			if (dynamic_cast<QWidget *>(widget)) {
 				QLabel *label = new QLabel(widget->description());
+				label->setWordWrap(true);
 				QString name = widget->name();
 				
 				int row = layout->rowCount();
 				layout->addWidget(label, row, 0);
 				layout->addWidget(dynamic_cast<QWidget *>(widget), row, 1);
 			
+				/* Commented out, because it doesn't make much sense. All 
+				   the options should be handled in the preamble. Keeping this
+				   around as a reference for future widgets.
 				StringPushButton *button = new StringPushButton(
 						tr("Insert"), name);
 				connect(button, SIGNAL(clickedWithData(QString)), 
 						this, SLOT(tagButtonClicked(QString)));
-				layout->addWidget(button, row, 2);
+				layout->addWidget(button, row, 2);*/
 			
 				if (widgetMap.contains(name)) {
 					xmlError() << "There is already an widget with name" << 
@@ -497,6 +503,7 @@ class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 		XmlColorPicker(QXmlStreamReader *xml) :  XmlWidget(xml), 
 			QLabel("Colorpickers are not implemented yet!") 
 		{
+			setWordWrap(true);
 			fromString(m_defaultValue);
 		}
 		
@@ -584,7 +591,7 @@ XmlWidget::XmlWidget(QXmlStreamReader *xml, bool readDescription)
 		m_description = readI18nText(xml);
 }
 
-
+//TODO: Which class should this belong to?
 QString XmlWidget::readI18nText(QXmlStreamReader *xml)
 {
 	QString language = PrefsManager::instance()->guiLanguage();

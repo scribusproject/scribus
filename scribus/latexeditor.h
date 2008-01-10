@@ -47,7 +47,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void startEditor();
 		void exitEditor();
 		void revert();
-		void apply();
+		void apply(bool force=false);
 		void initialize();
 	protected:
 		PageItem_LatexFrame *frame;

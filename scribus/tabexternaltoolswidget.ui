@@ -316,6 +316,16 @@
      </property>
      <layout class="QVBoxLayout" >
       <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>NOTE: Most options are disabled now, because they are handled in the config file. They will be removed completely as soon as all code changes are finished.</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" >
         <property name="spacing" >
          <number>6</number>
@@ -334,6 +344,9 @@
         </property>
         <item>
          <widget class="QLabel" name="latexToolLabel" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
           <property name="text" >
            <string>&amp;Name of Executable:</string>
           </property>
@@ -347,6 +360,9 @@
         </item>
         <item>
          <widget class="QLineEdit" name="latexToolLineEdit" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
           <property name="toolTip" >
            <string>&lt;qt>Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt></string>
           </property>
@@ -354,6 +370,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="latexToolChangeButton" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
           <property name="text" >
            <string>&amp;Change...</string>
           </property>
@@ -383,6 +402,9 @@
         </property>
         <item>
          <widget class="QLabel" name="latexExtensionLabel" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
           <property name="text" >
            <string>Output file extension:</string>
           </property>
@@ -392,7 +414,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="latexExtensionLineEdit" />
+         <widget class="QLineEdit" name="latexExtensionLineEdit" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer>
@@ -537,6 +563,9 @@
          <layout class="QVBoxLayout" >
           <item>
            <widget class="QLabel" name="latexPreLabel" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
             <property name="text" >
              <string>Preamble:</string>
             </property>
@@ -547,6 +576,9 @@
           </item>
           <item>
            <widget class="QTextEdit" name="latexPreTextEdit" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
             <property name="acceptRichText" >
              <bool>true</bool>
             </property>
@@ -558,6 +590,9 @@
          <layout class="QVBoxLayout" >
           <item>
            <widget class="QLabel" name="labelLatexPost" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
             <property name="text" >
              <string>End:</string>
             </property>
@@ -567,7 +602,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QTextEdit" name="latexPostTextEdit" />
+           <widget class="QTextEdit" name="latexPostTextEdit" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
