@@ -758,6 +758,20 @@ PyObject *scribus_getlanguage(PyObject* /* self */)
 	return PyString_FromString(ScCore->getGuiLanguage().toUtf8());
 }
 
+/*! 04.01.2007 : Joachim Neu : Moves item selection to front. */
+PyObject *scribus_moveselectiontofront(PyObject*)
+{
+	ScCore->primaryMainWindow()->doc->bringItemSelectionToFront();
+	Py_RETURN_NONE;
+}
+
+/*! 04.01.2007 : Joachim Neu : Moves item selection to back. */
+PyObject *scribus_moveselectiontoback(PyObject*)
+{
+	ScCore->primaryMainWindow()->doc->sendItemSelectionToBack();
+	Py_RETURN_NONE;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */

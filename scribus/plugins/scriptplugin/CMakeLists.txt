@@ -31,6 +31,7 @@ SET(SCRIPTER_PLUGIN_SOURCES
   cmdobj.cpp
   cmdpage.cpp
   cmdsetprop.cpp
+  cmdstyle.cpp
   cmdtext.cpp
   cmdutil.cpp
   guiapp.cpp

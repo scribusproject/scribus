@@ -8,6 +8,43 @@
 
 <dl>
 
+<dt><a name="-createCharStyle"><strong>createCharStyle</strong></a>(...)</dt>
+<dd><code>createCharStyle(...)</code>
+<p>Creates a character style. This function takes the following keyword parameters:
+<ul>
+<li>"name" [required] -> name of the char style to create</li>
+<li>"font" [optional] -> name of the font to use</li>
+<li>fontsize [optional] -> font size to set (double)</li>
+<li>"features" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
+<ul>
+	<li>inherit</li>
+	<li>bold</li>
+	<li>italic</li>
+	<li>underline</li>
+	<li>underlinewords</li>
+	<li>strike</li>
+	<li>superscript</li>
+	<li>subscript</li>
+	<li>outline</li>
+	<li>shadowed</li>
+	<li>allcaps</li>
+	<li>smallcaps</li>
+</ul>
+</li>
+<li>"fillcolor" [optional], "fillshade" [optional] -> specify fill options</li>
+<li>"strokecolor" [optional], "strokeshade" [optional] -> specify stroke options</li>
+<li>baselineoffset [optional] -> offset of the baseline</li>
+<li>shadowxoffset [optional], shadowyoffset [optional] -> offset of the shadow if used</li>
+<li>outlinewidth [optional] -> width of the outline if used</li>
+<li>underlineoffset [optional], underlinewidth [optional] -> underline options if used</li>
+<li>strikethruoffset [optional], strikethruwidth [optional] -> strikethru options if used</li>
+<li>scaleh [optional], scalev [optional] -> scale of the chars</li>
+<li>tracking [optional] -> tracking of the text</li>
+<li>"language" [optional] -> language code</li>
+</ul>
+</p>
+</dd>
+
 <dt><a name="-createBezierLine"><strong>createBezierLine</strong></a>(...)</dt>
 <dd><code>createBezierLine(list, ["name"]) -&gt; string</code>
 <p>Creates a new bezier curve and returns its name. The points for the bezier curve are stored in the list "list" in the following order: [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn] In the points list, x and y mean the x and y coordinates of the point and kx and ky meaning the control point for the curve.  The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
@@ -27,6 +64,39 @@
 <dd><code>createLine(x1, y1, x2, y2, ["name"]) -&gt; string</code>
 <p>Creates a new line from the point(x1, y1) to the point(x2, y2) and returns its name. The coordinates are given in the current measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
 <p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-createParagraphStyle"><strong>createParagraphStyle</strong></a>(...)</dt>
+<dd><code>createParagraphStyle(...)</code>
+<p>Creates a paragraph style. This function takes the following keyword parameters:
+<ul>
+<li>"name" [required] -> specifies the name of the paragraphstyle to create</li>
+<li>linespacingmode [optional] -> specifies the linespacing mode; possible modes are:
+<ul>
+	<li>fixed linespacing: 0</li>
+	<li>automatic linespacing: 1</li>
+	<li>baseline grid linespacing: 2</li>
+</ul>
+</li>
+<li>linespacing [optional] -> specifies the linespacing if using fixed linespacing</li>
+<li>alignment [optional] -> specifies the alignment of the paragraph
+<ul>
+	<li>left: 0</li>
+	<li>center: 1</li>
+	<li>right: 2</li>
+	<li>justify: 3</li>
+	<li>extend: 4</li>
+</ul>
+</li>
+<li>leftmargin [optional], rightmargin [optional] -> specify the margin</li>
+<li>gapbefore [optional], gapafter [optional] -> specify the gaps to the heading and following paragraphs</li>
+<li>firstindent [optional] -> the indent of the first line</li>
+<li>hasdropcap [optional] -> specifies if there are caps (1 = yes, 0 = no)</li>
+<li>dropcaplines [optional] -> height (in lines) of the caps if used</li>
+<li>dropcapoffset [optional] -> offset of the caps if used</li>
+<li>"charstyle" [optional] -> char style to use</li>
+</ul>
+</p>
+</dd>
 
 <dt><a name="-createPathText"><strong>createPathText</strong></a>(...)</dt>
 <dd><code>createPathText(x, y, "textbox", "beziercurve", ["name"]) -&gt; string</code>

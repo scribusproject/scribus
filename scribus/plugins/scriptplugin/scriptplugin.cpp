@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdsetprop.h"
 #include "cmdtext.h"
 #include "cmdutil.h"
+#include "cmdstyle.h"
 #include "customfdialog.h"
 #include "guiapp.h"
 #include "helpbrowser.h"
@@ -293,6 +294,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("createPolyLine"), scribus_polyline, METH_VARARGS, tr(scribus_polyline__doc__)},
 	{const_cast<char*>("createRect"), scribus_newrect, METH_VARARGS, tr(scribus_newrect__doc__)},
 	{const_cast<char*>("createText"), scribus_newtext, METH_VARARGS, tr(scribus_newtext__doc__)},
+	{const_cast<char*>("createParagraphStyle"), (PyCFunction)scribus_createparagraphstyle, METH_KEYWORDS, tr(scribus_createparagraphstyle__doc__)},
+	{const_cast<char*>("createCharStyle"), (PyCFunction)scribus_createcharstyle, METH_KEYWORDS, tr(scribus_createcharstyle__doc__)},
 	{const_cast<char*>("currentPage"), (PyCFunction)scribus_actualpage, METH_NOARGS, tr(scribus_actualpage__doc__)},
 	{const_cast<char*>("defineColor"), scribus_newcolor, METH_VARARGS, tr(scribus_newcolor__doc__)},
 	{const_cast<char*>("deleteColor"), scribus_delcolor, METH_VARARGS, tr(scribus_delcolor__doc__)},
@@ -463,6 +466,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("textOverflows"), (PyCFunction)scribus_istextoverflowing, METH_KEYWORDS, tr(scribus_istextoverflowing__doc__)},
 	{const_cast<char*>("zoomDocument"), scribus_zoomdocument, METH_VARARGS, tr(scribus_zoomdocument__doc__)},
 	{const_cast<char*>("scrollDocument"), scribus_scrolldocument, METH_VARARGS, tr(scribus_scrolldocument__doc__)},
+	{const_cast<char*>("moveSelectionToBack"), (PyCFunction)scribus_moveselectiontoback, METH_NOARGS, tr(scribus_moveselectiontoback__doc__)},
+	{const_cast<char*>("moveSelectionToFront"), (PyCFunction)scribus_moveselectiontofront, METH_NOARGS, tr(scribus_moveselectiontofront__doc__)},
 	// Property magic
 	{const_cast<char*>("getPropertyCType"), (PyCFunction)scribus_propertyctype, METH_KEYWORDS, tr(scribus_propertyctype__doc__)},
 	{const_cast<char*>("getPropertyNames"), (PyCFunction)scribus_getpropertynames, METH_KEYWORDS, tr(scribus_getpropertynames__doc__)},

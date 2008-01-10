@@ -321,5 +321,23 @@ Returns a string with the -lang value.\n\
 /*! Language of the GUI */
 PyObject *scribus_getlanguage(PyObject * /*self*/);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_moveselectiontofront__doc__,
+QT_TR_NOOP("moveSelectionToFront()\n\
+\n\
+Moves current selection to front.\n\
+"));
+/*! 04.01.2007 : Joachim Neu : Moves item selection to front. */
+PyObject *scribus_moveselectiontofront(PyObject*);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_moveselectiontoback__doc__,
+QT_TR_NOOP("moveSelectionToFront()\n\
+\n\
+Moves current selection to back.\n\
+"));
+/*! 04.01.2007 : Joachim Neu : Moves item selection to back. */
+PyObject *scribus_moveselectiontoback(PyObject*);
+
 #endif
 
