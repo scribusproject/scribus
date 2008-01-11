@@ -433,7 +433,8 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 	gesture->setDelegate(m_canvasMode);
 	m_canvasMode = gesture;
 	m_canvasMode->activate(false);
-	m_canvas->repaint();	
+	if (Doc->appMode != modeEditClip)
+		m_canvas->repaint();
 }
 
 

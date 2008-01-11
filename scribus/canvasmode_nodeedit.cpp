@@ -165,6 +165,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 		m_doc->nodeEdit.SelNode.clear();
 		QRectF Sele = m_rectangleSelect->result(); //QRect(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
 		FPointArray Clip;
+		bool firstPoint = false;
 //	m_canvas->setScale(1.0);
 		if (m_doc->nodeEdit.isContourLine)
 			Clip = currItem->ContourLine;
@@ -178,6 +179,10 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 			FPoint npf2 = np.transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, false);
 			if ((Sele.contains(npf2.x(), npf2.y())) && ((a == 0) || (((a-2) % 4) == 0)))
 			{
+				if (a == 0)
+					firstPoint = true;
+				if ((firstPoint) && (a == Clip.size() - 2) && (!currItem->asPolyLine()))
+					continue;
 				m_doc->nodeEdit.ClRe = a;
 				m_doc->nodeEdit.SelNode.append(a);
 				m_doc->nodeEdit.update(Clip.pointQF(a));
@@ -377,7 +382,7 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 //	double Rxpd = 0;
 //	double Rypd = 0;
 	QPainter p;
-	m_canvas->PaintSizeRect(QRect());
+//	m_canvas->PaintSizeRect(QRect());
 //	FPoint npf, npf2;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -563,7 +568,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		state = m_doc->nodeEdit.finishTransaction1(currItem);
 		xposOrig = currItem->xPos();
 		yposOrig = currItem->yPos();
-		if (m_doc->nodeEdit.hasNodeSelected())
+		if (m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.SelNode.count() == 1))
 		{
 			//FIXME:av
 			FPoint newP = m_canvas->globalToCanvas(m->globalPos());
@@ -1191,7 +1196,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		if (!m_rectangleSelect)
 			m_rectangleSelect = new RectSelect(this);
 		m_rectangleSelect->prepare(m->globalPos());
-		m_view->startGesture(m_rectangleSelect);		
+		m_view->startGesture(m_rectangleSelect);
 	}
 	
 }
@@ -1299,56 +1304,37 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 
 void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 {
-	FPoint npf, npf2;
+	FPoint npf;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && !m_doc->nodeEdit.hasNodeSelected() && (m_doc->nodeEdit.SegP1 == -1) && (m_doc->nodeEdit.SegP2 == -1))
 	{
-		/*
-		npf = m_canvas->globalToCanvas(m->globalPos());
-		m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->x() - Mxp, m->y() - Myp).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
-		m_view->HaveSelRect = true;
-		SeRx = npf.x();
-		SeRy = npf.y();
-		*/
 		if (!m_rectangleSelect)
 		{
 			m_rectangleSelect = new RectSelect(this);
 		}
 		m_rectangleSelect->prepare(m->globalPos());
-		m_view->startGesture(m_rectangleSelect);		
+		m_view->startGesture(m_rectangleSelect);
 		return;
 	}
 	int newX = m->x();
 	int newY = m->y();
 	FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
+	np = np * (1.0 / m_canvas->scale());
 	m_canvas->m_viewMode.operItemMoving = true;
 	currItem = m_doc->m_Selection->itemAt(0);
-	currItem->OldB2 = currItem->width();
-	currItem->OldH2 = currItem->height();
-	FPointArray Clip;
-	if (m_doc->nodeEdit.isContourLine)
-		Clip = currItem->ContourLine;
-	else
-		Clip = currItem->PoLine;
-	npf.setX(Clip.point(m_doc->nodeEdit.ClRe).x() + np.x() / m_canvas->scale());
-	npf.setY(Clip.point(m_doc->nodeEdit.ClRe).y() + np.y() / m_canvas->scale());
 	if ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1))
 	{
-		npf.setX(Clip.point(m_doc->nodeEdit.SegP2).x() + np.x() / m_canvas->scale());
-		npf.setY(Clip.point(m_doc->nodeEdit.SegP2).y() + np.y() / m_canvas->scale());
+		if (m_doc->nodeEdit.isContourLine)
+			npf = currItem->ContourLine.point(m_doc->nodeEdit.SegP2) + np;
+		else
+			npf = currItem->PoLine.point(m_doc->nodeEdit.SegP2) + np;
 		m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SegP2;
 		m_doc->nodeEdit.moveClipPoint(currItem, npf);
-		currItem->OldB2 = currItem->width();
-		currItem->OldH2 = currItem->height();
 		if (m_doc->nodeEdit.isContourLine)
-			Clip = currItem->ContourLine;
+			npf = currItem->ContourLine.point(m_doc->nodeEdit.SegP1) + np;
 		else
-			Clip = currItem->PoLine;
+			npf = currItem->PoLine.point(m_doc->nodeEdit.SegP1) + np;
 		m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SegP1;
-		npf2.setX(Clip.point(m_doc->nodeEdit.SegP1).x() + np.x() / m_canvas->scale());
-		npf2.setY(Clip.point(m_doc->nodeEdit.SegP1).y() + np.y() / m_canvas->scale());
-		m_doc->nodeEdit.moveClipPoint(currItem, npf2);
+		m_doc->nodeEdit.moveClipPoint(currItem, npf);
 		Mxp = newX;
 		Myp = newY;
 	}
@@ -1357,40 +1343,35 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
 		{
 			int storedClRe = m_doc->nodeEdit.ClRe;
-			if (m_doc->nodeEdit.isContourLine)
-				Clip = currItem->ContourLine;
-			else
-				Clip = currItem->PoLine;
 			for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
 			{
-				npf.setX(Clip.point(m_doc->nodeEdit.SelNode.at(itm)).x() + np.x() / m_canvas->scale());
-				npf.setY(Clip.point(m_doc->nodeEdit.SelNode.at(itm)).y() + np.y() / m_canvas->scale());
 				m_doc->nodeEdit.ClRe = m_doc->nodeEdit.SelNode.at(itm);
-				currItem->OldB2 = currItem->width();
-				currItem->OldH2 = currItem->height();
-				if (((m_doc->nodeEdit.ClRe != 0) && (m_doc->nodeEdit.SelNode.count() > 1)) || (m_doc->nodeEdit.SelNode.count() == 1))
+				if (m_doc->nodeEdit.isContourLine)
+					npf = currItem->ContourLine.point(m_doc->nodeEdit.ClRe) + np;
+				else
+					npf = currItem->PoLine.point(m_doc->nodeEdit.ClRe) + np;
+				if (m_doc->nodeEdit.SelNode.count() == 1)
 				{
-					if (m_doc->nodeEdit.SelNode.count() == 1)
-					{
-						double nx = npf.x();
-						double ny = npf.y();
-						nx += currItem->xPos();
-						ny += currItem->yPos();
-						if (!m_doc->ApplyGuides(&nx, &ny))
-							npf = m_doc->ApplyGridF(FPoint(nx, ny));
-						else
-							npf = FPoint(nx, ny);
-						npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
-					}
-					m_doc->nodeEdit.moveClipPoint(currItem, npf);
+					double nx = npf.x();
+					double ny = npf.y();
+					nx += currItem->xPos();
+					ny += currItem->yPos();
+					if (!m_doc->ApplyGuides(&nx, &ny))
+						npf = m_doc->ApplyGridF(FPoint(nx, ny));
+					else
+						npf = FPoint(nx, ny);
+					npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
 				}
+				m_doc->nodeEdit.moveClipPoint(currItem, npf);
 			}
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
 			m_doc->nodeEdit.ClRe = storedClRe;
 		}
 		else
 		{
+			if (m_doc->nodeEdit.isContourLine)
+				npf = currItem->ContourLine.point(m_doc->nodeEdit.ClRe) + np;
+			else
+				npf = currItem->PoLine.point(m_doc->nodeEdit.ClRe) + np;
 			double nx = npf.x();
 			double ny = npf.y();
 			nx += currItem->xPos();
@@ -1406,7 +1387,6 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 		Myp = newY;
 	}
 	m_canvas->m_viewMode.operItemMoving = false;
-//	m_view->updateContents();
 	m_doc->regionsChanged()->update(QRectF());
 }
 

@@ -1557,16 +1557,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
-										{
-											if (doc->nodeEdit.isContourLine)
-												np = currItem->ContourLine.point(clRe);
-											else
-												np = currItem->PoLine.point(clRe);
-											doc->nodeEdit.ClRe = clRe;
-											np = np - FPoint(moveBy, 0);
-											doc->nodeEdit.moveClipPoint(currItem, np);
-										}
+										if (doc->nodeEdit.isContourLine)
+											np = currItem->ContourLine.point(clRe);
+										else
+											np = currItem->PoLine.point(clRe);
+										doc->nodeEdit.ClRe = clRe;
+										np = np - FPoint(moveBy, 0);
+										doc->nodeEdit.moveClipPoint(currItem, np);
 									}
 								}
 								doc->nodeEdit.ClRe = storedClRe;
@@ -1623,16 +1620,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
-										{
-											if (doc->nodeEdit.isContourLine)
-												np = currItem->ContourLine.point(clRe);
-											else
-												np = currItem->PoLine.point(clRe);
-											doc->nodeEdit.ClRe = clRe;
-											np = np + FPoint(moveBy, 0);
-											doc->nodeEdit.moveClipPoint(currItem, np);
-										}
+										if (doc->nodeEdit.isContourLine)
+											np = currItem->ContourLine.point(clRe);
+										else
+											np = currItem->PoLine.point(clRe);
+										doc->nodeEdit.ClRe = clRe;
+										np = np + FPoint(moveBy, 0);
+										doc->nodeEdit.moveClipPoint(currItem, np);
 									}
 								}
 								doc->nodeEdit.ClRe = storedClRe;
@@ -1689,16 +1683,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
-										{
-											if (doc->nodeEdit.isContourLine)
-												np = currItem->ContourLine.point(clRe);
-											else
-												np = currItem->PoLine.point(clRe);
-											doc->nodeEdit.ClRe = clRe;
-											np = np - FPoint(0, moveBy);
-											doc->nodeEdit.moveClipPoint(currItem, np);
-										}
+										if (doc->nodeEdit.isContourLine)
+											np = currItem->ContourLine.point(clRe);
+										else
+											np = currItem->PoLine.point(clRe);
+										doc->nodeEdit.ClRe = clRe;
+										np = np - FPoint(0, moveBy);
+										doc->nodeEdit.moveClipPoint(currItem, np);
 									}
 								}
 								doc->nodeEdit.ClRe = storedClRe;
@@ -1755,16 +1746,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									{
 										FPoint np;
 										int clRe = doc->nodeEdit.SelNode.at(itm);
-										if ((clRe != 0) || ((clRe == 0) && (doc->nodeEdit.SelNode.count() == 1)))
-										{
-											if (doc->nodeEdit.isContourLine)
-												np = currItem->ContourLine.point(clRe);
-											else
-												np = currItem->PoLine.point(clRe);
-											doc->nodeEdit.ClRe = clRe;
-											np = np - FPoint(0, -moveBy);
-											doc->nodeEdit.moveClipPoint(currItem, np);
-										}
+										if (doc->nodeEdit.isContourLine)
+											np = currItem->ContourLine.point(clRe);
+										else
+											np = currItem->PoLine.point(clRe);
+										doc->nodeEdit.ClRe = clRe;
+										np = np - FPoint(0, -moveBy);
+										doc->nodeEdit.moveClipPoint(currItem, np);
 									}
 								}
 								doc->nodeEdit.ClRe = storedClRe;
