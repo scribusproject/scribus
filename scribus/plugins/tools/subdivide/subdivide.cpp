@@ -112,41 +112,103 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 		{
 			FPointArray points;
 			PageItem *currItem = currDoc->m_Selection->itemAt(aa);
-			uint psize = currItem->PoLine.size();
-			for (uint a = 0; a < psize-3; a += 4)
+			if (currDoc->nodeEdit.isContourLine)
 			{
-				if (currItem->PoLine.point(a).x() > 900000)
+				uint psize = currItem->ContourLine.size();
+				for (uint a = 0; a < psize-3; a += 4)
 				{
-					points.setMarker();
-					continue;
+					if (currItem->ContourLine.point(a).x() > 900000)
+					{
+						points.setMarker();
+						continue;
+					}
+					FPoint base = currItem->ContourLine.point(a);
+					FPoint c1 = currItem->ContourLine.point(a+1);
+					FPoint base2 =  currItem->ContourLine.point(a+2);
+					FPoint c2 = currItem->ContourLine.point(a+3);
+					FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
+					FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
+					FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
+					FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
+					FPoint bp1 = (1.0 - nearT) * cn2 + nearT * cn3;
+					if ((base == c1) && (base2 == c2))
+					{
+						points.addPoint(base);
+						points.addPoint(c1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(base2);
+						points.addPoint(c2);
+					}
+					else
+					{
+						points.addPoint(base);
+						points.addPoint(cn1);
+						points.addPoint(bp1);
+						points.addPoint(cn2);
+						points.addPoint(bp1);
+						points.addPoint(cn3);
+						points.addPoint(base2);
+						points.addPoint(cn4);
+					}
 				}
-				FPoint base = currItem->PoLine.point(a);
-				FPoint c1 = currItem->PoLine.point(a+1);
-				FPoint base2 =  currItem->PoLine.point(a+2);
-				FPoint c2 = currItem->PoLine.point(a+3);
-				FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
-				FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
-				FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
-				FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
-				FPoint bp1 = (1.0 - nearT) * cn2 + nearT * cn3;
-				points.addPoint(base);
-				points.addPoint(cn1);
-				points.addPoint(bp1);
-				points.addPoint(cn2);
-				points.addPoint(bp1);
-				points.addPoint(cn3);
-				points.addPoint(base2);
-				points.addPoint(cn4);
+				currItem->ContourLine = points;
 			}
-			currItem->PoLine = points;
-			currItem->Frame = false;
-			currItem->ClipEdited = true;
-			currItem->FrameType = 3;
-			currDoc->AdjustItemSize(currItem);
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
-			currItem->updateClip();
+			else
+			{
+				uint psize = currItem->PoLine.size();
+				for (uint a = 0; a < psize-3; a += 4)
+				{
+					if (currItem->PoLine.point(a).x() > 900000)
+					{
+						points.setMarker();
+						continue;
+					}
+					FPoint base = currItem->PoLine.point(a);
+					FPoint c1 = currItem->PoLine.point(a+1);
+					FPoint base2 =  currItem->PoLine.point(a+2);
+					FPoint c2 = currItem->PoLine.point(a+3);
+					FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
+					FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
+					FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
+					FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
+					FPoint bp1 = (1.0 - nearT) * cn2 + nearT * cn3;
+					if ((base == c1) && (base2 == c2))
+					{
+						points.addPoint(base);
+						points.addPoint(c1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(base2);
+						points.addPoint(c2);
+					}
+					else
+					{
+						points.addPoint(base);
+						points.addPoint(cn1);
+						points.addPoint(bp1);
+						points.addPoint(cn2);
+						points.addPoint(bp1);
+						points.addPoint(cn3);
+						points.addPoint(base2);
+						points.addPoint(cn4);
+					}
+				}
+				currItem->PoLine = points;
+				currItem->Frame = false;
+				currItem->ClipEdited = true;
+				currItem->FrameType = 3;
+				currDoc->AdjustItemSize(currItem);
+				currItem->OldB2 = currItem->width();
+				currItem->OldH2 = currItem->height();
+				currItem->updateClip();
+			}
 		}
+		currDoc->regionsChanged()->update(QRectF());
 		currDoc->changed();
 	}
 	return true;
