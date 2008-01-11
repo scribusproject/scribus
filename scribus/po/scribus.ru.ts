@@ -6043,7 +6043,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Yellow</source>
-        <translation>Magenta</translation>
+        <translation>Yellow</translation>
     </message>
     <message>
         <source>Black</source>
@@ -9578,19 +9578,19 @@ Corners:</source>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation>Включить/отключить красочную плиту C (Cyan)</translation>
+        <translation>Включить/отключить плашку C (Cyan)</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation>Включить/отключить красочную плиту M (Magenta)</translation>
+        <translation>Включить/отключить плашку M (Magenta)</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation>Включить/отключить красочную плиту Y (Yellow)</translation>
+        <translation>Включить/отключить плашку Y (Yellow)</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation>Включить/отключить красочную плиту K (Black)</translation>
+        <translation>Включить/отключить плашку K (Black)</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -9634,7 +9634,7 @@ Corners:</source>
     </message>
     <message>
         <source>Yellow</source>
-        <translation>Magenta</translation>
+        <translation>Yellow</translation>
     </message>
     <message>
         <source>Black</source>
