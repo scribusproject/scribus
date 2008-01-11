@@ -64,6 +64,7 @@ class SCRIBUS_API PSLib : public QObject
 
 		virtual void PS_Error(const QString& message);
 		virtual void PS_Error_ImageLoadFailure(const QString& fileName);
+		virtual void PS_Error_MaskLoadFailure(const QString& fileName);
 		virtual void PS_Error_InsufficientMemory(void);
 
 		virtual bool PS_set_file(QString fn);

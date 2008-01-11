@@ -66,6 +66,7 @@ private:
 
 	void PDF_Error(const QString& errorMsg);
 	void PDF_Error_ImageLoadFailure(const QString& fileName);
+	void PDF_Error_MaskLoadFailure(const QString& fileName);
 	void PDF_Error_InsufficientMemory(void);
 
 	QByteArray EncodeUTF16(const QString &in);

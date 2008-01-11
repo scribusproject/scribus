@@ -5526,7 +5526,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 							CMSettings cms(ite->doc(), "", 0);
 							img.LoadPicture(ite->Pfile2, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
-							im = img3.getAlpha(ite->Pfile2, true, false);
+							img3.getAlpha(ite->Pfile2, im, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
 							PutDoc("/IX "+QString::number(ObjCounter+IconOb-1)+" 0 R ");
@@ -5536,7 +5536,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 							CMSettings cms(ite->doc(), "", 0);
 							img2.LoadPicture(ite->Pfile3, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
-							im = img3.getAlpha(ite->Pfile3, true, false);
+							img3.getAlpha(ite->Pfile3, im, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
 							PutDoc("/RI "+QString::number(ObjCounter+IconOb-1)+" 0 R ");
@@ -6205,12 +6205,15 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			alphaM = false;
 		else
 		{
-			if (Options.Version >= 14)
-				im2 = img2.getAlpha(fn, true, true, afl, img.width(), img.height());
-			else
-				im2 = img2.getAlpha(fn, true, false, afl, img.width(), img.height());
-			if (!im2.isEmpty())
-				alphaM = true;
+			bool gotAlpha = false;
+			bool pdfVer14 = (Options.Version >= 14) ? true : false;
+			gotAlpha = img2.getAlpha(fn, im2, true, pdfVer14, afl, img.width(), img.height());
+			if (!gotAlpha)
+			{
+				PDF_Error_MaskLoadFailure(fn);
+				return false;
+			}
+			alphaM = !im2.isEmpty();
 		}
 		bool imgE = false;
 		if ((Options.UseRGB) || (Options.isGrayscale))
@@ -6340,13 +6343,15 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
 				im.resize(0);
-				loadRawBytes(fn, im);
+				if (!loadRawBytes(fn, im))
+					return false;
 				cm = 1;
 			}
 			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 			{
 				im.resize(0);
-				loadRawBytes(fn, im);
+				if (!loadRawBytes(fn, im))
+					return false;
 				cm = 1;
 				specialCMYK = true;
 			}
@@ -6368,7 +6373,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						}
 					}
 					im.resize(0);
-					loadRawBytes(tmpFile, im);
+					if (!loadRawBytes(tmpFile, im))
+						return false;
 					cm = 1;
 					QFile::remove(tmpFile);
 				}
@@ -6399,7 +6405,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					if (fi.size() < im.size())
 					{
 						im.resize(0);
-						loadRawBytes(tmpFile, im);
+						if (!loadRawBytes(tmpFile, im))
+							return false;
 						cm = 1;
 					}
 					else
@@ -6408,7 +6415,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				else
 				{
 					im.resize(0);
-					loadRawBytes(tmpFile, im);
+					if (!loadRawBytes(tmpFile, im))
+						return false;
 					cm = 1;
 				}
 				QFile::remove(tmpFile);
@@ -6878,6 +6886,11 @@ void PDFLibCore::PDF_Error(const QString& errorMsg)
 void PDFLibCore::PDF_Error_ImageLoadFailure(const QString& fileName)
 {
 	PDF_Error( tr("Failed to load an image : %1").arg(fileName) );
+}
+
+void PDFLibCore::PDF_Error_MaskLoadFailure(const QString& fileName)
+{
+	PDF_Error( tr("Failed to load an image mask : %1").arg(fileName) );
 }
 
 void PDFLibCore::PDF_Error_InsufficientMemory(void)

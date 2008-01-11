@@ -1695,9 +1695,9 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	return;
 }
 
-QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
+bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
-	QByteArray retArray;
+	bool gotAlpha = false;
 	ScImgDataLoader* pDataLoader = NULL;
 	imgInfo.valid = false;
 	imgInfo.clipPath = "";
@@ -1705,11 +1705,12 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 	imgInfo.layerInfo.clear();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
-		return retArray;
+		return false;
+	alpha.resize(0);
 	QString tmp, BBox, tmp2;
 	QString ext = fi.suffix().toLower();
 	if (extensionIndicatesJPEG(ext))
-		return retArray;
+		return true;
 	if (extensionIndicatesPDF(ext))
 		pDataLoader = new ScImgDataLoader_PDF();
 	else if (extensionIndicatesEPSorPS(ext))
@@ -1745,7 +1746,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 			else
 			{
 				delete pDataLoader;
-				return retArray;
+				return false;
 			}
 		}
 		else
@@ -1753,33 +1754,36 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 		if (rImage.isNull())
 		{
 			delete pDataLoader;
-			return retArray;
+			return false;
 		}
 		if ((scaleXSize != 0) && (scaleYSize != 0))
 			rImage = rImage.scaled(scaleXSize, scaleYSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-		int i = 0;
+		int i = 0, w2;
 		unsigned char u;
 		int hm = rImage.height();
 		int wm = rImage.width();
-		int w2;
-		QRgb *s;
-		QRgb r;
+		QRgb r, *s;
 		if (pdf14)
 		{
-			retArray.resize(hm * wm);
-			for( int yi=0; yi < hm; ++yi )
+			alpha.resize(hm * wm);
+			if (alpha.size() > 0) // 
 			{
-				s = (QRgb*)(rImage.scanLine( yi ));
-				for( int xi=0; xi < wm; ++xi )
+				for( int yi=0; yi < hm; ++yi )
 				{
-					r = *s++;
-					u=qAlpha(r);
-					retArray[i++] = u;
+					s = (QRgb*)(rImage.scanLine( yi ));
+					for( int xi=0; xi < wm; ++xi )
+					{
+						r = *s++;
+						u = qAlpha(r);
+						alpha[i++] = u;
+					}
 				}
+				gotAlpha = true;
 			}
 		}
 		else
 		{
+			uchar * s;
 			QImage iMask = rImage.createAlphaMask();
 			iMask = iMask.convertToFormat(QImage::Format_Mono);
 			hm = iMask.height();
@@ -1787,22 +1791,25 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 			w2 = wm / 8;
 			if ((wm % 8) != 0)
 				w2++;
-			retArray.resize(hm * w2);
-			uchar * s;
-			for( int yi=0; yi < hm; ++yi )
+			alpha.resize(hm * w2);
+			if (alpha.size() > 0)
 			{
-				s = iMask.scanLine( yi );
-				for( int xi=0; xi < w2; ++xi )
+				for( int yi=0; yi < hm; ++yi )
 				{
-					u = *(s+xi);
-					if(PDF) u = ~u;
-					retArray[i++] = u;
+					s = iMask.scanLine( yi );
+					for( int xi=0; xi < w2; ++xi )
+					{
+						u = *(s+xi);
+						if(PDF) u = ~u;
+						alpha[i++] = u;
+					}
 				}
+				gotAlpha = true;
 			}
 		}
 		delete pDataLoader;
 	}
-	return retArray;
+	return gotAlpha;
 }
 
 void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components)

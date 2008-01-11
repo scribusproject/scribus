@@ -1356,7 +1356,13 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	}
 	PutStream("/"+PSEncode(Name)+"Bild exch def\n");
 	imgArray.resize(0);
-	QByteArray maskArray = image.getAlpha(fn, false, false, 300);
+	QByteArray maskArray;
+	bool alphaLoaded = image.getAlpha(fn, maskArray, false, false, 300);
+	if (!alphaLoaded)
+	{
+		PS_Error_MaskLoadFailure(fn);
+		return false;
+	}
 	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
 	{
 		QByteArray compMask = CompressArray(maskArray);
@@ -1450,13 +1456,18 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		if (c->pixm.imgInfo.type != ImageType7)
-			maskArray = img2.getAlpha(fn, false, false, 300);
+		{
+			bool alphaLoaded = img2.getAlpha(fn, maskArray, false, false, 300);
+			if (!alphaLoaded)
+			{
+				PS_Error_MaskLoadFailure(fn);
+				return false;
+			}
+		}
  		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
  		{
-			if (DoSep)
-				imgArray = image.ImageToCMYK_PS(Plate, true);
-			else
-				imgArray = GraySc ? image.ImageToCMYK_PS( -2, true) : image.ImageToCMYK_PS(-1, true);
+			int plate = DoSep ? Plate : (GraySc ? -2 : -1);
+			imgArray  = image.ImageToCMYK_PS(plate, true);
 			if (imgArray.isNull())
 			{
 				PS_Error_InsufficientMemory();
@@ -1575,10 +1586,8 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			}
 			else
 			{
-				if (DoSep)
-					imgArray = image.ImageToCMYK_PS(Plate, true);
-				else
-					imgArray = GraySc ? image.ImageToCMYK_PS(-2, true) : image.ImageToCMYK_PS(-1, true);
+				int plate = DoSep ? Plate : (GraySc ? -2 : -1);
+				imgArray  = image.ImageToCMYK_PS(plate, true);
 				if (imgArray.isNull())
 				{
 					PS_Error_InsufficientMemory();
@@ -1684,6 +1693,11 @@ void PSLib::PS_Error(const QString& message)
 void PSLib::PS_Error_ImageLoadFailure(const QString& fileName)
 {
 	PS_Error( tr("Failed to load an image : %1").arg(fileName) );
+}
+
+void PSLib::PS_Error_MaskLoadFailure(const QString& fileName)
+{
+	PS_Error( tr("Failed to load an image mask : %1").arg(fileName) );
 }
 
 void PSLib::PS_Error_InsufficientMemory(void)
