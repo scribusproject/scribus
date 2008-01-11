@@ -82,6 +82,7 @@ protected slots:
 	void slotSelect(QTreeWidgetItem* ite, int col);
 protected:
 	void clearPalette();
+	void createContextMenu(PageItem *currItem, double mx, double my);
 	OutlineWidget* reportDisplay;
 	QTreeWidgetItem* freeObjects;
 	QTreeWidgetItem* rootObject;

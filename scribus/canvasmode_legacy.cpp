@@ -4795,5 +4795,4 @@ void LegacyMode::createContextMenu(PageItem* currItem, double mx, double my)
 		cmen->exec(QCursor::pos());
 	m_view->setGlobalUndoMode();
 	delete cmen;
-
 }

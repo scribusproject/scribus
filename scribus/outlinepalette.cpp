@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "actionmanager.h"
 #include "canvasmode.h"
 #include "commonstrings.h"
+#include "contextmenu.h"
 #include "outlinepalette.h"
 #include "page.h"
 #include "propertiespalette.h"
@@ -213,6 +214,22 @@ void OutlinePalette::slotRightClick(QPoint point)
 	if (!ite->isSelected())
 		slotMultiSelect();
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
+	
+	if (item != NULL)
+	{
+		if ((item->type == 0) || (item->type == 2))
+			createContextMenu(NULL, point.x(), point.y());
+		else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+		{
+			PageItem *currItem = item->PageItemObject;
+			if (currItem!=NULL)
+			{
+				currentObject = ite;
+				createContextMenu(currItem, point.x(), point.y());
+			}
+		}
+	}
+	/*
 	if (item != NULL)
 	{
 		if ((item->type == 0) || (item->type == 2))
@@ -634,6 +651,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 			pmenResolution=NULL;
 		}
 	}
+	*/
 }
 
 void OutlinePalette::slotRenameItem()
@@ -1266,4 +1284,19 @@ void OutlinePalette::languageChange()
 void OutlinePalette::clearPalette()
 {
 	reportDisplay->clear();
+}
+
+void OutlinePalette::createContextMenu(PageItem * currItem, double mx, double my)
+{
+	if (m_MainWindow==NULL || currDoc==NULL)
+		return;
+	ContextMenu* cmen=NULL;
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	if(currItem!=NULL)
+		cmen = new ContextMenu(*(currDoc->m_Selection), m_MainWindow, currDoc);
+	else
+		cmen = new ContextMenu(m_MainWindow, currDoc, mx, my);
+	if (cmen)
+		cmen->exec(QCursor::pos());
+	delete cmen;
 }
