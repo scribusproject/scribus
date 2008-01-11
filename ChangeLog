@@ -5,7 +5,6 @@ Scribus - 1.3.3.11svn
 - 0006650: [Build System] Automake build does not install translations correctly (plinnell) - closed.
 - 0006651: [Translation] updated translation for 1.3.3.11 - a major bug fixed (plinnell) - closed.
 - 0006341: [Import / Export] Special characters in plain text files aren't imported correctly (jghali) - closed.
-- 0006617: [Translation] Change text string in PDF export dialog (cbradney) - closed.
 
 
 Scribus - 1.3.3.10
