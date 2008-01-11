@@ -201,6 +201,7 @@ void CreateMode::activate(bool fromGesture)
 				currItem->OldH2 = currItem->height();
 				currItem->updateClip();
 			}
+			currItem->ContourLine = currItem->PoLine.copy();
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			currItem->Sizing = false;
