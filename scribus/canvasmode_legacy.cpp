@@ -1095,7 +1095,9 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					m_doc->adjustCanvas(FPoint(gx,gy), FPoint(gx+gw, gy+gh));
 					QPoint selectionCenter = m_canvas->canvasToLocal(QPointF(gx+gw/2, gy+gh/2));
-					m_view->ensureVisible(selectionCenter.x(), selectionCenter.y(), gw/2 + 5, gh/2 + 5);
+					int localwidth = static_cast<int>(gw * m_canvas->scale());
+					int localheight = static_cast<int>(gh * m_canvas->scale());
+					m_view->ensureVisible(selectionCenter.x(), selectionCenter.y(), localwidth/2 + 20, localheight/2 + 20);
 					m_canvas->repaint();
 				}
 			}

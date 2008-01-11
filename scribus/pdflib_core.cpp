@@ -3910,8 +3910,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 {
 	int savedOwnPage = ite->OwnPage;
 	ite->OwnPage = PNr;
-	if (ite->itemType() == PageItem::TextFrame)
-		ite->asTextFrame()->layout();
+	ite->layout();
 	ite->OwnPage = savedOwnPage;
 	QString tmp("");
 	QString tmp2("");

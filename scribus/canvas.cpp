@@ -72,13 +72,13 @@ FPoint Canvas::localToCanvas(QPoint p) const
 	return FPoint(p.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() , 
 				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
 }
-
+/*
 FPoint Canvas::localToCanvas(QPointF p) const
 {
 	return FPoint(p.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() , 
 				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
 }
-
+*/
 QPoint Canvas::canvasToLocal(FPoint p) const
 {
 	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
@@ -91,6 +91,14 @@ QPoint Canvas::canvasToLocal(QPointF p) const
 				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
 }
 
+QRect Canvas::canvasToLocal(QRectF p) const
+{
+	return 	QRect(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+				  qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
+				  qRound(p.width() * m_viewMode.scale), 
+				  qRound(p.height() * m_viewMode.scale));
+}
+
 QPoint Canvas::canvasToGlobal(FPoint p) const
 {
 	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
@@ -101,28 +109,34 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
 }
 
+QRect Canvas::canvasToGlobal(QRectF p) const
+{
+	return QRect(mapToGlobal(QPoint(0,0) + canvasToLocal(p.topLeft())), 
+				 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)));
+}
+
 FPoint Canvas::globalToCanvas(QPoint p) const
 {
 	return localToCanvas(p - mapToGlobal(QPoint(0,0)));
 }
-
+/*
 FPoint Canvas::globalToCanvas(QPointF p) const
 {
 	return localToCanvas(p - mapToGlobal(QPoint(0, 0)));
 }
-
+*/
 QRectF Canvas::globalToCanvas(QRect p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
 	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
 }
-
+/*
 QRectF Canvas::globalToCanvas(QRectF p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
 	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
 }
-
+*/
 bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
 {
 	QPoint localPoint1 = globalPoint - mapToGlobal(QPoint(0,0));
@@ -1111,8 +1125,8 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						{
 							if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
 							{
-								if ((m_viewMode.forceRedraw) && (currItem->asTextFrame()))
-									currItem->asTextFrame()->invalidateLayout();
+								if (m_viewMode.forceRedraw)
+									currItem->invalidateLayout();
 								currItem->DrawObj(painter, cullingArea);
 							}
 							else 
@@ -1304,8 +1318,8 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 						else
 						{
-							if ((m_viewMode.forceRedraw) && (currItem->asTextFrame()))
-								currItem->asTextFrame()->invalidateLayout();
+							if (m_viewMode.forceRedraw)
+								currItem->invalidateLayout();
 							currItem->DrawObj(painter, cullingArea);
 						}
 //						currItem->Redrawn = true;

@@ -5822,8 +5822,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
-		if (currItem->asTextFrame())
-			currItem->asTextFrame()->invalidateLayout();
+		currItem->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -5878,8 +5877,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
-		if (currItem->asTextFrame())
-			currItem->asTextFrame()->invalidateLayout();
+		currItem->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -5934,8 +5932,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
-		if (currItem->asTextFrame())
-			currItem->asTextFrame()->invalidateLayout();
+		currItem->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -6012,8 +6009,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
-		if (currItem->asTextFrame())
-			currItem->asTextFrame()->invalidateLayout();
+		currItem->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();

@@ -41,13 +41,13 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 	{
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		m_bounds = QRectF(m_canvas->canvasToGlobal(QPointF(gx,gy)), QSizeF(gw * m_canvas->scale(), gh * m_canvas->scale()));
+		m_bounds = QRectF(QPointF(gx,gy), QSizeF(gw, gh));
 		m_rotation = 0.0;
 	}
 	else // we keep m_bounds non-rotated
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		m_bounds = QRectF(m_canvas->canvasToGlobal(currItem->xyPos()), QSizeF(currItem->width() * m_canvas->scale(), currItem->height() * m_canvas->scale()));
+		m_bounds = QRectF(currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height());
 		m_rotation = currItem->rotation();
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
@@ -79,7 +79,7 @@ void ResizeGesture::deactivate(bool flag)
 void ResizeGesture::drawControls(QPainter* p) 
 { 
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
-	QRectF localRect = m_bounds.translated(-m_canvas->mapToGlobal(QPoint(0,0)));
+	QRect localRect = m_canvas->canvasToLocal(m_bounds);
 	p->save();
 	//	p->setPen(QPen(Qt::black, 1, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin));
 	//	p->drawRect(localRect);
@@ -101,11 +101,11 @@ void ResizeGesture::drawControls(QPainter* p)
 	if (m_origBounds != m_bounds)
 	{
 		p->save();
-		p->translate(m_bounds.topLeft() - m_origBounds.topLeft());
+//		p->translate(m_bounds.topLeft() - m_origBounds.topLeft());
 		drawOutline(p, qAbs(m_bounds.width()) / qMax(qAbs(m_origBounds.width()), 1.0), 
-					qAbs(m_bounds.height()) / qMax(qAbs(m_origBounds.height()), 1.0));
-//					double(m_bounds.left() - m_origBounds.left()) / m_canvas->scale(),
-//					double(m_bounds.top() - m_origBounds.top()) / m_canvas->scale());
+					qAbs(m_bounds.height()) / qMax(qAbs(m_origBounds.height()), 1.0),
+					m_bounds.left() - m_origBounds.left(),
+					m_bounds.top() - m_origBounds.top());
 		p->restore();
 	}
 }
@@ -118,15 +118,12 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	if (m_doc->m_Selection->count() != 0)
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		QRectF newBounds = m_canvas->globalToCanvas(m_bounds.normalized());
-		
-		qDebug() << "ResizeGesture::release: new bounds" << newBounds;
+		qDebug() << "ResizeGesture::release: new bounds" << m_bounds;
 		doResize(m->modifiers() & Qt::AltModifier);
 		m_doc->setRedrawBounding(currItem);
 		if (currItem->asImageFrame())
 			currItem->AdjustPictScale();
-		else if (currItem->asTextFrame())
-			currItem->invalidateLayout();
+		currItem->invalidateLayout();
 		currItem->update();
 	}
 	m->accept();
@@ -138,7 +135,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 void ResizeGesture::doResize(bool scaleTextInGroup)
 {
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
-	QRectF newBounds = m_canvas->globalToCanvas(m_bounds.normalized());
+	QRectF newBounds = m_bounds.normalized();
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double gx, gy, gh, gw;
@@ -171,12 +168,18 @@ void ResizeGesture::doResize(bool scaleTextInGroup)
 void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 {
 	adjustBounds(m);
-	if (m_origBounds.width() < 20 || m_origBounds.height() < 20)
+	FPoint where = m_canvas->globalToCanvas(m->globalPos());
+	if (// directly after a create the shape of an item isnt really usable, so we fix here
+		m_origBounds.width() < 20 || m_origBounds.height() < 20 ||
+		// and if we resize outside of the current canvas dimensions, we need to enlarge it
+		where.x() < m_doc->minCanvasCoordinate.x() || where.y() < m_doc->minCanvasCoordinate.y() ||
+		where.x() > m_doc->maxCanvasCoordinate.x() || where.y() > m_doc->maxCanvasCoordinate.y())
 	{
-		// directly after a create the shape of an item isnt really usable, so we fix here
 		doResize(m->modifiers() & Qt::AltModifier);
 	}
 	m->accept();
+	QPoint point = m->globalPos() - m_canvas->mapToGlobal(QPoint(0,0));
+	m_view->ensureVisible(point.x(), point.y(), 20, 20);
 	m_canvas->repaint();
 }
 
@@ -185,7 +188,7 @@ void ResizeGesture::mouseMoveEvent(QMouseEvent *m)
 void ResizeGesture::adjustBounds(QMouseEvent *m)
 {
 	QMatrix rotation;
-	QPoint point = m->globalPos();
+	FPoint docPoint = m_canvas->globalToCanvas(m->globalPos());
 	QPointF oldXY = m_bounds.topLeft();
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
@@ -196,20 +199,19 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		|| m_handle == Canvas::SOUTHWEST || m_handle == Canvas::SOUTHEAST;
 	if (m_rotation == 0 || isCorner)
 	{
-		FPoint docPoint = m_canvas->globalToCanvas(point);
 		FPoint snappedPoint = m_doc->ApplyGridF(docPoint);
 		double x = snappedPoint.x(), y = snappedPoint.y();
 		if (m_doc->ApplyGuides(&x, &y))
 			qDebug() << "guides applied:" << snappedPoint.x() << snappedPoint.y() << "to" << x << y;
 		if (m_handle == Canvas::NORTH || m_handle == Canvas::SOUTH) 
 			// only snap on y-axis
-			point = m_canvas->canvasToGlobal(FPoint(docPoint.x(), y));
+			docPoint = FPoint(docPoint.x(), y);
 		else if (m_handle == Canvas::EAST || m_handle == Canvas::WEST)
 			// only snap on x-axis
-			point = m_canvas->canvasToGlobal(FPoint(x, docPoint.y()));
+			docPoint = FPoint(x, docPoint.y());
 		else 
-			point = m_canvas->canvasToGlobal(FPoint(x,y));
-		qDebug() << "resize snap grid/guides:" << m->globalPos() << "-->" << point;
+			docPoint = FPoint(x,y);
+		qDebug() << "resize snap grid/guides:" << m->globalPos() << "-->" << m_canvas->canvasToGlobal(docPoint);
 	}
 	
 	// un-rotate point
@@ -219,8 +221,10 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		rotation.translate(m_bounds.x(), m_bounds.y());
 		rotation.rotate(m_rotation);
 		rotation.translate(-m_bounds.x(), -m_bounds.y());
-//		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << rotation << ":" << point-m_bounds.topLeft() << "-->" << rotation.map(point)-m_bounds.topLeft();
-		point = rotation.inverted().map(point);
+//		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << rotation << ":" << point-globalBounds.topLeft() << "-->" << rotation.map(point)-globalBounds.topLeft();
+		QPointF qp = QPointF(docPoint.x(), docPoint.y());
+		qp = rotation.inverted().map(qp);
+		docPoint = FPoint(qp.x(), qp.y());
 	}
 	
 	// adjust bounds vertically
@@ -230,13 +234,13 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		case Canvas::NORTH:
 		case Canvas::NORTHEAST:
 //			qDebug() << "ResizeGesture: top to" << point.y();
-			m_bounds.setTop(point.y());
+			m_bounds.setTop(docPoint.y());
 			break;
 		case Canvas::SOUTHWEST:
 		case Canvas::SOUTH:
 		case Canvas::SOUTHEAST:
 //			qDebug() << "ResizeGesture: bottom to" << point.y();
-			m_bounds.setBottom(point.y());
+			m_bounds.setBottom(docPoint.y());
 			break;
 		default:
 			break;
@@ -248,13 +252,13 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		case Canvas::WEST:
 		case Canvas::SOUTHWEST:
 //			qDebug() << "ResizeGesture: left to" << point.x();
-			m_bounds.setLeft(point.x());
+			m_bounds.setLeft(docPoint.x());
 			break;
 		case Canvas::NORTHEAST:
 		case Canvas::EAST:
 		case Canvas::SOUTHEAST:
 //			qDebug() << "ResizeGesture: right to" << point.x();
-			m_bounds.setRight(point.x());
+			m_bounds.setRight(docPoint.x());
 			break;
 		default:
 			break;
@@ -279,7 +283,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 //				qDebug() << "NORTHWEST" << point << m_origBounds.topLeft() << m_origRatio
 //				<< (point.x() - m_origBounds.left() < (point.y()-m_origBounds.top()) * m_origRatio);
 				
-				if (point.x() - m_origBounds.left() < (point.y()-m_origBounds.top()) * m_origRatio)
+				if (docPoint.x() - m_origBounds.left() < (docPoint.y()-m_origBounds.top()) * m_origRatio)
 					m_bounds.setTop(m_bounds.top() - newHeight + m_bounds.height());
 				else
 					m_bounds.setLeft(m_bounds.left() - newWidth + m_bounds.width());
@@ -294,21 +298,21 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 //				qDebug() << "SOUTHWEST" << point << m_origBounds.bottomLeft()  << m_origRatio
 //				<< (point.x() - m_origBounds.left() < (m_origBounds.bottom() - point.y()) * m_origRatio);
 				
-				if (point.x() - m_origBounds.left() < (m_origBounds.bottom() - point.y()) * m_origRatio)
+				if (docPoint.x() - m_origBounds.left() < (m_origBounds.bottom() - docPoint.y()) * m_origRatio)
 					m_bounds.setHeight(newHeight);
 				else
 					m_bounds.setLeft(m_bounds.left() - newWidth + m_bounds.width());
 				break;
 			case Canvas::NORTHEAST:
 				// cf. SOUTHWEST
-				if (point.x() - m_origBounds.left() > (m_origBounds.bottom() - point.y()) * m_origRatio)
+				if (docPoint.x() - m_origBounds.left() > (m_origBounds.bottom() - docPoint.y()) * m_origRatio)
 					m_bounds.setTop(m_bounds.top() - newHeight + m_bounds.height());
 				else
 					m_bounds.setWidth(newWidth);
 				break;
 			case Canvas::SOUTHEAST:
 				// cf. NORTHWEST
-				if (point.x() - m_origBounds.left() > (point.y()-m_origBounds.top()) * m_origRatio)
+				if (docPoint.x() - m_origBounds.left() > (docPoint.y()-m_origBounds.top()) * m_origRatio)
 					m_bounds.setHeight(newHeight);
 				else
 					m_bounds.setWidth(newWidth);

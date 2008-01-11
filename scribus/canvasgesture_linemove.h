@@ -68,6 +68,10 @@ public:
 	virtual void deactivate(bool);
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
+	/**
+		prepares the LineMove for the the current selection. Sets 'haveLineItem'
+		to false if the current selection is not a single lineitem.
+	 */
 	virtual void mousePressEvent(QMouseEvent *m);
 	virtual void drawControls(QPainter*);
 	

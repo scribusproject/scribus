@@ -214,8 +214,8 @@ void LineMove::mousePressEvent(QMouseEvent *m)
 	else
 	{
 		FPoint point = m_canvas->globalToCanvas(m->globalPos());
-		setStartPoint(QPoint(point.x(), point.y()));
-		setEndPoint(QPoint(point.x(), point.y()));
+		setStartPoint(QPointF(point.x(), point.y()));
+		setEndPoint(QPointF(point.x(), point.y()));
 		m_haveLineItem = false;
 	}
 	if (m_haveLineItem)

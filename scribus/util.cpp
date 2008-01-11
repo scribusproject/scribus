@@ -516,10 +516,9 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	for (int azz=0; azz<currentDoc->Items->count(); ++azz)
 	{
 		PageItem *currItem = currentDoc->Items->at(azz);
-		if (currItem->itemType() == PageItem::TextFrame)
-			currItem->asTextFrame()->layout();
-		else if (currItem->itemType() == PageItem::PathText)
-			currItem->DrawObj(painter, rd);
+		currItem->layout();
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->DrawObj(painter, rd); //FIXME: this should be replaced by code in layout()
 	}
 	currentDoc->RePos = false;
 	view->setScale(savScale);

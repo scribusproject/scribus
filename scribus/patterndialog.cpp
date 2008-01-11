@@ -316,10 +316,9 @@ void PatternDialog::loadVectors(QString data)
 				ite->Frame = true;
 				ite->updatePolyClip();
 			}
-			else if (ite->itemType() == PageItem::TextFrame)
+			else
 			{
-				if ( ite->prevInChain() == 0 )
-					ite->asTextFrame()->layout();
+				ite->layout();
 			}
 		}
 		ScPattern pat = ScPattern();
