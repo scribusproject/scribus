@@ -132,7 +132,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 }
 
 
-void ResizeGesture::doResize(bool scaleTextInGroup)
+void ResizeGesture::doResize(bool scaleContent)
 {
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	QRectF newBounds = m_bounds.normalized();
@@ -144,7 +144,7 @@ void ResizeGesture::doResize(bool scaleTextInGroup)
 		double scx = oldBounds.width() == 0? 1.0 : newBounds.width() / oldBounds.width();
 		double scy = oldBounds.height() == 0? 1.0 : newBounds.height() / oldBounds.height();
 		//CB #3012 only scale text in a group if alt is pressed
-		if ((currItem->itemType() == PageItem::TextFrame) && scaleTextInGroup)
+		if ((currItem->itemType() == PageItem::TextFrame) && scaleContent)
 			m_view->scaleGroup(scx, scy, true);
 		else
 			m_view->scaleGroup(scx, scy, false);
@@ -155,6 +155,22 @@ void ResizeGesture::doResize(bool scaleTextInGroup)
 	}
 	else
 	{
+		if ((currItem->itemType() == PageItem::ImageFrame) && scaleContent)
+		{
+			double divX = (currItem->width() != 0) ? currItem->width() : 1.0;
+			double divY = (currItem->height() != 0) ? currItem->height() : 1.0;
+			double imgScX = newBounds.width() / divX * currItem->imageXScale();
+			double imgScY = newBounds.height() / divY * currItem->imageYScale();
+			// The aspect ratio has been fixed, so make the modification in the direction of the larger movement.
+			if (currItem->keepAspectRatio() && currItem->fitImageToFrame()) 
+			{
+				if (qAbs(newBounds.width() - currItem->width()) > qAbs(newBounds.height() - currItem->height()))
+					imgScY = imgScX;
+				else
+					imgScX = imgScY;
+			}
+			currItem->setImageXYScale(imgScX, imgScY);
+		}
 		currItem->setXYPos(newBounds.x(), newBounds.y());
 		currItem->setWidth(newBounds.width());
 		currItem->setHeight(newBounds.height());
