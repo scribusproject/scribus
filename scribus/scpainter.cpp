@@ -162,11 +162,11 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 #ifdef HAVE_CAIRO
 	la.data = cairo_get_group_target(m_cr);
 	cairo_push_group(m_cr);
-	if (clipArray != NULL)
+/*	if (clipArray != NULL)
 	{
 		setupPolygon(clipArray);
 		setClipPath();
-	}
+	} */
 #else
 	la.data = new QImage(m_image->copy());
 	m_image->fill(qRgba(255, 255, 255, 0));
@@ -540,11 +540,11 @@ void ScPainter::endLayer()
 	{
 #ifdef HAVE_CAIRO
 		cairo_pop_group_to_source (m_cr);
-//		if (la.groupClip.size() != 0)
-//		{
-//			setupPolygon(&la.groupClip);
-//			setClipPath();
-//		}
+		if (la.groupClip.size() != 0)
+		{
+			setupPolygon(&la.groupClip);
+			setClipPath();
+		}
 		if (m_blendMode == 0)
 		{
 			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
