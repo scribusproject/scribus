@@ -586,8 +586,8 @@ public:
 	bool keepAspectRatio() const { return AspectRatio; }
 	void setKeepAspectRatio(bool val) { AspectRatio = val; }
 	//
-	bool fitImageToFrame() const { return ScaleType; }
-	void setFitImageToFrame(bool val) { ScaleType = val; }
+	bool fitImageToFrame() const { return !ScaleType; }
+	void setFitImageToFrame(bool val) { ScaleType = !val; }
 	
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
 	double textToFrameDistLeft() const { return Extra; }
