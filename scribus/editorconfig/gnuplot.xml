@@ -1,0 +1,55 @@
+<editorsettings description="Gnuplot">
+	<executable command="gnuplot" />
+	<imagefile extension=".png"/>
+	<!--<highlighter kate="latex"/>-->
+	<empty-frame-text>
+plot sin(x), (cos(x))**2
+	</empty-frame-text>
+	<preamble>
+set terminal png transparent enhanced size $scribus_realwidth_px$,$scribus_realheight_px$
+set output "$scribus_file$.png"
+set xrange [$scribus_xmin$:$scribus_xmax$]
+set yrange [$scribus_ymin$:$scribus_ymax$]
+set title "$scribus_title$"
+set xlabel "$scribus_xlabel$"
+set ylabel "$scribus_ylabel$"
+$scribus_grid$ $scribus_gridlayer$
+$scribus_zeroaxis$
+	</preamble>
+	<postamble></postamble>
+	
+	
+	
+	<tab type="settings">
+		<title><i18n><en>Ranges</en><de>Bereiche</de></i18n></title>
+		<comment><i18n><en>Enter asterisk (*) for autoscale!</en><de>Stern (*) für automatische Skalierung eingeben!</de></i18n></comment>
+		<spinbox name="xmin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*">X Min:</spinbox>
+		<spinbox name="xmax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*">X Max:</spinbox>
+		<spinbox name="ymin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*">Y Min:</spinbox>
+		<spinbox name="ymax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*">Y Max:</spinbox>
+	</tab>
+	<tab type="settings">
+		<title><i18n><en>Labels</en><de>Beschriftungen</de></i18n></title>
+		<text name="title" type="short" default=""><i18n><en>Title:</en><de>Titel:</de></i18n></text>
+		<text name="xlabel" type="short" default="">X-Label:</text>
+		<text name="ylabel" type="short" default="">Y-Label:</text>
+		<list name="grid" default="#">
+			<title>Grid:</title>
+			<option value="#">No Grid</option>
+			<option value="set grid xtics ytics">Major ticks only</option>
+			<option value="set grid xtics ytics mxtics mytics">Major and minor ticks</option>
+		</list>
+		<list name="gridlayer" default="back">
+			<title>Grid layer:</title>
+			<option value="back">Back</option>
+			<option value="front">Front</option>
+		</list>
+		<list name="zeroaxis" default="">
+			<title>Zero axis:</title>
+			<option value="">None</option>
+			<option value="set xzeroaxis">X axis</option>
+			<option value="set yzeroaxis">Y axis</option>
+			<option value="set zeroaxis">Both</option>
+		</list>
+	</tab>
+</editorsettings>
