@@ -1,4 +1,4 @@
-<editorsettings description="LaTeX">
+<editorsettings description="Sample">
 	<executable command="command_to_run" />
 	<imagefile extension=".pdf"/>
 	<highlighter kate="latex"/>
@@ -58,75 +58,7 @@
 		</list>
 		
 		<!-- Spin boxes can be of type "int" or "double", "int" is default -->
-		<spinbox name="example3a" type="int" min="5" max="17" step="3">Int Spinbox</spinbox>
-		<spinbox name="example3b" type="double" min="5.2" max="17.3" step="0.3">Double Spinbox</spinbox>
-		<color name="example4">Color chooser</color>
-		<!-- Text boxes can be of type "short" or "long", "short" is default -->
-		<text name="example5a" type="short" default="abc">Short Textfield</text>
-		<text name="example5b" type="long" default="abc">Long Textfield</text>
-	</tab>
-</editorsettings>
-<editorsettings description="LaTeX">
-	<executable command="command_to_run" />
-	<imagefile extension=".pdf"/>
-	<highlighter kate="latex"/>
-	<!-- Alternativly: highlighter file="latex.highlighter" -->
-	<empty-frame-text>
-		<i18n>
-			<en>
-				English init text
-			</en>
-			<de>
-				German init text
-			</de>
-		</i18n>
-	</empty-frame-text>
-	<preamble>
-		Text before the start of the document
-		Should contain $scribus_XXX$, etc. commands to setup the document with the options defined below. 
-		XXX is the name of the option.
-	</preamble>
-	<postamble>
-		Text after the end of the document
-	</postamble>
-	
-	
-
-	<tab type="items">
-		<title>Test Items</title>
-		<item value="Clicking on the description text of the item inserts the 'value' into the editor"><i18n><en>Item with text</en><de>Item mit Text</de></i18n></item>
-		<item value="A Item with an image"  image="image.png" />
-	</tab>
-	<!-- Sample tab-->
-	<tab type="settings">
-		<title>
-			<i18n>
-				<!-- The first entry is always the default, so this should be english -->
-				<en>Sample tab</en>
-				<de>Beispielstab</de>
-			</i18n>
-		</title>
-		<!-- if some text shouldn't be translated just don't put it in a i18n tag -->
-		<!-- Comments must not have a "name" parameter! -->
-		<comment>Comments are for displaying some text (This comment is not to be translated!)</comment>
-		<!-- Common parameters for all tags in this group:
-			 name		Name from which this setting will be
-			 referenced in the text (as $scribus_NAME$)
-			 default    Default value
-			 For lists this must match a "value" defined in one of the
-			 options. Not the description text!
-			 -->
-		<font name="example1"><i18n><en>OS-Fonts</en><de>Betriebssystemschriften</de></i18n></font>
-		<list name="example2" default="blubb">
-			<title>List</title>
-			<option value="abc">List item 1</option>
-			<option value="blubb">
-				<i18n><en>List item 2</en><de>Listeneintrag 2</de></i18n></option>
-			<option value="xzy">List item 3</option>
-		</list>
-		
-		<!-- Spin boxes can be of type "int" or "double", "int" is default -->
-		<spinbox name="example3a" type="int" min="5" max="17" step="3">Int Spinbox</spinbox>
+		<spinbox name="example3a" type="int" min="5" max="17" step="3" default="Automatic" special="Automatic">Int Spinbox</spinbox>
 		<spinbox name="example3b" type="double" min="5.2" max="17.3" step="0.3">Double Spinbox</spinbox>
 		<color name="example4">Color chooser</color>
 		<!-- Text boxes can be of type "short" or "long", "short" is default -->

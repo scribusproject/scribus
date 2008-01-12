@@ -44,20 +44,15 @@ TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsDat
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));
 	connect(extBrowserToolChangeButton, SIGNAL(clicked()), this, SLOT(changeExtBrowserTool()));
 	connect(latexToolChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexTool()));
+	connect(latexConfigChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexConfig()));
 	connect(latexEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexEditor()));
 	connect(rescanButton, SIGNAL(clicked()), this, SLOT(rescanForTools()));
 	connect(latexEmbeddedEditorCheckBox, SIGNAL(stateChanged(int)), 
 			this, SLOT(changeLatexEmbeddedActive(int)));
-	
-	highlighter_pre = new LatexHighlighter(latexPreTextEdit->document());
-	highlighter_post = new LatexHighlighter(latexPostTextEdit->document());
-	
 }
 
 TabExternalToolsWidget::~TabExternalToolsWidget()
 {
-	delete highlighter_pre;
-	delete highlighter_post;
 }
 
 const QString TabExternalToolsWidget::newPSTool() const 
@@ -80,11 +75,6 @@ const QString TabExternalToolsWidget::newLatexTool() const
 	return ScPaths::separatorsToSlashes(latexToolLineEdit->text()); 
 }
 
-const QString TabExternalToolsWidget::newLatexExtension() const 
-{ 
-	return latexExtensionLineEdit->text(); 
-}
-
 const QString TabExternalToolsWidget::newLatexEditor() const 
 {
 	return ScPaths::separatorsToSlashes(latexEditorLineEdit->text());
@@ -92,17 +82,7 @@ const QString TabExternalToolsWidget::newLatexEditor() const
 
 const QString TabExternalToolsWidget::newLatexEditorConfig() const 
 {
-	return latexEditorConfigLineEdit->text();
-}
-
-const QString TabExternalToolsWidget::newLatexPre() const 
-{
-	return latexPreTextEdit->toPlainText();
-}
-
-const QString TabExternalToolsWidget::newLatexPost() const 
-{
-	return latexPostTextEdit->toPlainText();
+	return ScPaths::separatorsToSlashes(latexEditorConfigLineEdit->text());
 }
 
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -114,15 +94,12 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->imageEditorExecutable));
 	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extBrowserExecutable));
 	latexToolLineEdit->setText(QDir::convertSeparators(prefsData->latexExecutable));
-	latexExtensionLineEdit->setText(prefsData->latexExtension);
+	latexEditorConfigLineEdit->setText(QDir::convertSeparators(prefsData->latexEditorConfig));
 	latexResolutionSpinBox->setValue(prefsData->latexResolution);
 	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
-	latexEditorConfigLineEdit->setText(prefsData->latexEditorConfig);
 	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
 	latexEmbeddedEditorCheckBox->setCheckState(prefsData->latexUseEmbeddedEditor?Qt::Checked:Qt::Unchecked);
 	latexEmptyFrameCheckBox->setCheckState(prefsData->latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
-	latexPreTextEdit->setPlainText(prefsData->latexPre);
-	latexPostTextEdit->setPlainText(prefsData->latexPost);
 }
 
 void TabExternalToolsWidget::changePostScriptTool()
@@ -163,6 +140,14 @@ void TabExternalToolsWidget::changeLatexEditor()
 	QString s = QFileDialog::getOpenFileName(this, tr("Locate your LaTeX editor"), fi.path());
 	if (!s.isEmpty())
 		latexEditorLineEdit->setText( QDir::convertSeparators(s) );
+}
+
+void TabExternalToolsWidget::changeLatexConfig()
+{
+	QFileInfo fi(latexEditorConfigLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(this, tr("Locate your LaTeX Frames Config"), fi.path(),  tr("Configuration files")+" (*.xml)");
+	if (!s.isEmpty())
+		latexEditorConfigLineEdit->setText(QDir::convertSeparators(s));
 }
 
 bool TabExternalToolsWidget::fileInPath(QString file)
@@ -215,8 +200,7 @@ void TabExternalToolsWidget::rescanForTools()
 		imageToolLineEdit->setText("gimp");
 	
 	if (!fileInPath(latexToolLineEdit->text())) {
-		latexToolLineEdit->setText(PageItem_LatexFrame::defaultApp);
-		latexExtensionLineEdit->setText(".pdf");
+		latexToolLineEdit->setText("");
 	}
 	
 	if (!fileInPath(latexEditorLineEdit->text())) {

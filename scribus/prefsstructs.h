@@ -243,14 +243,11 @@ struct ApplicationPrefs
 	QString extBrowserExecutable;
 	QString latexExecutable;
 	QString latexEditorExecutable;
-	QString latexPre;
-	QString latexPost;
 	QString latexEditorConfig;
 	int latexResolution;
 	bool latexForceDpi;
 	bool latexUseEmbeddedEditor;
 	bool latexStartWithEmptyFrames;
-	QString latexExtension;
 	bool ClipMargin;
 	bool GCRMode;
 	QColor STEcolor;

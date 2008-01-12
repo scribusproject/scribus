@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui_tabexternaltoolswidget.h"
 #include "scribusapi.h"
 
-class LatexHighlighter;
 struct ApplicationPrefs;
 
 class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsWidget
@@ -46,11 +45,8 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		const QString newImageTool() const;
 		const QString newExtBrowserTool() const;
 		const QString newLatexTool() const;
-		const QString newLatexExtension() const;
 		const QString newLatexEditor() const;
 		const QString newLatexEditorConfig() const;
-		const QString newLatexPre() const;
-		const QString newLatexPost() const;
 		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();}
 		bool newAntialiasGraphics() const { return psAntialiasGraphicsCheckBox->isChecked();}
 		int newPSToolResolution() const { return psResolutionSpinBox->value();}
@@ -61,13 +57,13 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		
 	protected:
 		bool fileInPath(QString file);
-		LatexHighlighter *highlighter_pre, *highlighter_post;
 		
 	public slots:
 		void changePostScriptTool();
 		void changeImageTool();
 		void changeExtBrowserTool();
 		void changeLatexTool();
+		void changeLatexConfig();
 		void changeLatexEditor();
 		void changeLatexEmbeddedActive(int);
 		void rescanForTools();

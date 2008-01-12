@@ -7,5 +7,6 @@ INSTALL(FILES
 latex.tar
 latex.xml
 sample.xml
+gnuplot.xml
   DESTINATION ${SHAREDIR}/editorconfig
 )

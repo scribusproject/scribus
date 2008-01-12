@@ -49,47 +49,42 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		virtual PageItem_LatexFrame * asLatexFrame() { return this; }
 		virtual void clearContents();
 		virtual ItemType realItemType() const { return PageItem::LatexFrame; }
+		virtual void applicableActions(QStringList& actionList);
+		virtual QString infoDescription();
 		void layout();
+		void restore(UndoState *state, bool isUndo);
+		
+		
 		/* Called from UI callback 
 		UI-Handlers in other parts of the code should be as short as 
 		possible so this function will take most of the UI related code. */
 		void runEditor();
-		/*TODO*/
-		void convertToVector();
+		/*TODO void convertToVector(); */
+		
 		/* Sets the formula text and forces rerunning latex at the next update 
 			Returns true if the frame has to be updated*/
 		bool setFormula(QString formula, bool undoable=true);
 		QString getFormula() const { return formulaText; }
+		
 		/* Runs the external application and sets internal vars and loads
 		the image.*/
 		void runApplication();
-		QString getApplication() const;
-		QString getRealApplication() const;
-		int getDpi() const;
-		int getRealDpi() const;
-		const QString getOutput() const { return appStdout; }
-		QProcess::ProcessState getState() const { return latex->state(); }
-		bool getUsePreamble() const { return usePreamble; }
-		
-		int getError() const { return err; }
-		
 		void rerunApplication(bool updateDisplay=false);
 		
-		void restore(UndoState *state, bool isUndo);
+		QString getApplication() const;
+		QString getRealApplication() const;
+		bool getUsePreamble() const { return usePreamble; }
+		int getDpi() const;
+		int getRealDpi() const;
 		
-		static const QString defaultApp;
-		static const QString defaultPre;
-		static const QString defaultPost;
-		
-		/*virtual bool createInfoGroup(QFrame *, QGridLayout *);
-		virtual bool createContextMenu(QMenu *, int);*/
-		virtual void applicableActions(QStringList& actionList);
-		virtual QString infoDescription();
-		
+		const QString getOutput() const { return appStdout; }
+		QProcess::ProcessState getState() const { return latex->state(); }
+		int getError() const { return err; }
+
 		QMap<QString,QString> editorProperties;
-		
 	protected:
 		virtual void DrawObj_Item(ScPainter *p, QRectF e, double sc);
+		double lastWidth, lastHeight;
 		
 		QString formulaText;
 		
@@ -110,7 +105,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		LatexConfigParser *config;
 		bool imgValid;
 		bool usePreamble;
-		
+		bool killed;
 	signals:
 		void formulaAutoUpdate(QString oldText, QString newText);
 		void latexFinished();

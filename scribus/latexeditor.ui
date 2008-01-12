@@ -94,9 +94,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="updateAppSettingsPushButton" >
-          <property name="text" >
-           <string>Update Application Settings</string>
+         <widget class="Line" name="line" >
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -187,7 +187,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>buttonBox</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>dpiSpinBox</tabstop>
-  <tabstop>updateAppSettingsPushButton</tabstop>
   <tabstop>messagesTextEdit</tabstop>
   <tabstop>killPushButton</tabstop>
  </tabstops>

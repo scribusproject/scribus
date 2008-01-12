@@ -47,8 +47,6 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 			this, SLOT(revertClicked(bool)));
 	connect(killPushButton, SIGNAL(clicked(bool)), 
 			frame, SLOT(killProcess()));
-	connect(updateAppSettingsPushButton, SIGNAL(clicked(bool)), 
-			this, SLOT(updateAppSettings(bool)));
 	connect(frame, SIGNAL(formulaAutoUpdate(QString, QString)), 
 			this, SLOT(formulaChanged(QString, QString)));
 	connect(frame, SIGNAL(latexFinished()), 
@@ -93,7 +91,12 @@ void LatexEditor::initialize()
 void LatexEditor::apply(bool force)
 {
 	bool changed = false;
-	
+	if (frame->getUsePreamble() != preambleCheckBox->isChecked() ||
+		frame->getDpi() != dpiSpinBox->value()) {
+		changed = true;
+		frame->setUsePreamble(preambleCheckBox->isChecked());
+		frame->setDpi(dpiSpinBox->value());
+	}
 	QString key;
 	QString value;
 	
@@ -163,13 +166,6 @@ void LatexEditor::stateChanged(QProcess::ProcessState state)
 	}
 	statusLabel->setText(text);
 	killPushButton->setEnabled(state != QProcess::NotRunning);
-}
-
-void LatexEditor::updateAppSettings(bool unused)
-{
-	frame->setUsePreamble(preambleCheckBox->isChecked());
-	frame->setDpi(dpiSpinBox->value());
-	frame->rerunApplication(true);
 }
 
 void LatexEditor::setConfigFile(QString newConfig)
@@ -428,16 +424,25 @@ class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 				xml->attributes().value("max").toString().toInt()
 			);
 			setSingleStep(xml->attributes().value("step").toString().toInt());
+			setSpecialValueText(xml->attributes().value("special").toString());
 			fromString(m_defaultValue);
 			m_description = readI18nText(xml);
 		}
 		
 		QString toString() const {
-			return QString::number(value());
+			if (value() == minimum() && !specialValueText().isEmpty()) {
+				return specialValueText();
+			} else {
+				return QString::number(value());
+			}
 		}
 		
 		void fromString(QString str) {
-			setValue(str.toInt());
+			if (str == specialValueText()) {
+				setValue(minimum());
+			} else {
+				setValue(str.toInt());
+			}
 		}
 };
 
@@ -452,16 +457,25 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 			);
 			setSingleStep(
 				xml->attributes().value("step").toString().toDouble());
+			setSpecialValueText(xml->attributes().value("special").toString());
 			fromString(m_defaultValue);
 			m_description = readI18nText(xml);
 		}
 		
 		QString toString() const {
-			return QString::number(value());
+			if (value() == minimum() && !specialValueText().isEmpty()) {
+				return specialValueText();
+			} else {
+				return QString::number(value());
+			}
 		}
 		
 		void fromString(QString str) {
-			setValue(str.toDouble());
+			if (str == specialValueText()) {
+				setValue(minimum());
+			} else {
+				setValue(str.toDouble());
+			}
 		}
 };
 

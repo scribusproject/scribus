@@ -51,8 +51,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_ghostscript.h"
 
-#include "pageitem_latexframe.h"
-
 extern bool emergencyActivated;
 
 PrefsManager* PrefsManager::_instance = 0;
@@ -334,14 +332,11 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_K = true;
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
-	appPrefs.latexExecutable = PageItem_LatexFrame::defaultApp;
+	appPrefs.latexExecutable = "";
 	appPrefs.latexEditorExecutable = "";
 	appPrefs.latexEditorConfig = ScPaths::instance().shareDir() + "editorconfig/latex.xml";
-	appPrefs.latexExtension = ".pdf";
 	appPrefs.latexResolution = 72;
 	appPrefs.latexForceDpi = false;
-	appPrefs.latexPre = PageItem_LatexFrame::defaultPre;
-	appPrefs.latexPost = PageItem_LatexFrame::defaultPost;
 	appPrefs.latexUseEmbeddedEditor = true;
 	appPrefs.latexStartWithEmptyFrames = false;
 	appPrefs.gs_AntiAliasGraphics = true;
@@ -978,21 +973,6 @@ void PrefsManager::setLatexEditorExecutable(const QString& executableName)
 	appPrefs.latexEditorExecutable=executableName;
 }
 
-void PrefsManager::setLatexExtension(const QString& extensionName)
-{
-	appPrefs.latexExtension=extensionName;
-}
-
-void PrefsManager::setLatexPre(const QString& text)
-{
-	appPrefs.latexPre=text;
-}
-
-void PrefsManager::setLatexPost(const QString& text)
-{
-	appPrefs.latexPost=text;
-}
-
 void PrefsManager::setLatexEditorConfig(const QString& text)
 {
 	appPrefs.latexEditorConfig=text;
@@ -1480,13 +1460,10 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("Latex", latexExecutable());
 	dc8Ex.setAttribute("LatexEditor", latexEditorExecutable());
 	dc8Ex.setAttribute("LatexEditorConfig", latexEditorConfig());
-	dc8Ex.setAttribute("LatexExtension", latexExtension());
 	dc8Ex.setAttribute("LatexResolution", latexResolution());
 	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.latexForceDpi));
 	dc8Ex.setAttribute("LatexUseEmbeddedEditor", static_cast<int>(appPrefs.latexUseEmbeddedEditor));
 	dc8Ex.setAttribute("LatexStartWithEmptyFrames", static_cast<int>(appPrefs.latexStartWithEmptyFrames));
-	dc8Ex.setAttribute("LatexPre", latexPre());
-	dc8Ex.setAttribute("LatexPost", latexPost());
 	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", appPrefs.Language);
@@ -2085,12 +2062,9 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.latexStartWithEmptyFrames = static_cast<bool>(dc.attribute("LatexStartWithEmptyFrames", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
-			setLatexExecutable(dc.attribute("Latex", PageItem_LatexFrame::defaultApp));
-			setLatexExtension(dc.attribute("LatexExtension", ".pdf"));
+			setLatexExecutable(dc.attribute("Latex", ""));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 			setLatexEditorConfig(dc.attribute("LatexEditorConfig", ScPaths::instance().shareDir() + "/editorconfig/latex.xml"));
-			setLatexPre(dc.attribute("LatexPre", PageItem_LatexFrame::defaultPre));
-			setLatexPost(dc.attribute("LatexPost", PageItem_LatexFrame::defaultPost));
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

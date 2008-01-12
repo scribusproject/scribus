@@ -63,7 +63,6 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void cancelClicked();
 		void updateClicked(bool);
 		void revertClicked(bool);
-		void updateAppSettings(bool);
 		void formulaChanged(QString, QString);
 		void latexFinished();
 		void stateChanged(QProcess::ProcessState);
