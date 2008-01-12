@@ -343,6 +343,8 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 		installTranslator(trans);
 		GUILang=lang;
 	}
+	else if (lang == "en")
+		GUILang=lang;
 	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
