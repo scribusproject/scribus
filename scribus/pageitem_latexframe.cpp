@@ -438,17 +438,17 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 		tmp = config->preamble() + tmp + config->postamble();
 	}
 	tmp.replace(QString("$scribus_width$"), QString::number(Width));
-	tmp.replace(QString("$scribus_width_px$"), QString::number(round(Width*lDpi)));
+	tmp.replace(QString("$scribus_width_px$"), QString::number(qRound(Width*lDpi)));
 	tmp.replace(QString("$scribus_height$"), QString::number(Height));
-	tmp.replace(QString("$scribus_height_px$"), QString::number(round(Height*lDpi)));
+	tmp.replace(QString("$scribus_height_px$"), QString::number(qRound(Height*lDpi)));
 	tmp.replace(QString("$scribus_realwidth$"), QString::number(realW));
-	tmp.replace(QString("$scribus_realwidth_px$"), QString::number(round(realW*lDpi)));
+	tmp.replace(QString("$scribus_realwidth_px$"), QString::number(qRound(realW*lDpi)));
 	tmp.replace(QString("$scribus_realheight$"), QString::number(realH));
-	tmp.replace(QString("$scribus_realheight_px$"), QString::number(round(realH*lDpi)));
+	tmp.replace(QString("$scribus_realheight_px$"), QString::number(qRound(realH*lDpi)));
 	tmp.replace(QString("$scribus_offsetX$"), QString::number(offsetX));
-	tmp.replace(QString("$scribus_offsetX_px$"), QString::number(round(offsetX*lDpi)));
+	tmp.replace(QString("$scribus_offsetX_px$"), QString::number(qRound(offsetX*lDpi)));
 	tmp.replace(QString("$scribus_offsetY$"), QString::number(offsetY));
-	tmp.replace(QString("$scribus_offsetY$"), QString::number(round(offsetY*lDpi)));
+	tmp.replace(QString("$scribus_offsetY$"), QString::number(qRound(offsetY*lDpi)));
 	tmp.replace(QString("$scribus_scaleX$"), QString::number(scaleX));
 	tmp.replace(QString("$scribus_scaleY$"), QString::number(scaleY));
 	tmp.replace(QString("$scribus_dpi$"), QString::number(getRealDpi()));
