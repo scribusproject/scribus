@@ -95,7 +95,6 @@ EXECUTE_PROCESS(
     OUTPUT_VARIABLE MACHINE
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-MESSAGE(STATUS "Building for target ${MACHINE}")
 
 STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _machine_x86 "${MACHINE}")
 IF (_machine_x86)
@@ -109,11 +108,36 @@ IF (_machine_x86_64)
     SET(ARCH_X86_64 1)
 ENDIF (_machine_x86_64)
 
+STRING(REGEX MATCH "(sparc64-*)|(SPARC64-*)" _machine_sparc_64 "${MACHINE}")
+IF (_machine_sparc_64)
+    MESSAGE(STATUS "Found target SPARC 64")
+    SET(ARCH_SPARC_64 1)
+ENDIF (_machine_sparc_64)
+
+STRING(REGEX MATCH "(mips64-*)|(MIPS64-*)" _machine_mips_64 "${MACHINE}")
+IF (_machine_mips_64)
+    MESSAGE(STATUS "Found target MIPS 64")
+    SET(ARCH_MIPS_64 1)
+ENDIF (_machine_mips_64)
+
 STRING(REGEX MATCH "(ppc-*)" _machine_ppc "${MACHINE}")
 IF (_machine_ppc)
     MESSAGE(STATUS "Found target PPC")
     SET(ARCH_PPC 1)
 ENDIF (_machine_ppc)
+
+STRING(REGEX MATCH "(ppc64-*)|(PPC64-*)" _machine_ppc_64 "${MACHINE}")
+IF (_machine_ppc_64)
+    MESSAGE(STATUS "Found target PPC64")
+    SET(ARCH_PPC_64 1)
+ENDIF (_machine_ppc_64)
+
+#convert any 64 bit build into generic 64 tag for below
+IF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64) 
+  SET(ARCH64BIT 1)
+ENDIF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64) 
+
+MESSAGE(STATUS "Building for target ${MACHINE}")
 
 ##############################################################################################################
 ########## Versioning Setup                                                                         ##########
