@@ -1,5 +1,9 @@
 
 Scribus - 1.3.5svn
+- 0006625: [Scripter] createCharStyle, createParagraphStyle, sendSelectionToBack, bringSelectionToFront, zoomDocument-doc (subik) - resolved.
+- 0006647: [Printing] Crop marks on printout and PDF output incorrect (jghali) - resolved.
+- 0006492: [PDF] "Clip to Page Margins" leaves bleed area empty (fschmid) - resolved.
+- 0005673: [General] Text on path issue (fschmid) - resolved.
 - 0006162: [Graphics / Image Frames] Grouped objects doesn't overhang onto the bleed (fschmid) - resolved.
 - 0006127: [General] Copying object with custom CMYK solid color results in object with RGB color. (jghali) - resolved.
 - 0006226: [PDF] Always clip the pdf outputs to page margins when master pages used (fschmid) - resolved.
