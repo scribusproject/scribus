@@ -2538,7 +2538,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		{
 			if (!Options.MirrorH)
 				PutPage("1 0 0 1 0 0 cm\n");
-			for (int lam = 0; lam < doc.Layers.count(); ++lam)
+			for (int lam = 0; lam < doc.Layers.count() && !abortExport; ++lam)
 			{
 				doc.Layers.levelToLayer(ll, Lnr);
 				Lnr++;
@@ -2546,9 +2546,11 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				{
 					if ((Options.Version == 15) && (Options.useLayers))
 						PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-					for (int am = 0; am < pag->FromMaster.count(); ++am)
+					for (int am = 0; am < pag->FromMaster.count() && !abortExport; ++am)
 					{
 						ite = pag->FromMaster.at(am);
+						if (usingGUI)
+							qApp->processEvents();
 						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 							continue;
 						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
@@ -2633,13 +2635,10 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	if (usingGUI && pag->pageName().isEmpty())
 		progressDialog->setProgress("ECPI", 0, doc.DocItems.count()*2);
 	int pc_exportpagesitems=0;
+	PItems = (pag->pageName().isEmpty()) ? doc.DocItems : doc.MasterItems;
 	for (int la = 0; la < doc.Layers.count() && !abortExport; ++la)
 	{
 		doc.Layers.levelToLayer(ll, Lnr);
-		if (!pag->pageName().isEmpty())
-			PItems = doc.MasterItems;
-		else
-			PItems = doc.DocItems;
 		if (ll.isPrintable)
 		{
 			QString inh = "";
@@ -2874,7 +2873,7 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			}
 			if ((Options.Version == 15) && (Options.useLayers))
 				PutPage("EMC\n");
-			}
+		}
 		Lnr++;
 	}
 	PutPage("Q\n"); // Restore

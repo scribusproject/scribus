@@ -281,11 +281,19 @@ void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 {
 	int  pending = 0;
 	int  written = 0;
+	int  pendingWrite = 0;
+	int  maxBytes = 0;
 	bool allZero  = true;
 	unsigned char  four_tuple[4];
-	const unsigned char *ptr = array;
+	unsigned char  fallBackBuffer[1024];
+	const unsigned char *ptr  = array;
 	const char* ascii85;
 	quint32 value;
+
+	unsigned char* buffer = (unsigned char*) malloc(65536);
+	unsigned char* writeBuffer = buffer ? buffer : fallBackBuffer;
+	unsigned char* ptrw = writeBuffer;
+	int maxWrite = buffer ? 65530 : 1016;
 
 	while (length) 
 	{
@@ -296,19 +304,41 @@ void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 			value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
 			ascii85 = toAscii85(value, allZero);
 			if (allZero)
-				spoolStream << "z";
+				*ptrw++ = 'z';
 			else
-				spoolStream << ascii85;
+			{
+				*ptrw++ = ascii85[0];
+				*ptrw++ = ascii85[1];
+				*ptrw++ = ascii85[2];
+				*ptrw++ = ascii85[3];
+				*ptrw++ = ascii85[4];
+			}
 			written += ((allZero) ? 1 : 5);
+			pendingWrite += ((allZero) ? 1 : 5);
 			if (written > 75)
 			{
-				spoolStream << "\n";
+				*ptrw++ = '\n';
+				++pendingWrite;
 				written = 0;
+			}
+			if (pendingWrite > maxWrite)
+			{
+				writeBuffer[pendingWrite] = 0;
+				spoolStream << (const char*) writeBuffer;
+				ptrw = writeBuffer;
+				pendingWrite = 0;
 			}
 			pending = 0;
 		}
 	}
 
+	if (pendingWrite)
+	{
+		writeBuffer[pendingWrite] = 0;
+		spoolStream << (const char*) writeBuffer;
+		ptrw = writeBuffer;
+		pendingWrite = 0;
+	}
 	if (pending) 
 	{
 		unsigned char five_tuple[6];
@@ -319,6 +349,8 @@ void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 		five_tuple[pending + 1] = 0;
 		spoolStream << (const char*) five_tuple;
 	}
+	if (buffer)
+		free(buffer);
 	spoolStream << "~>\n";
 }
 
@@ -1842,15 +1874,17 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			ScLayer ll;
 			ll.isPrintable = false;
 			ll.LNr = 0;
-			for (int lam = 0; lam < Doc->Layers.count(); ++lam)
+			for (int lam = 0; lam < Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
 			{
 				Doc->Layers.levelToLayer(ll, Lnr);
 				if (ll.isPrintable)
 				{
-					for (int api = 0; api < Doc->MasterItems.count(); ++api)
+					for (int api = 0; api < Doc->MasterItems.count() && !abortExport; ++api)
 					{
 						QString tmps;
 						PageItem *it = Doc->MasterItems.at(api);
+						if (usingGUI)
+							ScQApp->processEvents();
 						if ((it->LayerNr != ll.LNr) || (!it->printEnabled()))
 							continue;
 /*						int x = static_cast<int>(Doc->MasterPages.at(ap)->xOffset());
@@ -1901,7 +1935,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	{
 		progressDialog->setProgress("EP", aa);
 		progressDialog->setOverallProgress(ap+aa);
-		ScQApp->processEvents();
+		if (usingGUI)
+			ScQApp->processEvents();
 		a = pageNs[aa]-1;
 		//if ((!Art) && (view->SelItem.count() != 0))
 		if ((!Art) && (Doc->m_Selection->count() != 0))
@@ -1940,7 +1975,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			else
 				PS_plate(4, SepNam);
 		}
-		if (!Doc->Pages->at(a)->MPageNam.isEmpty())
+		if (!Doc->Pages->at(a)->MPageNam.isEmpty() && !abortExport && !errorOccured)
 		{
 			int h, s, v, k;
 			QByteArray chstrc;
@@ -1952,15 +1987,17 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages->at(a)->MPageNam]);
 			if (Doc->MasterItems.count() != 0)
 			{
-				for (int lam = 0; lam < Doc->Layers.count(); ++lam)
+				for (int lam = 0; lam < Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
 				{
 					Doc->Layers.levelToLayer(ll, Lnr);
 					if (ll.isPrintable)
 					{
-						for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
+						for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count() && !abortExport; ++am)
 						{
 							QString tmps;
 							PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
+							if (usingGUI)
+								ScQApp->processEvents();
 							if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 								continue;
 							if (ite->isGroupControl)
@@ -2072,7 +2109,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							}
 						}
 					}
-					for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
+					for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count() && !abortExport; ++am)
 					{
 						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 						if (!ite->isTableItem)
@@ -2130,7 +2167,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 					}
 					Lnr++;
 				}
-				if (errorOccured) break;
+				if (abortExport || errorOccured) break;
 			}
 		}
 		if (!abortExport && !errorOccured)
@@ -2853,18 +2890,17 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	ScLayer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
+	PItems = (a->pageName().isEmpty()) ? Doc->DocItems : Doc->MasterItems;
 	for (int la = 0; la < Doc->Layers.count(); ++la)
 	{
 		Doc->Layers.levelToLayer(ll, Lnr);
-		if (!a->pageName().isEmpty())
-			PItems = Doc->MasterItems;
-		else
-			PItems = Doc->DocItems;
-		if (ll.isPrintable)
+		if (ll.isPrintable && !abortExport)
 		{
-			for (b = 0; b < PItems.count(); ++b)
+			for (b = 0; b < PItems.count() && !abortExport; ++b)
 			{
 				c = PItems.at(b);
+				if (usingGUI)
+					ScQApp->processEvents();
 				if (c->LayerNr != ll.LNr)
 					continue;
 				if ((!a->pageName().isEmpty()) && (c->asTextFrame()))
@@ -2916,9 +2952,11 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				}
 			}
 		}
-		for (b = 0; b < PItems.count(); ++b)
+		for (b = 0; b < PItems.count() && !abortExport; ++b)
 		{
 			c = PItems.at(b);
+			if (usingGUI)
+				ScQApp->processEvents();
 			if (c->LayerNr != ll.LNr)
 				continue;
 			if ((!a->pageName().isEmpty()) && (c->asTextFrame()))
