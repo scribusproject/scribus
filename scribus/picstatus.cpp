@@ -61,7 +61,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	languageChange();
 	uint p, i;
 	QString tmp;
-	setCaption( tr( "Manage Pictures" ) );
+	setCaption( tr( "Manage Images" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	doc = docu;
 	view = viewi;

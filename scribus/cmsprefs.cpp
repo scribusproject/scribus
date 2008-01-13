@@ -44,7 +44,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 		if (it.key() == Vor->DefaultImageRGBProfile)
 			inputP->setCurrentItem(inputP->count()-1);
 	}
-	text1 = new QLabel( inputP, tr( "&RGB Pictures:" ), sysProfiles, "Text1" );
+	text1 = new QLabel( inputP, tr( "&RGB Images:" ), sysProfiles, "Text1" );
 	sysProfilesLayout->addWidget( text1, 0, 0 );
 	sysProfilesLayout->addWidget( inputP, 0, 1 );
 
@@ -57,7 +57,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 		if (it.key() == Vor->DefaultImageCMYKProfile)
 			inputPCMYK->setCurrentItem(inputPCMYK->count()-1);
 	}
-	text1CMYK = new QLabel( inputPCMYK, tr( "&CMYK Pictures:" ), sysProfiles, "text1cmyk" );
+	text1CMYK = new QLabel( inputPCMYK, tr( "&CMYK Images:" ), sysProfiles, "text1cmyk" );
 	sysProfilesLayout->addWidget( text1CMYK, 1, 0 );
 	sysProfilesLayout->addWidget( inputPCMYK, 1, 1 );
 

@@ -444,7 +444,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	checkUnprintable->setChecked( prefsData->marginColored );
 	pageBackgroundLayout->addWidget( checkUnprintable, 0, 1 );
 	checkPictures = new QCheckBox( pageBackground, "checkPictures" );
-	checkPictures->setText( tr( "Show Pictures" ) );
+	checkPictures->setText( tr( "Show Images" ) );
 	checkPictures->setChecked(prefsData->guidesSettings.showPic);
 	pageBackgroundLayout->addWidget( checkPictures, 1 , 0 );
 	checkLink = new QCheckBox( pageBackground, "checkLink" );
@@ -706,7 +706,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
-	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
+	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of images on or off") + "</qt>");
 	QToolTip::add( guiLangCombo, "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>" );
 	QToolTip::add( GUICombo, "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>" );
 	QToolTip::add( GFsize, "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>" );

@@ -960,7 +960,7 @@ void ScribusMainWindow::initMenuBar()
 
 	//Extra menu
 	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
-	scrMenuMgr->addMenuItem(scrActions["extrasManagePictures"], "Extras");
+	scrMenuMgr->addMenuItem(scrActions["extrasManageImages"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasDeHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras");

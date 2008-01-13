@@ -521,12 +521,12 @@ void ActionManager::initToolsMenuActions()
 
 void ActionManager::initExtrasMenuActions()
 {
-	scrActions->insert("extrasManagePictures", new ScrAction(ScMW, "extrasManagePictures"));
+	scrActions->insert("extrasManageImages", new ScrAction(ScMW, "extrasManageImages"));
 	scrActions->insert("extrasHyphenateText", new ScrAction(ScMW, "extrasHyphenateText"));
 	scrActions->insert("extrasDeHyphenateText", new ScrAction(ScMW, "extrasDeHyphenateText"));
 	scrActions->insert("extrasGenerateTableOfContents", new ScrAction(ScMW, "extrasGenerateTableOfContents"));
 
-	connect( (*scrActions)["extrasManagePictures"], SIGNAL(activated()), ScMW, SLOT(StatusPic()) );
+	connect( (*scrActions)["extrasManageImages"], SIGNAL(activated()), ScMW, SLOT(StatusPic()) );
 	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(activated()), ScMW, SLOT(generateTableOfContents()) );
 }
 
@@ -1067,7 +1067,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert Freehand Line"));
 
 	//Extras Menu
-	(*scrActions)["extrasManagePictures"]->setTexts( tr("&Manage Pictures"));
+	(*scrActions)["extrasManageImages"]->setTexts( tr("&Manage Images"));
 	(*scrActions)["extrasHyphenateText"]->setTexts( tr("&Hyphenate Text"));
 	(*scrActions)["extrasDeHyphenateText"]->setTexts( tr("Dehyphenate Text"));
 	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));

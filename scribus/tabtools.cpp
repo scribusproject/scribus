@@ -553,7 +553,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	buttonGroup5->setColumnLayout(0, Qt::Vertical );
 	buttonGroup5->layout()->setSpacing( 6 );
 	buttonGroup5->layout()->setMargin( 11 );
-	buttonGroup5->setTitle( tr( "&Scale Picture to Frame Size" ) );
+	buttonGroup5->setTitle( tr( "&Scale Image to Frame Size" ) );
 	buttonGroup5Layout = new QHBoxLayout( buttonGroup5->layout() );
 	buttonGroup5Layout->setAlignment( Qt::AlignTop );
 	checkRatioImage = new QCheckBox( buttonGroup5, "checkRatioImage" );
@@ -668,7 +668,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	toolText->setOn(true);
 	setSample();
 	QToolTip::add( toolText, tr( "Text Frame Properties" ) );
-	QToolTip::add( toolImage, tr( "Picture Frame Properties" ) );
+	QToolTip::add( toolImage, tr( "Image Frame Properties" ) );
 	QToolTip::add( toolShape, tr( "Shape Drawing Properties" ) );
 	QToolTip::add( toolZoom, tr( "Magnification Level Defaults" ) );
 	QToolTip::add( toolLine, tr( "Line Drawing Properties" ) );
@@ -679,13 +679,13 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	QToolTip::add( columnsText, tr( "Number of columns in a text frame" ) );
 	QToolTip::add( gapText, tr( "Gap between text frame columns" ) );
 	QToolTip::add( previewText, tr( "Sample of your font" ) );
-	QToolTip::add( buttonGroup3, tr( "Picture frames allow pictures to scale to any size" ) );
+	QToolTip::add( buttonGroup3, tr( "Image frames allow images to scale to any size" ) );
 	QToolTip::add( scalingHorizontal, tr( "Horizontal scaling of images" ) );
 	QToolTip::add( scalingVertical, tr( "Vertical scaling of images" ) );
 	QToolTip::add( chainButton, tr( "Keep horizontal and vertical scaling the same" ) );
-	QToolTip::add( buttonGroup5, tr( "Pictures in picture frames are scaled to the size of the frame" ) );
-	QToolTip::add( checkRatioImage, tr( "Automatically scaled pictures keep their original proportions" ) );
-	QToolTip::add( comboFillImage, tr( "Fill color of picture frames" ) );
+	QToolTip::add( buttonGroup5, tr( "Images in image frames are scaled to the size of the frame" ) );
+	QToolTip::add( checkRatioImage, tr( "Automatically scaled images keep their original proportions" ) );
+	QToolTip::add( comboFillImage, tr( "Fill color of image frames" ) );
 	QToolTip::add( shadingFillImage, tr( "Saturation of color of fill" ) );
 	QToolTip::add( colorComboLineShape, tr( "Line color of shapes" ) );
 	QToolTip::add( shadingLineShape, tr( "Saturation of color of lines" ) );

@@ -1906,7 +1906,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					QFileInfo fi = QFileInfo(currItem->Pfile);
-					InfoT->setText( tr("Picture"));
+					InfoT->setText( tr("Image"));
 					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignCenter );
 					ParCT->setText( tr("File: "));
 					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );

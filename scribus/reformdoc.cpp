@@ -274,7 +274,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	checkUnprintable->setChecked( doc->marginColored );
 	pageBackgroundLayout->addWidget( checkUnprintable );
 	checkPictures = new QCheckBox( pageBackground, "checkPictures" );
-	checkPictures->setText( tr( "Show Pictures" ) );
+	checkPictures->setText( tr( "Show Images" ) );
 	checkPictures->setChecked(doc->guidesSettings.showPic);
 	pageBackgroundLayout->addWidget( checkPictures );
 	checkLink = new QCheckBox( pageBackground, "checkLink" );
@@ -428,7 +428,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable the display of linked text frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
-	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
+	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of images on or off") + "</qt>");
 	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>" );
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
 //	QToolTip::add( facingPages, "<qt>" + tr( "Enable single or spread based layout" ) + "</qt>" );
