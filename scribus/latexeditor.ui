@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>551</width>
-    <height>558</height>
+    <width>558</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -15,6 +15,12 @@
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QSplitter" name="splitter" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
      </property>
@@ -168,6 +174,12 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
