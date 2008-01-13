@@ -977,7 +977,7 @@ void CreateMode::SetupDraw(int nr)
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = true;
 	m_canvas->setRenderModeFillBuffer();
-	m_view->resetMoveTimer();
+	//#6456 m_view->resetMoveTimer();
 }
 
 void CreateMode::SetupDrawNoResize(int nr)
@@ -991,7 +991,7 @@ void CreateMode::SetupDrawNoResize(int nr)
 	m_doc->m_Selection->connectItemToGUI();
 //	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
-	m_view->resetMoveTimer();
+	//#6456 m_view->resetMoveTimer();
 }
 
 void CreateMode::setResizeCursor(int how)
