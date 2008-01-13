@@ -40,7 +40,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	inputPRGBIm = new QComboBox( sysProfiles );
 	inputPRGBIm->setMinimumSize( QSize( 190, 22 ) );
 	inputPRGBIm->setEditable(false);
-	text1 = new QLabel( tr( "&RGB Pictures:" ), sysProfiles );
+	text1 = new QLabel( tr( "&RGB Images:" ), sysProfiles );
 	text1->setBuddy(inputPRGBIm);
 	sysProfilesLayout->addWidget( text1, 0, 0 );
 	sysProfilesLayout->addWidget( inputPRGBIm, 0, 1 );
@@ -48,7 +48,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	inputPCMYKIm = new QComboBox( sysProfiles );
 	inputPCMYKIm->setMinimumSize( QSize( 190, 22 ) );
 	inputPCMYKIm->setEditable(false);
-	text1CMYK = new QLabel( tr( "&CMYK Pictures:" ), sysProfiles );
+	text1CMYK = new QLabel( tr( "&CMYK Images:" ), sysProfiles );
 	text1CMYK->setBuddy(inputPCMYKIm);
 	sysProfilesLayout->addWidget( text1CMYK, 1, 0 );
 	sysProfilesLayout->addWidget( inputPCMYKIm, 1, 1 );
@@ -95,7 +95,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	imagesI = new QComboBox( render );
 	imagesI->setMinimumSize( QSize( 190, 22 ) );
 	imagesI->setEditable(false);
-	text21 = new QLabel( tr( "Pictures:" ), render );
+	text21 = new QLabel( tr( "Images:" ), render );
 	text21->setBuddy(imagesI);
 	renderLayout->addWidget( text21, 0, 0 );
 	renderLayout->addWidget( imagesI, 0, 1 );

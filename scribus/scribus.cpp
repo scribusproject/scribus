@@ -911,7 +911,7 @@ void ScribusMainWindow::initMenuBar()
 
 	//Extra menu
 	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
-	scrMenuMgr->addMenuItem(scrActions["extrasManagePictures"], "Extras");
+	scrMenuMgr->addMenuItem(scrActions["extrasManageImages"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasDeHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras");
@@ -2336,7 +2336,7 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 			}
 		}
 	}
-	scrActions["extrasManagePictures"]->setEnabled(enablePicManager);
+	scrActions["extrasManageImages"]->setEnabled(enablePicManager);
 }
 
 void ScribusMainWindow::newActWin(QWidget *w)
@@ -2463,7 +2463,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	dia->updateDocumentSettings();
 	if (dia->imageResolutionChanged())
 	{
-		setStatusBarInfoText( tr("Updating Pictures"));
+		setStatusBarInfoText( tr("Updating Images"));
 		mainWindowProgressBar->reset();
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		qApp->processEvents();

@@ -782,7 +782,7 @@ void ActionManager::initToolsMenuActions()
 void ActionManager::initExtrasMenuActions()
 {
 	QString name;
-	name="extrasManagePictures";
+	name="extrasManageImages";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	name="extrasHyphenateText";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
@@ -791,7 +791,7 @@ void ActionManager::initExtrasMenuActions()
 	name="extrasGenerateTableOfContents";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 
-	connect( (*scrActions)["extrasManagePictures"], SIGNAL(triggered()), mainWindow, SLOT(StatusPic()) );
+	connect( (*scrActions)["extrasManageImages"], SIGNAL(triggered()), mainWindow, SLOT(StatusPic()) );
 	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(triggered()), mainWindow, SLOT(generateTableOfContents()) );
 }
 
@@ -1447,7 +1447,7 @@ void ActionManager::languageChange()
 
 
 	//Extras Menu
-	(*scrActions)["extrasManagePictures"]->setTexts( tr("&Manage Pictures"));
+	(*scrActions)["extrasManageImages"]->setTexts( tr("&Manage Images"));
 	(*scrActions)["extrasHyphenateText"]->setTexts( tr("&Hyphenate Text"));
 	(*scrActions)["extrasDeHyphenateText"]->setTexts( tr("Dehyphenate Text"));
 	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
@@ -1754,7 +1754,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsPDFAnnotLink", QKeySequence());
 
 	//Extras Menu
-	defKeys.insert("extrasManagePictures", QKeySequence());
+	defKeys.insert("extrasManageImages", QKeySequence());
 	defKeys.insert("extrasHyphenateText", QKeySequence());
 	defKeys.insert("extrasDeHyphenateText", QKeySequence());
 	defKeys.insert("extrasGenerateTableOfContents", QKeySequence());
@@ -1976,7 +1976,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit400" << "viewFitPreview" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
 	//Extras
 	++itmenu;
-	itmenu->second << "extrasManagePictures" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";
+	itmenu->second << "extrasManageImages" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";
 	//Windows
 	++itmenu;
 	itmenu->second  << "windowsCascade" << "windowsTile" << "toolsProperties" << "toolsOutline" << "toolsScrapbook" << "toolsLayers" << "toolsPages" << "toolsBookmarks" << "toolsMeasurements" << "toolsActionHistory" << "toolsPreflightVerifier" << "toolsAlignDistribute" << "toolsToolbarTools" << "toolsToolbarPDF";

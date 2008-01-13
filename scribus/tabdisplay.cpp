@@ -33,7 +33,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	checkControl->setToolTip( "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	checkFrame->setToolTip( "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
 	checkLayerM->setToolTip( "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
-	checkPictures->setToolTip( "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
+	checkPictures->setToolTip( "<qt>" + tr("Turns the display of images on or off") + "</qt>");
 	leftScratch->setToolTip( "<qt>" + tr( "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
 	rightScratch->setToolTip( "<qt>" + tr( "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
 	topScratch->setToolTip( "<qt>" + tr( "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );

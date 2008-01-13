@@ -309,7 +309,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 					if (currItem->PicAvail)
 					{
 						QFileInfo fi = QFileInfo(currItem->Pfile);
-						InfoT->setText( tr("Picture"));
+						InfoT->setText( tr("Image"));
 						InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignHCenter );
 						ParCT->setText( tr("File: "));
 						InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
@@ -336,7 +336,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 					}
 					else
 					{
-						InfoT->setText( tr("Picture"));
+						InfoT->setText( tr("Image"));
 						InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignHCenter );
 						ParCT->setText( tr("No Image Loaded"));
 						InfoGroupLayout->addWidget( ParCT, 1, 0, 1, 2, Qt::AlignHCenter );

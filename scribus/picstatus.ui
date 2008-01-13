@@ -13,7 +13,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Manage Pictures</string>
+   <string>Manage Images</string>
   </property>
   <layout class="QVBoxLayout" >
    <property name="spacing" >
