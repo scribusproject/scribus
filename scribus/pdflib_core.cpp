@@ -430,6 +430,56 @@ QString PDFLibCore::EncStringUTF16(const QString & in, int ObjNum)
 	return tmp;
 }
 
+bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, int ObjNum)
+{
+	if (in.size() < 1)
+		return true;
+	if (Options.Encrypt)
+	{
+		int dlen = 0;
+		rc4_context_t rc4;
+		unsigned char fallBackBuffer[1024];
+		QByteArray buffer(65536, ' ');
+		QByteArray data(10, ' ');
+		if (KeyLen > 5)
+			data.resize(21);
+		for (int cd = 0; cd < KeyLen; ++cd)
+		{
+			data[cd] = EncryKey[cd];
+			dlen++;
+		}
+		data[dlen++] = ObjNum;
+		data[dlen++] = ObjNum >> 8;
+		data[dlen++] = ObjNum >> 16;
+		data[dlen++] = 0;
+		data[dlen++] = 0;
+		QByteArray step1(16, ' ');
+		step1 = ComputeMD5Sum(&data);
+
+		uint   writeBufferS = (buffer.size() > 0) ? buffer.size() : 1024;
+		uchar* writeBuffer  = (buffer.size() > 0) ? (unsigned char*) buffer.data() : fallBackBuffer;
+		uint   dataBufferS  = in.size();
+		const  uchar* dataBuffer = (const uchar*) in.data();
+
+		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
+		while (dataBufferS >= writeBufferS)
+		{
+			rc4_encrypt(&rc4, dataBuffer, writeBuffer, writeBufferS);
+			outStream.writeRawData((const char*) writeBuffer, writeBufferS);
+			dataBuffer  += writeBufferS;
+			dataBufferS -= writeBufferS;
+		}
+		if (dataBufferS > 0)
+		{
+			rc4_encrypt(&rc4, dataBuffer, writeBuffer, dataBufferS);
+			outStream.writeRawData((const char*) writeBuffer, dataBufferS);
+		}
+	}
+	else
+		outStream.writeRawData(in, in.size());
+	return (outStream.status() == QDataStream::Ok);
+}
+
 QString PDFLibCore::FitKey(const QString & pass)
 {
 	QString pw(pass);
@@ -1436,7 +1486,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
 		PutDoc("/N "+QString::number(Options.SComp)+"\n");
 		PutDoc(">>\nstream\n");
-		PutDoc(EncStreamArray(dataP, ObjCounter-1));
+		EncodeArrayToStream(dataP, ObjCounter-1);
 		PutDoc("\nendstream\nendobj\n");
 		StartObj(ObjCounter);
 		dataD.ResName = ResNam+QString::number(ResCount);
@@ -2139,7 +2189,7 @@ void PDFLibCore::PDF_Begin_Page(const Page* pag, QPixmap pm)
 		if (Options.Compress && compDataAvail)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n");
-		PutDoc(EncStreamArray(array, ObjCounter));
+		EncodeArrayToStream(array, ObjCounter);
 		PutDoc("\nendstream\nendobj\n");
 		Seite.Thumb = ObjCounter;
 		ObjCounter++;
@@ -6185,7 +6235,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
 				PutDoc("/N "+QString::number(components)+"\n");
 				PutDoc(">>\nstream\n");
-				PutDoc(EncStreamArray(dataP, ObjCounter-1));
+				EncodeArrayToStream(dataP, ObjCounter-1);
 				PutDoc("\nendstream\nendobj\n");
 				StartObj(ObjCounter);
 				dataD.ResName = ResNam+QString::number(ResCount);
@@ -6243,17 +6293,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			StartObj(ObjCounter);
 			ObjCounter++;
 			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+			if (Options.CompressMethod != 3)
+			{
+				QByteArray compAlpha = CompressArray(im2);
+				if (compAlpha.size() > 0)
+				{
+					im2 = compAlpha;
+					compAlphaAvail = true;
+				}
+			}
 			if (Options.Version >= 14)
 			{
-				if (Options.CompressMethod != 3)
-				{
-					QByteArray compAlpha = CompressArray(im2);
-					if (compAlpha.size() > 0)
-					{
-						im2 = compAlpha;
-						compAlphaAvail = true;
-					}
-				}
 				PutDoc("/Width "+QString::number(origWidth)+"\n");
 				PutDoc("/Height "+QString::number(origHeight)+"\n");
 				PutDoc("/ColorSpace /DeviceGray\n");
@@ -6262,15 +6312,6 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			}
 			else
 			{
-				if (Options.CompressMethod != 3)
-				{
-					QByteArray compAlpha = CompressArray(im2);
-					if (compAlpha.size() > 0)
-					{
-						im2 = compAlpha;
-						compAlphaAvail = true;
-					}
-				}
 				PutDoc("/Width "+QString::number(origWidth)+"\n");
 				PutDoc("/Height "+QString::number(origHeight)+"\n");
 				PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
@@ -6279,7 +6320,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			if ((Options.CompressMethod != 3) && compAlphaAvail)
 				PutDoc("/Filter /FlateDecode\n");
 			PutDoc(">>\nstream\n");
-			PutDoc(EncStreamArray(im2, ObjCounter-1));
+			EncodeArrayToStream(im2, ObjCounter-1);
 			PutDoc("\nendstream\nendobj\n");
 			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = ObjCounter-1;
 			ResCount++;
@@ -6442,7 +6483,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				PutDoc("/Mask "+QString::number(ObjCounter-2)+" 0 R\n");
 		}
 		PutDoc(">>\nstream\n");
-		PutDoc(EncStreamArray(im, ObjCounter-1));
+		EncodeArrayToStream(im, ObjCounter-1);
 		PutDoc("\nendstream\nendobj\n");
 //		}
 		Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = ObjCounter-1;

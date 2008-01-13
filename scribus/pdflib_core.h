@@ -76,6 +76,8 @@ private:
 	QString    EncString(const QString & in, int ObjNum);
 	QString    EncStringUTF16(const QString & in, int ObjNum);
 
+	bool       EncodeArrayToStream(const QByteArray& in, int ObjNum);
+
 	void    CalcOwnerKey(const QString & Owner, const QString & User);
 	void    CalcUserKey(const QString & User, int Permission);
 	QString FitKey(const QString & pass);
