@@ -157,7 +157,8 @@ public:
 	QString GetLang(QString inLang);
 	bool getPDFDriver(const QString & fn, const QString & nam,
 					  int Components, const std::vector<int> & pageNs,
-					  const QMap<int,QPixmap> & thumbs, QString& error);
+					  const QMap<int,QPixmap> & thumbs, QString& error, 
+					  bool* cancelled = NULL);
 	bool DoSaveAsEps(QString fn, QString& error);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
 						int optionFlags = fdExistingFiles, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);

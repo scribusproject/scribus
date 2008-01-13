@@ -7858,7 +7858,8 @@ void ScribusMainWindow::reallySaveAsEps()
 }
 
 bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, int Components,
-									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs, QString& error)
+									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs, 
+									 QString& error, bool* cancelled)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
@@ -7866,6 +7867,8 @@ bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, in
 	bool ret = pdflib.doExport(fn, nam, Components, pageNs, thumbs);
 	if (!ret)
 		error = pdflib.errorMessage();
+	if (cancelled)
+		*cancelled = pdflib.exportAborted();
 	ScCore->fileWatcher->start();
 	return ret;
 }
@@ -7956,12 +7959,13 @@ void ScribusMainWindow::doSaveAsPDF()
 
 		if (doc->PDF_Options.doMultiFile)
 		{
+			bool cancelled = false;
 			QFileInfo fi(fileName);
 			QString ext = fi.suffix();
 			QString path = fi.path();
 			QString name = fi.completeBaseName();
 			uint aa = 0;
-			while (aa < pageNs.size())
+			while (aa < pageNs.size() && !cancelled)
 			{
 				thumbs.clear();
 				std::vector<int> pageNs2;
@@ -7973,7 +7977,7 @@ void ScribusMainWindow::doSaveAsPDF()
 					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
 				thumbs.insert(1, pm);
 				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
-				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg))
+				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei);

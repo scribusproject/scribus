@@ -23,3 +23,8 @@ const QString& PDFlib::errorMessage(void)
 {
 	return static_cast<PDFLibCore*>(impl)->errorMessage();
 }
+
+bool PDFlib::exportAborted(void)
+{
+	return static_cast<PDFLibCore*>(impl)->exportAborted();
+}

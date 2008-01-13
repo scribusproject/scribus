@@ -236,6 +236,11 @@ const QString& PDFLibCore::errorMessage(void) const
 	return ErrorMessage;
 }
 
+bool PDFLibCore::exportAborted(void) const
+{
+	return abortExport;
+}
+
 void PDFLibCore::StartObj(int nr)
 {
 	XRef.append(bytesWritten());

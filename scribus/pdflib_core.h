@@ -53,6 +53,7 @@ public:
 				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
 
 	const QString& errorMessage(void) const;
+	bool  exportAborted(void) const;
 
 private:
 
