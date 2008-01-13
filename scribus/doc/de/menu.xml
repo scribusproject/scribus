@@ -87,6 +87,7 @@
       <submenuitem file="toolbox13.html" text="XnView" />
       <submenuitem file="toolbox14.html" text="Lprof" />
       <submenuitem file="toolbox15.html" text="Krita" />
+      <submenuitem file="toolbox16.html" text="Fontmatrix" />
     </submenuitem>
     <submenuitem file="topten.html" text="Tips und FAQs" >
       <submenuitem file="faq1.html" text="Hilfe" />
