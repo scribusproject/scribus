@@ -606,7 +606,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.Articles = static_cast<bool>(pg.attribute("Articles").toInt());
 				m_Doc->PDF_Options.Thumbnails = static_cast<bool>(pg.attribute("Thumbnails").toInt());
 				m_Doc->PDF_Options.Compress = static_cast<bool>(pg.attribute("Compress").toInt());
-				m_Doc->PDF_Options.CompressMethod = pg.attribute("CMethod", "0").toInt();
+				m_Doc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression) pg.attribute("CMethod", "0").toInt();
 				m_Doc->PDF_Options.Quality = pg.attribute("Quality", "0").toInt();
 				m_Doc->PDF_Options.RecalcPic = static_cast<bool>(pg.attribute("RecalcPic").toInt());
 				m_Doc->PDF_Options.Bookmarks = static_cast<bool>(pg.attribute("Bookmarks").toInt());

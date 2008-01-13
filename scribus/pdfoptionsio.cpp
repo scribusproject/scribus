@@ -326,7 +326,7 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "compress", &m_opts->Compress))
 		return false;
-	if (!readElem(m_root, "compressMethod", &m_opts->CompressMethod))
+	if (!readElem(m_root, "compressMethod", (int*) &m_opts->CompressMethod))
 		return false;
 	if (!readElem(m_root, "quality", &m_opts->Quality))
 		return false;

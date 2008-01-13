@@ -232,7 +232,7 @@ void PDFExportDialog::updateDocOptions()
 	Opts.doMultiFile = multiFile->isChecked();
 	Opts.Thumbnails = Options->CheckBox1->isChecked();
 	Opts.Compress = Options->Compression->isChecked();
-	Opts.CompressMethod = Options->CMethod->currentIndex();
+	Opts.CompressMethod = (PDFOptions::PDFCompression) Options->CMethod->currentIndex();
 	Opts.Quality = Options->CQuality->currentIndex();
 	Opts.Resolution = Options->Resolution->value();
 	Opts.EmbedList = Options->FontsToEmbed;

@@ -985,7 +985,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply compress attribute
 	self->compressmtd = minmaxi(self->compressmtd, 0, 3);
 	ScCore->primaryMainWindow()->doc->PDF_Options.Compress = self->compress;
-	ScCore->primaryMainWindow()->doc->PDF_Options.CompressMethod = self->compressmtd;
+	ScCore->primaryMainWindow()->doc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression) self->compressmtd;
 // apply quality attribute
 	self->quality = minmaxi(self->quality, 0, 4);
 	ScCore->primaryMainWindow()->doc->PDF_Options.Quality = self->quality;

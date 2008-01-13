@@ -62,6 +62,14 @@ public:
 		TwoColumnRight
 	};
 
+	enum PDFCompression
+	{
+		Compression_Auto = 0,
+		Compression_JPEG = 1,
+		Compression_ZIP  = 2,
+		Compression_None = 3
+	};
+
 	/**
 	 * @author Craig Ringer
 	 * @brief Sanity check the options defined.
@@ -90,7 +98,7 @@ public:
 	bool Articles;
 	bool useLayers;
 	bool Compress;
-	int CompressMethod;
+	PDFCompression CompressMethod;
 	int Quality;
 	bool RecalcPic;
 	bool Bookmarks;

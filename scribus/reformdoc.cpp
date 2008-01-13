@@ -517,7 +517,7 @@ void ReformDoc::updateDocumentSettings()
 
 	currDoc->PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
 	currDoc->PDF_Options.Compress = tabPDF->Compression->isChecked();
-	currDoc->PDF_Options.CompressMethod = tabPDF->CMethod->currentIndex();
+	currDoc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression) tabPDF->CMethod->currentIndex();
 	currDoc->PDF_Options.Quality = tabPDF->CQuality->currentIndex();
 	currDoc->PDF_Options.Resolution = tabPDF->Resolution->value();
 	currDoc->PDF_Options.RecalcPic = tabPDF->DSColor->isChecked();

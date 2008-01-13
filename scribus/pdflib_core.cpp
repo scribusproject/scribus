@@ -6223,7 +6223,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					}
 				}
 				PutDoc("<<\n");
-				if ((Options.CompressMethod != 3) && Options.Compress)
+				if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
 				{
 					QByteArray compData = CompressArray(dataP);
 					if (compData.size() > 0)
@@ -6293,7 +6293,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			StartObj(ObjCounter);
 			ObjCounter++;
 			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-			if (Options.CompressMethod != 3)
+			if (Options.CompressMethod != PDFOptions::Compression_None)
 			{
 				QByteArray compAlpha = CompressArray(im2);
 				if (compAlpha.size() > 0)
@@ -6317,7 +6317,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
 				PutDoc("/Length "+QString::number(im2.size())+"\n");
 			}
-			if ((Options.CompressMethod != 3) && compAlphaAvail)
+			if ((Options.CompressMethod != PDFOptions::Compression_None) && compAlphaAvail)
 				PutDoc("/Filter /FlateDecode\n");
 			PutDoc(">>\nstream\n");
 			EncodeArrayToStream(im2, ObjCounter-1);
@@ -6347,7 +6347,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		bool compDataAvail = false;
 		StartObj(ObjCounter);
 		ObjCounter++;
-		if ((Options.CompressMethod == 2) || (Options.CompressMethod == 0))
+		if ((Options.CompressMethod == PDFOptions::Compression_ZIP) || (Options.CompressMethod == PDFOptions::Compression_Auto))
 		{
 			QByteArray compData = CompressArray(im);
 			if (compData.size() > 0)
@@ -6381,28 +6381,28 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					PutDoc("/ColorSpace /DeviceCMYK\n");
 			}
 		}
-		int cm = Options.CompressMethod;
+		enum PDFOptions::PDFCompression cm = Options.CompressMethod;
 		bool specialCMYK = false;
-		if (extensionIndicatesJPEG(ext) && (cm != 3))
+		if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 		{
-			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
+			if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
 				im.resize(0);
 				if (!loadRawBytes(fn, im))
 					return false;
-				cm = 1;
+				cm = PDFOptions::Compression_JPEG;
 			}
 			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 			{
 				im.resize(0);
 				if (!loadRawBytes(fn, im))
 					return false;
-				cm = 1;
+				cm = PDFOptions::Compression_JPEG;
 				specialCMYK = true;
 			}
 			else
 			{
-				if (Options.CompressMethod == 1)
+				if (Options.CompressMethod == PDFOptions::Compression_JPEG)
 				{
 					QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 					if (((Options.UseRGB) || (Options.UseProfiles2)) && (!realCMYK))
@@ -6420,16 +6420,16 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					im.resize(0);
 					if (!loadRawBytes(tmpFile, im))
 						return false;
-					cm = 1;
+					cm = PDFOptions::Compression_JPEG;
 					QFile::remove(tmpFile);
 				}
 				else
-					cm = 2;
+					cm = PDFOptions::Compression_ZIP;
 			}
 		}
 		else
 		{
-			if ((Options.CompressMethod == 1) || (Options.CompressMethod == 0))
+			if ((Options.CompressMethod == PDFOptions::Compression_JPEG) || (Options.CompressMethod == PDFOptions::Compression_Auto))
 			{
 				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 				if (((Options.UseRGB) || (Options.UseProfiles2)) && (!realCMYK))
@@ -6444,7 +6444,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						specialCMYK = true;
 					}
 				}
-				if (Options.CompressMethod == 0)
+				if (Options.CompressMethod == PDFOptions::Compression_Auto)
 				{
 					QFileInfo fi(tmpFile);
 					if (fi.size() < im.size())
@@ -6452,28 +6452,28 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						im.resize(0);
 						if (!loadRawBytes(tmpFile, im))
 							return false;
-						cm = 1;
+						cm = PDFOptions::Compression_JPEG;
 					}
 					else
-						cm = 2;
+						cm = PDFOptions::Compression_ZIP;
 				}
 				else
 				{
 					im.resize(0);
 					if (!loadRawBytes(tmpFile, im))
 						return false;
-					cm = 1;
+					cm = PDFOptions::Compression_JPEG;
 				}
 				QFile::remove(tmpFile);
 			}
 		}
 		PutDoc("/BitsPerComponent 8\n");
 		PutDoc("/Length "+QString::number(im.size())+"\n");
-		if (cm == 1)
+		if (cm == PDFOptions::Compression_JPEG)
 			PutDoc("/Filter /DCTDecode\n");
-		else if (cm != 3 && compDataAvail)
+		else if (cm != PDFOptions::Compression_None && compDataAvail)
 			PutDoc("/Filter /FlateDecode\n");
-		if (specialCMYK && (cm == 1))
+		if (specialCMYK && (cm == PDFOptions::Compression_JPEG))
 			PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
 		if (alphaM)
 		{

@@ -411,7 +411,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.Articles = false;
 	appPrefs.PDF_Options.useLayers = false;
 	appPrefs.PDF_Options.Compress = true;
-	appPrefs.PDF_Options.CompressMethod = 0;
+	appPrefs.PDF_Options.CompressMethod = PDFOptions::Compression_Auto;
 	appPrefs.PDF_Options.Quality = 0;
 	appPrefs.PDF_Options.RecalcPic = false;
 	appPrefs.PDF_Options.Bookmarks = false;
@@ -2151,7 +2151,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.Articles = static_cast<bool>(dc.attribute("Articles").toInt());
 			appPrefs.PDF_Options.Thumbnails = static_cast<bool>(dc.attribute("Thumbnails").toInt());
 			appPrefs.PDF_Options.Compress = static_cast<bool>(dc.attribute("Compress").toInt());
-			appPrefs.PDF_Options.CompressMethod = dc.attribute("CMethod", "0").toInt();
+			appPrefs.PDF_Options.CompressMethod = (PDFOptions::PDFCompression) dc.attribute("CMethod", "0").toInt();
 			appPrefs.PDF_Options.Quality = dc.attribute("Quality", "0").toInt();
 			appPrefs.PDF_Options.RecalcPic = static_cast<bool>(dc.attribute("RecalcPic").toInt());
 			appPrefs.PDF_Options.Bookmarks = static_cast<bool>(dc.attribute("Bookmarks").toInt());
