@@ -8949,8 +8949,11 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 		currItem->setRotation(angle);
 		setRedrawBounding(currItem);
 	}
-	QRectF newR(currItem->getBoundingRect());
-	regionsChanged()->update(newR.unite(oldR));
+	if (!loading)
+	{
+		QRectF newR(currItem->getBoundingRect());
+		regionsChanged()->update(newR.unite(oldR));
+	}
 	//emit SetAngle(currItem->rotation());
 }
 
@@ -9100,7 +9103,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		currItem->updateClip();
 	}
 //	currItem->updateGradientVectors();
-	if (redraw)
+	if ((redraw) && (!loading))
 	{
 		QRectF newR(currItem->getBoundingRect());
 		regionsChanged()->update(newR.unite(oldR));
@@ -9142,8 +9145,11 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 		currItem->updateClip();
 		setRedrawBounding(currItem);
 		QRectF newR(currItem->getBoundingRect());
-		regionsChanged()->update(oldR);
-		regionsChanged()->update(newR);
+		if (!loading)
+		{
+			regionsChanged()->update(oldR);
+			regionsChanged()->update(newR);
+		}
 //		updateContents(newR.unite(oldR));
 	}
 	else
