@@ -131,7 +131,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				{
 					if (docItem->Groups.count() == 0)
 						currentGroup = -1;
-					if ((currentGroup != -1) && (docItem->Groups.count() != 0))
+					if ((currentGroup != -1) && (docItem->Groups.count() != 0) && (currentGroup == docItem->Groups.top()))
 						continue;
 					if (docItem->textFlowAroundObject())
 					{
@@ -168,7 +168,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				{
 					if (docItem->Groups.count() == 0)
 						currentGroup = -1;
-					if ((currentGroup != -1) && (docItem->Groups.count() != 0))
+					if ((currentGroup != -1) && (docItem->Groups.count() != 0) && (currentGroup == docItem->Groups.top()))
 						continue;
 					if (docItem->textFlowAroundObject())
 						result = result.subtract(itemShape(docItem, 0, 0));
