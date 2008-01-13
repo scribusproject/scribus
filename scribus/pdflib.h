@@ -57,6 +57,8 @@ public:
 	bool doExport(const QString& fn, const QString& nam, int Components,
 				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
 
+	bool exportCancelled(void) const { return abortExport; }
+
 	// used by ScFonts
 	struct GlNamInd
 	{
