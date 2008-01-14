@@ -91,7 +91,7 @@ wird
 				<de>Hintergrundfarbe</de>
 			</i18n></color>
 		-->
-		<text name="additionalheaders" type="long" default="">Zusätzliche Header:</text>
+		<text name="additionalheaders" type="long" default=""><i18n><en>Additional Headers:</en><de>Zusätzliche Header:</de></i18n></text>
 	</tab>
 	<tab type="items">
 		<title><i18n>
@@ -185,13 +185,13 @@ wird
 		<item value="\rhd"  image="rhd.png" />
 		<item value="\unlhd"  image="unlhd.png" />
 		<item value="\unrhd"  image="unrhd.png" />
-		<item value="\Join"  image="Join.png" />
+		<item value="\Join"  image="j_oin.png" />
 		<item value="\sqsubset"  image="sqsubset.png" />
 		<item value="\sqsupset"  image="sqsupset.png" />
 		<item value="\dotplus"  image="dotplus.png" />
 		<item value="\smallsetminus"  image="smallsetminus.png" />
-		<item value="\Cap"  image="Cap.png" />
-		<item value="\Cup"  image="Cup.png" />
+		<item value="\Cap"  image="c_ap.png" />
+		<item value="\Cup"  image="c_up.png" />
 		<item value="\barwedge"  image="barwedge.png" />
 		<item value="\veebar"  image="veebar.png" />
 		<item value="\doublebarwedge"  image="doublebarwedge.png" />
@@ -227,19 +227,19 @@ wird
 		<item value="\backsim"  image="backsim.png" />
 		<item value="\backsimeq"  image="backsimeq.png" />
 		<item value="\subseteqq"  image="subseteqq.png" />
-		<item value="\Subset"  image="Subset.png" />
+		<item value="\Subset"  image="s_ubset.png" />
 		<item value="\preccurlyeq"  image="preccurlyeq.png" />
 		<item value="\curlyeqprec"  image="curlyeqprec.png" />
 		<item value="\precsim"  image="precsim.png" />
 		<item value="\precapprox"  image="precapprox.png" />
 		<item value="\vartriangleleft"  image="vartriangleleft.png" />
 		<item value="\trianglelefteq"  image="trianglelefteq.png" />
-		<item value="\vDash"  image="vDash.png" />
-		<item value="\Vvdash"  image="Vvdash.png" />
+		<item value="\vDash"  image="vd_ash.png" />
+		<item value="\Vvdash"  image="v_vdash.png" />
 		<item value="\smallsmile"  image="smallsmile.png" />
 		<item value="\smallfrown"  image="smallfrown.png" />
 		<item value="\bumpeq"  image="bumpeq.png" />
-		<item value="\Bumpeq"  image="Bumpeq.png" />
+		<item value="\Bumpeq"  image="b_umpeq.png" />
 		<item value="\geqq"  image="geqq.png" />
 		<item value="\eqslantgtr"  image="eqslantgtr.png" />
 		<item value="\gtrsim"  image="gtrsim.png" />
@@ -255,14 +255,14 @@ wird
 		<item value="\thicksim"  image="thicksim.png" />
 		<item value="\thickapprox"  image="thickapprox.png" />
 		<item value="\supseteqq"  image="supseteqq.png" />
-		<item value="\Supset"  image="Supset.png" />
+		<item value="\Supset"  image="s_upset.png" />
 		<item value="\succcurlyeq"  image="succcurlyeq.png" />
 		<item value="\curlyeqsucc"  image="curlyeqsucc.png" />
 		<item value="\succsim"  image="succsim.png" />
 		<item value="\succapprox"  image="succapprox.png" />
 		<item value="\vartriangleright"  image="vartriangleright.png" />
 		<item value="\trianglerighteq"  image="trianglerighteq.png" />
-		<item value="\Vdash"  image="Vdash.png" />
+		<item value="\Vdash"  image="v_dash.png" />
 		<item value="\shortmid"  image="shortmid.png" />
 		<item value="\shortparallel"  image="shortparallel.png" />
 		<item value="\between"  image="between.png" />
@@ -290,7 +290,7 @@ wird
 		<item value="\nshortmid"  image="nshortmid.png" />
 		<item value="\nmid"  image="nmid.png" />
 		<item value="\nvdash"  image="nvdash.png" />
-		<item value="\nvDash"  image="nvDash.png" />
+		<item value="\nvDash"  image="nvd_ash.png" />
 		<item value="\ntriangleleft"  image="ntriangleleft.png" />
 		<item value="\ntrianglelefteq"  image="ntrianglelefteq.png" />
 		<item value="\nsubseteq"  image="nsubseteq.png" />
@@ -314,7 +314,7 @@ wird
 		<item value="\ncong"  image="ncong.png" />
 		<item value="\nshortparallel"  image="nshortparallel.png" />
 		<item value="\nparallel"  image="nparallel.png" />
-		<item value="\nVDash"  image="nVDash.png" />
+		<item value="\nVDash"  image="nv_d_ash.png" />
 		<item value="\ntriangleright"  image="ntriangleright.png" />
 		<item value="\ntrianglerighteq"  image="ntrianglerighteq.png" />
 		<item value="\nsupseteq"  image="nsupseteq.png" />
@@ -332,21 +332,21 @@ wird
 		<item value="\leftarrow"  image="leftarrow.png" />
 		<item value="\longleftarrow"  image="longleftarrow.png" />
 		<item value="\uparrow"  image="uparrow.png" />
-		<item value="\Leftarrow"  image="Leftarrow.png" />
-		<item value="\Longleftarrow"  image="Longleftarrow.png" />
-		<item value="\Uparrow"  image="Uparrow.png" />
+		<item value="\Leftarrow"  image="l_eftarrow.png" />
+		<item value="\Longleftarrow"  image="l_ongleftarrow.png" />
+		<item value="\Uparrow"  image="u_parrow.png" />
 		<item value="\rightarrow"  image="rightarrow.png" />
 		<item value="\longrightarrow"  image="longrightarrow.png" />
 		<item value="\downarrow"  image="downarrow.png" />
-		<item value="\Rightarrow"  image="Rightarrow.png" />
-		<item value="\Longrightarrow"  image="Longrightarrow.png" />
-		<item value="\Downarrow"  image="Downarrow.png" />
+		<item value="\Rightarrow"  image="r_ightarrow.png" />
+		<item value="\Longrightarrow"  image="l_ongrightarrow.png" />
+		<item value="\Downarrow"  image="d_ownarrow.png" />
 		<item value="\leftrightarrow"  image="leftrightarrow.png" />
 		<item value="\longleftrightarrow"  image="longleftrightarrow.png" />
 		<item value="\updownarrow"  image="updownarrow.png" />
-		<item value="\Leftrightarrow"  image="Leftrightarrow.png" />
-		<item value="\Longleftrightarrow"  image="Longleftrightarrow.png" />
-		<item value="\Updownarrow"  image="Updownarrow.png" />
+		<item value="\Leftrightarrow"  image="l_eftrightarrow.png" />
+		<item value="\Longleftrightarrow"  image="l_ongleftrightarrow.png" />
+		<item value="\Updownarrow"  image="u_pdownarrow.png" />
 		<item value="\mapsto"  image="mapsto.png" />
 		<item value="\longmapsto"  image="longmapsto.png" />
 		<item value="\nearrow"  image="nearrow.png" />
@@ -364,14 +364,14 @@ wird
 		<item value="\dashleftarrow"  image="dashleftarrow.png" />
 		<item value="\leftleftarrows"  image="leftleftarrows.png" />
 		<item value="\leftrightarrows"  image="leftrightarrows.png" />
-		<item value="\Lleftarrow"  image="Lleftarrow.png" />
+		<item value="\Lleftarrow"  image="l_leftarrow.png" />
 		<item value="\twoheadleftarrow"  image="twoheadleftarrow.png" />
 		<item value="\leftarrowtail"  image="leftarrowtail.png" />
 		<item value="\looparrowleft"  image="looparrowleft.png" />
 		<item value="\leftrightharpoons"  image="leftrightharpoons.png" />
 		<item value="\curvearrowleft"  image="curvearrowleft.png" />
 		<item value="\circlearrowleft"  image="circlearrowleft.png" />
-		<item value="\Lsh"  image="Lsh.png" />
+		<item value="\Lsh"  image="l_sh.png" />
 		<item value="\upuparrows"  image="upuparrows.png" />
 		<item value="\upharpoonleft"  image="upharpoonleft.png" />
 		<item value="\downharpoonleft"  image="downharpoonleft.png" />
@@ -384,20 +384,20 @@ wird
 		<item value="\looparrowright"  image="looparrowright.png" />
 		<item value="\curvearrowright"  image="curvearrowright.png" />
 		<item value="\circlearrowright"  image="circlearrowright.png" />
-		<item value="\Rsh"  image="Rsh.png" />
+		<item value="\Rsh"  image="r_sh.png" />
 		<item value="\downdownarrows"  image="downdownarrows.png" />
 		<item value="\upharpoonright"  image="upharpoonright.png" />
 		<item value="\downharpoonright"  image="downharpoonright.png" />
 		<item value="\rightsquigarrow"  image="rightsquigarrow.png" />
 		<item value="\nleftarrow"  image="nleftarrow.png" />
 		<item value="\nrightarrow"  image="nrightarrow.png" />
-		<item value="\nLeftarrow"  image="nLeftarrow.png" />
-		<item value="\nRightarrow"  image="nRightarrow.png" />
+		<item value="\nLeftarrow"  image="nl_eftarrow.png" />
+		<item value="\nRightarrow"  image="nr_ightarrow.png" />
 		<item value="\nleftrightarrow"  image="nleftrightarrow.png" />
-		<item value="\nLeftrightarrow"  image="nLeftrightarrow.png" />
+		<item value="\nLeftrightarrow"  image="nl_eftrightarrow.png" />
 		<item value="\leadsto"  image="leadsto.png" />
-		<!--<item value="\xleftarrow[xyz]{abc}"  image="xleftarrowxyzabc.png" />
-		<item value="\xrightarrow[xyz]{abc}"  image="xrightarrowxyzabc.png" />-->
+		<item value="\xleftarrow[xyz]{abc}"  image="xleftarrowxyzabc.png" />
+		<item value="\xrightarrow[xyz]{abc}"  image="xrightarrowxyzabc.png" />
 	</tab>
 	<tab type="items">
 		<title><i18n>
@@ -430,10 +430,10 @@ wird
 		<item value="\bot"  image="bot.png" />
 		<item value="\sharp"  image="sharp.png" />
 		<item value="\diamondsuit"  image="diamondsuit.png" />
-		<item value="\Re"  image="Re.png" />
+		<item value="\Re"  image="r_e.png" />
 		<item value="\backslash"  image="backslash.png" />
 		<item value="\heartsuit"  image="heartsuit.png" />
-		<item value="\Im"  image="Im.png" />
+		<item value="\Im"  image="i_m.png" />
 		<item value="\angle"  image="angle.png" />
 		<item value="\partial"  image="partial.png" />
 		<item value="\spadesuit"  image="spadesuit.png" />
@@ -442,13 +442,13 @@ wird
 		<item value="\triangledown"  image="triangledown.png" />
 		<item value="\square"  image="square.png" />
 		<item value="\lozenge"  image="lozenge.png" />
-		<item value="\circledS"  image="circledS.png" />
+		<item value="\circledS"  image="circleds_.png" />
 		<item value="\measuredangle"  image="measuredangle.png" />
 		<item value="\nexists"  image="nexists.png" />
 		<item value="\mho"  image="mho.png" />
-		<item value="\Finv"  image="Finv.png" />
-		<item value="\Game"  image="Game.png" />
-		<item value="\Bbbk"  image="Bbbk.png" />
+		<item value="\Finv"  image="f_inv.png" />
+		<item value="\Game"  image="g_ame.png" />
+		<item value="\Bbbk"  image="b_bbk.png" />
 		<item value="\backprime"  image="backprime.png" />
 		<item value="\varnothing"  image="varnothing.png" />
 		<item value="\blacktriangle"  image="blacktriangle.png" />
@@ -465,7 +465,7 @@ wird
 	<tab type="items">
 		<title>Delimiters</title>
 		<item value="\vert"  image="vert.png" />
-		<item value="\Vert"  image="Vert.png" />
+		<item value="\Vert"  image="v_ert.png" />
 		<item value="\lbrace"  image="lbrace.png" />
 		<item value="\rbrace"  image="rbrace.png" />
 		<item value="\lfloor"  image="lfloor.png" />
@@ -474,14 +474,14 @@ wird
 		<item value="\rceil"  image="rceil.png" />
 		<item value="\langle"  image="langle.png" />
 		<item value="\rangle"  image="rangle.png" />
-		<!--<item value="\overbrace{xyz}"  image="overbracexyz.png" />
+		<item value="\overbrace{xyz}"  image="overbracexyz.png" />
 		<item value="\underbrace{xyz}"  image="underbracexyz.png" />
 		<item value="\overline{xyz}"  image="overlinexyz.png" />
 		<item value="\underline{xyz}"  image="underlinexyz.png" />
 		<item value="\overleftarrow{xyz}"  image="overleftarrowxyz.png" />
 		<item value="\overrightarrow{xyz}"  image="overrightarrowxyz.png" />
 		<item value="\widehat{xyz}"  image="widehatxyz.png" />
-		<item value="\widetilde{xyz}"  image="widetildexyz.png" />-->
+		<item value="\widetilde{xyz}"  image="widetildexyz.png" />
 		<item value="\ulcorner"  image="ulcorner.png" />
 		<item value="\urcorner"  image="urcorner.png" />
 		<item value="\llcorner"  image="llcorner.png" />
@@ -491,11 +491,11 @@ wird
 		<item value="\lgroup"  image="lgroup.png" />
 		<item value="\rgroup"  image="rgroup.png" />
 		<item value="\arrowvert"  image="arrowvert.png" />
-		<item value="\Arrowvert"  image="Arrowvert.png" />
+		<item value="\Arrowvert"  image="a_rrowvert.png" />
 		<item value="\bracevert"  image="bracevert.png" />
-		<!--<item value="\sqrt{xyz}"  image="sqrtxyz.png" />
+		<item value="\sqrt{xyz}"  image="sqrtxyz.png" />
 		<item value="\sqrt[n]{xyz}"  image="sqrtnxyz.png" />
-		<item value="\frac{a}{b}"  image="fracab.png" />-->
+		<item value="\frac{a}{b}"  image="fracab.png" />
 	</tab>
 	<tab type="items">
 		<title>Greek Alphabet</title>
@@ -528,151 +528,150 @@ wird
 		<item value="\chi"  image="chi.png" />
 		<item value="\psi"  image="psi.png" />
 		<item value="\omega"  image="omega.png" />
-		<item value="\Gamma"  image="Gamma.png" />
-		<item value="\Delta"  image="Delta.png" />
-		<item value="\Theta"  image="Theta.png" />
-		<item value="\Lambda"  image="Lambda.png" />
-		<item value="\Xi"  image="Xi.png" />
-		<item value="\Pi"  image="Pi.png" />
-		<item value="\Sigma"  image="Sigma.png" />
-		<item value="\Upsilon"  image="Upsilon.png" />
-		<item value="\Phi"  image="Phi.png" />
-		<item value="\Psi"  image="Psi.png" />
-		<item value="\Omega"  image="Omega.png" />
+		<item value="\Gamma"  image="g_amma.png" />
+		<item value="\Delta"  image="d_elta.png" />
+		<item value="\Theta"  image="t_heta.png" />
+		<item value="\Lambda"  image="l_ambda.png" />
+		<item value="\Xi"  image="x_i.png" />
+		<item value="\Pi"  image="p_i.png" />
+		<item value="\Sigma"  image="s_igma.png" />
+		<item value="\Upsilon"  image="u_psilon.png" />
+		<item value="\Phi"  image="p_hi.png" />
+		<item value="\Psi"  image="p_si.png" />
+		<item value="\Omega"  image="o_mega.png" />
 	</tab>
-	<!-- TODO: No symbols were generated for these items!
 	<tab type="items">
 		<title>Math alphabets</title>
-		<item value="\mathcal{A}"  image="mathcalA.png" />
-		<item value="\mathcal{B}"  image="mathcalB.png" />
-		<item value="\mathcal{C}"  image="mathcalC.png" />
-		<item value="\mathcal{D}"  image="mathcalD.png" />
-		<item value="\mathcal{E}"  image="mathcalE.png" />
-		<item value="\mathcal{F}"  image="mathcalF.png" />
-		<item value="\mathcal{G}"  image="mathcalG.png" />
-		<item value="\mathcal{H}"  image="mathcalH.png" />
-		<item value="\mathcal{I}"  image="mathcalI.png" />
-		<item value="\mathcal{J}"  image="mathcalJ.png" />
-		<item value="\mathcal{K}"  image="mathcalK.png" />
-		<item value="\mathcal{L}"  image="mathcalL.png" />
-		<item value="\mathcal{M}"  image="mathcalM.png" />
-		<item value="\mathcal{N}"  image="mathcalN.png" />
-		<item value="\mathcal{O}"  image="mathcalO.png" />
-		<item value="\mathcal{P}"  image="mathcalP.png" />
-		<item value="\mathcal{Q}"  image="mathcalQ.png" />
-		<item value="\mathcal{R}"  image="mathcalR.png" />
-		<item value="\mathcal{S}"  image="mathcalS.png" />
-		<item value="\mathcal{T}"  image="mathcalT.png" />
-		<item value="\mathcal{U}"  image="mathcalU.png" />
-		<item value="\mathcal{V}"  image="mathcalV.png" />
-		<item value="\mathcal{W}"  image="mathcalW.png" />
-		<item value="\mathcal{X}"  image="mathcalX.png" />
-		<item value="\mathcal{Y}"  image="mathcalY.png" />
-		<item value="\mathcal{Z}"  image="mathcalZ.png" />
-		<item value="\mathbb{A}"  image="mathbbA.png" />
-		<item value="\mathbb{B}"  image="mathbbB.png" />
-		<item value="\mathbb{C}"  image="mathbbC.png" />
-		<item value="\mathbb{D}"  image="mathbbD.png" />
-		<item value="\mathbb{E}"  image="mathbbE.png" />
-		<item value="\mathbb{F}"  image="mathbbF.png" />
-		<item value="\mathbb{G}"  image="mathbbG.png" />
-		<item value="\mathbb{H}"  image="mathbbH.png" />
-		<item value="\mathbb{I}"  image="mathbbI.png" />
-		<item value="\mathbb{J}"  image="mathbbJ.png" />
-		<item value="\mathbb{K}"  image="mathbbK.png" />
-		<item value="\mathbb{L}"  image="mathbbL.png" />
-		<item value="\mathbb{M}"  image="mathbbM.png" />
-		<item value="\mathbb{N}"  image="mathbbN.png" />
-		<item value="\mathbb{O}"  image="mathbbO.png" />
-		<item value="\mathbb{P}"  image="mathbbP.png" />
-		<item value="\mathbb{Q}"  image="mathbbQ.png" />
-		<item value="\mathbb{R}"  image="mathbbR.png" />
-		<item value="\mathbb{S}"  image="mathbbS.png" />
-		<item value="\mathbb{T}"  image="mathbbT.png" />
-		<item value="\mathbb{U}"  image="mathbbU.png" />
-		<item value="\mathbb{V}"  image="mathbbV.png" />
-		<item value="\mathbb{W}"  image="mathbbW.png" />
-		<item value="\mathbb{X}"  image="mathbbX.png" />
-		<item value="\mathbb{Y}"  image="mathbbY.png" />
-		<item value="\mathbb{Z}"  image="mathbbZ.png" />
-		<item value="\mathbf{A}"  image="mathbfA.png" />
-		<item value="\mathbf{B}"  image="mathbfB.png" />
-		<item value="\mathbf{C}"  image="mathbfC.png" />
-		<item value="\mathbf{D}"  image="mathbfD.png" />
-		<item value="\mathbf{E}"  image="mathbfE.png" />
-		<item value="\mathbf{F}"  image="mathbfF.png" />
-		<item value="\mathbf{G}"  image="mathbfG.png" />
-		<item value="\mathbf{H}"  image="mathbfH.png" />
-		<item value="\mathbf{I}"  image="mathbfI.png" />
-		<item value="\mathbf{J}"  image="mathbfJ.png" />
-		<item value="\mathbf{K}"  image="mathbfK.png" />
-		<item value="\mathbf{L}"  image="mathbfL.png" />
-		<item value="\mathbf{M}"  image="mathbfM.png" />
-		<item value="\mathbf{N}"  image="mathbfN.png" />
-		<item value="\mathbf{O}"  image="mathbfO.png" />
-		<item value="\mathbf{P}"  image="mathbfP.png" />
-		<item value="\mathbf{Q}"  image="mathbfQ.png" />
-		<item value="\mathbf{R}"  image="mathbfR.png" />
-		<item value="\mathbf{S}"  image="mathbfS.png" />
-		<item value="\mathbf{T}"  image="mathbfT.png" />
-		<item value="\mathbf{U}"  image="mathbfU.png" />
-		<item value="\mathbf{V}"  image="mathbfV.png" />
-		<item value="\mathbf{W}"  image="mathbfW.png" />
-		<item value="\mathbf{X}"  image="mathbfX.png" />
-		<item value="\mathbf{Y}"  image="mathbfY.png" />
-		<item value="\mathbf{Z}"  image="mathbfZ.png" />
-		<item value="\mathfrak{A}"  image="mathfrakA.png" />
-		<item value="\mathfrak{B}"  image="mathfrakB.png" />
-		<item value="\mathfrak{C}"  image="mathfrakC.png" />
-		<item value="\mathfrak{D}"  image="mathfrakD.png" />
-		<item value="\mathfrak{E}"  image="mathfrakE.png" />
-		<item value="\mathfrak{F}"  image="mathfrakF.png" />
-		<item value="\mathfrak{G}"  image="mathfrakG.png" />
-		<item value="\mathfrak{H}"  image="mathfrakH.png" />
-		<item value="\mathfrak{I}"  image="mathfrakI.png" />
-		<item value="\mathfrak{J}"  image="mathfrakJ.png" />
-		<item value="\mathfrak{K}"  image="mathfrakK.png" />
-		<item value="\mathfrak{L}"  image="mathfrakL.png" />
-		<item value="\mathfrak{M}"  image="mathfrakM.png" />
-		<item value="\mathfrak{N}"  image="mathfrakN.png" />
-		<item value="\mathfrak{O}"  image="mathfrakO.png" />
-		<item value="\mathfrak{P}"  image="mathfrakP.png" />
-		<item value="\mathfrak{Q}"  image="mathfrakQ.png" />
-		<item value="\mathfrak{R}"  image="mathfrakR.png" />
-		<item value="\mathfrak{S}"  image="mathfrakS.png" />
-		<item value="\mathfrak{T}"  image="mathfrakT.png" />
-		<item value="\mathfrak{U}"  image="mathfrakU.png" />
-		<item value="\mathfrak{V}"  image="mathfrakV.png" />
-		<item value="\mathfrak{W}"  image="mathfrakW.png" />
-		<item value="\mathfrak{X}"  image="mathfrakX.png" />
-		<item value="\mathfrak{Y}"  image="mathfrakY.png" />
-		<item value="\mathfrak{Z}"  image="mathfrakZ.png" />
-		<item value="\boldsymbol{A}"  image="boldsymbolA.png" />
-		<item value="\boldsymbol{B}"  image="boldsymbolB.png" />
-		<item value="\boldsymbol{C}"  image="boldsymbolC.png" />
-		<item value="\boldsymbol{D}"  image="boldsymbolD.png" />
-		<item value="\boldsymbol{E}"  image="boldsymbolE.png" />
-		<item value="\boldsymbol{F}"  image="boldsymbolF.png" />
-		<item value="\boldsymbol{G}"  image="boldsymbolG.png" />
-		<item value="\boldsymbol{H}"  image="boldsymbolH.png" />
-		<item value="\boldsymbol{I}"  image="boldsymbolI.png" />
-		<item value="\boldsymbol{J}"  image="boldsymbolJ.png" />
-		<item value="\boldsymbol{K}"  image="boldsymbolK.png" />
-		<item value="\boldsymbol{L}"  image="boldsymbolL.png" />
-		<item value="\boldsymbol{M}"  image="boldsymbolM.png" />
-		<item value="\boldsymbol{N}"  image="boldsymbolN.png" />
-		<item value="\boldsymbol{O}"  image="boldsymbolO.png" />
-		<item value="\boldsymbol{P}"  image="boldsymbolP.png" />
-		<item value="\boldsymbol{Q}"  image="boldsymbolQ.png" />
-		<item value="\boldsymbol{R}"  image="boldsymbolR.png" />
-		<item value="\boldsymbol{S}"  image="boldsymbolS.png" />
-		<item value="\boldsymbol{T}"  image="boldsymbolT.png" />
-		<item value="\boldsymbol{U}"  image="boldsymbolU.png" />
-		<item value="\boldsymbol{V}"  image="boldsymbolV.png" />
-		<item value="\boldsymbol{W}"  image="boldsymbolW.png" />
-		<item value="\boldsymbol{X}"  image="boldsymbolX.png" />
-		<item value="\boldsymbol{Y}"  image="boldsymbolY.png" />
-		<item value="\boldsymbol{Z}"  image="boldsymbolZ.png" />
+		<item value="\mathcal{A}"  image="mathcala_.png" />
+		<item value="\mathcal{B}"  image="mathcalb_.png" />
+		<item value="\mathcal{C}"  image="mathcalc_.png" />
+		<item value="\mathcal{D}"  image="mathcald_.png" />
+		<item value="\mathcal{E}"  image="mathcale_.png" />
+		<item value="\mathcal{F}"  image="mathcalf_.png" />
+		<item value="\mathcal{G}"  image="mathcalg_.png" />
+		<item value="\mathcal{H}"  image="mathcalh_.png" />
+		<item value="\mathcal{I}"  image="mathcali_.png" />
+		<item value="\mathcal{J}"  image="mathcalj_.png" />
+		<item value="\mathcal{K}"  image="mathcalk_.png" />
+		<item value="\mathcal{L}"  image="mathcall_.png" />
+		<item value="\mathcal{M}"  image="mathcalm_.png" />
+		<item value="\mathcal{N}"  image="mathcaln_.png" />
+		<item value="\mathcal{O}"  image="mathcalo_.png" />
+		<item value="\mathcal{P}"  image="mathcalp_.png" />
+		<item value="\mathcal{Q}"  image="mathcalq_.png" />
+		<item value="\mathcal{R}"  image="mathcalr_.png" />
+		<item value="\mathcal{S}"  image="mathcals_.png" />
+		<item value="\mathcal{T}"  image="mathcalt_.png" />
+		<item value="\mathcal{U}"  image="mathcalu_.png" />
+		<item value="\mathcal{V}"  image="mathcalv_.png" />
+		<item value="\mathcal{W}"  image="mathcalw_.png" />
+		<item value="\mathcal{X}"  image="mathcalx_.png" />
+		<item value="\mathcal{Y}"  image="mathcaly_.png" />
+		<item value="\mathcal{Z}"  image="mathcalz_.png" />
+		<item value="\mathbb{A}"  image="mathbba_.png" />
+		<item value="\mathbb{B}"  image="mathbbb_.png" />
+		<item value="\mathbb{C}"  image="mathbbc_.png" />
+		<item value="\mathbb{D}"  image="mathbbd_.png" />
+		<item value="\mathbb{E}"  image="mathbbe_.png" />
+		<item value="\mathbb{F}"  image="mathbbf_.png" />
+		<item value="\mathbb{G}"  image="mathbbg_.png" />
+		<item value="\mathbb{H}"  image="mathbbh_.png" />
+		<item value="\mathbb{I}"  image="mathbbi_.png" />
+		<item value="\mathbb{J}"  image="mathbbj_.png" />
+		<item value="\mathbb{K}"  image="mathbbk_.png" />
+		<item value="\mathbb{L}"  image="mathbbl_.png" />
+		<item value="\mathbb{M}"  image="mathbbm_.png" />
+		<item value="\mathbb{N}"  image="mathbbn_.png" />
+		<item value="\mathbb{O}"  image="mathbbo_.png" />
+		<item value="\mathbb{P}"  image="mathbbp_.png" />
+		<item value="\mathbb{Q}"  image="mathbbq_.png" />
+		<item value="\mathbb{R}"  image="mathbbr_.png" />
+		<item value="\mathbb{S}"  image="mathbbs_.png" />
+		<item value="\mathbb{T}"  image="mathbbt_.png" />
+		<item value="\mathbb{U}"  image="mathbbu_.png" />
+		<item value="\mathbb{V}"  image="mathbbv_.png" />
+		<item value="\mathbb{W}"  image="mathbbw_.png" />
+		<item value="\mathbb{X}"  image="mathbbx_.png" />
+		<item value="\mathbb{Y}"  image="mathbby_.png" />
+		<item value="\mathbb{Z}"  image="mathbbz_.png" />
+		<item value="\mathbf{A}"  image="mathbfa_.png" />
+		<item value="\mathbf{B}"  image="mathbfb_.png" />
+		<item value="\mathbf{C}"  image="mathbfc_.png" />
+		<item value="\mathbf{D}"  image="mathbfd_.png" />
+		<item value="\mathbf{E}"  image="mathbfe_.png" />
+		<item value="\mathbf{F}"  image="mathbff_.png" />
+		<item value="\mathbf{G}"  image="mathbfg_.png" />
+		<item value="\mathbf{H}"  image="mathbfh_.png" />
+		<item value="\mathbf{I}"  image="mathbfi_.png" />
+		<item value="\mathbf{J}"  image="mathbfj_.png" />
+		<item value="\mathbf{K}"  image="mathbfk_.png" />
+		<item value="\mathbf{L}"  image="mathbfl_.png" />
+		<item value="\mathbf{M}"  image="mathbfm_.png" />
+		<item value="\mathbf{N}"  image="mathbfn_.png" />
+		<item value="\mathbf{O}"  image="mathbfo_.png" />
+		<item value="\mathbf{P}"  image="mathbfp_.png" />
+		<item value="\mathbf{Q}"  image="mathbfq_.png" />
+		<item value="\mathbf{R}"  image="mathbfr_.png" />
+		<item value="\mathbf{S}"  image="mathbfs_.png" />
+		<item value="\mathbf{T}"  image="mathbft_.png" />
+		<item value="\mathbf{U}"  image="mathbfu_.png" />
+		<item value="\mathbf{V}"  image="mathbfv_.png" />
+		<item value="\mathbf{W}"  image="mathbfw_.png" />
+		<item value="\mathbf{X}"  image="mathbfx_.png" />
+		<item value="\mathbf{Y}"  image="mathbfy_.png" />
+		<item value="\mathbf{Z}"  image="mathbfz_.png" />
+		<item value="\mathfrak{A}"  image="mathfraka_.png" />
+		<item value="\mathfrak{B}"  image="mathfrakb_.png" />
+		<item value="\mathfrak{C}"  image="mathfrakc_.png" />
+		<item value="\mathfrak{D}"  image="mathfrakd_.png" />
+		<item value="\mathfrak{E}"  image="mathfrake_.png" />
+		<item value="\mathfrak{F}"  image="mathfrakf_.png" />
+		<item value="\mathfrak{G}"  image="mathfrakg_.png" />
+		<item value="\mathfrak{H}"  image="mathfrakh_.png" />
+		<item value="\mathfrak{I}"  image="mathfraki_.png" />
+		<item value="\mathfrak{J}"  image="mathfrakj_.png" />
+		<item value="\mathfrak{K}"  image="mathfrakk_.png" />
+		<item value="\mathfrak{L}"  image="mathfrakl_.png" />
+		<item value="\mathfrak{M}"  image="mathfrakm_.png" />
+		<item value="\mathfrak{N}"  image="mathfrakn_.png" />
+		<item value="\mathfrak{O}"  image="mathfrako_.png" />
+		<item value="\mathfrak{P}"  image="mathfrakp_.png" />
+		<item value="\mathfrak{Q}"  image="mathfrakq_.png" />
+		<item value="\mathfrak{R}"  image="mathfrakr_.png" />
+		<item value="\mathfrak{S}"  image="mathfraks_.png" />
+		<item value="\mathfrak{T}"  image="mathfrakt_.png" />
+		<item value="\mathfrak{U}"  image="mathfraku_.png" />
+		<item value="\mathfrak{V}"  image="mathfrakv_.png" />
+		<item value="\mathfrak{W}"  image="mathfrakw_.png" />
+		<item value="\mathfrak{X}"  image="mathfrakx_.png" />
+		<item value="\mathfrak{Y}"  image="mathfraky_.png" />
+		<item value="\mathfrak{Z}"  image="mathfrakz_.png" />
+		<item value="\boldsymbol{A}"  image="boldsymbola_.png" />
+		<item value="\boldsymbol{B}"  image="boldsymbolb_.png" />
+		<item value="\boldsymbol{C}"  image="boldsymbolc_.png" />
+		<item value="\boldsymbol{D}"  image="boldsymbold_.png" />
+		<item value="\boldsymbol{E}"  image="boldsymbole_.png" />
+		<item value="\boldsymbol{F}"  image="boldsymbolf_.png" />
+		<item value="\boldsymbol{G}"  image="boldsymbolg_.png" />
+		<item value="\boldsymbol{H}"  image="boldsymbolh_.png" />
+		<item value="\boldsymbol{I}"  image="boldsymboli_.png" />
+		<item value="\boldsymbol{J}"  image="boldsymbolj_.png" />
+		<item value="\boldsymbol{K}"  image="boldsymbolk_.png" />
+		<item value="\boldsymbol{L}"  image="boldsymboll_.png" />
+		<item value="\boldsymbol{M}"  image="boldsymbolm_.png" />
+		<item value="\boldsymbol{N}"  image="boldsymboln_.png" />
+		<item value="\boldsymbol{O}"  image="boldsymbolo_.png" />
+		<item value="\boldsymbol{P}"  image="boldsymbolp_.png" />
+		<item value="\boldsymbol{Q}"  image="boldsymbolq_.png" />
+		<item value="\boldsymbol{R}"  image="boldsymbolr_.png" />
+		<item value="\boldsymbol{S}"  image="boldsymbols_.png" />
+		<item value="\boldsymbol{T}"  image="boldsymbolt_.png" />
+		<item value="\boldsymbol{U}"  image="boldsymbolu_.png" />
+		<item value="\boldsymbol{V}"  image="boldsymbolv_.png" />
+		<item value="\boldsymbol{W}"  image="boldsymbolw_.png" />
+		<item value="\boldsymbol{X}"  image="boldsymbolx_.png" />
+		<item value="\boldsymbol{Y}"  image="boldsymboly_.png" />
+		<item value="\boldsymbol{Z}"  image="boldsymbolz_.png" />
 		<item value="\boldsymbol{\alpha}"  image="boldsymbolalpha.png" />
 		<item value="\boldsymbol{\beta}"  image="boldsymbolbeta.png" />
 		<item value="\boldsymbol{\gamma}"  image="boldsymbolgamma.png" />
@@ -702,21 +701,21 @@ wird
 		<item value="\boldsymbol{\chi}"  image="boldsymbolchi.png" />
 		<item value="\boldsymbol{\psi}"  image="boldsymbolpsi.png" />
 		<item value="\boldsymbol{\omega}"  image="boldsymbolomega.png" />
-		<item value="\boldsymbol{\Gamma}"  image="boldsymbolGamma.png" />
-		<item value="\boldsymbol{\Delta}"  image="boldsymbolDelta.png" />
-		<item value="\boldsymbol{\Theta}"  image="boldsymbolTheta.png" />
-		<item value="\boldsymbol{\Lambda}"  image="boldsymbolLambda.png" />
-		<item value="\boldsymbol{\Xi}"  image="boldsymbolXi.png" />
-		<item value="\boldsymbol{\Pi}"  image="boldsymbolPi.png" />
-		<item value="\boldsymbol{\Sigma}"  image="boldsymbolSigma.png" />
-		<item value="\boldsymbol{\Upsilon}"  image="boldsymbolUpsilon.png" />
-		<item value="\boldsymbol{\Phi}"  image="boldsymbolPhi.png" />
-		<item value="\boldsymbol{\Psi}"  image="boldsymbolPsi.png" />
-		<item value="\boldsymbol{\Omega}"  image="boldsymbolOmega.png" />
+		<item value="\boldsymbol{\Gamma}"  image="boldsymbolg_amma.png" />
+		<item value="\boldsymbol{\Delta}"  image="boldsymbold_elta.png" />
+		<item value="\boldsymbol{\Theta}"  image="boldsymbolt_heta.png" />
+		<item value="\boldsymbol{\Lambda}"  image="boldsymboll_ambda.png" />
+		<item value="\boldsymbol{\Xi}"  image="boldsymbolx_i.png" />
+		<item value="\boldsymbol{\Pi}"  image="boldsymbolp_i.png" />
+		<item value="\boldsymbol{\Sigma}"  image="boldsymbols_igma.png" />
+		<item value="\boldsymbol{\Upsilon}"  image="boldsymbolu_psilon.png" />
+		<item value="\boldsymbol{\Phi}"  image="boldsymbolp_hi.png" />
+		<item value="\boldsymbol{\Psi}"  image="boldsymbolp_si.png" />
+		<item value="\boldsymbol{\Omega}"  image="boldsymbolo_mega.png" />
 		<item value="\boldsymbol{\nabla}"  image="boldsymbolnabla.png" />
 		<item value="\boldsymbol{\infty}"  image="boldsymbolinfty.png" />
 		<item value="\boldsymbol{[sym]}"  image="boldsymbolsym.png" />
-		<item value="\text{}">
+		<item value="\text{[Regular text]}"  image="textr_egulartext.png">
 			<i18n>
 				<en>Regular text</en>
 				<de>Normaler Text</de>
@@ -735,5 +734,5 @@ wird
 		<item value="\tilde{a}"  image="tildea.png" />
 		<item value="\acute{a}"  image="acutea.png" />
 		<item value="\grave{a}"  image="gravea.png" />
-	</tab>-->
+	</tab>
 </editorsettings>
