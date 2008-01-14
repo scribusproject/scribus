@@ -610,6 +610,7 @@ QString XmlWidget::readI18nText(QXmlStreamReader *xml)
 {
 	QString language = PrefsManager::instance()->guiLanguage();
 	QString result;
+	int matchquality = 0;
 	bool i18n = false;
 	Q_ASSERT(xml->isStartElement());
 	QString startTag = xml->name().toString();
@@ -637,10 +638,16 @@ QString XmlWidget::readI18nText(QXmlStreamReader *xml)
 			if (!xml->isStartElement()) {
 				xmlError() << "Unexpected data!";
 			}
-			if (result.isEmpty() || (xml->name() == language)) {
+			if (xml->name() == language) {
+				matchquality = 2; //Perfect match
 				result = xml->readElementText();
-			}
-			else {
+			} else if (language.startsWith(xml->name().toString()) && matchquality <= 1) {
+				matchquality = 1; //Only beginning part matches
+				result = xml->readElementText();
+			} else if (result.isEmpty()) {
+				matchquality = 0;
+				result = xml->readElementText();
+			} else {
 				xml->readElementText(); //Ignore the text
 			}
 		} else {
