@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QList>
 #include <QByteArray>
+#include <QPainterPath>
 #include <QPixmap>
 #include <QTextCodec>
 #include <cstdlib>
@@ -814,10 +815,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			}
 		}
 	}
-	if (Options.docInfoMarks)
+/*	if (Options.docInfoMarks)
 	{
 		StdFonts.insert("/Helvetica", "");
-	}
+	} */
 	QStringList patterns = doc.getUsedPatterns();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -2373,28 +2374,43 @@ void PDFLibCore::PDF_End_Page()
 		}
 		if (Options.docInfoMarks)
 		{
-			QString tmp = "";
-			double startX = markOffs+bleedLeft+10.0;
+//			QString tmp = "";
+//			double startX = markOffs+bleedLeft+10.0;
+			FPointArray  textPath;
+			QPainterPath painter1, painter2;
+			QFont   infoFont("Helvetica", 7);
+			double  startX = markOffs+bleedLeft+10.0;
 			QString docTitle = doc.documentInfo.getTitle();
 			if (docTitle.isEmpty())
 			{
 				QFileInfo fi(doc.DocName);
 				docTitle = fi.fileName();
 			}
-			docTitle += "  "+ tr("Page:")+" "+tmp.setNum(PgNr+1);
+//			docTitle += "  "+ tr("Page:")+" "+tmp.setNum(PgNr+1);
+			docTitle += "  "+ tr("Page:")+" "+ QString::number(PgNr+1);
 			PutPage("/"+spotMapReg["Register"].ResName+" cs 1 scn\n");
 			PutPage("q\n");
 			PutPage("1 0 0 1 "+FToStr(startX)+" 6 cm\n");
-			PutPage("BT\n");
-			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
-			PutPage(EncString("("+docTitle+")",ObjCounter)+" Tj\nET\n");
+//			PutPage("BT\n");
+//			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
+//			PutPage(EncString("("+docTitle+")",ObjCounter)+" Tj\nET\n");
+			painter1.addText( QPointF(0.0,0.0), infoFont, docTitle );
+			textPath.fromQPainterPath(painter1);
+			PutPage(SetClipPathArray(&textPath, true));
+			PutPage("h\nf*\n");
 			PutPage("Q\n");
+			QDate d = QDate::currentDate();
+			QString docDate = tr("Date:")+" "+d.toString(Qt::TextDate);
 			PutPage("q\n");
 			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 + 20.0)+" 6 cm\n");
-			PutPage("BT\n");
-			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
-			QDate d = QDate::currentDate();
-			PutPage(EncString("("+ tr("Date:")+" "+d.toString(Qt::TextDate)+")",ObjCounter)+" Tj\nET\n");
+//			PutPage("BT\n");
+//			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
+//			QDate d = QDate::currentDate();
+//			PutPage(EncString("("+ tr("Date:")+" "+d.toString(Qt::TextDate)+")",ObjCounter)+" Tj\nET\n");
+			painter2.addText( QPointF(0.0,0.0), infoFont, docDate );
+			textPath.fromQPainterPath(painter2);
+			PutPage(SetClipPathArray(&textPath, true));
+			PutPage("h\nf*\n");
 			PutPage("Q\n");
 		}
 	}
