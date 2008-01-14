@@ -1,0 +1,9 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}
+\usepackage{amssymb,amsmath,amsfonts}
+\title{Scribus-Latex-File}
+\author{Scribus}
+\pagestyle{empty}
+\begin{document}
+\[%s\]
+\end{document}
