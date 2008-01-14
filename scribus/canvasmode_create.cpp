@@ -994,6 +994,7 @@ void CreateMode::SetupDrawNoResize(int nr)
 	//#6456 m_view->resetMoveTimer();
 }
 
+
 void CreateMode::setResizeCursor(int how)
 {
 	switch (how)
