@@ -246,6 +246,7 @@ QByteArray PDFlib::EncodeUTF16(const QString &in)
 	}
 	QTextCodec *codec = QTextCodec::codecForName("ISO-10646-UCS-2");
 	QCString cres = codec->fromUnicode( tmp );
+#ifndef WORDS_BIGENDIAN
 	uchar sw;
 	for(uint d = 0; d < cres.size()-1; d += 2)
 	{
@@ -253,6 +254,7 @@ QByteArray PDFlib::EncodeUTF16(const QString &in)
 		cres[d] = cres[d+1];
 		cres[d+1] = sw;
 	}
+#endif
 	return cres;
 }
 
