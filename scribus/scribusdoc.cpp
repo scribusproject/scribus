@@ -9611,7 +9611,6 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		emit docChanged();
 		m_ScMW->HaveNewSel(itemSelection->itemAt(0)->itemType());
 		itemSelection->connectItemToGUI();
-//			itemSelection->itemAt(0)->emitAllToGUI();
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = itemSelection->itemAt(a);
@@ -9620,9 +9619,11 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			tooltip += "\t" + currItem->getUName() + "\n";
 			currItem->isTableItem = false;
 			currItem->setSelected(true);
-//				currItem->paintObj();
 		}
 		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+		double x, y, w, h;
+		itemSelection->getGroupRect(&x, &y, &w, &h);
+		regionsChanged()->update(QRectF(x-5, y-5, w+10, h+10));
 	}
 }
 
