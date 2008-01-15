@@ -3709,7 +3709,7 @@ QString PDFLibCore::putColor(const QString& color, double shade, bool fill)
 	tmpC = doc.PageColors[color];
 	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
 	{
-		if (color != CommonStrings::None)
+		if ((color != CommonStrings::None) && (spotMap.contains(color)))
 		{
 			if (fill)
 			{
@@ -3829,7 +3829,7 @@ QString PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
 	{
 		QString tmpSpot("");
-		if (color != CommonStrings::None)
+		if ((color != CommonStrings::None) && (spotMap.contains(color)))
 		{
 			if (fill)
 			{

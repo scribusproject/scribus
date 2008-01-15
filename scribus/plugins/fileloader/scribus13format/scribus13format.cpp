@@ -494,7 +494,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				if (!pg.attribute("NAME").isEmpty())
+					m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -1966,7 +1967,11 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	double scx = obj->attribute("LOCALSCX").toDouble();
 	double scy = obj->attribute("LOCALSCY").toDouble();
 	QString Pcolor = obj->attribute("PCOLOR");
+	if (Pcolor.isEmpty())
+		Pcolor = "None";
 	QString Pcolor2 = obj->attribute("PCOLOR2");
+	if (Pcolor2.isEmpty())
+		Pcolor2 = "None";
 	int Pshade = obj->attribute("SHADE").toInt();
 	int Pshade2 = obj->attribute("SHADE2").toInt();
 	handleOldColorShade(doc, Pcolor, Pshade);
@@ -2544,7 +2549,8 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				if (!pg.attribute("NAME").isEmpty())
+					m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -3099,7 +3105,8 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-				colors.insert(pg.attribute("NAME"), lf);
+				if (!pg.attribute("NAME").isEmpty())
+					colors.insert(pg.attribute("NAME"), lf);
 			}
 			PAGE=PAGE.nextSibling();
 		}
