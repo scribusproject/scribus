@@ -245,6 +245,9 @@ void ContextMenu::createMenuItems_Selection()
 					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
 				else
 					m_AP->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
+				QPixmap pm(20,15);
+				pm.fill(m_doc->layerMarker(layerMap[i]));
+				m_AP->scrLayersActions[QString::number(layerMap[i])]->setIcon(pm);
 				menuLayer->addAction(m_AP->scrLayersActions[QString::number(layerMap[i--])]);
 			}
 			QAction *act = addMenu(menuLayer);

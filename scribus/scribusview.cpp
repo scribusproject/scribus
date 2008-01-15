@@ -2755,7 +2755,13 @@ void ScribusView::updateLayerMenu()
 	QStringList newNames;
 	Doc->orderedLayerList(&newNames);
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
-		layerMenu->addItem(*it);
+	{
+		const ScLayer* ll = Doc->Layers.layerByName(*it);
+		int layerNumber = ll->LNr;
+		QPixmap pm(20,15);
+		pm.fill(Doc->layerMarker(layerNumber));
+		layerMenu->addItem(pm, *it);
+	}
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
