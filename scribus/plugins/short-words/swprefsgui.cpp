@@ -105,8 +105,7 @@ void SWPrefsGui::apply()
 
 void SWPrefsGui::okButton_pressed()
 {
-	/* #6662: Very annoying question when we close prefs, can we not detect if theres been changes?
-	if (QFile::exists(RC_PATH_USR))
+	if (cfgEdit->document()->isModified() && QFile::exists(RC_PATH_USR))
 	{
 		if ((ScMessageBox::warning(this, tr("Short Words"),
 				"<qt>" + tr("User configuration exists already. "
@@ -116,7 +115,7 @@ void SWPrefsGui::okButton_pressed()
 			) == 1)
 			return;
 	}
-	*/
+
 	QFile f(RC_PATH_USR);
 	if (!f.open(QIODevice::WriteOnly))
 	{
@@ -162,6 +161,8 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 	while (!stream.atEnd())
 		cfgEdit->append(stream.readLine());
 	f.close();
+	// it's a must to prevent "overwrite?" message box on saving prefs
+	cfgEdit->document()->setModified(false);
 	return true;
 }
 
