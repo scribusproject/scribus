@@ -114,8 +114,9 @@ bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*res*/, bool /*th
 	return true;
 }
 
-void ScImgDataLoader_GIMP::preloadAlphaChannel(const QString& fn, int res)
+bool ScImgDataLoader_GIMP::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
 {
 	initialize();
-	return;
+	hasAlpha = false;
+	return true;
 }

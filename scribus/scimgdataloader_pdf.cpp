@@ -77,14 +77,15 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 	return false;
 }
 
-void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
+bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes, bool& hasAlpha)
 {
 	float xres, yres;
 //	short resolutionunit = 0;
 	initialize();
+	hasAlpha = false;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
-		return;
+		return false;
 	QString tmp, BBox;
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
@@ -117,5 +118,8 @@ void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
 				}
 			}
 		}
+		hasAlpha = true;
+		return true;
 	}
+	return false;
 }

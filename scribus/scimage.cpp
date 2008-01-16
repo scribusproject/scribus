@@ -1732,7 +1732,13 @@ bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int 
 
 	if	(pDataLoader)
 	{
-		pDataLoader->preloadAlphaChannel(fn, gsRes);
+		bool hasAlpha    = false;
+		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, gsRes, hasAlpha);
+		if (!alphaLoaded || !hasAlpha)
+		{
+			delete pDataLoader;
+			return alphaLoaded;
+		}
 		QImage rImage;
 		if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 		{
@@ -1742,11 +1748,6 @@ bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int 
 					rImage = pDataLoader->r_image.convertToQImage(true);
 				else
 					rImage = pDataLoader->r_image.convertToQImage(false);
-			}
-			else
-			{
-				delete pDataLoader;
-				return false;
 			}
 		}
 		else

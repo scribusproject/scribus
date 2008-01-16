@@ -89,16 +89,17 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 	}
 }
 
-void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
+bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
 {
 	bool valid = m_imageInfoRecord.isRequest;
 	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
 	initialize();
+	hasAlpha = false;
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
-		return;
+		return false;
 
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
@@ -109,10 +110,10 @@ void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
 		s >> header;
 		// Check image file format.
 		if( s.atEnd() || !IsValid( header ) )
-			return;
+			return false;
 		// Check if it's a supported format.
 		if( !IsSupported( header ) )
-			return;
+			return false;
 		if( !LoadPSD(s, header) )
 			r_image.resize(0);
 		f.close();
@@ -120,14 +121,16 @@ void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
 		if (header.color_mode == CM_CMYK)
 		{
 			if ( maxChannels == 4)
-				m_imageInfoRecord.valid = false;
+				m_imageInfoRecord.valid = hasAlpha = false;
 		}
 		else
 		{
 			if ( maxChannels == 3)
-				m_imageInfoRecord.valid = false;
+				m_imageInfoRecord.valid = hasAlpha = false;
 		}
+		return true;
 	}
+	return false;
 }
 
 bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail)

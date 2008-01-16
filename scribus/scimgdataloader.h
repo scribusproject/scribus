@@ -59,7 +59,8 @@ public:
 
 	virtual void initialize(void);
 
-	virtual void preloadAlphaChannel(const QString& fn, int res) = 0;
+//	virtual void preloadAlphaChannel(const QString& fn, int res) = 0;
+	virtual bool preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha) = 0;
 	virtual void loadEmbeddedProfile(const QString& fn) = 0;
 	virtual bool loadPicture(const QString& fn, int res, bool thumbnail) = 0;
 };

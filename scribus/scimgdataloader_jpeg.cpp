@@ -93,10 +93,12 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 	jpeg_destroy_decompress (&cinfo);
 }
 
-void ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int res)
+bool ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
 {
 	// No support for aplha in jpeg pictures
 	initialize();
+	hasAlpha = false;
+	return true;
 }
 
 bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnail)

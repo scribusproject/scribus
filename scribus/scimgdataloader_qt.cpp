@@ -53,18 +53,27 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thum
 		m_imageInfoRecord.BBoxH = m_image.height();
 		return true;
 	}
-	return true; //TODO: I think this should be false!
+	return false; //TODO: I think this should be false!
 }
 
-void ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int res)
+bool ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
 {
 	initialize();
+	hasAlpha = false;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
-		return;
+		return false;
 	QString ext = fi.suffix().toLower();
 	if ((ext == "jpg") || (ext == "jpeg"))
-		return;
+	{
+		hasAlpha = false;
+		return true;
+	}
 	if (m_image.load(fn))
+	{
 		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
+		hasAlpha = true;
+		return true;
+	}
+	return false;
 }

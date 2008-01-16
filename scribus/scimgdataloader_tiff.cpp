@@ -64,32 +64,35 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 	}
 }
 
-void ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res)
+bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
 {
 	bool valid = m_imageInfoRecord.isRequest;
 	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
 	initialize();
+	hasAlpha = false;
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
-		return;
-	if( !loadPicture(fn, res, false))
-		r_image.resize(0);
-	else
+		return false;
+	if(loadPicture(fn, res, false))
 	{
 		m_imageInfoRecord.valid = true;
 		if (photometric == PHOTOMETRIC_SEPARATED)
 		{
 			if (samplesperpixel == 4)
-				m_imageInfoRecord.valid = false;
+				m_imageInfoRecord.valid = hasAlpha = false;
 		}
 		else
 		{
 			if (samplesperpixel == 3)
-				m_imageInfoRecord.valid = false;
+				m_imageInfoRecord.valid = hasAlpha = false;
 		}
+		return true;
 	}
+	else
+		r_image.resize(0);
+	return false;
 }
 
 int ScImgDataLoader_TIFF::getLayers(const QString& fn)

@@ -1561,13 +1561,14 @@ void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)
 	}
 }
 
-void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
+bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes, bool& hasAlpha)
 {
 	float xres, yres;
 	initialize();
+	hasAlpha = false;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
-		return;
+		return false;
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
@@ -1621,6 +1622,10 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 				}
 			}
 			QFile::remove(tmpFile);
+			hasAlpha = true;
+			return true;
 		}
+		return false;
 	}
+	return true;
 }

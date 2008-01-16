@@ -6278,16 +6278,15 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			alphaM = false;
 		else
 		{
-//			bool gotAlpha = false;
+			bool gotAlpha = false;
 			bool pdfVer14 = (Options.Version >= 14) ? true : false;
-			alphaM = img2.getAlpha(fn, im2, true, pdfVer14, afl, img.width(), img.height());
-/*			gotAlpha = img2.getAlpha(fn, im2, true, pdfVer14, afl, img.width(), img.height());
+			gotAlpha = img2.getAlpha(fn, im2, true, pdfVer14, afl, img.width(), img.height());
 			if (!gotAlpha)
 			{
 				PDF_Error_MaskLoadFailure(fn);
 				return false;
 			}
-			alphaM = !im2.isEmpty(); */
+			alphaM = !im2.isEmpty();
 		}
 		bool imgE = false;
 		if ((Options.UseRGB) || (Options.isGrayscale))
