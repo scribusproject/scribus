@@ -3106,7 +3106,7 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 				else
 					lf.setRegistrationColor(false);
 				QString name = pg.attribute("NAME");
-				m_Doc->PageColors.insert((name.isEmpty()) ? lf.name() : name, lf);
+				colors.insert((name.isEmpty()) ? lf.name() : name, lf);
 			}
 			PAGE=PAGE.nextSibling();
 		}
