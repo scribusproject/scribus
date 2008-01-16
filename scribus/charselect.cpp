@@ -42,6 +42,8 @@ CharSelect::CharSelect(QWidget* parent)
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->setDragEnabled(true);
 
+	hideButton->setIcon(loadIcon("22/insert-table.png"));
+	unicodeButton->setIcon(loadIcon("find.png"));
 	uniLoadButton->setIcon(loadIcon("22/document-open.png"));
 	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
 	uniClearButton->setIcon(loadIcon("22/document-new.png"));
@@ -63,7 +65,7 @@ CharSelect::CharSelect(QWidget* parent)
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), m_userTableModel, SLOT(appendUnicode(QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
-	connect(hideCheck, SIGNAL(clicked()), this, SLOT(hideCheck_clicked()));
+	connect(hideButton, SIGNAL(toggled(bool)), this, SLOT(hideButton_toggled(bool)));
 	connect(this, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
 	connect(this, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
@@ -537,13 +539,13 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 	m_doc->changed();
 }
 
-void CharSelect::hideCheck_clicked()
+void CharSelect::hideButton_toggled(bool state)
 {
 	// megahact #1 to keep user palette unchanged after resizing
 	QSize sz(m_quickPalette->size());
 
-	m_bigPalette->setShown(!hideCheck->isChecked());
-	if (hideCheck->isChecked())
+	m_bigPalette->setShown(!state);
+	if (state)
 		resize(sz); // megahack #2 to keep palette small
 	m_quickPalette->resize(sz);
 	updateGeometry();
@@ -558,15 +560,15 @@ void CharSelect::show()
 	// always open big palette when there is no glyph in the custom one
 	if (state && m_userTableModel->characters().count() == 0)
 		state = false;
-	hideCheck->setChecked(state);
-	hideCheck_clicked();
+	hideButton->setChecked(state);
+	hideButton_toggled(state);
 }
 
 void CharSelect::hide()
 {
 	ScrPaletteBase::hide();
 	PrefsContext* p = PrefsManager::instance()->prefsFile->getContext("charpalette");
-	p->set("hideCheck", hideCheck->isChecked());
+	p->set("hideCheck", hideButton->isChecked());
 }
 
 void CharSelect::setEnabled(bool state, PageItem* item)

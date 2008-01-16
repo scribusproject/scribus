@@ -115,7 +115,7 @@ class SCRIBUS_API CharSelect : public ScrPaletteBase, public Ui::CharSelect
 		void loadUserContent(QString f);
 
 	protected slots:
-		void hideCheck_clicked();
+		void hideButton_toggled(bool);
 		void slot_insertSpecialChar();
 		void slot_insertUserSpecialChar(QChar);
 		void uniLoadButton_clicked();

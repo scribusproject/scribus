@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>698</width>
+    <width>948</width>
     <height>487</height>
    </rect>
   </property>
@@ -19,43 +19,24 @@
       <string>Quick Palette</string>
      </property>
      <layout class="QGridLayout" >
-      <property name="leftMargin" >
-       <number>6</number>
-      </property>
-      <property name="topMargin" >
-       <number>6</number>
-      </property>
-      <property name="rightMargin" >
-       <number>6</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>6</number>
-      </property>
-      <property name="horizontalSpacing" >
-       <number>3</number>
-      </property>
-      <property name="verticalSpacing" >
-       <number>3</number>
-      </property>
       <item row="0" column="0" >
-       <widget class="QCheckBox" name="hideCheck" >
-        <property name="text" >
-         <string>Hide Enhanced</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="UnicodeChooseButton" name="unicodeButton" >
-        <property name="text" >
-         <string>&amp;Search</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
        <layout class="QHBoxLayout" >
         <property name="spacing" >
          <number>1</number>
         </property>
+        <item>
+         <widget class="QPushButton" name="hideButton" >
+          <property name="toolTip" >
+           <string>Hide/Show Enhanced Palette</string>
+          </property>
+          <property name="checkable" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="UnicodeChooseButton" name="unicodeButton" />
+        </item>
         <item>
          <widget class="QPushButton" name="uniLoadButton" >
           <property name="text" >
@@ -79,7 +60,7 @@
         </item>
        </layout>
       </item>
-      <item row="3" column="0" >
+      <item row="1" column="0" >
        <widget class="CharTableView" name="m_userTable" >
         <property name="dragDropOverwriteMode" >
          <bool>false</bool>

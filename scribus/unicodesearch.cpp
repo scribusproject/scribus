@@ -56,7 +56,7 @@ void UnicodeChooseButton::changeEvent(QEvent *e)
 
 void UnicodeChooseButton::languageChange()
 {
-	setText(tr("&Search"));
+// 	setText(tr("&Search"));
 }
 
 
