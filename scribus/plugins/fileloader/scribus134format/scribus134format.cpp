@@ -505,8 +505,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-				if (!pg.attribute("NAME").isEmpty())
-					m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				QString name = pg.attribute("NAME");
+				m_Doc->PageColors.insert((name.isEmpty()) ? lf.name() : name, lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -2602,8 +2602,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-				if (!pg.attribute("NAME").isEmpty())
-					m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				QString name = pg.attribute("NAME");
+				m_Doc->PageColors.insert((name.isEmpty()) ? lf.name() : name, lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -3398,8 +3398,8 @@ bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-				if (!pg.attribute("NAME").isEmpty())
-					colors.insert(pg.attribute("NAME"), lf);
+				QString name = pg.attribute("NAME");
+				m_Doc->PageColors.insert((name.isEmpty()) ? lf.name() : name, lf);
 			}
 			PAGE=PAGE.nextSibling();
 		}
