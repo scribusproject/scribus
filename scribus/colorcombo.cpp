@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 ColorCombo::ColorCombo( QWidget* parent ) : QComboBox(parent)
 {
-#ifdef QT_WS_MAC
+#ifdef Q_WS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
 #endif
 	setEditable(false);
@@ -31,7 +31,7 @@ ColorCombo::ColorCombo( QWidget* parent ) : QComboBox(parent)
 
 ColorCombo::ColorCombo( bool rw, QWidget* parent ) : QComboBox(parent)
 {
-#ifdef QT_WS_MAC
+#ifdef Q_WS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
 #endif
 	setEditable(rw);
