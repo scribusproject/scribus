@@ -776,8 +776,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
 	DraggedGroupFirst = false;
-	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
-		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
+	FPoint dropPosDoc = m_canvas->globalToCanvas(mapToGlobal(e->pos()));
+	QPointF dropPosDocQ(dropPosDoc.x(), dropPosDoc.y());
+//	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
+//		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
 	if (e->mimeData()->hasText())
 	{
 		e->acceptProposedAction();
@@ -802,14 +804,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
 		img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesPSD(ext));
 		bool selectedItemByDrag=false;
-		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
+//		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
 		//Loop through all items and see which one(s) were under the drop point on the current layer
 		//Should make a nice function for this.
 		for (int i=0; i<Doc->Items->count(); ++i)
 		{
 			if (Doc->Items->at(i)->LayerNr==Doc->activeLayer())
 			{
-				if (Doc->Items->at(i)->pointWithinItem(pscx, pscy))
+				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)))
 				{
 					Deselect(false);
 					SelectItem(Doc->Items->at(i));
@@ -822,7 +824,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 		if ((fi.exists()) && (img) && !selectedItemByDrag)// && (!SeleItemPos(e->pos())))
 		{
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, ex, ey, 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			Doc->LoadPict(ur.path(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
@@ -835,7 +837,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			return;
 		}
 		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-		if (Doc->m_Selection->count()>0 && Doc->m_Selection->itemAt(0)->pointWithinItem(pscx, pscy) && (!text.startsWith("<SCRIBUSELEM")))
+		if (Doc->m_Selection->count()>0 && m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) && (!text.startsWith("<SCRIBUSELEM")))
 		{
 			PageItem *b = Doc->m_Selection->itemAt(0);
 			if (b->itemType() == PageItem::ImageFrame)
@@ -925,7 +927,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						StencilReader *pre = new StencilReader();
 						data = pre->createObjects(f);
 						delete pre;
-						emit LoadElem(data, ex, ey, false, false, Doc, this);
+						emit LoadElem(data, dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 					}
 					else if (fi.suffix().toLower() == "shape")
 					{
@@ -934,11 +936,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						StencilReader *pre = new StencilReader();
 						data = pre->createShape(f);
 						delete pre;
-						emit LoadElem(data, ex, ey, false, false, Doc, this);
+						emit LoadElem(data, dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 					}
 					else if (fi.suffix().toLower() == "sce")
 					{
-						emit LoadElem(ur.path(), ex, ey, true, false, Doc, this);
+						emit LoadElem(ur.path(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
 					}
 					else
 					{
@@ -955,7 +957,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								{
 									double x2, y2, w, h;
 									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-									moveGroup(ex - x2, ey - y2);
+									moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
 									m_ScMW->propertiesPalette->updateColorList();
 									m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 									m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
@@ -966,7 +968,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 				}
 				else
-					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
+					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 				Selection tmpSelection(this, false);
 				tmpSelection.copy(*Doc->m_Selection, false, true);
 				for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
@@ -1013,7 +1015,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if ((re == 1) || (Doc->leaveDrag))
 					{
 						QList<PageItem*> pasted;
-						emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
+						emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 						for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
 						{
 							pasted.append(Doc->Items->at(as));
@@ -1065,7 +1067,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 				}
 				if ((!img) && ((re == 0)))
-					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
+					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 				Doc->DraggedElem = 0;
 				Doc->DragElements.clear();
 				Selection tmpSelection(this, false);
@@ -1145,7 +1147,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				int y = static_cast<int>(Doc->Pages->at(i)->yOffset());
 				int w = static_cast<int>(Doc->Pages->at(i)->width());
 				int h = static_cast<int>(Doc->Pages->at(i)->height());
-				if (QRect(x, y, w, h).contains(ex, ey))
+				if (QRect(x, y, w, h).contains(dropPosDoc.x(), dropPosDoc.y()))
 				{
 					if (docCurrPageNo != i)
 					{
