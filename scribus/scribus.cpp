@@ -2819,6 +2819,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrMenuMgr->setMenuEnabled("Item", false);
 		//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
+		scrMenuMgr->setMenuEnabled("EditContents", false);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
