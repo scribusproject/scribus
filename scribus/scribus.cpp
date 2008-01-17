@@ -5400,9 +5400,17 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
+	int where = 1;
+	if (wo == 0)
+		where = 0;
+	else if (wo == doc->Pages->count())
+		where = 2;
 	slotNewPage(wo, templ); //master page is applied now
 	//applyNewMaster(templ);
-	doc->addPageToSection(wo, 1, 1);
+	if (where == 2)
+		doc->addPageToSection(wo, where, 1);
+	else
+		doc->addPageToSection(wo+1, where, 1);
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	pagePalette->rebuildPages();
@@ -6610,75 +6618,12 @@ void ScribusMainWindow::setItemHoch(int h)
 //CB-->Doc partly
 void ScribusMainWindow::DeletePage2(int pg)
 {
-	PageItem* ite;
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
+	view->Deselect(true);
 	if (doc->Pages->count() == 1)
 		return;
-	int oldPg = doc->currentPageNumber();
-	guidePalette->setDoc(NULL);
-	if (UndoManager::undoEnabled())
-		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
-/*	if (!doc->masterPageMode)
-		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
-	doc->m_Selection->clear();
-	Selection tmpSelection(this, false);
-	for (int d = 0; d < doc->Items->count(); ++d)
-	{
-		ite = doc->Items->at(d);
-		if (ite->OwnPage == pg)
-		{
-			ite->setLocked(false);
-			ite->isSingleSel = false;
-			if (ite->isBookmark)
-				DelBookMark(ite);
-			ite->isBookmark = false;
-			tmpSelection.addItem(ite);
-		}
-	}
-	if (tmpSelection.count() != 0)
-		doc->itemSelection_DeleteItem(&tmpSelection);
-	Page *page = doc->Pages->at(pg); // need to remove guides too to get their undo/redo actions working
-	page->guides.clearHorizontals(GuideManagerCore::Standard);
-	page->guides.clearHorizontals(GuideManagerCore::Auto);
-	page->guides.clearVerticals(GuideManagerCore::Standard);
-	page->guides.clearVerticals(GuideManagerCore::Auto);
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
-		ss->set("DELETE_PAGE", "delete_page");
-		ss->set("PAGENR", pg + 1);
-		ss->set("PAGENAME", doc->Pages->at(pg)->pageName());
-		ss->set("MASTERPAGE", doc->Pages->at(pg)->MPageNam);
-		// replace the deleted page in the undostack by a dummy object that will
-		// replaced with the "undone" page if user choose to undo the action
-		DummyUndoObject *duo = new DummyUndoObject();
-		uint id = static_cast<uint>(duo->getUId());
-		undoManager->replaceObject(doc->Pages->at(pg)->getUId(), duo);
-		ss->set("DUMMY_ID", id);
-		undoManager->action(this, ss);
-	}
-	if (doc->masterPageMode())
-		doc->deleteMasterPage(pg);
-	else
-		doc->deletePage(pg);
-	disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-	view->pageSelector->setMaximum(doc->Pages->count());
-	view->pageSelector->GotoPg(0);
-	connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-	undoManager->setUndoEnabled(false); // ugly hack to prevent object moving when undoing page deletion
-	view->reformPages();
-	undoManager->setUndoEnabled(true); // ugly hack continues
-	view->GotoPage(qMin(doc->Pages->count()-1, oldPg));
-	view->DrawNew();
-	if (outlinePalette->isVisible())
-		outlinePalette->BuildTree();
-	//CB done by doc::reformpages
-	//slotDocCh();
-	doc->rebuildMasterNames();
-	pagePalette->rebuildPages();
-	if (UndoManager::undoEnabled())
-		undoManager->commit();
+	DeletePage(pg+1, pg+1);
 }
 
 void ScribusMainWindow::DeletePage()
