@@ -230,6 +230,11 @@ void LegacyMode::activate(bool fromGesture)
 		m_blinkTime.start();
 		m_cursorVisible = true;
 	}
+	if (fromGesture)
+	{
+		m_canvas->m_viewMode.operItemResizeInEditMode = false;
+		m_view->update();
+	}
 }
 
 void LegacyMode::deactivate(bool forGesture)
@@ -1709,70 +1714,81 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				if (GetItem(&currItem))
 				{
 //					m_view->slotDoCurs(false);
-					if (!currItem->locked())
+					if (!currItem->locked() && !currItem->asLine())
 					{
-						frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo, m);
-						if (frameResizeHandle < 0)
-						{
-							SeleItem(m);
-							m_view->requestMode(modeNormal);
-							return;
-						}
-						else if (frameResizeHandle > 0)
+						if (!resizeGesture)
+							resizeGesture = new ResizeGesture(this);
+						
+						resizeGesture->mousePressEvent(m);
+						if (resizeGesture->frameHandle() > 0)
 						{
 							m_canvas->m_viewMode.operItemResizeInEditMode = true;
-//							m_view->slotDoCurs(true);
+							m_view->startGesture(resizeGesture);
+							return;
+						}
+						else if (resizeGesture->frameHandle() < 0)
+						{
+							m_view->Deselect(true);
+							if (SeleItem(m))
+							{
+								currItem = m_doc->m_Selection->itemAt(0);
+								if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+									m_view->requestMode(modeEdit);
+								else
+								{
+									m_view->requestMode(submodePaintingDone);
+									qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+								}
+							}
+							else
+							{
+								m_view->requestMode(submodePaintingDone);
+								qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+							}
+							m_view->requestMode(modeNormal);
 							return;
 						}
 					}
 					oldP = currItem->CPos;
-				}
-				//CB Where we set the cursor for a click in text frame
-				inText = m_view->slotSetCurs(m->x(), m->y());
-				//CB If we clicked outside a text frame to go out of edit mode and deselect the frame
-				if (!inText)
-				{
-					//<<CB Redraw subsequent frames after being in edit mode
-					//No intelligence, may slow things down when drawing unnecessarily
-					PageItem *nextItem=currItem;
-					while (nextItem != 0)
-					{
-						if (nextItem->nextInChain() != 0)
-						{
-							nextItem = nextItem->nextInChain();
-							nextItem->update();
-						}
-						else
-							break;
-					}
-					//>>
-					m_view->Deselect(true);
-//					m_view->slotDoCurs(true);
-					m_view->requestMode(modeNormal);
-					return;
-				}
-				//<<CB Add in shift select to text frames
-				if (m->modifiers() & Qt::ShiftModifier)
-				{
-					int dir=1;
-					if (oldCp>currItem->CPos)
-						dir=-1;
+					//CB Where we set the cursor for a click in text frame
 					if (currItem->asTextFrame())
-						currItem->asTextFrame()->ExpandSel(dir, oldP);
-					oldCp = oldP;
-				}
-				else //>>CB
-					oldCp = currItem->CPos;
-				currItem = m_doc->m_Selection->itemAt(0);
-//				m_view->slotDoCurs(true);
-				if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
-				{
-					m_view->Deselect(true);
-					if (SeleItem(m))
 					{
-						currItem = m_doc->m_Selection->itemAt(0);
-						if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
-							m_view->requestMode(modeEdit);
+						inText = m_view->slotSetCurs(m->x(), m->y());
+						//CB If we clicked outside a text frame to go out of edit mode and deselect the frame
+						if (!inText)
+						{
+							currItem->invalidateLayout();
+							m_view->Deselect(true);
+							//					m_view->slotDoCurs(true);
+							m_view->requestMode(modeNormal);
+							return;
+						}
+						//<<CB Add in shift select to text frames
+						if (m->modifiers() & Qt::ShiftModifier)
+						{
+							int dir=1;
+							if (oldCp>currItem->CPos)
+								dir=-1;
+							currItem->asTextFrame()->ExpandSel(dir, oldP);
+							oldCp = oldP;
+						}
+						else //>>CB
+							oldCp = currItem->CPos;
+						/*
+					if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
+					{
+						m_view->Deselect(true);
+						if (SeleItem(m))
+						{
+							currItem = m_doc->m_Selection->itemAt(0);
+							if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+								m_view->requestMode(modeEdit);
+							else
+							{
+								m_view->requestMode(submodePaintingDone);
+								qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+							}
+						}
 						else
 						{
 							m_view->requestMode(submodePaintingDone);
@@ -1781,37 +1797,34 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					}
 					else
 					{
-						m_view->requestMode(submodePaintingDone);
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					}
-				}
-				else
-				{
-					if ((m->button() == Qt::MidButton) && (currItem->asTextFrame()))
-					{
-						m_canvas->m_viewMode.m_MouseButtonPressed = false;
-						m_view->MidButt = false;
-						QString cc;
-						cc = QApplication::clipboard()->text(QClipboard::Selection);
-						if (cc.isNull())
-							cc = QApplication::clipboard()->text(QClipboard::Clipboard);
-						if (!cc.isNull())
+					*/
+						if (m->button() == Qt::MidButton)
 						{
-							// K.I.S.S.:
-							currItem->itemText.insertChars(0, cc, true);
-							if (m_doc->docHyphenator->AutoCheck)
-								m_doc->docHyphenator->slotHyphenate(currItem);
-							m_ScMW->BookMarkTxT(currItem);
-//							m_ScMW->outlinePalette->BuildTree();
+							m_canvas->m_viewMode.m_MouseButtonPressed = false;
+							m_view->MidButt = false;
+							QString cc;
+							cc = QApplication::clipboard()->text(QClipboard::Selection);
+							if (cc.isNull())
+								cc = QApplication::clipboard()->text(QClipboard::Clipboard);
+							if (!cc.isNull())
+							{
+								// K.I.S.S.:
+								currItem->itemText.insertChars(0, cc, true);
+								if (m_doc->docHyphenator->AutoCheck)
+									m_doc->docHyphenator->slotHyphenate(currItem);
+								m_ScMW->BookMarkTxT(currItem);
+								//							m_ScMW->outlinePalette->BuildTree();
+							}
+							else
+							{
+								if (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
+									m_ScMW->slotEditPaste();
+							}
+							currItem->update();
 						}
-						else
-						{
-							if (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
-								m_ScMW->slotEditPaste();
-						}
-						currItem->update();
 					}
-					if (currItem->asImageFrame() && !tx.contains(m->x(), m->y()))
+					else if (!currItem->asImageFrame() || 
+							 m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
 					{
 						m_view->Deselect(true);
 						if (SeleItem(m))
