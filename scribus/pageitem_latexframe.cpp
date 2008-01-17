@@ -133,7 +133,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	fileWatcher->setTimeOut(1500);
 	
 	dpi = 0;
-	pixm.imgInfo.lowResType = 0;
+	pixm.imgInfo.lowResType = m_Doc->toolSettings.lowResType;;
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
