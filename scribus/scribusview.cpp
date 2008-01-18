@@ -677,8 +677,9 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 			text = ur.path();
 		if(ss->ReadElemHeader(text,fi.exists(), &gx, &gy, &gw, &gh))
 		{
-			dragX = e->pos().x() / m_canvas->scale();
-			dragY = e->pos().y() / m_canvas->scale();
+			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
+			dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
+			dragY = dragPosDoc.y(); //e->pos().y() / m_canvas->scale();
 			dragW = gw;
 			dragH = gh;
 			DraggedGroup = true;
@@ -707,8 +708,9 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		if (DraggedGroup)
 		{
 //			double gx, gy, gw, gh;
-			dragX = e->pos().x() / m_canvas->scale();
-			dragY = e->pos().y() / m_canvas->scale();
+			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
+			dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
+			dragY = dragPosDoc.y(); //e->pos().y() / m_canvas->scale();
 //			getDragRectScreen(&gx, &gy, &gw, &gh);
 //			QPoint evP = viewport()->mapToGlobal(e->pos());
 //			evP -= QPoint(contentsX(), contentsY());
@@ -717,8 +719,9 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 //				redrawMarker->show();
 			DraggedGroupFirst = false;
 			emit MousePos(dragX, dragY); //+Doc->minCanvasCoordinate.x(), dragY+Doc->minCanvasCoordinate.y());
-			horizRuler->Draw(e->pos().x());
-			vertRuler->Draw(e->pos().y());
+			QPoint pos = m_canvas->canvasToLocal(dragPosDoc);
+			horizRuler->Draw(pos.x());
+			vertRuler->Draw(pos.y());
 //			return;
 		}
 /*		QUrl ur(text);
@@ -776,7 +779,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
 	DraggedGroupFirst = false;
-	FPoint dropPosDoc = m_canvas->globalToCanvas(mapToGlobal(e->pos()));
+	FPoint dropPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 	QPointF dropPosDocQ(dropPosDoc.x(), dropPosDoc.y());
 //	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
 //		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
@@ -1207,27 +1210,6 @@ void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 	*h = gh*m_canvas->scale();
 }
 
-
-#if 0
-void ScribusView::ToView(QPainter *p)
-{
-	QPoint out(contentsToViewport(QPoint(0, 0)));
-//	p->translate(qRound(-Doc->minCanvasCoordinate.x()*m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y()*m_canvas->scale()));
-	p->translate(out.x(), out.y());
-}
-
-void ScribusView::ToView(QMatrix& m)
-{
-	QPoint out(contentsToViewport(QPoint(0, 0)));
-//	m.translate(qRound(-Doc->minCanvasCoordinate.x()*m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y()*m_canvas->scale()));
-	m.translate(out.x(), out.y());
-}
-
-void ScribusView::RefreshItem(PageItem *currItem)
-{
-	updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-}
-#endif
 
 
 void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
@@ -1861,48 +1843,6 @@ void ScribusView::Deselect(bool prop)
 		emit HaveSel(-1);
 }
 
-#if 0
-void ScribusView::SetupDraw(int nr)
-{
-	PageItem* currItem = Doc->Items->at(nr);
-//	currItem->setFont(Doc->toolSettings.defFont);
-//	currItem->setFontSize(Doc->toolSettings.defSize);
-	m_canvas->m_viewMode.operItemResizing = true;
-	frameResizeHandle = 1;
-	qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-	Doc->m_Selection->setIsGUISelection(true);
-	Doc->m_Selection->clear();
-	Doc->m_Selection->addItem(currItem);
-	Doc->m_Selection->connectItemToGUI();
-	updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-	m_canvas->m_viewMode.operItemMoving = true;
-	Doc->appMode = modeNormal;
-	emit DocChanged();
-	currItem->Sizing =  currItem->asLine() ? false : true;
-	inItemCreation = true;
-	m_canvas->setRenderModeFillBuffer();
-	resetMoveTimer();
-}
-
-void ScribusView::SetupDrawNoResize(int nr)
-{
-	PageItem* currItem = Doc->Items->at(nr);
-//	currItem->setFont(Doc->toolSettings.defFont);
-//	currItem->setFontSize(Doc->toolSettings.defSize);
-	Doc->m_Selection->setIsGUISelection(true);
-	Doc->m_Selection->clear();
-	Doc->m_Selection->addItem(currItem);
-	Doc->m_Selection->connectItemToGUI();
-	updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-	if (!Prefs->stickyTools)
-		Doc->appMode = modeNormal;
-	emit DocChanged();
-	currItem->Sizing =  currItem->asLine() ? false : true;
-	inItemCreation = false;
-	resetMoveTimer();
-}
-
-#endif
 
 //CB-->Doc/Fix
 void ScribusView::ToggleBookmark()
@@ -2199,97 +2139,7 @@ void ScribusView::PasteToPage()
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
-#if 0
-void ScribusView::PasteRecentToPage(int id)
-{
-	if (UndoManager::undoEnabled())
-		undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
-	QString nam = pmen3->text(id);
-	QString data = m_ScMW->scrapbookPalette->tempBView->objectMap[nam].Data;
-	QFileInfo fi(data);
-	if (fi.extension(true).toLower() == "sml")
-	{
-		QString f = "";
-		loadText(data, &f);
-		StencilReader *pre = new StencilReader();
-		data = pre->createObjects(f);
-		delete pre;
-	}
-	else if (fi.extension(true).toLower() == "shape")
-	{
-		QString f = "";
-		loadText(data, &f);
-		StencilReader *pre = new StencilReader();
-		data = pre->createShape(f);
-		delete pre;
-	}
-	else if (fi.extension(true).toLower() == "sce")
-	{
-		QString f = "";
-		loadText(data, &f);
-		data = f;
-	}
-	int ac = Doc->Items->count();
-	emit LoadElem(data, Mxp / m_canvas->scale(), Myp / m_canvas->scale(), false, false, Doc, this);
-	Doc->DraggedElem = 0;
-	Doc->DragElements.clear();
-	updateContents();
-	for (int as = ac; as < Doc->Items->count(); ++as)
-	{
-		PageItem* currItem = Doc->Items->at(as);
-		if (currItem->isBookmark)
-			emit AddBM(currItem);
-		Doc->m_Selection->addItem(currItem);
-	}
-	if (Doc->m_Selection->count() > 1)
-	{
-		Doc->m_Selection->setGroupRect();
-		double gx, gy, gh, gw;
-		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		double nx = gx;
-		double ny = gy;
-		if (!Doc->ApplyGuides(&nx, &ny))
-		{
-			FPoint npx;
-			npx = Doc->ApplyGridF(FPoint(nx, ny));
-			nx = npx.x();
-			ny = npx.y();
-		}
-		moveGroup(nx-gx, ny-gy, false);
-		Doc->m_Selection->setGroupRect();
-		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		nx = gx+gw;
-		ny = gy+gh;
-		Doc->ApplyGuides(&nx, &ny);
-		moveGroup(nx-(gx+gw), ny-(gy+gh), false);
-		Doc->m_Selection->setGroupRect();
-		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		emit ItemPos(gx, gy);
-		emit ItemGeom(gw, gh);
-		emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
-	}
-	else
-	{
-		PageItem *currItem = Doc->m_Selection->itemAt(0);
-		if (Doc->useRaster)
-		{
-			double nx = currItem->xPos();
-			double ny = currItem->yPos();
-			if (!Doc->ApplyGuides(&nx, &ny))
-			{
-				FPoint npx;
-				npx = Doc->ApplyGridF(FPoint(nx, ny));
-				nx = npx.x();
-				ny = npx.y();
-			}
-			Doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
-		}
-		currItem->emitAllToGUI();
-	}
-	if (UndoManager::undoEnabled())
-		undoManager->commit();
-}
-#endif
+
 
 void ScribusView::resizeEvent ( QResizeEvent * event )
 {
