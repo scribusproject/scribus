@@ -97,9 +97,11 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	GradLayout->setMargin(0);
 	GradLayout->setSpacing(5);
 	QFont fo = QFont(font());
-	fo.setPointSize(fo.pointSize()-1);
 	gradientQCombo = new ScComboBox( this );
+#ifndef Q_WS_WIN 
+	fo.setPointSize(fo.pointSize()-1);
 	gradientQCombo->setFont(fo);
+#endif
 	GradLayout->addWidget( gradientQCombo );
 	gradEdit = new GradientEditor(this);
 	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
