@@ -3496,6 +3496,9 @@ void ScribusMainWindow::rebuildLayersList()
 			{
 				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).LNr));
 				scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
+				QPixmap pm(20,15);
+				pm.fill((*it).markerColor);
+				scrLayersActions[QString("%1").arg((*it).LNr)]->setIcon(pm);
 			}
 		}
 		int currActiveLayer=doc->activeLayer();
