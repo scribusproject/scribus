@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfontdialog.h>
 #include <qcursor.h>
 #include <qtextcodec.h>
+#include <qdragobject.h>
 
 #include "actionmanager.h"
 #include "alignselect.h"
@@ -60,8 +61,38 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "scplugin.h"
 
+static const char storyMimeFmt[] = "application/x-scribus-story";
 
-extern QPixmap loadIcon(QString nam);
+class StoryMimeSource : public QTextDrag
+{
+protected:
+	SEditor::ChList m_story;
+
+public:
+	virtual bool provides (const char * mimeType) const 
+	{
+		if (qstrcmp(mimeType, storyMimeFmt) == 0)
+			return true;
+		return QTextDrag::provides(mimeType);
+	}
+	virtual QByteArray encodedData (const char * mimeType) const
+	{
+		if (qstrcmp(mimeType, storyMimeFmt) == 0)
+		{
+			QCString strData;
+			strData.setNum((ulong)((ulong*) &m_story));
+			QByteArray data = strData;
+			return data;
+		}
+		return QTextDrag::encodedData(mimeType);
+	}
+	virtual const char * format (int i = 0) const
+	{
+		return (i == 0) ? storyMimeFmt : QTextDrag::format(i - 1);
+	}
+	const SEditor::ChList& storyText(void) const { return m_story; }
+	void  setStoryText(const SEditor::ChList& story) { m_story = story; m_story.setAutoDelete(true); }
+};
 
 
 SideBar::SideBar(QWidget *pa) : QLabel(pa)
@@ -181,13 +212,10 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	StyledText.clear();
 	StyledText.setAutoDelete(true);
 	ParagStyles.clear();
-	cBuffer.setAutoDelete(true);
-	cBuffer.clear();
 	setUndoRedoEnabled(true);
 	setUndoDepth(0);
 	setTextFormat(Qt::PlainText);
 	viewport()->setAcceptDrops(false);
-	ClipData = 0;
 	unicodeTextEditMode = false;
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
@@ -489,9 +517,13 @@ void SEditor::insChars(QString t)
 	}
 }
 
-void SEditor::insStyledText(int *newParaCount, int *lengthLastPara)
+void SEditor::insStyledText(QMimeSource* mimeSource, int *newParaCount, int *lengthLastPara)
 {
-	if (cBuffer.count() == 0)
+	bool converted = false;
+	QByteArray mimeData = mimeSource->encodedData(storyMimeFmt);
+	QCString   mimeString(mimeData.data(), mimeData.size());
+	ChList*    textData = (ChList*) mimeString.toULong(&converted);
+	if (!converted || !textData || (textData->count() == 0))
 		return;
 	int p, i, p2, ccab;
 	if (hasSelectedText())
@@ -514,12 +546,12 @@ void SEditor::insStyledText(int *newParaCount, int *lengthLastPara)
 		ccab = chars->at(0)->cab;
 	else
 		ccab = currentParaStyle;
-	for (uint a = 0; a < cBuffer.count()-1; ++a)
+	for (uint a = 0; a < textData->count()-1; ++a)
 	{
 		struct PtiSmall *hg;
-		if (cBuffer.at(a)->ch == QChar(25))
+		if (textData->at(a)->ch == QChar(25))
 			continue;
-		if (cBuffer.at(a)->ch == QChar(13))
+		if (textData->at(a)->ch == QChar(13))
 		{
 			(*newParaCount)++;
                         *lengthLastPara = 0;
@@ -549,26 +581,26 @@ void SEditor::insStyledText(int *newParaCount, int *lengthLastPara)
 		else
 		{
 			hg = new PtiSmall;
-			hg->ch = cBuffer.at(a)->ch;
-			hg->ccolor = cBuffer.at(a)->ccolor;
-			hg->cshade = cBuffer.at(a)->cshade;
-			hg->cstroke = cBuffer.at(a)->cstroke;
-			hg->cshade2 = cBuffer.at(a)->cshade2;
-			hg->cfont = cBuffer.at(a)->cfont;
-			hg->csize = cBuffer.at(a)->csize;
-			hg->cstyle = cBuffer.at(a)->cstyle;
+			hg->ch = textData->at(a)->ch;
+			hg->ccolor =textData->at(a)->ccolor;
+			hg->cshade = textData->at(a)->cshade;
+			hg->cstroke = textData->at(a)->cstroke;
+			hg->cshade2 = textData->at(a)->cshade2;
+			hg->cfont = textData->at(a)->cfont;
+			hg->csize = textData->at(a)->csize;
+			hg->cstyle = textData->at(a)->cstyle;
 			hg->cab = ccab;
-			hg->cextra = cBuffer.at(a)->cextra;
-			hg->cscale = cBuffer.at(a)->cscale;
-			hg->cscalev = cBuffer.at(a)->cscalev;
-			hg->cbase = cBuffer.at(a)->cbase;
-			hg->cshadowx = cBuffer.at(a)->cshadowx;
-			hg->cshadowy = cBuffer.at(a)->cshadowy;
-			hg->coutline = cBuffer.at(a)->coutline;
-			hg->cunderpos = cBuffer.at(a)->cunderpos;
-			hg->cunderwidth = cBuffer.at(a)->cunderwidth;
-			hg->cstrikepos = cBuffer.at(a)->cstrikepos;
-			hg->cstrikewidth = cBuffer.at(a)->cstrikewidth;
+			hg->cextra = textData->at(a)->cextra;
+			hg->cscale = textData->at(a)->cscale;
+			hg->cscalev = textData->at(a)->cscalev;
+			hg->cbase = textData->at(a)->cbase;
+			hg->cshadowx = textData->at(a)->cshadowx;
+			hg->cshadowy = textData->at(a)->cshadowy;
+			hg->coutline = textData->at(a)->coutline;
+			hg->cunderpos = textData->at(a)->cunderpos;
+			hg->cunderwidth = textData->at(a)->cunderwidth;
+			hg->cstrikepos = textData->at(a)->cstrikepos;
+			hg->cstrikewidth = textData->at(a)->cstrikewidth;
 			hg->cembedded = 0;
 			chars->insert(i, hg);
                         (*lengthLastPara)++;
@@ -582,8 +614,7 @@ void SEditor::copyStyledText()
 	int PStart, PEnd, SelStart, SelEnd, start, end;
 	ChList *chars;
 	struct PtiSmall *hg;
-	cBuffer.clear();
-	tBuffer = "";
+	ChList  storyBuffer;
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 	for (int pa = PStart; pa < PEnd+1; ++pa)
 	{
@@ -600,7 +631,6 @@ void SEditor::copyStyledText()
 		{
 			hg = new PtiSmall;
 			hg->ch = chars->at(ca)->ch;
-			tBuffer += chars->at(ca)->ch;
 			hg->cfont = chars->at(ca)->cfont;
 			hg->csize = chars->at(ca)->csize;
 			hg->ccolor = chars->at(ca)->ccolor;
@@ -621,11 +651,10 @@ void SEditor::copyStyledText()
 			hg->cstrikepos = chars->at(ca)->cstrikepos;
 			hg->cstrikewidth = chars->at(ca)->cstrikewidth;
 			hg->cembedded = 0;
-			cBuffer.append(hg);
+			storyBuffer.append(hg);
 		}
 		hg = new PtiSmall;
 		hg->ch = QChar(13);
-		tBuffer += QChar(13);
 		hg->cfont = "";
 		hg->csize = 1;
 		hg->ccolor = "";
@@ -646,8 +675,12 @@ void SEditor::copyStyledText()
 		hg->cstrikepos = -1;
 		hg->cstrikewidth = -1;
 		hg->cembedded = 0;
-		cBuffer.append(hg);
+		storyBuffer.append(hg);
 	}
+	StoryMimeSource* storyMimeSource = new StoryMimeSource();
+	storyMimeSource->setStoryText(storyBuffer);
+	storyMimeSource->setText(this->selectedText());
+	QApplication::clipboard()->setData(storyMimeSource, QClipboard::Clipboard);
 }
 
 void SEditor::saveItemText(PageItem *currItem)
@@ -1458,8 +1491,6 @@ void SEditor::copy()
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		copyStyledText();
-		QApplication::clipboard()->setText(tBuffer, QClipboard::Clipboard);
-		ClipData = 1;
 		connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 		connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		emit PasteAvail();
@@ -1487,18 +1518,19 @@ void SEditor::paste()
 	QString data = "";
 	int newParaCount = 0, lengthLastPara = 0;
 	bool inserted=false;
-	if (ClipData == 1)
+	QMimeSource* mimeSource = QApplication::clipboard()->data(QClipboard::Clipboard);
+	if (mimeSource && mimeSource->provides(storyMimeFmt))
 	{
-		insStyledText(&newParaCount, &lengthLastPara);
+		insStyledText(mimeSource, &newParaCount, &lengthLastPara);
 		getCursorPosition(&currentPara, &currentCharPos); //must be after call to insStyledText
 		inserted = true;
 	}
 	else
 	{
 		getCursorPosition(&currentPara, &currentCharPos);
-		QString data = QApplication::clipboard()->text(QClipboard::Selection);
+		QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
 		if (data.isNull())
-			data = QApplication::clipboard()->text(QClipboard::Clipboard);
+			QApplication::clipboard()->text(QClipboard::Selection);
 		if (!data.isNull())
 		{
 			data.replace(QRegExp("\r"), "");
@@ -1508,7 +1540,6 @@ void SEditor::paste()
 			data.replace(QRegExp("\n"), QChar(13));
 			inserted=true;
 			insChars(data);
-			ClipData = 2;
 			emit PasteAvail();
 		}
 		else
@@ -1632,13 +1663,11 @@ QPopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 
 void SEditor::SelClipChange()
 {
-	ClipData = 3;
 	emit PasteAvail();
 }
 
 void SEditor::ClipChange()
 {
-	ClipData = 2;
 	emit PasteAvail();
 }
 
@@ -3212,10 +3241,15 @@ void StoryEditor::Do_del()
 
 void StoryEditor::CopyAvail(bool u)
 {
+	bool copyEnabled = false;
+	if (QApplication::clipboard()->text(QClipboard::Clipboard).length() != 0)
+		copyEnabled = true;
+	else if (QApplication::clipboard()->data(QClipboard::Clipboard)->provides(storyMimeFmt))
+		copyEnabled = true;
 	seActions["editCopy"]->setEnabled(u);
 	seActions["editCut"]->setEnabled(u);
 	seActions["editClear"]->setEnabled(u);
-	seActions["editCopy"]->setEnabled(Editor->tBuffer.length() != 0);
+	seActions["editCopy"]->setEnabled(copyEnabled);
 }
 
 void StoryEditor::PasteAvail()
@@ -3653,11 +3687,16 @@ void StoryEditor::changeAlign(int )
 
 void StoryEditor::modifiedText()
 {
+	bool pasteEnabled = false;
+	if (QApplication::clipboard()->text(QClipboard::Clipboard).length() != 0)
+		pasteEnabled = true;
+	else if (QApplication::clipboard()->data(QClipboard::Clipboard)->provides(storyMimeFmt))
+		pasteEnabled = true;
 	textChanged = true;
-	firstSet = true;
+	firstSet    = true;
 	seActions["fileRevert"]->setEnabled(true);
 	seActions["editUpdateFrame"]->setEnabled(true);
-	seActions["editPaste"]->setEnabled(Editor->tBuffer.length() != 0);
+	seActions["editPaste"]->setEnabled(pasteEnabled);
 	updateStatus();
 }
 

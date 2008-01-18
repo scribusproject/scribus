@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "pageitem.h"
 
+class QMimeSource;
 class MenuManager;
 class MSpinBox;
 class Spalette;
@@ -103,7 +104,7 @@ public:
 	void setStyle(int Csty);
 	void setFarbe(bool marker);
 	void insChars(QString t);
-	void insStyledText(int *newParaCount, int *lengthLastPara);		
+	void insStyledText(QMimeSource* storyData, int *newParaCount, int *lengthLastPara);		
 	void copyStyledText();
 
 	typedef QPtrList<PtiSmall> ChList;
@@ -136,9 +137,6 @@ public:
 	QString prevFont;
 	QString CurrFont;
 	QString unicodeInputString;
-	QString tBuffer;
-	ChList cBuffer;
-	int ClipData;
 	bool StoredSel;
 	int SelParaStart;
 	int SelParaEnd;
@@ -466,4 +464,6 @@ protected:
 };
 
 #endif
+
+
 
