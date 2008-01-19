@@ -223,7 +223,6 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	StyledText.clear();
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
-	ClipData = 0;
 	unicodeTextEditMode = false;
 	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
@@ -407,8 +406,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			default:
 				if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 				{
-					insChars(k->text());
+					/*insChars(k->text());
+					QTextEdit::keyPressEvent(k);*/
+					bool hasSelection = textCursor().hasSelection();
+					int  position = hasSelection ? textCursor().selectionStart() : textCursor().position();
+					if (hasSelection)
+						deleteSel();
 					QTextEdit::keyPressEvent(k);
+					insChars(k->text(), position);
 					emit SideBarUp(true);
 					emit SideBarUpdate();
 				}
@@ -454,11 +459,18 @@ void SEditor::focusInEvent(QFocusEvent *e)
 	QTextEdit::focusInEvent(e);
 }
 
-void SEditor::insChars(QString t)
+void SEditor::insChars(const QString& t)
 {
 	if (textCursor().hasSelection())
 		deleteSel();
 	int pos = qMin(textCursor().position(), StyledText.length());
+	StyledText.insertChars(pos, t, true);
+}
+
+void SEditor::insChars(const QString& t, int pos)
+{
+	if (textCursor().hasSelection())
+		deleteSel();
 	StyledText.insertChars(pos, t, true);
 }
 
@@ -469,6 +481,15 @@ void SEditor::insStyledText(const StoryText& styledText)
 	if (textCursor().hasSelection())
 		deleteSel();
 	int pos = qMin(textCursor().position(), StyledText.length());
+	StyledText.insert(pos, styledText);
+}
+
+void SEditor::insStyledText(const StoryText& styledText, int pos)
+{
+	if (styledText.length() == 0)
+		return;
+	if (textCursor().hasSelection())
+		deleteSel();
 	StyledText.insert(pos, styledText);
 }
 
@@ -810,7 +831,7 @@ void SEditor::paste()
 	QString data = "";
 	int newParaCount, lengthLastPara;
 	int advanceLen = 0;
-	int pos = textCursor().position();
+	int pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData(QClipboard::Clipboard);
 	if (mimeData->hasFormat("application/x-scribus-styledtext"))
 	{
@@ -819,7 +840,7 @@ void SEditor::paste()
 		{
 			const StoryText& styledText = styledData->styledText();
 			advanceLen = styledText.length();
-			insStyledText(styledText);
+			insStyledText(styledText, pos);
 		}
 	}
 	else
@@ -835,8 +856,7 @@ void SEditor::paste()
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
 //			inserted=true;
 			advanceLen = data.length() - newParaCount;
-			insChars(data);
-			ClipData = 2;
+			insChars(data, pos);
 			emit PasteAvail();
 		}
 		else
@@ -849,7 +869,9 @@ void SEditor::paste()
 	setUpdatesEnabled(false);
 	//qDebug("SE::paste: cursor");
 //	setCursorPosition(currentPara, currentCharPos);
-	textCursor().setPosition(pos);
+	QTextCursor tCursor = textCursor();
+	tCursor.setPosition(pos);
+	setTextCursor(tCursor);
 	for (int a = 0; a < advanceLen; ++a)
 	{
 		moveCursor(QTextCursor::Right, QTextCursor::MoveAnchor);
@@ -901,13 +923,11 @@ Q_3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 */
 void SEditor::SelClipChange()
 {
-	ClipData = 3;
 	emit PasteAvail();
 }
 
 void SEditor::ClipChange()
 {
-	ClipData = 2;
 	emit PasteAvail();
 }
 

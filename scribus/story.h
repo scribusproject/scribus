@@ -96,8 +96,10 @@ public:
 	void deleteSel();
 	void setStyle(int Csty);
 	void setColor(bool marker);
-	void insChars(QString t);
+	void insChars(const QString& t);
+	void insChars(const QString& t, int position);
 	void insStyledText(const StoryText& styledText);
+	void insStyledText(const StoryText& styledText, int position);
 
 	StoryText StyledText;
 	QList<PageItem*> FrameItems;
