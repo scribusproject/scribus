@@ -103,7 +103,8 @@ public:
 	void deleteSel();
 	void setStyle(int Csty);
 	void setFarbe(bool marker);
-	void insChars(QString t);
+	void insChars(const QString& t);
+	void insChars(const QString& t, int& para, int& index, bool delSel);
 	void insStyledText(QMimeSource* storyData, int *newParaCount, int *lengthLastPara);		
 	void copyStyledText();
 

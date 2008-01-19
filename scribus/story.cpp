@@ -407,8 +407,26 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				default:
 					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
 					{
-						insChars(k->text());
-						QTextEdit::keyPressEvent(k);
+						/*if (hasSelectedText())
+						{
+							int paraStart, paraTo, indexStart, indexTo;
+							getSelection(&paraStart, &indexStart, &paraTo, &indexTo);
+							QTextEdit::keyPressEvent(k); // keyPressEvent() will call removeSelectedText()
+							insChars(k->text(), paraStart, indexStart, false);
+						}
+						else
+						{
+							insChars(k->text());
+							QTextEdit::keyPressEvent(k);
+						}*/
+						int  paraStart, paraTo, indexStart, indexTo;
+						bool hasSelection = hasSelectedText();
+						if (hasSelection)
+							getSelection(&paraStart, &indexStart, &paraTo, &indexTo);
+						else
+							getCursorPosition(&paraStart, &indexStart);
+						QTextEdit::keyPressEvent(k); // keyPressEvent() will call removeSelectedText()
+						insChars(k->text(), paraStart, indexStart, false);
 						emit SideBarUp(true);
 						emit SideBarUpdate();
 					}
@@ -436,13 +454,21 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 	QTextEdit::focusOutEvent(e);
 }
 
-void SEditor::insChars(QString t)
+void SEditor::insChars(const QString& t)
 {
-	int p, i, p2, ccab;
+	int p, i;
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
+	insChars(t, p, i, false);
+}
+
+void SEditor::insChars(const QString& t, int& para, int& index, bool removeSelected)
+{
 	ChList *chars;
+	int p = para, i = index, p2, ccab;
+	if (removeSelected && hasSelectedText())
+		deleteSel();
 	p2 = p;
 	if ((p >= static_cast<int>(StyledText.count())) || (StyledText.count() == 0))
 	{
@@ -515,6 +541,8 @@ void SEditor::insChars(QString t)
 			i++;
 		}
 	}
+	para  = p2;
+	index = i;
 }
 
 void SEditor::insStyledText(QMimeSource* mimeSource, int *newParaCount, int *lengthLastPara)
@@ -1529,16 +1557,18 @@ void SEditor::paste()
 	{
 		getCursorPosition(&currentPara, &currentCharPos);
 		QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
-		if (data.isNull())
+		if (data.isEmpty())
 			QApplication::clipboard()->text(QClipboard::Selection);
-		if (!data.isNull())
+		if (!data.isEmpty())
 		{
 			data.replace(QRegExp("\r"), "");
 			newParaCount=data.contains("\n"); 
 			lengthLastPara=data.length()-data.findRev("\n");
 			lengthLastPara--;
 			data.replace(QRegExp("\n"), QChar(13));
-			inserted=true;
+			// In that case paste() is called from QTextEdit and
+			// text has already been inserted in widget - JG
+			inserted=!hasSelectedText();
 			insChars(data);
 			emit PasteAvail();
 		}
