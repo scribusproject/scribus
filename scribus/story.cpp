@@ -1555,7 +1555,11 @@ void SEditor::paste()
 	}
 	else
 	{
-		getCursorPosition(&currentPara, &currentCharPos);
+		int dummy1, dummy2;
+		if (hasSelectedText())
+			getSelection(&currentPara, &currentCharPos, &dummy1, &dummy2);
+		else
+			getCursorPosition(&currentPara, &currentCharPos);
 		QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
 		if (data.isEmpty())
 			QApplication::clipboard()->text(QClipboard::Selection);
@@ -1566,9 +1570,7 @@ void SEditor::paste()
 			lengthLastPara=data.length()-data.findRev("\n");
 			lengthLastPara--;
 			data.replace(QRegExp("\n"), QChar(13));
-			// In that case paste() is called from QTextEdit and
-			// text has already been inserted in widget - JG
-			inserted=!hasSelectedText();
+			inserted = true;
 			insChars(data);
 			emit PasteAvail();
 		}
