@@ -3601,12 +3601,17 @@ void ScribusView::ToPicFrame()
 
 void ScribusView::ToPolyFrame()
 {
+	Selection tempSelection(*Doc->m_Selection);
+	Deselect(true);
+	Doc->itemSelection_convertItemsTo(PageItem::Polygon, &tempSelection);
+	/*
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	newItem->update();
 	SelectItem(newItem);
 	emit DocChanged();
+	*/
 }
 
 void ScribusView::ToTextFrame()
@@ -3626,22 +3631,32 @@ void ScribusView::ToTextFrame()
 
 void ScribusView::ToBezierFrame()
 {
+	Selection tempSelection(*Doc->m_Selection);
+	Deselect(true);
+	Doc->itemSelection_convertItemsTo(PageItem::PolyLine, &tempSelection);
+	/*
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
 	newItem->update();
 	SelectItem(newItem);
 	emit DocChanged();
+	*/
 }
 
 void ScribusView::Bezier2Poly()
 {
+	Selection tempSelection(*Doc->m_Selection);
+	Deselect(true);
+	Doc->itemSelection_convertItemsTo(PageItem::Polygon, &tempSelection);
+	/*
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	newItem->update();
 	SelectItem(newItem);
 	emit DocChanged();
+	*/
 }
 
 void ScribusView::ToPathText()
