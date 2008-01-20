@@ -3079,11 +3079,14 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	propertiesPalette->RotationGroup->button(doc->RotMode)->setChecked(true);
 	if (docSelectionCount > 1)
 	{
-		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-		scrActions["itemConvertToImageFrame"]->setEnabled(false);
-		//scrActions["itemConvertToOutlines"]->setEnabled(false);
-		scrActions["itemConvertToPolygon"]->setEnabled(false);
-		scrActions["itemConvertToTextFrame"]->setEnabled(false);
+		if (!doc->m_Selection->itemsAreSameType())
+		{
+			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+			scrActions["itemConvertToImageFrame"]->setEnabled(false);
+			//scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemConvertToPolygon"]->setEnabled(false);
+			scrActions["itemConvertToTextFrame"]->setEnabled(false);
+		}
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		bool hPoly = false;

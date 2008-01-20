@@ -9703,6 +9703,32 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	regionsChanged()->update(QRectF());
 }
 
+void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	//Create our copy selection as our item *s will be invalidated as we go through the loop and the selection index wont work
+	//convertItemTo does this
+	Selection tmpSel(*itemSelection);
+	m_updateManager.setUpdatesDisabled();
+	//FIXME: Add undo, just need the parameters to be correctÆ
+	//if (selectedItemCount > 1)
+	//	undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, newStyle.displayName(), Um::IFont);
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		PageItem* newItem=convertItemTo(currItem, newType);
+		newItem->update();
+	}
+	//if (selectedItemCount > 1)
+	//	undoManager->commit();
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
 //CB-->Doc
 //Fix size/move item calls
 //CB TODO Use the selection loop properly

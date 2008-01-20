@@ -3586,12 +3586,17 @@ void ScribusView::QueryFarben()
 */
 void ScribusView::ToPicFrame()
 {
+	Selection tempSelection(*Doc->m_Selection);
+	Deselect(true);
+	Doc->itemSelection_convertItemsTo(PageItem::ImageFrame, &tempSelection);
+	/*
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
 	newItem->update();
 	SelectItem(newItem);
 	emit DocChanged();
+	*/
 }
 
 void ScribusView::ToPolyFrame()
@@ -3606,12 +3611,17 @@ void ScribusView::ToPolyFrame()
 
 void ScribusView::ToTextFrame()
 {
+	Selection tempSelection(*Doc->m_Selection);
+	Deselect(true);
+	Doc->itemSelection_convertItemsTo(PageItem::TextFrame, &tempSelection);
+	/*
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	Deselect(true);
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
 	newItem->update();
 	SelectItem(newItem);
 	emit DocChanged();
+	*/
 }
 
 void ScribusView::ToBezierFrame()
