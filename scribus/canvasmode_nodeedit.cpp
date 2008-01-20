@@ -724,16 +724,15 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 //	m_doc->SubMode = -1;
-	if (m_view->_groupTransactionStarted)
+	if (m_view->groupTransactionStarted())
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
-		m_view->undoManager->commit();
-		m_view->_groupTransactionStarted = false;
+		m_view->endGroupTransaction();
 	}
 
-	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
-		m_doc->m_Selection->itemAt(i)->checkChanges(true);
+//???	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+//??? av		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 
 	//Commit drag created items to undo manager.
 	if (m_doc->m_Selection->itemAt(0)!=NULL)

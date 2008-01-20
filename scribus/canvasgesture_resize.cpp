@@ -23,7 +23,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
-
+#include "undomanager.h"
 
 
 
@@ -60,6 +60,11 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 void ResizeGesture::clear()
 {
 	m_handle = Canvas::OUTSIDE;
+	if (m_transactionStarted)
+	{
+		m_view->cancelGroupTransaction();
+		m_transactionStarted = false;
+	}
 }
 
 void ResizeGesture::activate(bool flag)
@@ -69,9 +74,11 @@ void ResizeGesture::activate(bool flag)
 
 
 
-void ResizeGesture::deactivate(bool flag)
+void ResizeGesture::deactivate(bool forgesture)
 {
-	qDebug() << "ResizeGesture::deactivate" << flag;
+	qDebug() << "ResizeGesture::deactivate" << forgesture;
+	if (!forgesture)
+		clear();
 }
 
 
@@ -126,6 +133,11 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		currItem->invalidateLayout();
 		currItem->update();
 	}
+	if (m_transactionStarted)
+	{
+		m_view->endGroupTransaction();
+		m_transactionStarted = false;
+	}
 	m->accept();
 	m_canvas->update();
 	m_view->stopGesture();
@@ -134,6 +146,11 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 
 void ResizeGesture::doResize(bool scaleContent)
 {
+	if (!m_transactionStarted)
+	{
+		m_view->startGroupTransaction(Um::Resize, "", Um::IResize);
+		m_transactionStarted = true;	
+	}
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	QRectF newBounds = m_bounds.normalized();
 	if (m_doc->m_Selection->isMultipleSelection())
@@ -145,13 +162,13 @@ void ResizeGesture::doResize(bool scaleContent)
 		double scy = oldBounds.height() == 0? 1.0 : newBounds.height() / oldBounds.height();
 		//CB #3012 only scale text in a group if alt is pressed
 		if ((currItem->itemType() == PageItem::TextFrame) && scaleContent)
-			m_view->scaleGroup(scx, scy, true);
+			m_doc->scaleGroup(scx, scy, true);
 		else
-			m_view->scaleGroup(scx, scy, false);
+			m_doc->scaleGroup(scx, scy, false);
 		double dx = newBounds.x() - oldBounds.x();
 		double dy = newBounds.y() - oldBounds.y();
 		if (dx != 0 || dy != 0)
-			m_view->moveGroup(dx, dy);
+			m_doc->moveGroup(dx, dy);
 	}
 	else
 	{

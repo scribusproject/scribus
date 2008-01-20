@@ -165,7 +165,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	RecordP(),
 	Ready(false),
 	oldX(0), oldY(0),
-	_groupTransactionStarted(false),
+	m_groupTransactions(0),
 	_isGlobalMode(true),
 //	evSpon(false),
 //	forceRedraw(false),
@@ -972,7 +972,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								{
 									double x2, y2, w, h;
 									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-									moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
+									Doc->moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
 									m_ScMW->propertiesPalette->updateColorList();
 									m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 									m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();
@@ -1115,13 +1115,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					nx = npx.x();
 					ny = npx.y();
 				}
-				moveGroup(nx-gx, ny-gy, false);
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Move,"",Um::IMove);
+				Doc->moveGroup(nx-gx, ny-gy, false);
 				Doc->m_Selection->setGroupRect();
 				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				nx = gx+gw;
 				ny = gy+gh;
 				Doc->ApplyGuides(&nx, &ny);
-				moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+				Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 				Doc->m_Selection->setGroupRect();
 				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				for (int a = 0; a < Doc->m_Selection->count(); ++a)
@@ -1132,6 +1133,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					currItem->gWidth = gw;
 					currItem->gHeight = gh;
 				}
+				undoManager->commit();
 				emit ItemPos(gx, gy);
 				emit ItemGeom(gw, gh);
 			}
@@ -1503,7 +1505,7 @@ void ScribusView::ResetControl()
 }
 */
 
-
+/*
 //CB-->Doc
 void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSelection)
 {
@@ -1565,6 +1567,8 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 	Doc->scaleGroup(scx, scy, scaleText, itemSelection);
 	emit DocChanged();
 }
+*/
+
 
 bool ScribusView::slotSetCurs(int x, int y)
 {
@@ -2088,7 +2092,7 @@ void ScribusView::PasteToPage()
 		pastedObjects.setGroupRect();
 		double gx, gy, gh, gw;
 		pastedObjects.getGroupRect(&gx, &gy, &gw, &gh);
-		moveGroup(dragX - gx, dragY - gy, false, &pastedObjects);
+		Doc->moveGroup(dragX - gx, dragY - gy, false, &pastedObjects);
 		Doc->m_Selection->clear();
 	}
 	else
@@ -2118,13 +2122,13 @@ void ScribusView::PasteToPage()
 			nx = npx.x();
 			ny = npx.y();
 		}
-		moveGroup(nx-gx, ny-gy, false, &newObjects);
+		Doc->moveGroup(nx-gx, ny-gy, false, &newObjects);
 		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		nx = gx+gw;
 		ny = gy+gh;
 		Doc->ApplyGuides(&nx, &ny);
-		moveGroup(nx-(gx+gw), ny-(gy+gh), false, &newObjects);
+		Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false, &newObjects);
 		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemPos(gx, gy);
@@ -2189,15 +2193,47 @@ bool ScribusView::mousePressed()
 	return m_canvas->m_viewMode.m_MouseButtonPressed;
 }
 
-bool ScribusView::groupTransactionStarted()
+void ScribusView::startGroupTransaction(const QString& action, const QString& description, QPixmap* actionIcon, Selection* customSelection)
 {
-	return _groupTransactionStarted;
+	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	Q_ASSERT(selectedItemCount > 0);
+	QString tooltip = description;
+	QString target = Um::SelectionGroup;
+	QPixmap* targetIcon = Um::IGroup;
+	if (tooltip.isEmpty() && selectedItemCount > 1)
+	{
+		tooltip = Um::ItemsInvolved + "\n";
+		for (uint i = 0; i < selectedItemCount; ++i)
+			tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
+	}
+	if (selectedItemCount == 1)
+	{
+		target = itemSelection->itemAt(0)->getUName();
+		targetIcon = itemSelection->itemAt(0)->getUPixmap(); 
+	}
+	undoManager->beginTransaction(target, targetIcon,
+								  action, tooltip, actionIcon);
+	++m_groupTransactions;
 }
 
-void ScribusView::setGroupTransactionStarted(bool isOn)
+
+void ScribusView::endGroupTransaction()
 {
-	_groupTransactionStarted = isOn;
+	assert(m_groupTransactions > 0);
+	undoManager->commit();
+	--m_groupTransactions;
 }
+
+
+void ScribusView::cancelGroupTransaction()
+{
+	assert(m_groupTransactions > 0);
+	undoManager->cancelTransaction();
+	--m_groupTransactions;
+}
+
 
 // jjsa 27-03-2004 add for better setting while zooming
 //CB find a new name

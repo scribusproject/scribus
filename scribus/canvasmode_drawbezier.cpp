@@ -270,7 +270,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	if (FirstPoly)
 	{
 		selectPage(m);
-		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_MouseButtonPressed);
+		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
 		currItem = m_doc->Items->at(z);
 		m_doc->m_Selection->clear();
 		m_doc->m_Selection->addItem(currItem);
@@ -412,18 +412,17 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
-		m_view->undoManager->commit();
-		m_view->setGroupTransactionStarted(false);
+		m_view->endGroupTransaction();
 	}
 
-	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
-		m_doc->m_Selection->itemAt(i)->checkChanges(true);
+//???	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+//???		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 
-	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=NULL)
-	{
-		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
-	}
+//	//Commit drag created items to undo manager.
+//	if (m_doc->m_Selection->itemAt(0)!=NULL)
+//	{
+//		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
+//	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	m_view->zoomSpinBox->clearFocus();
 	m_view->pageSelector->clearFocus();

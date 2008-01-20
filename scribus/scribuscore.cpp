@@ -21,9 +21,9 @@ for which a new license (GPL+exception) is in place.
  
 #include <cassert>
 #include <iostream>
-#include <QGlobalStatic>
 #include <QByteArray>
-
+#include <QDebug>
+#include <QGlobalStatic>
 
 #include "cmserrorhandling.h"
 #include "commonstrings.h"

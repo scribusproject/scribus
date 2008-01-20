@@ -578,6 +578,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeRotation))
 		{
 			m_view->stopDragTimer();
+			if (!m_view->groupTransactionStarted() && m_doc->m_Selection->isMultipleSelection())
+			{
+				m_view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
+			}
 			double newW = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 			if (m->modifiers() & Qt::ControlModifier)
 			{
@@ -585,14 +589,14 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				m_view->oldW=constrainAngle(m_view->oldW, m_doc->toolSettings.constrain);
 				//RotateGroup uses MoveBy so its pretty hard to constrain the result
 				if (m_doc->m_Selection->isMultipleSelection())
-					m_view->RotateGroup(newW-m_view->oldW);
+					m_doc->rotateGroup(newW-m_view->oldW, m_view->RCenter);
 				else
 					m_doc->RotateItem(newW, currItem->ItemNr);
 			}
 			else
 			{
 				if (m_doc->m_Selection->isMultipleSelection())
-					m_view->RotateGroup(newW - m_view->oldW);
+					m_doc->rotateGroup(newW - m_view->oldW, m_view->RCenter);
 				else
 					m_doc->RotateItem(currItem->rotation() - (m_view->oldW - newW), currItem->ItemNr);
 			}
@@ -994,22 +998,26 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						}
 						if (!(currItem->isTableItem && currItem->isSingleSel))
 						{
+							if (!m_view->groupTransactionStarted())
+							{
+								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+							}
 							m_doc->m_Selection->setGroupRect();
 							double gx, gy, gh, gw;
 							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-							m_view->moveGroup(dX, dY, false);
+							m_doc->moveGroup(dX, dY, false);
 							if (m_doc->SnapGuides)
 							{
 								double nx = gx;
 								double ny = gy;
 								m_doc->ApplyGuides(&nx, &ny);
-								m_view->moveGroup(nx-gx, ny-gy, false);
+								m_doc->moveGroup(nx-gx, ny-gy, false);
 								m_doc->m_Selection->setGroupRect();
 								m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 								nx = gx+gw;
 								ny = gy+gh;
 								m_doc->ApplyGuides(&nx, &ny);
-								m_view->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+								m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 							}
 							if (m_doc->useRaster)
 							{
@@ -1029,13 +1037,17 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 								else
 									gy = npx.y();
 								if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()))
-									m_view->moveGroup(gx-gxo, gy-gyo, false);
+									m_doc->moveGroup(gx-gxo, gy-gyo, false);
 							}
 						}
 					}
 				}
 				else
 				{
+					if (!m_view->groupTransactionStarted())
+					{
+						m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+					}
 					m_doc->m_Selection->setGroupRect();
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -1052,19 +1064,19 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						dX+=dragConstrainInitPtX-qRound(gx);
 						dY+=dragConstrainInitPtY-qRound(gy);
 					}
-					m_view->moveGroup(dX, dY, false);
+					m_doc->moveGroup(dX, dY, false);
 					if (m_doc->SnapGuides)
 					{
 						double nx = gx;
 						double ny = gy;
 						m_doc->ApplyGuides(&nx, &ny);
-						m_view->moveGroup(nx-gx, ny-gy, false);
+						m_doc->moveGroup(nx-gx, ny-gy, false);
 						m_doc->m_Selection->setGroupRect();
 						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 						nx = gx+gw;
 						ny = gy+gh;
 						m_doc->ApplyGuides(&nx, &ny);
-						m_view->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+						m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					}
 					m_doc->m_Selection->setGroupRect();
 					if (m_doc->useRaster)
@@ -1085,7 +1097,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						else
 							gy = npx.y();
 						if ((fabs(gx - gxo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesSettings.guideRad / 2.0) / m_canvas->scale()))
-							m_view->moveGroup(gx-gxo, gy-gyo, false);
+							m_doc->moveGroup(gx-gxo, gy-gyo, false);
 						m_doc->m_Selection->setGroupRect();
 					}
 				}
@@ -1872,6 +1884,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				break;
 			if (GetItem(&currItem))
 			{
+/*AV				if (UndoManager::undoEnabled())
+					m_view->undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
+														  Um::Rotate, "", Um::IRotate);
+*/
 				RotMode = m_doc->RotMode;
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
@@ -2841,6 +2857,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			{
 				if (m_canvas->m_viewMode.operItemResizing)
 				{
+					assert (false);
 					double gx, gy, gh, gw, nx, ny, scx, scy;
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					double sc = m_canvas->scale();
@@ -2900,15 +2917,15 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					m_doc->RotMode = 0;
 					//CB #3012 only scale text in a group if alt is pressed
 					if ((currItem->itemType() == PageItem::TextFrame) && (m->modifiers() & Qt::AltModifier))
-						m_view->scaleGroup(scx, scy, true);
+						m_doc->scaleGroup(scx, scy, true);
 					else
-						m_view->scaleGroup(scx, scy, false);
+						m_doc->scaleGroup(scx, scy, false);
 					if ((frameResizeHandle == 3) || (frameResizeHandle == 8))
-						m_view->moveGroup(0, ny-gy);
+						m_doc->moveGroup(0, ny-gy);
 					if (frameResizeHandle == 2)
-						m_view->moveGroup(nx-gx, ny-gy);
+						m_doc->moveGroup(nx-gx, ny-gy);
 					if ((frameResizeHandle == 7) || (frameResizeHandle == 4))
-						m_view->moveGroup(nx-gx, 0);
+						m_doc->moveGroup(nx-gx, 0);
 					m_doc->RotMode = RotMode;
 //					evSpon = false;
 					m_canvas->m_viewMode.operItemResizing = false;
@@ -3594,6 +3611,10 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 //				evSpon = false;
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
+					if (!m_view->groupTransactionStarted())
+					{
+						m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+					}
 					m_doc->m_Selection->setGroupRect();
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -3612,13 +3633,13 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 							else
 								ny = npx.y();
 					}
-					m_view->moveGroup(nx-gx, ny-gy, false);
+					m_doc->moveGroup(nx-gx, ny-gy, false);
 					m_doc->m_Selection->setGroupRect();
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					nx = gx+gw;
 					ny = gy+gh;
 					if (m_doc->ApplyGuides(&nx, &ny))
-						m_view->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+						m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					m_doc->m_Selection->setGroupRect();
 				}
 				else
@@ -3751,7 +3772,10 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		if (m_doc->appMode != modeEdit)
 		{
 			if (m_doc->appMode == modeRotation)
+			{
 				m_doc->RotMode = RotMode;
+//AV				m_view->undoManager->commit();
+			}
 			if (!PrefsManager::instance()->appPrefs.stickyTools)
 			{
 //				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -3964,12 +3988,11 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	shiftSelItems = false;
 	inItemCreation = false;
 //	m_doc->SubMode = -1;
-	if (m_view->_groupTransactionStarted)
+	if (m_view->groupTransactionStarted())
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
-		m_view->undoManager->commit();
-		m_view->_groupTransactionStarted = false;
+		m_view->endGroupTransaction();
 	}
 
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
@@ -4785,7 +4808,7 @@ void LegacyMode::importToPage()
 			{
 				double x2, y2, w, h;
 				m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-				m_view->moveGroup(Mxp - x2, Myp - y2);
+				m_doc->moveGroup(Mxp - x2, Myp - y2);
 				m_ScMW->propertiesPalette->updateColorList();
 				m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 				m_ScMW->propertiesPalette->charStyleCombo->updateFormatList();

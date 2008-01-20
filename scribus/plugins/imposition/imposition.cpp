@@ -266,7 +266,7 @@ void Imposition::changeDocGrid()
 		{
 			
 			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
-			view->moveGroup(
+			targetDoc->moveGroup(
 					cur->guides.vertical(curcol*2, cur->guides.Standard),
 					cur->guides.horizontal(currow*2, cur->guides.Standard),
 					true,
@@ -331,7 +331,7 @@ void Imposition::changeDocGrid()
 			for ( int j = 0; j < boxCopies->value(); j++ )
 			{
 				Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
-				view->moveGroup(
+				targetDoc->moveGroup(
 						cur->guides.vertical(curcol*2, cur->guides.Standard),
 						cur->guides.horizontal(currow*2, cur->guides.Standard),
 						true,
@@ -499,7 +499,7 @@ void Imposition::booklet4p(QList<int>* pages)
 			
 			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
 			
-			view->moveGroup(
+			targetDoc->moveGroup(
 					targetDoc->Pages->at(i)->guides.vertical(1, targetDoc->Pages->at(i)->guides.Standard),
 					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
 					false,
@@ -688,7 +688,7 @@ void Imposition::booklet4p(QList<int>* pages)
 			
 			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
 			
-			view->moveGroup(
+			targetDoc->moveGroup(
 					targetDoc->Pages->at(i)->guides.vertical(0, targetDoc->Pages->at(i)->guides.Standard),
 					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
 					false,
@@ -851,7 +851,7 @@ void Imposition::booklet4p(QList<int>* pages)
 			
 			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
 			
-			view->moveGroup(
+			targetDoc->moveGroup(
 					targetDoc->Pages->at(i)->guides.vertical(0, targetDoc->Pages->at(i)->guides.Standard),
 					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
 					false,
@@ -1006,7 +1006,7 @@ void Imposition::booklet4p(QList<int>* pages)
 			
 			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
 			
-			view->moveGroup(
+			targetDoc->moveGroup(
 					targetDoc->Pages->at(i)->guides.vertical(1, targetDoc->Pages->at(i)->guides.Standard),
 					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
 					false,
@@ -1322,7 +1322,7 @@ void Imposition::changeDocFold()
 			
 			//paste
 			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
-			view->moveGroup(
+			targetDoc->moveGroup(
 					p->guides.vertical(0, p->guides.Standard),
 					p->guides.horizontal(0, p->guides.Standard),
 					true,
@@ -1379,7 +1379,7 @@ void Imposition::changeDocFold()
 			
 			//paste
 			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
-			view->moveGroup(
+			targetDoc->moveGroup(
 					p->guides.vertical(0, p->guides.Standard),
 					p->guides.horizontal(0, p->guides.Standard),
 					true,

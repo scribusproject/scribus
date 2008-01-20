@@ -76,6 +76,7 @@ private:
 	double m_origRatio;
 	QRectF m_bounds;
 	QRectF m_origBounds;
+	bool m_transactionStarted;
 };
 
 

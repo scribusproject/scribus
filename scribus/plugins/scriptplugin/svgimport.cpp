@@ -35,7 +35,9 @@ PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->startGroupTransaction();
+			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->endGroupTransaction();
 			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
 			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
 			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
@@ -69,7 +71,9 @@ PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->startGroupTransaction();
+			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->endGroupTransaction();
 			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
 			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
 			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
@@ -103,7 +107,9 @@ PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->startGroupTransaction();
+			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->endGroupTransaction();
 			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
 			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
 			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();
@@ -137,7 +143,9 @@ PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
 		{
 			double x2, y2, w, h;
 			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->startGroupTransaction();
+			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->endGroupTransaction();
 			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
 			ScCore->primaryMainWindow()->propertiesPalette->paraStyleCombo->updateFormatList();
 			ScCore->primaryMainWindow()->propertiesPalette->charStyleCombo->updateFormatList();

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 #include "selection.h"
 #include "scribuscore.h"
+#include "undomanager.h"
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {
@@ -79,7 +80,11 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
 	// Move the item, or items
 	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
-		ScCore->primaryMainWindow()->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
+	{
+		ScCore->primaryMainWindow()->view->startGroupTransaction(Um::Move, "", Um::IMove);
+		ScCore->primaryMainWindow()->doc->moveGroup(ValueToPoint(x), ValueToPoint(y));
+		ScCore->primaryMainWindow()->view->endGroupTransaction();
+	}
 	else
 		ScCore->primaryMainWindow()->doc->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	// Now restore the selection. We just have to go through and select
@@ -117,9 +122,11 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	// Move the item, or items
 	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
 	{
+		ScCore->primaryMainWindow()->view->startGroupTransaction(Um::Move, "", Um::IMove);
 		double x2, y2, w, h;
 		ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-		ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+		ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+		ScCore->primaryMainWindow()->view->endGroupTransaction();
 	}
 	else
 		ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
@@ -279,7 +286,9 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
 //	int h = ScCore->primaryMainWindow()->view->frameResizeHandle;
 //	ScCore->primaryMainWindow()->view->frameResizeHandle = 1;
-	ScCore->primaryMainWindow()->view->scaleGroup(sc, sc);
+	ScCore->primaryMainWindow()->view->startGroupTransaction(Um::Resize, "", Um::IResize);
+	ScCore->primaryMainWindow()->doc->scaleGroup(sc, sc);
+	ScCore->primaryMainWindow()->view->endGroupTransaction();
 //	ScCore->primaryMainWindow()->view->frameResizeHandle = h;
 //	Py_INCREF(Py_None);
 //	return Py_None;

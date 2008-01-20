@@ -322,7 +322,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (RecordP.size() > 1)
 		{
-			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_MouseButtonPressed);
+			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
 			if (m->modifiers() & Qt::ControlModifier)
@@ -378,7 +378,8 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		return;
 	}
 	
-	if (m_doc->appMode != modeDrawBezierLine)
+	
+	if (m_doc->appMode != modeDrawBezierLine) //FIXME: that should be dead - av
 	{		
 		if (inItemCreation)
 		{
@@ -969,8 +970,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
-		m_view->undoManager->commit();
-		m_view->setGroupTransactionStarted(false);
+		m_view->endGroupTransaction();
 	}
 
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)

@@ -2685,11 +2685,12 @@ void PropertiesPalette::NewX()
 				base = gx + gw / 2.0;
 			if ((TopRight->isChecked()) || (BottomRight->isChecked()))
 				base = gx + gw;
-			m_ScMW->view->moveGroup(x - base, 0, true);
-			if (!_userActionOn && m_ScMW->view->groupTransactionStarted())
+			if (!_userActionOn)
+				m_ScMW->view->startGroupTransaction();
+			doc->moveGroup(x - base, 0, true);
+			if (!_userActionOn)
 			{
-				UndoManager::instance()->commit();
-				m_ScMW->view->setGroupTransactionStarted(false);
+				m_ScMW->view->endGroupTransaction();
 			}
 		}
 		else
@@ -2762,11 +2763,12 @@ void PropertiesPalette::NewY()
 				base = gy + gh / 2.0;
 			if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
 				base = gy + gh;
-			m_ScMW->view->moveGroup(0, y - base, true);
-			if (!_userActionOn && m_ScMW->view->groupTransactionStarted())
+			if (!_userActionOn)
+				m_ScMW->view->startGroupTransaction();
+			doc->moveGroup(0, y - base, true);
+			if (!_userActionOn)
 			{
-				UndoManager::instance()->commit();
-				m_ScMW->view->setGroupTransactionStarted(false);
+				m_ScMW->view->endGroupTransaction();
 			}
 		}
 		else
@@ -2823,24 +2825,25 @@ void PropertiesPalette::NewW()
 		h = Height->value() / m_unitRatio;
 		if (doc->m_Selection->isMultipleSelection())
 		{
+			if (!_userActionOn)
+				m_ScMW->view->startGroupTransaction();
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isChecked())
 			{
 //				m_ScMW->view->frameResizeHandle = 1;
-				m_ScMW->view->scaleGroup(w / gw, w / gw);
+				doc->scaleGroup(w / gw, w / gw);
 				setBH(w, (w / gw) * gh);
 			}
 			else
 			{
 //				m_ScMW->view->frameResizeHandle = 6;
-				m_ScMW->view->scaleGroup(w / gw, 1.0);
+				doc->scaleGroup(w / gw, 1.0);
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
 			}
-			if (!_userActionOn && m_ScMW->view->groupTransactionStarted())
+			if (!_userActionOn)
 			{
-				UndoManager::instance()->commit();
-				m_ScMW->view->setGroupTransactionStarted(false);
+				m_ScMW->view->endGroupTransaction();
 			}
 		}
 		else
@@ -2931,24 +2934,25 @@ void PropertiesPalette::NewH()
 		h = Height->value() / m_unitRatio;
 		if (doc->m_Selection->isMultipleSelection())
 		{
+			if (!_userActionOn)
+				m_ScMW->view->startGroupTransaction();
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isChecked())
 			{
 //				m_ScMW->view->frameResizeHandle = 1;
-				m_ScMW->view->scaleGroup(h / gh, h / gh);
+				doc->scaleGroup(h / gh, h / gh);
 				setBH((h / gh) * gw, h);
 			}
 			else
 			{
 //				m_ScMW->view->frameResizeHandle = 5;
-				m_ScMW->view->scaleGroup(1.0, h / gh);
+				doc->scaleGroup(1.0, h / gh);
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
 			}
-			if (!_userActionOn && m_ScMW->view->groupTransactionStarted())
+			if (!_userActionOn)
 			{
-				UndoManager::instance()->commit();
-				m_ScMW->view->setGroupTransactionStarted(false);
+				m_ScMW->view->endGroupTransaction();
 			}
 		}
 		else
@@ -3035,11 +3039,12 @@ void PropertiesPalette::NewR()
 	{
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			m_ScMW->view->RotateGroup((Rot->value() - RoVal)*(-1));
-			if (!_userActionOn && m_ScMW->view->groupTransactionStarted())
+			if (!_userActionOn)
+				m_ScMW->view->startGroupTransaction();
+			doc->rotateGroup((Rot->value() - RoVal)*(-1), m_ScMW->view->RCenter);
+			if (!_userActionOn)
 			{
-				UndoManager::instance()->commit();
-				m_ScMW->view->setGroupTransactionStarted(false);
+				m_ScMW->view->endGroupTransaction();
 			}
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			setXY(gx, gy);
@@ -4419,8 +4424,7 @@ void PropertiesPalette::spinboxFinishUserAction()
 		doc->m_Selection->itemAt(i)->checkChanges(true);
 	if (m_ScMW->view->groupTransactionStarted())
 	{
-		UndoManager::instance()->commit();
-		m_ScMW->view->setGroupTransactionStarted(false);
+		m_ScMW->view->endGroupTransaction();
 	}
 }
 

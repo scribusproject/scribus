@@ -186,11 +186,11 @@ public:
 //	void MoveClipPoint(PageItem *currItem, FPoint np);
 // 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 // 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
+//	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
 // 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
 // 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
-	void RotateGroup(double win);
-	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
+//	void RotateGroup(double win);
+//	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
 // 	void RotateItem(double win, int ite);
 // 	void RotateItem(double win, PageItem *currItem);
 // 	void AdjustItemSize(PageItem *currItem);
@@ -212,8 +212,14 @@ public:
 //	void QueryFarben();
 	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool mousePressed();
-	bool groupTransactionStarted();
-	void setGroupTransactionStarted(bool isOn);
+	bool groupTransactionStarted() { return m_groupTransactions > 0; }
+//	void setGroupTransactionStarted(bool isOn);
+	void startGroupTransaction(const QString &actionName = "",
+							   const QString &description = "",
+							   QPixmap *actionPixmap = 0,
+							   Selection* customSelection = 0);
+	void endGroupTransaction();
+	void cancelGroupTransaction();
 	void setScale(const double newScale);
 	double scale() const;
 
@@ -310,7 +316,7 @@ private: // Private attributes
 	bool Ready;
 	int  oldX;
 	int  oldY;
-	bool _groupTransactionStarted;
+	int  m_groupTransactions;
 	bool _isGlobalMode;
 //	bool forceRedraw;
 

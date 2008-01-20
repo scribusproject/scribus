@@ -1292,6 +1292,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeCopyProperties:
 					view->Deselect(false);
 				case modePanning:
+					view->requestMode(modeNormal);
 					break;
 				case modeDrawBezierLine:
 					currItem->PoLine.resize(currItem->PoLine.size()-2);
@@ -1576,7 +1577,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								bool sav2 = doc->useRaster;
 								doc->SnapGuides = false;
 								doc->useRaster = false;
-								view->moveGroup(-moveBy, 0);
+								if (doc->m_Selection->count() > 1)
+									view->startGroupTransaction(Um::Move, "", Um::IMove);
+								doc->moveGroup(-moveBy, 0);
+								if (doc->m_Selection->count() > 1)
+									view->endGroupTransaction();
 								doc->SnapGuides = sav1;
 								doc->useRaster = sav2;
 							}
@@ -1639,7 +1644,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								bool sav2 = doc->useRaster;
 								doc->SnapGuides = false;
 								doc->useRaster = false;
-								view->moveGroup(moveBy, 0);
+								if (doc->m_Selection->count() > 1)
+									view->startGroupTransaction(Um::Move, "", Um::IMove);
+								doc->moveGroup(moveBy, 0);
+								if (doc->m_Selection->count() > 1)
+									view->endGroupTransaction();
 								doc->SnapGuides = sav1;
 								doc->useRaster = sav2;
 							}
@@ -1702,7 +1711,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								bool sav2 = doc->useRaster;
 								doc->SnapGuides = false;
 								doc->useRaster = false;
-								view->moveGroup(0, -moveBy);
+								if (doc->m_Selection->count() > 1)
+									view->startGroupTransaction(Um::Move, "", Um::IMove);
+								doc->moveGroup(0, -moveBy);
+								if (doc->m_Selection->count() > 1)
+									view->endGroupTransaction();
 								doc->SnapGuides = sav1;
 								doc->useRaster = sav2;
 							}
@@ -1765,7 +1778,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								bool sav2 = doc->useRaster;
 								doc->SnapGuides = false;
 								doc->useRaster = false;
-								view->moveGroup(0, moveBy);
+								if (doc->m_Selection->count() > 1)
+									view->startGroupTransaction(Um::Move, "", Um::IMove);
+								doc->moveGroup(0, moveBy);
+								if (doc->m_Selection->count() > 1)
+									view->endGroupTransaction();
 								doc->SnapGuides = sav1;
 								doc->useRaster = sav2;
 							}
