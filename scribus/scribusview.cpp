@@ -768,6 +768,7 @@ void ScribusView::contentsDragLeaveEvent(QDragLeaveEvent *)
 void ScribusView::contentsDropEvent(QDropEvent *e)
 {
 	QString text;
+	QUrl url;
 	PageItem *currItem;
 	bool img = false;
 	m_canvas->resetRenderMode();
@@ -783,29 +784,39 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	QPointF dropPosDocQ(dropPosDoc.x(), dropPosDoc.y());
 //	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
 //		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
+
 	if (e->mimeData()->hasText())
 	{
-		e->acceptProposedAction();
 		text = e->mimeData()->text();
+		url = QUrl(text);
+	}
+	else if (e->mimeData()->hasUrls())
+	{
+		url = e->mimeData()->urls().at(0);
+		text = "";
+	}
+	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
+	if (!url.isEmpty())
+	{
+		e->acceptProposedAction();
 		//<<#3524
 		activateWindow();
 		raise();
 		m_ScMW->newActWin(Doc->WinHan);
 		updateContents();
 		//>>
-		QUrl ur(text);
-		QFileInfo fi = QFileInfo(ur.path());
+		QFileInfo fi = QFileInfo(url.path());
 		QString ext = fi.suffix().toUpper();
 		QStringList imfo;
 		QList<QByteArray> imgs = QImageReader::supportedImageFormats();
 		for (int i = 0; i < imgs.count(); ++i )
 		{
-			imfo.append(QString(imgs.at(i)));
+			imfo.append(QString(imgs.at(i)).toUpper());
 		}
 		if (ext == "JPG")
 			ext = "JPEG";
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
-		img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesPSD(ext));
+		img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesJPEG(ext) || extensionIndicatesPSD(ext));
 		bool selectedItemByDrag=false;
 //		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
 		//Loop through all items and see which one(s) were under the drop point on the current layer
@@ -823,13 +834,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				}
 			}
 		}
+//		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
 		//CB When we drag an image to a page from outside
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 		if ((fi.exists()) && (img) && !selectedItemByDrag)// && (!SeleItemPos(e->pos())))
 		{
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
-			Doc->LoadPict(ur.path(), b->ItemNr);
+			Doc->LoadPict(url.path(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
 			b->OldB2 = b->width();
@@ -847,7 +859,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			{
 				if ((fi.exists()) && (img))
 				{
-					Doc->LoadPict(ur.path(), b->ItemNr);
+					Doc->LoadPict(url.path(), b->ItemNr);
 					updateContents();
 				}
 			}
@@ -926,7 +938,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (fi.suffix().toLower() == "sml")
 					{
 						QString f = "";
-						loadText(ur.path(), &f);
+						loadText(url.path(), &f);
 						StencilReader *pre = new StencilReader();
 						data = pre->createObjects(f);
 						delete pre;
@@ -935,7 +947,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					else if (fi.suffix().toLower() == "shape")
 					{
 						QString f = "";
-						loadText(ur.path(), &f);
+						loadText(url.path(), &f);
 						StencilReader *pre = new StencilReader();
 						data = pre->createShape(f);
 						delete pre;
@@ -943,11 +955,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					else if (fi.suffix().toLower() == "sce")
 					{
-						emit LoadElem(ur.path(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
+						emit LoadElem(url.path(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
 					}
 					else
 					{
-						FileLoader *fileLoader = new FileLoader(ur.path());
+						FileLoader *fileLoader = new FileLoader(url.path());
 						int testResult = fileLoader->TestFile();
 						delete fileLoader;
 						if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
@@ -955,7 +967,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 							if( fmt )
 							{
-								fmt->loadFile(ur.path(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+								fmt->loadFile(url.path(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 								if (Doc->m_Selection->count() > 1)
 								{
 									double x2, y2, w, h;
@@ -970,8 +982,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						}
 					}
 				}
-				else
+				else 
+				{
+//					qDebug() << "drop - loading text:" << text;	
 					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
+				}
 				Selection tmpSelection(this, false);
 				tmpSelection.copy(*Doc->m_Selection, false, true);
 				for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
