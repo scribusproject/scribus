@@ -151,7 +151,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	if (m_doc->m_Selection->count() == 1)
 	{
-		double extraScale = (scalex + scaley) / 2;
+		double extraScale = (scalex + scaley) / 2.0;
 		p->setBrush(Qt::NoBrush);
 		p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -167,20 +167,24 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	}
 	else if (m_doc->m_Selection->count() > 1)
 	{
-		double extraScale = (scalex + scaley) / 2;
+		double extraScale = (scalex + scaley) / 2.0;
 		p->setBrush(Qt::NoBrush);
 		p->setPen(QPen(Qt::black, 1.0 / m_canvas->scale() / extraScale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p->translate(deltax, deltay);
-		p->scale(scalex, scaley);
 		uint docSelectionCount = m_doc->m_Selection->count();
 		if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
 		{
 			PageItem *currItem;
+			currItem = m_doc->m_Selection->itemAt(0);
+			p->translate(currItem->xPos(), currItem->yPos());
+			p->scale(scalex, scaley);
+			double baseX = currItem->xPos();
+			double baseY = currItem->yPos();
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
 				p->save();
-				p->translate(currItem->xPos(), currItem->yPos());
+				p->translate(currItem->xPos() - baseX, currItem->yPos() - baseY);
 				if (currItem->rotation() != 0)
 				{
 					p->setRenderHint(QPainter::Antialiasing);
@@ -195,6 +199,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		}
 		else
 		{
+			p->scale(scalex, scaley);
 			double x, y, w, h;
 			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
