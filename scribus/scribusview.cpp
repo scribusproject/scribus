@@ -1146,11 +1146,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			uint docCurrPageNo=Doc->currentPageNumber();
 			for (uint i = 0; i < docPagesCount; ++i)
 			{
-				int x = static_cast<int>(Doc->Pages->at(i)->xOffset());
-				int y = static_cast<int>(Doc->Pages->at(i)->yOffset());
-				int w = static_cast<int>(Doc->Pages->at(i)->width());
-				int h = static_cast<int>(Doc->Pages->at(i)->height());
-				if (QRect(x, y, w, h).contains(dropPosDoc.x(), dropPosDoc.y()))
+				double x = Doc->Pages->at(i)->xOffset();
+				double y = Doc->Pages->at(i)->yOffset();
+				double w = Doc->Pages->at(i)->width();
+				double h = Doc->Pages->at(i)->height();
+				if (QRectF(x, y, w, h).contains(dropPosDocQ))
 				{
 					if (docCurrPageNo != i)
 					{
