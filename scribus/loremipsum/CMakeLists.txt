@@ -9,6 +9,7 @@ dutch.xml
 finnish.xml
 english.xml
 eo.xml
+fr.xml
 german.xml
 greek.xml
 hebrew.xml
