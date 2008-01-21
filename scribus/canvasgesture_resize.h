@@ -46,7 +46,7 @@ class PageItem;
 class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
 public:
-	ResizeGesture (CanvasMode* parent) : CanvasGesture(parent) {};
+	ResizeGesture (CanvasMode* parent);
 	
 	/**
 		Prepares the gesture for resizing the selection

@@ -25,7 +25,10 @@
 #include "selection.h"
 #include "undomanager.h"
 
-
+ResizeGesture::ResizeGesture (CanvasMode* parent) : CanvasGesture(parent)
+{
+	m_transactionStarted = false;
+}
 
 void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 {
