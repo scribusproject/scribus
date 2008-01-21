@@ -9713,18 +9713,24 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 	//Create our copy selection as our item *s will be invalidated as we go through the loop and the selection index wont work
 	//convertItemTo does this
 	Selection tmpSel(*itemSelection);
+	tmpSel.disconnectAllItemsFromGUI();
+	tmpSel.setIsGUISelection(false);
 	m_updateManager.setUpdatesDisabled();
-	//FIXME: Add undo, just need the parameters to be correctÆ
-	//if (selectedItemCount > 1)
-	//	undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, newStyle.displayName(), Um::IFont);
+	//FIXME: Add undo, just need the parameters to be correct
+/*	if (selectedItemCount > 1)
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ConvertTo, "", Um::IGroup);*/
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		PageItem* newItem=convertItemTo(currItem, newType);
-		newItem->update();
+		if (currItem)
+		{
+			PageItem* newItem=convertItemTo(currItem, newType);
+			if (newItem)
+				newItem->update();
+		}
 	}
-	//if (selectedItemCount > 1)
-	//	undoManager->commit();
+/*	if (selectedItemCount > 1)
+		undoManager->commit();*/
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }
