@@ -224,8 +224,10 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
 	unicodeTextEditMode = false;
+	blockContentsChangeHook = 0;
 	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+	connect(this->document(), SIGNAL(contentsChange(int, int, int)), this, SLOT(handleContentsChange(int, int, int)));
 }
 
 void SEditor::setCurrentDocument(ScribusDoc *docc)
@@ -239,7 +241,8 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 	QString uc = event->commitString();
 	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 	{
-		insChars(event->commitString());
+		// Should be processed by the handleContentsChange slot
+		// insertCharsInternal(event->commitString());
 		QTextEdit::inputMethodEvent(event);
 		emit SideBarUp(true);
 		emit SideBarUpdate();
@@ -267,36 +270,26 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	{
 		switch (k->key())
 		{
-			case Qt::Key_Delete:
-				moveCursor(QTextCursor::NextWord, QTextCursor::KeepAnchor);
-				deleteSel();
-				break;
-			case Qt::Key_Backspace:
-				moveCursor(QTextCursor::PreviousWord, QTextCursor::KeepAnchor);
-				deleteSel();
-				break;
 			case Qt::Key_K:
 				moveCursor(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
-				deleteSel();
+				textCursor().removeSelectedText();
 				break;
 			case Qt::Key_D:
 				moveCursor(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
-				deleteSel();
 				textCursor().removeSelectedText();
 				break;
 			case Qt::Key_H:
 				moveCursor(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
-				deleteSel();
 				textCursor().removeSelectedText();
 				break;
-			case Qt::Key_X:
+			/*case Qt::Key_X:
 				cut();
 				return;
 				break;
 			case Qt::Key_V:
 				paste();
 				return;
-				break;
+				break;*/
 			case Qt::Key_Y:
 			case Qt::Key_Z:
 				emit SideBarUp(true);
@@ -334,7 +327,6 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				{
 					if (conv < 31)
 						conv = 32;
-					insChars(QString(QChar(conv)));
 					insertPlainText(QString(QChar(conv)));
 					emit SideBarUp(true);
 					emit SideBarUpdate();
@@ -365,35 +357,17 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				unicodeInputString = "";
 				return;
 				break;
-			case Qt::Key_Delete:
-				if (!textCursor().hasSelection())
-				{
-					if (pos < StyledText.length())
-						StyledText.removeChars(pos, 1);
-				}
-				else
-					deleteSel();
-				break;
-			case Qt::Key_Backspace:
-				if (!textCursor().hasSelection())
-				{
-					if (pos > 0)
-						StyledText.removeChars(pos-1, 1);
-				}
-				else
-					deleteSel();
-				break;
 			case Qt::Key_Return:
 			case Qt::Key_Enter:
 				{
-					if (textCursor().hasSelection())
-					{
-						pos = StyledText.startOfSelection();
-						deleteSel();
-					}
-					StyledText.insertChars(pos, SpecialChars::PARSEP, true);
+					insertChars(SpecialChars::PARSEP, k->text());
+					emit SideBarUp(true);
+					emit SideBarUpdate();
+					return;
 				}
 				break;
+			case Qt::Key_Delete:
+			case Qt::Key_Backspace:
 			case Qt::Key_Left:
 			case Qt::Key_Right:
 			case Qt::Key_PageUp:
@@ -406,14 +380,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			default:
 				if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 				{
-					/*insChars(k->text());
-					QTextEdit::keyPressEvent(k);*/
-					bool hasSelection = textCursor().hasSelection();
-					int  position = hasSelection ? textCursor().selectionStart() : textCursor().position();
-					if (hasSelection)
-						deleteSel();
 					QTextEdit::keyPressEvent(k);
-					insChars(k->text(), position);
 					emit SideBarUp(true);
 					emit SideBarUpdate();
 				}
@@ -424,6 +391,40 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	QTextEdit::keyPressEvent(k);
 	emit SideBarUp(true);
 	emit SideBarUpdate();
+}
+
+void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdded)
+{
+	if (blockContentsChangeHook <= 0)
+	{
+		if (charsRemoved > 0)
+			StyledText.removeChars(position, charsRemoved);
+		if (charsAdded > 0)
+		{
+			QString addedChars;
+			int pos = position;
+			int blockStart, blockLen, textIndex;
+			QTextBlock block = document()->findBlock(position);
+			addedChars.reserve(charsAdded);
+			while (charsAdded && block.isValid())
+			{
+				QString text = block.text();
+				blockStart = block.position();
+				blockLen   = block.length();
+				textIndex  = pos - blockStart;
+				while (textIndex < blockLen && charsAdded)
+				{
+					addedChars += text.at(textIndex);
+					--charsAdded;
+					++textIndex;
+				}
+				pos = blockStart + textIndex + 1;
+				block.next();
+			}
+			if (addedChars.length() > 0)
+				StyledText.insertChars(position, addedChars, true);
+		}
+	}
 }
 
 void SEditor::focusOutEvent(QFocusEvent *e)
@@ -459,7 +460,32 @@ void SEditor::focusInEvent(QFocusEvent *e)
 	QTextEdit::focusInEvent(e);
 }
 
-void SEditor::insChars(const QString& t)
+void SEditor::insertChars(const QString& text)
+{
+	if (textCursor().hasSelection())
+		textCursor().removeSelectedText();
+	++blockContentsChangeHook;
+	int pos = qMin(textCursor().position(), StyledText.length());
+	StyledText.insertChars(pos, text, true);
+	insertPlainText(text);
+	--blockContentsChangeHook;
+}
+
+void SEditor::insertChars(const QString& styledText, const QString& editText)
+{
+	if (textCursor().hasSelection())
+		textCursor().removeSelectedText();
+	if ((styledText.length() == editText.length()) && !styledText.isEmpty())
+	{
+		++blockContentsChangeHook;
+		int pos = qMin(textCursor().position(), StyledText.length());
+		StyledText.insertChars(pos, styledText, true);
+		insertPlainText(editText);
+		--blockContentsChangeHook;
+	}
+}
+
+void SEditor::insertCharsInternal(const QString& t)
 {
 	if (textCursor().hasSelection())
 		deleteSel();
@@ -467,14 +493,14 @@ void SEditor::insChars(const QString& t)
 	StyledText.insertChars(pos, t, true);
 }
 
-void SEditor::insChars(const QString& t, int pos)
+void SEditor::insertCharsInternal(const QString& t, int pos)
 {
 	if (textCursor().hasSelection())
 		deleteSel();
 	StyledText.insertChars(pos, t, true);
 }
 
-void SEditor::insStyledText(const StoryText& styledText)
+void SEditor::insertStyledText(const StoryText& styledText)
 {
 	if (styledText.length() == 0)
 		return;
@@ -484,7 +510,7 @@ void SEditor::insStyledText(const StoryText& styledText)
 	StyledText.insert(pos, styledText);
 }
 
-void SEditor::insStyledText(const StoryText& styledText, int pos)
+void SEditor::insertStyledText(const StoryText& styledText, int pos)
 {
 	if (styledText.length() == 0)
 		return;
@@ -586,9 +612,13 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 
 void SEditor::updateAll()
 {
+	++blockContentsChangeHook;
 	clear();
 	if (StyledText.length() == 0)
+	{
+		--blockContentsChangeHook;
 		return;
+	}
 	setUpdatesEnabled(false);
 	int pos = textCursor().position();
 	QString Text = "";
@@ -682,6 +712,7 @@ void SEditor::updateAll()
 	insertPlainText(Text);
 	textCursor().setPosition(pos);
 	setUpdatesEnabled(true);
+	--blockContentsChangeHook;
 	//CB Removed to fix 2083 setCursorPosition(p, i);
 }
 
@@ -761,7 +792,7 @@ void SEditor::updateSel(const CharStyle& newStyle)
 void SEditor::deleteSel()
 {
 	int start = textCursor().selectionStart();
-	int end = textCursor().selectionEnd();
+	int end   = textCursor().selectionEnd();
 	if (end > start)
 		StyledText.removeChars(start, end-start);
 	textCursor().setPosition(start);
@@ -817,10 +848,7 @@ void SEditor::cut()
 	copy();
 	emit SideBarUp(false);
 	if (textCursor().hasSelection())
-	{
-		deleteSel();
 		textCursor().removeSelectedText();
-	}
 	emit SideBarUp(true);
 	emit SideBarUpdate();
 }
@@ -840,7 +868,7 @@ void SEditor::paste()
 		{
 			const StoryText& styledText = styledData->styledText();
 			advanceLen = styledText.length();
-			insStyledText(styledText, pos);
+			insertStyledText(styledText, pos);
 		}
 	}
 	else
@@ -856,7 +884,7 @@ void SEditor::paste()
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
 //			inserted=true;
 			advanceLen = data.length() - newParaCount;
-			insChars(data, pos);
+			insertCharsInternal(data, pos);
 			emit PasteAvail();
 		}
 		else
@@ -1858,6 +1886,7 @@ void StoryEditor::languageChange()
 void StoryEditor::disconnectSignals()
 {
 	disconnect(Editor,0,0,0);
+	disconnect(Editor->document(), 0,0,0);
 	disconnect(EditorBar,0,0,0);
 	disconnect(AlignTools,0,0,0);
 	disconnect(FillTools,0,0,0);
@@ -1878,6 +1907,7 @@ void StoryEditor::connectSignals()
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
 	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
+	connect(Editor->document(), SIGNAL(contentsChange(int, int, int)), Editor, SLOT(handleContentsChange(int, int, int)));
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 //	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
 	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString& )), this, SLOT(changeStyleSB(int, const QString&)));
@@ -2500,17 +2530,13 @@ void StoryEditor::slot_insertSpecialChar()
 {
 	blockUpdate = true;
 	if (!charSelect->getCharacters().isEmpty())
-	{
-		Editor->insChars(charSelect->getCharacters());
 		Editor->insertPlainText(charSelect->getCharacters());
-	}
 	blockUpdate = false;
 }
 
 void StoryEditor::slot_insertUserSpecialChar(QChar c)
 {
 	blockUpdate = true;
-	Editor->insChars(c);
 	Editor->insertPlainText(c);
 	blockUpdate = false;
 }
@@ -2664,10 +2690,7 @@ void StoryEditor::Do_del()
 		return;
 	EditorBar->setRepaint(false);
 	if (Editor->textCursor().hasSelection())
-	{
-		Editor->deleteSel();
 		Editor->textCursor().removeSelectedText();
-	}
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
 }
@@ -3117,7 +3140,6 @@ ScribusDoc* StoryEditor::currentDocument() const
 
 void StoryEditor::specialActionKeyEvent(const QString& /*actionName*/, int unicodevalue)
 {
-	Editor->insChars(QString(QChar(unicodevalue)));
 	QString guiInsertString=QChar(unicodevalue);
 	bool setColor=false;
 	if (unicodevalue == seActions["unicodePageNumber"]->actionInt())
@@ -3152,7 +3174,7 @@ void StoryEditor::specialActionKeyEvent(const QString& /*actionName*/, int unico
 	}
 	if (setColor)
 		Editor->setColor(true);
-	Editor->insertPlainText(guiInsertString);
+	Editor->insertChars(QString(QChar(unicodevalue)), guiInsertString);
 	if (setColor)
 		Editor->setColor(false);
 	modifiedText();

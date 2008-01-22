@@ -96,10 +96,9 @@ public:
 	void deleteSel();
 	void setStyle(int Csty);
 	void setColor(bool marker);
-	void insChars(const QString& t);
-	void insChars(const QString& t, int position);
-	void insStyledText(const StoryText& styledText);
-	void insStyledText(const StoryText& styledText, int position);
+
+	void insertChars(const QString& text);
+	void insertChars(const QString& styledText, const QString& editText);
 
 	StoryText StyledText;
 	QList<PageItem*> FrameItems;
@@ -130,8 +129,6 @@ public:
 	QString prevFont;
 	QString CurrFont;
 	QString unicodeInputString;
-	QString tBuffer;
-	int ClipData;
 	bool StoredSel;
 	int SelParaStart;
 	int SelParaEnd;
@@ -139,6 +136,14 @@ public:
 	int SelCharEnd;
 
 protected:
+
+	void insertCharsInternal(const QString& t);
+	void insertCharsInternal(const QString& t, int position);
+
+	void insertStyledText(const StoryText& styledText);
+	void insertStyledText(const StoryText& styledText, int position);
+
+	int  blockContentsChangeHook;
 	void keyPressEvent(QKeyEvent *k);
 	void inputMethodEvent(QInputMethodEvent *event);
 	void focusOutEvent(QFocusEvent *e);
@@ -149,6 +154,9 @@ protected:
 	virtual void insertFromMimeData ( const QMimeData * source );
 //	Q3PopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
+
+protected slots:
+	void handleContentsChange(int position, int charsRemoved, int charsAdded); 
 
 public slots:
 	void cut();
@@ -530,4 +538,5 @@ protected:
 };
 
 #endif
+
 

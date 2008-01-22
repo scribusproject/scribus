@@ -807,7 +807,7 @@ void SearchReplace::slotDoReplace()
 				int SelStart, SelEnd;
 				SelStart = se->Editor->textCursor().selectionStart();
 				SelEnd = se->Editor->textCursor().selectionEnd();
-				se->Editor->insChars(RTextVal->text());
+//					se->Editor->insChars(RTextVal->text());
 				se->Editor->textCursor().setPosition(SelStart);
 				se->Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
 				se->Editor->textCursor().removeSelectedText();
