@@ -400,29 +400,40 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 						priv = illy;
 					int num = priv->GetIndirectKey("NumBlock")->GetNumber() + 1;
 					QString name = "AIPrivateData%1";
-					if (num == 2)
+					QString Key = name.arg(1);
+					PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+					if (data == NULL)
 					{
-						QString Key = name.arg(1);
-						PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
-						PoDoFo::PdfStream const *stream = data->GetStream();
-						char *Buffer;
-						long bLen;
-						stream->GetFilteredCopy(&Buffer, &bLen);
-						outf.write(Buffer, bLen);
-						free( Buffer );
+						name = "AIPDFPrivateData%1";
+						Key = name.arg(1);
+						data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 					}
-					else
+					if (data != NULL)
 					{
-						for (int a = 2; a < num; a++)
+						if (num == 2)
 						{
-							QString Key = name.arg(a);
-							PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							Key = name.arg(1);
+							data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 							PoDoFo::PdfStream const *stream = data->GetStream();
 							char *Buffer;
 							long bLen;
 							stream->GetFilteredCopy(&Buffer, &bLen);
 							outf.write(Buffer, bLen);
 							free( Buffer );
+						}
+						else
+						{
+							for (int a = 2; a < num; a++)
+							{
+								Key = name.arg(a);
+								data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+								PoDoFo::PdfStream const *stream = data->GetStream();
+								char *Buffer;
+								long bLen;
+								stream->GetFilteredCopy(&Buffer, &bLen);
+								outf.write(Buffer, bLen);
+								free( Buffer );
+							}
 						}
 					}
 					ret = true;
