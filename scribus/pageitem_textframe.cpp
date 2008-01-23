@@ -1511,7 +1511,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						tabDist = ColBound.x();
 						uint tabCc = 0;
 						uint loopC = BuPos3;
-						if (m_Doc->guidesSettings.showControls && (startLin+loopC+1 < itemText.length()))
+						if (m_Doc->guidesSettings.showControls && (startLin+loopC+1 < (uint) itemText.length()))
 							loopC++;
 						for (uint zc = 0; zc<loopC; ++zc)
 						{
