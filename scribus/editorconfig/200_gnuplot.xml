@@ -1,4 +1,4 @@
-<editorsettings description="Gnuplot">
+<editorsettings description="Gnuplot" icon="gnuplot.png">
 	<executable command="gnuplot" />
 	<imagefile extension=".png"/>
 	<!--<highlighter kate="latex"/>-->

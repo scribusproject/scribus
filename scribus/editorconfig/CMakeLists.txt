@@ -4,9 +4,12 @@ ${CMAKE_SOURCE_DIR}/scribus
 )
 
 INSTALL(FILES
-latex.tar
-latex.xml
-sample.xml
-gnuplot.xml
+100_latex.tar
+100_latex.xml
+#sample.xml
+200_gnuplot.xml
+gnuplot.png
+300_lilypond.xml
+400_dot.xml
   DESTINATION ${SHAREDIR}/editorconfig
 )

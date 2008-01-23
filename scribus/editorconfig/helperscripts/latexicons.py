@@ -5,7 +5,7 @@ import subprocess
 
 def conv_filename(name):
 	"""Remove all bad characters and convert to all lowercase."""
-	badchars = "\\/!\"$%&{}=?* "
+	badchars = "\\/!\"$%&{}=?[]* "
 	for char in badchars:
 		name = name.replace(char, '')
 	for char in string.ascii_uppercase:

@@ -1,4 +1,4 @@
-<editorsettings description="LaTeX">
+<editorsettings description="LaTeX" icon="alpha.png">
 	<executable command="pdflatex --interaction nonstopmode" />
 	<imagefile extension=".pdf"/>
 	<highlighter kate="latex"/>
@@ -7,36 +7,35 @@
 	<empty-frame-text>
 		<i18n>
 			<en>
-\section*{Manual}
-Your \LaTeX-frames setup is working when you can read this text!\\
-Placing formulas is very easy:\\
-Right click $\Rightarrow$ Edit Latex Source\\
-And replace this text with your own. Here is an example:
-\begin{verbatim}
-\[J = \int r^2 \mathrm{d}m\]
-\end{verbatim}
-becomes
-\[J = \int r^2 \mathrm{d}m\]
+				\section*{Manual}
+				Your \LaTeX-frames setup is working when you can read this text!\\
+				Placing formulas is very easy:\\
+				Right click $\Rightarrow$ Edit Latex Source\\
+				And replace this text with your own. Here is an example:
+				\begin{verbatim}
+					\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				becomes
+				\[J = \int r^2 \mathrm{d}m\]
 			</en>
 			<de>
-\section*{Einführung}
-Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
-Eigene Formel einzufügen ist sehr einfach:
-Mit der rechten Maustaste auf diesen Frame klicken $\Rightarrow$ Latex-Source bearbeiten\\
-Danach diesen Text durch ihren eigenen ersetzen:\\
-Ein Beispiel:
-Aus 
-\begin{verbatim}
-\[J = \int r^2 \mathrm{d}m\]
-\end{verbatim}
-wird
-\[J = \int r^2 \mathrm{d}m\]
+				\section*{Einführung}
+				Wenn Sie diesen Text lesen können funktionieren \LaTeX-Frames bei Ihnen.
+				Eigene Formel einzufügen ist sehr einfach:
+				Mit der rechten Maustaste auf diesen Frame klicken $\Rightarrow$ Latex-Source bearbeiten\\
+				Danach diesen Text durch ihren eigenen ersetzen:\\
+				Ein Beispiel:
+				Aus 
+				\begin{verbatim}
+				\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				wird
+				\[J = \int r^2 \mathrm{d}m\]
 			</de>
 		</i18n>
 	</empty-frame-text>
 	<preamble>
 		\documentclass[a4paper,$scribus_fontsize$]{extarticle}
-		\usepackage{extsizes}
 		\usepackage[utf8]{inputenc}
 		\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}
 		\title{Scribus-Latex-File}
