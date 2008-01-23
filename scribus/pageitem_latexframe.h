@@ -64,22 +64,23 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		/* Sets the formula text and forces rerunning latex at the next update 
 			Returns true if the frame has to be updated*/
 		bool setFormula(QString formula, bool undoable=true);
-		QString getFormula() const { return formulaText; }
+		QString formula() const { return formulaText; }
 		
 		/* Runs the external application and sets internal vars and loads
 		the image.*/
 		void runApplication();
 		void rerunApplication(bool updateDisplay=false);
 		
-		QString getApplication() const;
-		QString getRealApplication() const;
-		bool getUsePreamble() const { return usePreamble; }
-		int getDpi() const;
-		int getRealDpi() const;
+		QString configFile() const;
+		void setConfigFile(QString newConfig);
+		QString application() const;
+		bool usePreamble() const { return m_usePreamble; }
+		int dpi() const { return m_dpi; }
+		int realDpi() const;
 		
-		const QString getOutput() const { return appStdout; }
-		QProcess::ProcessState getState() const { return latex->state(); }
-		int getError() const { return err; }
+		const QString output() const { return appStdout; }
+		QProcess::ProcessState state() const { return latex->state(); }
+		int error() const { return err; }
 
 		QMap<QString,QString> editorProperties;
 	protected:
@@ -94,22 +95,24 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		void loadEditorFile();
 		/* Last error code */
 		int err;
-		int dpi;
+		int m_dpi;
 		
 		QString imageFile, editorFile, tempFileBase;
 		QString appStdout;
+		QString configFilename;
 		
 		QProcess *latex, *editor;
 		LatexEditor *internalEditor;
 		FileWatcher *fileWatcher;
 		LatexConfigParser *config;
 		bool imgValid;
-		bool usePreamble;
+		bool m_usePreamble;
 		bool killed;
 	signals:
 		void formulaAutoUpdate(QString oldText, QString newText);
 		void latexFinished();
 		void stateChanged(QProcess::ProcessState state);
+		void applicationChanged();
 	protected slots:
 		void updateImage(int exitCode, QProcess::ExitStatus exitStatus);
 		void editorFinished(int exitCode, QProcess::ExitStatus exitStatus);
@@ -119,7 +122,6 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 	public slots:
 		void killProcess();
 		void setDpi(int dpi);
-		void setApplication(QString app);
 		void setUsePreamble(bool);
 };
 

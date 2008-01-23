@@ -171,9 +171,9 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	if (!item->fileIconRollover().isEmpty())
 		result.insert("icon-rollover-file", Path2Relative(item->fileIconRollover()));	
 	if (latexframe) {
-		result.insert("latex-dpi", toXMLString(latexframe->getDpi()));
-		result.insert("latex-application", latexframe->getApplication());
-		result.insert("latex-use-preamble", toXMLString(latexframe->getUsePreamble()));
+		result.insert("latex-dpi", toXMLString(latexframe->dpi()));
+		result.insert("latex-configfile", latexframe->configFile());
+		result.insert("latex-use-preamble", toXMLString(latexframe->usePreamble()));
 	}
 	
 	if (item->dashes().count() > 0)
@@ -282,8 +282,9 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			property.insert("name", i.key());
 			property.insert("value", i.value());
 			handler.begin("property", property);
+			handler.end("property");
 		}
-		handler.chars(latexframe->getFormula());
+		handler.chars(latexframe->formula());
 		handler.end("latex-source");
 	}
 	handler.end(elemtag);
@@ -513,7 +514,7 @@ class LatexParams_body : public Action_body
 			if (this->dig->top<PageItem>()->realItemType() == PageItem::LatexFrame)
 			{
 				PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
-				obj->setApplication(attr["latex-application"]);
+				obj->setConfigFile(attr["latex-configfile"]);
 				obj->setDpi(parseInt(attr["latex-dpi"]));
 				obj->setUsePreamble(parseBool(attr["latex-use-preamble"]));
 			}

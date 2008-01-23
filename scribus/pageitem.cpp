@@ -3642,7 +3642,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 		}
 	}
 	if (asLatexFrame()) {
-		Buffer->itemText = asLatexFrame()->getFormula();
+		Buffer->itemText = asLatexFrame()->formula();
 	} else {
 		Buffer->itemText = Text;
 	}
