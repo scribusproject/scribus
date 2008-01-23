@@ -401,29 +401,14 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 			StyledText.removeChars(position, charsRemoved);
 		if (charsAdded > 0)
 		{
-			QString addedChars;
-			int pos = position;
-			int blockStart, blockLen, textIndex;
-			QTextBlock block = document()->findBlock(position);
-			addedChars.reserve(charsAdded);
-			while (charsAdded && block.isValid())
-			{
-				QString text = block.text();
-				blockStart = block.position();
-				blockLen   = block.length();
-				textIndex  = pos - blockStart;
-				while (textIndex < blockLen && charsAdded)
-				{
-					addedChars += text.at(textIndex);
-					--charsAdded;
-					++textIndex;
-				}
-				pos = blockStart + textIndex + 1;
-				block.next();
-			}
+			QTextCursor cursor = textCursor();
+			cursor.setPosition(position);
+			cursor.setPosition(position + charsAdded, QTextCursor::KeepAnchor);
+			QString addedChars = cursor.selectedText();
 			if (addedChars.length() > 0)
 				StyledText.insertChars(position, addedChars, true);
-		}
+			qDebug("handleContentsChange : - %01d, + %01d, len %01d", charsRemoved, charsAdded, addedChars.length());
+		}	
 	}
 }
 
