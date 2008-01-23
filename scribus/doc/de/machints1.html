@@ -1,18 +1,14 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Tipps und Hinweise f&uuml;r Mac OSX</title>
-</head>
-<body>
-<h2>Tipps und Hinweise f&uuml;r Mac OSX</h2>
+<qt>
+<title>Tips und Hinweise f&uuml;r Mac OSX</title>
+<h2>Tips und Hinweise f&uuml;r Mac OSX</h2>
 
-<p><strong>Anmerkung des Autors:</strong> Diese Tipps beruhen auf Ratschl&auml;gen und Hinweisen, die uns Martin Costabel freundlicherweise &uuml;berlassen hat. Bei der Betreuung des Fink-Pakets f&uuml;r Scribus hat er schier Unglaubliches geleistet, und ebenso unterst&uuml;tzt er die Benutzer von Fink &uuml;ber die Mailingliste. Einige dieser Tipps sind f&uuml;r Leute mit DTP-Erfahrung gedacht, die weniger mit den Launen von X11 bzw. dessen Umgang mit Schriftarten vertraut sind.</p>
+<p><strong>Anmerkung des Autors:</strong> Diese Tips beruhen auf Ratschl&auml;gen und Hinweisen, die uns Martin Costabel freundlicherweise &uuml;berlassen hat. Bei der Betreuung des Fink-Pakets f&uuml;r Scribus hat er schier Unglaubliches geleistet, und ebenso unterst&uuml;tzt er die Benutzer von Fink &uuml;ber die Mailingliste. Einige dieser Tips sind f&uuml;r Leute mit DTP-Erfahrung gedacht, die weniger mit den Launen von X11 bzw. dessen Umgang mit Schriftarten vertraut sind.</p>
 
 <h3>Installieren der Scribus-Bin&auml;rdateien</h3>
 
-<p>Es gibt zwei M&ouml;glichkeiten - beide gleicherma&szlig;en einfach:</p>
+<p>Es gibt zwei M&ouml;glichkeiten &ndash; beide gleicherma&szlig;en einfach:</p>
 <ul>
-	<li>Wenn Sie den Fink Commander haben, w&auml;hlen Sie sie aus der Liste. Dann <strong>rechtsklicken</strong> &gt;<strong> Install Binaries</strong>.</li>
+	<li>Wenn Sie den Fink Commander haben, w&auml;hlen Sie sie aus der Liste. Dann <strong>rechtsklicken</strong> &gt;<strong> Binärdateien installieren</strong>.</li>
 	<li>Wenn Sie ein Terminal-Fenster ge&ouml;ffnet haben:
 		<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 		<pre>sudo fink install scribus</pre>
@@ -42,8 +38,7 @@
 	<li>x-ghostscript-fonts</li>
 </ul>
 <p>Ich w&uuml;rde das Paket der gimp-freefonts nicht unbedingt mit Scribus verwenden, obwohl sie in anderen Anwendungen vielleicht tadellos funktionieren.</p>
-<p>Dar&uuml;ber hinaus unterst&uuml;tzt Scribus OpenType-Schriftarten, jedoch nicht in dem DFONT-Format, das MacOSX verwendet. Sie k&ouml;nnen <a href="http://fondu.sourceforge.net/">fondu</a> als Hilfsmittel einsetzen, um Schriftarten mit  &quot;Resource-Forks&quot; (d.h. unsichtbaren Zusatzinformationen) in ein Format umzuwandeln, das auch X11 versteht. Es ist empfehlenswert, OpenType-Schriftarten in TrueType/OpenType-Schriftarten umzuwandeln, um alle Symbole zu bewahren. (Type 1-Schriftarten sind auf 256 Zeichen je Font beschr&auml;nkt.) </p>
-<p>Neuere X-Window-Systeme mit sogenanntem <strong>fontconfig</strong>-System nutzen ein pers&ouml;nliches Schriftarten-Verzeichnis, meist in einem verstecktes Verzeichnis namens <code>.fonts</code>. Scribus ist in der Lage, dieses und andere Verzeichnisse, die Type 1 (PC)- oder TrueType/OpenType-Schriftarten enthalten, zu benutzen. Scribus ben&ouml;tigt f&uuml;r Type 1-Schriftarten keine <code>.afm</code>-Dateien, es reichen die <code>.pfm</code>-Dateien. Die Schriftarten-Eigenschaften bekommt Scribus via Freetype2.</p>
-<p>Wenn Sie die aktuellste CVS-Version erstellen m&ouml;chten, schauen Sie bitte hier: <a href="machints2.html">Mac OSX/Fink &amp; CVS</a></p>
-</body>
-</html>
+<p>Dar&uuml;ber hinaus unterst&uuml;tzt Scribus OpenType-Schriftarten, jedoch nicht in dem DFONT-Format, das MacOSX verwendet. Sie k&ouml;nnen <a href="http://fondu.sourceforge.net/">fondu</a> als Hilfsmittel einsetzen, um Schriftarten mit  &quot;Resource-Forks&quot; (d.h. unsichtbaren Zusatzinformationen) in ein Format umzuwandeln, das auch X11 versteht. Es ist empfehlenswert, OpenType-Schriftarten in TrueType/OpenType-Schriftarten umzuwandeln, um sicherzustellen, da&szlig; alle Symbole zu erhalten bleiben (Type-1-Schriftarten sind auf 256 Zeichen je Font beschr&auml;nkt). </p>
+<p>Neuere X-Window-Systeme mit sogenanntem <strong>fontconfig</strong>-System nutzen ein pers&ouml;nliches Schriftarten-Verzeichnis, meist in einem versteckten Verzeichnis namens <code>.fonts</code>. Scribus ist in der Lage, dieses und andere Verzeichnisse, die Type-1-(PC)- oder TrueType/OpenType-Schriftarten enthalten, zu benutzen. Scribus ben&ouml;tigt f&uuml;r Type 1-Schriftarten keine <code>.afm</code>-Dateien, es reichen die <code>.pfm</code>-Dateien. Die Schriftarten-Eigenschaften bekommt Scribus via Freetype2.</p>
+<p>Wenn Sie die aktuellste SVN-Version kompilieren m&ouml;chten, schauen Sie bitte hier: <a href="machints2.html">Mac OSX/Fink &amp; SVN</a></p>
+</qt>

@@ -1,17 +1,13 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Tipps und Hinweise f&uuml;r Mac OSX &amp; CVS</title>
-</head>
-<body>
-<h2>Tipps und Hinweise f&uuml;r Mac OSX &amp; CVS</h2>
+<qt>
+<title>Tips und Hinweise f&uuml;r Mac OSX &amp; SVN</title>
+<h2>Tips und Hinweise f&uuml;r Mac OSX &amp; SVN</h2>
 
-<p><strong>Anmerkung des Autors:</strong> Diese Tipps beruhen auf Ratschl&auml;gen und Hinweisen, die uns Martin Costabel freundlicherweise &uuml;berlassen hat. Bei der Betreuung des Fink-Pakets f&uuml;r Scribus hat er schier Unglaubliches geleistet, und ebenso unterst&uuml;tzt er die Benutzer von Fink &uuml;ber die Mailingliste.</p>
+<p><strong>Anmerkung des Autors:</strong> Diese Tips beruhen auf Ratschl&auml;gen und Hinweisen, die uns Martin Costabel freundlicherweise &uuml;berlassen hat. Bei der Betreuung des Fink-Pakets f&uuml;r Scribus hat er schier Unglaubliches geleistet, und ebenso unterst&uuml;tzt er die Benutzer von Fink &uuml;ber die Mailingliste.</p>
 
-<h3>Erstellen einer CVS-Version von Scribus </h3>
+<h3>Erstellen einer SVN-Version von Scribus </h3>
 
-<p>Installieren Sie die erforderlichen Bibliotheken. Diese d&uuml;rften am einfachsten zu bekommen sein, wenn Sie <code>fink install scribus</code> eingeben und abbrechen, sobald alle erforderlichen Komponenten installiert sind und Fink damit beginnt, Scribus zu kompilieren. Eine Liste mit den notwendigen Paketen finden Sie in der Fink-Datei scribus.info unter &quot;Depends&quot; und &quot;BuildDepends&quot;. Die aufgef&uuml;hrten Abh&auml;ngigkeiten werden automatisch aufgel&ouml;st und von Fink installiert.</p>
-<p><strong>Depends</strong></p>
+<p>Installieren Sie die erforderlichen Bibliotheken. Diese d&uuml;rften am einfachsten zu bekommen sein, indem Sie <code>fink install scribus</code> eingeben und abbrechen, sobald alle erforderlichen Komponenten installiert sind und Fink damit beginnt, Scribus zu kompilieren. Eine Liste mit den notwendigen Paketen finden Sie in der Fink-Datei scribus.info unter &quot;Depends&quot; und &quot;BuildDepends&quot;. Die aufgef&uuml;hrten Abh&auml;ngigkeiten werden automatisch aufgel&ouml;st und von Fink installiert.</p>
+<p><strong>Abh&#228;ngigkeiten</strong></p>
 <ul>
 	<li>x11</li>
 	<li>ghostscript</li>
@@ -24,7 +20,7 @@
 	<li>libtiff-shlibs</li>
 	<li>freetype2-shlibs oder freetype2-hinting-shlibs</li>
 </ul>
-<p><strong>Build Depends</strong></p>
+<p><strong>Abh&#228;ngigkeiten beim Selbstkompilieren</strong></p>
 <ul>
 	<li>x11-dev</li>
 	<li>lcms</li>
@@ -85,7 +81,7 @@ perl -pi -e &quot;s,LIBPYTHON =.*,LIBPYTHON=,g&quot; scribus/plugins/scriptplugi
 </pre>
 </td></tr></table></blockquote>
 
-<p>Die zweite Gruppe Patches ist notwendig, um die Plugins zu erstellen. Keine optimale L&ouml;sung, es geht vermutlich auch anders.</p>
+<p>Die zweite Gruppe Patches ist notwendig, um die Plug-ins zu erstellen. Keine optimale L&ouml;sung, es geht vermutlich auch anders.</p>
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
@@ -104,5 +100,4 @@ sudo make install
 </pre>
 </td></tr></table></blockquote>
 <p>Dies installiert Scribus nach <code>/usr/local</code>, wodurch Konflikte mit einer anderen, von Fink installierten Version vermieden werden, die sich in <code>/sw</code> befindet.</p>
-</body>
-</html>
+</qt>
