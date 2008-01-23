@@ -872,7 +872,7 @@ void SEditor::paste()
 			lengthLastPara=data.length()-data.lastIndexOf("\n");
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
 //			inserted=true;
-			advanceLen = data.length() - newParaCount;
+			advanceLen = data.length() /*- newParaCount*/;
 			insertCharsInternal(data, pos);
 			emit PasteAvail();
 		}
@@ -887,12 +887,12 @@ void SEditor::paste()
 	//qDebug("SE::paste: cursor");
 //	setCursorPosition(currentPara, currentCharPos);
 	QTextCursor tCursor = textCursor();
-	tCursor.setPosition(pos);
+	tCursor.setPosition(pos + advanceLen);
 	setTextCursor(tCursor);
-	for (int a = 0; a < advanceLen; ++a)
+	/*for (int a = 0; a < advanceLen; ++a)
 	{
 		moveCursor(QTextCursor::Right, QTextCursor::MoveAnchor);
-	}
+	}*/
 	setUpdatesEnabled(true);
 //	if (inserted)
 //		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara-1);
