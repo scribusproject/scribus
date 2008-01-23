@@ -416,13 +416,13 @@ void ScribusView::togglePreview()
 
 void ScribusView::changed(QRectF re)
 {
-	qDebug() << "ScribusView-changed(): changed region:" << re;
-	m_canvas->m_viewMode.forceRedraw = true;
-	updateCanvas(re);
+	if (!Doc->isLoading())
+	{
+		qDebug() << "ScribusView-changed(): changed region:" << re;
+		m_canvas->m_viewMode.forceRedraw = true;
+		updateCanvas(re);
+	}
 }
-
-
-
 
 void ScribusView::startGesture(CanvasGesture* gesture)
 {
@@ -436,7 +436,6 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 	if (Doc->appMode != modeEditClip)
 		m_canvas->repaint();
 }
-
 
 void ScribusView::stopGesture()
 {
@@ -825,7 +824,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			if (Doc->Items->at(i)->LayerNr==Doc->activeLayer())
 			{
-				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)))
+				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
 				{
 					Deselect(false);
 					SelectItem(Doc->Items->at(i));
@@ -852,7 +851,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			return;
 		}
 		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-		if (Doc->m_Selection->count()>0 && m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) && (!text.startsWith("<SCRIBUSELEM")))
+		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && (!text.startsWith("<SCRIBUSELEM")))
 		{
 			PageItem *b = Doc->m_Selection->itemAt(0);
 			if (b->itemType() == PageItem::ImageFrame)
