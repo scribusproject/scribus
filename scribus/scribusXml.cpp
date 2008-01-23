@@ -649,11 +649,6 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 	writer.writeAttribute("REXTRA"   , QString::number(item->textToFrameDistRight()));
 	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 		writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
-	else
-		writer.writeAttribute("PFILE","");
-	if (item->asLatexFrame()) {
-		writer.writeAttribute("LATEXTEMPFILE", Path2Relative(item->Pfile, baseDir));
-	}
 	if (!item->Pfile2.isEmpty())
 		writer.writeAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else
@@ -682,10 +677,10 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		PageItem_LatexFrame *latexitem = item->asLatexFrame();
 		//NOTE: Even though these settings are written they can't be read back
 		// because CopyPasteBuffer does not support them
-		writer.writeAttribute("LatexDpi", QString::number(latexitem->getDpi()));
-		writer.writeAttribute("LatexApplication", latexitem->getApplication());
+		writer.writeAttribute("LatexDpi", QString::number(latexitem->dpi()));
+		writer.writeAttribute("LatexConfig", latexitem->configFile());
 		writer.writeAttribute("LatexUsePreamble",
-			QString::number(static_cast<int>(latexitem->getUsePreamble())));
+			QString::number(static_cast<int>(latexitem->usePreamble())));
 	}
 	if (item->isTableItem)
 	{
@@ -1913,7 +1908,7 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 		}
 	}
 	if (item->asLatexFrame()) {
-		writer.writeTextElement("LATEX-SOURCE", item->asLatexFrame()->getFormula());
+		writer.writeTextElement("LATEX-SOURCE", item->asLatexFrame()->formula());
 	}
 	QDir::setCurrent(CurDirP);
 	for(int k=0;k<item->itemText.length();++k)

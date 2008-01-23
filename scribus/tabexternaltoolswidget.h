@@ -44,9 +44,8 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		const QString newPSTool() const;
 		const QString newImageTool() const;
 		const QString newExtBrowserTool() const;
-		const QString newLatexTool() const;
 		const QString newLatexEditor() const;
-		const QString newLatexEditorConfig() const;
+		const QStringList newLatexConfigs() const;
 		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();}
 		bool newAntialiasGraphics() const { return psAntialiasGraphicsCheckBox->isChecked();}
 		int newPSToolResolution() const { return psResolutionSpinBox->value();}
@@ -57,16 +56,19 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		
 	protected:
 		bool fileInPath(QString file);
+		void insertConfigItem(QString config, int row = -1);
 		
 	public slots:
 		void changePostScriptTool();
 		void changeImageTool();
 		void changeExtBrowserTool();
-		void changeLatexTool();
-		void changeLatexConfig();
 		void changeLatexEditor();
 		void changeLatexEmbeddedActive(int);
 		void rescanForTools();
+		void upButtonPressed();
+		void downButtonPressed();
+		void addConfig();
+		void deleteConfig();
 };
 
 #endif

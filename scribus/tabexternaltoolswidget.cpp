@@ -28,10 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QProcess>
 #include "util_ghostscript.h"
-#include "pageitem_latexframe.h"
 #include "scpaths.h"
-#include "latexhighlighter.h"
 #include "prefsstructs.h"
+#include "latexhelpers.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent)
 : QWidget(parent)
@@ -43,10 +42,12 @@ TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsDat
 	connect(psToolChangeButton, SIGNAL(clicked()), this, SLOT(changePostScriptTool()));
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));
 	connect(extBrowserToolChangeButton, SIGNAL(clicked()), this, SLOT(changeExtBrowserTool()));
-	connect(latexToolChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexTool()));
-	connect(latexConfigChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexConfig()));
 	connect(latexEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexEditor()));
 	connect(rescanButton, SIGNAL(clicked()), this, SLOT(rescanForTools()));
+	connect(latexConfigUpButton, SIGNAL(clicked()), this, SLOT(upButtonPressed()));
+	connect(latexConfigDownButton, SIGNAL(clicked()), this, SLOT(downButtonPressed()));
+	connect(latexConfigAddButton, SIGNAL(clicked()), this, SLOT(addConfig()));
+	connect(latexConfigDeleteButton, SIGNAL(clicked()), this, SLOT(deleteConfig()));
 	connect(latexEmbeddedEditorCheckBox, SIGNAL(stateChanged(int)), 
 			this, SLOT(changeLatexEmbeddedActive(int)));
 }
@@ -70,19 +71,20 @@ const QString TabExternalToolsWidget::newExtBrowserTool() const
 	return ScPaths::separatorsToSlashes(extBrowserToolLineEdit->text()); 
 }
 
-const QString TabExternalToolsWidget::newLatexTool() const 
-{ 
-	return ScPaths::separatorsToSlashes(latexToolLineEdit->text()); 
-}
-
 const QString TabExternalToolsWidget::newLatexEditor() const 
 {
 	return ScPaths::separatorsToSlashes(latexEditorLineEdit->text());
 }
 
-const QString TabExternalToolsWidget::newLatexEditorConfig() const 
+const QStringList TabExternalToolsWidget::newLatexConfigs() const
 {
-	return ScPaths::separatorsToSlashes(latexEditorConfigLineEdit->text());
+	QStringList list;
+	int i;
+	for (i=0; i < latexConfigsListWidget->count(); i++) {
+		list.append(latexConfigsListWidget->item(i)->data(Qt::UserRole).toString());
+	}
+	
+	return list;
 }
 
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -93,13 +95,17 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
 	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->imageEditorExecutable));
 	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extBrowserExecutable));
-	latexToolLineEdit->setText(QDir::convertSeparators(prefsData->latexExecutable));
-	latexEditorConfigLineEdit->setText(QDir::convertSeparators(prefsData->latexEditorConfig));
 	latexResolutionSpinBox->setValue(prefsData->latexResolution);
 	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
 	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
 	latexEmbeddedEditorCheckBox->setCheckState(prefsData->latexUseEmbeddedEditor?Qt::Checked:Qt::Unchecked);
 	latexEmptyFrameCheckBox->setCheckState(prefsData->latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
+	latexConfigsListWidget->clear();
+	QStringList configs = prefsData->latexConfigs;
+	foreach (QString config, configs) {
+		insertConfigItem(config);
+	}
+	latexConfigsListWidget->setCurrentRow(0);
 }
 
 void TabExternalToolsWidget::changePostScriptTool()
@@ -126,14 +132,6 @@ void TabExternalToolsWidget::changeExtBrowserTool()
 		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
 }
 
-void TabExternalToolsWidget::changeLatexTool()
-{
-	QFileInfo fi(latexToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(this, tr("Locate your LaTeX executable"), fi.path());
-	if (!s.isEmpty())
-		latexToolLineEdit->setText( QDir::convertSeparators(s) );
-}
-
 void TabExternalToolsWidget::changeLatexEditor()
 {
 	QFileInfo fi(latexEditorLineEdit->text());
@@ -142,13 +140,56 @@ void TabExternalToolsWidget::changeLatexEditor()
 		latexEditorLineEdit->setText( QDir::convertSeparators(s) );
 }
 
-void TabExternalToolsWidget::changeLatexConfig()
+void TabExternalToolsWidget::insertConfigItem(QString config, int row)
 {
-	QFileInfo fi(latexEditorConfigLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(this, tr("Locate your LaTeX Frames Config"), fi.path(),  tr("Configuration files")+" (*.xml)");
-	if (!s.isEmpty())
-		latexEditorConfigLineEdit->setText(QDir::convertSeparators(s));
+	QListWidgetItem *widget = new QListWidgetItem(
+			QString("%1 (%2)").arg(LatexConfigCache::instance()->parser(config)->description()).
+			arg(QDir::toNativeSeparators(QDir::cleanPath(config))));
+	widget->setData(Qt::UserRole, config);
+	if (row == -1) {
+		latexConfigsListWidget->addItem(widget);
+	} else {
+		latexConfigsListWidget->insertItem(row, widget);
+	}
+	latexConfigsListWidget->setCurrentItem(widget);
 }
+
+void TabExternalToolsWidget::addConfig()
+{
+	QString s = QFileDialog::getOpenFileName(this, 
+		tr("Locate a Configuration file"), 
+		ScPaths::instance().shareDir() + "/editorconfig/",
+		tr("Configuration files")+" (*.xml)");
+	if (!s.isEmpty()) {
+		insertConfigItem(s);
+	}
+}
+
+void TabExternalToolsWidget::deleteConfig()
+{
+	if (latexConfigsListWidget->currentItem()) {
+		delete latexConfigsListWidget->currentItem();
+	}
+}
+
+void TabExternalToolsWidget::upButtonPressed()
+{
+	if (latexConfigsListWidget->currentRow() < 1) return;
+	QListWidgetItem *old = latexConfigsListWidget->currentItem();
+	QString config = old->data(Qt::UserRole).toString();
+	insertConfigItem(config, latexConfigsListWidget->currentRow()-1);
+	delete old;
+}
+
+void TabExternalToolsWidget::downButtonPressed()
+{
+	if (latexConfigsListWidget->currentRow() >= latexConfigsListWidget->count()-1) return;
+	QListWidgetItem *old = latexConfigsListWidget->currentItem();
+	QString config = old->data(Qt::UserRole).toString();
+	insertConfigItem(config, latexConfigsListWidget->currentRow()+2);
+	delete old;
+}
+
 
 bool TabExternalToolsWidget::fileInPath(QString file)
 {
@@ -198,10 +239,6 @@ void TabExternalToolsWidget::rescanForTools()
 	
 	if (!fileInPath(imageToolLineEdit->text()))
 		imageToolLineEdit->setText("gimp");
-	
-	if (!fileInPath(latexToolLineEdit->text())) {
-		latexToolLineEdit->setText("");
-	}
 	
 	if (!fileInPath(latexEditorLineEdit->text())) {
 		QStringList editors;

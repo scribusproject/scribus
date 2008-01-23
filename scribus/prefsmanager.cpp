@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMatrix>
 #include <QList>
 #include <QString>
+#include <QStringList>
 #include <QStyleFactory>
 
 #include "prefsmanager.h"
@@ -35,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorsetmanager.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
+#include "latexhelpers.h"
 #include "missing.h"
 #include "tabkeyboardshortcutswidget.h"
 #include "pagesize.h"
@@ -332,11 +334,10 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_K = true;
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
-	appPrefs.latexExecutable = "";
+	appPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
 	appPrefs.latexEditorExecutable = "";
-	appPrefs.latexEditorConfig = ScPaths::instance().shareDir() + "editorconfig/latex.xml";
 	appPrefs.latexResolution = 72;
-	appPrefs.latexForceDpi = false;
+	appPrefs.latexForceDpi = true;
 	appPrefs.latexUseEmbeddedEditor = true;
 	appPrefs.latexStartWithEmptyFrames = false;
 	appPrefs.gs_AntiAliasGraphics = true;
@@ -963,19 +964,14 @@ void PrefsManager::setExtBrowserExecutable(const QString& executableName)
 	appPrefs.extBrowserExecutable=executableName;
 }
 
-void PrefsManager::setLatexExecutable(const QString& executableName)
+void PrefsManager::setLatexConfigs(const QStringList& configs)
 {
-	appPrefs.latexExecutable=executableName;
+	appPrefs.latexConfigs=configs;
 }
 
 void PrefsManager::setLatexEditorExecutable(const QString& executableName)
 {
 	appPrefs.latexEditorExecutable=executableName;
-}
-
-void PrefsManager::setLatexEditorConfig(const QString& text)
-{
-	appPrefs.latexEditorConfig=text;
 }
 
 const QString PrefsManager::documentDir()
@@ -1457,13 +1453,17 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.gs_AntiAliasGraphics));
 	dc8Ex.setAttribute("AlphaText", static_cast<int>(appPrefs.gs_AntiAliasText));
 	dc8Ex.setAttribute("Resolution", appPrefs.gs_Resolution);
-	dc8Ex.setAttribute("Latex", latexExecutable());
 	dc8Ex.setAttribute("LatexEditor", latexEditorExecutable());
-	dc8Ex.setAttribute("LatexEditorConfig", latexEditorConfig());
 	dc8Ex.setAttribute("LatexResolution", latexResolution());
 	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.latexForceDpi));
 	dc8Ex.setAttribute("LatexUseEmbeddedEditor", static_cast<int>(appPrefs.latexUseEmbeddedEditor));
 	dc8Ex.setAttribute("LatexStartWithEmptyFrames", static_cast<int>(appPrefs.latexStartWithEmptyFrames));
+	QStringList configs = latexConfigs();
+	foreach (QString config, configs) {
+		QDomElement domConfig = docu.createElement("LatexConfig");
+		domConfig.setAttribute("file", config);
+		dc8Ex.appendChild(domConfig);
+	}
 	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", appPrefs.Language);
@@ -2057,14 +2057,23 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
 			appPrefs.gs_Resolution = dc.attribute("Resolution", "72").toInt();
 			appPrefs.latexResolution = dc.attribute("LatexResolution", "72").toInt();
-			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "0").toInt());
+			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "1").toInt());
 			appPrefs.latexUseEmbeddedEditor = static_cast<bool>(dc.attribute("LatexUseEmbeddedEditor", "1").toInt());
 			appPrefs.latexStartWithEmptyFrames = static_cast<bool>(dc.attribute("LatexStartWithEmptyFrames", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
-			setLatexExecutable(dc.attribute("Latex", ""));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
-			setLatexEditorConfig(dc.attribute("LatexEditorConfig", ScPaths::instance().shareDir() + "/editorconfig/latex.xml"));
+			QStringList configs;
+			QDomNodeList configNodes = dc.elementsByTagName("LatexConfig");
+			int i;
+			for (i=0; i < configNodes.size(); i++) {
+				configs.append(configNodes.at(i).toElement().attribute("file", ""));
+			}
+			if (!configs.isEmpty()) {
+				setLatexConfigs(configs);
+			} else {
+				setLatexConfigs(LatexConfigCache::defaultConfigs());
+			}
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

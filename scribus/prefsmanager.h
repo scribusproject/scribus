@@ -125,15 +125,13 @@ public:
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
 	void setExtBrowserExecutable(const QString&);
-	void setLatexExecutable(const QString&);
+	void setLatexConfigs(const QStringList&);
 	void setLatexEditorExecutable(const QString&);
-	void setLatexEditorConfig(const QString&);
 	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
 	QString imageEditorExecutable() const {return appPrefs.imageEditorExecutable;};
 	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
-	QString latexExecutable() const {return appPrefs.latexExecutable;}
+	QStringList latexConfigs() const {return appPrefs.latexConfigs;}
 	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
-	QString latexEditorConfig() const {return appPrefs.latexEditorConfig;}
 	bool latexUseEmbeddedEditor() const {return appPrefs.latexUseEmbeddedEditor;}
 	bool latexStartWithEmptyFrames() const {return appPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution

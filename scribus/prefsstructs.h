@@ -241,9 +241,8 @@ struct ApplicationPrefs
 	int gs_Resolution;
 	QString imageEditorExecutable;
 	QString extBrowserExecutable;
-	QString latexExecutable;
+	QStringList latexConfigs;
 	QString latexEditorExecutable;
-	QString latexEditorConfig;
 	int latexResolution;
 	bool latexForceDpi;
 	bool latexUseEmbeddedEditor;
