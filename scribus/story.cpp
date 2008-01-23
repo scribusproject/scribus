@@ -554,6 +554,7 @@ void SEditor::saveItemText(PageItem *currItem)
 
 void SEditor::setAlign(int align)
 {
+	++blockContentsChangeHook;
 	switch (align)
 	{
 	case 0:
@@ -572,6 +573,7 @@ void SEditor::setAlign(int align)
 	default:
 		break;
 	}
+	--blockContentsChangeHook;
 }
 
 
@@ -801,6 +803,7 @@ void SEditor::deleteSel()
 
 void SEditor::setStyle(int Csty)
 {
+	++blockContentsChangeHook;
 	QTextCharFormat charF;
 	if (Csty & 8)
 		charF.setFontUnderline(true);
@@ -817,6 +820,7 @@ void SEditor::setStyle(int Csty)
 	else
 		charF.setVerticalAlignment(QTextCharFormat::AlignNormal);
 	textCursor().setCharFormat(charF);
+	--blockContentsChangeHook;
 }
 
 void SEditor::setColor(bool marker)
