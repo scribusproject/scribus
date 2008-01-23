@@ -136,7 +136,7 @@ SET(SCRIBUS_MOC_CLASSES
   inspage.h
   javadocs.h
   latexeditor.h
-  latexhighlighter.h
+  latexhelpers.h
   layers.h
   loadsaveplugin.h
   loremipsum.h
@@ -380,7 +380,7 @@ SET(SCRIBUS_SOURCES
   KarbonCurveFit.cpp
   langmgr.cpp
   latexeditor.cpp
-  latexhighlighter.cpp
+  latexhelpers.cpp
   layers.cpp
   linecombo.cpp
   linkbutton.cpp

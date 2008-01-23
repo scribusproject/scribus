@@ -32,7 +32,7 @@ copyright            : Scribus Team
 
 class PageItem_LatexFrame;
 class LatexHighlighter;
-class QXmlStreamReader;
+class I18nXmlStreamReader;
 class QComboBox;
 class QListWidgetItem;
 class QFile;
@@ -49,15 +49,17 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void revert();
 		void apply(bool force=false);
 		void initialize();
+		static QIcon icon(QString config, QString fn);
+		static QString iconFile(QString config);
 	protected:
 		PageItem_LatexFrame *frame;
 		LatexHighlighter *highlighter;
-		QString iconFile, configFile;
 		void loadSettings();
-		void createNewSettingsTab(QXmlStreamReader *xml);
-		void createNewItemsTab(QXmlStreamReader *xml);
-		void setConfigFile(QString newConfig);
+		void createNewSettingsTab(I18nXmlStreamReader *xml);
+		void createNewItemsTab(I18nXmlStreamReader *xml);
 		QMap<QString, XmlWidget *> widgetMap;
+		QString currentConfigFile, currentIconFile;
+		
 	public slots:
 		void okClicked();
 		void cancelClicked();
@@ -71,6 +73,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void insertButtonClicked(QObject *);
 		void newItemSelected(QListWidgetItem *, QListWidgetItem *);
 		void itemDoubleClicked(QListWidgetItem *);
+		void updateConfigFile();
 };
 
 
@@ -115,15 +118,14 @@ class SCRIBUS_API StringPushButton : public QPushButton
 class SCRIBUS_API XmlWidget
 {
 	public:
-		static XmlWidget *fromXml(QXmlStreamReader *xml);
-		XmlWidget(QXmlStreamReader *xml, bool readDescription=true);
+		static XmlWidget *fromXml(I18nXmlStreamReader *xml);
+		XmlWidget(I18nXmlStreamReader *xml, bool readDescription=true);
 		virtual ~XmlWidget() {};
 		QString name() const { return m_name; }
 		QString description() const { return m_description; }
 		QString defaultValue() const { return m_defaultValue; }
 		virtual QString toString() const { return ""; }
-		virtual void fromString(QString str){}
-		static QString readI18nText(QXmlStreamReader *xml);
+		virtual void fromString(QString str){};
 	protected:
 		QString m_name;
 		QString m_description;
@@ -136,7 +138,7 @@ class SCRIBUS_API IconBuffer
 		IconBuffer() { len = 0; basePos = 0; file = 0; }
 		static IconBuffer *instance();
 		void loadFile(QString filename);
-		QIcon *getIcon(QString filename, QString name);
+		QIcon *icon(QString filename, QString name);
 	protected:
 		QFile *file;
 		QMap<QString, QIcon> icons;

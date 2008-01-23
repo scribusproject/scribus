@@ -19,23 +19,37 @@ copyright            : Scribus Team
 *                                                                         *
 ***************************************************************************/
 #include "latexeditor.h"
-#include "latexhighlighter.h"
+#include "latexhelpers.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
 
 #include <QDebug>
 #include <QFile>
-#include <QXmlStreamReader>
 #include <QFrame>
 #include <QFontComboBox>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QListWidget>
+#include <QMessageBox>
 #include <math.h>
 
 LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 {
 	setupUi(this);
+	
+	//Fill application list
+	programComboBox->clear();
+	QStringList configs = PrefsManager::instance()->latexConfigs();
+	foreach (QString config, configs) {
+		QString name = LatexConfigCache::instance()->parser(config)->description();
+		programComboBox->addItem(name, config);
+		QString iconname = LatexConfigCache::instance()->parser(config)->icon();
+		if (!iconname.isEmpty()) {
+			programComboBox->setItemIcon(programComboBox->count()-1,
+				icon(config, iconname));
+		}
+	}
+	
 	highlighter = new LatexHighlighter(sourceTextEdit->document());
 	connect(buttonBox, SIGNAL(accepted()), 
 			this, SLOT(okClicked()));
@@ -53,7 +67,9 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame):QDialog(), frame(frame)
 			this, SLOT(latexFinished()));
 	connect(frame, SIGNAL(stateChanged(QProcess::ProcessState)), 
 			this, SLOT(stateChanged(QProcess::ProcessState)));
-	setConfigFile(PrefsManager::instance()->latexEditorConfig());
+	connect(frame, SIGNAL(applicationChanged()),
+			this, SLOT(updateConfigFile()));
+	updateConfigFile();
 }
 
 LatexEditor::~LatexEditor()
@@ -77,22 +93,29 @@ void LatexEditor::exitEditor()
 
 void LatexEditor::revert()
 {
-	sourceTextEdit->setPlainText(frame->getFormula());
+	sourceTextEdit->setPlainText(frame->formula());
 }
 
 void LatexEditor::initialize()
 {
-	preambleCheckBox->setChecked(frame->getUsePreamble());
-	dpiSpinBox->setValue(frame->getDpi());
-	stateChanged(frame->getState());
-	messagesTextEdit->setPlainText(frame->getOutput());
+	preambleCheckBox->setChecked(frame->usePreamble());
+	dpiSpinBox->setValue(frame->dpi());
+	stateChanged(frame->state());
+	messagesTextEdit->setPlainText(frame->output());
 }
 
 void LatexEditor::apply(bool force)
 {
-	bool changed = false;
-	if (frame->getUsePreamble() != preambleCheckBox->isChecked() ||
-		frame->getDpi() != dpiSpinBox->value()) {
+	bool changed = frame->setFormula(sourceTextEdit->toPlainText());
+	
+	QString newConfig = programComboBox->itemData(programComboBox->currentIndex()).toString();
+	if (newConfig != frame->configFile()) {
+		changed = true;
+		frame->setConfigFile(newConfig);
+	}
+	
+	if (frame->usePreamble() != preambleCheckBox->isChecked() ||
+		frame->dpi() != dpiSpinBox->value()) {
 		changed = true;
 		frame->setUsePreamble(preambleCheckBox->isChecked());
 		frame->setDpi(dpiSpinBox->value());
@@ -112,7 +135,7 @@ void LatexEditor::apply(bool force)
 	}
 	
 	
-	if (frame->setFormula(sourceTextEdit->toPlainText()) || changed || force) {
+	if (changed || force) {
 		frame->rerunApplication(true);
 	}
 }
@@ -146,7 +169,7 @@ void LatexEditor::updateClicked(bool unused)
 
 void LatexEditor::latexFinished()
 {
-	messagesTextEdit->setPlainText(frame->getOutput());
+	messagesTextEdit->setPlainText(frame->output());
 }
 
 void LatexEditor::stateChanged(QProcess::ProcessState state)
@@ -156,7 +179,7 @@ void LatexEditor::stateChanged(QProcess::ProcessState state)
 	}
 	QString text = tr("Status: ");
 	if (state == QProcess::NotRunning) {
-		if (frame->getError()) {
+		if (frame->error()) {
 			text += tr("Error");
 		} else {
 			text += tr("Finished");
@@ -168,13 +191,40 @@ void LatexEditor::stateChanged(QProcess::ProcessState state)
 	killPushButton->setEnabled(state != QProcess::NotRunning);
 }
 
-void LatexEditor::setConfigFile(QString newConfig)
+QIcon LatexEditor::icon(QString config, QString fn)
 {
-	if (configFile == newConfig) return;
-	//TODO: Check that file exists
-	configFile = newConfig;
-	QFileInfo fi(newConfig);
-	iconFile = fi.path() + "/" + fi.completeBaseName() + ".tar"; //May be overriden in xml
+	QFileInfo fiConfig(config);
+	QFileInfo fiIcon(fiConfig.path()+"/"+fn);
+	if (fiIcon.exists() && fiIcon.isReadable()) {
+		return QIcon(fiConfig.path()+"/"+fn);
+	} else {
+		QIcon *tmp = IconBuffer::instance()->icon(
+			fiConfig.path() + "/" + fiConfig.completeBaseName() + ".tar", fn);
+		if (tmp) return *tmp; else return QIcon();
+	}
+}
+
+
+QString LatexEditor::iconFile(QString config)
+{
+	QFileInfo fiConfig(config);
+	return fiConfig.path() + "/" + fiConfig.completeBaseName() + ".tar";
+}
+
+void LatexEditor::updateConfigFile()
+{
+	if (currentConfigFile == frame->configFile()) return;
+	currentConfigFile = frame->configFile();
+	currentIconFile = iconFile(currentConfigFile);
+	QFileInfo fi(currentConfigFile);
+	
+	if (!fi.exists() || !fi.isReadable()) {
+		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+				QObject::tr("Configfile %1 not found or the file is not readable").
+				arg(currentConfigFile) + "</qt>", 1, 0, 0);
+		return;
+	}
+
 	loadSettings();
 	
 	QMapIterator<QString, XmlWidget *> i(widgetMap);
@@ -200,9 +250,10 @@ void LatexEditor::loadSettings()
 	}
 	widgetMap.clear();
 	
-	QFile f(configFile);
+	qDebug() << "Loading editor GUI from " << frame->configFile();
+	QFile f(frame->configFile());
 	f.open(QIODevice::ReadOnly);
-	QXmlStreamReader xml(&f);
+	I18nXmlStreamReader xml(&f);
 	while (!xml.atEnd()) {
 		xml.readNext();
 		if (xml.isWhitespace() || xml.isComment()) continue;
@@ -222,9 +273,10 @@ void LatexEditor::loadSettings()
 		qDebug() << "XML-ERROR: " << xml.lineNumber() << ":" 
 				<< xml.columnNumber() << ":" << xml.errorString();
 	}
+	f.close();
 }
 
-void LatexEditor::createNewSettingsTab(QXmlStreamReader *xml)
+void LatexEditor::createNewSettingsTab(I18nXmlStreamReader *xml)
 {
 	qDebug() << "Creating new tab";
 	QStringRef tagname;
@@ -249,12 +301,12 @@ void LatexEditor::createNewSettingsTab(QXmlStreamReader *xml)
 		}
 		
 		if (tagname == "comment") {
-			QLabel *label = new QLabel(XmlWidget::readI18nText(xml));
+			QLabel *label = new QLabel(xml->readI18nText());
 			int row = layout->rowCount();
 			label->setWordWrap(true);
 			layout->addWidget(label, row, 0, 1, 3);
 		} else if (tagname == "title") {
-			title = XmlWidget::readI18nText(xml);
+			title = xml->readI18nText();
 		} else {
 			XmlWidget *widget = XmlWidget::fromXml(xml);
 			if (dynamic_cast<QWidget *>(widget)) {
@@ -290,7 +342,7 @@ void LatexEditor::createNewSettingsTab(QXmlStreamReader *xml)
 	tabWidget->addTab(newTab, title);
 }
 
-void LatexEditor::createNewItemsTab(QXmlStreamReader *xml) 
+void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml) 
 {
 	QString title = "No Title!";
 	
@@ -303,6 +355,10 @@ void LatexEditor::createNewItemsTab(QXmlStreamReader *xml)
 	iconList->setViewMode(QListView::IconMode);
 	iconList->setGridSize(QSize(55, 55));
 	iconList->setMovement(QListView::Static);
+	iconList->setFlow(QListView::LeftToRight);
+	iconList->setWrapping(true);
+	iconList->setResizeMode(QListView::Adjust);
+	
 	connect(iconList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
 			this,     SLOT  (newItemSelected   (QListWidgetItem *, QListWidgetItem *)));
 	connect(iconList, SIGNAL(itemDoubleClicked (QListWidgetItem *)),
@@ -334,11 +390,11 @@ void LatexEditor::createNewItemsTab(QXmlStreamReader *xml)
 			continue;
 		}
 		if (tagname == "title") {
-			title = XmlWidget::readI18nText(xml);
+			title = xml->readI18nText();
 		} else if (tagname == "item") {
 			QString value = xml->attributes().value("value").toString();
 			QString img = xml->attributes().value("image").toString();
-			QString text = XmlWidget::readI18nText(xml);
+			QString text = xml->readI18nText();
 			
 			QString status = value;
 			if (text.isEmpty()) {
@@ -349,7 +405,7 @@ void LatexEditor::createNewItemsTab(QXmlStreamReader *xml)
 			
 			QIcon *icon = 0;
 			if (!img.isEmpty()) {
-				icon = IconBuffer::instance()->getIcon(iconFile, img);
+				icon = IconBuffer::instance()->icon(currentIconFile, img);
 			}
 			QListWidgetItem *item;
 			if (!icon) {
@@ -399,7 +455,7 @@ void LatexEditor::insertButtonClicked(QObject *widget)
 class SCRIBUS_API XmlFontComboBox : public XmlWidget, public QFontComboBox
 {
 	public:
-		XmlFontComboBox(QXmlStreamReader *xml) : XmlWidget(xml), QFontComboBox()
+		XmlFontComboBox(I18nXmlStreamReader *xml) : XmlWidget(xml), QFontComboBox()
 		{
 			fromString(m_defaultValue);
 		}
@@ -418,7 +474,7 @@ class SCRIBUS_API XmlFontComboBox : public XmlWidget, public QFontComboBox
 class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 {
 	public:
-		XmlSpinBox(QXmlStreamReader *xml) :  XmlWidget(xml, false), QSpinBox() {
+		XmlSpinBox(I18nXmlStreamReader *xml) :  XmlWidget(xml, false), QSpinBox() {
 			setRange(
 				xml->attributes().value("min").toString().toInt(),
 				xml->attributes().value("max").toString().toInt()
@@ -426,7 +482,7 @@ class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 			setSingleStep(xml->attributes().value("step").toString().toInt());
 			setSpecialValueText(xml->attributes().value("special").toString());
 			fromString(m_defaultValue);
-			m_description = readI18nText(xml);
+			m_description = xml->readI18nText();
 		}
 		
 		QString toString() const {
@@ -449,7 +505,7 @@ class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 {
 	public:
-		XmlDoubleSpinBox(QXmlStreamReader *xml) :
+		XmlDoubleSpinBox(I18nXmlStreamReader *xml) :
 			XmlWidget(xml, false), QDoubleSpinBox() {
 			setRange(
 				xml->attributes().value("min").toString().toDouble(),
@@ -459,7 +515,7 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 				xml->attributes().value("step").toString().toDouble());
 			setSpecialValueText(xml->attributes().value("special").toString());
 			fromString(m_defaultValue);
-			m_description = readI18nText(xml);
+			m_description = xml->readI18nText();
 		}
 		
 		QString toString() const {
@@ -482,7 +538,7 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 {
 	public:
-		XmlLineEdit(QXmlStreamReader *xml) :  XmlWidget(xml), QLineEdit() {
+		XmlLineEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml), QLineEdit() {
 			fromString(m_defaultValue);
 		}
 		
@@ -498,7 +554,7 @@ class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 class SCRIBUS_API XmlTextEdit : public XmlWidget, public QTextEdit
 {
 	public:
-		XmlTextEdit(QXmlStreamReader *xml) :  XmlWidget(xml), QTextEdit() {
+		XmlTextEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml), QTextEdit() {
 			fromString(m_defaultValue);
 		}
 		
@@ -514,7 +570,7 @@ class SCRIBUS_API XmlTextEdit : public XmlWidget, public QTextEdit
 class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 {
 	public:
-		XmlColorPicker(QXmlStreamReader *xml) :  XmlWidget(xml), 
+		XmlColorPicker(I18nXmlStreamReader *xml) :  XmlWidget(xml), 
 			QLabel("Colorpickers are not implemented yet!") 
 		{
 			setWordWrap(true);
@@ -533,7 +589,7 @@ class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 class SCRIBUS_API XmlComboBox : public XmlWidget, public QComboBox
 {
 	public:
-		XmlComboBox(QXmlStreamReader *xml) :  XmlWidget(xml, false), QComboBox() 
+		XmlComboBox(I18nXmlStreamReader *xml) :  XmlWidget(xml, false), QComboBox() 
 		{
 			QStringRef tagname;
 			while (!xml->atEnd()) {
@@ -549,10 +605,10 @@ class SCRIBUS_API XmlComboBox : public XmlWidget, public QComboBox
 					continue;
 				}
 				if (tagname == "title") {
-					m_description = readI18nText(xml);
+					m_description = xml->readI18nText();
 				} else if (tagname == "option") {
 					QString value = xml->attributes().value("value").toString();
-					QString text = readI18nText(xml);
+					QString text = xml->readI18nText();
 					addItem(text, value);
 				} else {
 					xmlError() << "Unexpected tag" << tagname.toString() << 
@@ -570,7 +626,7 @@ class SCRIBUS_API XmlComboBox : public XmlWidget, public QComboBox
 		}
 };
 
-XmlWidget* XmlWidget::fromXml(QXmlStreamReader *xml)
+XmlWidget* XmlWidget::fromXml(I18nXmlStreamReader *xml)
 {
 	QStringRef tagname = xml->name();
 	if (tagname == "font") {
@@ -597,77 +653,12 @@ XmlWidget* XmlWidget::fromXml(QXmlStreamReader *xml)
 	return 0;
 }
 
-XmlWidget::XmlWidget(QXmlStreamReader *xml, bool readDescription)
+XmlWidget::XmlWidget(I18nXmlStreamReader *xml, bool readDescription)
 {
 	m_name = xml->attributes().value("name").toString();
 	m_defaultValue = xml->attributes().value("default").toString();
 	if (readDescription) 
-		m_description = readI18nText(xml);
-}
-
-//TODO: Which class should this belong to?
-QString XmlWidget::readI18nText(QXmlStreamReader *xml)
-{
-	QString language = PrefsManager::instance()->guiLanguage();
-	QString result;
-	int matchquality = 0;
-	bool i18n = false;
-	Q_ASSERT(xml->isStartElement());
-	QString startTag = xml->name().toString();
-	while (!xml->atEnd()) {
-		xml->readNext();
-		if (xml->isWhitespace() || xml->isComment()) continue;
-		if (xml->isStartElement() && xml->name() == startTag) {
-			xmlError() << "Invalid nested elements. We are in big trouble now."
-					"Parsing the rest of the document will FAIL!";
-			return "Error";
-		}
-		if (xml->isEndElement() && xml->name() == startTag) {
-			return result.trimmed();
-		}
-		if (i18n) {
-			if (xml->isEndElement()) {
-				if (xml->name() == "i18n") {
-					i18n = false;
-				} else {
-					xmlError() << "Invalid end element" << 
-							xml->name().toString();
-				}
-				continue;
-			}
-			if (!xml->isStartElement()) {
-				xmlError() << "Unexpected data!";
-			}
-			if (xml->name() == language) {
-				matchquality = 2; //Perfect match
-				result = xml->readElementText();
-			} else if (language.startsWith(xml->name().toString()) && matchquality <= 1) {
-				matchquality = 1; //Only beginning part matches
-				result = xml->readElementText();
-			} else if (result.isEmpty()) {
-				matchquality = 0;
-				result = xml->readElementText();
-			} else {
-				xml->readElementText(); //Ignore the text
-			}
-		} else {
-			if (xml->isStartElement()) {
-				if (xml->name() == "i18n") {
-					i18n = true;
-					continue;
-				} else {
-					xmlError() << "Tag" << xml->name().toString() << 
-						"found, but \"i18n\" or string data expected.";
-					continue;
-				}
-			}
-			if (xml->isCharacters()) {
-				result = result + xml->text().toString();
-			}
-		}
-	}
-	xmlError() << "Unexpected end of XML file";
-	return result;
+		m_description = xml->readI18nText();
 }
 
 void IconBuffer::loadFile(QString filename)
@@ -689,7 +680,7 @@ void IconBuffer::loadFile(QString filename)
 	file = 0;
 }
 
-QIcon *IconBuffer::getIcon(QString filename, QString name)
+QIcon *IconBuffer::icon(QString filename, QString name)
 {
 	loadFile(filename);
 	QString cname = filename + ":" + name;
