@@ -96,6 +96,69 @@ PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 	return Py_None;
 }
 
+PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int w;
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((w < 0) || (w > 100))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.","python error"));
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	i->setFillShade(w);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_setfillopacity(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double opacity;
+	if (!PyArg_ParseTuple(args, "d|es", &opacity, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((opacity < 0.0) || (opacity > 1.0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill opacity out of bounds, must be 0.0 <= opacity <= 1.0","python error"));
+		return NULL;
+	}
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == NULL)
+		return NULL;
+	item->setFillTransparency(1.0 - opacity);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double w;
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((w < 0.0) || (w > 1.0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error"));
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	i->setFillTransparency(1.0 - w);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
 PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -108,27 +171,6 @@ PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineColor(QString::fromUtf8(Color));
-	Py_INCREF(Py_None);
-	return Py_None;
-}
-
-PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
-{
-	char *Name = const_cast<char*>("");
-	double w;
-	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
-		return NULL;
-	if(!checkHaveDocument())
-		return NULL;
-	if ((w < 0.0) || (w > 12.0))
-	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 12.","python error"));
-		return NULL;
-	}
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	if (i == NULL)
-		return NULL;
-	i->setLineWidth(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -154,23 +196,44 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
-	int w;
-	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+	double w;
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if ((w < 0) || (w > 100))
+	if ((w < 0.0) || (w > 1.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error"));
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	i->setFillShade(w);
+	i->setLineTransparency(1.0 - w);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double w;
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((w < 0.0) || (w > 12.0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 12.","python error"));
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	i->setLineWidth(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

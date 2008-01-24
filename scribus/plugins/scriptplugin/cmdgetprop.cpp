@@ -18,6 +18,28 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 	return i != NULL ? PyString_FromString(i->fillColor().utf8()) : NULL;
 }
 
+PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyInt_FromLong(static_cast<long>(i->fillShade())) : NULL;
+}
+
+PyObject *scribus_getfilltrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyFloat_FromDouble(static_cast<double>(1.0 - i->fillTransparency())) : NULL;
+}
+
 PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -43,17 +65,6 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 	return NULL;
 }
 
-PyObject *scribus_getlinewidth(PyObject* /* self */, PyObject* args)
-{
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return NULL;
-	if(!checkHaveDocument())
-		return NULL;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->lineWidth())) : NULL;
-}
-
 PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -76,6 +87,28 @@ PyObject *scribus_getlineshade(PyObject* /* self */, PyObject* args)
 	else
 		return PyInt_FromLong(static_cast<long>(it->lineShade()));
 	return PyInt_FromLong(0L);
+}
+
+PyObject *scribus_getlinetrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyFloat_FromDouble(static_cast<double>(1.0 - i->lineTransparency())) : NULL;
+}
+
+PyObject *scribus_getlinewidth(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->lineWidth())) : NULL;
 }
 
 PyObject *scribus_getlinejoin(PyObject* /* self */, PyObject* args)
@@ -109,17 +142,6 @@ PyObject *scribus_getlinestyle(PyObject* /* self */, PyObject* args)
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineArt)) : NULL;
-}
-
-PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
-{
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return NULL;
-	if(!checkHaveDocument())
-		return NULL;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyInt_FromLong(static_cast<long>(i->fillShade())) : NULL;
 }
 
 PyObject *scribus_getcornerrad(PyObject* /* self */, PyObject* args)

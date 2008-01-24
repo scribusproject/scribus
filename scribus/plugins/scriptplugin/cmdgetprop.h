@@ -23,6 +23,26 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getfillcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getfillshade__doc__,
+QT_TR_NOOP("getFillShade([\"name\"]) -> integer\n\
+\n\
+Returns the shading value of the fill color of the object \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns fill shade of the object */
+PyObject *scribus_getfillshade(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getfilltrans__doc__,
+QT_TR_NOOP("getFillTransparency([\"name\"]) -> float\n\
+\n\
+Returns the fill transparency of the object \"name\". If \"name\"\n\
+is not given the currently selected Item is used.\n\
+"));
+/*! Returns fill transparency of the object */
+PyObject *scribus_getfilltrans(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getlinecolor__doc__,
 QT_TR_NOOP("getLineColor([\"name\"]) -> string\n\
 \n\
@@ -33,16 +53,6 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getlinewidth__doc__,
-QT_TR_NOOP("getLineWidth([\"name\"]) -> integer\n\
-\n\
-Returns the line width of the object \"name\". If \"name\"\n\
-is not given the currently selected Item is used.\n\
-"));
-/*! Returns width of the line */
-PyObject *scribus_getlinewidth(PyObject */*self*/, PyObject* args);
-
-/*! docstring */
 PyDoc_STRVAR(scribus_getlineshade__doc__,
 QT_TR_NOOP("getLineShade([\"name\"]) -> integer\n\
 \n\
@@ -51,6 +61,26 @@ If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Returns shading of the line */
 PyObject *scribus_getlineshade(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinetrans__doc__,
+QT_TR_NOOP("getLineTransparency([\"name\"]) -> float\n\
+\n\
+Returns the line transparency of the object \"name\". If \"name\"\n\
+is not given the currently selected Item is used.\n\
+"));
+/*! Returns line transparency of the object */
+PyObject *scribus_getlinetrans(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinewidth__doc__,
+QT_TR_NOOP("getLineWidth([\"name\"]) -> integer\n\
+\n\
+Returns the line width of the object \"name\". If \"name\"\n\
+is not given the currently selected Item is used.\n\
+"));
+/*! Returns width of the line */
+PyObject *scribus_getlinewidth(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinejoin__doc__,
@@ -84,16 +114,6 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID\n\
 "));
 /*! Returns style type of the line */
 PyObject *scribus_getlinestyle(PyObject */*self*/, PyObject* args);
-
-/*! docstring */
-PyDoc_STRVAR(scribus_getfillshade__doc__,
-QT_TR_NOOP("getFillShade([\"name\"]) -> integer\n\
-\n\
-Returns the shading value of the fill color of the object \"name\".\n\
-If \"name\" is not given the currently selected item is used.\n\
-"));
-/*! Returns fill shade of the object */
-PyObject *scribus_getfillshade(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcornerrad__doc__,
@@ -171,4 +191,5 @@ Returns a list containing the names of all objects on the current page.\n\
 PyObject *scribus_getallobj(PyObject */*self*/, PyObject* args);
 
 #endif
+
 
