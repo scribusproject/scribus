@@ -1500,12 +1500,15 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
 	{
-		QDomElement fn=docu.createElement("FONT");
-		fn.setAttribute("NAME",itf.currentKey());
-		fn.setAttribute("EMBED",static_cast<int>(itf.current().embedPs()));
-		fn.setAttribute("USE", static_cast<int>(itf.current().usable()));
-		fn.setAttribute("SUBSET", static_cast<int>(itf.current().subset()));
-		elem.appendChild(fn);
+		if (!itf.currentKey().isEmpty())
+		{
+			QDomElement fn=docu.createElement("FONT");
+			fn.setAttribute("NAME",itf.currentKey());
+			fn.setAttribute("EMBED",static_cast<int>(itf.current().embedPs()));
+			fn.setAttribute("USE", static_cast<int>(itf.current().usable()));
+			fn.setAttribute("SUBSET", static_cast<int>(itf.current().subset()));
+			elem.appendChild(fn);
+		}
 	}
 	for (int rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
 	{
