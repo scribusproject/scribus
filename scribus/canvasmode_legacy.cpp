@@ -1406,6 +1406,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale());
 			SeRx = Mxp;
 			SeRy = Myp;
+			Dxp = Mxp;
+			Dyp = Myp;
 			if (GetItem(&currItem))
 			{
 				if (currItem->asLine())
@@ -1504,6 +1506,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 						SeRx = Mxp;
 						SeRy = Myp;
+						Dxp = Mxp;
+						Dyp = Myp;
 					}
 					else
 						shiftSelItems = false;
@@ -1551,6 +1555,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 						SeRx = Mxp;
 						SeRy = Myp;
+						Dxp = Mxp;
+						Dyp = Myp;
 					}
 				}
 				m_canvas->setRenderModeFillBuffer();
