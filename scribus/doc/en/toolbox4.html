@@ -14,14 +14,14 @@
 <li>The way that pixels are adjusted (interpolated) in filters and effects are applied use Linear as the default. This is a good compromise for speed vs. accuracy.  <b>Lanczos should almost always be the default for print work</b>, but do expect many operations, (re-scaling, filter application) to run slower. Using Lanczos can make sometimes a dramatic difference in the perceived print quality of an image, so make sure GIMP is using it by default.</li>
 </ul>
 
-<table width="100%"><tr><td align="center"><img alt="Cubic Interpolation" src="images/gimpoptions1.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions1.png" alt="Lanczos Interpolation" /></td></tr></table>
 
 <p>Like most image editors, GIMP's defaults are setup primarily for web site images, meaning waaaay too little resolution for print. So first thing, set the defaults to a <strong>minimum</strong> of 144 DPI in resolution. Remember using these higher resolutions will result in much larger size files, so you might also need to adjust maximum settings for memory usage as well in GIMP preferences. </p>
 
-<table width="100%"><tr><td align="center"><img alt="DPI Defaults" src="images/gimpoptions3.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions3.png" alt="DPI Defaults"  /></td></tr></table>
 
 <p>The other notable addition is the beginnings of some very basic color managed "soft proofs" of your images. This is available via LittleCMS also used by Scribus. You can set this in the preferences. Where this will help you is to see how it will look when transformed into a CMYK color space when printed or exported as PDF. </p>
 
-<table width="100%"><tr><td align="center"><img alt="Display Filter" src="images/gimpoptions2.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions2.png" alt="Color Management Settings" /></td></tr></table>
 
 </qt>
