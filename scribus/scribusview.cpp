@@ -4191,7 +4191,7 @@ void ScribusView::keyReleaseEvent(QKeyEvent *k)
 	m_ScMW->keyReleaseEvent(k);
 }
 
-void ScribusView::contentsWheelEvent(QWheelEvent *w)
+void ScribusView::wheelEvent(QWheelEvent *w)
 {
 	//QScrollArea::contentsWheelEvent(w);
 //	evSpon = true;

@@ -337,7 +337,7 @@ private slots:
 	void dragTimerTimeOut();
 
 public:
-	virtual void contentsWheelEvent ( QWheelEvent *ev );
+	virtual void wheelEvent ( QWheelEvent *ev );
 	virtual void changeEvent(QEvent *e);
 
 	void keyPressEvent(QKeyEvent *k);

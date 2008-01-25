@@ -1083,7 +1083,7 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 {
 	if (HaveDoc)
 	{
-		view->contentsWheelEvent(w);
+		view->wheelEvent(w);
 /*		int wheelVal=prefsManager->mouseWheelValue();
 		if ((w->orientation() != Qt::Vertical) || ( w->modifiers() & Qt::ShiftModifier ))
 		{
