@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <utility>
 
-#include <QTextStream>
+#include <QDataStream>
 #include <QFile>
 #include <QList>
 #include <QPen>
@@ -127,8 +127,6 @@ class SCRIBUS_API PSLib : public QObject
 		void PutStream (const char* in, int length, bool hexEnc);
 		void WriteASCII85Bytes(const QByteArray& array);
 		void WriteASCII85Bytes(const unsigned char* array, int length);
-		void WriteASCIIHexBytes(const QByteArray& array);
-		void WriteASCIIHexBytes(const char* array, int length);
 		QString ToStr(double c);
 		QString IToStr(int c);
 		QString PSEncode(QString in);
@@ -158,7 +156,7 @@ class SCRIBUS_API PSLib : public QObject
 		QMap<QString, GListe> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;
-		QTextStream spoolStream;
+		QDataStream spoolStream;
 		int  Plate;
 		bool DoSep;
 		bool useSpotColors;

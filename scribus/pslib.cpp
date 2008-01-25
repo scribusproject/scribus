@@ -246,8 +246,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 
 void PSLib::PutStream(const QString& c)
 {
-	spoolStream.flush();
-	spoolStream.device()->write(c.toUtf8().data(), c.length());
+	spoolStream.writeRawData(c.toUtf8().data(), c.length());
 }
 
 void PSLib::PutStream(const QByteArray& array, bool hexEnc)
@@ -255,10 +254,7 @@ void PSLib::PutStream(const QByteArray& array, bool hexEnc)
 	if(hexEnc)
 		WriteASCII85Bytes(array);
 	else
-	{
-		spoolStream.flush();
-		spoolStream.device()->write(array.data(), array.size());
-	}
+		spoolStream.writeRawData(array.data(), array.size());
 }
 
 void PSLib::PutStream(const char* array, int length, bool hexEnc)
@@ -266,10 +262,7 @@ void PSLib::PutStream(const char* array, int length, bool hexEnc)
 	if(hexEnc)
 		WriteASCII85Bytes((const unsigned char*) array, length);
 	else
-	{
-		spoolStream.flush();
-		spoolStream.device()->write(array, length);
-	}
+		spoolStream.writeRawData(array, length);
 }
 
 void PSLib::WriteASCII85Bytes(const QByteArray& array)
@@ -324,7 +317,7 @@ void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 			if (pendingWrite > maxWrite)
 			{
 				writeBuffer[pendingWrite] = 0;
-				spoolStream << (const char*) writeBuffer;
+				spoolStream.writeRawData((const char*) writeBuffer, pendingWrite);
 				ptrw = writeBuffer;
 				pendingWrite = 0;
 			}
@@ -335,7 +328,7 @@ void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 	if (pendingWrite)
 	{
 		writeBuffer[pendingWrite] = 0;
-		spoolStream << (const char*) writeBuffer;
+		spoolStream.writeRawData((const char*) writeBuffer, pendingWrite);
 		ptrw = writeBuffer;
 		pendingWrite = 0;
 	}
@@ -347,32 +340,11 @@ void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 		ascii85 = toAscii85(value, allZero);
 		memcpy (five_tuple, ascii85, 5);
 		five_tuple[pending + 1] = 0;
-		spoolStream << (const char*) five_tuple;
+		spoolStream.writeRawData((const char*) five_tuple, strlen(ascii85));
 	}
 	if (buffer)
 		free(buffer);
-	spoolStream << "~>\n";
-}
-
-void PSLib::WriteASCIIHexBytes(const QByteArray& array)
-{
-	WriteASCIIHexBytes(array.data(), array.size());
-}
-
-void PSLib::WriteASCIIHexBytes(const char* array, int length)
-{
-	int len = 0;
-	for (int i = 0; i < length; i++)
-	{
-		len++;
-		spoolStream << toHex(array[i]);
-		if ( len > 40 )
-		{
-			spoolStream << "\n";
-			len = 0;
-		}
-	}
-	spoolStream << "\n>\n";
+	spoolStream.writeRawData("~>\n", 3);
 }
 
 QString PSLib::ToStr(double c)
