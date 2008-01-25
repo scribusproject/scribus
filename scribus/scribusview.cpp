@@ -445,7 +445,14 @@ void ScribusView::stopGesture()
 		m_canvasMode->deactivate(false);
 		m_canvasMode = m_canvasMode->delegate();
 		m_canvasMode->activate(true);
-		m_canvas->repaint();
+		if (PrefsManager::instance()->appPrefs.stickyTools)
+		{
+			m_canvas->m_viewMode.forceRedraw = true;
+			m_canvas->resetRenderMode();
+			updateContents();
+		}
+		else
+			m_canvas->repaint();
 	}
 }
 

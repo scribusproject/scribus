@@ -213,6 +213,8 @@ void CreateMode::activate(bool fromGesture)
 		{
 			m_view->requestMode(modeNormal);
 		}
+		else
+			m_view->updateCanvas();
 	}
 	else
 	{
@@ -889,6 +891,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 	}
 	else
 	{
+				m_view->updateCanvas();
 		int appMode = m_doc->appMode;
 		m_view->requestMode(appMode);
 	}
