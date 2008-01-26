@@ -3725,12 +3725,18 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
 			size = widtht * heightt;
 			uint16 photometric, bitspersample, samplesperpixel, fillorder;
-			uint16 extrasamples = EXTRASAMPLE_UNSPECIFIED; 
+			
 			TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
 			TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
-			TIFFGetField(tif, TIFFTAG_EXTRASAMPLES, &extrasamples);
 			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
+
+			uint16 extrasamples = 0, *extratypes = NULL;
+			if (!TIFFGetField(tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
+			{
+				extrasamples = 0;
+				extratypes   = EXTRASAMPLE_UNSPECIFIED;
+			}
 
 			TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
 			TIFFGetField(tif, TIFFTAG_MODEL, &scannerModel);
@@ -3778,7 +3784,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						_TIFFfree(bits);
 						if (bitspersample == 1)
 							bilevel = true;
-						if (extrasamples == EXTRASAMPLE_ASSOCALPHA)
+						if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
 							unmultiplyRGBA();
 						isCMYK = false;
 					}
@@ -3857,7 +3863,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					_TIFFfree(bits);
 					if (bitspersample == 1)
 						bilevel = true;
-					if (extrasamples == EXTRASAMPLE_ASSOCALPHA)
+					if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
 						unmultiplyRGBA();
 				}
 				swapRGBA();
