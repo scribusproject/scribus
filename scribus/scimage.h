@@ -207,6 +207,7 @@ private:
 	void toGrayscale(bool cmyk);
 	void swapRGBA();
 	void swapByteOrder(int one=3, int two=2, int three=1, int four=0);
+	void unmultiplyRGBA();
 
 	// Misc implementation
 //	void liberateMemory(void **memory);

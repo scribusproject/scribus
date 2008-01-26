@@ -811,6 +811,35 @@ void ScImage::swapByteOrder(int one, int two, int three, int four)
 	}
 }
 
+void ScImage::unmultiplyRGBA()
+{
+	double r1, g1, b1, coeff;
+	unsigned char r, g, b, a;
+	for (int i = 0; i < height(); ++i)
+	{
+		unsigned int *ptr = (QRgb *) scanLine(i);
+		for (int j = 0; j < width(); ++j)
+		{
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			if (a != 0)
+			{
+				coeff = 255.0 / a;
+				r1 = coeff * r;
+				g1 = coeff * g;
+				b1 = coeff * b;
+				r  = (r1 <= 255.0) ? (unsigned char) r1 : 255;
+				g  = (g1 <= 255.0) ? (unsigned char) g1 : 255;
+				b  = (b1 <= 255.0) ? (unsigned char) b1 : 255;
+				*ptr++ = qRgba(r,g,b,a);
+			}
+			else
+				++ptr;
+		}
+	}
+}
 
 void ScImage::createLowRes(double scale)
 {
@@ -3696,9 +3725,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
 			size = widtht * heightt;
 			uint16 photometric, bitspersample, samplesperpixel, fillorder;
+			uint16 extrasamples = EXTRASAMPLE_UNSPECIFIED; 
 			TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
 			TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
+			TIFFGetField(tif, TIFFTAG_EXTRASAMPLES, &extrasamples);
 			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
 
 			TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
@@ -3747,6 +3778,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						_TIFFfree(bits);
 						if (bitspersample == 1)
 							bilevel = true;
+						if (extrasamples == EXTRASAMPLE_ASSOCALPHA)
+							unmultiplyRGBA();
 						isCMYK = false;
 					}
 					swapRGBA();
@@ -3824,6 +3857,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					_TIFFfree(bits);
 					if (bitspersample == 1)
 						bilevel = true;
+					if (extrasamples == EXTRASAMPLE_ASSOCALPHA)
+						unmultiplyRGBA();
 				}
 				swapRGBA();
 			}
