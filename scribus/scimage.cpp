@@ -824,7 +824,7 @@ void ScImage::unmultiplyRGBA()
 			g = qGreen(*ptr);
 			b = qBlue(*ptr);
 			a = qAlpha(*ptr);
-			if (a != 0)
+			if (a > 0 && a < 255)
 			{
 				coeff = 255.0 / a;
 				r1 = coeff * r;
