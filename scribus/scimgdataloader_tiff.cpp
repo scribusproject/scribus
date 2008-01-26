@@ -134,38 +134,11 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 	{
 		if (samplesperpixel > 5)
 		{
-			bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-			if(bits)
-			{
-				if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
-				{
-					for(unsigned int y = 0; y < heightt; y++)
-					{
-						memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
-						if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
-						{
-							unsigned char *s = image->scanLine( heightt - 1 - y );
-							unsigned char r, g, b, a;
-							for(uint xi=0; xi < widtht; ++xi )
-							{
-								r = s[0];
-								g = s[1];
-								b = s[2];
-								a = s[3];
-								s[0] = a;
-								s[1] = b;
-								s[2] = g;
-								s[3] = r;
-								s += image->channels();
-							}
-						}
-					}
-				}
-				_TIFFfree(bits);
-				if (bitspersample == 1)
-					bilevel = true;
-				isCMYK = false;
-			}
+			if (!getImageData_RGBA(tif, image, widtht, heightt, size, bitspersample, samplesperpixel))
+				return false;
+			if (bitspersample == 1)
+				bilevel = true;
+			isCMYK = false;
 		}
 		else
 		{
@@ -225,39 +198,48 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 	}
 	else
 	{
-		bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-		if(bits)
+		if (!getImageData_RGBA(tif, image, widtht, heightt, size, bitspersample, samplesperpixel))
+			return false;
+		if (bitspersample == 1)
+			bilevel = true;
+	}
+	return true;
+}
+
+bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 bitspersample, uint16 samplesperpixel)
+{
+	bool gotData = false;
+	uint32* bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+	if(bits)
+	{
+		if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 		{
-			if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
+			for(unsigned int y = 0; y < heightt; y++)
 			{
-				for(unsigned int y = 0; y < heightt; y++)
+				memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
+				if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
 				{
-					memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
-					if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
+					unsigned char *s = image->scanLine( heightt - 1 - y );
+					unsigned char r, g, b, a;
+					for(uint xi=0; xi < widtht; ++xi )
 					{
-						unsigned char *s = image->scanLine( heightt - 1 - y );
-						unsigned char r, g, b, a;
-						for(uint xi=0; xi < widtht; ++xi )
-						{
-							r = s[0];
-							g = s[1];
-							b = s[2];
-							a = s[3];
-							s[0] = a;
-							s[1] = b;
-							s[2] = g;
-							s[3] = r;
-							s += image->channels();
-						}
+						r = s[0];
+						g = s[1];
+						b = s[2];
+						a = s[3];
+						s[0] = a;
+						s[1] = b;
+						s[2] = g;
+						s[3] = r;
+						s += image->channels();
 					}
 				}
 			}
-			_TIFFfree(bits);
-			if (bitspersample == 1)
-				bilevel = true;
+			gotData = true;
 		}
+		_TIFFfree(bits);
 	}
-	return true;
+	return gotData;
 }
 
 void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask)
