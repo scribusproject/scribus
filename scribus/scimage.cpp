@@ -3735,7 +3735,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			if (!TIFFGetField(tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
 			{
 				extrasamples = 0;
-				extratypes   = EXTRASAMPLE_UNSPECIFIED;
+				extratypes   = NULL;
 			}
 
 			TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
