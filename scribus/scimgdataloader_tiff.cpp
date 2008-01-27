@@ -158,7 +158,7 @@ void ScImgDataLoader_TIFF::unmultiplyRGBA(RawImage *image)
 	}
 }
 
-bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK, uint16 extrasamples, uint16 *extratypes)
+bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
 {
 	uint32 *bits = 0;
 	if (photometric == PHOTOMETRIC_SEPARATED)
@@ -169,8 +169,6 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 				return false;
 			if (bitspersample == 1)
 				bilevel = true;
-			if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
-				unmultiplyRGBA(image);
 			isCMYK = false;
 		}
 		else
@@ -235,8 +233,6 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			return false;
 		if (bitspersample == 1)
 			bilevel = true;
-		if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
-			unmultiplyRGBA(image);
 	}
 	return true;
 }
@@ -245,6 +241,9 @@ bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint wi
 {
 	bool gotData = false;
 	uint32* bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+	uint16  extrasamples, *extratypes;
+	if (!TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
+		extrasamples = 0;
 	if(bits)
 	{
 		if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
@@ -270,6 +269,8 @@ bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint wi
 					}
 				}
 			}
+			if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
+				unmultiplyRGBA(image);
 			gotData = true;
 		}
 		_TIFFfree(bits);
@@ -585,12 +586,6 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
 		TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
-		uint16 extrasamples = 0, *extratypes = NULL;
-		if (!TIFFGetField(tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
-		{
-			extrasamples = 0;
-			extratypes   = NULL;
-		}
 
 		TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
 		TIFFGetField(tif, TIFFTAG_MODEL, &scannerModel);
@@ -912,7 +907,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				return false;
 			}
 			r_image.fill(0);
-			bool firstL;
+			bool firstL = true;
 			do
 			{
 				RawImage tmpImg;
@@ -924,7 +919,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				else
 				{
 					tmpImg.fill(0);
-					if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK, extrasamples, extratypes))
+					if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK))
 					{
 						TIFFClose(tif);
 						return false;
@@ -1201,7 +1196,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		}
 	}
 	if (!hasAlpha)
-		r2_image.fill(255);
+		r2_image.fill((char) 255);
 	for(uint channel = 0; channel < channel_num; channel++)
 	{
 		if (layerInfo[layer].channelType[channel] == -2)
