@@ -29,7 +29,8 @@ protected:
 	};
 	void initSupportedFormatList();
 	int getLayers(const QString& fn);
-	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK);
+	void unmultiplyRGBA(RawImage *image);
+	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK, uint16 extrasamples, uint16 *extratypes);
 	bool getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 bitspersample, uint16 samplesperpixel);
 	void blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask);
 	QString getLayerString(QDataStream & s);

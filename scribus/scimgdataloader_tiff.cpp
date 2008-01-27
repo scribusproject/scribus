@@ -127,7 +127,37 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 	return layerNum;
 }
 
-bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
+void ScImgDataLoader_TIFF::unmultiplyRGBA(RawImage *image)
+{
+	double r1, g1, b1, coeff;
+	unsigned char r, g, b, a;
+	for (int i = 0; i < image->height(); ++i)
+	{
+		unsigned int *ptr = (QRgb *) image->scanLine(i);
+		for (int j = 0; j < image->width(); ++j)
+		{
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			if (a > 0 && a < 255)
+			{
+				coeff = 255.0 / a;
+				r1 = coeff * r;
+				g1 = coeff * g;
+				b1 = coeff * b;
+				r  = (r1 <= 255.0) ? (unsigned char) r1 : 255;
+				g  = (g1 <= 255.0) ? (unsigned char) g1 : 255;
+				b  = (b1 <= 255.0) ? (unsigned char) b1 : 255;
+				*ptr++ = qRgba(r,g,b,a);
+			}
+			else
+				++ptr;
+		}
+	}
+}
+
+bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK, uint16 extrasamples, uint16 *extratypes)
 {
 	uint32 *bits = 0;
 	if (photometric == PHOTOMETRIC_SEPARATED)
@@ -202,6 +232,8 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			return false;
 		if (bitspersample == 1)
 			bilevel = true;
+		if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
+			unmultiplyRGBA(image);
 	}
 	return true;
 }
@@ -550,6 +582,12 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
 		TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
+		uint16 extrasamples = 0, *extratypes = NULL;
+		if (!TIFFGetField(tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
+		{
+			extrasamples = 0;
+			extratypes   = NULL;
+		}
 
 		TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
 		TIFFGetField(tif, TIFFTAG_MODEL, &scannerModel);
@@ -871,6 +909,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				return false;
 			}
 			r_image.fill(0);
+			bool firstL;
 			do
 			{
 				RawImage tmpImg;
@@ -882,7 +921,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				else
 				{
 					tmpImg.fill(0);
-					if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK))
+					if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK, extrasamples, extratypes))
 					{
 						TIFFClose(tif);
 						return false;
@@ -900,7 +939,13 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
 						layOpa = m_imageInfoRecord.RequestProps[layerNum].opacity;
 					if (visible)
-						blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
+					{
+						if ((firstL) && (layBlend != "diss"))
+							r_image = tmpImg;
+						else
+							blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
+						firstL = false;
+					}
 					//JG Copy should not be necessary as QImage is implicitly shared in Qt4
 					QImage imt; //QImage imt = tmpImg.copy();
 					if (chans > 4)
