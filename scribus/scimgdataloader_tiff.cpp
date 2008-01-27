@@ -78,6 +78,7 @@ bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res, bool&
 	if(loadPicture(fn, res, false))
 	{
 		m_imageInfoRecord.valid = true;
+		hasAlpha = true;
 		if (photometric == PHOTOMETRIC_SEPARATED)
 		{
 			if (samplesperpixel == 4)
@@ -168,6 +169,8 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 				return false;
 			if (bitspersample == 1)
 				bilevel = true;
+			if (extrasamples > 0 && extratypes[0] == EXTRASAMPLE_ASSOCALPHA)
+				unmultiplyRGBA(image);
 			isCMYK = false;
 		}
 		else
