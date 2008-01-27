@@ -1191,7 +1191,7 @@ void ScPainter::drawImage( QImage *image )
 	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
 	if (fill_trans != 1.0)
 	{
-		mask.create(image->width(), image->height(), 8);
+		mask = QImage(image->width(), image->height(), QImage::Format_Mono);
 		for( int yi = 0; yi < image->height(); ++yi )
 		{
 			QRgb * s = (QRgb*)(image->scanLine( yi ));
