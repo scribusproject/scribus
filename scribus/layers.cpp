@@ -344,6 +344,7 @@ void LayerPalette::visibleLayer()
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		setActiveLayer(Table->currentRow());
 		emit LayerChanged();
 	}
 }
@@ -356,7 +357,10 @@ void LayerPalette::printLayer()
 		return;
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
+	{
 		m_Doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		setActiveLayer(Table->currentRow());
+	}
 }
 
 void LayerPalette::lockLayer()
@@ -370,6 +374,7 @@ void LayerPalette::lockLayer()
 	{
 		m_Doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		deleteLayerButton->setEnabled(!((QCheckBox*)(senderBox))->isChecked());
+		setActiveLayer(Table->currentRow());
 	}
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 }
@@ -383,6 +388,7 @@ void LayerPalette::flowToggleLayer()
 	const QObject* senderBox=sender();
 	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 		m_Doc->setLayerFlow(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		setActiveLayer(Table->currentRow());
 }
 
 void LayerPalette::outlineToggleLayer()
@@ -396,6 +402,7 @@ void LayerPalette::outlineToggleLayer()
 	{
 		m_Doc->setLayerOutline(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
+		setActiveLayer(Table->currentRow());
 	}
 }
 
@@ -418,6 +425,7 @@ void LayerPalette::markLayer()
 			m_Doc->setLayerMarker(layerNumber,neu);
 			emit LayerChanged();
 		}
+		setActiveLayer(Table->currentRow());
 	}
 }
 
