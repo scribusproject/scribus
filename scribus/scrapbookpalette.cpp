@@ -183,12 +183,16 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 	}
 	QString source = "";
 	QString target = "";
+	bool first = true;
 	DOC = elem.firstChild();
 	while(!DOC.isNull())
 	{
 		QDomElement pg = DOC.toElement();
 		if(pg.tagName() == "ITEM")
 		{
+			if (first)
+				pg.setAttribute("ANNAME", fid.baseName());
+			first = false;
 			PageItem::ItemType PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
 			if ((PType == PageItem::ImageFrame) || (PType == PageItem::TextFrame))
 			{
@@ -1180,18 +1184,48 @@ void Biblio::adjustReferences(QString nam)
 	}
 }
 
+QString Biblio::getObjectName(QString &text)
+{
+	QDomDocument docu("scridoc");
+	docu.setContent(text);
+	QDomElement elem = docu.documentElement();
+	QDomNode DOC = elem.firstChild();
+	QString result = "";
+	while(!DOC.isNull())
+	{
+		QDomElement pg = DOC.toElement();
+		if(pg.tagName() == "ITEM")
+		{
+			result = pg.attribute("ANNAME");
+			break;
+		}
+		DOC = DOC.nextSibling();
+	}
+	return result;
+}
+
 void Biblio::ObjFromMenu(QString text)
 {
-	QString nam, tmp;
+	QString nam = "";
+	QString tmp;
 	if (!activeBView->canWrite)
 		return;
+	nam = getObjectName(text);
 	if (Frame3->currentIndex() == 1)
 	{
-		nam = tr("Object") + tmp.setNum(tempCount);
+		if (nam.isEmpty())
+			nam = tr("Object") + tmp.setNum(tempCount);
+		if (activeBView->objectMap.contains(nam))
+			nam += "("+ tmp.setNum(tempCount) + ")";
 		tempCount++;
 	}
 	else
-		nam = tr("Object") + tmp.setNum(activeBView->objectMap.count());
+	{
+		if (nam.isEmpty())
+			nam = tr("Object") + tmp.setNum(activeBView->objectMap.count());
+		if (activeBView->objectMap.contains(nam))
+			nam += "("+ tmp.setNum(tempCount) + ")";
+	}
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->setEditText(nam, true);
@@ -1274,10 +1308,15 @@ void Biblio::ObjFromMenu(QString text)
 	}
 }
 
-void Biblio::ObjFromCopyAction(QString text)
+void Biblio::ObjFromCopyAction(QString text, QString name)
 {
-	QString nam, tmp;
-	nam = tr("Object") + tmp.setNum(tempCount);
+	QString nam = "";
+	QString tmp;
+	nam = name;
+	if (nam.isEmpty())
+		nam = tr("Object") + tmp.setNum(tempCount);
+	if (tempBView->objectMap.contains(nam))
+		nam += "("+ tmp.setNum(tempCount) + ")";
 	tempCount++;
 	QString ff = text;
 	tempBView->checkAndChange(ff, QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::convertSeparators(tempBView->ScFilename)));

@@ -4831,7 +4831,7 @@ void ScribusMainWindow::slotEditCut()
 
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
-				scrapbookPalette->ObjFromCopyAction(Buffer2);
+				scrapbookPalette->ObjFromCopyAction(Buffer2, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
 			Buffer2 = BufferI;
@@ -4966,7 +4966,7 @@ void ScribusMainWindow::slotEditCopy()
 
 			if ((prefsManager->appPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
-				scrapbookPalette->ObjFromCopyAction(Buffer2);
+				scrapbookPalette->ObjFromCopyAction(Buffer2, currItem->itemName());
 				rebuildRecentPasteMenu();
 			}
 			Buffer2 = BufferI;
@@ -8669,6 +8669,24 @@ void ScribusMainWindow::PutScrap()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	QString objectString = ss->WriteElem(doc, view, doc->m_Selection);
+	QDomDocument docu("scridoc");
+	docu.setContent(objectString);
+	QDomElement elem = docu.documentElement();
+	QDomNode DOC = elem.firstChild();
+	bool first = true;
+	DOC = elem.firstChild();
+	while(!DOC.isNull())
+	{
+		QDomElement pg = DOC.toElement();
+		if(pg.tagName() == "ITEM")
+		{
+			if (first)
+				pg.setAttribute("ANNAME", doc->m_Selection->itemAt(0)->itemName());
+			first = false;
+		}
+		DOC = DOC.nextSibling();
+	}
+	objectString = docu.toString();
 	scrapbookPalette->ObjFromMenu(objectString);
 	delete ss;
 }

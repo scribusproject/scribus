@@ -70,7 +70,7 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 	
-	void ObjFromCopyAction(QString text);
+	void ObjFromCopyAction(QString text, QString name);
 	void adjustReferences(QString nam);
 	void CleanUpTemp();
 	void setScrapbookFileName(QString);
@@ -82,6 +82,7 @@ public:
 	void installEventFilter(QObject *);
 	void setOpenScrapbooks(QStringList &fileNames);
 	QStringList getOpenScrapbooks();
+	QString getObjectName(QString &text);
 	BibView* tempBView;
 	QListWidgetItem *actItem;
 	
