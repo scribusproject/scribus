@@ -170,8 +170,8 @@ void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 	p->save();
 	p->translate(textframe->xPos(), textframe->yPos());
 	p->rotate(textframe->rotation());
-	p->setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	if (m_blinkTime.elapsed() > 400)
+	p->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	if (m_blinkTime.elapsed() > qApp->cursorFlashTime() / 2)
 	{
 //		qDebug() << "blink";
 		m_cursorVisible = !m_cursorVisible;
@@ -181,8 +181,9 @@ void LegacyMode::drawTextCursor(QPainter *p, PageItem_TextFrame* textframe)
 //		qDebug() << "no blink" << m_blinkTime.elapsed() ;
 	if (m_cursorVisible)
 	{
-		p->drawLine(x, qMin(qMax(y,0),static_cast<int>(textframe->height())), 
-				   x, qMin(qMax(y1,0),static_cast<int>(textframe->height())));
+		int p1 = qMin(qMax(y,0),static_cast<int>(textframe->height()));
+		int p2 = qMin(qMax(y1,0),static_cast<int>(textframe->height()));
+		p->drawLine(x, p1, x, p2);
 	}
 	p->restore();
 }
