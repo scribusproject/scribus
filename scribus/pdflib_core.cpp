@@ -2942,8 +2942,10 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				PutDoc(" >>\nstream\n"+EncStream(inh, ObjCounter-1)+"\nendstream\nendobj\n");
 				QString name = ll.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_") + QString::number(ll.LNr) + QString::number(PNr);
 				Seite.XObjects[name] = ObjCounter-1;
+				PutPage("q\n");
 				PutPage("/"+ShName+" gs\n");
 				PutPage("/"+name+" Do\n");
+				PutPage("Q\n");
 			}
 			if ((Options.Version == 15) && (Options.useLayers))
 				PutPage("EMC\n");
@@ -3068,8 +3070,10 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	QString name = ResNam+QString::number(ResCount);
 	ResCount++;
 	Seite.XObjects[name] = ObjCounter-1;
+	retString += "q\n";
 	retString += "/"+ShName+" gs\n";
 	retString += "/"+name+" Do\n";
+	retString += "Q\n";
 	return retString;
 }
 
