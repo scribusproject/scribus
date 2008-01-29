@@ -69,7 +69,6 @@ bool ScASCII85EncodeFilter::writeData(const char* data, int dataLen)
 	const char* ascii85;
 	quint32 value;
 
-	int dataLenB = dataLen;
 	int maxWrite = m_buffer.size() - (m_buffer.size() % 5) - 5;
 	if (maxWrite <= 5) return 0;
 

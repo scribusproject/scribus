@@ -85,7 +85,6 @@ bool ScFlateEncodeFilter::closeFilter(void)
 
 bool ScFlateEncodeFilter::writeData(const char* data, int dataLen)
 {
-	int  bytesWritten = 0;
 	bool deflateSuccess = true;
     unsigned int count;
     const unsigned char *p = (const unsigned char *) data;
