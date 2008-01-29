@@ -199,8 +199,9 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		}
 		else
 		{
+			p->translate(x, y);
 			p->scale(scalex, scaley);
-			p->drawRect(QRectF(x, y, w, h));
+			p->drawRect(QRectF(0, 0, w, h));
 		}
 	}
 	p->restore();
