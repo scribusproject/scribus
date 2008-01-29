@@ -63,6 +63,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual const QString& errorMessage(void);
 
 		virtual void PS_Error(const QString& message);
+		virtual void PS_Error_ImageDataWriteFailure(void);
 		virtual void PS_Error_ImageLoadFailure(const QString& fileName);
 		virtual void PS_Error_MaskLoadFailure(const QString& fileName);
 		virtual void PS_Error_InsufficientMemory(void);
@@ -125,6 +126,10 @@ class SCRIBUS_API PSLib : public QObject
 		void PutStream (const QString& c);
 		void PutStream (const QByteArray& array, bool hexEnc);
 		void PutStream (const char* in, int length, bool hexEnc);
+
+		bool PutImageDataToStream(const QByteArray& image);
+		bool PutInterleavedImageMaskToStream(const QByteArray& image, const QByteArray& mask, bool gray);
+
 		void WriteASCII85Bytes(const QByteArray& array);
 		void WriteASCII85Bytes(const unsigned char* array, int length);
 		QString ToStr(double c);

@@ -495,6 +495,9 @@ SET(SCRIBUS_SOURCES
   scribuswin.cpp
   scrpalettebase.cpp
   scrspinbox.cpp
+  scstreamfilter.cpp
+  scstreamfilter_ascii85.cpp
+  scstreamfilter_flate.cpp
   sctablewidget.cpp
   sctextbrowser.cpp
   sctextstruct.cpp

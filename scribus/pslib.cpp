@@ -53,6 +53,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scpattern.h"
 #include "sccolorengine.h"
+#include "scstreamfilter_ascii85.h"
+#include "scstreamfilter_flate.h"
 
 #include "text/nlsconfig.h"
 
@@ -265,6 +267,62 @@ void PSLib::PutStream(const char* array, int length, bool hexEnc)
 		spoolStream.writeRawData(array, length);
 }
 
+bool PSLib::PutImageDataToStream(const QByteArray& image)
+{
+	bool writeSucceed = false;
+	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScFlateEncodeFilter   flateEncode(&asciiEncode);
+	if (flateEncode.openFilter())
+	{
+		writeSucceed  = flateEncode.writeData(image, image.size());
+		writeSucceed &= flateEncode.closeFilter();
+	}
+	return writeSucceed;
+}
+
+bool PSLib::PutInterleavedImageMaskToStream(const QByteArray& image, const QByteArray& mask, bool gray)
+{
+	int pending = 0;
+	int bIndex  = 0;
+	unsigned char bytes[1505];
+	const unsigned char* imageData = (const unsigned char*) image.constData();
+	const unsigned char* maskData  = (const unsigned char*) mask.constData();
+	bool  writeSuccess = true;
+
+	int channels = gray ? 1 : 4;
+	int pixels   = image.size() / channels;
+	assert((image.size() % channels) == 0);
+	assert( mask.size() >= pixels );
+
+	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScFlateEncodeFilter   flateEncode(&asciiEncode);
+	if (!flateEncode.openFilter()) 
+		return false;
+
+	for (int i = 0; i < pixels; ++i)
+	{
+		bIndex = 4 *i;
+		bytes[pending++] = maskData [i];
+		bytes[pending++] = *imageData++; // cyan/black
+		if (channels >= 1)
+		{
+			bytes[pending++] = *imageData++; // magenta
+			bytes[pending++] = *imageData++; // yellow
+			bytes[pending++] = *imageData++; // green
+		}
+		if (pending >= 1500)
+		{
+			writeSuccess &= flateEncode.writeData((const char* ) bytes, pending);
+			pending = 0;
+		}
+	}
+	// To close the stream
+	if (pending > 0)
+		writeSuccess &= flateEncode.writeData((const char* ) bytes, pending);
+	writeSuccess &= flateEncode.closeFilter();
+	return writeSuccess;
+}
+
 void PSLib::WriteASCII85Bytes(const QByteArray& array)
 {
 	WriteASCII85Bytes((const unsigned char*) array.data(), array.size());
@@ -272,79 +330,10 @@ void PSLib::WriteASCII85Bytes(const QByteArray& array)
 
 void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 {
-	int  pending = 0;
-	int  written = 0;
-	int  pendingWrite = 0;
-	int  maxBytes = 0;
-	bool allZero  = true;
-	unsigned char  four_tuple[4];
-	unsigned char  fallBackBuffer[1024];
-	const unsigned char *ptr  = array;
-	const char* ascii85;
-	quint32 value;
-
-	unsigned char* buffer = (unsigned char*) malloc(65536);
-	unsigned char* writeBuffer = buffer ? buffer : fallBackBuffer;
-	unsigned char* ptrw = writeBuffer;
-	int maxWrite = buffer ? 65530 : 1016;
-
-	while (length) 
-	{
-		four_tuple[pending++] = *ptr++;
-		length--;
-		if (pending == 4) 
-		{
-			value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
-			ascii85 = toAscii85(value, allZero);
-			if (allZero)
-				*ptrw++ = 'z';
-			else
-			{
-				*ptrw++ = ascii85[0];
-				*ptrw++ = ascii85[1];
-				*ptrw++ = ascii85[2];
-				*ptrw++ = ascii85[3];
-				*ptrw++ = ascii85[4];
-			}
-			written += ((allZero) ? 1 : 5);
-			pendingWrite += ((allZero) ? 1 : 5);
-			if (written > 75)
-			{
-				*ptrw++ = '\n';
-				++pendingWrite;
-				written = 0;
-			}
-			if (pendingWrite > maxWrite)
-			{
-				writeBuffer[pendingWrite] = 0;
-				spoolStream.writeRawData((const char*) writeBuffer, pendingWrite);
-				ptrw = writeBuffer;
-				pendingWrite = 0;
-			}
-			pending = 0;
-		}
-	}
-
-	if (pendingWrite)
-	{
-		writeBuffer[pendingWrite] = 0;
-		spoolStream.writeRawData((const char*) writeBuffer, pendingWrite);
-		ptrw = writeBuffer;
-		pendingWrite = 0;
-	}
-	if (pending) 
-	{
-		unsigned char five_tuple[6];
-		memset (four_tuple + pending, 0, 4 - pending);
-		value   = four_tuple[0] << 24 | four_tuple[1] << 16 | four_tuple[2] << 8 | four_tuple[3];
-		ascii85 = toAscii85(value, allZero);
-		memcpy (five_tuple, ascii85, 5);
-		five_tuple[pending + 1] = 0;
-		spoolStream.writeRawData((const char*) five_tuple, strlen(ascii85));
-	}
-	if (buffer)
-		free(buffer);
-	spoolStream.writeRawData("~>\n", 3);
+	ScASCII85EncodeFilter filter(&spoolStream);
+	filter.openFilter();
+	filter.writeData((const char*) array, length);
+	filter.closeFilter();
 }
 
 QString PSLib::ToStr(double c)
@@ -1346,22 +1335,8 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 		PS_Error_InsufficientMemory();
 		return false;
 	}
-	QByteArray compImage = CompressArray(imgArray);
-	if (compImage.size() > 0)
-	{
-		PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-		PutStream(compImage, true);
-		compImage.resize(0);
-	}
-	else
-	{
-		PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-		PutStream(imgArray, true);
-	}
-	PutStream("/"+PSEncode(Name)+"Bild exch def\n");
-	imgArray.resize(0);
 	QByteArray maskArray;
-	bool alphaLoaded = image.getAlpha(fn, maskArray, false, false, 300);
+	bool alphaLoaded = image.getAlpha(fn, maskArray, false, true, 300);
 	if (!alphaLoaded)
 	{
 		PS_Error_MaskLoadFailure(fn);
@@ -1369,18 +1344,24 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	}
 	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
 	{
-		QByteArray compMask = CompressArray(maskArray);
-		if (compMask.size() > 0)
+		PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
+		if (!PutInterleavedImageMaskToStream(imgArray, maskArray, false))
 		{
-			PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-			PutStream(compMask, true);
+			PS_Error_ImageDataWriteFailure();
+			return false;
 		}
-		else
+		PutStream("/"+PSEncode(Name)+"Bild exch def\n");
+	}
+	else
+	{
+		PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
+		if (!PutImageDataToStream(imgArray))
 		{
-			PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-			PutStream(maskArray, true);
+			PS_Error_ImageDataWriteFailure();
+			return false;
 		}
-		PutStream("/"+PSEncode(Name)+"Mask exch def\n");
+		PutStream("/"+PSEncode(Name)+"Bild exch def\n");
+		imgArray.resize(0);
 	}
 	return true;
 }
@@ -1388,6 +1369,7 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
 {
 	bool dummy;
+	bool compImageAvail = false;
 	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
@@ -1461,7 +1443,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		if (c->pixm.imgInfo.type != ImageType7)
 		{
-			bool alphaLoaded = img2.getAlpha(fn, maskArray, false, false, 300);
+			bool alphaLoaded = img2.getAlpha(fn, maskArray, false, true, 300);
 			if (!alphaLoaded)
 			{
 				PS_Error_MaskLoadFailure(fn);
@@ -1477,72 +1459,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 				PS_Error_InsufficientMemory();
 				return false;
 			}
-			if (Name.isEmpty())
-			{
-				QByteArray compImage = CompressArray(imgArray);
-				if (compImage.size() > 0)
-				{
-					imgArray.resize(0);
-					PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-					PutStream(compImage, true);
-					compImage.resize(0);
-				}
-				else
-				{
-					PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-					PutStream(imgArray, true);
-					imgArray.resize(0);
-				}
-				PutStream("/Bild exch def\n");
-				QByteArray compMask = CompressArray(maskArray);
-				if (compMask.size() > 0)
-				{
-					PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-					PutStream(compMask, true);
-				}
-				else
-				{
-					PutStream("currentfile /ASCII85Decode filter /ReusableStreamDecode filter\n");
-					PutStream(maskArray, true);
-				}
-				PutStream("/Mask exch def\n");
-			}
-			PutStream("<<\n");
-			PutStream("  /PaintType   1\n");
-			PutStream("  /PatternType 1\n");
-			PutStream("  /TilingType  3\n");
-			PutStream("  /BBox        [ 0 0 1 1 ]\n");
-			PutStream("  /XStep       2\n");
-			PutStream("  /YStep       2\n");
-			PutStream("  /PaintProc   {\n");
-			PutStream("   pop\n");
-			PutStream("   1 1 1 1 setcmykcolor\n");
-			PutStream("   <<\n");
-			PutStream("   /ImageType 1\n");
-			PutStream("   /Height    " + IToStr(h) + "\n");
-			PutStream("   /Width     " + IToStr(w) + "\n");
-			PutStream("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h)
-				+"]\n");
-			if (DoSep)
-				PutStream("   /Decode [1 0]\n");
-			else
-				PutStream( GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n" );
-			PutStream("   /BitsPerComponent 8\n");
-			PutStream("   /DataSource "+PSEncode(Name)+"Bild\n");
-			PutStream("   >>\n");
-			PutStream("   image\n");
-			PutStream("   }\n");
-			PutStream(">> matrix makepattern setpattern\n");
-			PutStream("<< /ImageType 1\n");
-			PutStream("   /Width " + IToStr(w) + "\n");
-			PutStream("   /Height " + IToStr(h) + "\n");
-			PutStream("   /BitsPerComponent 1\n");
-			PutStream("   /Decode [1 0]\n");
-			PutStream("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
-			PutStream("   /DataSource "+PSEncode(Name)+"Mask\n");
-			PutStream(">>\n");
-			PutStream("imagemask\n");
-			/* JG - Experimental code using Type3 image instead of patterns
+			// JG - Experimental code using Type3 image instead of patterns
 			PutStream("<< /ImageType 3\n");
 			PutStream("   /DataDict <<\n");
 			PutStream("      /ImageType 1\n");
@@ -1551,24 +1468,34 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutStream("      /BitsPerComponent 8\n");
 			PutStream( (GraySc || DoSep) ? "      /Decode [1 0]\n" : "      /Decode [0 1 0 1 0 1 0 1]\n");
 			PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
-			PutStream("      /DataSource "+PSEncode(Name)+"Bild\n");
+			if (Name.length() > 0)
+				PutStream("      /DataSource "+PSEncode(Name)+"Bild\n");
+			else
+			    PutStream("      /DataSource currentfile /ASCII85Decode filter /FlateDecode filter\n");
 			PutStream("      >>\n");
 			PutStream("   /MaskDict <<\n");
 			PutStream("      /ImageType 1\n");
 			PutStream("      /Width  " + IToStr(w) + "\n");
 			PutStream("      /Height " + IToStr(h) + "\n");
-			PutStream("      /BitsPerComponent 1\n");
+			PutStream("      /BitsPerComponent 8\n");
 			PutStream("      /Decode [1 0]\n");
 			PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
-			PutStream("      /DataSource "+PSEncode(Name)+"Mask\n");
 			PutStream("      >>\n");
-			PutStream("   /InterleaveType 3\n");
+			PutStream("   /InterleaveType 1\n");
 			PutStream(">>\n");
-			PutStream("image\n");*/
-			if (!Name.isEmpty())
+			PutStream("image\n");
+			if (Name.isEmpty())
+			{
+				if (!PutInterleavedImageMaskToStream(imgArray, maskArray, GraySc || DoSep))
+				{
+					PS_Error_ImageDataWriteFailure();
+					return false;
+				}
+			}
+			else
 			{
 				PutStream(PSEncode(Name)+"Bild resetfile\n");
-				PutStream(PSEncode(Name)+"Mask resetfile\n");
+				//PutStream(PSEncode(Name)+"Mask resetfile\n");
 			}
 		}
 		else
@@ -1597,18 +1524,12 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 					PS_Error_InsufficientMemory();
 					return false;
 				}
-				QByteArray compImage = CompressArray(imgArray);
-				if (compImage.size() > 0)
+				PutStream("   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n");
+				PutStream("image\n");
+				if (!PutImageDataToStream(imgArray))
 				{
-					PutStream("   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n");
-					PutStream("image\n");
-					PutStream(compImage, true);
-				}
-				else
-				{
-					PutStream("   /DataSource currentfile /ASCII85Decode filter >>\n");
-					PutStream("image\n");
-					PutStream(imgArray, true);
+					PS_Error_ImageDataWriteFailure();
+					return false;
 				}
 			}
 		}
@@ -1692,6 +1613,11 @@ void PSLib::PS_Error(const QString& message)
 	ErrorMessage = message;
 	if (!ScCore->usingGUI())
 		qDebug(message.toLocal8Bit().data());
+}
+
+void PSLib::PS_Error_ImageDataWriteFailure(void)
+{
+	PS_Error( tr("Failed to write data for an image"));
 }
 
 void PSLib::PS_Error_ImageLoadFailure(const QString& fileName)
