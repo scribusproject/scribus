@@ -93,6 +93,7 @@ public slots:
 
 private slots:
 	void handleDoubleClick(QListWidgetItem *ite);
+	void handlePasteToPage();
 	void HandleMouse(QPoint p);
 	bool copyObj(int id);
 	void moveObj(int id);

@@ -813,6 +813,13 @@ void Biblio::handleDoubleClick(QListWidgetItem *ite)
 	actItem = 0;
 }
 
+void Biblio::handlePasteToPage()
+{
+	emit pasteToActualPage(actItem->text());
+	activeBView->clearSelection();
+	actItem = 0;
+}
+
 void Biblio::HandleMouse(QPoint p)
 {
 	QListWidgetItem *ite = activeBView->itemAt(p);
@@ -822,6 +829,8 @@ void Biblio::HandleMouse(QPoint p)
 		QMenu *pmenu = new QMenu();
 		QAction* renAct;
 		QAction* delAct;
+		QAction* pasteAct = pmenu->addAction( tr("Paste to Page"));
+		connect(pasteAct, SIGNAL(triggered()), this, SLOT(handlePasteToPage()));
 		if (activeBView->canWrite)
 		{
 			renAct = pmenu->addAction( tr("Rename"));
