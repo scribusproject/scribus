@@ -1,10 +1,9 @@
-<editorsettings description="Dot (GraphWiz)" icon="dot.png">
+<editorsettings description="Dot (GraphWiz)" icon="dot.svg">
 	<executable command="dot -Tsvg %file -o %file.svg" />
 	<imagefile extension=".svg"/>
 	<!--<highlighter kate="latex"/>-->
-	<empty-frame-text>
-		size="$scribus_width_inch$,$scribus_height_inch$";
-		page="$scribus_width_inch$,$scribus_height_inch$";
+	<empty-frame-text><i18n>
+    <en>
 		ratio="fill";
 		edge [color ="blue"];
 		S [label="Scribus", color="#f94949", style=filled];
@@ -18,10 +17,29 @@
 		C -> "Gnuplot"
 		C -> "LilyPond"
 		C -> "Dot"
+    </en>
+    <de>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Textrahmen";
+		S -> "Bilderrahmen";	
+		C [label="Befehlsrahmen"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+    </de>
+    </i18n>
 	</empty-frame-text>
 	<preamble>
 	digraph scribus {
 	bgcolor="transparent";
+    size="$scribus_width_inch$,$scribus_height_inch$";
+	page="$scribus_width_inch$,$scribus_height_inch$";
 	</preamble>
 	<postamble>}</postamble>
 </editorsettings>

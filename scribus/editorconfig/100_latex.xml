@@ -32,6 +32,18 @@
 				wird
 				\[J = \int r^2 \mathrm{d}m\]
 			</de>
+			<fr>
+				\section*{Introduction}
+				Votre cadre \LaTeX fonctionne lorsque vous pouvez lire ce texte !\\
+				Placer des formules est très facile :\\
+				Clique droit $\Rightarrow$ Edit Latex Source\\
+				Et remplacez ce texte par le vôtre. Voici un exemple :
+				\begin{verbatim}
+					\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				devient
+				\[J = \int r^2 \mathrm{d}m\]
+			</fr>
 		</i18n>
 	</empty-frame-text>
 	<preamble>
@@ -53,13 +65,19 @@
 		<title><i18n>
 				<en>Fonts/Headers</en>
 				<de>Schriften/Header</de>
+				<fr>Polices/En-tête</fr>
 			</i18n>
 		</title>
-		<comment><i18n><en>Fonts only work when installed on your computer!</en><de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de></i18n></comment>
+		<comment><i18n>
+			<en>Fonts only work when installed on your computer!</en>
+			<de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de>
+			<fr>Les polices fonctionnent uniquement lorsqu'elles sont installées sur votre ordinateur !</fr>
+		</i18n></comment>
 		<list name="font" default="">
 			<title><i18n>
 					<en>Font:</en>
 					<de>Schrift:</de>
+					<fr>Police :</fr>
 				</i18n></title>
 			<option value="">Computer Modern</option>
 			<option value="\usepackage{ccfonts}">Concrete</option>
@@ -71,6 +89,7 @@
 			<title><i18n>
 					<en>Fontsize:</en>
 					<de>Schriftgröße:</de>
+					<fr>Taille police :</fr>
 				</i18n></title>
 			<option value="8pt">8pt</option>
 			<option value="9pt">9pt</option>
@@ -84,17 +103,24 @@
 		<!--Not working yet! <color name="fg"><i18n>
 				<en>Fontcolor</en>
 				<de>Textfarbe</de>
+				<fr>Couleur police</fr>
 			</i18n></color>
 		<color name="bg"><i18n>
 				<en>Backgroundcolor</en>
 				<de>Hintergrundfarbe</de>
+				<fr>Couleur de fond</fr>
 			</i18n></color>
 		-->
-		<text name="additionalheaders" type="long" default=""><i18n><en>Additional Headers:</en><de>Zusätzliche Header:</de></i18n></text>
+		<text name="additionalheaders" type="long" default=""><i18n>
+            <en>Additional Headers:</en>
+            <de>Zusätzliche Header:</de>
+            <fr>En-tête additionnel :</fr>
+        </i18n></text>
 	</tab>
 	<tab type="items">
 		<title><i18n>
 				<en>Relation symbols</en>
+				<fr>Symboles et opérateurs</fr>
 				<de>Verhältnissymbole</de><!--TODO: Neuer text!-->
 			</i18n>
 		</title>
@@ -327,6 +353,7 @@
 		<title><i18n>
 				<en>Arrows</en>
 				<de>Pfeile</de>
+				<fr>Flèches</fr>
 			</i18n></title>
 		<item value="\leftarrow"  image="leftarrow.png" />
 		<item value="\longleftarrow"  image="longleftarrow.png" />
@@ -402,6 +429,7 @@
 		<title><i18n>
 				<en>Miscellaneous symbols</en>
 				<de>Verschiedenes</de>
+				<fr>Symboles divers</fr>
 			</i18n></title>
 		<item value="\ldots"  image="ldots.png" />
 		<item value="\cdots"  image="cdots.png" />
@@ -462,7 +490,11 @@
 		<item value="\diagdown"  image="diagdown.png" />
 	</tab>
 	<tab type="items">
-		<title>Delimiters</title>
+		<title><i18n>
+				<en>Delimiters</en>
+				<de>Trenner</de>
+				<fr>Délimiteurs</fr>
+			</i18n></title>
 		<item value="\vert"  image="vert.png" />
 		<item value="\Vert"  image="v_ert.png" />
 		<item value="\lbrace"  image="lbrace.png" />
@@ -497,7 +529,11 @@
 		<item value="\frac{a}{b}"  image="fracab.png" />
 	</tab>
 	<tab type="items">
-		<title>Greek Alphabet</title>
+		<title><i18n>
+				<en>Greek Alphabet</en>
+				<de>Griechisches Alphabet</de>
+				<fr>Alphabet Grec</fr>
+			</i18n></title>
 		<item value="\alpha"  image="alpha.png" />
 		<item value="\beta"  image="beta.png" />
 		<item value="\gamma"  image="gamma.png" />
@@ -540,7 +576,10 @@
 		<item value="\Omega"  image="o_mega.png" />
 	</tab>
 	<tab type="items">
-		<title>Math alphabets</title>
+		<title><i18n>
+            <en>Math alphabets</en>
+            <de>Mathe-Alphabete</de></i18n>
+        </title>
 		<item value="\mathcal{A}"  image="mathcala_.png" />
 		<item value="\mathcal{B}"  image="mathcalb_.png" />
 		<item value="\mathcal{C}"  image="mathcalc_.png" />
@@ -718,11 +757,15 @@
 			<i18n>
 				<en>Regular text</en>
 				<de>Normaler Text</de>
+				<fr>Texte normal</fr>
 			</i18n>
 		</item>
 	</tab>
 	<tab type="items">
-		<title>Math accents</title>
+		<title><i18n>
+			<en>Math accents</en>
+			<de>Mathe Akzente</de>
+		</i18n></title>
 		<item value="\bar{a}"  image="bara.png" />
 		<item value="\vec{a}"  image="veca.png" />
 		<item value="\dot{a}"  image="dota.png" />

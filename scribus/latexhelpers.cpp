@@ -336,7 +336,23 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 			if (!unindent) {
 				return result.trimmed();
 			} else {
-				return result.trimmed(); //TODO: result.simplified();
+				QStringList splitted = result.split("\n");
+				int i;
+				int minspaces = 0xffff;
+				/* NOTE: First line contains no leading whitespace so we start at 1 */
+				for (i = 1; i < splitted.size(); i++) {
+					if (splitted[i].trimmed().isEmpty()) continue;
+					int spaces;
+					QString tmp = splitted[i];
+					for (spaces = 0; spaces < tmp.length(); spaces++) {
+						if (!tmp[spaces].isSpace()) break;
+					}
+					if (spaces < minspaces) minspaces = spaces;
+				}
+				for (i = 1; i < splitted.size(); i++) {
+					splitted[i] = splitted[i].mid(minspaces);
+				}
+				return splitted.join("\n").trimmed();
 			}
 		}
 		if (i18n) {

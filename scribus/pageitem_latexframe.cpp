@@ -294,11 +294,14 @@ void PageItem_LatexFrame::runApplication()
 	}
 	latex->setWorkingDirectory(QDir::tempPath());
 	
+#ifdef _WIN32
+	full_command.replace("\"", "\"\"\""); //Required by QT on windows
+#endif
 	qDebug() << "Full command" << full_command;
 	
-	QStringList args = full_command.split(' ', QString::SkipEmptyParts); //TODO: This does not handle quoted arguments with spaces! Perhaps use the other QProcess::start-function, but that has problems on windows.
+	/*QStringList args = full_command.split(' ', QString::SkipEmptyParts); //TODO: This does not handle quoted arguments with spaces! Perhaps use the other QProcess::start-function, but that has problems on windows.
 	QString command = args.at(0);
-	args.removeAt(0);
+	args.removeAt(0);*/
 	
 	//deleteImageFile();
 	imageFile = tempFileBase + config->imageExtension();
@@ -306,7 +309,7 @@ void PageItem_LatexFrame::runApplication()
 	writeFileContents(&tempfile);
 	tempfile.close();
 	
-	latex->start(command, args);
+	latex->start(full_command);
 	emit stateChanged(QProcess::Starting);
 }
 
@@ -342,24 +345,21 @@ void PageItem_LatexFrame::runEditor()
 	} else {
 		full_command += " " + editorFile;
 	}
-	if (full_command.contains("%dir")) {
-		full_command.replace("%dir", QDir::tempPath());
-	}
+	full_command.replace("%dir", QDir::tempPath());
 	editor->setWorkingDirectory(QDir::tempPath());
 	
-	QStringList args = full_command.split(' ', QString::SkipEmptyParts); //TODO: This does not handle quoted arguments with spaces!
-	QString command = args.at(0);
-	args.removeAt(0);
+#ifdef _WIN32
+	full_command.replace("\"", "\"\"\""); //Required by QT on windows
+#endif
 	
-	qDebug() << "LATEX: Starting editor" << qPrintable(command);
-	editor->start(command, args);
+	qDebug() << "LATEX: Starting editor" << full_command;
+	editor->start(full_command);
 }
 
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 {
 	qDebug() << "LATEX: rerunApplication()";
 	if (latex->state() != QProcess::NotRunning) {
-		//TODO: Do not flag this as an error!
 		qDebug() << "LATEX: rerunApplication(): Killing running process from latexFrame";
 		killed = true;
 		latex->terminate();
@@ -649,8 +649,8 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	actionList << "editEditWithLatexEditor";
 	if (PicAvail)
 	{
-		if (!isTableItem)
-			actionList << "itemAdjustFrameToImage";
+		/*if (!isTableItem)
+			actionList << "itemAdjustFrameToImage";*/
 		actionList << "editClearContents";
 		actionList << "editCopyContents";
 	}

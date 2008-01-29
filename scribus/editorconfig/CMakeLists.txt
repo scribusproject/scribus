@@ -10,6 +10,9 @@ INSTALL(FILES
 200_gnuplot.xml
 gnuplot.png
 300_lilypond.xml
+lilypond.png
 400_dot.xml
+dot.svg
+
   DESTINATION ${SHAREDIR}/editorconfig
 )
