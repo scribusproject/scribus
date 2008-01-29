@@ -84,6 +84,7 @@ public:
 	QStringList getOpenScrapbooks();
 	QString getObjectName(QString &text);
 	BibView* tempBView;
+	BibView* activeBView;
 	QListWidgetItem *actItem;
 	
 public slots:
@@ -91,6 +92,7 @@ public slots:
 	void ObjFromMenu(QString text);
 
 private slots:
+	void handleDoubleClick(QListWidgetItem *ite);
 	void HandleMouse(QPoint p);
 	bool copyObj(int id);
 	void moveObj(int id);
@@ -106,11 +108,11 @@ private slots:
 
 signals:
 	void updateRecentMenue();
+	void pasteToActualPage(QString);
 
 protected:
 	QToolBox* Frame3;
 	QVBoxLayout* BiblioLayout;
-	BibView* activeBView;
 	int tempCount;
 	QString OldName;
 	QHBoxLayout* buttonLayout;

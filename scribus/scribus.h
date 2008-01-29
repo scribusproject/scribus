@@ -154,6 +154,7 @@ public:
 	void ShowSubs();
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
+	void doPasteRecent(QString data);
 	QString GetLang(QString inLang);
 	bool getPDFDriver(const QString & fn, const QString & nam,
 					  int Components, const std::vector<int> & pageNs,
@@ -308,6 +309,7 @@ public slots:
 	void rebuildRecentFileMenu();
 	void rebuildRecentPasteMenu();
 	void pasteRecent(QString fn);
+	void pasteFromScrapbook(QString fn);
 	void rebuildLayersList();
 	bool slotDocOpen();
 	bool loadDoc(QString);

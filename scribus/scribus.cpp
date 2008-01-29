@@ -472,6 +472,7 @@ void ScribusMainWindow::initPalettes()
 	scrapbookPalette = new Biblio(this);
 	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setChecked(bool)));
+	connect( scrapbookPalette, SIGNAL(pasteToActualPage(QString)), this, SLOT(pasteFromScrapbook(QString)));
 	scrapbookPalette->installEventFilter(this);
 	pagePalette = new PagePalette(this);
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
@@ -3460,46 +3461,65 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 	}
 }
 
+void ScribusMainWindow::pasteFromScrapbook(QString fn)
+{
+	doPasteRecent(scrapbookPalette->activeBView->objectMap[fn].Data);
+}
+
 void ScribusMainWindow::pasteRecent(QString fn)
 {
-	QString data = scrapbookPalette->tempBView->objectMap[fn].Data;
-	QFileInfo fi(data);
-	if (fi.suffix().toLower() == "sml")
+	doPasteRecent(scrapbookPalette->tempBView->objectMap[fn].Data);
+}
+
+void ScribusMainWindow::doPasteRecent(QString data)
+{
+	if (HaveDoc)
 	{
-		QString f = "";
-		loadText(data, &f);
-		StencilReader *pre = new StencilReader();
-		data = pre->createObjects(f);
-		delete pre;
-	}
-	else if (fi.suffix().toLower() == "shape")
-	{
-		QString f = "";
-		loadText(data, &f);
-		StencilReader *pre = new StencilReader();
-		data = pre->createShape(f);
-		delete pre;
-	}
-	view->Deselect(true);
-	uint ac = doc->Items->count();
-	bool savedAlignGrid = doc->useRaster;
-	bool savedAlignGuides = doc->SnapGuides;
-	doc->useRaster = false;
-	doc->SnapGuides = false;
-	if (fi.suffix().toLower() == "sce")
-		slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
-	else
-		slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-	doc->useRaster = savedAlignGrid;
-	doc->SnapGuides = savedAlignGuides;
-	for (int as = ac; as < doc->Items->count(); ++as)
-	{
-		PageItem* currItem = doc->Items->at(as);
-		if (currItem->isBookmark)
-			AddBookMark(currItem);
-		view->SelectItemNr(as);
-	}
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
+		QFileInfo fi(data);
+		if (fi.suffix().toLower() == "sml")
+		{
+			QString f = "";
+			loadText(data, &f);
+			StencilReader *pre = new StencilReader();
+			data = pre->createObjects(f);
+			delete pre;
+		}
+		else if (fi.suffix().toLower() == "shape")
+		{
+			QString f = "";
+			loadText(data, &f);
+			StencilReader *pre = new StencilReader();
+			data = pre->createShape(f);
+			delete pre;
+		}
+		view->Deselect(true);
+		uint ac = doc->Items->count();
+		bool savedAlignGrid = doc->useRaster;
+		bool savedAlignGuides = doc->SnapGuides;
+		doc->useRaster = false;
+		doc->SnapGuides = false;
+		if (fi.suffix().toLower() == "sce")
+			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
+		else
+			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+		doc->useRaster = savedAlignGrid;
+		doc->SnapGuides = savedAlignGuides;
+		Selection tmpSelection(this, false);
+		tmpSelection.copy(*doc->m_Selection, false, true);
+		for (int as = ac; as < doc->Items->count(); ++as)
+		{
+			PageItem* currItem = doc->Items->at(as);
+			doc->setRedrawBounding(currItem);
+			tmpSelection.addItem(currItem, true);
+			if (currItem->isBookmark)
+				AddBookMark(currItem);
+		}
+		doc->m_Selection->copy(tmpSelection, false, false);
+		undoManager->commit();
 		slotDocCh(false);
+		doc->regionsChanged()->update(QRectF());
+	}
 }
 
 void ScribusMainWindow::rebuildLayersList()
