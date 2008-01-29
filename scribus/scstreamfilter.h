@@ -31,6 +31,7 @@ public:
 
 	ScStreamFilter(QDataStream* stream);
 	ScStreamFilter(ScStreamFilter* filter);
+	virtual ~ScStreamFilter() {};
 
 	virtual bool openFilter (void);
 	virtual bool closeFilter(void);
