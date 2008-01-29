@@ -1369,7 +1369,6 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
 {
 	bool dummy;
-	bool compImageAvail = false;
 	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
