@@ -445,7 +445,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 //	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
-	QMenu* pmen3 = NULL;
+//	QMenu* pmen3 = NULL;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -612,6 +612,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		}
 		return;
 	}
+/* 
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (m_doc->appMode == modeNormal))
 	{
 		QMenu *pmen = new QMenu();
@@ -631,7 +632,6 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 				{
 					QString strippedName = it.key();
 					QPixmap pm = it.value().Preview;
-// Qt4					pmen3->insertItem(pm, strippedName);
 					pmen3->addAction(pm, strippedName);
 					it--;
 				}
@@ -717,6 +717,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		}
 		return;
 	}
+*/
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
