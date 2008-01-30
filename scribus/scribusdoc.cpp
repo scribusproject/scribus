@@ -9773,8 +9773,13 @@ void ScribusDoc::itemSelection_adjustFrametoImageSize( Selection *customSelectio
 					h = currItem->OrigH * currItem->imageYScale();
 					x = currItem->imageXOffset() * currItem->imageXScale();
 					y = currItem->imageYOffset() * currItem->imageYScale();
-					SizeItem(w, h, currItem->ItemNr);
-					MoveItem(x, y, currItem);
+					if ((x != 0.0) || (y != 0.0)) // if the image frame has an offset, its assumed that the user wants the image to stay where it is
+					{
+						SizeItem(w, h, currItem->ItemNr);
+						MoveItem(x, y, currItem);
+					}
+					else
+						SizeItem(w, h, currItem->ItemNr, true);
 					currItem->setImageXYOffset(0.0, 0.0);
 					toUpdate=true;
 				}
@@ -9785,6 +9790,7 @@ void ScribusDoc::itemSelection_adjustFrametoImageSize( Selection *customSelectio
 			regionsChanged()->update(QRectF());
 			changed();
 			undoManager->commit();
+			itemSelection->itemAt(0)->emitAllToGUI();
 		}
 	}
 }
