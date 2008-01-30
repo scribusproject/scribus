@@ -680,7 +680,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				ro.rotate(-currItem->rotation());
 				QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
 				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
-				m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+		//		m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+				currItem->update();
 				Mxp = newX;
 				Myp = newY;
 			}
