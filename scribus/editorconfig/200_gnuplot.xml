@@ -3,18 +3,18 @@
 	<imagefile extension=".png"/>
 	<!--<highlighter kate="latex"/>-->
 	<empty-frame-text>
-        plot sin(x), (cos(x))**2
+		plot sin(x), (cos(x))**2
 	</empty-frame-text>
 	<preamble>
-        set terminal png transparent enhanced size $scribus_realwidth_px$,$scribus_realheight_px$
-        set output "$scribus_file$.png"
-        set xrange [$scribus_xmin$:$scribus_xmax$]
-        set yrange [$scribus_ymin$:$scribus_ymax$]
-        set title "$scribus_title$"
-        set xlabel "$scribus_xlabel$"
-        set ylabel "$scribus_ylabel$"
-        $scribus_grid$ $scribus_gridlayer$
-        $scribus_zeroaxis$
+		set terminal png transparent enhanced size $scribus_realwidth_px$,$scribus_realheight_px$
+		set output "$scribus_file$.png"
+		set xrange [$scribus_xmin$:$scribus_xmax$]
+		set yrange [$scribus_ymin$:$scribus_ymax$]
+		set title "$scribus_title$"
+		set xlabel "$scribus_xlabel$"
+		set ylabel "$scribus_ylabel$"
+		$scribus_grid$ $scribus_gridlayer$
+		$scribus_zeroaxis$
 	</preamble>
 	<postamble></postamble>
 	
@@ -22,94 +22,106 @@
 	
 	<tab type="settings">
 		<title><i18n>
-            <en>Ranges</en>
-            <de>Bereiche</de>
-            <fr>Rangées</fr>
-        </i18n></title>
+			<en>Ranges</en>
+			<de>Bereiche</de>
+			<fr>Rangées</fr>
+		</i18n></title>
 		<comment><i18n>
-            <en>Enter asterisk (*) for autoscale!</en>
-            <de>Stern (*) für automatische Skalierung eingeben!</de>
-            <fr>Entrez une astérisque (*) pour ajuster automatiquement !</fr>
-        </i18n></comment>
+			<en>Enter asterisk (*) for autoscale!</en>
+			<de>Stern (*) für automatische Skalierung eingeben!</de>
+			<fr>Entrez une astérisque (*) pour ajuster automatiquement !</fr>
+		</i18n></comment>
 		<spinbox name="xmin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
-            <en>X Min:</en>
-        </i18n></spinbox>
+			<en>X Min:</en>
+		</i18n></spinbox>
 		<spinbox name="xmax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
-            <en>X Max:</en>
-        </i18n></spinbox>
+			<en>X Max:</en>
+		</i18n></spinbox>
 		<spinbox name="ymin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
-            <en>Y Min:</en>
-        </i18n></spinbox>
+			<en>Y Min:</en>
+		</i18n></spinbox>
 		<spinbox name="ymax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
-            <en>Y Max:</en>
-        </i18n></spinbox>
+			<en>Y Max:</en>
+		</i18n></spinbox>
 	</tab>
 	<tab type="settings">
 		<title><i18n>
-            <en>Labels</en>
-            <de>Beschriftungen</de>
-            <fr>Étiquettes</fr>
-        </i18n></title>
+			<en>Labels</en>
+			<de>Beschriftungen</de>
+			<fr>Étiquettes</fr>
+		</i18n></title>
 		<text name="title" type="short" default=""><i18n>
-            <en>Title:</en>
-            <de>Titel:</de>
-            <fr>Titre:</fr>
-        </i18n></text>
+			<en>Title:</en>
+			<de>Titel:</de>
+			<fr>Titre :</fr>
+		</i18n></text>
 		<text name="xlabel" type="short" default="">X-Label:</text>
 		<text name="ylabel" type="short" default="">Y-Label:</text>
 		<list name="grid" default="#">
 			<title><i18n>
-                <en>Grid:</en>
-                <de>Gitter:</de>
-            </i18n></title>
+				<en>Grid:</en>
+				<de>Gitter:</de>
+				<fr>Grille :</fr>
+			</i18n></title>
 			<option value="#"><i18n>
-                <en>No Grid</en>
-                <de>Kein Gitter</de>
-            </i18n></option>
+				<en>No Grid</en>
+				<de>Kein Gitter</de>
+				<fr>Pas de Grille</fr>
+			</i18n></option>
 			<option value="set grid xtics ytics"><i18n>
-                <en>Major ticks only</en>
-                <de>Nur Hauptstriche</de>
-            </i18n></option>
+				<en>Major ticks only</en>
+				<de>Nur Hauptstriche</de>
+				<fr>Seulement les coches majeures</fr>
+			</i18n></option>
 			<option value="set grid xtics ytics mxtics mytics"><i18n>
-                <en>Major and minor ticks</en>
-                <de>Alle Stiche</de>
-            </i18n></option>
+				<en>Major and minor ticks</en>
+				<de>Alle Stiche</de>
+				<fr>Coches majeures et mineures</fr>
+			</i18n></option>
 		</list>
 		<list name="gridlayer" default="back">
 			<title><i18n>
-                <en>Grid layer:</en>
-                <de>Gitterebene:</de>
+				<en>Grid layer:</en>
+				<de>Gitterebene:</de>
+				<fr>Niveau de la grille :</fr>
 			</i18n></title>
 			<option value="back"><i18n>
-                <en>Back</en>
-                <de>Hinten</de>
-            </i18n></option>
+				<en>Back</en>
+				<de>Hinten</de>
+				<fr>Arrière</fr>
+			</i18n></option>
 			<option value="front"><i18n>
-                <en>Front</en>
-                <de>Vorne</de>
+				<en>Front</en>
+				<de>Vorne</de>
+				<fr>A l'avant</fr>
 			</i18n></option>
 		</list>
 		<list name="zeroaxis" default="">
 			<title><i18n>
-                <en>Zero axis:</en>
-                <de>Null-Achse:</de>
-            </i18n></title>
+				<en>Zero axis:</en>
+				<de>Null-Achse:</de>
+				<fr>Axe Zero :</fr>
+			</i18n></title>
 			<option value=""><i18n>
-                <en>None</en>
-                <de>Keine</de>
-            </i18n></option>
+				<en>None</en>
+				<de>Keine</de>
+				<fr>Aucun</fr>
+			</i18n></option>
 			<option value="set xzeroaxis"><i18n>
-                <en>X axis</en>
-                <de>X-Achse</de>
-            </i18n></option>
+				<en>X axis</en>
+				<de>X-Achse</de>
+				<fr>Axe des X</fr>
+			</i18n></option>
 			<option value="set yzeroaxis"><i18n>
-                <en>Y axis</en>
-                <de>Y-Achse</de>
-            </i18n></option>
+				<en>Y axis</en>
+				<de>Y-Achse</de>
+				<fr>Axe des Y</fr>
+			</i18n></option>
 			<option value="set zeroaxis"><i18n>
-                <en>Both</en>
-                <de>Beide</de>
-            </i18n></option>
+				<en>Both</en>
+				<de>Beide</de>
+				<fr>Les deux</fr>
+			</i18n></option>
 		</list>
 	</tab>
 </editorsettings>

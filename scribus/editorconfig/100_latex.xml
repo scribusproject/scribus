@@ -66,8 +66,7 @@
 				<en>Fonts/Headers</en>
 				<de>Schriften/Header</de>
 				<fr>Polices/En-tête</fr>
-			</i18n>
-		</title>
+		</i18n></title>
 		<comment><i18n>
 			<en>Fonts only work when installed on your computer!</en>
 			<de>Schriften funktionieren nur, wenn sie auch auf dem Computer installiert sind.</de>
@@ -75,10 +74,10 @@
 		</i18n></comment>
 		<list name="font" default="">
 			<title><i18n>
-					<en>Font:</en>
-					<de>Schrift:</de>
-					<fr>Police :</fr>
-				</i18n></title>
+				<en>Font:</en>
+				<de>Schrift:</de>
+				<fr>Police :</fr>
+			</i18n></title>
 			<option value="">Computer Modern</option>
 			<option value="\usepackage{ccfonts}">Concrete</option>
 			<!--<option value="\usepackage{cmbright}">CM Bright</option>-->
@@ -90,7 +89,7 @@
 					<en>Fontsize:</en>
 					<de>Schriftgröße:</de>
 					<fr>Taille police :</fr>
-				</i18n></title>
+			</i18n></title>
 			<option value="8pt">8pt</option>
 			<option value="9pt">9pt</option>
 			<option value="10pt">10pt</option>
@@ -112,18 +111,17 @@
 			</i18n></color>
 		-->
 		<text name="additionalheaders" type="long" default=""><i18n>
-            <en>Additional Headers:</en>
-            <de>Zusätzliche Header:</de>
-            <fr>En-tête additionnel :</fr>
-        </i18n></text>
+			<en>Additional Headers:</en>
+			<de>Zusätzliche Header:</de>
+			<fr>En-tête additionnel :</fr>
+		</i18n></text>
 	</tab>
 	<tab type="items">
 		<title><i18n>
 				<en>Relation symbols</en>
 				<fr>Symboles et opérateurs</fr>
-				<de>Verhältnissymbole</de><!--TODO: Neuer text!-->
-			</i18n>
-		</title>
+				<de>Verhältnissymbole</de>
+		</i18n></title>
 		<item value="\pm"  image="pm.png" />
 		<item value="\cap"  image="cap.png" />
 		<item value="\diamond"  image="diamond.png" />
@@ -354,7 +352,7 @@
 				<en>Arrows</en>
 				<de>Pfeile</de>
 				<fr>Flèches</fr>
-			</i18n></title>
+		</i18n></title>
 		<item value="\leftarrow"  image="leftarrow.png" />
 		<item value="\longleftarrow"  image="longleftarrow.png" />
 		<item value="\uparrow"  image="uparrow.png" />
@@ -430,7 +428,7 @@
 				<en>Miscellaneous symbols</en>
 				<de>Verschiedenes</de>
 				<fr>Symboles divers</fr>
-			</i18n></title>
+		</i18n></title>
 		<item value="\ldots"  image="ldots.png" />
 		<item value="\cdots"  image="cdots.png" />
 		<item value="\vdots"  image="vdots.png" />
@@ -494,7 +492,7 @@
 				<en>Delimiters</en>
 				<de>Trenner</de>
 				<fr>Délimiteurs</fr>
-			</i18n></title>
+		</i18n></title>
 		<item value="\vert"  image="vert.png" />
 		<item value="\Vert"  image="v_ert.png" />
 		<item value="\lbrace"  image="lbrace.png" />
@@ -533,7 +531,7 @@
 				<en>Greek Alphabet</en>
 				<de>Griechisches Alphabet</de>
 				<fr>Alphabet Grec</fr>
-			</i18n></title>
+		</i18n></title>
 		<item value="\alpha"  image="alpha.png" />
 		<item value="\beta"  image="beta.png" />
 		<item value="\gamma"  image="gamma.png" />
@@ -577,9 +575,10 @@
 	</tab>
 	<tab type="items">
 		<title><i18n>
-            <en>Math alphabets</en>
-            <de>Mathe-Alphabete</de></i18n>
-        </title>
+			<en>Math alphabets</en>
+			<de>Mathe-Alphabete</de>
+			<fr>Alphabet Math</fr>
+		</i18n></title>
 		<item value="\mathcal{A}"  image="mathcala_.png" />
 		<item value="\mathcal{B}"  image="mathcalb_.png" />
 		<item value="\mathcal{C}"  image="mathcalc_.png" />
@@ -765,6 +764,7 @@
 		<title><i18n>
 			<en>Math accents</en>
 			<de>Mathe Akzente</de>
+			<fr>Accents Math</fr>
 		</i18n></title>
 		<item value="\bar{a}"  image="bara.png" />
 		<item value="\vec{a}"  image="veca.png" />
