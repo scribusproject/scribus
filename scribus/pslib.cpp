@@ -1217,7 +1217,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							{
 								PS_save();
 								// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
-								ProcessItem(Doc, Doc->Pages->at(a), ite, a, sep, farb, Ic, gcr, false, false, true);
+								ProcessItem(Doc, mPage, ite, a, sep, farb, Ic, gcr, false, false, true);
 								/*PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
 								if (ite->rotation() != 0)
 									PS_rotate(-ite->rotation());
@@ -1477,7 +1477,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
+				if ((c->GrType != 0) && (master == false))
 					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -1575,7 +1575,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
+				if ((c->GrType != 0) && (master == false))
 					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
