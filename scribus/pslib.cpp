@@ -61,6 +61,7 @@ for which a new license (GPL+exception) is in place.
 PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
 	Options = options;
+	optimization = OptimizeCompat;
 	usingGUI=ScCore->usingGUI();
 	abortExport=false;
 	QString tmp, tmp2, tmp3, tmp4, CHset;
@@ -304,7 +305,7 @@ bool PSLib::PutInterleavedImageMaskToStream(const QByteArray& image, const QByte
 		bIndex = 4 *i;
 		bytes[pending++] = maskData [i];
 		bytes[pending++] = *imageData++; // cyan/black
-		if (channels >= 1)
+		if (channels > 1)
 		{
 			bytes[pending++] = *imageData++; // magenta
 			bytes[pending++] = *imageData++; // yellow
@@ -1808,7 +1809,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
-						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printEnabled()) && (!sep) && (farb))
+						if ((optimization == OptimizeSize) && it->asImageFrame() && it->PicAvail && (!it->Pfile.isEmpty()) && it->printEnabled() && (!sep) && farb)
 						{
 							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 							if (errorOccured) break;
@@ -1917,7 +1918,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							{
 								PS_save();
 								// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
-								errorOccured = !ProcessItem(Doc, Doc->Pages->at(a), ite, a, sep, farb, Ic, gcr, false, false, true);
+								errorOccured = !ProcessItem(Doc, mPage, ite, a, sep, farb, Ic, gcr, false, false, true);
 								if (errorOccured) break;
 								PS_restore();
 							}
@@ -2150,7 +2151,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->pageName().isEmpty()))
+				if ((c->GrType != 0) && (master == false))
 					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -2180,10 +2181,10 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				bool imageOk = false;
 				PS_translate(0, -c->BBoxH*c->imageYScale());
-				if (((!a->pageName().isEmpty()) && (!sep) && (farb)) || useTemplate)
-					imageOk = PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
+				if ((optimization == OptimizeSize) && (((!a->pageName().isEmpty()) && !sep && farb) || useTemplate))
+					imageOk = PS_image(c, c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
-					imageOk = PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
+					imageOk = PS_image(c, c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
 				if (!imageOk) return false;
 			}
 			PS_restore();
@@ -2250,7 +2251,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->pageName().isEmpty()))
+				if ((c->GrType != 0) && (master == false))
 					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -3739,8 +3740,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				{
 					SetColor(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
-					PutStream(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
+					if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
+						PutStream(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
 					else
 						PutStream(FillColor + " cmyk");
 					PS_showSub(glyph, cstyle.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);

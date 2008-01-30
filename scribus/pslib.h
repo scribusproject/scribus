@@ -56,8 +56,17 @@ class SCRIBUS_API PSLib : public QObject
 {
 	Q_OBJECT
 	public:
+
+		typedef enum
+		{
+			OptimizeCompat = 0,
+			OptimizeSize = 1
+		} Optimization;
+
 		PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
 		virtual ~PSLib() {};
+
+		void setOptimization (Optimization opt) { optimization = opt; }
 
 		virtual int   CreatePS(ScribusDoc* Doc, PrintOptions &options);
 		virtual const QString& errorMessage(void);
@@ -122,6 +131,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
 		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
 		bool Art;
+
 	private:
 		void PutStream (const QString& c);
 		void PutStream (const QByteArray& array, bool hexEnc);
@@ -132,6 +142,9 @@ class SCRIBUS_API PSLib : public QObject
 
 		void WriteASCII85Bytes(const QByteArray& array);
 		void WriteASCII85Bytes(const unsigned char* array, int length);
+
+		Optimization optimization;
+
 		QString ToStr(double c);
 		QString IToStr(int c);
 		QString PSEncode(QString in);
