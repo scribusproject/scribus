@@ -28,11 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QToolTip>
 #include <QCheckBox>
-#include <QTimer>
 #include <QFileDialog>
 #include <QLabel>
 #include "picsearchoptions.h"
-//#include "picsearchoptions.moc"
 #include "filesearch.h"
 
 PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : QDialog( parent )
@@ -56,8 +54,6 @@ void PicSearchOptions::setSearchButton(bool toCancel, const FileSearch* searcher
 		startButton->setText( tr("Cancel Search") );
 		progressBar1->reset();
 		progressBar1->show();
-		progressBar1->setRange(0, 20);
-		progressBar1->setValue(0);
 		searchLabel->show();
 		disconnect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 		connect(startButton, SIGNAL(clicked()), searcher, SLOT(cancel()));
@@ -90,7 +86,15 @@ void PicSearchOptions::SearchPic()
 {
 	QString searchBase = directoryEdit->text();
 	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
-		return;
+	{
+		if (QMessageBox::warning(this, tr("Scribus - Image Search"), tr("Base directory for search does not exist.\nPlease choose another one."),
+				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape|QMessageBox::Cancel,
+				QMessageBox::NoButton) != QMessageBox::Ok)
+			return;
+		changeSearchDir();
+		if( searchBase.isEmpty() || !QDir().exists(searchBase) )
+			return;
+	}
 	// Set up the search, then return to the event loop until it notifies us
 	// that it's done.
 	// Note: search will be deleted when this PicStatus is, so there's no
@@ -107,24 +111,8 @@ void PicSearchOptions::SearchPic()
 	connect(search, SIGNAL(aborted(bool)), SLOT(SearchPicAborted(bool)));
 	// Set up the UI to let the user cancel the search, then start it
 	setSearchButton(true, search);
-	QTimer *timer = new QTimer( this );
-	connect( timer, SIGNAL(timeout()), this, SLOT(timerDone()) );
-	timer->start(150);
+	progressBar1->setRange(0, 0);
 	search->start();
-}
-
-void PicSearchOptions::timerDone()
-{
-	int pg = progressBar1->value();
-	pg++;
-	if (pg == 21)
-	{
-		progressBar1->reset();
-		progressBar1->setMaximum(20);
-		progressBar1->setValue(0);
-	}
-	else
-		progressBar1->setValue(pg);
 }
 
 void PicSearchOptions::SearchPicAborted(bool userCancelled)

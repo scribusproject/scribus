@@ -29,7 +29,6 @@ private slots:
 	void SearchPic();
 	void SearchPicAborted(bool userCancelled);
 	void SearchPicFinished(const QStringList & matches, const QString & fileName);
-	void timerDone();
 
 
 protected:
