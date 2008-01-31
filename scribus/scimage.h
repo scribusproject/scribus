@@ -123,8 +123,6 @@ private:
 	uint icclen;
 	QVector<int> curveTable;
 	QList<unsigned int> colorTable;
-	int random_table[4096];
-	
 };
 
 #endif
