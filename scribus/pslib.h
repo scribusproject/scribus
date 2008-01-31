@@ -46,6 +46,7 @@ class ScText;
 
 class PageItem;
 class MultiProgressDialog;
+class ScImage;
 
 /**
   *@author Franz Schmid
@@ -133,9 +134,13 @@ class SCRIBUS_API PSLib : public QObject
 		bool Art;
 
 	private:
+
 		void PutStream (const QString& c);
 		void PutStream (const QByteArray& array, bool hexEnc);
 		void PutStream (const char* in, int length, bool hexEnc);
+
+		bool PutImageToStream(ScImage& image, int plate);
+		bool PutImageToStream(ScImage& image, const QByteArray& mask, int plate);
 
 		bool PutImageDataToStream(const QByteArray& image);
 		bool PutInterleavedImageMaskToStream(const QByteArray& image, const QByteArray& mask, bool gray);

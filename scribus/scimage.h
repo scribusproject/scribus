@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 
 class ScribusDoc;
+class ScStreamFilter;
 class CMSettings;
 
 class SCRIBUS_API ScImage : private QImage
@@ -77,8 +78,12 @@ public:
 	// Routines for PDF/PS output of images
 	QByteArray ImageToArray();
 	QByteArray ImageToGray();
-	QByteArray ImageToCMYK_PS(int pl, bool pre);
-	QByteArray ImageToCMYK_PDF(bool pre);
+	QByteArray ImageToCMYK_PS(int pl);
+	QByteArray ImageToCMYK_PDF();
+
+	bool writePSImageToFilter(ScStreamFilter* filter, int pl);
+	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl);
+
 	bool getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
@@ -102,6 +107,7 @@ public:
 	ImageInfoRecord imgInfo;
 
 private:
+
 	// Image effects
 	void solarize(double factor, bool cmyk);
 	void blur(int radius = 0);

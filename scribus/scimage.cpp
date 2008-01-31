@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
+#include "scstreamfilter.h"
 
 extern "C"
 {
@@ -1351,57 +1352,33 @@ QByteArray ScImage::ImageToGray()
 	return imgArray;
 }
 
-QByteArray ScImage::ImageToCMYK_PDF(bool pre)
+QByteArray ScImage::ImageToCMYK_PDF()
 {
 	int i = 0;
 	int h = height();
 	int w = width();
 	QRgb *s;
 	QRgb r;
-	int c, m, y, k;
 	QByteArray imgArray( 4 * h * w, ' ' );
 	if (imgArray.isNull()) // Memory allocation failure
 		return imgArray;
-	if (pre)
+	for( int yi=0; yi < h; ++yi )
 	{
-		for( int yi=0; yi < h; ++yi )
+		s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
 		{
-			s = (QRgb*)(scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
-			{
-				r = *s;
-				imgArray[i++] = static_cast<unsigned char> (qRed(r));
-				imgArray[i++] = static_cast<unsigned char> (qGreen(r));
-				imgArray[i++] = static_cast<unsigned char> (qBlue(r));
-				imgArray[i++] = static_cast<unsigned char> (qAlpha(r));
-				s++;
-			}
-		}
-	}
-	else
-	{
-		for( int yi=0; yi < h; ++yi )
-		{
-			s = (QRgb*)(scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
-			{
-				r = *s;
-				c = 255 - qRed(r);
-				m = 255 - qGreen(r);
-				y = 255 - qBlue(r);
-				k = qMin(qMin(c, m), y);
-				imgArray[i++] = static_cast<unsigned char> (c - k);
-				imgArray[i++] = static_cast<unsigned char> (m - k);
-				imgArray[i++] = static_cast<unsigned char> (y - k);
-				imgArray[i++] = static_cast<unsigned char> (k);
-				s++;
-			}
+			r = *s;
+			imgArray[i++] = static_cast<unsigned char> (qRed(r));
+			imgArray[i++] = static_cast<unsigned char> (qGreen(r));
+			imgArray[i++] = static_cast<unsigned char> (qBlue(r));
+			imgArray[i++] = static_cast<unsigned char> (qAlpha(r));
+			s++;
 		}
 	}
 	return imgArray;
 }
 
-QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
+QByteArray ScImage::ImageToCMYK_PS(int pl)
 {
 	int i = 0;
 	int h = height();
@@ -1414,77 +1391,156 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 	imgArray.resize(nBytes);
 	if (imgArray.isNull()) // Memory allocation failure
 		return imgArray;
-	if (pre)
+	for( int yi=0; yi < h; ++yi )
 	{
-		for( int yi=0; yi < h; ++yi )
+		s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
 		{
-			s = (QRgb*)(scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
+			r = *s++;
+			c = qRed(r);
+			m = qGreen(r);
+			y = qBlue(r);
+			k = qAlpha(r);
+			if (pl == -1)
 			{
-				r = *s++;
-				c = qRed(r);
-				m = qGreen(r);
-				y = qBlue(r);
-				k = qAlpha(r);
-				if (pl == -1)
-				{
-					imgArray[i++] = static_cast<unsigned char> (c);
-					imgArray[i++] = static_cast<unsigned char> (m);
-					imgArray[i++] = static_cast<unsigned char> (y);
-					imgArray[i++] = static_cast<unsigned char> (k);
-				}
-				else
-				{
-					if (pl == -2)
-						imgArray[i++] = static_cast<unsigned char> (qMin(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
-					if (pl == 1)
-						imgArray[i++] = static_cast<unsigned char> (c);
-					if (pl == 2)
-						imgArray[i++] = static_cast<unsigned char> (m);
-					if (pl == 3)
-						imgArray[i++] = static_cast<unsigned char> (y);
-					if (pl == 0)
-						imgArray[i++] = static_cast<unsigned char> (k);
-				}
+				imgArray[i++] = static_cast<unsigned char> (c);
+				imgArray[i++] = static_cast<unsigned char> (m);
+				imgArray[i++] = static_cast<unsigned char> (y);
+				imgArray[i++] = static_cast<unsigned char> (k);
 			}
-		}
-	}
-	else
-	{
-		for( int yi=0; yi < h; ++yi )
-		{
-			s = (QRgb*)(scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
+			else
 			{
-				r = *s++;
-				c = 255 - qRed(r);
-				m = 255 - qGreen(r);
-				y = 255 - qBlue(r);
-				k = qMin(qMin(c, m), y);
-				if (pl == -1)
-				{
-					imgArray[i++] = static_cast<unsigned char> (c - k);
-					imgArray[i++] = static_cast<unsigned char> (m - k);
-					imgArray[i++] = static_cast<unsigned char> (y - k);
+				if (pl == -2)
+					imgArray[i++] = static_cast<unsigned char> (qMin(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+				if (pl == 1)
+					imgArray[i++] = static_cast<unsigned char> (c);
+				if (pl == 2)
+					imgArray[i++] = static_cast<unsigned char> (m);
+				if (pl == 3)
+					imgArray[i++] = static_cast<unsigned char> (y);
+				if (pl == 0)
 					imgArray[i++] = static_cast<unsigned char> (k);
-				}
-				else
-				{
-					if (pl == -2)
-						imgArray[i++] = static_cast<unsigned char> (qMin(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
-					if (pl == 1)
-						imgArray[i++] = static_cast<unsigned char> (c - k);
-					if (pl == 2)
-						imgArray[i++] = static_cast<unsigned char> (m - k);
-					if (pl == 3)
-						imgArray[i++] = static_cast<unsigned char> (y - k);
-					if (pl == 0)
-						imgArray[i++] = static_cast<unsigned char> (k);
-				}
 			}
 		}
 	}
 	return imgArray;
+}
+
+bool ScImage::writePSImageToFilter(ScStreamFilter* filter, int pl)
+{
+	QRgb r, *s;
+	QByteArray buffer;
+	bool success = true;
+	int  c, m, y, k;
+	int  h = height();
+	int  w = width();
+	int  pending = 0;
+	int  scanLineSize = (pl == -1) ? (4 * w) : w;
+	int  bufferSize   = qMax(scanLineSize, (65536 - 65536 % scanLineSize));
+	buffer.resize(bufferSize + 16);
+	if (buffer.isNull()) // Memory allocation failure
+		return false;
+	for( int yi=0; yi < h; ++yi )
+	{
+		s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			r = *s++;
+			c = qRed(r);
+			m = qGreen(r);
+			y = qBlue(r);
+			k = qAlpha(r);
+			if (pl == -1)
+			{
+				buffer[pending++] = static_cast<unsigned char> (c);
+				buffer[pending++] = static_cast<unsigned char> (m);
+				buffer[pending++] = static_cast<unsigned char> (y);
+				buffer[pending++] = static_cast<unsigned char> (k);
+			}
+			else
+			{
+				if (pl == -2)
+					buffer[pending++] = static_cast<unsigned char> (qMin(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+				if (pl == 1)
+					buffer[pending++] = static_cast<unsigned char> (c);
+				if (pl == 2)
+					buffer[pending++] = static_cast<unsigned char> (m);
+				if (pl == 3)
+					buffer[pending++] = static_cast<unsigned char> (y);
+				if (pl == 0)
+					buffer[pending++] = static_cast<unsigned char> (k);
+			}
+		}
+		if (pending >= bufferSize)
+		{
+			success &= filter->writeData(buffer.constData(), pending);
+			pending = 0;
+		}
+	}
+	if (pending)
+		success &= filter->writeData(buffer.constData(), pending);
+	return success;
+}
+
+bool ScImage::writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl)
+{
+	QRgb r, *s;
+	QByteArray buffer;
+	bool success = true;
+	int  c, m, y, k;
+	int  h = height();
+	int  w = width();
+	int  maskIndex = 0, pending = 0;
+	int  scanLineSize = (pl == -1) ? (5 * w) : (2 * w);
+	int  bufferSize   = qMax(scanLineSize, (65536 - 65536 % scanLineSize));
+	if (mask.size() < (h * w))  // Check if mask provide enough data
+		return false;
+	buffer.resize(bufferSize + 16);
+	if (buffer.isNull()) // Check for memory allocation failure
+		return false;
+	unsigned char* maskData = (unsigned char*) mask.constData();
+	for( int yi=0; yi < h; ++yi )
+	{
+		s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			r = *s++;
+			c = qRed(r);
+			m = qGreen(r);
+			y = qBlue(r);
+			k = qAlpha(r);
+			if (pl == -1)
+			{
+				buffer[pending++] = *maskData++;
+				buffer[pending++] = static_cast<unsigned char> (c);
+				buffer[pending++] = static_cast<unsigned char> (m);
+				buffer[pending++] = static_cast<unsigned char> (y);
+				buffer[pending++] = static_cast<unsigned char> (k);
+			}
+			else
+			{
+				buffer[pending++] = *maskData++;
+				if (pl == -2)
+					buffer[pending++] = static_cast<unsigned char> (qMin(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+				if (pl == 1)
+					buffer[pending++] = static_cast<unsigned char> (c);
+				if (pl == 2)
+					buffer[pending++] = static_cast<unsigned char> (m);
+				if (pl == 3)
+					buffer[pending++] = static_cast<unsigned char> (y);
+				if (pl == 0)
+					buffer[pending++] = static_cast<unsigned char> (k);
+			}
+		}
+		if (pending >= bufferSize)
+		{
+			success &= filter->writeData(buffer.constData(), pending);
+			pending = 0;
+		}
+	}
+	if (pending)
+		success &= filter->writeData(buffer.constData(), pending);
+	return success;
 }
 
 void ScImage::scaleImage(int nwidth, int nheight)

@@ -268,6 +268,32 @@ void PSLib::PutStream(const char* array, int length, bool hexEnc)
 		spoolStream.writeRawData(array, length);
 }
 
+bool PSLib::PutImageToStream(ScImage& image, int plate)
+{
+	bool writeSucceed = false;
+	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScFlateEncodeFilter   flateEncode(&asciiEncode);
+	if (flateEncode.openFilter())
+	{
+		writeSucceed  = image.writePSImageToFilter(&flateEncode, plate);
+		writeSucceed &= flateEncode.closeFilter();
+	}
+	return writeSucceed;
+}
+
+bool PSLib::PutImageToStream(ScImage& image, const QByteArray& mask, int plate)
+{
+	bool writeSucceed = false;
+	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScFlateEncodeFilter   flateEncode(&asciiEncode);
+	if (flateEncode.openFilter())
+	{
+		writeSucceed  = image.writePSImageToFilter(&flateEncode, mask, plate);
+		writeSucceed &= flateEncode.closeFilter();
+	}
+	return writeSucceed;
+}
+
 bool PSLib::PutImageDataToStream(const QByteArray& image)
 {
 	bool writeSucceed = false;
@@ -1330,12 +1356,6 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 		return false;
 	}
 	image.applyEffect(c->effectsInUse, colorsToUse, true);
-	imgArray = image.ImageToCMYK_PS(-1, true);
-	if (imgArray.isNull()) // Memory allocation failure
-	{
-		PS_Error_InsufficientMemory();
-		return false;
-	}
 	QByteArray maskArray;
 	bool alphaLoaded = image.getAlpha(fn, maskArray, false, true, 300);
 	if (!alphaLoaded)
@@ -1346,7 +1366,7 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
 	{
 		PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-		if (!PutInterleavedImageMaskToStream(imgArray, maskArray, false))
+		if (!PutImageToStream(image, maskArray, -1))
 		{
 			PS_Error_ImageDataWriteFailure();
 			return false;
@@ -1356,7 +1376,7 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	else
 	{
 		PutStream("currentfile /ASCII85Decode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-		if (!PutImageDataToStream(imgArray))
+		if (!PutImageToStream(image, -1))
 		{
 			PS_Error_ImageDataWriteFailure();
 			return false;
@@ -1453,12 +1473,6 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
  		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
  		{
 			int plate = DoSep ? Plate : (GraySc ? -2 : -1);
-			imgArray  = image.ImageToCMYK_PS(plate, true);
-			if (imgArray.isNull())
-			{
-				PS_Error_InsufficientMemory();
-				return false;
-			}
 			// JG - Experimental code using Type3 image instead of patterns
 			PutStream("<< /ImageType 3\n");
 			PutStream("   /DataDict <<\n");
@@ -1486,7 +1500,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutStream("image\n");
 			if (Name.isEmpty())
 			{
-				if (!PutInterleavedImageMaskToStream(imgArray, maskArray, GraySc || DoSep))
+				if (!PutImageToStream(image, maskArray, plate))
 				{
 					PS_Error_ImageDataWriteFailure();
 					return false;
@@ -1518,15 +1532,9 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			else
 			{
 				int plate = DoSep ? Plate : (GraySc ? -2 : -1);
-				imgArray  = image.ImageToCMYK_PS(plate, true);
-				if (imgArray.isNull())
-				{
-					PS_Error_InsufficientMemory();
-					return false;
-				}
 				PutStream("   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n");
 				PutStream("image\n");
-				if (!PutImageDataToStream(imgArray))
+				if (!PutImageToStream(image, plate))
 				{
 					PS_Error_ImageDataWriteFailure();
 					return false;

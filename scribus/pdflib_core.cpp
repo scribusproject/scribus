@@ -6359,7 +6359,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				if ((doc.HasCMS) && (Options.UseProfiles2) && (!realCMYK))
 					im = img.ImageToArray();
 				else
-					im = img.ImageToCMYK_PDF(true);
+					im = img.ImageToCMYK_PDF();
 			}
 		}
 		if (im.isNull())
