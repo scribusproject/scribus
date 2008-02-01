@@ -545,19 +545,18 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	CaliGroup = new QGroupBox( tr( "&Adjust Display Size" ), tabView, "CaliGroup" );
 	CaliGroup->setColumnLayout(0, Qt::Vertical );
-	CaliGroup->layout()->setSpacing( 6 );
-	CaliGroup->layout()->setMargin( 11 );
-	CaliGroupLayout = new QVBoxLayout( CaliGroup->layout() );
+	CaliGroup->layout()->setSpacing( 5 );
+	CaliGroup->layout()->setMargin( 10 );
+	CaliGroupLayout = new QGridLayout( CaliGroup->layout() );
 	CaliGroupLayout->setAlignment( Qt::AlignTop );
 	CaliText = new QLabel( tr( "To adjust the display drag the ruler below with the slider." ), CaliGroup, "CaliText" );
-	CaliGroupLayout->addWidget( CaliText );
+	CaliGroupLayout->addMultiCellWidget( CaliText, 0, 0, 0, 1);
 	CaliRuler = new QLabel( CaliGroup, "CaliRuler" );
 	CaliRuler->setMinimumSize( QSize( 20, 20 ) );
-	drawRuler();
 	CaliRuler->setFrameShape( QLabel::Box );
 	CaliRuler->setFrameShadow( QLabel::Sunken );
 	CaliRuler->setScaledContents( false );
-	CaliGroupLayout->addWidget( CaliRuler );
+	CaliGroupLayout->addWidget( CaliRuler, 1, 0 );
 	layout15ca = new QHBoxLayout( 0, 0, 6, "layout15");
 	CaliSlider = new QSlider( CaliGroup, "CaliSlider" );
 	CaliSlider->setMinValue( -100 );
@@ -571,9 +570,15 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	CaliAnz = new QLabel( CaliGroup, "CaliAnz" );
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 	layout15ca->addWidget( CaliAnz );
-	CaliGroupLayout->addLayout( layout15ca );
+	CaliGroupLayout->addLayout( layout15ca, 2, 0 );
+	rulerUnitCombo = new QComboBox( true, CaliGroup, "UnitCombo" );
+	rulerUnitCombo->insertStringList(unitGetTextUnitList());
+	rulerUnitCombo->setEditable(false);
+	rulerUnitCombo->setCurrentItem(prefsData->docUnitIndex);
+	CaliGroupLayout->addWidget( rulerUnitCombo, 1, 1 );
 	tabViewLayout->addWidget( CaliGroup );
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
+	drawRuler();
 
 	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 0, 5, "ExtToolLayout");
@@ -774,6 +779,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(ghostscriptChangeButton, SIGNAL(clicked()), this, SLOT(changeGhostscript()));
 	connect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+	connect(rulerUnitCombo, SIGNAL(activated(int)), this, SLOT(drawRuler()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
@@ -1067,38 +1073,31 @@ void Preferences::setDisScale()
 void Preferences::drawRuler()
 {
 	double xl, iter, iter2, maxi;
-	switch (docUnitIndex)
+	int index = rulerUnitCombo->currentItem();
+	iter = unitRulerGetIter1FromIndex(index);
+	iter2 = unitRulerGetIter2FromIndex(index);
+	switch (index)
 	{
-	case 0:
-		iter = 10.0;
-		iter2 = iter * 10.0;
-		maxi = 200.0;
-		break;
-	case 1:
-		iter = (10.0 / 25.4) * 72.0;
-		iter2 = iter * 10.0;
-		maxi = iter2;
-		break;
-	case 2:
-		iter = 18.0;
-		iter2 = 72.0;
-		maxi = 2 * iter2;
-		break;
-	case 3:
-		iter = 12.0;
-		iter2 = 120.0;
-		maxi = 240.0;
-		break;
-	case 4:
-		iter = 12.0;
-		iter2 = 120.0;
-		maxi = 240.0;
-		break;
-	default:
-		iter = 10.0;
-		iter2 = iter * 10.0;
-		maxi = 200.0;
-		break;
+		case 0:
+			maxi = 200.0;
+			break;
+		case 1:
+			maxi = iter2;
+			break;
+		case 2:
+			maxi = 2 * iter2;
+			break;
+		case 3:
+			maxi = 240.0;
+			break;
+		case 4:
+			maxi = 240.0;
+			break;
+		default:
+			iter = 10.0;
+			iter2 = iter * 10.0;
+			maxi = 200.0;
+			break;
 	}
 
 	QPixmap pm(static_cast<int>(maxi*DisScale+30), 21);
@@ -1116,19 +1115,18 @@ void Preferences::drawRuler()
 		p.drawLine(static_cast<int>(xl), 6, static_cast<int>(xl), 19);
 		p.save();
 		p.scale(1.0 / DisScale, 1.0);
-		switch (docUnitIndex)
+		switch (index)
 		{
 		case 2:
-			p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12,
-			           QString::number(xl / iter2));
+		case 4:
+			p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter2));
 			break;
 		case 3:
-			p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12,
-			           QString::number(xl / iter));
+		case 5:
+			p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter));
 			break;
 		default:
-			p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12,
-			           QString::number(xl / iter * 10));
+			p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter * 10));
 			break;
 		}
 		p.restore();

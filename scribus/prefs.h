@@ -64,11 +64,6 @@ public:
 	*/
 	Preferences( QWidget* parent);
 	~Preferences(){};
-	/*!
-	\author Franz Schmid
-	\brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
- 	*/
-	void drawRuler();
 	void updatePreferences();
 
 	QString prefsPageSizeName;
@@ -175,6 +170,7 @@ public:
 	QLabel* CaliRuler;
 	QSlider* CaliSlider;
 	QLabel* CaliAnz;
+	QComboBox* rulerUnitCombo;
  	QWidget* ExtTool;
 	QGroupBox* ghostscriptGroup;
 	QLabel* ghostscriptLabel;
@@ -216,6 +212,11 @@ signals:
 	void accepted();
 
 public slots:
+	/*!
+	\author Franz Schmid
+	\brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
+ 	*/
+	void drawRuler();
 	/// \brief Overridden to emit accepted(), which plugin panels use
 	void accept();
 
@@ -319,7 +320,7 @@ protected:
 	QGridLayout* Layout6;
 	QHBoxLayout* Layout5_2;
 	QHBoxLayout* GroupASLayout;
-	QVBoxLayout* CaliGroupLayout;
+	QGridLayout* CaliGroupLayout;
 	QHBoxLayout* layout15ca;
 	QVBoxLayout* ExtToolLayout;
 	
