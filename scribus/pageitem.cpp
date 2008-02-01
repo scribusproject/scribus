@@ -3493,6 +3493,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		OrigH = pixm.height();
 		QString ext = fi.extension(false).lower();
 		isRaster = !(ext == "pdf" || ext == "ps" || ext == "eps");
+		if (!isRaster)
+			effectsInUse.clear();
 		UseEmbedded=pixm.imgInfo.isEmbedded;
 		if (pixm.imgInfo.isEmbedded)
 		{
