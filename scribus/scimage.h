@@ -225,12 +225,12 @@ private:
 	int HLSVALUE ( double n1, double n2, double hue );
 	void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, QImage &tmpImg);
-	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
+	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer, int* random_table);
 	bool loadLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);
 	QString getPascalString(QDataStream & s);
 	void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size);
-	bool parseLayer( QDataStream & s, const PSDHeader & header);
+	bool parseLayer( QDataStream & s, const PSDHeader & header, int* random_table);
 	bool LoadPSD( QDataStream & s, const PSDHeader & header);
 	bool marker_is_icc (jpeg_saved_marker_ptr marker);
 	bool marker_is_photoshop (jpeg_saved_marker_ptr marker);
@@ -240,7 +240,5 @@ private:
 	//std::valarray<int> curveTable;
 	QMemArray<int> curveTable;
 	QValueList<unsigned int> colorTable;
-	int random_table[4096];
-	
 };
 #endif

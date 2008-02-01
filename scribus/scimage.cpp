@@ -1539,7 +1539,7 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 	return true;
 }
 
-bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
+bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer, int *random_table)
 {
 	// Find out if the data is compressed.
 	// Known values:
@@ -2555,7 +2555,7 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 		s.device()->at( size );
 }
 
-bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header )
+bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header, int* random_table )
 {
 	uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
 	int top, left, bottom, right;
@@ -2660,7 +2660,7 @@ bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header )
 		bool firstLayer = true;
 		for (int layer = 0; layer < numLayers; layer++)
 		{
-			loadLayerChannels( s, header, imgInfo.layerInfo, layer, &firstLayer );
+			loadLayerChannels( s, header, imgInfo.layerInfo, layer, &firstLayer, random_table );
 		}
 	}
 	else
@@ -2684,6 +2684,7 @@ bool ScImage::LoadPSD( QDataStream & s, const PSDHeader & header)
 	uint startRessource;
 	uint layerDataLen;
 	uint startLayers;
+	int  random_table[4096];
 
 	srand(314159265);
 	for (int i = 0; i < 4096; i++)
@@ -2742,7 +2743,7 @@ bool ScImage::LoadPSD( QDataStream & s, const PSDHeader & header)
 	s >> layerDataLen;
 	startLayers = s.device()->at();
 	if (layerDataLen != 0)
-		return parseLayer( s, header);
+		return parseLayer( s, header, random_table);
 	else
 	{
 		// Decoding simple psd file, no layers
