@@ -52,6 +52,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(buttonControlChars, SIGNAL(clicked()), this, SLOT(changeControlCharsColor()));
 
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+	connect(rulerUnitCombo, SIGNAL(activated(int)), this, SLOT(drawRuler()));
 }
 
 void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, QList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
@@ -127,14 +128,15 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	gapHorizontal->setSuffix( unitSuffix );
 	gapHorizontal->setDecimals( decimals );
 	gapHorizontal->setMaximum(1000);
-//	gapHorizontal->setValue(pageSets[pageLayout].GapHorizontal * unitRatio);
 	gapVertical->setSuffix( unitSuffix );
 	gapVertical->setDecimals( decimals );
 	gapVertical->setMaximum(1000);
-//	gapVertical->setValue(pageSets[pageLayout].GapBelow * unitRatio);
-	drawRuler();
 	CaliSlider->setValue(qRound(100 * DisScale) - 150);
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
+	rulerUnitCombo->clear();
+	rulerUnitCombo->addItems(unitGetTextUnitList());
+	rulerUnitCombo->setCurrentIndex(docUnitIndex);
+	drawRuler();
 }
 
 void TabDisplay::unitChange(int docUnitIx)
@@ -183,31 +185,24 @@ void TabDisplay::setDisScale()
 void TabDisplay::drawRuler()
 {
 	double xl, iter, iter2, maxi;
-	switch (docUnitIndex)
+	int index = rulerUnitCombo->currentIndex();
+	iter = unitRulerGetIter1FromIndex(index);
+	iter2 = unitRulerGetIter2FromIndex(index);
+	switch (index)
 	{
 		case 0:
-			iter = 10.0;
-			iter2 = iter * 10.0;
 			maxi = 200.0;
 			break;
 		case 1:
-			iter = (10.0 / 25.4) * 72.0;
-			iter2 = iter * 10.0;
 			maxi = iter2;
 			break;
 		case 2:
-			iter = 18.0;
-			iter2 = 72.0;
 			maxi = 2 * iter2;
 			break;
 		case 3:
-			iter = 12.0;
-			iter2 = 120.0;
 			maxi = 240.0;
 			break;
 		case 4:
-			iter = 12.0;
-			iter2 = 120.0;
 			maxi = 240.0;
 			break;
 		default:
@@ -217,34 +212,33 @@ void TabDisplay::drawRuler()
 			break;
 	}
 
-	QPixmap pm(qRound(maxi*DisScale+30), 21);
+	QPixmap pm(qMin(qMax(CaliRuler->width(), qRound(maxi)+30), qRound(maxi*DisScale+30)), 21);
 	pm.fill();
 	QPainter p;
 	p.begin(&pm);
-	p.drawLine(0, 19, width(), 19);
+	p.drawLine(0, 19, pm.width(), 19);
 	p.setBrush(Qt::black);
 	p.setPen(Qt::black);
 	p.scale(DisScale, 1.0);
 	for (xl = 0; xl < maxi; xl += iter)
-		p.drawLine(static_cast<int>(xl), 13, static_cast<int>(xl), 19);
+		p.drawLine(QPointF(xl, 13.0), QPointF(xl, 19.0));
 	for (xl = 0; xl < maxi+10; xl += iter2)
 	{
-		p.drawLine(static_cast<int>(xl), 6, static_cast<int>(xl), 19);
+		p.drawLine(QPointF(xl, 6.0), QPointF(xl, 19.0));
 		p.save();
 		p.scale(1.0 / DisScale, 1.0);
-		switch (docUnitIndex)
+		switch (index)
 		{
 			case 2:
-				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12,
-						   QString::number(xl / iter2));
+			case 4:
+				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter2));
 				break;
 			case 3:
-				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12,
-						   QString::number(xl / iter));
+			case 5:
+				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter));
 				break;
 			default:
-				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12,
-						   QString::number(xl / iter * 10));
+				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter * 10));
 				break;
 		}
 		p.restore();

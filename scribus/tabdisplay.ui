@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>633</width>
-    <height>509</height>
+    <width>631</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -43,28 +43,10 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
-        <number>10</number>
-       </property>
-       <property name="topMargin" >
-        <number>10</number>
-       </property>
-       <property name="rightMargin" >
-        <number>10</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>10</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>5</number>
-       </property>
-       <property name="verticalSpacing" >
-        <number>5</number>
-       </property>
-       <item row="2" column="0" colspan="2" >
-        <widget class="QGroupBox" name="CaliGroup" >
+       <item rowspan="2" row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox3" >
          <property name="title" >
-          <string>Adjust Display Size</string>
+          <string>Page Display</string>
          </property>
          <layout class="QGridLayout" >
           <property name="leftMargin" >
@@ -85,130 +67,71 @@
           <property name="verticalSpacing" >
            <number>5</number>
           </property>
+          <item row="7" column="0" >
+           <widget class="QCheckBox" name="checkBleed" >
+            <property name="text" >
+             <string>Show Bleed Area</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0" >
+           <widget class="QCheckBox" name="checkUnprintable" >
+            <property name="text" >
+             <string>Display &amp;Unprintable Area in Margin Color</string>
+            </property>
+            <property name="shortcut" >
+             <string>Alt+U</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" >
+           <widget class="QCheckBox" name="checkLayerM" >
+            <property name="text" >
+             <string>Show Layer Indicators</string>
+            </property>
+            <property name="shortcut" >
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" >
+           <widget class="QCheckBox" name="checkFrame" >
+            <property name="text" >
+             <string>Show Frames</string>
+            </property>
+            <property name="shortcut" >
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" >
+           <widget class="QCheckBox" name="checkLink" >
+            <property name="text" >
+             <string>Show Text Chains</string>
+            </property>
+            <property name="shortcut" >
+             <string/>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="0" >
-           <layout class="QHBoxLayout" >
-            <property name="spacing" >
-             <number>5</number>
+           <widget class="QCheckBox" name="checkRuler" >
+            <property name="text" >
+             <string>Rulers Relative to Page</string>
             </property>
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QSlider" name="CaliSlider" >
-              <property name="minimum" >
-               <number>-150</number>
-              </property>
-              <property name="maximum" >
-               <number>150</number>
-              </property>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="tickInterval" >
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="CaliAnz" >
-              <property name="text" >
-               <string>Scale%</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           </widget>
           </item>
           <item row="1" column="0" >
-           <widget class="QLabel" name="CaliRuler" >
-            <property name="minimumSize" >
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="frameShape" >
-             <enum>QFrame::Box</enum>
-            </property>
-            <property name="frameShadow" >
-             <enum>QFrame::Sunken</enum>
-            </property>
-            <property name="wordWrap" >
-             <bool>false</bool>
+           <widget class="QCheckBox" name="checkControl" >
+            <property name="text" >
+             <string>Show Text Control Characters</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0" >
-           <widget class="QLabel" name="CaliText" >
+           <widget class="QCheckBox" name="checkPictures" >
             <property name="text" >
-             <string>To adjust the display drag the ruler below with the slider.</string>
-            </property>
-            <property name="wordWrap" >
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QGroupBox" name="groupBox5" >
-         <property name="title" >
-          <string>Gaps Between Pages</string>
-         </property>
-         <layout class="QGridLayout" >
-          <property name="leftMargin" >
-           <number>10</number>
-          </property>
-          <property name="topMargin" >
-           <number>10</number>
-          </property>
-          <property name="rightMargin" >
-           <number>10</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>10</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>5</number>
-          </property>
-          <property name="verticalSpacing" >
-           <number>5</number>
-          </property>
-          <item row="1" column="1" >
-           <widget class="ScrSpinBox" name="gapVertical" />
-          </item>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="textLabel14" >
-            <property name="text" >
-             <string>Vertical:</string>
-            </property>
-            <property name="wordWrap" >
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="ScrSpinBox" name="gapHorizontal" />
-          </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="textLabel13" >
-            <property name="text" >
-             <string>Horizontal:</string>
-            </property>
-            <property name="wordWrap" >
-             <bool>false</bool>
+             <string>Show Images</string>
             </property>
            </widget>
           </item>
@@ -313,10 +236,10 @@
          </layout>
         </widget>
        </item>
-       <item rowspan="2" row="0" column="0" >
-        <widget class="QGroupBox" name="groupBox3" >
+       <item row="1" column="1" >
+        <widget class="QGroupBox" name="groupBox5" >
          <property name="title" >
-          <string>Page Display</string>
+          <string>Gaps Between Pages</string>
          </property>
          <layout class="QGridLayout" >
           <property name="leftMargin" >
@@ -337,73 +260,135 @@
           <property name="verticalSpacing" >
            <number>5</number>
           </property>
-          <item row="7" column="0" >
-           <widget class="QCheckBox" name="checkBleed" >
+          <item row="1" column="1" >
+           <widget class="ScrSpinBox" name="gapVertical" />
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="textLabel14" >
             <property name="text" >
-             <string>Show Bleed Area</string>
+             <string>Vertical:</string>
+            </property>
+            <property name="wordWrap" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="6" column="0" >
-           <widget class="QCheckBox" name="checkUnprintable" >
+          <item row="0" column="1" >
+           <widget class="ScrSpinBox" name="gapHorizontal" />
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="textLabel13" >
             <property name="text" >
-             <string>Display &amp;Unprintable Area in Margin Color</string>
+             <string>Horizontal:</string>
             </property>
-            <property name="shortcut" >
-             <string>Alt+U</string>
+            <property name="wordWrap" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="5" column="0" >
-           <widget class="QCheckBox" name="checkLayerM" >
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2" >
+        <widget class="QGroupBox" name="CaliGroup" >
+         <property name="title" >
+          <string>Adjust Display Size</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="leftMargin" >
+           <number>10</number>
+          </property>
+          <property name="topMargin" >
+           <number>10</number>
+          </property>
+          <property name="rightMargin" >
+           <number>10</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>10</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>5</number>
+          </property>
+          <property name="verticalSpacing" >
+           <number>5</number>
+          </property>
+          <item row="0" column="0" colspan="2" >
+           <widget class="QLabel" name="CaliText" >
             <property name="text" >
-             <string>Show Layer Indicators</string>
+             <string>To adjust the display drag the ruler below with the slider.</string>
             </property>
-            <property name="shortcut" >
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0" >
-           <widget class="QCheckBox" name="checkFrame" >
-            <property name="text" >
-             <string>Show Frames</string>
-            </property>
-            <property name="shortcut" >
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" >
-           <widget class="QCheckBox" name="checkLink" >
-            <property name="text" >
-             <string>Show Text Chains</string>
-            </property>
-            <property name="shortcut" >
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" >
-           <widget class="QCheckBox" name="checkRuler" >
-            <property name="text" >
-             <string>Rulers Relative to Page</string>
+            <property name="wordWrap" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
           <item row="1" column="0" >
-           <widget class="QCheckBox" name="checkControl" >
-            <property name="text" >
-             <string>Show Text Control Characters</string>
+           <widget class="QLabel" name="CaliRuler" >
+            <property name="minimumSize" >
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="frameShape" >
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="frameShadow" >
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="wordWrap" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" >
-           <widget class="QCheckBox" name="checkPictures" >
-            <property name="text" >
-             <string>Show Images</string>
+          <item row="1" column="1" >
+           <widget class="QComboBox" name="rulerUnitCombo" />
+          </item>
+          <item row="2" column="0" >
+           <layout class="QHBoxLayout" >
+            <property name="spacing" >
+             <number>5</number>
             </property>
-           </widget>
+            <property name="leftMargin" >
+             <number>0</number>
+            </property>
+            <property name="topMargin" >
+             <number>0</number>
+            </property>
+            <property name="rightMargin" >
+             <number>0</number>
+            </property>
+            <property name="bottomMargin" >
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QSlider" name="CaliSlider" >
+              <property name="minimum" >
+               <number>-150</number>
+              </property>
+              <property name="maximum" >
+               <number>150</number>
+              </property>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="tickInterval" >
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="CaliAnz" >
+              <property name="text" >
+               <string>Scale%</string>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -418,8 +403,8 @@
          </property>
          <property name="sizeHint" >
           <size>
-           <width>523</width>
-           <height>51</height>
+           <width>589</width>
+           <height>31</height>
           </size>
          </property>
         </spacer>
