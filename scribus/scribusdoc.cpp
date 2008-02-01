@@ -8505,8 +8505,6 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 			}
 			dR2 += dR;
 		}
-		changed();
-//		m_View->Deselect(true);
 		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(dH).arg(dV).arg(dR);
 	}
 	else
@@ -8533,8 +8531,6 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				}
 			}
 		}
-		changed();
-//		m_View->Deselect(true);
 		tooltip = tr("Number of copies: %1\nHorizontal gap: %2\nVertical gap: %3").arg(copyCount-1).arg(mdData.gridGapH).arg(mdData.gridGapV);
 	}
 	if (UndoManager::undoEnabled())
@@ -8548,6 +8544,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
 	view()->DrawNew();
+	changed();
 }
 
 
