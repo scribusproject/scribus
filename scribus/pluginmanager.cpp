@@ -242,8 +242,8 @@ void PluginManager::enablePlugin(PluginData & pda)
 	bool isActionPlugin=false;
 	if (pda.plugin->inherits("ScActionPlugin"))
 	{
-		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
-		Q_ASSERT(plugin);
+// 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
+// 		Q_ASSERT(plugin);
 		isActionPlugin=true;
 		/*
 		pda.enabled = setupPluginActions(plugin);
