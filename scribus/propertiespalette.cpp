@@ -2106,12 +2106,14 @@ void PropertiesPalette::setXY(double x, double y)
 		{
 			doc->m_Selection->getGroupRect(&dummy1, &dummy2, &b, &h);
 			r = 0.0;
+			ma.translate(dummy1, dummy2);
 		}
 		else
 		{
 			b = CurItem->width();
 			h = CurItem->height();
 			r = CurItem->rotation();
+			ma.translate(x, y);
 		}
 	}
 	else
@@ -2119,9 +2121,10 @@ void PropertiesPalette::setXY(double x, double y)
 		b = 0.0;
 		h = 0.0;
 		r = 0.0;
+		ma.translate(x, y);
 	}
 	HaveItem = false;
-	ma.translate(x, y);
+//	ma.translate(x, y);
 	ma.rotate(r);
 	if (TopLeft->isChecked())
 		n = FPoint(0.0, 0.0);
@@ -3725,6 +3728,21 @@ void PropertiesPalette::NewRotMode(int m)
 			}
 			Xpos->setValue(inX*m_unitRatio);
 			Ypos->setValue(inY*m_unitRatio);
+		}
+		if (CurItem->itemType() == PageItem::ImageFrame)
+		{
+			if (!FreeScale->isChecked())
+			{
+				CurItem->AdjustPictScale();
+				CurItem->update();
+				disconnect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+				disconnect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+				imageXOffsetSpinBox->setValue(CurItem->imageXOffset() * CurItem->imageXScale() * m_unitRatio);
+				imageYOffsetSpinBox->setValue(CurItem->imageYOffset() * CurItem->imageYScale() * m_unitRatio);
+				connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+				connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+				emit DocChanged();
+			}
 		}
 		HaveItem = true;
 	}
