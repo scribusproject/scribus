@@ -27,7 +27,7 @@
 
 ResizeGesture::ResizeGesture (CanvasMode* parent) : CanvasGesture(parent)
 {
-	m_transactionStarted = false;
+	m_transactionStarted = NULL;
 }
 
 void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
@@ -65,8 +65,10 @@ void ResizeGesture::clear()
 	m_handle = Canvas::OUTSIDE;
 	if (m_transactionStarted)
 	{
-		m_view->cancelGroupTransaction();
-		m_transactionStarted = false;
+		qDebug() << "ResizeGesture::clear: cancel transaction" << m_transactionStarted;
+		m_transactionStarted->cancel();
+		delete m_transactionStarted;
+		m_transactionStarted = NULL;
 	}
 }
 
@@ -133,13 +135,18 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->setRedrawBounding(currItem);
 		if (currItem->asImageFrame())
 			currItem->AdjustPictScale();
+		m_view->resetMousePressed();
+		// necessary since mousebutton is still recorded pressed, and otherwise checkchages() will do nothing
+		currItem->checkChanges();
 		currItem->invalidateLayout();
 		currItem->update();
 	}
+//	qDebug() << "ResizeGesture::release: transaction" << m_transactionStarted;
 	if (m_transactionStarted)
 	{
-		m_view->endGroupTransaction();
-		m_transactionStarted = false;
+		m_transactionStarted->commit();
+		delete m_transactionStarted;
+		m_transactionStarted = NULL;
 	}
 	m->accept();
 	m_canvas->update();
@@ -149,12 +156,20 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 
 void ResizeGesture::doResize(bool scaleContent)
 {
+	PageItem* currItem = m_doc->m_Selection->itemAt(0);
+	QString targetName = Um::SelectionGroup;
+	QPixmap* targetIcon = Um::IGroup;
+	if (!m_doc->m_Selection->isMultipleSelection())
+	{
+		targetName = currItem->getUName();
+		targetIcon = currItem->getUPixmap();
+	}
 	if (!m_transactionStarted)
 	{
-		m_view->startGroupTransaction(Um::Resize, "", Um::IResize);
-		m_transactionStarted = true;	
+		m_transactionStarted = new UndoTransaction(Um::instance()->beginTransaction(targetName, targetIcon,
+																					Um::Resize, "", Um::IResize));
+//		qDebug() << "ResizeGesture::doResize: begin transaction" << m_transactionStarted;
 	}
-	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	QRectF newBounds = m_bounds.normalized();
 	if (m_doc->m_Selection->isMultipleSelection())
 	{

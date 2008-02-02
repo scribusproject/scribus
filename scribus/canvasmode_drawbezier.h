@@ -24,7 +24,7 @@
 class PageItem;
 class ScribusMainWindow;
 class ScribusView;
-
+class UndoTransaction;
 
 /**
   Handles the creation of new pageitems
@@ -49,6 +49,7 @@ private:
 	inline bool GetItem(PageItem** pi); 
 	void selectPage(QMouseEvent *m);
 
+	UndoTransaction* m_createTransaction;
 	int Cp, oldCp;
 	bool inItemCreation, shiftSelItems, FirstPoly;
 	bool m_MouseButtonPressed;

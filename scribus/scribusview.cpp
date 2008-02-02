@@ -166,6 +166,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	Ready(false),
 	oldX(0), oldY(0),
 	m_groupTransactions(0),
+	m_groupTransaction(NULL),
 	_isGlobalMode(true),
 //	evSpon(false),
 //	forceRedraw(false),
@@ -776,6 +777,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	QString text;
 	QUrl url;
 	PageItem *currItem;
+	UndoTransaction* activeTransaction = NULL;
 	bool img = false;
 	m_canvas->resetRenderMode();
 	redrawMode = 0;
@@ -937,7 +939,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			uint oldDocItemCount = Doc->Items->count();
 			if ((!img) && (Doc->DraggedElem == 0))
 			{
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
+				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
 				if ((fi.exists()) && (!img))
 				{
 					QString data;
@@ -1004,7 +1006,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						emit AddBM(currItem);
 				}
 				Doc->m_Selection->copy(tmpSelection, false, false);
-				undoManager->commit();
+				activeTransaction->commit();
+				delete activeTransaction;
+				activeTransaction = NULL;
 			}
 			else
 			{
@@ -1121,7 +1125,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					nx = npx.x();
 					ny = npx.y();
 				}
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Move,"",Um::IMove);
+				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Move,"",Um::IMove));
 				Doc->moveGroup(nx-gx, ny-gy, false);
 				Doc->m_Selection->setGroupRect();
 				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -1139,7 +1143,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					currItem->gWidth = gw;
 					currItem->gHeight = gh;
 				}
-				undoManager->commit();
+				activeTransaction->commit();
+				delete activeTransaction;
+				activeTransaction = NULL;
 				emit ItemPos(gx, gy);
 				emit ItemGeom(gw, gh);
 			}
@@ -2085,9 +2091,10 @@ void ScribusView::RaiseItem()
 //CB Remove emit/start pasting objects
 void ScribusView::PasteToPage()
 {
+	UndoTransaction* activeTransaction = NULL;
 	int ac = Doc->Items->count();
 	if (UndoManager::undoEnabled())
-		undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
 	if (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT"))
 	{
 		bool savedAlignGrid = Doc->useRaster;
@@ -2161,8 +2168,12 @@ void ScribusView::PasteToPage()
 		currItem->emitAllToGUI();
 	}
 	newObjects.clear();
-	if (UndoManager::undoEnabled())
-		undoManager->commit();
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 }
 
 
@@ -2199,45 +2210,75 @@ bool ScribusView::mousePressed()
 	return m_canvas->m_viewMode.m_MouseButtonPressed;
 }
 
+void ScribusView::resetMousePressed()
+{	
+	m_canvas->m_viewMode.m_MouseButtonPressed = false;
+}
+
+
 void ScribusView::startGroupTransaction(const QString& action, const QString& description, QPixmap* actionIcon, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
 	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	Q_ASSERT(selectedItemCount > 0);
-	QString tooltip = description;
-	QString target = Um::SelectionGroup;
-	QPixmap* targetIcon = Um::IGroup;
-	if (tooltip.isEmpty() && selectedItemCount > 1)
+	if (!m_groupTransaction)
 	{
-		tooltip = Um::ItemsInvolved + "\n";
-		for (uint i = 0; i < selectedItemCount; ++i)
-			tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
+		QString tooltip = description;
+		QString target = Um::SelectionGroup;
+		QPixmap* targetIcon = Um::IGroup;
+		if (tooltip.isEmpty() && selectedItemCount > 1)
+		{
+			tooltip = Um::ItemsInvolved + "\n";
+			for (uint i = 0; i < selectedItemCount; ++i)
+				tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
+		}
+		if (selectedItemCount == 1)
+		{
+			target = itemSelection->itemAt(0)->getUName();
+			targetIcon = itemSelection->itemAt(0)->getUPixmap(); 
+		}
+		m_groupTransaction = new UndoTransaction(undoManager->beginTransaction(target, targetIcon,
+																			   action, tooltip, actionIcon));
 	}
-	if (selectedItemCount == 1)
-	{
-		target = itemSelection->itemAt(0)->getUName();
-		targetIcon = itemSelection->itemAt(0)->getUPixmap(); 
-	}
-	undoManager->beginTransaction(target, targetIcon,
-								  action, tooltip, actionIcon);
 	++m_groupTransactions;
 }
 
 
+/**
+  
+*/
 void ScribusView::endGroupTransaction()
 {
-	assert(m_groupTransactions > 0);
-	undoManager->commit();
-	--m_groupTransactions;
+	if(m_groupTransactions > 0)
+	{
+		--m_groupTransactions;
+	}
+	if (m_groupTransaction && m_groupTransactions == 0)
+	{
+		m_groupTransaction->commit();
+		delete m_groupTransaction;
+		m_groupTransaction = NULL;
+	}
 }
 
-
+/**
+   Always cancels the toplevel transaction and all enclosed ones
+ */
 void ScribusView::cancelGroupTransaction()
 {
-	assert(m_groupTransactions > 0);
-	undoManager->cancelTransaction();
-	--m_groupTransactions;
+	if(m_groupTransaction && m_groupTransactions == 1)
+	{
+		m_groupTransaction->cancel();
+		delete m_groupTransaction;
+		m_groupTransaction = NULL;
+	}
+	else if (m_groupTransaction)
+	{
+		m_groupTransaction->markFailed();
+	}
+	if (m_groupTransactions > 0)
+		--m_groupTransactions;
 }
 
 
@@ -3208,11 +3249,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	{
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
-		z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !m_canvas->m_viewMode.m_MouseButtonPressed);
+		z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
+		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
 		Doc->Items->at(z)->Pfile = Buffer->Pfile;
@@ -3232,16 +3273,16 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !m_canvas->m_viewMode.m_MouseButtonPressed);
+		z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
 		break;
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
 #ifndef NLS_PROTO
 		if (Buffer->PType == PageItem::PathText)
-			z = Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, !m_canvas->m_viewMode.m_MouseButtonPressed);
+			z = Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
 		else
-			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, !m_canvas->m_viewMode.m_MouseButtonPressed);
+			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
 		if ((Buffer->m_isAnnotation) && (Buffer->m_annotation.UseIcons()))
 		{
 			Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
@@ -3357,19 +3398,19 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 #endif
 		break;
 	case PageItem::Line:
-		z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, CommonStrings::None, Buffer->Pcolor2, !m_canvas->m_viewMode.m_MouseButtonPressed);
+		z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, CommonStrings::None, Buffer->Pcolor2, true);
 		break;
 	case PageItem::Polygon:
-		z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !m_canvas->m_viewMode.m_MouseButtonPressed);
+		z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
 		break;
 	case PageItem::PolyLine:
-		z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !m_canvas->m_viewMode.m_MouseButtonPressed);
+		z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
 		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
 	case PageItem::LatexFrame:
-		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
+		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
 		Doc->Items->at(z)->Pfile = Buffer->Pfile;
@@ -3770,7 +3811,7 @@ void ScribusView::TextToPath()
 	uint selectedItemCount = tmpSelection.count();
 	if (selectedItemCount != 0)
 	{
-		undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", 0);
+		UndoTransaction trans(undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", 0));
 		uint offset=0;
 		for(uint i=0; i<selectedItemCount; ++i)
 		{
@@ -3866,7 +3907,7 @@ void ScribusView::TextToPath()
 						sca.translate(currItem->xPos(), currItem->yPos());
 						pts.map(sca);
 					}
-					uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), !m_canvas->m_viewMode.m_MouseButtonPressed);
+					uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 					bb = Doc->Items->at(z);
 					//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 					//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
@@ -3972,7 +4013,7 @@ void ScribusView::TextToPath()
 							}
 							if (charStyle.baselineOffset() != 0)
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
-							uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), !m_canvas->m_viewMode.m_MouseButtonPressed);
+							uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 							bb = Doc->Items->at(z);
 							bb->setTextFlowMode(currItem->textFlowMode());
 							bb->setSizeLocked(currItem->sizeLocked());
@@ -4021,7 +4062,7 @@ void ScribusView::TextToPath()
 						if (currItem->imageFlippedV())
 							chma.scale(1, -1);
 						pts.map(chma);
-						uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), !m_canvas->m_viewMode.m_MouseButtonPressed);
+						uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 						bb = Doc->Items->at(z);
 						//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 						//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
@@ -4095,7 +4136,7 @@ void ScribusView::TextToPath()
 							}
 							if (charStyle.baselineOffset() != 0)
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
-							uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), !m_canvas->m_viewMode.m_MouseButtonPressed);
+							uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 							bb = Doc->Items->at(z);
 							bb->setTextFlowMode(currItem->textFlowMode());
 							bb->setSizeLocked(currItem->sizeLocked());
@@ -4139,7 +4180,7 @@ void ScribusView::TextToPath()
 			}
 			if ((currItem->asPathText()) && (currItem->PoShow))
 			{
-				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor(), !m_canvas->m_viewMode.m_MouseButtonPressed);
+				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor(), true);
 				PageItem *bb = Doc->Items->at(z);
 				bb->PoLine = currItem->PoLine.copy();
 				bb->ClipEdited = true;
@@ -4176,7 +4217,7 @@ void ScribusView::TextToPath()
 			Doc->itemSelection_DeleteItem(&tmpSelection);
 		}
 		Doc->m_Selection->copy(tmpSelection, false, true);
-		undoManager->commit();
+		trans.commit();
 	}
 #endif
 }

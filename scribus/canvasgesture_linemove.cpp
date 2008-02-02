@@ -130,6 +130,8 @@ void LineMove::mouseReleaseEvent(QMouseEvent *m)
 	{
 		doResize();
 		m_doc->setRedrawBounding(m_line);
+		m_view->resetMousePressed();
+		m_line->checkChanges();
 		m_line->update();
 	}
 	m->accept();

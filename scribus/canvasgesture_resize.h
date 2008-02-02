@@ -36,6 +36,7 @@ class QKeyEvent;
 class QPainter;
 class QRubberBand;
 class PageItem;
+class UndoTransaction;
 
 /**
   This class realizes resizing of selected items on behalf of its parent mode.
@@ -76,7 +77,7 @@ private:
 	double m_origRatio;
 	QRectF m_bounds;
 	QRectF m_origBounds;
-	bool m_transactionStarted;
+	UndoTransaction* m_transactionStarted;
 };
 
 

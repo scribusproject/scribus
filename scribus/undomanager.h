@@ -30,10 +30,10 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <utility>
 #include <QObject>
-//Added by qt3to4:
 #include <QPixmap>
 
 #include "scribusapi.h"
+#include "transaction.h"
 #include "undostate.h"
 #include "undoobject.h"
 #include "undostack.h"
@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 class QString;
 class QPixmap;
 class UndoGui;
+class TransactionData;
 class PrefsContext;
 
 /** @brief Key is the doc name, value is it's undo stack */
@@ -59,6 +60,7 @@ public:
 	TransactionState();
 	/** @brief Destroys the TransactionState instance */
 	~TransactionState();
+	
 	/**
 	 * @brief Add a new <code>UndoState</code> object to the transaction.
 	 * @param state state to be added to the transaction
@@ -116,6 +118,26 @@ private:
 	std::vector<UndoState*> states_;
 };
 
+
+
+/**
+    Class which handles Undo transactions. No data, just methods.
+ */
+class UndoTransaction : public Transaction
+{
+public:
+	UndoTransaction(TransactionData* data);
+	virtual ~UndoTransaction();
+	virtual bool commit();
+	virtual bool cancel();
+	bool commit(const QString &targetName,
+				QPixmap *targetPixmap,
+				const QString &name = "",
+				const QString &description = "",
+				QPixmap *actionPixmap = 0);
+};
+
+
 /**
  * @brief UndoManager handles the undo stack.
  *
@@ -137,6 +159,8 @@ class SCRIBUS_API UndoManager : public QObject
 {
 	Q_OBJECT
 public:
+	friend class UndoTransaction;
+	
 	/** @brief Marks for a global undo mode where ever UndoOjbect id is requested. */
 	static const int GLOBAL_UNDO_MODE = -1;
 	
@@ -188,21 +212,25 @@ public:
 	 * window and icon for the action will be drawn over this one.
 	 * @param name name for the transaction (f.e. "Move" would make with the above
 	 * "Move Selection")
+	 * The result can only be used for initializing a Transaction object, eg. on the stack:
+	 *      Transaction groupTransaction(undoManger->beginTransaction(...));
+	 * or the heap:
+	 *      Transaction* groupTransactionPtr = new Transaction(undoManger->beginTransaction(...));
 	 * @param description description for the transaction
 	 * @param actionPixmap icon for the action performed by the transaction
 	 * @sa commit()
 	 */
-	void beginTransaction(const QString &targetName = "",
-	                      QPixmap *targetPixmap = 0,
-	                      const QString &actionName = "",
-	                      const QString &description = "",
-	                      QPixmap *actionPixmap = 0);
+	UndoTransaction beginTransaction(const QString &targetName = "",
+									 QPixmap *targetPixmap = 0,
+									 const QString &actionName = "",
+									 const QString &description = "",
+									 QPixmap *actionPixmap = 0);
 	
 	/**
 	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.
 	 * @brief Nothing from canceled transaction will be sent to the undo gui widgets.
 	 */
-	void cancelTransaction();
+	//void cancelTransaction();
 	
 	/**
 	 * @brief Commit the current transaction.
@@ -220,11 +248,11 @@ public:
 	 * @param actionPixmap icon for the action performed by the transaction
 	 * @sa beginTransaction()
 	 */
-	void commit(const QString &targetName = "",
-	            QPixmap *targetPixmap = 0,
-	            const QString &name = "",
-	            const QString &description = "",
-	            QPixmap *actionPixmap = 0);
+//	void commit(const QString &targetName = "",
+//	            QPixmap *targetPixmap = 0,
+//	            const QString &name = "",
+//	            const QString &description = "",
+//	            QPixmap *actionPixmap = 0);
 	
 	/**
 	 * @brief Returns true if in transaction mode if not will return false.
@@ -311,25 +339,6 @@ public:
 	bool isGlobalMode();
 
 private:
-
-/*** UndoManager::TransactionObject ***************************************************/
-
-	/**
-	 * @brief Dummy subclass of <code>UndoObject</code> which is used for holding the name
-	 * @brief for the transaction's target object(group) (f.e "Selection", "Group", "Script"...).
-	 * @author Riku Leino tsoots@gmail.com
-	 * @date January 2005
-	 */
-	class TransactionObject : public UndoObject
-	{
-	public:
-		TransactionObject() {};
-		virtual ~TransactionObject() {};
-		void restore(UndoState*, bool) {};
-	};
-
-/**************************************************************************************/
-
 	/**
 	 * @brief The only instance of UndoManager available.
 	 *
@@ -367,19 +376,7 @@ private:
 	 * @brief Stores the transactions which are currently started but not
 	 * @brief canceled or commited.
 	 */
-	std::vector<std::pair<TransactionObject*, TransactionState*> > transactions_;
-
-	/**
-	 * @brief If in transaction mode this is the container for incoming <code>UndoState</code>
-	 * @brief objects.
-	 *
-	 * It is also used to detect if we are in the transaction mode. When it is <code>NULL</code>
-	 * normal mode is on.
-	 */
-	TransactionState *transaction_;
-
-	/** @brief Dummy object for storing transaction target's name */
-	TransactionObject *transactionTarget_;
+	std::vector<TransactionData*> transactions_;
 
 	/**
 	 * @brief UndoGuis attached to this UndoManager

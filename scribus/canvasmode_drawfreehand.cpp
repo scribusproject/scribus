@@ -322,6 +322,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (RecordP.size() > 1)
 		{
+			UndoTransaction createTransaction(UndoManager::instance()->beginTransaction());
 			uint z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
@@ -361,7 +362,14 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			currItem->ClipEdited = true;
 			currItem->FrameType = 3;
 			currItem->OwnPage = m_doc->OnPage(currItem);
-//FIXME	
+			m_view->resetMousePressed();
+			currItem->checkChanges();
+			QString targetName = Um::ScratchSpace;
+			if (currItem->OwnPage > -1)
+				targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
+			createTransaction.commit(targetName, currItem->getUPixmap(),
+											Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+			//FIXME	
 			m_canvas->m_viewMode.operItemResizing = false;
 			inItemCreation = false;
 			m_doc->changed();
@@ -379,6 +387,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 	}
 	
 	
+	assert(false);
 	if (m_doc->appMode != modeDrawBezierLine) //FIXME: that should be dead - av
 	{		
 		if (inItemCreation)
@@ -546,7 +555,6 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			}
 		}
-		
 		if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
 		{
 			m_canvas->setRenderModeUseBuffer(false);
@@ -577,10 +585,11 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 						m_doc->SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = m_doc->SnapGuides;
 					m_doc->SnapGuides = false;
+					UndoTransaction* activeTransaction = NULL;
 					if (UndoManager::undoEnabled())
 					{
-						m_view->undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
-							Um::Resize, QString(Um::ResizeFromTo).arg(currItem->width()).arg(currItem->height()).arg(currItem->width() - npx.x()).arg(currItem->height() - npx.y()), Um::IResize);
+						activeTransaction = new UndoTransaction(m_view->undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
+																								  Um::Resize, QString(Um::ResizeFromTo).arg(currItem->width()).arg(currItem->height()).arg(currItem->width() - npx.x()).arg(currItem->height() - npx.y()), Um::IResize));
 					}
 //					m_canvas->m_viewMode.operItemResizing = false;
 					switch (frameResizeHandle)
@@ -826,8 +835,12 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 					m_view->updateCanvas();
 //					emit DocChanged();
 					currItem->checkChanges();
-					if (UndoManager::undoEnabled())
-						m_view->undoManager->commit();
+					if (activeTransaction)
+					{
+						activeTransaction->commit();
+						delete activeTransaction;
+						activeTransaction = NULL;
+					}
 				}
 				m_doc->setRedrawBounding(currItem);
 				currItem->OwnPage = m_doc->OnPage(currItem);

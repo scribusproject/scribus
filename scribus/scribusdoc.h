@@ -68,6 +68,7 @@ class ScribusMainWindow;
 class ResourceCollection;
 class PageSize;
 class ScPattern;
+class UndoTransaction;
 
 class QProgressBar;
 
@@ -77,6 +78,7 @@ struct SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 	int submode;
 	bool isContourLine;
 	FPointArray *oldClip;
+	UndoTransaction* nodeTransaction;
 	double oldItemX;
 	double oldItemY;
 		
@@ -88,25 +90,12 @@ struct SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 	bool MoveSym;
 	QList<int> SelNode;	
 	
-	NodeEditContext() : submode(MOVE_POINT), isContourLine(false), oldClip(NULL), 
-		ClRe(-1), ClRe2(-1), SegP1(-1), SegP2(-1), EdPoints(true), MoveSym(false), SelNode() {}
+	NodeEditContext();
 	
-	bool hasNodeSelected() { return ClRe != -1; }
-	void deselect() { ClRe = -1; }
+	bool hasNodeSelected();
+	void deselect();
 	
-	void reset()
-	{
-		submode = MOVE_POINT;
-		isContourLine = false;
-		ClRe = -1;
-		ClRe2 = -1;
-		SegP1 = -1;
-		SegP2 = -1;
-		delete oldClip;
-		oldClip = NULL;
-		MoveSym = false;
-		SelNode.clear();
-	}
+	void reset();
 	
 	void reset1Control(PageItem* currItem);
 	void resetControl(PageItem* currItem);
@@ -1083,7 +1072,9 @@ public:
 	
 	Hyphenator * docHyphenator;
 private:
-	bool _itemCreationTransactionStarted;
+	UndoTransaction* m_itemCreationTransaction;
+	UndoTransaction* m_alignTransaction;
+
 	Page* _currentPage;
 	UpdateManager m_updateManager;
 	MassObservable<PageItem*> m_itemsChanged;

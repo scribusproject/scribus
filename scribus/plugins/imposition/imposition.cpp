@@ -527,7 +527,7 @@ void Imposition::booklet4p(QList<int>* pages)
 					//get group control
 					signed int groupid = gs->itemAt(0)->Groups.at(0);
 					
-					PageItem* groupcontrol;
+					PageItem* groupcontrol = NULL;
 					for (int k = 0; k < targetDoc->Items->count(); k++)
 					{
 						if (
@@ -715,7 +715,7 @@ void Imposition::booklet4p(QList<int>* pages)
 					//get group control
 					signed int groupid = gs->itemAt(0)->Groups.at(0);
 					
-					PageItem* groupcontrol;
+					PageItem* groupcontrol = NULL;
 					for (int k = 0; k < targetDoc->Items->count(); k++)
 					{
 						if (
@@ -878,7 +878,7 @@ void Imposition::booklet4p(QList<int>* pages)
 					//get group control
 					signed int groupid = gs->itemAt(0)->Groups.at(0);
 					
-					PageItem* groupcontrol;
+					PageItem* groupcontrol = NULL;
 					for (int k = 0; k < targetDoc->Items->count(); k++)
 					{
 						if (
@@ -1032,7 +1032,7 @@ void Imposition::booklet4p(QList<int>* pages)
 					//get group control
 					signed int groupid = gs->itemAt(0)->Groups.at(0);
 					
-					PageItem* groupcontrol;
+					PageItem* groupcontrol = NULL;
 					for (int k = 0; k < targetDoc->Items->count(); k++)
 					{
 						if (

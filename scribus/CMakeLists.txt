@@ -549,6 +549,7 @@ SET(SCRIBUS_SOURCES
   tabtypography.cpp
   tocgenerator.cpp
   tocindexprefs.cpp
+  transaction.cpp
   tt/simpletreemodel/treeitem.cpp
   tt/simpletreemodel/treemodel.cpp
   ui/copypagetomasterpagedialog.cpp

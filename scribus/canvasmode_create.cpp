@@ -70,6 +70,7 @@ CreateMode::CreateMode(ScribusView* view) : CanvasMode(view)
 	frameResizeHandle = -1;
 	RotMode = 0;
 	inItemCreation = false;
+	m_createTransaction = NULL;
 	shiftSelItems = false;
 	FirstPoly = true;
 	resizeGesture = NULL;
@@ -114,7 +115,7 @@ void CreateMode::activate(bool fromGesture)
 {
 	PageItem* currItem;
 	qDebug() << "CreateMode::activate" << fromGesture;
-	if (fromGesture && GetItem(&currItem))
+	if (fromGesture && GetItem(&currItem) && m_createTransaction)
 	{
 		double itemX = fabs(currItem->width());
 		double itemY = fabs(currItem->height());
@@ -186,9 +187,22 @@ void CreateMode::activate(bool fromGesture)
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
 				currItem->Sizing = false;
+				m_view->resetMousePressed();
+				currItem->checkChanges();
+				QString targetName = Um::ScratchSpace;
+				if (currItem->OwnPage > -1)
+					targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
+				m_createTransaction->commit(targetName, currItem->getUPixmap(),
+											Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 				m_doc->SnapGuides = oldSnap;
 				currItem->update();
 			}
+			else
+			{
+				m_createTransaction->cancel();
+			}
+			delete m_createTransaction;
+			m_createTransaction = NULL;
 			inItemCreation = false;
 		}
 		else
@@ -197,14 +211,23 @@ void CreateMode::activate(bool fromGesture)
 				m_doc->AdjustItemSize(currItem);
 			else
 			{
-				currItem->OldB2 = currItem->width();
-				currItem->OldH2 = currItem->height();
+//				currItem->OldB2 = currItem->width();
+//				currItem->OldH2 = currItem->height();
 				currItem->updateClip();
 			}
 			currItem->ContourLine = currItem->PoLine.copy();
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			currItem->Sizing = false;
+			m_view->resetMousePressed();
+			currItem->checkChanges();
+			QString targetName = Um::ScratchSpace;
+			if (currItem->OwnPage > -1)
+				targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
+			m_createTransaction->commit(targetName, currItem->getUPixmap(),
+										Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+			delete m_createTransaction;
+			m_createTransaction = NULL;
 			currItem->update();
 			inItemCreation = false;
 		}
@@ -218,6 +241,13 @@ void CreateMode::activate(bool fromGesture)
 	}
 	else
 	{
+		if (m_createTransaction)
+		{
+			qDebug() << "canceling left over create Transaction";
+			m_createTransaction->cancel();
+			delete m_createTransaction;
+			m_createTransaction = NULL;
+		}
 		GxM = GyM = -1;
 		Mxp = Myp = -1;
 		Dxp = Dyp = -1;
@@ -232,10 +262,20 @@ void CreateMode::activate(bool fromGesture)
 	setModeCursor();
 }
 
-void CreateMode::deactivate(bool flag)
+void CreateMode::deactivate(bool forGesture)
 {
-	qDebug() << "CreateMode::deactivate" << flag;
+	qDebug() << "CreateMode::deactivate" << forGesture;
 	m_view->redrawMarker->hide();
+	if (!forGesture)
+	{		
+		if (m_createTransaction)
+		{
+			qDebug() << "CreateMode::deactivate: canceling left over create Transaction";
+			m_createTransaction->cancel();
+			delete m_createTransaction;
+			m_createTransaction = NULL;
+		}
+	}
 }
 
 void CreateMode::mouseDoubleClickEvent(QMouseEvent *m)
@@ -392,6 +432,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 		m_view->DrawNew();
 		return;
 	}
+	m_createTransaction = new UndoTransaction(Um::instance()->beginTransaction("creating"));
 	switch (m_doc->appMode)
 	{
 		case modeDrawShapes:
@@ -403,14 +444,14 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 			case 0:
 				if (m->modifiers() == Qt::ShiftModifier)
 				{
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 					m_doc->Items->at(z)->FrameType = 0;
 					SetupDrawNoResize(z);
 				}
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 					m_doc->Items->at(z)->FrameType = 0;
 					SetupDraw(z);
 				}
@@ -418,14 +459,14 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 			case 1:
 				if (m->modifiers() == Qt::ShiftModifier)
 				{
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 					m_doc->Items->at(z)->FrameType = 1;
 					SetupDrawNoResize(z);
 				}
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 					m_doc->Items->at(z)->FrameType = 1;
 					SetupDraw(z);
 				}
@@ -433,7 +474,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 			default:
 				if (m->modifiers() == Qt::ShiftModifier)
 				{
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 					m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 					m_doc->setRedrawBounding(m_doc->Items->at(z));
 					m_doc->Items->at(z)->FrameType = m_doc->SubMode+2;
@@ -442,7 +483,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 					m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 					m_doc->setRedrawBounding(m_doc->Items->at(z));
 					m_doc->Items->at(z)->FrameType = m_doc->SubMode+2;
@@ -456,7 +497,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 				break;
 			selectPage(m);
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_MouseButtonPressed);
+			z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
 			SetupDraw(z);
 			break;
 		case modeDrawLatex:
@@ -465,13 +506,13 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 				SetupDrawNoResize(z);
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 				SetupDraw(z);
 			}
 			break;
@@ -481,13 +522,13 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 				SetupDrawNoResize(z);
 			}
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, true);
 				SetupDraw(z);
 			}
 			break;
@@ -497,13 +538,13 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
-				z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_MouseButtonPressed);
+				z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
 				SetupDrawNoResize(z);
 			}	
 			else
 			{
 				m_doc->ApplyGuides(&Rxp, &Ryp);
-				z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_MouseButtonPressed);
+				z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
 				SetupDraw(z);
 			}
 			break;
@@ -513,11 +554,11 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 					break;
 				selectPage(m);
 				if (m->modifiers() == Qt::ShiftModifier)
-					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 				else
 				{
 					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_MouseButtonPressed);
+					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, true);
 				}
 				currItem = m_doc->Items->at(z);
 				FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), m_doc->toolSettings.polyC, m_doc->toolSettings.polyS, m_doc->toolSettings.polyF, m_doc->toolSettings.polyR);
@@ -573,7 +614,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 				break;
 			selectPage(m);
 			m_doc->ApplyGuides(&Rxp, &Ryp);
-			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_MouseButtonPressed);
+			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
 			currItem = m_doc->Items->at(z);
 			currItem->setIsAnnotation(true);
 			currItem->AutoName = false;
@@ -795,6 +836,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
 			{
+				UndoTransaction * activeTransaction = NULL;
 				m_view->HaveSelRect = false;
 				double Tx, Ty, Tw, Th;
 				FPoint np2 = m_doc->ApplyGridF(FPoint(Mxp, Myp));
@@ -838,15 +880,15 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 				offY = 0.0;
 				m_doc->m_Selection->clear();
 				if (UndoManager::undoEnabled())
-					m_view->undoManager->beginTransaction(m_doc->currentPage()->getUName(),
-														  Um::ITable, Um::CreateTable,
-														  QString(Um::RowsCols).arg(Rows).arg(Cols),
-														  Um::ICreate);
+					activeTransaction = new UndoTransaction(m_view->undoManager->beginTransaction(m_doc->currentPage()->getUName(),
+																							  Um::ITable, Um::CreateTable,
+																							  QString(Um::RowsCols).arg(Rows).arg(Cols),
+																							  Um::ICreate));
 				for (int rc = 0; rc < Rows; ++rc)
 				{
 					for (int cc = 0; cc < Cols; ++cc)
 					{
-						z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_MouseButtonPressed);
+						z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, true);
 						currItem = m_doc->Items->at(z);
 						currItem->isTableItem = true;
 						currItem->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
@@ -880,10 +922,37 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 					}
 				}
 				m_doc->itemSelection_GroupObjects(false, false);
-				if (UndoManager::undoEnabled())
-					m_view->undoManager->commit();
+				if (activeTransaction)
+				{
+					activeTransaction->commit();
+					delete activeTransaction;
+					activeTransaction = NULL;
+				}
 			}
 		} // if (modeDrawTable)
+	}
+	if (m_createTransaction)
+	{
+		// from former ScribusDoc::itemAddCommit():
+		PageItem *createdItem=m_doc->m_Selection->itemAt(0);
+		if (createdItem != NULL)
+		{
+			m_view->resetMousePressed();
+			createdItem->checkChanges(true);
+			QString targetName = Um::ScratchSpace;
+			if (createdItem->OwnPage > -1)
+				targetName = m_doc->Pages->at(createdItem->OwnPage)->getUName();
+			m_createTransaction->commit(targetName, createdItem->getUPixmap(),
+										Um::Create + " " + createdItem->getUName(),  "", Um::ICreate);
+		}
+		else
+		{
+			qDebug() << "create mode::release: lost created item/selection";
+			m_createTransaction->cancel();
+		}
+		delete m_createTransaction;
+		m_createTransaction = NULL;
+		
 	}
 	if (!PrefsManager::instance()->appPrefs.stickyTools)
 	{

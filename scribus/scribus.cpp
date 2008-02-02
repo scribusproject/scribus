@@ -1283,8 +1283,10 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					}
 					else
 						view->Deselect(false);
+					view->cancelGroupTransaction();
 					break;
 				case modeEdit:
+					view->cancelGroupTransaction();
 					break;
 				case modeLinkFrames:
 				case modeUnlinkFrames:
@@ -1905,7 +1907,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 				for (int i = 0; i < docSelectionCount; ++i)
 					doc->m_Selection->itemAt(i)->checkChanges(true);
 				if (docSelectionCount > 1 && view->groupTransactionStarted())
-					undoManager->commit();
+					view->endGroupTransaction();
 			}
 			break;
 	}
@@ -3475,7 +3477,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 {
 	if (HaveDoc)
 	{
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
+		UndoTransaction pasteAction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
 		QFileInfo fi(data);
 		if (fi.suffix().toLower() == "sml")
 		{
@@ -3516,7 +3518,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 				AddBookMark(currItem);
 		}
 		doc->m_Selection->copy(tmpSelection, false, false);
-		undoManager->commit();
+		pasteAction.commit();
 		slotDocCh(false);
 		doc->regionsChanged()->update(QRectF());
 	}
@@ -4734,6 +4736,7 @@ void ScribusMainWindow::slotEditCut()
 	uint docSelectionCount=doc->m_Selection->count();
 	if ((HaveDoc) && (docSelectionCount != 0))
 	{
+		UndoTransaction* activeTransaction = NULL;
 		PageItem *currItem;
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
@@ -4747,11 +4750,11 @@ void ScribusMainWindow::slotEditCut()
 		if (UndoManager::undoEnabled())
 		{
 			if (docSelectionCount > 1)
-				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut);
+				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut));
 			else
 			{
 				PageItem* item=doc->m_Selection->itemAt(0);
-				undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut);
+				activeTransaction = new UndoTransaction(undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut));
 			}
 		}
 		Buffer2 = "<SCRIBUSTEXT>";
@@ -4869,8 +4872,12 @@ void ScribusMainWindow::slotEditCut()
 		ClipB->setText(BufferI);
 		scrActions["editPaste"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
-		if (UndoManager::undoEnabled())
-			undoManager->commit();
+		if (activeTransaction)
+		{
+			activeTransaction->commit();
+			delete activeTransaction;
+			activeTransaction = NULL;
+		}
 	}
 }
 
@@ -5005,10 +5012,11 @@ void ScribusMainWindow::slotEditPaste()
 		view->requestMode(submodeEndNodeEdit);
 	if (HaveDoc)
 	{
+		UndoTransaction* activeTransaction = NULL;
 		if (Buffer2.isNull())
 			return;
 		if (UndoManager::undoEnabled())
-			undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
 		if (doc->appMode == modeEdit && doc->m_Selection->itemAt(0))
 		{
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
@@ -5134,7 +5142,6 @@ void ScribusMainWindow::slotEditPaste()
 				doc->SnapGuides = false;
 				// HACK #6541 : undo does not handle text modification => do not record embedded item creation
 				// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
-				bool undoEnabled = undoManager->undoEnabled();
 				undoManager->setUndoEnabled(false);
 
 				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
@@ -5194,7 +5201,7 @@ void ScribusMainWindow::slotEditPaste()
 					outlinePalette->BuildTree();
 				currItem->itemText.insertObject(currItem->CPos, currItem3);
 				currItem->CPos += 1;
-				undoManager->setUndoEnabled(undoEnabled);
+				undoManager->setUndoEnabled(true);
 			}
 			else
 			{
@@ -5267,8 +5274,12 @@ void ScribusMainWindow::slotEditPaste()
 			}
 			view->DrawNew();
 		}
-		if (UndoManager::undoEnabled())
-			undoManager->commit();
+		if (activeTransaction)
+		{
+			activeTransaction->commit();
+			delete activeTransaction;
+			activeTransaction = NULL;
+		}
 		slotDocCh(false);
 	}
 }
@@ -5488,9 +5499,10 @@ void ScribusMainWindow::slotNewPageM()
 
 void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn)
 {
+	UndoTransaction* activeTransaction = NULL;
 	if (UndoManager::undoEnabled())
 	{
-		undoManager->beginTransaction(doc->getUName(), Um::IDocument, (numPages == 1) ? Um::AddPage : Um::AddPages, "", Um::ICreate);
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->getUName(), Um::IDocument, (numPages == 1) ? Um::AddPage : Um::AddPages, "", Um::ICreate));
 		SimpleState *ss = new SimpleState(Um::AddPage, "", Um::ICreate);
 		ss->set("ADD_PAGE", "add_page");
 		ss->set("PAGE", wo);
@@ -5575,8 +5587,12 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 
 	undoManager->setUndoEnabled(true);
 
-	if (UndoManager::undoEnabled())
-		undoManager->commit();
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 }
 
 void ScribusMainWindow::slotNewMasterPage(int w, const QString& name)
@@ -6683,15 +6699,16 @@ void ScribusMainWindow::DeletePage()
 
 void ScribusMainWindow::DeletePage(int from, int to)
 {
+	UndoTransaction* activeTransaction = NULL;
 	assert( from > 0 );
 	assert( from <= to );
 	assert( to <= static_cast<int>(doc->Pages->count()) );
 	int oldPg = doc->currentPageNumber();
 	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
-		undoManager->beginTransaction(doc->DocName, Um::IDocument,
-									  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
-									  Um::IDelete);
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->DocName, Um::IDocument,
+																			  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
+																			  Um::IDelete));
 	PageItem* ite;
 	doc->m_Selection->clear();
 	Selection tmpSelection(this, false);
@@ -6757,8 +6774,12 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	doc->rebuildMasterNames();
 	pagePalette->rebuildPages();
 	pagePalette->rebuildMasters();
-	if (UndoManager::undoEnabled())
-		undoManager->commit();
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 }
 
 void ScribusMainWindow::MovePage()
@@ -9565,7 +9586,7 @@ void ScribusMainWindow::managePatterns()
 			doc->setPatterns(dia->dialogPatterns);
 			propertiesPalette->updateColorList();
 			view->DrawNew();
-			undoManager->setUndoEnabled(true);
+//			undoManager->setUndoEnabled(true);
 		}
 		delete dia;
 		undoManager->setUndoEnabled(true);

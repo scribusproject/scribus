@@ -25,20 +25,41 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "undomanager.h"
-#include "undogui.h"
-#include "scconfig.h"
-#include "prefsmanager.h"
-#include "prefscontext.h"
-#include "prefsfile.h"
-#include "scraction.h"
-#include "scribuscore.h"
-#include "undostack.h"
+
+#include <QDebug>
 #include <QList>
-//Added by qt3to4:
 #include <QPixmap>
 
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scconfig.h"
 #include "scpaths.h"
+#include "scraction.h"
+#include "scribuscore.h"
+#include "undogui.h"
+#include "undostack.h"
 #include "util_icon.h"
+
+
+/**************************************************************************************/
+
+/**
+  This struct is use instead of std::pair<TransactionObject*, TransactionState*> now.
+  Just data, no methods.
+*/
+struct TransactionData : public Transaction::TransactionStateBase
+{
+	int stackLevel;
+	UndoManager* UM;
+	UndoObject* transactionObject;  // will be DummyUndoObject
+	TransactionState* transactionState;
+};
+
+
+/**************************************************************************************/
+
+
 
 UndoManager* UndoManager::instance_          = 0;
 bool         UndoManager::undoEnabled_       = true;
@@ -80,109 +101,177 @@ UndoManager::UndoManager()
 	if (!UndoManager::IGuides)
 		initIcons();
 	prefs_ = PrefsManager::instance()->prefsFile->getContext("undo");
-	transaction_= 0;
-	transactionTarget_ = 0;
 	languageChange();
 	setUndoEnabled(prefs_->getBool("enabled", true));
 }
 
-void UndoManager::beginTransaction(const QString &targetName,
-                                   QPixmap *targetPixmap,
-                                   const QString &name,
-                                   const QString &description,
-                                   QPixmap *actionPixmap)
+
+
+UndoTransaction UndoManager::beginTransaction(const QString &targetName,
+											  QPixmap *targetPixmap,
+											  const QString &name,
+											  const QString &description,
+											  QPixmap *actionPixmap)
 {
 	if (!undoEnabled_)
-		return;
-	if (transaction_) // begin a transaction_inside transaction
-		transactions_.push_back(
-			std::pair<TransactionObject*, TransactionState*>(transactionTarget_, transaction_));
-	transaction_= new TransactionState();
-	transactionTarget_ = new TransactionObject();
+		return UndoTransaction(NULL);
+	
+	/** @brief Dummy object for storing transaction target's name */
+	UndoObject* transactionTarget_ = new DummyUndoObject();
+	TransactionState* transactionState_ = new TransactionState();
 	transactionTarget_->setUName(targetName); // Name which will be in action history
 	if (targetPixmap)
 		transactionTarget_->setUPixmap(targetPixmap);
 	if (name.length() > 0)          // if left to 0 length action will be fetched from the
-		transaction_->setName(name); // last added UndoState in this transaction
+		transactionState_->setName(name); // last added UndoState in this transaction
 	if (description.length() > 0)
-		transaction_->setDescription(description); // tool tip for action history
+		transactionState_->setDescription(description); // tool tip for action history
 	if (actionPixmap)
-		transaction_->setPixmap(actionPixmap); // for action history
+		transactionState_->setPixmap(actionPixmap); // for action history
+
+	// Holds the state and data of this transaction:
+	TransactionData *transaction = new TransactionData();
+	transaction->transactionObject = transactionTarget_;
+	transaction->transactionState = transactionState_;
+	transaction->stackLevel = transactions_.size();
+	transaction->UM = this;
+	
+	transactions_.push_back(transaction);
+	
+//	qDebug() << "UndoManager::beginTransaction" << targetName << name << transaction;
+	return UndoTransaction(transaction);
 }
 
-void UndoManager::cancelTransaction()
+UndoTransaction::UndoTransaction(TransactionData* data) : Transaction(data) 
+{};
+
+UndoTransaction::~UndoTransaction() 
 {
-	delete transaction_;
-	transaction_= 0;
-	delete transactionTarget_;
-	transactionTarget_ = 0;
-	if (!transactions_.empty())
+	if (m_data)
 	{
-		// fetch the next transaction_from the vector
-		transactionTarget_ = transactions_[transactions_.size() - 1].first;
-		transaction_= transactions_[transactions_.size() - 1].second;
-// 		delete transactions_[transactions_.size() - 1];
-		transactions_.erase(transactions_.end() - 1);
+		UndoTransaction::cancel(); // no virtual calls in destructor
+		delete m_data; 
+		m_data = 0;
 	}
 }
 
-void UndoManager::commit(const QString &targetName,
-                         QPixmap *targetPixmap,
-                         const QString &name,
-                         const QString &description,
-                         QPixmap *actionPixmap)
+bool UndoTransaction::cancel()
 {
-	if (!transaction_ || !transactionTarget_ || !undoEnabled_)
-	{
-		cancelTransaction();
-		return;
-	}
-	if (targetName.length() > 0)
-		transactionTarget_->setUName(targetName);
-	if (targetPixmap)
-		transactionTarget_->setUPixmap(targetPixmap);
-	if (name.length() > 0)
-		transaction_->setName(name);
-	if (description.length() > 0)
-		transaction_->setDescription(description);
-	if (actionPixmap)
-		transaction_->setPixmap(actionPixmap);
+	if (!m_data)
+		return false;
+	
+	TransactionData* data = static_cast<TransactionData*>(m_data);
+	UndoManager* UM = data->UM;
+	int stackLevel = data->stackLevel;
 
-	UndoObject *tmpu = transactionTarget_;
-	TransactionState *tmps = transaction_;
+	switch (m_data->m_status)
+	{
+		case Transaction::STATE_OPEN:
+		case Transaction::STATE_WILLFAIL:
+//			qDebug() << "UndoManager::cancelTransaction" << data << data->transactionObject->getUName() << data->transactionState->getName() << stackLevel;
+			data->m_status = Transaction::STATE_FAILED;
+			delete data->transactionObject;
+			data->transactionObject = 0;
+			delete data->transactionState;
+			data->transactionState = 0;
+			//brutal for now:
+			assert (stackLevel + 1 == signed(UM->transactions_.size()));
+			if (stackLevel < signed(UM->transactions_.size()))
+			{
+				UM->transactions_.erase(UM->transactions_.begin() + stackLevel);
+			}
+			return true;
+		default:
+			// do nothing;
+//			qDebug() << "UndoManager::cancelTransaction ** already closed **";
+			return false;
+	}
+}
 
-	if (!transactions_.empty())
+bool UndoTransaction::commit(const QString &targetName,
+							 QPixmap *targetPixmap,
+							 const QString &name,
+							 const QString &description,
+							 QPixmap *actionPixmap)
+{
+	if (m_data && m_data->m_status == Transaction::STATE_OPEN)
 	{
-		// fetch the next transaction_to be an active transaction
-		transactionTarget_ = transactions_[transactions_.size() - 1].first;
-		transaction_= transactions_[transactions_.size() - 1].second;
-// 		delete transactions_[transactions_.size() - 1]
-		transactions_.erase(transactions_.end() - 1);
+		TransactionData* data = static_cast<TransactionData*>(m_data);
+		if (targetName.length() > 0)
+			data->transactionObject->setUName(targetName);
+		if (targetPixmap)
+			data->transactionObject->setUPixmap(targetPixmap);
+		if (name.length() > 0)
+			data->transactionState->setName(name);
+		if (description.length() > 0)
+			data->transactionState->setDescription(description);
+		if (actionPixmap)
+			data->transactionState->setPixmap(actionPixmap);
 	}
-	else
-	{
-		transaction_ = 0;
-		transactionTarget_ = 0;
-	}
+	return commit();
+}
+				
+	
+bool UndoTransaction::commit()
+{
+	if (!m_data)
+		return false;
+	TransactionData* data = static_cast<TransactionData*>(m_data);
+	UndoManager* UM = data->UM;
+	int stackLevel = data->stackLevel;
 
-	if (tmps->sizet() > 0) // are there any actions inside the commited transaction
+	if (!UM->undoEnabled_)
 	{
-		if (tmps->getName().isEmpty())
-			tmps->useActionName();
-		action(tmpu, tmps);
-	} // if not just delete objects
-	else
-	{
-		delete tmpu;
-		tmpu = 0;
-		delete tmps;
-		tmps = 0;
+		cancel();
+		return false;
 	}
+	
+	UndoObject *tmpu = UM->transactions_.at(stackLevel)->transactionObject;
+	TransactionState *tmps = UM->transactions_.at(stackLevel)->transactionState;
+	
+	switch (m_data->m_status)
+	{
+		case Transaction::STATE_OPEN:
+//			qDebug() << "UndoManager::commitTransaction" << data << data->transactionObject->getUName() << data->transactionState->getName() << stackLevel;
+			m_data->m_status = Transaction::STATE_COMMITTED;
+
+			// brutal for now:
+			assert (stackLevel + 1 == signed(UM->transactions_.size()));
+			
+			if (stackLevel < signed(UM->transactions_.size()))
+			{
+				UM->transactions_.erase(UM->transactions_.begin() + stackLevel);
+			}
+				
+			if (tmps->sizet() > 0) // are there any actions inside the commited transaction
+			{
+				if (tmps->getName().isEmpty())
+					tmps->useActionName();
+				UM->action(tmpu, tmps);
+			} // if not just delete objects
+			else
+			{
+				delete tmpu;
+				tmpu = 0;
+				delete tmps;
+				tmps = 0;
+			}
+			return true;
+			break;
+		case STATE_WILLFAIL:
+			return cancel();
+			break;
+		default:
+//			qDebug() << "UndoManager::commitTransaction ** already closed **";
+			// nothing
+			break;
+	}
+	return false;
 }
 
 bool UndoManager::isTransactionMode()
 {
-	return transaction_ ? true : false;
+	return transactions_.size() > 0;
 }
 
 void UndoManager::registerGui(UndoGui* gui)
@@ -394,16 +483,24 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 		return;
 	}
 
-	if ((!transaction_) &&
+	if (!isTransactionMode() &&
         (currentUndoObjectId_ == -1 || currentUndoObjectId_ == static_cast<long>(target->getUId())))
+	{
+//		qDebug() << "UndoManager: new Action" << state->getName() << "for" << currentUndoObjectId_;
 		emit newAction(target, state); // send action to the guis
-	else
-		emit clearRedo();
-
-	if (transaction_)
-		transaction_->pushBack(target, state);
+	}
 	else
 	{
+		emit clearRedo();
+	}
+	if (isTransactionMode())
+	{
+//		qDebug() << "UndoManager: Action stored for transaction:" << transactions_.back() << target->getUName() << state->getName();
+		transactions_.back()->transactionState->pushBack(target, state);
+	}
+	else
+	{
+//		qDebug() << "UndoManager: Action executed:" << target->getUName() << state->getName();
 		state->setUndoObject(target);
 		stacks_[currentDoc_].action(state);
 	}
@@ -481,6 +578,9 @@ void UndoManager::showObject(int uid)
 UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
 	UndoObject *tmp = 0;
+	TransactionState* transaction_ = NULL;
+	if (transactions_.size() > 0)
+		transaction_ = transactions_.at(transactions_.size()-1)->transactionState;
 	for (uint i = 0; i < stacks_[currentDoc_].undoActions_.size(); ++i)
 	{
 		UndoState *tmpState = stacks_[currentDoc_].undoActions_[i];

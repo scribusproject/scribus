@@ -178,20 +178,26 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 			return true;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
-	if (UndoManager::undoEnabled() && m_Doc)
+	UndoTransaction* activeTransaction = NULL;
+	bool emptyDoc = (m_Doc == NULL);
+	if (UndoManager::undoEnabled() && !emptyDoc)
 	{
-		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
-													Um::IImageFrame,
-													Um::ImportOOoDraw,
-													fileName, Um::IImportOOoDraw);
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
+																						  Um::IImageFrame,
+																						  Um::ImportOOoDraw,
+																						  fileName, Um::IImportOOoDraw));
 	}
-	else if (UndoManager::undoEnabled() && !m_Doc)
+	else if (UndoManager::undoEnabled() && emptyDoc)
 		UndoManager::instance()->setUndoEnabled(false);
 	OODPlug dia(m_Doc);
 	bool importDone = dia.import(fileName, flags);
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->commit();
-	else
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
+	else if (UndoManager::undoEnabled() && emptyDoc)
 		UndoManager::instance()->setUndoEnabled(true);
 	if (dia.importCanceled)
 	{

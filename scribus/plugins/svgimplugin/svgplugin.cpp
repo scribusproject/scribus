@@ -161,18 +161,24 @@ bool SVGImportPlugin::import(QString filename, int flags)
 			return true;
 	}
 	
-	if (UndoManager::undoEnabled() && m_Doc)
+	UndoTransaction* activeTransaction = NULL;
+	bool emptyDoc = (m_Doc == NULL);
+	if (UndoManager::undoEnabled() && !emptyDoc)
 	{
-		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),Um::IImageFrame,Um::ImportSVG, filename, Um::ISVG);
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),Um::IImageFrame,Um::ImportSVG, filename, Um::ISVG));
 	}
-	else if (UndoManager::undoEnabled() && !m_Doc)
+	else if (UndoManager::undoEnabled() && emptyDoc)
 		UndoManager::instance()->setUndoEnabled(false);
 	SVGPlug *dia = new SVGPlug(mw, flags);
 	dia->import(filename, flags);
 	Q_CHECK_PTR(dia);
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->commit();
-	else
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
+	else if (UndoManager::undoEnabled() && emptyDoc)
 		UndoManager::instance()->setUndoEnabled(true);
 	if (dia->importCanceled)
 	{

@@ -2721,8 +2721,6 @@ bool PageItem::shouldCheck()
 
 void PageItem::moveUndoAction()
 {
-	if (!shouldCheck())
-		return;
 	if (oldXpos == Xpos && oldYpos == Ypos)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2753,8 +2751,6 @@ void PageItem::moveUndoAction()
 
 void PageItem::resizeUndoAction()
 {
-	if (!shouldCheck())
-		return;
 	if (oldHeight == Height && oldWidth == Width)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2784,8 +2780,6 @@ void PageItem::resizeUndoAction()
 
 void PageItem::rotateUndoAction()
 {
-	if (!shouldCheck())
-		return;
 	if (oldRot == Rot)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2815,8 +2809,6 @@ void PageItem::rotateUndoAction()
 
 void PageItem::changeImageOffsetUndoAction()
 {
-	if (!shouldCheck())
-		return;
 	if (oldLocalX == LocalX && oldLocalY == LocalY)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2835,8 +2827,6 @@ void PageItem::changeImageOffsetUndoAction()
 
 void PageItem::changeImageScaleUndoAction()
 {
-	if (!shouldCheck())
-		return;
 	if (oldLocalScX == LocalScX && oldLocalScY == LocalScY)
 		return;
 	if (UndoManager::undoEnabled())
@@ -3221,7 +3211,7 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 }
 
 
-// This must go into class ScribusDoc!
+// FIXME: This must go into class ScribusDoc!
 // For now we'll just make it independent of 'this' -- AV
 void PageItem::restoreType(SimpleState *state, bool isUndo)
 {

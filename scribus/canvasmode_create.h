@@ -26,7 +26,7 @@ class PageItem;
 class ResizeGesture;
 class ScribusMainWindow;
 class ScribusView;
-
+class UndoTransaction;
 
 /**
   Handles the creation of new pageitems
@@ -67,6 +67,7 @@ private:
 	double SeRx, SeRy;
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;
+	UndoTransaction* m_createTransaction;
 	ResizeGesture* resizeGesture;
 	LineMove* lineMoveGesture;
 };

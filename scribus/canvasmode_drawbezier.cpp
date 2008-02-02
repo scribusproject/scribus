@@ -71,6 +71,7 @@ BezierMode::BezierMode(ScribusView* view) : CanvasMode(view)
 	inItemCreation = false;
 	shiftSelItems = false;
 	FirstPoly = true;
+	m_createTransaction = NULL;
 }
 
 
@@ -270,6 +271,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	if (FirstPoly)
 	{
 		selectPage(m);
+		m_createTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction());
 		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, true);
 		currItem = m_doc->Items->at(z);
 		m_doc->m_Selection->clear();
@@ -385,7 +387,23 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 				m_doc->AdjustItemSize(currItem);
 				currItem->ContourLine = currItem->PoLine.copy();
 			}
+			m_view->resetMousePressed();
+			currItem->checkChanges();
+			if (m_createTransaction)
+			{
+				m_view->resetMousePressed();
+				currItem->checkChanges(true);
+				QString targetName = Um::ScratchSpace;
+				if (currItem->OwnPage > -1)
+					targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
+				m_createTransaction->commit(targetName, currItem->getUPixmap(),
+											Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+				delete m_createTransaction;
+				m_createTransaction = NULL;
+			}
+			currItem->update();
 		}
+		
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
 //			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -394,7 +412,6 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 			m_view->requestMode(m_doc->appMode);
-		currItem->update();
 		m_doc->changed();
 //		emit DocChanged();
 		FirstPoly = true;

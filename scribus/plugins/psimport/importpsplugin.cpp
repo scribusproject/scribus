@@ -146,21 +146,27 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 			return true;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
-	if (UndoManager::undoEnabled() && m_Doc)
+	UndoTransaction* activeTransaction = NULL;
+	bool emptyDoc = (m_Doc == NULL);
+	if (UndoManager::undoEnabled() && !emptyDoc)
 	{
-		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
-												Um::IImageFrame,
-												Um::ImportEPS,
-												fileName, Um::IEPS);
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
+																						  Um::IImageFrame,
+																						  Um::ImportEPS,
+																						  fileName, Um::IEPS));
 	}
-	else if (UndoManager::undoEnabled() && !m_Doc)
+	else if (UndoManager::undoEnabled() && emptyDoc)
 		UndoManager::instance()->setUndoEnabled(false);
 	EPSPlug *dia = new EPSPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->import(fileName, flags);
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->commit();
-	else
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
+	else if (UndoManager::undoEnabled() && emptyDoc)
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 	return true;

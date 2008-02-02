@@ -76,7 +76,7 @@ class PageSelector;
 class ScribusWin;
 class ScribusMainWindow;
 class UndoManager;
-
+class UndoTransaction;
 
 
 
@@ -211,7 +211,6 @@ public:
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false, bool noResize = true);
 //	void QueryFarben();
 	void rememberOldZoomLocation(int mx=0, int my=0);
-	bool mousePressed();
 	bool groupTransactionStarted() { return m_groupTransactions > 0; }
 //	void setGroupTransactionStarted(bool isOn);
 	void startGroupTransaction(const QString &actionName = "",
@@ -317,6 +316,7 @@ private: // Private attributes
 	int  oldX;
 	int  oldY;
 	int  m_groupTransactions;
+	UndoTransaction*  m_groupTransaction;
 	bool _isGlobalMode;
 //	bool forceRedraw;
 
@@ -344,6 +344,8 @@ public:
 	void keyReleaseEvent(QKeyEvent *k);
 
 	inline void registerMousePress(QPoint p);
+	bool mousePressed();
+	void resetMousePressed();
 	inline QPoint mousePressLocation();
 	inline bool moveTimerElapsed();
 	inline void resetMoveTimer();

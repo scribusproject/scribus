@@ -2309,6 +2309,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
 		{
+			UndoTransaction* activeTransaction = NULL;
 			QRect AreaR = QRect(static_cast<int>(Mxp), static_cast<int>(Myp), static_cast<int>(SeRx-Mxp), static_cast<int>(SeRy-Myp)).normalized();
 			m_view->HaveSelRect = false;
 			double Tx, Ty, Tw, Th;
@@ -2355,10 +2356,10 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			offY = 0.0;
 			m_doc->m_Selection->clear();
 			if (UndoManager::undoEnabled())
-				m_view->undoManager->beginTransaction(m_doc->currentPage()->getUName(),
-											  Um::ITable, Um::CreateTable,
-											  QString(Um::RowsCols).arg(Rows).arg(Cols),
-											  Um::ICreate);
+				activeTransaction = new UndoTransaction(m_view->undoManager->beginTransaction(m_doc->currentPage()->getUName(),
+																							  Um::ITable, Um::CreateTable,
+																							  QString(Um::RowsCols).arg(Rows).arg(Cols),
+																							  Um::ICreate));
 			for (int rc = 0; rc < Rows; ++rc)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
@@ -2400,8 +2401,12 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				}
 			}
 			m_ScMW->GroupObj();
-			if (UndoManager::undoEnabled())
-				m_view->undoManager->commit();
+			if (activeTransaction)
+			{
+				activeTransaction->commit();
+				delete activeTransaction;
+				activeTransaction = NULL;
+			}
 			m_doc->changed();
 		}
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
@@ -2964,10 +2969,11 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 						m_doc->SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = m_doc->SnapGuides;
 					m_doc->SnapGuides = false;
+					UndoTransaction* activeTransaction = NULL;
 					if (UndoManager::undoEnabled())
 					{
-						m_view->undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
-							Um::Resize, QString(Um::ResizeFromTo).arg(currItem->width()).arg(currItem->height()).arg(currItem->width() - npx.x()).arg(currItem->height() - npx.y()), Um::IResize);
+						activeTransaction = new UndoTransaction(m_view->undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
+																									  Um::Resize, QString(Um::ResizeFromTo).arg(currItem->width()).arg(currItem->height()).arg(currItem->width() - npx.x()).arg(currItem->height() - npx.y()), Um::IResize));
 					}
 					m_canvas->m_viewMode.operItemResizing = false;
 					switch (frameResizeHandle)
@@ -3604,8 +3610,12 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					m_view->updateContents();
 //					emit DocChanged();
 					currItem->checkChanges();
-					if (UndoManager::undoEnabled())
-						m_view->undoManager->commit();
+					if (activeTransaction)
+					{
+						activeTransaction->commit();
+						delete activeTransaction;
+						activeTransaction = NULL;
+					}
 				}
 				m_doc->setRedrawBounding(currItem);
 				currItem->OwnPage = m_doc->OnPage(currItem);
