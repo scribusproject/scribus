@@ -310,7 +310,7 @@ class CreatePageItem_body : public Generator_body<PageItem>
 		double linewidth = parseDouble(attr["line-width"]);
 		QString fillC = attr["fill-color"];
 		QString lineC = attr["line-color"];
-		int nr = doc->itemAdd(type, frametype, xpos, ypos, width, height, linewidth, fillC, lineC, false);
+		int nr = doc->itemAdd(type, frametype, xpos, ypos, width, height, linewidth, fillC, lineC, true);
 		result = doc->Items->at(nr);
 		this->dig->push(result);
 //		qDebug(QString("pushed item: %1,%2 params %3,%4").arg(result->xPos()).arg(result->yPos()).arg(xpos).arg(ypos));
