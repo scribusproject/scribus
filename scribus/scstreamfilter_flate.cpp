@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 /* Code inspired by cairo and adapted for Scribus by Jean Ghali */
 
 #include "scstreamfilter_flate.h"
+
+#include <stdlib.h>
 #include <zlib.h>
 
 #include <QDataStream>
