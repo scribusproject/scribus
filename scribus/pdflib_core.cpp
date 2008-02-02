@@ -4030,7 +4030,8 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						double wt    = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize() * scale / 10.0);
 						double len   = hl->glyph.xadvance;
 						int coun     = static_cast<int>(len / wt);
-						double sPos  = CurX - len + chstyle.fontSize() / 10.0 * 0.7 + 1;
+						// #6728 : update code according to fillInTabLeaders() and PageItem::layout() - JG
+						double sPos  = 0.0 /*CurX - len + chstyle.fontSize() / 10.0 * 0.7 + 1*/;
 						hl2.ch = tTabValues[tabCc].tabFillChar;
 						hl2.setTracking(0);
 						hl2.setScaleH(1000);

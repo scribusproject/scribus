@@ -3170,7 +3170,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 					double wt    = cstyle.font().charWidth(tTabValues[tabCc].tabFillChar, cstyle.fontSize() * scale / 10.0);
 					double len   = hl->glyph.xadvance;
 					int coun     = static_cast<int>(len / wt);
-					double sPos  = CurX - len + cstyle.fontSize() / 10.0 * 0.7 + 1;
+					// JG - #6728 : update code according to fillInTabLeaders() and PageItem::layout()
+					double sPos  = 0.0 /*CurX - len + cstyle.fontSize() / 10.0 * 0.7 + 1*/;
 					hl2.ch = tTabValues[tabCc].tabFillChar;
 					hl2.setTracking(0);
 					hl2.setScaleH(1000);
