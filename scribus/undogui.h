@@ -313,9 +313,9 @@ private:
 		         bool isUndoAction,
 	             QListWidget * parent = 0);
 		~UndoItem();
-		void paint(QPainter *painter);
+		/*void paint(QPainter *painter);
 		int height(const QListWidget*) const;
-		int width(const QListWidget*) const;
+		int width(const QListWidget*) const;*/
 		QString getDescription();
 		bool isUndoAction();
 		void setUndoAction(bool isUndo);

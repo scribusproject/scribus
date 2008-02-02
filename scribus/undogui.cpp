@@ -451,7 +451,7 @@ void UndoPalette::showToolTip(QListWidgetItem *i)
 	if (item)
 	{
 		QString tip = item->getDescription();
-		if (tip.isNull())
+		if (!tip.isNull()) /*TODO: Doesn't make sense! */
 		  undoList->setToolTip(tip);
 	}
 	else
@@ -509,15 +509,27 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
 	description(actionDescription),
 	isUndoAction_(isUndoAction)
 {
-// 	qDebug() << "UndoItem::contructor";
-/*	QFont f;
-	f.setItalic(!isUndoAction_);
-	setFont(f);*/
+	/*TODO: 16x16 is hardcoded, because images automatically scaled by QIcon are no longer recognizable 
+	would be better to have the icons designed for 16x16*/
+	if (!targetPixmap) {
+		if (actionPixmap) {
+			setIcon(actionPixmap->scaled(16,16));
+		}
+	} else {
+		QPixmap pixmap = targetPixmap->scaled(16,16);
+		if (actionPixmap) {
+			QPainter p;
+			p.begin(&pixmap);
+			p.drawPixmap(0,0, actionPixmap->scaled(16,16));
+			p.end();
+		}
+		setIcon(pixmap);
+	}
 	setText(QString("%1 - %2\n%3").arg(targetName).arg(actionName).arg(actionDescription));
 }
 
-void UndoPalette::UndoItem::paint(QPainter *painter)
-{
+//void UndoPalette::UndoItem::paint(QPainter *painter)
+//{
 // 	if (targetpixmap)
 // 		painter->drawPixmap(5, 5, *targetpixmap);
 // 	if (actionpixmap)
@@ -539,8 +551,9 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 // 	painter->setFont(f);
 // 	painter->drawText(32, QFontMetrics(f).height(), target);
 // 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
-}
+//}
 
+/*
 int UndoPalette::UndoItem::height(const QListWidget *lb) const
 {
 	if (lb)
@@ -568,6 +581,7 @@ int UndoPalette::UndoItem::width(const QListWidget *lb) const
 	else
 		return 0;
 }
+*/
 
 QString UndoPalette::UndoItem::getDescription()
 {
@@ -582,6 +596,9 @@ bool UndoPalette::UndoItem::isUndoAction()
 void UndoPalette::UndoItem::setUndoAction(bool isUndo)
 {
 	isUndoAction_ = isUndo;
+	QFont f = font();
+	f.setItalic(!isUndoAction_);
+	setFont(f);
 }
 
 UndoPalette::UndoItem::~UndoItem()
