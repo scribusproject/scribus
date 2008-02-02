@@ -105,7 +105,25 @@ public:
 	static QString trYesKey;
 	//! \brief Translated "No" with key accelerator "&No"
 	static QString trNoKey;
-
+	
+	//Item Types
+	static QString itemType_TextFrame;
+	static QString itemType_ImageFrame;
+	static QString itemType_Line;
+	static QString itemType_Polygon;
+	static QString itemType_Polyline;
+	static QString itemType_PathText;
+	static QString itemType_LatexFrame;
+	static QString itemType_Multiple;
+	
+	static QString itemSubType_PDF_PushButton;
+	static QString itemSubType_PDF_TextField;
+	static QString itemSubType_PDF_CheckBox;
+	static QString itemSubType_PDF_ComboBox;
+	static QString itemSubType_PDF_ListBox;
+	static QString itemSubType_PDF_TextAnnotation;
+	static QString itemSubType_PDF_LinkAnnotation;
+	
 	//Page Size
 	static QString customPageSize;
 	static QString trCustomPageSize;

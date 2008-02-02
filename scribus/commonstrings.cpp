@@ -45,6 +45,24 @@ QString CommonStrings::trNoKey     = "";
 QString CommonStrings::customPageSize = "";
 QString CommonStrings::trCustomPageSize = "";
 
+QString CommonStrings::itemType_TextFrame  = "";
+QString CommonStrings::itemType_ImageFrame = "";
+QString CommonStrings::itemType_Line       = "";
+QString CommonStrings::itemType_Polygon    = "";
+QString CommonStrings::itemType_Polyline   = "";
+QString CommonStrings::itemType_PathText   = "";
+QString CommonStrings::itemType_LatexFrame = "";
+QString CommonStrings::itemType_Multiple   = "";
+
+QString CommonStrings::itemSubType_PDF_PushButton;
+QString CommonStrings::itemSubType_PDF_TextField;
+QString CommonStrings::itemSubType_PDF_CheckBox;
+QString CommonStrings::itemSubType_PDF_ComboBox;
+QString CommonStrings::itemSubType_PDF_ListBox;
+QString CommonStrings::itemSubType_PDF_TextAnnotation;
+QString CommonStrings::itemSubType_PDF_LinkAnnotation;
+
+
 QString CommonStrings::pageSet1    = "";
 QString CommonStrings::pageSet2    = "";
 QString CommonStrings::pageSet3    = "";
@@ -223,6 +241,23 @@ void CommonStrings::languageChange()
 	CommonStrings::trNo       = tr("No");
 	CommonStrings::trYesKey   = tr("&Yes");
 	CommonStrings::trNoKey    = tr("&No");
+	
+	CommonStrings::itemType_TextFrame  = tr("Text Frame");
+	CommonStrings::itemType_ImageFrame = tr("Image Frame");
+	CommonStrings::itemType_Line       = tr("Line");
+	CommonStrings::itemType_Polygon    = tr("Polygon");
+	CommonStrings::itemType_Polyline   = tr("Polyline");
+	CommonStrings::itemType_PathText   = tr("Text on a Path");
+	CommonStrings::itemType_LatexFrame = tr("LaTeX Frame");
+	CommonStrings::itemType_Multiple   = tr("Multiple", "Multiple frame types");
+	CommonStrings::itemSubType_PDF_PushButton     = tr("PDF Push Button");
+	CommonStrings::itemSubType_PDF_TextField      = tr("PDF Text Field");
+	CommonStrings::itemSubType_PDF_CheckBox       = tr("PDF Check Box");
+	CommonStrings::itemSubType_PDF_ComboBox       = tr("PDF Combo Box");
+	CommonStrings::itemSubType_PDF_ListBox        = tr("PDF List Box");
+	CommonStrings::itemSubType_PDF_TextAnnotation = tr("PDF Text Annotation");
+	CommonStrings::itemSubType_PDF_LinkAnnotation = tr("PDF Link Annotation");
+
 	
 	CommonStrings::customPageSize = "Custom";
 	CommonStrings::trCustomPageSize = tr( "Custom", "CommonStrings, custom page size" );
