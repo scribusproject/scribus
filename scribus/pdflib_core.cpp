@@ -676,6 +676,20 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	if (Options.fitWindow)
 		PutDoc("/FitWindow true\n");
 	PutDoc(" >>\n>>\nendobj\n");
+	QDate d = QDate::currentDate();
+	Datum = "D:";
+	tmp.sprintf("%4d", d.year());
+	tmp.replace(QRegExp(" "), "0");
+	Datum += tmp;
+	tmp.sprintf("%2d", d.month());
+	tmp.replace(QRegExp(" "), "0");
+	Datum += tmp;
+	tmp.sprintf("%2d", d.day());
+	tmp.replace(QRegExp(" "), "0");
+	Datum += tmp;
+	tmp = QTime::currentTime().toString();
+	tmp.replace(QRegExp(":"), "");
+	Datum += tmp;
 	QString IDg(Datum);
 	IDg += Options.Datei;
 	IDg += "Scribus "+QString(VERSION);
@@ -707,20 +721,6 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				uk += QChar(UserKey[cl]);
 		}
 	}
-	QDate d = QDate::currentDate();
-	Datum = "D:";
-	tmp.sprintf("%4d", d.year());
-	tmp.replace(QRegExp(" "), "0");
-	Datum += tmp;
-	tmp.sprintf("%2d", d.month());
-	tmp.replace(QRegExp(" "), "0");
-	Datum += tmp;
-	tmp.sprintf("%2d", d.day());
-	tmp.replace(QRegExp(" "), "0");
-	Datum += tmp;
-	tmp = QTime::currentTime().toString();
-	tmp.replace(QRegExp(":"), "");
-	Datum += tmp;
 	StartObj(2);
 	PutDoc("<<\n/Creator "+EncString("(Scribus "+QString(VERSION)+")",2)+"\n");
 	PutDoc("/Producer "+EncString("(Scribus PDF Library "+QString(VERSION)+")",2)+"\n");
