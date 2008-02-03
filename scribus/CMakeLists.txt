@@ -498,6 +498,7 @@ SET(SCRIBUS_SOURCES
   scstreamfilter.cpp
   scstreamfilter_ascii85.cpp
   scstreamfilter_flate.cpp
+  scstreamfilter_rc4.cpp
   sctablewidget.cpp
   sctextbrowser.cpp
   sctextstruct.cpp
