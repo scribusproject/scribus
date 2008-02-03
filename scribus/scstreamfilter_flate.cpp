@@ -92,7 +92,7 @@ bool ScFlateEncodeFilter::writeData(const char* data, int dataLen)
     const unsigned char *p = (const unsigned char *) data;
 
 	if (!m_filterData)
-		return 0;
+		return false;
 
     while (dataLen) {
         count = dataLen;
