@@ -40,4 +40,13 @@ public:
 	virtual bool writeData(const char* data, int dataLen) = 0;
 };
 
+class ScNullEncodeFilter : public ScStreamFilter
+{
+public:
+	ScNullEncodeFilter(QDataStream* stream) : ScStreamFilter(stream) {};
+	ScNullEncodeFilter(ScStreamFilter* filter) : ScStreamFilter(filter) {};
+
+	virtual bool writeData(const char* data, int dataLen) { return writeDataInternal(data, dataLen); }
+};
+
 #endif
