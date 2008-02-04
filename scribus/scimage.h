@@ -78,14 +78,19 @@ public:
 	// Routines for PDF/PS output of images
 	QByteArray ImageToArray();
 	QByteArray ImageToGray();
-	QByteArray ImageToCMYK_PS(int pl);
 	QByteArray ImageToCMYK_PDF();
+
+	void convertToGray(void);
+
+	bool writeRGBDataToFilter(ScStreamFilter* filter);
+	bool writeGrayDataToFilter(ScStreamFilter* filter);
+	bool writeCMYKDataToFilter(ScStreamFilter* filter);
 
 	bool writePSImageToFilter(ScStreamFilter* filter, int pl);
 	bool writePSImageToFilter(ScStreamFilter* filter, const QByteArray& mask, int pl);
 
 	bool getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
-	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
+	bool Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
 	void applyEffect(const ScImageEffectList& effectsList, ColorList& colors, bool cmyk);
