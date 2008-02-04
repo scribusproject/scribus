@@ -12,13 +12,13 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QColor>
 #include <QComboBox>
+#include <QDataStream>
 #include <QDir>
 #include <QList>
 #include <QPainterPath>
 #include <QPixmap>
 #include <QString>
 #include <QStringList>
-#include <QTextStream>
 
 #include "pagestructs.h"
 #include "style.h"
@@ -26,13 +26,15 @@ for which a new license (GPL+exception) is in place.
 #include "styles/paragraphstyle.h"
 #include "scribusapi.h"
 
-class ScribusDoc;
-class ParagraphStyle;
-class QDomElement;
-class QWidget;
-class ScribusView;
+class  QDomElement;
+class  QWidget;
+class  PageItem;
+class  ParagraphStyle;
+class  ScribusDoc;
+class  ScribusView;
+class  ScStreamFilter;
 struct CopyPasteBuffer;
-class PageItem;
+
 // class Foi;
 
 /*! \brief Compare double values by pre-multiplying by 10000 and converting to long if possible.
@@ -90,8 +92,11 @@ QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
    *
 */
 int SCRIBUS_API System(const QString exename, const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "");
-int SCRIBUS_API copyFile(QString source, QString target);
-int SCRIBUS_API moveFile(QString source, QString target);
+
+bool SCRIBUS_API copyFile(const QString& source, const QString& target);
+bool SCRIBUS_API copyFileToFilter(const QString& source, ScStreamFilter& target);
+bool SCRIBUS_API copyFileToStream(const QString& source, QDataStream& target);
+bool SCRIBUS_API moveFile(QString source, QString target);
 /*!
  \fn QString checkFileExtension(const QString &currName, const QString &extension)
  \author Craig Bradney

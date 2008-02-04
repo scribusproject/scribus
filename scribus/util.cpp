@@ -40,8 +40,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "util.h"
 
-#include "scpainter.h"
+
 #include "scconfig.h"
+#include "scpainter.h"
+#include "scstreamfilter.h"
 #include "pageitem_textframe.h"
 
 #if defined(_WIN32)
@@ -128,20 +130,20 @@ QString getShortPathName(QString longPath)
 	return shortPath;
 }
 
-int copyFile(QString source, QString target)
+bool copyFile(const QString& source, const QString& target)
 {
 	int bytesread, error = -1;
 	if ((source.isNull()) || (target.isNull()))
-		return -1;
+		return false;
 	if (source == target)
-		return -1;
+		return false;
 	QFile s(source);
 	if (!s.exists())
-		return -1;
+		return false;
 	QFile t(target);
 	QByteArray bb( 65536, ' ' );
 	if (bb.size() <= 0) // Check for memory allocation failure
-		return -1;
+		return false;
 	if (s.open(QIODevice::ReadOnly))
 	{
 		if (t.open(QIODevice::WriteOnly))
@@ -158,18 +160,73 @@ int copyFile(QString source, QString target)
 		}
 		s.close();
 	}
-	return error;
+	return (error == 0);
 }
 
-int moveFile(QString source, QString target)
+bool copyFileToFilter(const QString& source, ScStreamFilter& target)
 {
-	if ((source.isNull()) || (target.isNull()))
-		return -1;
+	bool copySucceed = true;
+	int  bytesread, error = -1;
+	if (source.isEmpty())
+		return false;
+	if (!QFile::exists(source))
+		return false;
+	QFile s(source);
+	QByteArray bb( 65536, ' ' );
+	if (bb.size() <= 0) // Check for memory allocation failure
+		return false;
+	if (s.open(QIODevice::ReadOnly))
+	{
+		bytesread = s.read( bb.data(), bb.size() );
+		while (bytesread > 0)
+		{
+			copySucceed &= target.writeData(bb.data(), bytesread);
+			bytesread = s.read( bb.data(), bb.size() );
+		}
+		copySucceed &= (s.error() == QFile::NoError);
+		s.close();
+	}
+	return copySucceed;
+}
+
+bool copyFileToStream(const QString& source, QDataStream& target)
+{
+	bool copySucceed = true;
+	int  bytesread, byteswrite;
+	if (source.isEmpty())
+		return false;
+	if (!QFile::exists(source))
+		return false;
+	if (!target.device()->isOpen() || !target.device()->isWritable())
+		return false;
+	QFile s(source);
+	QByteArray bb( 65536, ' ' );
+	if (bb.size() <= 0) // Check for memory allocation failure
+		return false;
+	if (s.open(QIODevice::ReadOnly))
+	{
+		bytesread = s.read( bb.data(), bb.size() );
+		while (bytesread > 0)
+		{
+			byteswrite   = target.writeRawData(bb.data(), bytesread);
+			copySucceed &= (byteswrite == bytesread);
+			bytesread    = s.read( bb.data(), bb.size() );
+		}
+		copySucceed &= (s.error() == QFile::NoError);
+		s.close();
+	}
+	return copySucceed;
+}
+
+bool moveFile(QString source, QString target)
+{
+	if (source.isEmpty() || target.isEmpty())
+		return false;
 	if (source == target)
-		return -1;
-	copyFile(source, target);
-	QFile::remove(source);
-	return 0;
+		return false;
+	bool moveSucceed = copyFile(source, target);
+	moveSucceed &= QFile::remove(source);
+	return moveSucceed;
 }
 
 QString GetAttr(QDomElement *el, QString at, QString def)
