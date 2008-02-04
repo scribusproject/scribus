@@ -3227,7 +3227,7 @@ double PageItem_TextFrame::columnWidth()
 {
 	double lineCorr;
 	if (lineColor() != CommonStrings::None)
-		lineCorr = m_lineWidth;
+		lineCorr = m_lineWidth / 2.0;
 	else
 		lineCorr = 0;
 	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2 * lineCorr) / Cols;
