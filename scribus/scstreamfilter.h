@@ -21,6 +21,7 @@ protected:
 		FilterToFilter = 1
 	} FilterMode;
 
+	int             m_writtenToStream;
 	FilterMode      m_filterMode;
 	QDataStream*    m_dataStream;
 	ScStreamFilter* m_filter;
@@ -38,6 +39,8 @@ public:
 
 	virtual bool writeData(const QByteArray& data);
 	virtual bool writeData(const char* data, int dataLen) = 0;
+
+	int writtenToStream(void);
 };
 
 class ScNullEncodeFilter : public ScStreamFilter

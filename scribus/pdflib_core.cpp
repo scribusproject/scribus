@@ -67,6 +67,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scstreamfilter_flate.h"
+#include "scstreamfilter_rc4.h"
 #include "text/nlsconfig.h"
 #include "util.h"
 #include "util_formats.h"
@@ -295,27 +297,12 @@ QString PDFLibCore::EncStream(const QString & in, int ObjNum)
 	else if (!Options.Encrypt)
 		return in;
 	rc4_context_t rc4;
-	int dlen = 0;
 	QString tmp(in);
 	QByteArray us(tmp.length(), ' ');
 	QByteArray ou(tmp.length(), ' ');
 	for (int a = 0; a < tmp.length(); ++a)
 		us[a] = QChar(tmp.at(a)).cell();
-	QByteArray data(10, ' ');
-	if (KeyLen > 5)
-		data.resize(21);
-	for (int cd = 0; cd < KeyLen; ++cd)
-	{
-		data[cd] = EncryKey[cd];
-		dlen++;
-	}
-	data[dlen++] = ObjNum;
-	data[dlen++] = ObjNum >> 8;
-	data[dlen++] = ObjNum >> 16;
-	data[dlen++] = 0;
-	data[dlen++] = 0;
-	QByteArray step1(16, ' ');
-	step1 = ComputeMD5Sum(&data);
+	QByteArray step1 = ComputeRC4Key(ObjNum);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
@@ -324,42 +311,12 @@ QString PDFLibCore::EncStream(const QString & in, int ObjNum)
 	return uk;
 }
 
-QByteArray PDFLibCore::EncStreamArray(const QByteArray & in, int ObjNum)
-{
-	if (in.size() < 1)
-		return QByteArray();
-	else if (!Options.Encrypt)
-		return in;
-	rc4_context_t rc4;
-	int dlen = 0;
-	QByteArray out(in.size(), ' ');
-	QByteArray data(10, ' ');
-	if (KeyLen > 5)
-		data.resize(21);
-	for (int cd = 0; cd < KeyLen; ++cd)
-	{
-		data[cd] = EncryKey[cd];
-		dlen++;
-	}
-	data[dlen++] = ObjNum;
-	data[dlen++] = ObjNum >> 8;
-	data[dlen++] = ObjNum >> 16;
-	data[dlen++] = 0;
-	data[dlen++] = 0;
-	QByteArray step1(16, ' ');
-	step1 = ComputeMD5Sum(&data);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-	rc4_encrypt(&rc4, reinterpret_cast<const uchar*>(in.constData()), reinterpret_cast<uchar*>(out.data()), in.size());
-	return out;
-}
-
 QString PDFLibCore::EncString(const QString & in, int ObjNum)
 {
 	if (!Options.Encrypt)
 		return in;
 	rc4_context_t rc4;
 	QString tmp;
-	int dlen = 0;
 	if (in.length() < 3)
 		return "<>";
 	tmp = in.mid(1, in.length()-2);
@@ -367,21 +324,7 @@ QString PDFLibCore::EncString(const QString & in, int ObjNum)
 	QByteArray ou(tmp.length(), ' ');
 	for (int a = 0; a < tmp.length(); ++a)
 		us[a] = static_cast<uchar>(QChar(tmp.at(a)).cell());
-	QByteArray data(10, ' ');
-	if (KeyLen > 5)
-		data.resize(21);
-	for (int cd = 0; cd < KeyLen; ++cd)
-	{
-		data[cd] = EncryKey[cd];
-		dlen++;
-	}
-	data[dlen++] = ObjNum;
-	data[dlen++] = ObjNum >> 8;
-	data[dlen++] = ObjNum >> 16;
-	data[dlen++] = 0;
-	data[dlen++] = 0;
-	QByteArray step1(16, ' ');
-	step1 = ComputeMD5Sum(&data);
+	QByteArray step1 = ComputeRC4Key(ObjNum);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
@@ -405,26 +348,10 @@ QString PDFLibCore::EncStringUTF16(const QString & in, int ObjNum)
 		return "<"+String2Hex(&uk, false)+">";
 	}
 	rc4_context_t rc4;
-	QString tmp;
-	int dlen = 0;
-	tmp = in.mid(1, in.length()-2);
+	QString tmp = in.mid(1, in.length()-2);
 	QByteArray us = EncodeUTF16(tmp);
 	QByteArray ou(us.size(), ' ');
-	QByteArray data(10, ' ');
-	if (KeyLen > 5)
-		data.resize(21);
-	for (int cd = 0; cd < KeyLen; ++cd)
-	{
-		data[cd] = EncryKey[cd];
-		dlen++;
-	}
-	data[dlen++] = ObjNum;
-	data[dlen++] = ObjNum >> 8;
-	data[dlen++] = ObjNum >> 16;
-	data[dlen++] = 0;
-	data[dlen++] = 0;
-	QByteArray step1(16, ' ');
-	step1 = ComputeMD5Sum(&data);
+	QByteArray step1 = ComputeRC4Key(ObjNum);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
 	QString uk = "";
@@ -438,50 +365,142 @@ bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, int ObjNum)
 {
 	if (in.size() < 1)
 		return true;
+	bool succeed = false;
 	if (Options.Encrypt)
 	{
-		int dlen = 0;
-		rc4_context_t rc4;
-		unsigned char fallBackBuffer[1024];
-		QByteArray buffer(65536, ' ');
-		QByteArray data(10, ' ');
-		if (KeyLen > 5)
-			data.resize(21);
-		for (int cd = 0; cd < KeyLen; ++cd)
+		QByteArray step1 = ComputeRC4Key(ObjNum);
+		ScRC4EncodeFilter rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
+		if (rc4Encode.openFilter())
 		{
-			data[cd] = EncryKey[cd];
-			dlen++;
-		}
-		data[dlen++] = ObjNum;
-		data[dlen++] = ObjNum >> 8;
-		data[dlen++] = ObjNum >> 16;
-		data[dlen++] = 0;
-		data[dlen++] = 0;
-		QByteArray step1(16, ' ');
-		step1 = ComputeMD5Sum(&data);
-
-		uint   writeBufferS = (buffer.size() > 0) ? buffer.size() : 1024;
-		uchar* writeBuffer  = (buffer.size() > 0) ? (unsigned char*) buffer.data() : fallBackBuffer;
-		uint   dataBufferS  = in.size();
-		const  uchar* dataBuffer = (const uchar*) in.data();
-
-		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-		while (dataBufferS >= writeBufferS)
-		{
-			rc4_encrypt(&rc4, dataBuffer, writeBuffer, writeBufferS);
-			outStream.writeRawData((const char*) writeBuffer, writeBufferS);
-			dataBuffer  += writeBufferS;
-			dataBufferS -= writeBufferS;
-		}
-		if (dataBufferS > 0)
-		{
-			rc4_encrypt(&rc4, dataBuffer, writeBuffer, dataBufferS);
-			outStream.writeRawData((const char*) writeBuffer, dataBufferS);
+			succeed  = rc4Encode.writeData(in.data(), in.size());
+			succeed &= rc4Encode.closeFilter();
 		}
 	}
 	else
 		outStream.writeRawData(in, in.size());
 	return (outStream.status() == QDataStream::Ok);
+}
+
+int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray)
+{
+	bool succeed = false;
+	int  bytesWritten = 0;
+	ScStreamFilter* filter = NULL;
+	if (Options.Encrypt)
+	{
+		QByteArray step1 = ComputeRC4Key(ObjNum);
+		ScRC4EncodeFilter rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
+		if (rc4Encode.openFilter())
+		{
+			if (gray)
+				succeed = image.writeGrayDataToFilter(&rc4Encode);
+			else if (cmyk)
+				succeed = image.writeCMYKDataToFilter(&rc4Encode);
+			else
+				succeed = image.writeRGBDataToFilter(&rc4Encode);
+			succeed &= rc4Encode.closeFilter();
+			bytesWritten = rc4Encode.writtenToStream();
+		}
+ 	}
+	else
+	{
+		ScNullEncodeFilter nullEncode(&outStream);
+		if (nullEncode.openFilter())
+		{
+			if (gray)
+				succeed = image.writeGrayDataToFilter(&nullEncode);
+			else if (cmyk)
+				succeed = image.writeCMYKDataToFilter(&nullEncode);
+			else
+				succeed = image.writeRGBDataToFilter(&nullEncode);
+			succeed &= nullEncode.closeFilter();
+			bytesWritten = nullEncode.writtenToStream();
+		}
+	}
+	return (succeed ? bytesWritten : 0);
+}
+
+int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, bool cmyk, 
+										bool gray, bool sameFile)
+{
+	bool succeed = true;
+	int  bytesWritten = 0;
+	QFileInfo fInfo(fn);
+	QString   ext = fInfo.suffix().toLower();
+	QString   jpgFileName, tmpFile;
+	if (extensionIndicatesJPEG(ext) && sameFile)
+		jpgFileName = fn;
+	else
+	{
+		tmpFile  = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
+		if (gray)
+			image.convertToGray();
+		if (image.Convert2JPG(tmpFile, Options.Quality, cmyk, gray))
+			jpgFileName = tmpFile;
+	}
+	if (jpgFileName.isEmpty())
+		return false;
+	if (Options.Encrypt)
+	{
+		succeed = false;
+		QByteArray step1 = ComputeRC4Key(ObjNum);
+		ScRC4EncodeFilter rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
+		if (rc4Encode.openFilter())
+		{
+			succeed  = copyFileToFilter(jpgFileName, rc4Encode);
+			succeed &= rc4Encode.closeFilter();
+			bytesWritten = rc4Encode.writtenToStream();
+		}
+	}
+	else
+	{
+		succeed &= copyFileToStream(jpgFileName, outStream);
+		QFileInfo jpgInfo(jpgFileName);
+		bytesWritten = jpgInfo.size();
+	}
+	if (!tmpFile.isEmpty() && QFile::exists(tmpFile))
+		QFile::remove(tmpFile);
+	return (succeed ? bytesWritten : 0);
+}
+
+int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray)
+{
+	bool succeed = false;
+	int  bytesWritten = 0;
+	ScStreamFilter* filter = NULL;
+	if (Options.Encrypt)
+	{
+		QByteArray step1 = ComputeRC4Key(ObjNum);
+		ScRC4EncodeFilter   rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
+		ScFlateEncodeFilter flateEncode(&rc4Encode);
+		if (flateEncode.openFilter())
+		{
+			if (gray)
+				succeed = image.writeGrayDataToFilter(&flateEncode);
+			else if (cmyk)
+				succeed = image.writeCMYKDataToFilter(&flateEncode);
+			else
+				succeed = image.writeRGBDataToFilter(&flateEncode);
+			succeed &= flateEncode.closeFilter();
+			bytesWritten = flateEncode.writtenToStream();
+		}
+ 	}
+	else
+	{
+		ScFlateEncodeFilter flateEncode(&outStream);
+		if (flateEncode.openFilter())
+		{
+			if (gray)
+				succeed = image.writeGrayDataToFilter(&flateEncode);
+			else if (cmyk)
+				succeed = image.writeCMYKDataToFilter(&flateEncode);
+			else
+				succeed = image.writeRGBDataToFilter(&flateEncode);
+			succeed &= flateEncode.closeFilter();
+			bytesWritten = flateEncode.writtenToStream();
+		}
+	}
+	return succeed;
 }
 
 QString PDFLibCore::FitKey(const QString & pass)
@@ -594,6 +613,28 @@ QByteArray PDFLibCore::ComputeMD5(const QString& in)
 	for (uint a = 0; a < inlen; ++a)
 		TBytes[a] = static_cast<uchar>(QChar(in.at(a)).cell());
 	return ComputeMD5Sum(&TBytes);
+}
+
+QByteArray PDFLibCore::ComputeRC4Key(int ObjNum)
+{
+	int dlen = 0;
+	QByteArray data(10, ' ');
+	if (KeyLen > 5)
+		data.resize(21);
+	for (int cd = 0; cd < KeyLen; ++cd)
+	{
+		data[cd] = EncryKey[cd];
+		dlen++;
+	}
+	data[dlen++] = ObjNum;
+	data[dlen++] = ObjNum >> 8;
+	data[dlen++] = ObjNum >> 16;
+	data[dlen++] = 0;
+	data[dlen++] = 0;
+	QByteArray rc4Key(16, ' ');
+	rc4Key = ComputeMD5Sum(&data);
+	rc4Key.resize(qMin(KeyLen+5, 16));
+	return rc4Key;
 }
 
 bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi)
@@ -6022,21 +6063,19 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	ScImage img;
-	QByteArray im;
 	QString tmp, tmpy, dummy, cmd1, cmd2, BBox;
-	QChar tc;
-	bool found = false;
-	bool alphaM = false;
-	bool realCMYK = false;
-	int afl = Options.Resolution;
-	double x2, ax, ay, a2, a1;
+	QChar  tc;
+	bool   found = false;
+	bool   alphaM = false;
+	bool   realCMYK = false;
+	int    afl = Options.Resolution;
+	double x2 = 0, ax, ay, a2, a1;
 	double sxn = 0;
 	double syn = 0;
-	x2 = 0;
 	double aufl = Options.Resolution / 72.0;
-	int ImRes, ImWid, ImHei;
-	int origWidth = 1;
-	int origHeight = 1;
+	int    ImRes, ImWid, ImHei;
+	int    origWidth = 1;
+	int    origHeight = 1;
 	struct ShIm ImInfo;
 	if ((!SharedImages.contains(fn)) || (fromAN) || (c->effectsInUse.count() != 0))
 	{
@@ -6349,37 +6388,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = ObjCounter-1;
 			ResCount++;
 		}
-		if (Options.UseRGB)
-			im = img.ImageToArray();
-		else
-		{
-			if (Options.isGrayscale)
-				im = img.ImageToGray();
-			else
-			{
-				if ((doc.HasCMS) && (Options.UseProfiles2) && (!realCMYK))
-					im = img.ImageToArray();
-				else
-					im = img.ImageToCMYK_PDF();
-			}
-		}
-		if (im.isNull())
-		{
-			PDF_Error_InsufficientMemory();
-			return false;
-		}
-		bool compDataAvail = false;
 		StartObj(ObjCounter);
 		ObjCounter++;
-		if ((Options.CompressMethod == PDFOptions::Compression_ZIP) || (Options.CompressMethod == PDFOptions::Compression_Auto))
-		{
-			QByteArray compData = CompressArray(im);
-			if (compData.size() > 0)
-			{
-				im = compData;
-				compDataAvail = true;
-			}
-		}
 		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 		PutDoc("/Width "+QString::number(img.width())+"\n");
 		PutDoc("/Height "+QString::number(img.height())+"\n");
@@ -6406,46 +6416,34 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			}
 		}
 		enum PDFOptions::PDFCompression cm = Options.CompressMethod;
-		bool specialCMYK = false;
+		bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
+		if (!Options.UseRGB)
+		{
+			exportToGrayscale = Options.isGrayscale;
+			exportToCMYK      = !Options.isGrayscale;
+		}
 		if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 		{
 			if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
-				im.resize(0);
-				if (!loadRawBytes(fn, im))
-					return false;
+				jpegUseOriginal = true;
 				cm = PDFOptions::Compression_JPEG;
 			}
 			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 			{
-				im.resize(0);
-				if (!loadRawBytes(fn, im))
-					return false;
+				jpegUseOriginal = exportToCMYK = true;
 				cm = PDFOptions::Compression_JPEG;
-				specialCMYK = true;
 			}
 			else
 			{
 				if (Options.CompressMethod == PDFOptions::Compression_JPEG)
 				{
-					QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
-					if (((Options.UseRGB) || (Options.UseProfiles2)) && (!realCMYK))
-						img.Convert2JPG(tmpFile, Options.Quality, false, false);
-					else
+					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 					{
-						if (Options.isGrayscale)
-							img.Convert2JPG(tmpFile, Options.Quality, false, true);
-						else
-						{
-							img.Convert2JPG(tmpFile, Options.Quality, true, false);
-							specialCMYK = true;
-						}
+						exportToGrayscale = Options.isGrayscale;
+						exportToCMYK      = !Options.isGrayscale;
 					}
-					im.resize(0);
-					if (!loadRawBytes(tmpFile, im))
-						return false;
 					cm = PDFOptions::Compression_JPEG;
-					QFile::remove(tmpFile);
 				}
 				else
 					cm = PDFOptions::Compression_ZIP;
@@ -6455,20 +6453,13 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		{
 			if ((Options.CompressMethod == PDFOptions::Compression_JPEG) || (Options.CompressMethod == PDFOptions::Compression_Auto))
 			{
-				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
-				if (((Options.UseRGB) || (Options.UseProfiles2)) && (!realCMYK))
-					img.Convert2JPG(tmpFile, Options.Quality, false, false);
-				else
+				if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 				{
-					if (Options.isGrayscale)
-						img.Convert2JPG(tmpFile, Options.Quality, false, true);
-					else
-					{
-						img.Convert2JPG(tmpFile, Options.Quality, true, false);
-						specialCMYK = true;
-					}
+					exportToGrayscale = Options.isGrayscale;
+					exportToCMYK      = !Options.isGrayscale;
 				}
-				if (Options.CompressMethod == PDFOptions::Compression_Auto)
+				cm = PDFOptions::Compression_JPEG;
+				/*if (Options.CompressMethod == PDFOptions::Compression_Auto)
 				{
 					QFileInfo fi(tmpFile);
 					if (fi.size() < im.size())
@@ -6480,24 +6471,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					}
 					else
 						cm = PDFOptions::Compression_ZIP;
-				}
-				else
-				{
-					im.resize(0);
-					if (!loadRawBytes(tmpFile, im))
-						return false;
-					cm = PDFOptions::Compression_JPEG;
-				}
-				QFile::remove(tmpFile);
+				}*/
 			}
 		}
+		int bytesWritten = 0;
 		PutDoc("/BitsPerComponent 8\n");
-		PutDoc("/Length "+QString::number(im.size())+"\n");
+		PutDoc("/Length "+QString::number(ObjCounter)+" 0 R\n");
 		if (cm == PDFOptions::Compression_JPEG)
 			PutDoc("/Filter /DCTDecode\n");
-		else if (cm != PDFOptions::Compression_None && compDataAvail)
+		else if (cm != PDFOptions::Compression_None)
 			PutDoc("/Filter /FlateDecode\n");
-		if (specialCMYK && (cm == PDFOptions::Compression_JPEG))
+		if (exportToCMYK && (cm == PDFOptions::Compression_JPEG))
 			PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
 		if (alphaM)
 		{
@@ -6507,10 +6491,23 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				PutDoc("/Mask "+QString::number(ObjCounter-2)+" 0 R\n");
 		}
 		PutDoc(">>\nstream\n");
-		EncodeArrayToStream(im, ObjCounter-1);
+		if (cm == PDFOptions::Compression_JPEG)
+			bytesWritten = WriteJPEGImageToStream(img, fn, ObjCounter - 1, exportToCMYK, exportToGrayscale, jpegUseOriginal);
+		else if (cm == PDFOptions::Compression_ZIP)
+			bytesWritten = WriteFlateImageToStream(img, ObjCounter - 1, exportToCMYK, exportToGrayscale);
+		else
+			bytesWritten = WriteImageToStream(img, ObjCounter - 1, exportToCMYK, exportToGrayscale);
 		PutDoc("\nendstream\nendobj\n");
-//		}
-		Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = ObjCounter-1;
+		if (bytesWritten <= 0)
+		{
+			PDF_Error_ImageWriteFailure(fn);
+			return false;
+		}
+		StartObj(ObjCounter);
+		ObjCounter++;
+		PutDoc(QString("    %1\n").arg(bytesWritten));
+		PutDoc("endobj\n");
+		Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = ObjCounter-2;
 		ImRes = ResCount;
 		ImWid = img.width();
 		ImHei = img.height();
@@ -6955,6 +6952,11 @@ void PDFLibCore::PDF_Error(const QString& errorMsg)
 void PDFLibCore::PDF_Error_ImageLoadFailure(const QString& fileName)
 {
 	PDF_Error( tr("Failed to load an image : %1").arg(fileName) );
+}
+
+void PDFLibCore::PDF_Error_ImageWriteFailure(const QString& fileName)
+{
+	PDF_Error( tr("Failed to write an image : %1").arg(fileName) );
 }
 
 void PDFLibCore::PDF_Error_MaskLoadFailure(const QString& fileName)

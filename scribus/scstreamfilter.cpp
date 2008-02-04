@@ -18,21 +18,27 @@ ScStreamFilter::ScStreamFilter(QDataStream* stream)
 	m_dataStream = stream;
 	m_filter     = NULL;
 	m_filterMode = FilterToStream;
+	m_writtenToStream = 0;
 }
 
 ScStreamFilter::ScStreamFilter(ScStreamFilter* filter)
 {
 	assert(filter != NULL);
 	m_dataStream = NULL;
-	m_filter = filter;
+	m_filter     = filter;
 	m_filterMode = FilterToFilter;
+	m_writtenToStream = 0;
 }
 
 bool ScStreamFilter::writeDataInternal(const char* data, int dataLen)
 {
 	bool writeSuccess = false;
 	if (m_filterMode == FilterToStream)
-		writeSuccess = (m_dataStream->writeRawData(data, dataLen) == dataLen);
+	{
+		int written  = m_dataStream->writeRawData(data, dataLen);
+		m_writtenToStream += written;
+		writeSuccess = (written == dataLen);
+	}
 	else if (m_filterMode == FilterToFilter)
 		writeSuccess = m_filter->writeData(data, dataLen);
 	return writeSuccess;
@@ -45,6 +51,7 @@ bool ScStreamFilter::writeData(const QByteArray& data)
 
 bool ScStreamFilter::openFilter (void)
 {
+	m_writtenToStream = 0;
 	if (m_filterMode == FilterToFilter)
 		return m_filter->openFilter();
 	return true;
@@ -55,4 +62,11 @@ bool ScStreamFilter::closeFilter(void)
 	if (m_filterMode == FilterToFilter)
 		return m_filter->closeFilter();
 	return true;
+}
+
+int ScStreamFilter::writtenToStream(void)
+{
+	if (m_filterMode == FilterToFilter)
+		return (m_writtenToStream + m_filter->writtenToStream());
+	return m_writtenToStream;
 }

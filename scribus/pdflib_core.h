@@ -67,16 +67,20 @@ private:
 
 	void PDF_Error(const QString& errorMsg);
 	void PDF_Error_ImageLoadFailure(const QString& fileName);
+	void PDF_Error_ImageWriteFailure(const QString& fileName);
 	void PDF_Error_MaskLoadFailure(const QString& fileName);
 	void PDF_Error_InsufficientMemory(void);
 
 	QByteArray EncodeUTF16(const QString &in);
 	QString    EncStream(const QString & in, int ObjNum);
-	QByteArray EncStreamArray(const QByteArray & in, int ObjNum);
 	QString    EncString(const QString & in, int ObjNum);
 	QString    EncStringUTF16(const QString & in, int ObjNum);
 
 	bool       EncodeArrayToStream(const QByteArray& in, int ObjNum);
+
+	int     WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray);
+	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, bool cmyk, bool gray, bool sameFile);
+	int     WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray);
 
 	void    CalcOwnerKey(const QString & Owner, const QString & User);
 	void    CalcUserKey(const QString & User, int Permission);
@@ -108,6 +112,7 @@ private:
 	void       WritePDFString(const QString& cc);
 	QString    PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
+	QByteArray ComputeRC4Key(int ObjNum);
 	
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
