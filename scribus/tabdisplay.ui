@@ -324,28 +324,6 @@
            </widget>
           </item>
           <item row="1" column="0" >
-           <widget class="QLabel" name="CaliRuler" >
-            <property name="minimumSize" >
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="frameShape" >
-             <enum>QFrame::Box</enum>
-            </property>
-            <property name="frameShadow" >
-             <enum>QFrame::Sunken</enum>
-            </property>
-            <property name="wordWrap" >
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" >
-           <widget class="QComboBox" name="rulerUnitCombo" />
-          </item>
-          <item row="2" column="0" >
            <layout class="QHBoxLayout" >
             <property name="spacing" >
              <number>5</number>
@@ -389,6 +367,28 @@
              </widget>
             </item>
            </layout>
+          </item>
+          <item row="2" column="0" >
+           <widget class="QLabel" name="CaliRuler" >
+            <property name="minimumSize" >
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="frameShape" >
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="frameShadow" >
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="wordWrap" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" >
+           <widget class="QComboBox" name="rulerUnitCombo" />
           </item>
          </layout>
         </widget>
