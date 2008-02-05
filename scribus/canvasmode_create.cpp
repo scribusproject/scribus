@@ -432,6 +432,12 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 		m_view->DrawNew();
 		return;
 	}
+	
+	if (m->button() == Qt::RightButton)
+	{
+		m_view->requestMode(modeNormal);
+		return;
+	}
 	m_createTransaction = new UndoTransaction(Um::instance()->beginTransaction("creating"));
 	switch (m_doc->appMode)
 	{

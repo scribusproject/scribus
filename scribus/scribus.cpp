@@ -1328,6 +1328,9 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		doc->SubMode = -1;
 		doc->ElemToLink = NULL;
 		slotSelect();
+		HaveNewSel(-1);
+		prefsManager->appPrefs.stickyTools = false;
+		scrActions["stickyTools"]->setChecked(prefsManager->appPrefs.stickyTools);
 		return;
 	}
 	Qt::KeyboardModifiers buttonModifiers = k->modifiers();

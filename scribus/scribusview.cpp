@@ -449,6 +449,8 @@ void ScribusView::stopGesture()
 		if (PrefsManager::instance()->appPrefs.stickyTools)
 		{
 			m_canvas->m_viewMode.forceRedraw = true;
+			Doc->m_Selection->clear();
+			emit HaveSel(-1);
 			m_canvas->resetRenderMode();
 			updateContents();
 		}
@@ -1831,7 +1833,6 @@ void ScribusView::selectionChanged()
 			undoManager->showObject(Um::NO_UNDO_STACK);
 	}
 }
-
 
 bool ScribusView::GetItem(PageItem **currItem, int nr)
 {
