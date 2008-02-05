@@ -6072,9 +6072,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 	if (!doc)
 		return;
 	if (doc->appMode == modeEditClip)
-	{
 		NoFrameEdit();
-	}
 	else
 	{
 		//CB Enable/Disable undo in frame edit mode
@@ -8737,6 +8735,10 @@ void ScribusMainWindow::PutScrap()
 
 void ScribusMainWindow::changeLayer(int )
 {
+	if (doc->appMode == modeEdit)
+		slotSelect();
+	else if (doc->appMode == modeEditClip)
+		NoFrameEdit();
 	view->Deselect(true);
 	rebuildLayersList();
 	view->updateLayerMenu();
