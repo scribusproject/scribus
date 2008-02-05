@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_file.h"
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -92,7 +93,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 		if (tempBuf.startsWith("%PDF"))
 		{
 			QFileInfo bF2(fName);
-			QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/"+bF2.baseName()+"_tmp.ai";
+			QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 			if (!extractFromPDF(fName, tmpFile))
 				return false;
 			convertedPDF = true;
@@ -517,7 +518,7 @@ bool AIPlug::decompressAIData(QString &fName)
 	if (!convertedPDF)
 	{
 		QFileInfo bF2(fName);
-		QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/"+bF2.baseName()+"_tmp.ai";
+		QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 		moveFile(f2, tmpFile);
 		fName = tmpFile;
 		convertedPDF = true;

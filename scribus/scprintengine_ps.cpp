@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "prefsmanager.h"
 #include "pslib.h"
-#include "util.h"
+#include "util_file.h"
 #include "util_ghostscript.h"
 
 bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)

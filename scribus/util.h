@@ -93,10 +93,6 @@ QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
 */
 int SCRIBUS_API System(const QString exename, const QStringList & args, const QString fileStdErr = "", const QString fileStdOut = "");
 
-bool SCRIBUS_API copyFile(const QString& source, const QString& target);
-bool SCRIBUS_API copyFileToFilter(const QString& source, ScStreamFilter& target);
-bool SCRIBUS_API copyFileToStream(const QString& source, QDataStream& target);
-bool SCRIBUS_API moveFile(QString source, QString target);
 /*!
  \fn QString checkFileExtension(const QString &currName, const QString &extension)
  \author Craig Bradney

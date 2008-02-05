@@ -574,6 +574,7 @@ SET(SCRIBUS_SOURCES
   util.cpp
   util_cms.cpp
   util_color.cpp
+  util_file.cpp
   util_formats.cpp
   util_ghostscript.cpp
   util_icon.cpp

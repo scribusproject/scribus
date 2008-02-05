@@ -13,11 +13,11 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <vector>
 #include "pslib.h"
+#include "scpaths.h"
+#include "scribuscore.h"
+#include "util_file.h"
 #include "util_ghostscript.h"
 #include "util_printer.h"
-#include "scribuscore.h"
-#include "util.h"
-#include "scpaths.h"
 
 #ifdef HAVE_CUPS
 #include <cups/cups.h>

@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scraction.h"
 #include "scpattern.h"
+#include "util_file.h"
 
 #include <QMessageBox>
 #include <QString>

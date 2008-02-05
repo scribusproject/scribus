@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scribuscore.h"
 #include "ui/modetoolbar.h"
-#include "util.h"
+#include "util_file.h"
 #include "util_ghostscript.h"
 
 extern bool emergencyActivated;
