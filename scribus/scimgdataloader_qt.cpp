@@ -71,8 +71,11 @@ bool ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int res, bool& h
 	}
 	if (m_image.load(fn))
 	{
-		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
-		hasAlpha = true;
+		hasAlpha = m_image.hasAlphaChannel();
+		if (m_image.hasAlphaChannel())
+			m_image = m_image.convertToFormat(QImage::Format_ARGB32);
+		else
+			m_image = QImage(); // Discard data immediately
 		return true;
 	}
 	return false;
