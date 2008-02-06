@@ -48,7 +48,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	angleData = new QLabel( "", this );
 	lengthData = new QLabel( "", this );
 	
-	const QString widthString="10000.00 " + unitGetStrFromIndex(0);
+	const QString widthString="10000.0000 " + unitGetStrFromIndex(0);
 	int textWidth = fontMetrics().width(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
 	y1Data->setMinimumSize(textWidth, 12);
