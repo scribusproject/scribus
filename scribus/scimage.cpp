@@ -1189,21 +1189,9 @@ void ScImage::createLowRes(double scale)
 	int w = qRound(width() / scale);
 	int h = qRound(height() / scale);
 	QImage tmp = scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	QImage::operator=(QImage(w, h, QImage::Format_ARGB32));
-	tmp = tmp.convertToFormat(QImage::Format_ARGB32);
-	QRgb *s;
-	QRgb *d;
-	for( int yi=0; yi < tmp.height(); ++yi )
-	{
-		s = (QRgb*)(tmp.scanLine( yi ));
-		d = (QRgb*)(scanLine( yi ));
-		for(int xi=0; xi < tmp.width(); ++xi )
-		{
-			(*d) = (*s);
-			s++;
-			d++;
-		}
-	}
+	if (tmp.format() != QImage::Format_ARGB32)
+		tmp = tmp.convertToFormat(QImage::Format_ARGB32);
+	QImage::operator=(tmp);
 }
 
 bool ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
