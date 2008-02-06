@@ -1875,7 +1875,7 @@ bool ScImage::getAlpha(QString fn, QByteArray& alpha, bool PDF, bool pdf14, int 
 			delete pDataLoader;
 			return false;
 		}
-		if ((scaleXSize != 0) && (scaleYSize != 0))
+		if ((scaleXSize != 0) && (scaleYSize != 0) && (scaleXSize != rImage.width() || scaleYSize != rImage.height()))
 			rImage = rImage.scaled(scaleXSize, scaleYSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		int i = 0, w2;
 		unsigned char u;
