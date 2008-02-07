@@ -176,7 +176,7 @@ LONG exceptionFilter(DWORD exceptionCode)
 */
 static QString exceptionDescription(DWORD exceptionCode)
 {
- QString description;
+	QString description;
 	if ( exceptionCode == EXCEPTION_ACCESS_VIOLATION )
 		description = "EXCEPTION_ACCESS_VIOLATION";
 	else if ( exceptionCode == EXCEPTION_DATATYPE_MISALIGNMENT )
@@ -197,16 +197,24 @@ static QString exceptionDescription(DWORD exceptionCode)
 		description = "EXCEPTION_FLT_STACK_CHECK";
 	else if ( exceptionCode == EXCEPTION_FLT_UNDERFLOW )
 		description = "EXCEPTION_FLT_UNDERFLOW";
+	else if ( exceptionCode == EXCEPTION_GUARD_PAGE )
+		description = "EXCEPTION_GUARD_PAGE";
 	else if ( exceptionCode == EXCEPTION_ILLEGAL_INSTRUCTION )
 		description = "EXCEPTION_ILLEGAL_INSTRUCTION";
+	else if ( exceptionCode == EXCEPTION_IN_PAGE_ERROR )
+		description = "EXCEPTION_IN_PAGE_ERROR";
 	else if ( exceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO )
 		description = "EXCEPTION_INT_DIVIDE_BY_ZERO";
 	else if ( exceptionCode == EXCEPTION_INT_OVERFLOW )
 		description = "EXCEPTION_INT_OVERFLOW";
+	else if ( exceptionCode == EXCEPTION_INVALID_DISPOSITION )
+		description = "EXCEPTION_INVALID_DISPOSITION";
 	else if ( exceptionCode == EXCEPTION_INVALID_HANDLE )
 		description = "EXCEPTION_INVALID_HANDLE";
 	else if ( exceptionCode == EXCEPTION_NONCONTINUABLE_EXCEPTION )
 		description = "EXCEPTION_NONCONTINUABLE_EXCEPTION";
+	else if ( exceptionCode == EXCEPTION_PRIV_INSTRUCTION )
+		description = "EXCEPTION_PRIV_INSTRUCTION";
 	else if ( exceptionCode == EXCEPTION_STACK_OVERFLOW )
 		description = "EXCEPTION_STACK_OVERFLOW";
 	else
