@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
-#include "vgradient.h"
 #include <QList>
 #include <QMatrix>
 #include <QMultiMap>
@@ -76,17 +75,6 @@ private:
 	void processEllipse(QString data);
 	QString cleanText(QString text);
 	void processText(QString data);
-/*	QString parseColorGray(QString data);
-	QString parseColorRGB(QString data);
-	QString parseCustomColor(QString data, double &shade);
-	QString parseCustomColorX(QString data, double &shade, QString type);
-	QStringList getStrings(QString data);
-	void getCommands(QString data, QStringList &commands);
-	void processData(QString data);
-	void processGradientData(QString data);
-	void processPattern(QDataStream &ts);
-	void processRaster(QDataStream &ts);
-	void processComment(QDataStream &ts, QString comment); */
 	void processData(QDataStream &ts, QString data);
 	double fig2Pts(double in);
 	void resortItems();
@@ -104,25 +92,13 @@ private:
 	double docHeight;
 
 	double LineW;
-	Qt::PenCapStyle CapStyle;
-	Qt::PenJoinStyle JoinStyle;
-	double DashOffset;
-	QList<double> DashPattern;
-	double Opacity;
-	int blendMode;
 	QString CurrColorFill;
 	QString CurrColorStroke;
 	double CurrStrokeShade;
 	double CurrFillShade;
-	bool fillRule;
-	bool itemLocked;
 
 	FPointArray Coords;
 	FPointArray clipCoords;
-	FPoint currentPoint;
-	int currentLayer;
-	bool firstLayer;
-	bool FirstU, WasU, ClosedPath;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;
@@ -130,19 +106,6 @@ private:
 	Selection* tmpSel;
 	QMap<int, QString> importedColors;
 	int importerFlags;
-	QStringList commandList;
-	QMap<QString, VGradient> m_gradients;
-	VGradient currentGradient;
-	QString currentGradientName;
-	QMatrix currentGradientMatrix;
-	QPointF currentGradientOrigin;
-	double currentGradientAngle;
-	double currentGradientLenght;
-	bool gradientMode;
-	bool wasBC;
-	bool itemRendered;
-	QMatrix startMatrix;
-	QMatrix endMatrix;
 	bool patternMode;
 	QString currentPatternDefName;
 	QString currentPatternName;
@@ -160,20 +123,6 @@ private:
 	QString docTime;
 	QString docOrganisation;
 	QString docTitle;
-	int textMode;
-	QMatrix textMatrix;
-	StoryText textData;
-	QString textFont;
-	double textSize;
-	double maxWidth;
-	double tempW;
-	double maxHeight;
-	double textKern;
-	double textScaleH;
-	double textScaleV;
-	int startCurrentTextRange;
-	int endCurrentTextRange;
-	int imgNum;
 	int oldDocItemCount;
 	QString baseFile;
 

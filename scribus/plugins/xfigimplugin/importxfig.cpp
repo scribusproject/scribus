@@ -661,9 +661,6 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 		ite->FrameType = 3;
 		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(CurrStrokeShade);
-		ite->setFillEvenOdd(fillRule);
-		ite->setFillTransparency(1.0 - Opacity);
-		ite->setLineTransparency(1.0 - Opacity);
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		if (subtype == 1)
@@ -784,9 +781,6 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		ite->FrameType = 3;
 		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(CurrStrokeShade);
-		ite->setFillEvenOdd(fillRule);
-		ite->setFillTransparency(1.0 - Opacity);
-		ite->setLineTransparency(1.0 - Opacity);
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		if ((subtype == 0) || (subtype == 2) || (subtype == 4))
@@ -898,9 +892,6 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		ite->FrameType = 3;
 		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(CurrStrokeShade);
-		ite->setFillEvenOdd(fillRule);
-		ite->setFillTransparency(1.0 - Opacity);
-		ite->setLineTransparency(1.0 - Opacity);
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		if (subtype == 1)
@@ -971,9 +962,6 @@ void XfigPlug::processEllipse(QString data)
 		ite = m_Doc->Items->at(z);
 		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(CurrStrokeShade);
-		ite->setFillEvenOdd(fillRule);
-		ite->setFillTransparency(1.0 - Opacity);
-		ite->setLineTransparency(1.0 - Opacity);
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1283,23 +1271,11 @@ double XfigPlug::fig2Pts(double in)
 bool XfigPlug::convert(QString fn)
 {
 	QString tmp;
-	LineW = 1.0;
-	Opacity = 1.0;
-	blendMode = 0;
 	CurrColorFill = "White";
 	CurrFillShade = 100.0;
 	CurrColorStroke = "Black";
 	CurrStrokeShade = 100.0;
-	JoinStyle = Qt::MiterJoin;
-	CapStyle = Qt::FlatCap;
-	DashPattern.clear();
-	DashOffset = 0.0;
-	fillRule = false;
-	FirstU = false;
-	WasU = false;
-	firstLayer = true;
 	patternMode = false;
-	itemLocked = false;
 	patternX1 = 0.0;
 	patternY1 = 0.0;
 	patternX2 = 0.0;
@@ -1308,16 +1284,6 @@ bool XfigPlug::convert(QString fn)
 	Coords.svgInit();
 	clipCoords.resize(0);
 	clipCoords.svgInit();
-	currentPoint = FPoint(0.0, 0.0);
-	currentLayer = 0;
-	currentGradient = VGradient(VGradient::linear);
-	currentGradient.clearStops();
-	currentGradient.setRepeatMethod( VGradient::none );
-	currentGradientName = "";
-	currentGradientMatrix = QMatrix();
-	currentGradientOrigin = QPointF(0.0, 0.0);
-	currentGradientAngle = 0.0;
-	currentGradientLenght = 1.0;
 	currentPatternName = "";
 	currentPatternX = 0.0;
 	currentPatternY = 0.0;
