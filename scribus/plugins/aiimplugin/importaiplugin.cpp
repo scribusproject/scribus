@@ -119,7 +119,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-//	if (!(flags & lfInteractive))
+	if (!(flags & lfInteractive))
 		UndoManager::instance()->setUndoEnabled(false);
 	if( fileName.isEmpty() )
 	{
@@ -136,21 +136,27 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 			return true;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
-//	if (UndoManager::undoEnabled() && m_Doc)
-//	{
-//		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
-//												Um::IImageFrame,
-//												Um::ImportEPS,
-//												fileName, Um::IEPS);
-//	}
-//	else if (UndoManager::undoEnabled() && !m_Doc)
-//		UndoManager::instance()->setUndoEnabled(false);
+	UndoTransaction* activeTransaction = NULL;
+	bool emptyDoc = (m_Doc == NULL);
+	if (UndoManager::undoEnabled() && !emptyDoc)
+	{
+		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),
+																						  Um::IImageFrame,
+																						  Um::ImportAI,
+																						  fileName, Um::IAI));
+	}
+	else if (UndoManager::undoEnabled() && emptyDoc)
+		UndoManager::instance()->setUndoEnabled(false);
 	AIPlug *dia = new AIPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->import(fileName, flags);
-//	if (UndoManager::undoEnabled())
-//		UndoManager::instance()->commit();
-//	else
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
+	else if (UndoManager::undoEnabled() && emptyDoc)
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 	return true;
