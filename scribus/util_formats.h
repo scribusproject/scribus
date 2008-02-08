@@ -36,7 +36,7 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096,
+			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192,
 			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512,  // all Types suitable for Image Frames
 			VECTORIMAGES	= 1|64|1024|2048,  // All pure vector image types
 			RASTORIMAGES	= 2|4|8|32|512,  // All pure rastor image types
@@ -53,6 +53,7 @@ class SCRIBUS_API FormatsManager
 			WMF				= 1024,   // WMF files
 			SVG				= 2048,   // WMF files
 			AI				= 4096,   // Adobe Illustrator files
+			XFIG			= 8192,   // Xfig files
 		};
 	
 /*

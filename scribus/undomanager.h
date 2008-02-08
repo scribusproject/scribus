@@ -513,6 +513,8 @@ public:
 	static QString ImportSVG;
 	static QString ImportEPS;
 	static QString ImportOOoDraw;
+	static QString ImportAI;
+	static QString ImportXfig;
 	static QString ScratchSpace;
 	//static QString TextFlow;
 	static QString ObjectFrame;
@@ -605,6 +607,8 @@ public:
 	static QPixmap *IFont;
 	static QPixmap *ISVG;
 	static QPixmap *IEPS;
+	static QPixmap *IAI;
+	static QPixmap *IXFIG;
 	static QPixmap *IImportOOoDraw;
 	static QPixmap *IImageScaling;
 	static QPixmap *IBorder;
