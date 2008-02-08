@@ -51,7 +51,8 @@ public:
 	
 	Transaction(TransactionStateBase* data) : m_data(data)
 	{
-		m_data->m_status = STATE_OPEN;
+		if (data != 0)
+			m_data->m_status = STATE_OPEN;
 	}
 	
 	Transaction(const Transaction& other) : m_data(other.m_data)
