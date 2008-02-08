@@ -156,7 +156,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-	else if (UndoManager::undoEnabled() && emptyDoc)
+	else if (!(flags & lfInteractive))
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 	return true;
