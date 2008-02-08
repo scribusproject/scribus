@@ -36,6 +36,7 @@ protected:
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
 	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 
+	bool testAlphaChannelAvailability(const QString& fn, bool& hasAlpha);
 	void unmultiplyRGBA(RawImage *image);
 
 	int    random_table[4096];

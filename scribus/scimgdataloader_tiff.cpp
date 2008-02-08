@@ -66,34 +66,37 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 
 bool ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res, bool& hasAlpha)
 {
-	bool valid = m_imageInfoRecord.isRequest;
+	bool success = true;
+	bool valid   = m_imageInfoRecord.isRequest;
 	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
 	initialize();
-	hasAlpha = false;
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
-	QFileInfo fi = QFileInfo(fn);
-	if (!fi.exists())
+	if (!QFile::exists(fn))
 		return false;
-	if(loadPicture(fn, res, false))
+	hasAlpha = false;
+	if (testAlphaChannelAvailability(fn, hasAlpha))
 	{
-		m_imageInfoRecord.valid = true;
-		hasAlpha = true;
-		if (photometric == PHOTOMETRIC_SEPARATED)
+		if (hasAlpha == false)
+			success = true;
+		else if(loadPicture(fn, res, false))
 		{
-			if (samplesperpixel == 4)
-				m_imageInfoRecord.valid = hasAlpha = false;
+			m_imageInfoRecord.valid = true;
+			hasAlpha = success = true;
+			/*if (photometric == PHOTOMETRIC_SEPARATED)
+			{
+				if (samplesperpixel == 4)
+					m_imageInfoRecord.valid = hasAlpha = false;
+			}
+			else
+			{
+				if (samplesperpixel == 3)
+					m_imageInfoRecord.valid = hasAlpha = false;
+			}
+			if (!hasAlpha) r_image.resize(0);*/
 		}
-		else
-		{
-			if (samplesperpixel == 3)
-				m_imageInfoRecord.valid = hasAlpha = false;
-		}
-		return true;
 	}
-	else
-		r_image.resize(0);
-	return false;
+	return success;
 }
 
 int ScImgDataLoader_TIFF::getLayers(const QString& fn)
@@ -126,6 +129,38 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 		TIFFClose(tif);
 	}
 	return layerNum;
+}
+
+bool ScImgDataLoader_TIFF::testAlphaChannelAvailability(const QString& fn, bool& hasAlpha)
+{
+	int  test;
+	bool success = false;
+	TIFFSetTagExtender(TagExtender);
+	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
+	if(tif)
+	{
+		uint16 extrasamples, *extratypes;
+		hasAlpha = false;
+		do
+		{
+			if (TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes) == 1)
+			{
+				for (int i = 0; i < extrasamples; ++i)
+				{
+					if (extratypes[i] != EXTRASAMPLE_UNSPECIFIED)
+					{
+						hasAlpha = true;
+						break;
+					}
+				}
+			}
+			test = TIFFReadDirectory(tif);
+		}
+		while (test == 1);
+		TIFFClose(tif);
+		success = true;
+	}
+	return success;
 }
 
 void ScImgDataLoader_TIFF::unmultiplyRGBA(RawImage *image)
