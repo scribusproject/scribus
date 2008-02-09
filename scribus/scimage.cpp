@@ -1316,57 +1316,6 @@ QByteArray ScImage::ImageToArray()
 	return imgArray;
 }
 
-QByteArray ScImage::ImageToGray()
-{
-	int i = 0, k;
-	int h = height();
-	int w = width();
-	QRgb *s;
-	QRgb r;
-	QByteArray imgArray(h * w, ' ');
-	if (imgArray.isNull())
-		return imgArray;
-	for( int yi=0; yi < h; ++yi )
-	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
-		{
-			r = *s;
-			k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			*s = qRgba(k, 0, 0, 0);
-			imgArray[i++] = k;
-			s++;
-		}
-	}
-	return imgArray;
-}
-
-QByteArray ScImage::ImageToCMYK_PDF()
-{
-	int i = 0;
-	int h = height();
-	int w = width();
-	QRgb *s;
-	QRgb r;
-	QByteArray imgArray( 4 * h * w, ' ' );
-	if (imgArray.isNull()) // Memory allocation failure
-		return imgArray;
-	for( int yi=0; yi < h; ++yi )
-	{
-		s = (QRgb*)(scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
-		{
-			r = *s;
-			imgArray[i++] = static_cast<unsigned char> (qRed(r));
-			imgArray[i++] = static_cast<unsigned char> (qGreen(r));
-			imgArray[i++] = static_cast<unsigned char> (qBlue(r));
-			imgArray[i++] = static_cast<unsigned char> (qAlpha(r));
-			s++;
-		}
-	}
-	return imgArray;
-}
-
 void ScImage::convertToGray(void)
 {
 	int i = 0, k;

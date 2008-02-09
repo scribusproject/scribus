@@ -77,8 +77,6 @@ public:
 	
 	// Routines for PDF/PS output of images
 	QByteArray ImageToArray();
-	QByteArray ImageToGray();
-	QByteArray ImageToCMYK_PDF();
 
 	void convertToGray(void);
 
