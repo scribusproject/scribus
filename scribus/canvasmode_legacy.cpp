@@ -206,7 +206,7 @@ void LegacyMode::leaveEvent(QEvent *e)
 
 void LegacyMode::activate(bool fromGesture)
 {
-	qDebug() << "LegacyMode::activate" << fromGesture;
+//	qDebug() << "LegacyMode::activate" << fromGesture;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -240,7 +240,7 @@ void LegacyMode::activate(bool fromGesture)
 
 void LegacyMode::deactivate(bool forGesture)
 {
-	qDebug() << "LegacyMode::deactivate" << forGesture;
+//	qDebug() << "LegacyMode::deactivate" << forGesture;
 	m_view->redrawMarker->hide();
 	if (!forGesture)
 		m_blinker->stop();
@@ -1412,7 +1412,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			Dyp = Myp;
 			if (GetItem(&currItem))
 			{
-				if (currItem->asLine())
+				if ((currItem->asLine()) && (!m_doc->m_Selection->isMultipleSelection()))
 				{
 					if (!lineMoveGesture)
 						lineMoveGesture = new LineMove(this);
@@ -4061,7 +4061,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
-				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
+//				qDebug() << "select item: found BENEATH" << currItem << "groups" << currItem->Groups.count();
 				if (currItem->Groups.count() > 0)
 				{
 					for (int ga=0; ga<m_doc->Items->count(); ++ga)
@@ -4085,10 +4085,10 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 				}
 				break;
 			}
-			else
-				qDebug() << "select item: not BENEATH" << QPointF(mousePointDoc.x(),mousePointDoc.y()) 
-					<< m_doc->m_Selection->itemAt(i)->getTransform() 
-					<< m_doc->m_Selection->itemAt(i)->getBoundingRect();
+//			else
+//				qDebug() << "select item: not BENEATH" << QPointF(mousePointDoc.x(),mousePointDoc.y()) 
+//					<< m_doc->m_Selection->itemAt(i)->getTransform() 
+//					<< m_doc->m_Selection->itemAt(i)->getBoundingRect();
 		}
 	}
 	else if ( (m->modifiers() & SELECT_MULTIPLE) == Qt::NoModifier || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
@@ -4096,11 +4096,11 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		m_view->Deselect(false);
 	}
 	
-	qDebug() << "select item: beneath" << (m->modifiers() & SELECT_BENEATH) << currItem 
-		<< "multi" << (m->modifiers() & SELECT_MULTIPLE)
-		<< "current sel" << m_doc->m_Selection->count();
+//	qDebug() << "select item: beneath" << (m->modifiers() & SELECT_BENEATH) << currItem 
+//		<< "multi" << (m->modifiers() & SELECT_MULTIPLE)
+//		<< "current sel" << m_doc->m_Selection->count();
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
-	qDebug() << "item under cursor: " << currItem;
+//	qDebug() << "item under cursor: " << currItem;
 	if (currItem)
 	{
 		m_doc->m_Selection->setIsGUISelection(false);
