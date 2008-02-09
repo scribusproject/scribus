@@ -82,7 +82,8 @@ private:
 	
 	QList<PageItem*> Elements;
 	QList<PageItem*> PatternElements;
-	QMultiMap<int, PageItem*> depthMap;
+	QMultiMap<int, int> depthMap;
+	int currentItemNr;
 	QStack<QList<PageItem*> > groupStack;
 	ColorList CustColors;
 	double baseX, baseY;

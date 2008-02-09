@@ -696,7 +696,8 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 			ite->setImageXYScale(72.0 / 80.0, 72.0 / 80.0);
 			ite->setImageXYOffset(0, 0);
 		}
-		depthMap.insert(999 - depth, ite);
+		depthMap.insert(999 - depth, currentItemNr);
+		currentItemNr++;
 	}
 }
 
@@ -796,7 +797,8 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
-		depthMap.insert(999 - depth, ite);
+		depthMap.insert(999 - depth, currentItemNr);
+		currentItemNr++;
 	}
 }
 
@@ -907,7 +909,8 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
-		depthMap.insert(999 - depth, ite);
+		depthMap.insert(999 - depth, currentItemNr);
+		currentItemNr++;
 	}
 }
 
@@ -965,7 +968,8 @@ void XfigPlug::processEllipse(QString data)
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		depthMap.insert(999 - depth, ite);
+		depthMap.insert(999 - depth, currentItemNr);
+		currentItemNr++;
 	}
 }
 
@@ -1196,7 +1200,8 @@ void XfigPlug::processText(QString data)
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
-		depthMap.insert(999 - depth, ite);
+		depthMap.insert(999 - depth, currentItemNr);
+		currentItemNr++;
 	}
 }
 
@@ -1238,9 +1243,10 @@ void XfigPlug::processData(QDataStream &ts, QString data)
 void XfigPlug::resortItems()
 {
 	int ac = m_Doc->Items->count();
+	QList<PageItem*> itemList;
 	for (int as = oldDocItemCount; as < ac; ++as)
 	{
-		m_Doc->Items->removeAt(oldDocItemCount);
+		itemList.append(m_Doc->Items->takeAt(oldDocItemCount));
 	}
 	QList<int> keylist = depthMap.uniqueKeys();
 	int keysCount = keylist.count();
@@ -1249,15 +1255,17 @@ void XfigPlug::resortItems()
 	{
 		if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
 			currentLayer = m_Doc->addLayer(QString("Layer %1").arg(it), true);
-		QList<PageItem*> elems = depthMap.values(keylist.at(it));
+		QList<int> elems = depthMap.values(keylist.at(it));
+		qSort(elems);
 		int itemsCount = elems.count();
 		for (int i = 0; i < itemsCount; ++i)
 		{
-			Elements.append(elems.at(i));
-			m_Doc->Items->append(elems.at(i));
-			elems.at(i)->ItemNr = m_Doc->Items->count()-1;
+			PageItem* ite = itemList.at(elems.at(i));
+			Elements.append(ite);
+			m_Doc->Items->append(ite);
+			ite->ItemNr = m_Doc->Items->count()-1;
 			if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
-				elems.at(i)->LayerNr = currentLayer;
+				ite->LayerNr = currentLayer;
 		}
 	}
 }
@@ -1292,6 +1300,7 @@ bool XfigPlug::convert(QString fn)
 	currentPatternRotation = 0.0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
+	currentItemNr = 0;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
