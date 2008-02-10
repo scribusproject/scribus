@@ -149,7 +149,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	AIPlug *dia = new AIPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, flags);
+	bool success = dia->import(fileName, flags);
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
@@ -159,5 +159,5 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	else if (!(flags & lfInteractive))
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
-	return true;
+	return success;
 }

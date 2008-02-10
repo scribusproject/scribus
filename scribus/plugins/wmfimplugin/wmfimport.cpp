@@ -339,9 +339,9 @@ bool WMFImport::import(QString fname, int flags)
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.path());
-	importWMF(flags);
+	bool success = importWMF(flags);
 	QDir::setCurrent(CurDirP);
-	return true;
+	return success;
 }
 
 bool WMFImport::loadWMF( const QString &fileName )
