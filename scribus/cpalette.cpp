@@ -64,8 +64,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	Color3 = "";
 	Shade = 100;
 	Shade3 = 100;
-	currentGradient = 0;
-	currentItem = 0;
+	currentGradient = NULL;
+	currentItem = NULL;
+	patternList = NULL;
 	Form1Layout = new QVBoxLayout(this);
 	Form1Layout->setMargin(0);
 	Form1Layout->setSpacing(0);
