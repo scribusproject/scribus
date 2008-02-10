@@ -1003,6 +1003,8 @@ void ActionManager::initSpecialActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0,0.0,name));
 	name="specialToggleAllGuides";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0,0.0,name));
+	name="specialUnicodeSequenceBegin";
+	scrActions->insert(name, new ScrAction( "", defKeys[name], mainWindow));
 
 	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllPalettes()) );
 	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllGuides()) );
@@ -1468,10 +1470,10 @@ void ActionManager::languageChange()
 	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Getting Started with Scribus"));
 	(*scrActions)["helpCheckUpdates"]->setTexts( tr("Check updates"));
 
-	//GUI
+	//GUI and specials
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
-
+	(*scrActions)["specialUnicodeSequenceBegin"]->setTexts( tr("Insert Unicode Character Begin Sequence"));
 	languageChangeUnicodeActions(scrActions);
 	languageChangeActions();
 }
@@ -1775,9 +1777,10 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpOnlineTutorial1", QKeySequence());
 	defKeys.insert("helpCheckUpdates", QKeySequence());
 
-	//GUI
+	//GUI and specials
 	defKeys.insert("specialToggleAllPalettes", Qt::Key_F12);
 	defKeys.insert("specialToggleAllGuides", Qt::Key_F11);
+	defKeys.insert("specialUnicodeSequenceBegin", Qt::CTRL+Qt::SHIFT+Qt::Key_U);
 
 	//typography
 	defKeys.insert("unicodeSmartHyphen", QKeySequence());
@@ -2022,6 +2025,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "toolsPDFAnnotLink";
 	itnmenua->second << "specialToggleAllPalettes";
 	itnmenua->second << "specialToggleAllGuides";
+	itnmenua->second << "specialUnicodeSequenceBegin";
 	itnmenua->second << "viewShowContextMenu";
 
 	//Unicode

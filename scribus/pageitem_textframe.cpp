@@ -2578,20 +2578,27 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	int len, pos;
 	int KeyMod=0;
 	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
-	switch (buttonModifiers)
+	if (k->modifiers() & Qt::ShiftModifier)
+		KeyMod |= Qt::SHIFT;
+	if (k->modifiers() & Qt::ControlModifier)
+		KeyMod |= Qt::CTRL;
+	if (k->modifiers() & Qt::AltModifier)
+		KeyMod |= Qt::ALT;
+
+	//<< ISO 14755
+	//Check if we are trying to enter Unicode sequence mode first
+	QKeySequence currKeySeq = QKeySequence(k->key() | KeyMod);
+	if(currKeySeq.matches(doc()->scMW()->scrActions["specialUnicodeSequenceBegin"]->shortcut())==QKeySequence::ExactMatch)
 	{
-		case Qt::ShiftModifier:
-			KeyMod = Qt::SHIFT;
-			break;
-		case Qt::AltModifier:
-			KeyMod = Qt::ALT;
-			break;
-		case Qt::ControlModifier:
-			KeyMod = Qt::CTRL;
-			break;
+		unicodeTextEditMode = true;
+		unicodeInputCount = 0;
+		unicodeInputString = "";
+		keyRepeat = false;
+		return;
 	}
+	//>>
+	
 	ScribusView* view = m_Doc->view();	
-//	view->slotDoCurs(false);
 	switch (kk)
 	{
 	case Qt::Key_PageDown:
@@ -2605,19 +2612,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if ( (buttonModifiers & Qt::ShiftModifier) == 0 )
 			deselectAll();
 	}
-	//<< ISO 14755
-	//if ((buttonState & Qt::ControlButton) && (buttonState & Qt::ShiftButton))
-	//{
-	//	if (!unicodeTextEditMode)
-	//	{
-	//		unicodeTextEditMode=true;
-	//		unicodeInputCount = 0;
-	//		unicodeInputString = "";
-	//		keyrep = false;
-	//	}
-	//	qDebug(QString("%1 %2 %3 %4 %5").arg("uni").arg("c+s").arg(uc).arg(kk).arg(as));
-	//}
-	//>>
+
 	if (unicodeTextEditMode)
 	{
 		int conv = 0;
@@ -2661,13 +2656,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	}
 	switch (kk)
 	{
-	case Qt::Key_F12:
-		unicodeTextEditMode = true;
-		unicodeInputCount = 0;
-		unicodeInputString = "";
-		keyRepeat = false;
-		return;
-		break;
 	case Qt::Key_Home:
 		// go to begin of line
 		if ( (pos = CPos) == firstInFrame() )
