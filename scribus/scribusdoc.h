@@ -1075,7 +1075,7 @@ private:
 	UndoTransaction* m_itemCreationTransaction;
 	UndoTransaction* m_alignTransaction;
 
-	Page* _currentPage;
+	Page* m_currentPage;
 	UpdateManager m_updateManager;
 	MassObservable<PageItem*> m_itemsChanged;
 	MassObservable<Page*> m_pagesChanged;

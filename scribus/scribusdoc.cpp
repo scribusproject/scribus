@@ -208,7 +208,10 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(0),
 	m_itemCreationTransaction(NULL),
-	m_updateManager()
+	m_alignTransaction(NULL),
+	m_currentPage(NULL),
+	m_updateManager(),
+	m_docUpdater(NULL)
 {
 	init();
 	bleeds = prefsData.bleeds;
@@ -315,7 +318,10 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
 	docHyphenator(0),
 	m_itemCreationTransaction(NULL),
-	m_updateManager()
+	m_alignTransaction(NULL),
+	m_currentPage(NULL),
+	m_updateManager(),
+	m_docUpdater(NULL)
 {
 	pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
@@ -3473,11 +3479,11 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 
 int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
 {
-	double xo = _currentPage->xOffset();
-	double yo = _currentPage->yOffset();
-	QPair<double, double> tl = _currentPage->guides.topLeft(x - xo, y - yo);
-	QPair<double, double> tr = _currentPage->guides.topRight(x - xo, y - yo);
-	QPair<double, double> bl = _currentPage->guides.bottomLeft(x - xo, y - yo);
+	double xo = m_currentPage->xOffset();
+	double yo = m_currentPage->yOffset();
+	QPair<double, double> tl = m_currentPage->guides.topLeft(x - xo, y - yo);
+	QPair<double, double> tr = m_currentPage->guides.topRight(x - xo, y - yo);
+	QPair<double, double> bl = m_currentPage->guides.bottomLeft(x - xo, y - yo);
 	return itemAdd(itemType, frameType, tl.first + xo, tl.second + yo, tr.first - tl.first, bl.second - tl.second, w, fill, outline, itemFinalised);
 }
 
@@ -8518,7 +8524,7 @@ void ScribusDoc::invalidateRegion(QRectF region)
 
 Page* ScribusDoc::currentPage()
 {
-	return _currentPage;
+	return m_currentPage;
 }
 
 
@@ -8526,7 +8532,7 @@ void ScribusDoc::setCurrentPage(Page *newPage)
 {
 	if (newPage==NULL)
 		return;
-	_currentPage = newPage;
+	m_currentPage = newPage;
 	if (m_ScMW)
 	{
 		m_ScMW->guidePalette->setDoc(this);
