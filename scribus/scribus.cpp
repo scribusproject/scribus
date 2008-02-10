@@ -7560,11 +7560,13 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	QString newGUIStyle = prefsManager->guiStyle();
 // 	if (oldGUIStyle != newGUIStyle)
 // 	{
-		if (newGUIStyle == "")
+		if (newGUIStyle.isEmpty())
 			qApp->setStyle(prefsManager->guiSystemStyle());
 		else
 			qApp->setStyle(QStyleFactory::create(newGUIStyle));
-		qApp->setPalette(qApp->style()->standardPalette());
+		// Plain wrong, a style may set a palette different from the standard palette
+		// Eg : Windows XP and Windows Vista styles
+		// qApp->setPalette(qApp->style()->standardPalette());
 // 	}
 	int newGUIFontSize = prefsManager->guiFontSize();
 	if (oldGUIFontSize != newGUIFontSize)

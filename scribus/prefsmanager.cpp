@@ -2289,10 +2289,12 @@ bool PrefsManager::ReadPref(QString ho)
 	}
 	appPrefs.DColors.ensureBlackAndWhite();
 	appPrefs.GUIsystem = qApp->style()->objectName();
-	if (appPrefs.GUI != "")
+	if (appPrefs.GUI.length() > 0)
 	{
 		qApp->setStyle(QStyleFactory::create(appPrefs.GUI));
-		qApp->setPalette(qApp->style()->standardPalette());
+		// Plain wrong, a style may set a palette different from the standard palette
+		// Eg : Windows XP and Windows Vista styles
+		// qApp->setPalette(qApp->style()->standardPalette());
 	}
 	QFont apf = qApp->font();
 	apf.setPointSize(appPrefs.AppFontSize);
