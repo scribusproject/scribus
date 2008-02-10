@@ -417,7 +417,7 @@ void ScribusView::togglePreview()
 
 void ScribusView::changed(QRectF re)
 {
-	if (!Doc->isLoading())
+	if (!Doc->isLoading() && !m_ScMW->ScriptRunning)
 	{
 		qDebug() << "ScribusView-changed(): changed region:" << re;
 		m_canvas->m_viewMode.forceRedraw = true;
