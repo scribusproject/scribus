@@ -637,7 +637,11 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 			pointsRead++;
 		}
 		if (pointsRead == npoints)
+		{
+			if (npoints == 1)
+				Coords.svgLineTo(x - docX, y - docY);
 			break;
+		}
 	}
 	useColor(pen_color, 0, false);
 	useColor(fill_color, area_fill, true);
@@ -647,9 +651,15 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	if (subtype == 1)
 		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
 	else if ((subtype == 2) || (subtype == 3) || (subtype == 4))
+	{
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		Coords.svgClosePath();
+	}
 	else if (subtype == 5)
+	{
 		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		Coords.svgClosePath();
+	}
 	else
 		z = -1;
 	if (z >= 0)
@@ -682,6 +692,7 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
+		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		if (subtype == 4)
 		{
 			ite->setCornerRadius(radius / 80.0 * 72.0);
@@ -749,7 +760,11 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 			pointsRead++;
 		}
 		if (pointsRead == npoints)
+		{
+			if (npoints == 1)
+				Coords.svgLineTo(x - docX, y - docY);
 			break;
+		}
 	}
 	pointsRead = 0;
 	while (!ts.atEnd())
@@ -772,7 +787,10 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	if ((subtype == 0) || (subtype == 2) || (subtype == 4))
 		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
 	else if ((subtype == 1) || (subtype == 3) || (subtype == 5))
+	{
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		Coords.svgClosePath();
+	}
 	if (z >= 0)
 	{
 		ite = m_Doc->Items->at(z);
@@ -797,6 +815,7 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
+		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 	}
@@ -909,6 +928,7 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
+		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 	}
@@ -1200,6 +1220,7 @@ void XfigPlug::processText(QString data)
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
+		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 	}
