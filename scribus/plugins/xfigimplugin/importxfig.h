@@ -69,6 +69,7 @@ private:
 	void parseColor(QString data);
 	void useColor(int colorNum, int area_fill, bool forFill);
 	QList<double> getDashValues(double linewidth, int code);
+	void processArrows(int forward_arrow, QString fArrowData, int backward_arrow, QString bArrowData, int depth, PageItem *ite);
 	void processPolyline(QDataStream &ts, QString data);
 	void processSpline(QDataStream &ts, QString data);
 	void processArc(QDataStream &ts, QString data);

@@ -579,26 +579,164 @@ QList<double> XfigPlug::getDashValues(double linewidth, int code)
 	return tmp;
 }
 
+void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward_arrow, QString bArrowData, int depth, PageItem *ite)
+{
+	int		arrow_typeAF;			// (enumeration type)
+	int		arrow_styleAF;			// (enumeration type)
+	float	arrow_thicknessAF;		// (1/80 inch)
+	float	arrow_widthAF;			// (Fig units)
+	float	arrow_heightAF;			// (Fig units)
+	int		arrow_typeAB;			// (enumeration type)
+	int		arrow_styleAB;			// (enumeration type)
+	float	arrow_thicknessAB;		// (1/80 inch)
+	float	arrow_widthAB;			// (Fig units)
+	float	arrow_heightAB;			// (Fig units)
+	FPointArray arrow;
+	int z = -1;
+	PageItem::ItemType iteType;
+	if (forward_arrow == 1)
+	{
+		arrow.resize(0);
+		QTextStream CodeAF(&fArrowData, QIODevice::ReadOnly);
+		CodeAF >> arrow_typeAF >> arrow_styleAF >> arrow_thicknessAF >> arrow_widthAF >> arrow_heightAF;
+		arrow_widthAF = fig2Pts(arrow_widthAF);
+		arrow_heightAF = fig2Pts(arrow_heightAF);
+		arrow_thicknessAF = arrow_thicknessAF / 80.0 * 72.0;
+		FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
+		for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
+		{
+			FPoint Vector = ite->PoLine.point(xx);
+			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+			{
+				double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+				QMatrix arrowTrans;
+				if (arrow_typeAF == 0)
+					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5");
+				else if (arrow_typeAF == 1)
+					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5 z");
+				else if (arrow_typeAF == 2)
+					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5 L -0.7 0 z");
+				else if (arrow_typeAF == 3)
+					arrow.parseSVG("M -0.7, -0.5 L 0, 0 L -0.7, 0.5 L -1 0 z");
+				arrowTrans.translate(End.x(), End.y());
+				arrowTrans.rotate(r);
+				arrowTrans.scale(arrow_heightAF, arrow_widthAF);
+				arrow.map(arrowTrans);
+				break;
+			}
+		}
+		QString fillC = "White";
+		if (arrow_styleAF == 1)
+			fillC = CurrColorStroke;
+		if (arrow_typeAF == 0)
+		{
+			fillC = CommonStrings::None;
+			iteType = PageItem::PolyLine;
+		}
+		else
+			iteType = PageItem::Polygon;
+		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAF, fillC, CurrColorStroke, true);
+		if (z >= 0)
+		{
+			PageItem *item = m_Doc->Items->at(z);
+			item->PoLine = arrow.copy();
+			item->ClipEdited = true;
+			item->FrameType = 3;
+			item->setFillShade(CurrFillShade);
+			item->setLineShade(CurrStrokeShade);
+			FPoint wh = getMaxClipF(&item->PoLine);
+			item->setWidthHeight(wh.x(),wh.y());
+			item->setTextFlowMode(PageItem::TextFlowDisabled);
+			m_Doc->AdjustItemSize(item);
+			item->setWidthHeight(qMax(item->width(), 1.0), qMax(item->height(), 1.0));
+			depthMap.insert(999 - depth, currentItemNr);
+			currentItemNr++;
+		}
+	}
+	if (backward_arrow == 1)
+	{
+		arrow.resize(0);
+		QTextStream CodeAB(&bArrowData, QIODevice::ReadOnly);
+		CodeAB >> arrow_typeAB >> arrow_styleAB >> arrow_thicknessAB >> arrow_widthAB >> arrow_heightAB;
+		arrow_widthAB = fig2Pts(arrow_widthAB);
+		arrow_heightAB = fig2Pts(arrow_heightAB);
+		arrow_thicknessAB = arrow_thicknessAB / 80.0 * 72.0;
+		FPointArray arrow;
+		FPoint Start = ite->PoLine.point(0);
+		for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
+		{
+			FPoint Vector = ite->PoLine.point(xx);
+			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+			{
+				double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+				QMatrix arrowTrans;
+				if (arrow_typeAB == 0)
+					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5");
+				else if (arrow_typeAB == 1)
+					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5 z");
+				else if (arrow_typeAB == 2)
+					arrow.parseSVG("M -1, -0.5 L 0, 0 L -1, 0.5 L -0.7 0 z");
+				else if (arrow_typeAB == 3)
+					arrow.parseSVG("M -0.7, -0.5 L 0, 0 L -0.7, 0.5 L -1 0 z");
+				arrowTrans.translate(Start.x(), Start.y());
+				arrowTrans.rotate(r);
+				arrowTrans.scale(arrow_heightAB, arrow_widthAB);
+				arrow.map(arrowTrans);
+				break;
+			}
+		}
+		QString fillC = "White";
+		if (arrow_styleAB == 1)
+			fillC = CurrColorStroke;
+		if (arrow_typeAB == 0)
+		{
+			fillC = CommonStrings::None;
+			iteType = PageItem::PolyLine;
+		}
+		else
+			iteType = PageItem::Polygon;
+		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAB, fillC, CurrColorStroke, true);
+		if (z >= 0)
+		{
+			PageItem *item = m_Doc->Items->at(z);
+			item->PoLine = arrow.copy();
+			item->ClipEdited = true;
+			item->FrameType = 3;
+			item->setFillShade(CurrFillShade);
+			item->setLineShade(CurrStrokeShade);
+			FPoint wh = getMaxClipF(&item->PoLine);
+			item->setWidthHeight(wh.x(),wh.y());
+			item->setTextFlowMode(PageItem::TextFlowDisabled);
+			m_Doc->AdjustItemSize(item);
+			item->setWidthHeight(qMax(item->width(), 1.0), qMax(item->height(), 1.0));
+			depthMap.insert(999 - depth, currentItemNr);
+			currentItemNr++;
+		}
+	}
+}
+
 void XfigPlug::processPolyline(QDataStream &ts, QString data)
 {
 	QString tmp = data;
-	int    command;
-	int    subtype;					// (1: polyline, 2: box, 3: polygon, 4: arc-box, 5: imported-picture bounding-box)
-	int    line_style;				// (enumeration type)
-	int    thickness;				// (1/80 inch)
-	int    pen_color;				// (enumeration type, pen color)
-	int    fill_color;				// (enumeration type, fill color)
-	int    depth;					// (enumeration type)
-	int    pen_style;				// (pen style, not used)
-	int    area_fill;				// (enumeration type, -1 = no fill)
-	double style_val;				// (1/80 inch)
-	int    join_style; 				// (enumeration type)
-	int    cap_style;				// (enumeration type, only used for POLYLINE)
-	int    radius;					// (1/80 inch, radius of arc-boxes)
-	int    forward_arrow;			// (0: off, 1: on)
-	int    backward_arrow;			// (0: off, 1: on)
-	int    npoints;					// (number of points in line)
-	int    pointsRead = 0;
+	QString fArrowData = "";
+	QString bArrowData = "";
+	int		command;
+	int		subtype;				// (1: polyline, 2: box, 3: polygon, 4: arc-box, 5: imported-picture bounding-box)
+	int		line_style;				// (enumeration type)
+	int		thickness;				// (1/80 inch)
+	int		pen_color;				// (enumeration type, pen color)
+	int		fill_color;				// (enumeration type, fill color)
+	int		depth;					// (enumeration type)
+	int		pen_style;				// (pen style, not used)
+	int		area_fill;				// (enumeration type, -1 = no fill)
+	double	style_val;				// (1/80 inch)
+	int		join_style; 			// (enumeration type)
+	int		cap_style;				// (enumeration type, only used for POLYLINE)
+	int		radius;					// (1/80 inch, radius of arc-boxes)
+	int		forward_arrow;			// (0: off, 1: on)
+	int		backward_arrow;			// (0: off, 1: on)
+	int		npoints;				// (number of points in line)
+	int pointsRead = 0;
 	int imgFlipped;
 	QString imgFile;
 	double x, y;
@@ -609,9 +747,9 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> join_style >> cap_style >> radius >> forward_arrow >> backward_arrow >> npoints;
 	if (forward_arrow == 1)
-		tmp = readLinefromDataStream(ts);
+		fArrowData = readLinefromDataStream(ts);
 	if (backward_arrow == 1)
-		tmp = readLinefromDataStream(ts);
+		bArrowData = readLinefromDataStream(ts);
 	if (subtype == 5)
 	{
 		tmp = readLinefromDataStream(ts);
@@ -709,27 +847,31 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 		}
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
+		if ((ite->itemType() == PageItem::PolyLine) && ((forward_arrow == 1) || (backward_arrow == 1)))
+			processArrows(forward_arrow, fArrowData, backward_arrow, bArrowData, depth, ite);
 	}
 }
 
 void XfigPlug::processSpline(QDataStream &ts, QString data)
 {
 	QString tmp = data;
-	int    command;
-	int    subtype;					// (1: polyline, 2: box, 3: polygon, 4: arc-box, 5: imported-picture bounding-box)
-	int    line_style;				// (enumeration type)
-	int    thickness;				// (1/80 inch)
-	int    pen_color;				// (enumeration type, pen color)
-	int    fill_color;				// (enumeration type, fill color)
-	int    depth;					// (enumeration type)
-	int    pen_style;				// (pen style, not used)
-	int    area_fill;				// (enumeration type, -1 = no fill)
-	double style_val;				// (1/80 inch)
-	int    cap_style;				// (enumeration type, only used for POLYLINE)
-	int    forward_arrow;			// (0: off, 1: on)
-	int    backward_arrow;			// (0: off, 1: on)
-	int    npoints;					// (number of points in line)
-	int    pointsRead = 0;
+	QString fArrowData = "";
+	QString bArrowData = "";
+	int		command;
+	int		subtype;				// (1: polyline, 2: box, 3: polygon, 4: arc-box, 5: imported-picture bounding-box)
+	int		line_style;				// (enumeration type)
+	int		thickness;				// (1/80 inch)
+	int		pen_color;				// (enumeration type, pen color)
+	int		fill_color;				// (enumeration type, fill color)
+	int		depth;					// (enumeration type)
+	int		pen_style;				// (pen style, not used)
+	int		area_fill;				// (enumeration type, -1 = no fill)
+	double	style_val;				// (1/80 inch)
+	int		cap_style;				// (enumeration type, only used for POLYLINE)
+	int		forward_arrow;			// (0: off, 1: on)
+	int		backward_arrow;			// (0: off, 1: on)
+	int		npoints;				// (number of points in line)
+	int pointsRead = 0;
 	double x, y;
 	Coords.resize(0);
 	Coords.svgInit();
@@ -738,9 +880,9 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
 	Code >> area_fill >> style_val >> cap_style >> forward_arrow >> backward_arrow >> npoints;
 	if (forward_arrow == 1)
-		tmp = readLinefromDataStream(ts);
+		fArrowData = readLinefromDataStream(ts);
 	if (backward_arrow == 1)
-		tmp = readLinefromDataStream(ts);
+		bArrowData = readLinefromDataStream(ts);
 	while (!ts.atEnd())
 	{
 		tmp = readLinefromDataStream(ts);
@@ -818,12 +960,16 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
+		if ((ite->itemType() == PageItem::PolyLine) && ((forward_arrow == 1) || (backward_arrow == 1)))
+			processArrows(forward_arrow, fArrowData, backward_arrow, bArrowData, depth, ite);
 	}
 }
 
 void XfigPlug::processArc(QDataStream &ts, QString data)
 {
 	QString tmp = data;
+	QString fArrowData = "";
+	QString bArrowData = "";
 	int		command;
 	int		subtype;				// (1: open ended arc, 2: pie-wedge (closed))
 	int		line_style;				// (enumeration type)
@@ -847,9 +993,9 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 	Code >> area_fill >> style_val >> cap_style >> direction >> forward_arrow >> backward_arrow;
 	Code >> center_x >> center_y >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
 	if (forward_arrow == 1)
-		tmp = readLinefromDataStream(ts);
+		fArrowData = readLinefromDataStream(ts);
 	if (backward_arrow == 1)
-		tmp = readLinefromDataStream(ts);
+		bArrowData = readLinefromDataStream(ts);
 	useColor(pen_color, 0, false);
 	useColor(fill_color, area_fill, true);
 	LineW = thickness / 80.0 * 72.0;
@@ -931,14 +1077,16 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
+		if ((ite->itemType() == PageItem::PolyLine) && ((forward_arrow == 1) || (backward_arrow == 1)))
+			processArrows(forward_arrow, fArrowData, backward_arrow, bArrowData, depth, ite);
 	}
 }
 
 void XfigPlug::processEllipse(QString data)
 {
 	QString tmp = data;
-	int     command;			// (always 1)
-	int     subtype;			// (1: ellipse defined by radii
+	int		command;			// (always 1)
+	int		subtype;			// (1: ellipse defined by radii
 								//  2: ellipse defined by diameters
 								//  3: circle defined by radius
 								//  4: circle defined by diameter)
@@ -999,7 +1147,7 @@ QString XfigPlug::cleanText(QString text)
 	QString tmp = "";
 	bool sep = false;
 	int sepcount = 0;
-	for (int a = 0; a < text.count(); ++a)
+	for (int a = 1; a < text.count(); ++a)
 	{
 		QString ch = text.mid(a,1);
 		if (sep)
