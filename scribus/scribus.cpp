@@ -7546,8 +7546,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 {
 	//reset the appMode so we restore our tools shortcuts
 	QString oldGUILanguage = prefsManager->guiLanguage();
-	QString oldGUIStyle = prefsManager->guiStyle();
-	int oldGUIFontSize = prefsManager->guiFontSize();
+	QString oldGUIStyle    = prefsManager->guiStyle();
+	int oldGUIFontSize     = prefsManager->guiFontSize();
 	double oldDisplayScale = prefsManager->displayScale();
 	dia->updatePreferences();
 	prefsManager->SavePrefs();
@@ -7558,8 +7558,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	if (oldGUILanguage != newGUILanguage || ScQApp->currGUILanguage()!=newGUILanguage)
 		ScQApp->changeGUILanguage(newGUILanguage);
 	QString newGUIStyle = prefsManager->guiStyle();
-// 	if (oldGUIStyle != newGUIStyle)
-// 	{
+	if (oldGUIStyle != newGUIStyle)
+	{
 		if (newGUIStyle.isEmpty())
 			qApp->setStyle(prefsManager->guiSystemStyle());
 		else
@@ -7567,7 +7567,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 		// Plain wrong, a style may set a palette different from the standard palette
 		// Eg : Windows XP and Windows Vista styles
 		// qApp->setPalette(qApp->style()->standardPalette());
-// 	}
+	}
 	int newGUIFontSize = prefsManager->guiFontSize();
 	if (oldGUIFontSize != newGUIFontSize)
 	{
