@@ -4903,7 +4903,7 @@ QString PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
 	PutDoc("/CA "+FToStr(1.0 - currItem->lineTransparency())+"\n");
 	PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 	PutDoc("/BM /");
-	switch (currItem->fillBlendmode())
+	switch (currItem->lineBlendmode())
 	{
 		case 0:
 			PutDoc("Normal");
