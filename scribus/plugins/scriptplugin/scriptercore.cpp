@@ -259,6 +259,8 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
+		ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
+		ScCore->primaryMainWindow()->pagePalette->setView(NULL);
 		ScCore->primaryMainWindow()->ScriptRunning = true;
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		// Create the sub-interpreter
@@ -367,6 +369,8 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 
 void ScripterCore::slotRunScript(const QString Script)
 {
+	ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
+	ScCore->primaryMainWindow()->pagePalette->setView(NULL);
 	ScCore->primaryMainWindow()->ScriptRunning = true;
 	inValue = Script;
 	QString cm;

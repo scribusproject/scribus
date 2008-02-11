@@ -823,6 +823,8 @@ void PagePalette::markPage(uint nr)
 
 void PagePalette::setView(ScribusView *view)
 {
+	if (m_scMW->ScriptRunning)
+		return;
 	currView = view;
 }
 

@@ -1286,7 +1286,7 @@ void PropertiesPalette::SelTab(int t)
 
 void PropertiesPalette::setDoc(ScribusDoc *d)
 {
-	if(doc == d)
+	if(doc == d || (m_ScMW && m_ScMW->ScriptRunning))
 		return;
 
 	disconnect(this->Cpal, SIGNAL(NewTrans(double)), 0, 0);
@@ -1962,6 +1962,8 @@ void PropertiesPalette::NewSel(int nr)
 
 void PropertiesPalette::setMultipleSelection(bool isMultiple)
 {
+	if (!HaveDoc)
+		return;
 	//CB Having added the selection and undo transaction to mirrorpolyh/v in doc,
 	//these can be enabled all the time
 	FlipH->setEnabled(true);
@@ -1985,6 +1987,8 @@ void PropertiesPalette::setMultipleSelection(bool isMultiple)
 
 void PropertiesPalette::unitChange()
 {
+	if (!HaveDoc)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	double oldRatio = m_unitRatio;
