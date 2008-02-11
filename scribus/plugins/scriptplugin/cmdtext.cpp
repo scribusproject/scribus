@@ -171,7 +171,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	for (int a = it->firstInFrame(); a < it->lastInFrame(); a++)
+	for (int a = it->firstInFrame(); a <= it->lastInFrame(); ++a)
 	{
 		if (it->HasSel)
 		{
