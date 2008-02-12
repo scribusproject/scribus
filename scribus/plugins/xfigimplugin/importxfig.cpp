@@ -763,21 +763,21 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 		while (!pts.atEnd())
 		{
 			pts >> x >> y;
-			x = fig2Pts(x);
-			y = fig2Pts(y);
+			x = fig2Pts(x) - docX;
+			y = fig2Pts(y) - docY;
 			if (first)
 			{
-				Coords.svgMoveTo(x - docX, y - docY);
+				Coords.svgMoveTo(x, y);
 				first = false;
 			}
 			else
-				Coords.svgLineTo(x - docX, y - docY);
+				Coords.svgLineTo(x, y);
 			pointsRead++;
 		}
 		if (pointsRead == npoints)
 		{
 			if (npoints == 1)
-				Coords.svgLineTo(x - docX, y - docY);
+				Coords.svgLineTo(x, y);
 			break;
 		}
 	}
@@ -858,7 +858,12 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	QString fArrowData = "";
 	QString bArrowData = "";
 	int		command;
-	int		subtype;				// (1: polyline, 2: box, 3: polygon, 4: arc-box, 5: imported-picture bounding-box)
+	int		subtype;				// 0: open approximated spline
+									// 1: closed approximated spline
+									// 2: open   interpolated spline
+									// 3: closed interpolated spline
+									// 4: open   x-spline 
+									// 5: closed x-spline
 	int		line_style;				// (enumeration type)
 	int		thickness;				// (1/80 inch)
 	int		pen_color;				// (enumeration type, pen color)
@@ -890,21 +895,21 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		while (!pts.atEnd())
 		{
 			pts >> x >> y;
-			x = fig2Pts(x);
-			y = fig2Pts(y);
+			x = fig2Pts(x) - docX;
+			y = fig2Pts(y) - docY;
 			if (first)
 			{
-				Coords.svgMoveTo(x - docX, y - docY);
+				Coords.svgMoveTo(x, y);
 				first = false;
 			}
 			else
-				Coords.svgLineTo(x - docX, y - docY);
+				Coords.svgLineTo(x, y);
 			pointsRead++;
 		}
 		if (pointsRead == npoints)
 		{
 			if (npoints == 1)
-				Coords.svgLineTo(x - docX, y - docY);
+				Coords.svgLineTo(x, y);
 			break;
 		}
 	}
@@ -1116,11 +1121,8 @@ void XfigPlug::processEllipse(QString data)
 	h = fig2Pts(radius_y);
 	x = fig2Pts(center_x) - w;
 	y = fig2Pts(center_y) - h;
-	if ((subtype == 1) || (subtype == 3))
-	{
-		w *= 2.0;
-		h *= 2.0;
-	}
+	w *= 2.0;
+	h *= 2.0;
 	x -= docX;
 	x += m_Doc->currentPage()->xOffset();
 	y -= docY;
