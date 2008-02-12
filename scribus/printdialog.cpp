@@ -649,7 +649,7 @@ void PrintDialog::storeValues()
 	getOptions(); // options were not set get last options with this hack
 
 	m_doc->Print_Options.printer = PrintDest->currentText();
-	m_doc->Print_Options.filename = ScPaths::separatorsToSlashes(LineEdit1->text());
+	m_doc->Print_Options.filename = QDir::fromNativeSeparators(LineEdit1->text());
 	m_doc->Print_Options.toFile = ToFile;
 	m_doc->Print_Options.copies = numCopies();
 	m_doc->Print_Options.outputSeparations = outputSeparations();
@@ -833,7 +833,7 @@ QString PrintDialog::printerName()
 
 QString PrintDialog::outputFileName()
 {
-	return ScPaths::separatorsToSlashes(LineEdit1->text());
+	return QDir::fromNativeSeparators(LineEdit1->text());
 }
 
 bool PrintDialog::outputToFile()
@@ -997,4 +997,5 @@ void PrintDialog::setPrintEngine(PrintEngine pdl)
 			printEngines->setCurrentIndex(printEngines->count() - 1);
 	}
 }
+
 

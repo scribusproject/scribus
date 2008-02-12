@@ -53,7 +53,7 @@ void PicSearch::foundFilesBox_clicked(QListWidgetItem *c)
 {
 	if (c == NULL)
 		return;
-	currentImage = ScPaths::separatorsToSlashes(c->text());
+	currentImage = QDir::fromNativeSeparators(c->text());
 	if (previewCheckBox->isChecked())
 		createPreview();
 	useButton->setEnabled(true);

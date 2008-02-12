@@ -108,9 +108,9 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		std::vector<int> pageNs;
 		ex->pageDPI = dia->DPIBox->value();
 		ex->enlargement = dia->enlargementBox->value();
-		ex->quality = dia->qualityBox->value();
-		ex->exportDir = ScPaths::separatorsToSlashes(dia->outputDirectory->text());
-		ex->bitmapType = dia->bitmapType->currentText();
+		ex->quality     = dia->qualityBox->value();
+		ex->exportDir   = QDir::fromNativeSeparators(dia->outputDirectory->text());
+		ex->bitmapType  = dia->bitmapType->currentText();
 		doc->scMW()->mainWindowProgressBar->reset();
 		bool res;
 		if (dia->onePageRadio->isChecked())

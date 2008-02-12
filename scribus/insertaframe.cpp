@@ -169,11 +169,11 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 	{
 		case 0:
 			iafData.frameType=PageItem::TextFrame;
-			iafData.source=ScPaths::separatorsToSlashes(sourceDocLineEdit->text());
+			iafData.source=QDir::fromNativeSeparators(sourceDocLineEdit->text());
 			break;
 		case 1:
 			iafData.frameType=PageItem::ImageFrame;
-			iafData.source=ScPaths::separatorsToSlashes(sourceImageLineEdit->text());
+			iafData.source=QDir::fromNativeSeparators(sourceImageLineEdit->text());
 			break;
 	}
 	iafData.locationType=pagePlacementButtonGroup->checkedId();

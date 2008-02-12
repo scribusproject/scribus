@@ -2046,7 +2046,7 @@ void ScribusMainWindow::startUpDialog()
 			{
 				QString fileName(dia->recentDocListBox->currentItem()->text());
 				if (!fileName.isEmpty())
-					loadRecent(ScPaths::separatorsToSlashes(fileName));
+					loadRecent(QDir::fromNativeSeparators(fileName));
 			}
 		}
 	}

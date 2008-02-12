@@ -201,7 +201,7 @@ void FontPrefs::writePaths()
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	fontPathTable->clear();
 	for (int i = 0; i < PathList->count(); ++i)
-		fontPathTable->set(i, 0, ScPaths::separatorsToSlashes(PathList->item(i)->text()));
+		fontPathTable->set(i, 0, QDir::fromNativeSeparators(PathList->item(i)->text()));
 }
 
 void FontPrefs::SelectPath(QListWidgetItem *c)
@@ -234,7 +234,7 @@ void FontPrefs::AddPath()
 		RemoveB->setEnabled(false);
 		CurrentPath = s;
 		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
-		QString dir = ScPaths::separatorsToSlashes(s2);
+		QString dir = QDir::fromNativeSeparators(s2);
 		availFonts->AddScalableFonts(dir +"/");
 		availFonts->updateFontMap();
 		rebuildDialog();
@@ -266,7 +266,7 @@ void FontPrefs::ChangePath()
 		PathList->currentItem()->setText(s2);
 		writePaths();
 		CurrentPath = s;
-		QString dir = ScPaths::separatorsToSlashes(s2);
+		QString dir = QDir::fromNativeSeparators(s2);
 		availFonts->AddScalableFonts(dir +"/");
 		availFonts->updateFontMap();
 		rebuildDialog();

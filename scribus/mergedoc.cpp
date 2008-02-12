@@ -214,7 +214,7 @@ void MergeDoc::enableCreateWidgets()
 
 const QString MergeDoc::getFromDoc()
 {
-	return ScPaths::separatorsToSlashes(fromDocData->text());
+	return QDir::fromNativeSeparators(fromDocData->text());
 }
 
 const int MergeDoc::getMasterPageNameItem()

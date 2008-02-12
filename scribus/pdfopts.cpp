@@ -142,7 +142,7 @@ void PDFExportDialog::disableSave()
 
 void PDFExportDialog::DoExport()
 {
-	QString fn = ScPaths::separatorsToSlashes(fileNameLineEdit->text());
+	QString fn = QDir::fromNativeSeparators(fileNameLineEdit->text());
 	// Checking if the path exists
 	QFileInfo fi(fn);
 	QString dirPath = QDir::convertSeparators(fi.absolutePath());
@@ -228,7 +228,7 @@ void PDFExportDialog::fileNameChanged()
 
 void PDFExportDialog::updateDocOptions()
 {
-	Opts.Datei = ScPaths::separatorsToSlashes(fileNameLineEdit->text());
+	Opts.Datei = QDir::fromNativeSeparators(fileNameLineEdit->text());
 	Opts.doMultiFile = multiFile->isChecked();
 	Opts.Thumbnails = Options->CheckBox1->isChecked();
 	Opts.Compress = Options->Compression->isChecked();

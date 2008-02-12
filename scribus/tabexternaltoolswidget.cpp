@@ -58,22 +58,22 @@ TabExternalToolsWidget::~TabExternalToolsWidget()
 
 const QString TabExternalToolsWidget::newPSTool() const 
 { 
-	return ScPaths::separatorsToSlashes(psToolLineEdit->text()); 
+	return QDir::fromNativeSeparators(psToolLineEdit->text()); 
 }
 
 const QString TabExternalToolsWidget::newImageTool() const 
 { 
-	return ScPaths::separatorsToSlashes(imageToolLineEdit->text());
+	return QDir::fromNativeSeparators(imageToolLineEdit->text());
 }
 
 const QString TabExternalToolsWidget::newExtBrowserTool() const 
 { 
-	return ScPaths::separatorsToSlashes(extBrowserToolLineEdit->text()); 
+	return QDir::fromNativeSeparators(extBrowserToolLineEdit->text()); 
 }
 
 const QString TabExternalToolsWidget::newLatexEditor() const 
 {
-	return ScPaths::separatorsToSlashes(latexEditorLineEdit->text());
+	return QDir::fromNativeSeparators(latexEditorLineEdit->text());
 }
 
 const QStringList TabExternalToolsWidget::newLatexConfigs() const
@@ -197,7 +197,7 @@ bool TabExternalToolsWidget::fileInPath(QString file)
 		return false;
 	file = file.split(' ', QString::SkipEmptyParts).at(0); //Ignore parameters
 	
-	file = ScPaths::separatorsToSlashes(file);
+	file = QDir::fromNativeSeparators(file);
 	if (file.indexOf('/') >= 0) {
 		//Looks like an absolute path
 		QFileInfo info(file);
