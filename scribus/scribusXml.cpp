@@ -1468,7 +1468,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			}
 			Neu->isGroupControl = isGroupControl;
 			if (Neu->isGroupControl)
-				groupID.insert(Neu, groupsLastItem +Neu->ItemNr );
+				groupID.insert(Neu, groupsLastItem + Neu->ItemNr );
 			if (Neu->asPathText())
 				Neu->updatePolyClip();
 			imageEffects.clear();
@@ -1505,6 +1505,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupID.begin(); it != groupID.end(); ++it)
 		{
+			if (it.value() >= doc->Items->count())
+			{
+				it.key()->isGroupControl = false;
+				continue;
+			}
 			it.key()->groupsLastItem = doc->Items->at(it.value());
 		}
 	}
