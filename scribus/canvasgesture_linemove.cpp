@@ -15,7 +15,7 @@
 
 #include "canvasgesture_linemove.h"
 
-#include <QDebug>
+//#include <QDebug>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPen>
@@ -97,14 +97,14 @@ void LineMove::setEndPoint(QPointF p)
 
 void LineMove::activate(bool flag)
 {
-	qDebug() << "LineMove::activate" << flag << m_bounds;	
+//	qDebug() << "LineMove::activate" << flag << m_bounds;	
 }
 
 
 
 void LineMove::deactivate(bool flag)
 {
-	qDebug() << "LineMove::deactivate" << flag;
+//	qDebug() << "LineMove::deactivate" << flag;
 	m_haveLineItem = false;
 }
 
@@ -136,7 +136,7 @@ void LineMove::mouseReleaseEvent(QMouseEvent *m)
 	}
 	m->accept();
 	m_canvas->update();
-	qDebug() << "LineMove::mouseRelease" << m_line->xPos() << "," << m_line->yPos() << "@" << m_line->rotation() << m_line->width() << "x" << m_line->height();
+//	qDebug() << "LineMove::mouseRelease" << m_line->xPos() << "," << m_line->yPos() << "@" << m_line->rotation() << m_line->width() << "x" << m_line->height();
 	m_view->stopGesture();
 }
 

@@ -110,7 +110,7 @@ void BezierMode::leaveEvent(QEvent *e)
 
 void BezierMode::activate(bool flag)
 {
-	qDebug() << "DrawBezierMode::activate" << flag;
+//	qDebug() << "DrawBezierMode::activate" << flag;
 	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
@@ -126,7 +126,7 @@ void BezierMode::activate(bool flag)
 
 void BezierMode::deactivate(bool flag)
 {
-	qDebug() << "BezierMode::deactivate" << flag;
+//	qDebug() << "BezierMode::deactivate" << flag;
 	m_view->redrawMarker->hide();
 }
 

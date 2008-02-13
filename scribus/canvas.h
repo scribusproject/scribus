@@ -25,7 +25,7 @@ scribusview.h  -  description
 #define CANVAS_H
 
 #include <QApplication>
-#include <QDebug>
+//#include <QDebug>
 #include <QPolygon>
 #include <QRect>
 #include <QWidget>

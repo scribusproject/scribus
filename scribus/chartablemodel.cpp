@@ -119,8 +119,8 @@ void CharTableModel::appendUnicode(QString s, uint base)
 	int val = s.toInt(&ok, base);
 	if (!ok)
 	{
-		qDebug("void CharTableModel::appendUnicode(QString s, uint base) 'base' conversion error");
-		qDebug((QString("s: %1 base: %2").arg(s).arg(base).toAscii()));
+//		qDebug("void CharTableModel::appendUnicode(QString s, uint base) 'base' conversion error");
+//		qDebug((QString("s: %1 base: %2").arg(s).arg(base).toAscii()));
 		return;
 	}
 	if (ok && !m_characters.contains(val))
@@ -147,7 +147,7 @@ bool CharTableModel::removeCharacter(int index)
 		reset();
 		return true;
 	}
-	qDebug("CharTable::deleteOwnCharacter: no char deleted - logical error probably");
+//	qDebug("CharTable::deleteOwnCharacter: no char deleted - logical error probably");
 	return false;
 }
 

@@ -268,8 +268,7 @@ FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, u
 	
     if ( pos >= stream->size )
     {
-		qDebug( "ftIOFunc: invalid i/o; pos = 0x%lx, size = 0x%lx\n",
-				   pos, stream->size );
+		qDebug( "ftIOFunc: invalid i/o; pos = 0x%lx, size = 0x%lx\n", pos, stream->size );
 		
 		return FT_Err_Invalid_Stream_Operation;
     }
@@ -289,8 +288,7 @@ FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, u
 	
     if ( read_bytes < count )
     {
-		qDebug( "ftIOFunc: invalid read; expected %lu bytes, got %lu\n",
-				   count, read_bytes );
+		qDebug( "ftIOFunc: invalid read; expected %lu bytes, got %lu\n", count, read_bytes );
 		
 		error = FT_Err_Invalid_Stream_Operation;
     }

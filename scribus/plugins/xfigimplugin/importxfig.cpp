@@ -1403,10 +1403,10 @@ void XfigPlug::processData(QDataStream &ts, QString data)
 			processArc(ts, data);
 			break;
 		case 6:
-			qDebug() << "Xfig-Import:: Unsupported Compound object";
+//			qDebug() << "Xfig-Import:: Unsupported Compound object";
 			break;
 		case -6:
-			qDebug() << "Xfig-Import:: Unsupported End of Compound object";
+//			qDebug() << "Xfig-Import:: Unsupported End of Compound object";
 			break;
 	}
 }

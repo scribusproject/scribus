@@ -419,7 +419,7 @@ void ScribusView::changed(QRectF re)
 {
 	if (!Doc->isLoading() && !m_ScMW->ScriptRunning)
 	{
-		qDebug() << "ScribusView-changed(): changed region:" << re;
+//		qDebug() << "ScribusView-changed(): changed region:" << re;
 		m_canvas->m_viewMode.forceRedraw = true;
 		updateCanvas(re);
 	}
@@ -427,9 +427,9 @@ void ScribusView::changed(QRectF re)
 
 void ScribusView::startGesture(CanvasGesture* gesture)
 {
-	qDebug() << "start gesture" << typeid(*m_canvasMode).name() 
-			<< "---->" 
-			<< typeid(*gesture).name();
+//	qDebug() << "start gesture" << typeid(*m_canvasMode).name() 
+//			<< "---->" 
+//			<< typeid(*gesture).name();
 	m_canvasMode->deactivate(true);
 	gesture->setDelegate(m_canvasMode);
 	m_canvasMode = gesture;
@@ -440,7 +440,7 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 
 void ScribusView::stopGesture()
 {
-	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
+//	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
 	if (m_canvasMode->delegate())
 	{
 		m_canvasMode->deactivate(false);
@@ -469,7 +469,7 @@ switches between appmodes:
 void ScribusView::requestMode(int appMode)
 {
 	bool updateNecessary = false;
-	qDebug() << "request mode:" << appMode;
+//	qDebug() << "request mode:" << appMode;
 	switch(appMode) // filter submodes
 	{
 		case submodePaintingDone:   // return to normal mode
@@ -521,14 +521,14 @@ void ScribusView::requestMode(int appMode)
 		default:
 			if (appMode < 0 || appMode > submodeFirstSubmode)
 			{
-				qDebug() << "request mode: UNKNOWN" << appMode;
+//				qDebug() << "request mode: UNKNOWN" << appMode;
 				appMode = modeNormal;
 			}
 			m_previousMode = appMode;			
 			break;
 	}
 
-	qDebug() << "request mode" << Doc->appMode << "-->" << appMode;
+//	qDebug() << "request mode" << Doc->appMode << "-->" << appMode;
 	if (Doc->appMode != appMode)
 	{
 		m_ScMW->setAppMode(appMode);
@@ -540,7 +540,7 @@ void ScribusView::requestMode(int appMode)
 		}
 		if (newCanvasMode)
 		{
-			qDebug() << "request canvas mode" << typeid(*newCanvasMode).name();
+//			qDebug() << "request canvas mode" << typeid(*newCanvasMode).name();
 			m_canvasMode->deactivate(false);
 			m_canvasMode = newCanvasMode;
 			m_canvasMode->activate(false);
@@ -805,7 +805,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		url = e->mimeData()->urls().at(0);
 		text = "";
 	}
-	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
+//	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
 	if (!url.isEmpty())
 	{
 		e->acceptProposedAction();
@@ -2510,9 +2510,9 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 									qRound(Doc->maxCanvasCoordinate.x() * scale) - maxViewport.width());
 	verticalScrollBar()->setRange(qRound(Doc->minCanvasCoordinate.y() * scale), 
 								  qRound(Doc->maxCanvasCoordinate.y() * scale) - maxViewport.height());
-	qDebug() << "adjustCanvas" << width << height << dX << dY 
-		<< "(" << Doc->minCanvasCoordinate.x() << Doc->minCanvasCoordinate.y() << ") - (" 
-		<< Doc->maxCanvasCoordinate.x() << Doc->maxCanvasCoordinate.y() << ") @" << scale << maxViewport;
+//	qDebug() << "adjustCanvas" << width << height << dX << dY 
+//		<< "(" << Doc->minCanvasCoordinate.x() << Doc->minCanvasCoordinate.y() << ") - (" 
+//		<< Doc->maxCanvasCoordinate.x() << Doc->maxCanvasCoordinate.y() << ") @" << scale << maxViewport;
 	widget()->resize(qRound((Doc->maxCanvasCoordinate.x()-Doc->minCanvasCoordinate.x())*scale),
 				   qRound((Doc->maxCanvasCoordinate.y()-Doc->minCanvasCoordinate.y())*scale));
 	
@@ -2687,7 +2687,7 @@ void ScribusView::SetCCPo(double x, double y)
 		return;
 	QPoint nx = m_canvas->canvasToLocal(FPoint(x, y));
 	QSize viewsize = viewport()->size();
-	qDebug() << "setCCPo" << nx << viewsize;
+//	qDebug() << "setCCPo" << nx << viewsize;
 	setContentsPos(nx.x() - viewsize.width() / 2, nx.y() - viewsize.height() / 2);
 }
 
@@ -3245,7 +3245,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	double h = Buffer->Height;
 	double pw = Buffer->Pwidth;
 	int z = 0;
-	qDebug() << "Pasting frame of type " << Buffer->PType;
+//	qDebug() << "Pasting frame of type " << Buffer->PType;
 	switch (Buffer->PType)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -4451,7 +4451,7 @@ void ScribusView::repaintContents(QRect box)
 
 void ScribusView::resizeContents(int w, int h)  // deprecated
 {
-	qDebug() << "ScribusView::resizeContents(" << w << "," << h << ")";
+//	qDebug() << "ScribusView::resizeContents(" << w << "," << h << ")";
 	int originX = qRound(Doc->minCanvasCoordinate.x() * scale());
 	int originY = qRound(Doc->minCanvasCoordinate.y() * scale());
 	widget()->resize(w - 0*originX, h - 0*originY);

@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <cmath>
 #include <cassert>
+#include <QDebug>
 
 #include "canvas.h"
 #include "scpaths.h"
@@ -1293,6 +1294,7 @@ void PageItem::paintObj(QPainter *p)
 	{
 		if (!m_Doc->m_Selection->isEmpty())
 		{
+//				qDebug() << "Item: " << ItemNr << "W: " << Width << "H: " << Height;
 			if (Groups.count() == 0)
 			{
 				//Locked line colour selection

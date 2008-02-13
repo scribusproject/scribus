@@ -6085,7 +6085,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		nodePalette->HaveNode(false, false);
 		nodePalette->MoveNode->setChecked(true);
 		nodePalette->show();
-		qDebug() << "nodepalette show:" << nodePalette->geometry();
+//		qDebug() << "nodepalette show:" << nodePalette->geometry();
 		connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 		doc->nodeEdit.reset();
 //done elsewhere now		doc->appMode = modeEditClip;
@@ -6161,7 +6161,7 @@ void ScribusMainWindow::NoFrameEdit()
 	actionManager->disconnectModeActions();
 	nodePalette->setDoc(0,0);
 	nodePalette->hide();
-	qDebug() << "nodepalette hide";
+//	qDebug() << "nodepalette hide";
 	scrActions["toolsSelect"]->setEnabled(true);
 	scrActions["toolsSelect"]->setChecked(true);
 	scrActions["toolsRotate"]->setEnabled(true);
@@ -9280,7 +9280,7 @@ void ScribusMainWindow::insertSampleText()
 
 void ScribusMainWindow::languageChange()
 {
-	qDebug() << "void ScribusMainWindow::languageChange()";
+//	qDebug() << "void ScribusMainWindow::languageChange()";
 	if (ScCore->initialized())
 	{
 		CommonStrings::languageChange();

@@ -110,7 +110,7 @@ void FreehandMode::leaveEvent(QEvent *e)
 
 void FreehandMode::activate(bool flag)
 {
-	qDebug() << "FreehandMode::activate" << flag;
+//	qDebug() << "FreehandMode::activate" << flag;
 	GxM = GyM = -1;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
@@ -126,7 +126,7 @@ void FreehandMode::activate(bool flag)
 
 void FreehandMode::deactivate(bool flag)
 {
-	qDebug() << "FreehandMode::deactivate" << flag;
+//	qDebug() << "FreehandMode::deactivate" << flag;
 	m_view->redrawMarker->hide();
 }
 

@@ -1,6 +1,6 @@
 #include <cassert>  //added to make Fedora-5 happy
 
-#include <QDebug>
+//#include <QDebug>
 
 #include "fpoint.h"
 #include "scfonts.h"

@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 
 #include <QByteArray>
-#include <QDebug>
+//#include <QDebug>
 #include <QEventLoop>
 #include <QFile>
 #include <QList>
@@ -3443,7 +3443,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		default:
-			qDebug("unknown item type");
+//			qDebug("unknown item type");
 			assert (false);
 	}
 	Q_CHECK_PTR(newItem);
@@ -9269,7 +9269,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 			double gx, gy, gh, gw;
 			m_Selection->setGroupRect();
 			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			qDebug("doc, emit w&h, when was this used?");
+//			qDebug("doc, emit w&h, when was this used?");
 			emit widthAndHeight(gw, gh);
 		}
 	}
@@ -9601,8 +9601,8 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selection* customSelection)
 {
 		Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-//		if (itemSelection->count() < 2)
-//			return;
+		if (itemSelection->count() < 1)
+			return;
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;

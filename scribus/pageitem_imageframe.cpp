@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QDebug>
+// #include <QDebug>
 #include <QGridLayout>
 #include <QKeyEvent>
 
@@ -324,10 +324,10 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 			}
 		break;
 		case 11:
-			if (menuResolution != 0) {
-				qDebug() << "New context menu created before old was destroyed."
-						"Loosing some bytes of memory!";
-			}
+//			if (menuResolution != 0) {
+//				qDebug() << "New context menu created before old was destroyed."
+//						"Loosing some bytes of memory!";
+//			}
 			menuResolution = new QMenu();
 			act = menu->addMenu(menuResolution);
 			act->setText(tr("Preview Settings"));

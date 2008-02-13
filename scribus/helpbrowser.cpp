@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "helpbrowser.h"
 
 #include <QAction>
-#include <QDebug>
+// #include <QDebug>
 #include <QDir>
 #include <QDomDocument>
 #include <QEvent>

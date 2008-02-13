@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QCursor>
 #include <QMouseEvent>
-#include <QDebug>
+// #include <QDebug>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QPixmap>

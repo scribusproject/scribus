@@ -53,7 +53,7 @@ CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), 
 
 void CanvasMode_NodeEdit::drawControls(QPainter* p) 
 {
-	qDebug() << "NodeEdit::drawControls";
+//	qDebug() << "NodeEdit::drawControls";
 //	void Canvas::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
 	double x, y;
 	if (m_doc->m_Selection->count() == 0)
@@ -265,7 +265,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 	m->accept();
 	npf = m_canvas->globalToCanvas(m->globalPos());
 #ifdef MODEDEBUG
-	qDebug() << "nodedit move event:" << m->x() << m->y() << "canvas:" << npf.x() << npf.y() << "@" << m_canvas->scale();
+//	qDebug() << "nodedit move event:" << m->x() << m->y() << "canvas:" << npf.x() << npf.y() << "@" << m_canvas->scale();
 #endif
 /*	if (m_doc->guidesSettings.guidesShown)
 	{
@@ -295,7 +295,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			&& (m->buttons() & Qt::LeftButton) &&  (!currItem->locked()))
 		{
 #ifdef MODEDEBUG
-			qDebug() << "node edit drag 1";
+//			qDebug() << "node edit drag 1";
 #endif
 			m_view->stopDragTimer();
 			handleNodeEditDrag(m, currItem);
@@ -310,8 +310,8 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 				handleNodeEditMove(m, mpo, currItem, p);
 			}
 		}
-		else
-			qDebug() << "node edit drag 9:" << (m->buttons() & Qt::LeftButton);
+//		else
+//			qDebug() << "node edit drag 9:" << (m->buttons() & Qt::LeftButton);
 
 	}
 	else // shouldnt be in nodeedit mode now, should it??
@@ -1215,7 +1215,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 	else
 		Clip = currItem->PoLine;
 #ifdef MODEDEBUG
-	qDebug() << "handle nodeedit move:" << m_doc->nodeEdit.submode << m_doc->nodeEdit.EdPoints;
+//	qDebug() << "handle nodeedit move:" << m_doc->nodeEdit.submode << m_doc->nodeEdit.EdPoints;
 #endif	
 	if ((m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 

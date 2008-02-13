@@ -252,7 +252,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 			if ( a >= 6 )
 			{
 
-				qDebug ( "too many padding bytes" );
+//				qDebug ( "too many padding bytes" );
 				return false;
 
 			}
@@ -329,7 +329,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 				return true;
 
 			case M_EOI:   // in case it's a tables-only JPEG stream
-				qDebug ( "No image in jpeg!" );
+//				qDebug ( "No image in jpeg!" );
 				return false;
 
 			case M_COM: // Comment section
@@ -782,7 +782,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 						// Jhead 1.3 or earlier would crop the whole directory!
 						// As Jhead produces this form of format incorrectness,
 						// I'll just let it pass silently
-						qDebug ( "Thumbnail removed with Jhead 1.3 or earlier" );
+//						qDebug ( "Thumbnail removed with Jhead 1.3 or earlier" );
 					}
 					else
 					{

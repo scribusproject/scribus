@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLayout>
 #include <QBitmap>
 #include <QPixmap>
-#include <QDebug>
+// #include <QDebug>
 
 #include "autoformbuttongroup.h"
 #include "fpointarray.h"

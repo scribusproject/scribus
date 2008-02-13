@@ -13,7 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
-#include <QDebug>
+//#include <QDebug>
 #include <QFrame>
 #include <QGridLayout>
 #include <QLabel>

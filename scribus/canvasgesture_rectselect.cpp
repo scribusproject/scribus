@@ -90,7 +90,7 @@ void RectSelect::mousePressEvent(QMouseEvent *m)
 
 void RectSelect::mouseReleaseEvent(QMouseEvent *m)
 {
-	qDebug() << "RectSelect::mouseRelease" << m->globalPos();
+//	qDebug() << "RectSelect::mouseRelease" << m->globalPos();
 	setEnd(m->globalPos());
 	m->accept();
 	m_view->stopGesture();

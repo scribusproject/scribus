@@ -65,7 +65,7 @@ void ResizeGesture::clear()
 	m_handle = Canvas::OUTSIDE;
 	if (m_transactionStarted)
 	{
-		qDebug() << "ResizeGesture::clear: cancel transaction" << m_transactionStarted;
+//		qDebug() << "ResizeGesture::clear: cancel transaction" << m_transactionStarted;
 		m_transactionStarted->cancel();
 		delete m_transactionStarted;
 		m_transactionStarted = NULL;
@@ -74,14 +74,14 @@ void ResizeGesture::clear()
 
 void ResizeGesture::activate(bool flag)
 {
-	qDebug() << "ResizeGesture::activate" << flag;	
+//	qDebug() << "ResizeGesture::activate" << flag;	
 }
 
 
 
 void ResizeGesture::deactivate(bool forgesture)
 {
-	qDebug() << "ResizeGesture::deactivate" << forgesture;
+//	qDebug() << "ResizeGesture::deactivate" << forgesture;
 	if (!forgesture)
 		clear();
 }
@@ -130,7 +130,7 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	if (m_doc->m_Selection->count() != 0)
 	{
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
-		qDebug() << "ResizeGesture::release: new bounds" << m_bounds;
+//		qDebug() << "ResizeGesture::release: new bounds" << m_bounds;
 		doResize(m->modifiers() & Qt::AltModifier);
 		m_doc->setRedrawBounding(currItem);
 		if (currItem->asImageFrame())
@@ -252,8 +252,8 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	{
 		FPoint snappedPoint = m_doc->ApplyGridF(docPoint);
 		double x = snappedPoint.x(), y = snappedPoint.y();
-		if (m_doc->ApplyGuides(&x, &y))
-			qDebug() << "guides applied:" << snappedPoint.x() << snappedPoint.y() << "to" << x << y;
+//		if (m_doc->ApplyGuides(&x, &y))
+//			qDebug() << "guides applied:" << snappedPoint.x() << snappedPoint.y() << "to" << x << y;
 		if (m_handle == Canvas::NORTH || m_handle == Canvas::SOUTH) 
 			// only snap on y-axis
 			docPoint = FPoint(docPoint.x(), y);
@@ -262,7 +262,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 			docPoint = FPoint(x, docPoint.y());
 		else 
 			docPoint = FPoint(x,y);
-		qDebug() << "resize snap grid/guides:" << m->globalPos() << "-->" << m_canvas->canvasToGlobal(docPoint);
+//		qDebug() << "resize snap grid/guides:" << m->globalPos() << "-->" << m_canvas->canvasToGlobal(docPoint);
 	}
 	
 	// un-rotate point
@@ -319,7 +319,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	double newRatio = double(m_bounds.width()) / double(m_bounds.height());
 	if (constrainRatio && m_origRatio != newRatio)
 	{
-		qDebug() << "constrain ratio:" << m_bounds << newRatio << "to" << m_origRatio; 
+//		qDebug() << "constrain ratio:" << m_bounds << newRatio << "to" << m_origRatio; 
 		int newWidth = qRound(m_bounds.height() * m_origRatio);
 		int newHeight = qRound(m_bounds.width() / m_origRatio);
 		switch (m_handle)
@@ -385,7 +385,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 			default:
 				break;
 		}
-		qDebug() << "constrained:" << m_bounds << double(m_bounds.width()) / m_bounds.height();
+//		qDebug() << "constrained:" << m_bounds << double(m_bounds.width()) / m_bounds.height();
 	}
 
 	// re-rotate: if top left has changed, then it needs rotation

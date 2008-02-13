@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorcombo.h"
 #include "commonstrings.h"
-#include "qdebug.h"
+// #include "qdebug.h"
 
 ColorCombo::ColorCombo( QWidget* parent ) : QComboBox(parent)
 {
