@@ -114,7 +114,7 @@ void CreateMode::leaveEvent(QEvent *e)
 void CreateMode::activate(bool fromGesture)
 {
 	PageItem* currItem;
-	qDebug() << "CreateMode::activate" << fromGesture;
+//	qDebug() << "CreateMode::activate" << fromGesture;
 	if (fromGesture && GetItem(&currItem) && m_createTransaction)
 	{
 		double itemX = fabs(currItem->width());
@@ -124,28 +124,55 @@ void CreateMode::activate(bool fromGesture)
 			PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
 			double xSize, ySize;
 			int originPoint;
-			xSize = sizes->getDouble("defWidth", 100.0);
-			ySize = sizes->getDouble("defHeight", 100.0);
-			originPoint = sizes->getInt("Origin", 0);
 			bool doRemember = sizes->getBool("Remember", true);
 			bool doCreate = false;
+			int lmode = 0;
+			if (m_doc->appMode == modeDrawLine)
+				lmode = 1;
+			if (lmode == 0)
+			{
+				xSize = sizes->getDouble("defWidth", 100.0);
+				ySize = sizes->getDouble("defHeight", 100.0);
+				originPoint = sizes->getInt("Origin", 0);
+			}
+			else
+			{
+				xSize = sizes->getDouble("defLength", 100.0);
+				ySize = sizes->getDouble("defAngle", 0.0);
+				originPoint = sizes->getInt("OriginL", 0);
+			}
 //			if (m->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
 //				doCreate = true;
 //			else
-			{
+//			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, 0);
+				OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
 				if (dia->exec())
 				{
 					doRemember = dia->checkRemember->isChecked();
-					xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-					ySize = dia->spinHeight->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-					originPoint = dia->RotationGroup->checkedId();
-					if (doRemember)
+					if (lmode == 0)
 					{
-						sizes->set("defWidth", xSize);
-						sizes->set("defHeight", ySize);
-						sizes->set("Origin", originPoint);
+						xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
+						ySize = dia->spinHeight->value() / unitGetRatioFromIndex(m_doc->unitIndex());
+						originPoint = dia->RotationGroup->checkedId();
+						if (doRemember)
+						{
+							sizes->set("defWidth", xSize);
+							sizes->set("defHeight", ySize);
+							sizes->set("Origin", originPoint);
+						}
+					}
+					else
+					{
+						xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
+						ySize = dia->spinHeight->value();
+						originPoint = dia->RotationGroup->checkedId();
+						if (doRemember)
+						{
+							sizes->set("defLength", xSize);
+							sizes->set("defAngle", ySize);
+							sizes->set("OriginL", originPoint);
+						}
 					}
 					sizes->set("Remember", doRemember);
 					doCreate = true;
@@ -156,14 +183,24 @@ void CreateMode::activate(bool fromGesture)
 					m_doc->Items->removeAt(currItem->ItemNr);
 				}
 				delete dia;
-			}
+//			}
 			if (doCreate)
 			{
 				bool oldSnap = m_doc->SnapGuides;
 				m_doc->SnapGuides = false;
 				currItem->Sizing = false;
-				m_doc->SizeItem(xSize, ySize, currItem->ItemNr, false, true, false);
-				m_doc->AdjustItemSize(currItem);
+				if (m_doc->appMode == modeDrawLine)
+				{
+					currItem->setWidthHeight(xSize, 1);
+					currItem->setRotation(-ySize);
+					currItem->Sizing = false;
+					currItem->updateClip();
+				}
+				else
+				{
+					m_doc->SizeItem(xSize, ySize, currItem->ItemNr, false, true, false);
+					m_doc->AdjustItemSize(currItem);
+				}
 				currItem->ContourLine = currItem->PoLine.copy();
 				switch (originPoint)
 				{
@@ -243,7 +280,7 @@ void CreateMode::activate(bool fromGesture)
 	{
 		if (m_createTransaction)
 		{
-			qDebug() << "canceling left over create Transaction";
+//			qDebug() << "canceling left over create Transaction";
 			m_createTransaction->cancel();
 			delete m_createTransaction;
 			m_createTransaction = NULL;
@@ -264,13 +301,13 @@ void CreateMode::activate(bool fromGesture)
 
 void CreateMode::deactivate(bool forGesture)
 {
-	qDebug() << "CreateMode::deactivate" << forGesture;
+//	qDebug() << "CreateMode::deactivate" << forGesture;
 	m_view->redrawMarker->hide();
 	if (!forGesture)
 	{		
 		if (m_createTransaction)
 		{
-			qDebug() << "CreateMode::deactivate: canceling left over create Transaction";
+//			qDebug() << "CreateMode::deactivate: canceling left over create Transaction";
 			m_createTransaction->cancel();
 			delete m_createTransaction;
 			m_createTransaction = NULL;
@@ -953,7 +990,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			qDebug() << "create mode::release: lost created item/selection";
+//			qDebug() << "create mode::release: lost created item/selection";
 			m_createTransaction->cancel();
 		}
 		delete m_createTransaction;
