@@ -42,7 +42,7 @@
 // #include "vruler.h"
 #include "hyphenator.h"
 #include "insertTable.h"
-#include "oneclick.h"
+// #include "oneclick.h"
 #include "pageitem_textframe.h"
 #include "pageselector.h"
 #include "prefscontext.h"
@@ -438,15 +438,17 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		newY = mousePointDoc.y(); //m->y();
 		double dx = fabs(Mxp - newX) + 5.0 / m_canvas->scale();
 		double dy = fabs(Myp - newY) + 5.0 / m_canvas->scale();
+		FPoint np(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
+//		np = np * (1.0 / m_canvas->scale());
 		if (m->buttons() & Qt::LeftButton)
 		{
-			currItem->GrStartX -= (Mxp - newX); // / m_canvas->scale();
-			currItem->GrStartY -= (Myp - newY); // / m_canvas->scale();
+			currItem->GrStartX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
+			currItem->GrStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
 		}
 		if (m->buttons() & Qt::RightButton)
 		{
-			currItem->GrEndX -= (Mxp - newX); // / m_canvas->scale();
-			currItem->GrEndY -= (Myp - newY); // / m_canvas->scale();
+			currItem->GrEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
+			currItem->GrEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
 		}
 		Mxp = newX;
 		Myp = newY;
@@ -2236,6 +2238,312 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 
 void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 {
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	PageItem *currItem;
+	m_canvas->m_viewMode.m_MouseButtonPressed = false;
+	m_canvas->resetRenderMode();
+	m->accept();
+	m_view->stopDragTimer();
+	m_canvas->update();
+	if (m_doc->appMode == modeEditGradientVectors)
+		return;
+	if (m_doc->appMode == modeCopyProperties)
+		return;
+	if (m_doc->appMode == modePanning)
+	{
+		if ((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
+			m_ScMW->setAppMode(modeNormal);
+		return;
+	}
+	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (m_doc->appMode == modeNormal))
+	{
+		createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
+		return;
+	}
+	if ((m_doc->appMode != modeMagnifier) && (m_doc->appMode != modeDrawBezierLine))
+	{
+		if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
+		{
+			createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
+			return;
+		}
+		if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
+		{
+			m_view->updateContents();
+			if (m_doc->ElemToLink != 0)
+				return;
+			else
+			{
+				m_view->requestMode(submodePaintingDone);
+				return;
+			}
+		}
+		if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
+		{
+			m_view->stopDragTimer();
+			m_canvas->setRenderModeUseBuffer(false);
+			if (!m_doc->m_Selection->isMultipleSelection())
+			{
+				m_doc->setRedrawBounding(currItem);
+				currItem->OwnPage = m_doc->OnPage(currItem);
+				m_canvas->m_viewMode.operItemResizing = false;
+				if (currItem->asLine())
+					m_view->updateContents();
+			}
+			if (m_canvas->m_viewMode.operItemMoving)
+			{
+				m_view->updatesOn(false);
+				if (m_doc->m_Selection->isMultipleSelection())
+				{
+					if (!m_view->groupTransactionStarted())
+					{
+						m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+					}
+					m_doc->m_Selection->setGroupRect();
+					double gx, gy, gh, gw;
+					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					double nx = gx;
+					double ny = gy;
+					if (!m_doc->ApplyGuides(&nx, &ny))
+					{
+						FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
+						FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
+						if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+							nx = npw.x() - gw;
+						else
+							nx = npx.x();
+						if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+							ny = npw.y() - gh;
+						else
+							ny = npx.y();
+					}
+					m_doc->moveGroup(nx-gx, ny-gy, false);
+					m_doc->m_Selection->setGroupRect();
+					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					nx = gx+gw;
+					ny = gy+gh;
+					if (m_doc->ApplyGuides(&nx, &ny))
+						m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+					m_doc->m_Selection->setGroupRect();
+				}
+				else
+				{
+					currItem = m_doc->m_Selection->itemAt(0);
+					if (m_doc->useRaster)
+					{
+						double nx = currItem->xPos();
+						double ny = currItem->yPos();
+						if (!m_doc->ApplyGuides(&nx, &ny))
+						{
+							m_doc->m_Selection->setGroupRect();
+							double gx, gy, gh, gw;
+							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+							FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
+							FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
+							if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+								nx = npw.x() - gw;
+							else
+								nx = npx.x();
+							if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+								ny = npw.y() - gh;
+							else
+								ny = npx.y();
+						}
+						m_doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+					}
+					else
+						m_doc->MoveItem(0, 0, currItem, false);
+				}
+				m_canvas->m_viewMode.operItemMoving = false;
+				if (m_doc->m_Selection->isMultipleSelection())
+				{
+					double gx, gy, gh, gw;
+					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					FPoint maxSize(gx+gw+m_doc->scratch.Right, gy+gh+m_doc->scratch.Bottom);
+					FPoint minSize(gx-m_doc->scratch.Left, gy-m_doc->scratch.Top);
+					m_doc->adjustCanvas(minSize, maxSize);
+				}
+				m_doc->setRedrawBounding(currItem);
+				currItem->OwnPage = m_doc->OnPage(currItem);
+				if (currItem->OwnPage != -1)
+				{
+					m_doc->setCurrentPage(m_doc->Pages->at(currItem->OwnPage));
+					m_view->setMenTxt(currItem->OwnPage);
+				}
+				//CB done with emitAllToGUI
+				//emit HaveSel(currItem->itemType());
+				//EmitValues(currItem);
+				//CB need this for? a moved item will send its new data with the new xpos/ypos emits
+				//CB TODO And what if we have dragged to a new page. Items X&Y are not updated anyway now
+				//currItem->emitAllToGUI();
+				m_view->updatesOn(true);
+				m_view->updateContents();
+			}
+		}
+		//CB Drag selection performed here
+		if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
+		{
+			QRectF Sele = QRectF(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
+			if (!m_doc->masterPageMode())
+			{
+				uint docPagesCount=m_doc->Pages->count();
+				uint docCurrPageNo=m_doc->currentPageNumber();
+				for (uint i = 0; i < docPagesCount; ++i)
+				{
+					if (QRectF(m_doc->Pages->at(i)->xOffset(), m_doc->Pages->at(i)->yOffset(), m_doc->Pages->at(i)->width(), m_doc->Pages->at(i)->height()).intersects(Sele))
+					{
+						if (docCurrPageNo != i)
+						{
+							m_doc->setCurrentPage(m_doc->Pages->at(i));
+							m_view->setMenTxt(i);
+						}
+						break;
+					}
+				}
+				m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+			}
+			int docItemCount=m_doc->Items->count();
+			if (docItemCount != 0)
+			{
+				m_doc->m_Selection->setIsGUISelection(false);
+				for (int a = 0; a < docItemCount; ++a)
+				{
+					PageItem* docItem = m_doc->Items->at(a);
+					QMatrix p;
+					m_canvas->Transform(docItem, p);
+					QRegion apr = QRegion(docItem->Clip * p);
+					QRect apr2(docItem->getRedrawBounding(1.0));
+					if ((m_doc->masterPageMode()) && (docItem->OnMasterPage != m_doc->currentPage()->pageName()))
+						continue;
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(docItem->LayerNr)))
+					{
+						bool redrawSelection=false;
+						m_view->SelectItemNr(a, redrawSelection);
+					}
+				}
+				m_doc->m_Selection->setIsGUISelection(true);
+				m_doc->m_Selection->connectItemToGUI();
+				if (m_doc->m_Selection->count() > 1)
+				{
+					m_doc->m_Selection->setGroupRect();
+					double x, y, w, h;
+					m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+					m_view->getGroupRectScreen(&x, &y, &w, &h);
+				}
+			}
+			m_view->HaveSelRect = false;
+			shiftSelItems = false;
+			m_view->redrawMarker->hide();
+			m_view->updateContents();
+		}
+		if (m_doc->appMode != modeEdit)
+		{
+			if (m_doc->appMode == modeRotation)
+				m_doc->RotMode = RotMode;
+			if (!PrefsManager::instance()->appPrefs.stickyTools)
+				m_view->requestMode(modeNormal);
+			else
+			{
+				int appMode = m_doc->appMode;
+				if ((inItemCreation) && (appMode == modeNormal))
+				{
+					currItem = m_doc->m_Selection->itemAt(0);
+					if (currItem->asTextFrame())
+						appMode = modeDrawText;
+					else if (currItem->asImageFrame())
+						appMode = modeDrawImage;
+					else if (m_doc->SubMode != -1)
+						appMode = modeDrawShapes;
+				}
+				m_view->requestMode(appMode);
+			}
+		}
+		if (GetItem(&currItem))
+		{
+			if (m_doc->m_Selection->count() > 1)
+			{
+				m_doc->m_Selection->setGroupRect();
+				double x, y, w, h;
+				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+				m_canvas->m_viewMode.operItemMoving = false;
+				m_canvas->m_viewMode.operItemResizing = false;
+				m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			}
+			else
+				currItem->emitAllToGUI();
+		}
+	}
+	if (m_doc->appMode == modeMagnifier)
+	{
+		double sc = m_canvas->scale();
+		if (m_view->HaveSelRect)
+		{
+			QRect geom = m_view->redrawMarker->geometry().normalized();
+			FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
+			double scaleAdjust = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
+			m_view->setScale(m_canvas->scale() * scaleAdjust);
+			m_view->slotDoZoom();
+			m_view->SetCCPo(nx.x(), nx.y());
+			if (sc == m_canvas->scale())
+			{
+				m_view->HaveSelRect = false;
+				m_view->redrawMarker->hide();
+				m_view->requestMode(submodePaintingDone);
+			}
+			m_view->redrawMarker->hide();
+		}
+		else
+		{
+			FPoint nx = mousePointDoc;
+			int mx = qRound(nx.x());
+			int my = qRound(nx.y());
+			m_view->Magnify ? m_view->slotZoomIn(mx,my) : m_view->slotZoomOut(mx,my);
+			if (sc == m_canvas->scale())
+			{
+				m_view->HaveSelRect = false;
+				m_view->requestMode(submodePaintingDone);
+			}
+			else
+			{
+				if (m->modifiers() & Qt::ShiftModifier)
+					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+				else
+					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+			}
+		}
+	}
+	m_canvas->setRenderModeUseBuffer(false);
+	m_doc->DragP = false;
+	m_doc->leaveDrag = false;
+	m_canvas->m_viewMode.operItemMoving = false;
+	m_canvas->m_viewMode.operItemResizing = false;
+	m_view->MidButt = false;
+	shiftSelItems = false;
+	inItemCreation = false;
+	if (m_view->groupTransactionStarted())
+	{
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+		m_view->endGroupTransaction();
+	}
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+		m_doc->m_Selection->itemAt(i)->checkChanges(true);
+	//Commit drag created items to undo manager.
+	if (m_doc->m_Selection->itemAt(0)!=NULL)
+	{
+		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0)->ItemNr);
+	}
+	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
+	m_view->zoomSpinBox->clearFocus();
+	m_view->pageSelector->clearFocus();
+	if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
+	{
+		currItem = m_doc->m_Selection->itemAt(0);
+		m_doc->nodeEdit.finishTransaction(currItem);
+	}
+}
+
+#if 0
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
@@ -2501,7 +2809,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				QMatrix p;
 				m_canvas->Transform(currItem, p);
 				QPoint np = m->pos() * p.inverted();
-//				np += QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 				np = m_doc->ApplyGrid(np);
 				itemX = sqrt(pow(np.x(),2.0)+pow(np.y(),2.0));
 				itemY = 1.0;
@@ -2614,7 +2921,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 							m_doc->SizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem->ItemNr, false, false, false);
 						FPoint tp(getMaxClipF(&currItem->PoLine));
 						m_doc->SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
-//						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 						m_doc->AdjustItemSize(currItem);
 					}
 					else
@@ -2655,7 +2961,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					if (!PrefsManager::instance()->appPrefs.stickyTools)
 					{
 						m_view->requestMode(modeNormal);
-//						m_view->requestMode(submodePaintingDone);
 					}
 					else
 					{
@@ -2674,12 +2979,10 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					}
 					currItem->update();
 					m_doc->changed();
-//					emit DocChanged();
 				}
 				else
 				{
 					m_view->requestMode(submodePaintingDone);
-//					emit HaveSel(-1);
 				}
 				inItemCreation = false;
 				m_doc->DragP = false;
@@ -2699,7 +3002,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			QMatrix p;
 			m_canvas->Transform(currItem, p);
 			QPoint np = m->pos() * p.inverted();
-//			np += QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 			np = m_doc->ApplyGrid(np);
 			double newRot=xy2Deg(np.x(), np.y());
 			//Constrain rotation angle, when the mouse is released from drawing a line
@@ -2747,7 +3049,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			}
 			FPoint tp(getMaxClipF(&currItem->PoLine));
 			m_doc->SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
-//			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			m_doc->AdjustItemSize(currItem);
 			currItem->ContourLine = currItem->PoLine.copy();
 			m_doc->setRedrawBounding(currItem);
@@ -3931,7 +4232,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		//oldClip = 0;
 	}
 }
-
+#endif
 
 
 void LegacyMode::selectPage(QMouseEvent *m)
