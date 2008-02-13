@@ -14,7 +14,7 @@
 ***************************************************************************/
 
 
-#include <QDebug>
+// #include <QDebug>
 
 
 #include "canvas.h"
@@ -425,7 +425,7 @@ void Canvas::adjustBuffer()
 		m_oldMinCanvasCoordinate = minCanvasCoordinate;
 	}
 #if DRAW_DEBUG_LINES
-	qDebug() << "adjust buffer" << m_bufferRect << "for viewport" << viewport;
+//	qDebug() << "adjust buffer" << m_bufferRect << "for viewport" << viewport;
 #endif
 	if (!m_bufferRect.isValid())
 	{
@@ -465,7 +465,7 @@ void Canvas::adjustBuffer()
 		}
 		if (!m_bufferRect.intersects(newRect))
 		{
-			qDebug() << "fresh buffer" << newRect << "was" << m_bufferRect;
+//			qDebug() << "fresh buffer" << newRect << "was" << m_bufferRect;
 			m_bufferRect = newRect;
 			m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
 			fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);		
@@ -515,7 +515,7 @@ void Canvas::adjustBuffer()
 			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos);
 			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos+height);
 			p.drawLine(xpos+width, ypos+height/2, xpos+width/2, ypos+height);
-			qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
+//			qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
 #endif
 			p.end();
 			if (newRect.top() < m_bufferRect.top())
@@ -595,7 +595,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		case RENDER_NORMAL:
 		{
 #if DRAW_DEBUG_LINES
-			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << m_viewMode.forceRedraw;
+//			qDebug() << "update Buffer:" << m_bufferRect << p->rect() << m_viewMode.forceRedraw;
 #endif
 			if (m_viewMode.forceRedraw)
 			{
@@ -609,7 +609,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			{
 				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 #if DRAW_DEBUG_LINES
-				qDebug() << "normal rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
+//				qDebug() << "normal rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 				qp.setPen(Qt::blue);
 				qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
 				qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
@@ -646,7 +646,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 				{
 					qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 	#if DRAW_DEBUG_LINES
-					qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
+//					qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 					qp.setPen(Qt::green);
 					qp.drawLine(p->rect().x(), p->rect().y(), p->rect().x() + p->rect().width(), p->rect().y() + p->rect().height());
 					qp.drawLine(p->rect().x() + p->rect().width(), p->rect().y(), p->rect().x(), p->rect().y() + p->rect().height());
@@ -679,7 +679,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 
 void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
 {
-	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
+//	qDebug() << "drawContents" << clipx << clipy << clipw << cliph;
 	uint docPagesCount=m_doc->Pages->count();
 	ScPainter *painter=0;
 	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32);
@@ -793,7 +793,7 @@ void Canvas::drawControls(QPainter *psx)
 				}
 				else if (m_doc->appMode != modeDrawFreehandLine)
 				{
-					qDebug() << "XXX drawControls - operItemResizing";
+//					qDebug() << "XXX drawControls - operItemResizing";
 					assert(false);
 //					drawControlsHighlightRect(psx);
 				}
@@ -925,15 +925,15 @@ void Canvas::drawControlsHighlightRect(QPainter* pp)
  */
 void Canvas::drawControlsGradientVectors(QPainter* psx, PageItem *currItem)
 {
-//	psx->resetMatrix();
+	psx->resetMatrix();
 //	QPoint out = contentsToViewport(QPoint(0, 0));
 //	psx->translate(out.x(), out.y());
 //	psx->translate(-qRound(m_doc->minCanvasCoordinate.x()*m_viewMode.scale), -qRound(m_doc->minCanvasCoordinate.y()*m_viewMode.scale));
 	Transform(currItem, psx);
-	psx->setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	psx->setPen(QPen(Qt::blue, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	psx->setBrush(Qt::NoBrush);
 	psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), QPointF(currItem->GrEndX, currItem->GrEndY));
-	psx->setPen(QPen(Qt::magenta, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+	psx->setPen(QPen(Qt::magenta, 8.0 / m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 	psx->drawPoint(QPointF(currItem->GrStartX, currItem->GrStartY));
 	psx->drawPoint(QPointF(currItem->GrEndX, currItem->GrEndY));
 }
@@ -1129,8 +1129,8 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 									currItem->invalidateLayout();
 								currItem->DrawObj(painter, cullingArea);
 							}
-							else 
-								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
+//							else 
+//								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
 						}
 						currItem->OwnPage = currItem->savedOwnPage;
 						if (!currItem->ChangedMasterItem)
@@ -1314,7 +1314,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 //						if ((!m_MouseButtonPressed) || (m_doc->appMode == modeEditClip))
 						if (((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
 						{
-							qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
+//							qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
 						}
 						else
 						{
